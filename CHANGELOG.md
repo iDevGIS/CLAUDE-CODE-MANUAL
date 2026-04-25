@@ -15,11 +15,28 @@
 ## [Unreleased]
 
 ### Planned
-- แตก guide เป็นไฟล์ย่อยตามหัวข้อ (`docs/01-installation.md` ฯลฯ) ทั้ง TH และ EN
-- เพิ่มหมวด **Troubleshooting** รวมปัญหาที่เจอบ่อย
 - เพิ่ม **Cookbook** ตัวอย่าง use case จริง (CI/CD, code review, refactor)
 - ใส่ภาพประกอบ / diagram สำหรับ Hooks lifecycle และ Agent Team flow
 - Sync เนื้อหา TH ↔ EN เมื่อมี Claude Code version ใหม่
+
+---
+
+## [1.3.0] — 2026-04-26
+
+### Added
+- `docs/th/` and `docs/en/` directories with 26 atomic notes per language (52 files total)
+- YAML frontmatter (title, tags, aliases, related, lang) on every atomic note for Obsidian compatibility
+- Wikilink-based navigation (prev/next/index/cross-language) at the bottom of every note
+- MOC (Map of Content) index at `docs/th/README.md` and `docs/en/README.md`, grouped into 5 categories
+- "📚 Documentation Modes" section in root README explaining single-page vs atomic reading modes
+- `Obsidian: Ready` badge in root README
+
+### Compatibility
+- Claude Code: `v2.1.114`
+
+### Notes
+- The original `Claude-Code-Guide-TH.md` and `Claude-Code-Guide-EN.md` remain at the repo root for single-page reading.
+- Atomic notes mirror the same 26-section structure 1:1 — no content was rewritten, only restructured.
 
 ---
 
@@ -106,7 +123,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/releases/tag/v1.0.0

@@ -6,6 +6,20 @@
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-v2.1.114-7B61FF)](https://docs.claude.com/claude-code)
 [![Language: Thai](https://img.shields.io/badge/Language-ไทย-blue)](./Claude-Code-Guide-TH.md)
 [![Language: English](https://img.shields.io/badge/Language-English-red)](./Claude-Code-Guide-EN.md)
+[![Obsidian: Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?logo=obsidian&logoColor=white)](./docs/th/README.md)
+
+---
+
+## 📚 Documentation Modes
+
+อ่านคู่มือได้ 2 รูปแบบ — เลือกตามสไตล์ของคุณ:
+
+| โหมด | ลักษณะ | เหมาะสำหรับ | เริ่มที่ |
+|------|--------|------------|---------|
+| 📄 **Single-page** | ไฟล์เดียวยาวต่อภาษา (3,300+ บรรทัด) | อ่านไล่ลำดับ, ค้นหา (Ctrl+F), แชร์ลิงก์เดียว | [`Claude-Code-Guide-TH.md`](./Claude-Code-Guide-TH.md) · [`Claude-Code-Guide-EN.md`](./Claude-Code-Guide-EN.md) |
+| 🧠 **Atomic / Obsidian-friendly** | 26 โน้ตเล็กต่อภาษา + frontmatter + wikilinks | เปิดใน Obsidian ดู Graph View, เลือกอ่านเฉพาะหัวข้อ | [`docs/th/README.md`](./docs/th/README.md) · [`docs/en/README.md`](./docs/en/README.md) |
+
+> โฟลเดอร์ `docs/` แยกแต่ละหัวข้อเป็นโน้ตเล็ก ๆ พร้อม YAML frontmatter, tags, aliases, related และ wikilink ระหว่างหัวข้อ — เปิดทั้งโฟลเดอร์เป็น vault ใน Obsidian เพื่อใช้งาน Graph/Backlink ได้ทันที
 
 ---
 

@@ -1,0 +1,10 @@
+# Obsidian local workspace state — keep local only
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
