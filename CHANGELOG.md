@@ -21,6 +21,21 @@
 
 ---
 
+## [1.4.1] — 2026-04-26
+
+### Compatibility
+- **Claude Code:** `v2.1.114`
+
+### Fixed
+- **Sync monolithic guides with atomic notes** — chapters 27-34 (Tutorial Path, Cookbook, Cost, Security, Use Cases, Comparison) were added to `docs/{th,en}/` in v1.4.0 but not appended to the single-file guides. Now mirrored:
+  - `Claude-Code-Guide-TH.md`: 3,317 → 5,619 lines (TOC + 8 chapters added)
+  - `Claude-Code-Guide-EN.md`: 3,321 → 5,623 lines (TOC + 8 chapters added)
+- Both monolithic guides now contain all **34 chapters** matching the atomic-note collection 1:1.
+- Wikilinks stripped to plain text (monolithic version doesn't use Obsidian linking).
+- Heading levels demoted by one to nest correctly under each chapter.
+
+---
+
 ## [1.4.0] — 2026-04-26
 
 ### Compatibility
