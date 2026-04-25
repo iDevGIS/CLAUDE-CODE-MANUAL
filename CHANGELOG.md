@@ -15,9 +15,38 @@
 ## [Unreleased]
 
 ### Planned
-- เพิ่ม **Cookbook** ตัวอย่าง use case จริง (CI/CD, code review, refactor)
 - ใส่ภาพประกอบ / diagram สำหรับ Hooks lifecycle และ Agent Team flow
 - Sync เนื้อหา TH ↔ EN เมื่อมี Claude Code version ใหม่
+- เพิ่ม CI/CD integration recipes (GitHub Actions, GitLab CI)
+
+---
+
+## [1.4.0] — 2026-04-26
+
+### Compatibility
+- **Claude Code:** `v2.1.114`
+
+### Added
+- **Tutorial Path** — 3-day onboarding for absolute beginners (TH + EN)
+  - `27-tutorial-day1-hello-world.md` — install → first chat → create files (30 min)
+  - `28-tutorial-day2-first-project.md` — build a real Todo app + git/GitHub setup (1 hr)
+  - `29-tutorial-day3-power-user.md` — slash commands, subagents, plan mode, headless, hooks
+- **Cookbook** — `30-cookbook-recipes.md` with 40+ ready-to-use prompts across 14 categories (TH + EN)
+  - Code reading, bug fixing, refactoring, testing, code review, docs, migration, performance, git, devops, security, productivity, learning, emergency
+  - Plus a "prompt template" + power keywords cheat-sheet
+- **Production-Ready Section** (TH + EN)
+  - `31-cost-management.md` — token economy, model selection (Haiku/Sonnet/Opus), `/clear` discipline, prompt caching, cost workflow, before/after savings examples (9-14× reduction)
+  - `32-security-best-practices.md` — secret management, permissions hardening, prompt injection defense, sensitive data handling, MCP/skill safety, incident response playbook, production checklist
+- **Use Cases & Comparisons** (TH + EN)
+  - `33-use-cases-analogies.md` — explains Claude Code with everyday analogies (private chef, contractor, senior coworker), 15 detailed real-world use cases, "ChatGPT vs Claude Code" head-to-head examples, "when NOT to use" guidance
+  - `34-comparison-tools.md` — side-by-side comparisons with Cursor, GitHub Copilot, Aider, Codex CLI; pricing, combos developers actually use, 30-second cheat sheet
+- 8 new atomic notes per language → **52 atomic notes total** (16 new files)
+- TH and EN MOC (`docs/{th,en}/README.md`) reorganized into **7 categories** (added: Tutorial / Cookbook & Use Cases / Production Ready)
+- Root `README.md` and `README.EN.md` updated with bonus topics tables
+
+### Changed
+- README documentation modes table updated: 26 → 34 atomic notes per language
+- About section updated: 3,300+ lines → 5,000+ lines, mentions bonus topics
 
 ---
 
@@ -154,7 +183,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.2...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.2...v1.4.0
 [1.3.2]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.2.0...v1.3.0

@@ -12,7 +12,13 @@ aliases:
 
 > Claude Code manual in atomic-note form — one note per topic with wikilinks for Obsidian Graph View.
 >
-> 26 notes across 5 categories — pick whatever you need.
+> 34 notes across 7 categories — pick whatever you need.
+
+## 🎓 Tutorial (Zero to Hero)
+
+- [[27-tutorial-day1-hello-world|Day 1: Hello World (First 30 Minutes)]]
+- [[28-tutorial-day2-first-project|Day 2: Build a Todo App in 1 Hour]]
+- [[29-tutorial-day3-power-user|Day 3: Power User Tricks]]
 
 ## Basics
 
@@ -54,6 +60,17 @@ aliases:
 - [[23-environment-variables|23. Environment Variables]]
 - [[24-troubleshooting|24. Troubleshooting]]
 - [[25-tips-best-practices|25. Tips & Best Practices]]
+
+## 📖 Cookbook & Use Cases
+
+- [[30-cookbook-recipes|30. Cookbook (40+ Recipes)]]
+- [[33-use-cases-analogies|33. Use Cases & Easy-to-Understand Comparisons]]
+- [[34-comparison-tools|34. Claude Code vs Cursor vs Copilot vs Aider]]
+
+## 🛡️ Production Ready
+
+- [[31-cost-management|31. Cost & Token Management]]
+- [[32-security-best-practices|32. Security & Privacy Best Practices]]
 
 ---
 

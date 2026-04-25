@@ -19,7 +19,7 @@
 | โหมด | ลักษณะ | เหมาะสำหรับ | เริ่มที่ |
 |------|--------|------------|---------|
 | 📄 **Single-page** | ไฟล์เดียวยาวต่อภาษา (3,300+ บรรทัด) | อ่านไล่ลำดับ, ค้นหา (Ctrl+F), แชร์ลิงก์เดียว | [`Claude-Code-Guide-TH.md`](./Claude-Code-Guide-TH.md) · [`Claude-Code-Guide-EN.md`](./Claude-Code-Guide-EN.md) |
-| 🧠 **Atomic / Obsidian-friendly** | 26 โน้ตเล็กต่อภาษา + frontmatter + wikilinks | เปิดใน Obsidian ดู Graph View, เลือกอ่านเฉพาะหัวข้อ | [`docs/th/README.md`](./docs/th/README.md) · [`docs/en/README.md`](./docs/en/README.md) |
+| 🧠 **Atomic / Obsidian-friendly** | 34 โน้ตเล็กต่อภาษา + frontmatter + wikilinks | เปิดใน Obsidian ดู Graph View, เลือกอ่านเฉพาะหัวข้อ | [`docs/th/README.md`](./docs/th/README.md) · [`docs/en/README.md`](./docs/en/README.md) |
 
 > โฟลเดอร์ `docs/` แยกแต่ละหัวข้อเป็นโน้ตเล็ก ๆ พร้อม YAML frontmatter, tags, aliases, related และ wikilink ระหว่างหัวข้อ — เปิดทั้งโฟลเดอร์เป็น vault ใน Obsidian เพื่อใช้งาน Graph/Backlink ได้ทันที
 
@@ -42,7 +42,7 @@ git clone https://github.com/iDevGIS/CLAUDE-CODE-MANUAL.git
 
 Repo นี้เป็น **คู่มือภาษาไทยและอังกฤษ** สำหรับใช้งาน [Claude Code](https://docs.claude.com/claude-code) — เครื่องมือ CLI อย่างเป็นทางการจาก Anthropic ที่ช่วยนักพัฒนาในการเขียนโค้ด แก้บัก รีแฟคเตอร์ และจัดการโปรเจกต์ด้วย AI
 
-เนื้อหารวมทั้งหมด **3,300+ บรรทัด** แบ่งเป็น **26 หัวข้อใหญ่** พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
+เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 8 atomic notes พิเศษ** (Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
 > **Claude Code Version:** `2.1.114`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
@@ -119,6 +119,31 @@ claude
 | 26 | [จำลอง Flow การทำงานจริง](./Claude-Code-Guide-TH.md#26-จำลอง-flow-การทำงานจริง) | [Real-World Workflow Simulations](./Claude-Code-Guide-EN.md#26-real-world-workflow-simulations) |
 
 > ⚠️ **Note:** EN anchor links เป็นการประมาณจาก heading EN ที่ sub-agent แปล — ถ้า GitHub render แล้ว link พัง ผมแก้ให้ได้
+
+### 🎓 Tutorial (เริ่มจากศูนย์ → ใช้เป็น)
+
+| # | หัวข้อ (TH) | Topic (EN) |
+|---|--------|--------|
+| 27 | [Day 1: Hello World (30 นาทีแรก)](./docs/th/27-tutorial-day1-hello-world.md) | [Day 1: Hello World (First 30 Minutes)](./docs/en/27-tutorial-day1-hello-world.md) |
+| 28 | [Day 2: สร้าง Todo App ใน 1 ชั่วโมง](./docs/th/28-tutorial-day2-first-project.md) | [Day 2: Build a Todo App in 1 Hour](./docs/en/28-tutorial-day2-first-project.md) |
+| 29 | [Day 3: Power User Tricks](./docs/th/29-tutorial-day3-power-user.md) | [Day 3: Power User Tricks](./docs/en/29-tutorial-day3-power-user.md) |
+
+### 📖 Cookbook & Use Cases
+
+| # | หัวข้อ (TH) | Topic (EN) |
+|---|--------|--------|
+| 30 | [Cookbook (40+ Recipes)](./docs/th/30-cookbook-recipes.md) | [Cookbook (40+ Recipes)](./docs/en/30-cookbook-recipes.md) |
+| 33 | [Use Cases & เปรียบเทียบเข้าใจง่าย](./docs/th/33-use-cases-analogies.md) | [Use Cases & Easy-to-Understand Comparisons](./docs/en/33-use-cases-analogies.md) |
+| 34 | [Claude Code vs Cursor vs Copilot vs Aider](./docs/th/34-comparison-tools.md) | [Claude Code vs Cursor vs Copilot vs Aider](./docs/en/34-comparison-tools.md) |
+
+### 🛡️ Production Ready
+
+| # | หัวข้อ (TH) | Topic (EN) |
+|---|--------|--------|
+| 31 | [จัดการ Cost & Token](./docs/th/31-cost-management.md) | [Cost & Token Management](./docs/en/31-cost-management.md) |
+| 32 | [Security & Privacy Best Practices](./docs/th/32-security-best-practices.md) | [Security & Privacy Best Practices](./docs/en/32-security-best-practices.md) |
+
+> 💡 หัวข้อ 27-34 มีเฉพาะใน Atomic Notes (Obsidian-friendly) เท่านั้น — เปิดผ่าน [`docs/th/README.md`](./docs/th/README.md) หรือ [`docs/en/README.md`](./docs/en/README.md) เพื่อดู graph view เต็ม
 
 ---
 

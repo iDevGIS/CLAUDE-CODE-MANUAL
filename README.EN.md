@@ -19,7 +19,7 @@ You can read the manual in two formats — pick whichever fits your style:
 | Mode | Format | Best for | Start here |
 |------|--------|----------|-----------|
 | 📄 **Single-page** | One long file per language (3,300+ lines) | Sequential reading, search (Ctrl+F), single-link sharing | [`Claude-Code-Guide-EN.md`](./Claude-Code-Guide-EN.md) · [`Claude-Code-Guide-TH.md`](./Claude-Code-Guide-TH.md) |
-| 🧠 **Atomic / Obsidian-friendly** | 26 small notes per language with frontmatter + wikilinks | Open in Obsidian for Graph View, focused topic reading | [`docs/en/README.md`](./docs/en/README.md) · [`docs/th/README.md`](./docs/th/README.md) |
+| 🧠 **Atomic / Obsidian-friendly** | 34 small notes per language with frontmatter + wikilinks | Open in Obsidian for Graph View, focused topic reading | [`docs/en/README.md`](./docs/en/README.md) · [`docs/th/README.md`](./docs/th/README.md) |
 
 > The `docs/` folder splits each topic into small notes with YAML frontmatter, tags, aliases, related, and wikilinks between topics — open the whole folder as an Obsidian vault to use Graph/Backlink features right away.
 
@@ -42,7 +42,7 @@ Included: **core plugins** that are needed (Graph, Backlinks, Outline, Tag pane,
 
 This repo is a **Thai and English manual** for [Claude Code](https://docs.claude.com/claude-code) — Anthropic's official CLI that helps developers write code, fix bugs, refactor, and manage projects with AI.
 
-The total content spans **3,300+ lines** organized into **26 major topics** with CLI examples, config snippets, and real working flows.
+The total content spans **5,000+ lines** organized into **26 main topics + 8 bonus atomic notes** (3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
 > **Claude Code Version:** `2.1.114`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
@@ -119,6 +119,31 @@ claude
 | 26 | [Real-World Workflow Simulations](./Claude-Code-Guide-EN.md#26-real-world-workflow-simulations) | [จำลอง Flow การทำงานจริง](./Claude-Code-Guide-TH.md#26-จำลอง-flow-การทำงานจริง) |
 
 > ⚠️ **Note:** EN anchor links are best-effort approximations from the headings produced by the translator sub-agent — if any links break after GitHub renders, open an issue and they'll be fixed.
+
+### 🎓 Tutorial (Zero to Hero)
+
+| # | Topic (EN) | หัวข้อ (TH) |
+|---|--------|--------|
+| 27 | [Day 1: Hello World (First 30 Minutes)](./docs/en/27-tutorial-day1-hello-world.md) | [Day 1: Hello World (30 นาทีแรก)](./docs/th/27-tutorial-day1-hello-world.md) |
+| 28 | [Day 2: Build a Todo App in 1 Hour](./docs/en/28-tutorial-day2-first-project.md) | [Day 2: สร้าง Todo App ใน 1 ชั่วโมง](./docs/th/28-tutorial-day2-first-project.md) |
+| 29 | [Day 3: Power User Tricks](./docs/en/29-tutorial-day3-power-user.md) | [Day 3: Power User Tricks](./docs/th/29-tutorial-day3-power-user.md) |
+
+### 📖 Cookbook & Use Cases
+
+| # | Topic (EN) | หัวข้อ (TH) |
+|---|--------|--------|
+| 30 | [Cookbook (40+ Recipes)](./docs/en/30-cookbook-recipes.md) | [Cookbook (40+ Recipes)](./docs/th/30-cookbook-recipes.md) |
+| 33 | [Use Cases & Easy-to-Understand Comparisons](./docs/en/33-use-cases-analogies.md) | [Use Cases & เปรียบเทียบเข้าใจง่าย](./docs/th/33-use-cases-analogies.md) |
+| 34 | [Claude Code vs Cursor vs Copilot vs Aider](./docs/en/34-comparison-tools.md) | [Claude Code vs Cursor vs Copilot vs Aider](./docs/th/34-comparison-tools.md) |
+
+### 🛡️ Production Ready
+
+| # | Topic (EN) | หัวข้อ (TH) |
+|---|--------|--------|
+| 31 | [Cost & Token Management](./docs/en/31-cost-management.md) | [จัดการ Cost & Token](./docs/th/31-cost-management.md) |
+| 32 | [Security & Privacy Best Practices](./docs/en/32-security-best-practices.md) | [Security & Privacy Best Practices](./docs/th/32-security-best-practices.md) |
+
+> 💡 Topics 27-34 are exclusive to the Atomic Notes (Obsidian-friendly) format — open via [`docs/en/README.md`](./docs/en/README.md) or [`docs/th/README.md`](./docs/th/README.md) for the full graph view.
 
 ---
 

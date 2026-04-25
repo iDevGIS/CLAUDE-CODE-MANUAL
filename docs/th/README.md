@@ -12,7 +12,13 @@ aliases:
 
 > คู่มือ Claude Code ฉบับ Atomic — โน้ตเล็กแยกตามหัวข้อ พร้อม wikilink สำหรับ Obsidian Graph View
 >
-> 26 โน้ต / 5 หมวด — เลือกหัวข้อที่สนใจได้เลย
+> 34 โน้ต / 7 หมวด — เลือกหัวข้อที่สนใจได้เลย
+
+## 🎓 Tutorial (เริ่มต้นใหม่ → ใช้เป็น)
+
+- [[27-tutorial-day1-hello-world|Day 1: Hello World (30 นาทีแรก)]]
+- [[28-tutorial-day2-first-project|Day 2: สร้าง Todo App ใน 1 ชั่วโมง]]
+- [[29-tutorial-day3-power-user|Day 3: Power User Tricks]]
 
 ## พื้นฐาน (Basics)
 
@@ -54,6 +60,17 @@ aliases:
 - [[23-environment-variables|23. Environment Variables]]
 - [[24-troubleshooting|24. การแก้ปัญหา]]
 - [[25-tips-best-practices|25. เคล็ดลับ]]
+
+## 📖 Cookbook & Use Cases
+
+- [[30-cookbook-recipes|30. Cookbook (40+ Recipes)]]
+- [[33-use-cases-analogies|33. Use Cases & เปรียบเทียบเข้าใจง่าย]]
+- [[34-comparison-tools|34. เปรียบเทียบ Claude Code vs Cursor vs Copilot vs Aider]]
+
+## 🛡️ Production Ready
+
+- [[31-cost-management|31. จัดการ Cost & Token]]
+- [[32-security-best-practices|32. Security & Privacy Best Practices]]
 
 ---
 
