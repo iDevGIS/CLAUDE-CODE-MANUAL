@@ -21,6 +21,19 @@
 
 > โฟลเดอร์ `docs/` แยกแต่ละหัวข้อเป็นโน้ตเล็ก ๆ พร้อม YAML frontmatter, tags, aliases, related และ wikilink ระหว่างหัวข้อ — เปิดทั้งโฟลเดอร์เป็น vault ใน Obsidian เพื่อใช้งาน Graph/Backlink ได้ทันที
 
+### 🪨 เปิดเป็น Obsidian Vault ทันที
+
+Repo นี้แถม `.obsidian/` มาด้วย — clone แล้วเปิดเป็น vault ได้เลยโดยไม่ต้องตั้งค่าใหม่:
+
+```bash
+git clone https://github.com/iDevGIS/CLAUDE-CODE-MANUAL.git
+# Obsidian → Open folder as vault → เลือกโฟลเดอร์ที่ clone
+```
+
+มาให้แล้ว: **core plugins** ที่จำเป็น (Graph, Backlinks, Outline, Tag pane, Properties, Bookmarks) + **graph view** ที่ปรับแต่งไว้สำหรับโครงสร้างคู่มือ (linkDistance, repelStrength, scale)
+
+ส่วน `workspace.json` (state ของ pane/tab/cursor ส่วนตัว) ถูก exclude ใน `.gitignore` ไว้แล้ว — แต่ละคนจะมีของตัวเอง
+
 ---
 
 ## 📖 เกี่ยวกับ

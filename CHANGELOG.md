@@ -21,6 +21,23 @@
 
 ---
 
+## [1.3.1] — 2026-04-26
+
+### Compatibility
+- **Claude Code:** `v2.1.114`
+
+### Added
+- `.obsidian/` shared vault config — clone แล้วเปิดเป็น Obsidian vault ได้ทันที โดยไม่ต้อง setup ใหม่
+  - `app.json`, `appearance.json` — base settings
+  - `core-plugins.json` — เปิด Graph, Backlinks, Outline, Tag pane, Properties, Bookmarks ที่จำเป็น
+  - `graph.json` — graph view ปรับแต่งไว้สำหรับโครงสร้างคู่มือ (linkDistance/repelStrength/scale)
+- README section "🪨 เปิดเป็น Obsidian Vault ทันที" พร้อมขั้นตอน clone → open vault
+
+### Changed
+- `.gitignore` exclude เฉพาะ `workspace.json` / `workspace-mobile.json` / `cache` (state ส่วนตัวของผู้ใช้แต่ละคน) — ส่วน config ที่ใช้ร่วมกันได้ commit ขึ้น repo แล้ว
+
+---
+
 ## [1.3.0] — 2026-04-26
 
 ### Added
@@ -123,7 +140,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.1...HEAD
+[1.3.1]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.0.0...v1.1.0
