@@ -21,6 +21,20 @@
 
 ---
 
+## [1.3.2] — 2026-04-26
+
+### Compatibility
+- **Claude Code:** `v2.1.114`
+
+### Added
+- `README.EN.md` — full English version of the landing-page README (mirrors structure of TH `README.md`)
+- Cross-language switcher: both `README.md` and `README.EN.md` link to each other at the top
+
+### Changed
+- `README.md` language badges now link to the language-specific README (not the long guide), so the "Thai/English" badge acts as a language toggle
+
+---
+
 ## [1.3.1] — 2026-04-26
 
 ### Compatibility
@@ -140,7 +154,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.2...HEAD
+[1.3.2]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.1.0...v1.2.0

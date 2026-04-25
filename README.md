@@ -4,9 +4,11 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made%20with-Claude%20Code-7B61FF)](https://docs.claude.com/claude-code)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-v2.1.114-7B61FF)](https://docs.claude.com/claude-code)
-[![Language: Thai](https://img.shields.io/badge/Language-ไทย-blue)](./Claude-Code-Guide-TH.md)
-[![Language: English](https://img.shields.io/badge/Language-English-red)](./Claude-Code-Guide-EN.md)
+[![Language: Thai](https://img.shields.io/badge/Language-ไทย-blue)](./README.md)
+[![Language: English](https://img.shields.io/badge/Language-English-red)](./README.EN.md)
 [![Obsidian: Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?logo=obsidian&logoColor=white)](./docs/th/README.md)
+
+> 🇬🇧 Read in English → [`README.EN.md`](./README.EN.md)
 
 ---
 
