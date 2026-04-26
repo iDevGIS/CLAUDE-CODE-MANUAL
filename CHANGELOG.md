@@ -18,6 +18,35 @@
 - ใส่ภาพประกอบ / diagram สำหรับ Hooks lifecycle และ Agent Team flow
 - Sync เนื้อหา TH ↔ EN เมื่อมี Claude Code version ใหม่
 - เพิ่ม CI/CD integration recipes (GitHub Actions, GitLab CI)
+- ขยายหัวข้ออื่น ๆ ให้อธิบายระดับเดียวกับ chapter 02 (per-flag deep-dive + examples + pitfalls)
+
+---
+
+## [1.5.0] — 2026-04-26
+
+### Compatibility
+- **Claude Code:** `v2.1.114`
+
+### Added
+- **Chapter 02 (CLI Commands and Flags) — Beginner-friendly deep-dive rewrite** (TH + EN)
+  - **Per-flag detailed explanations** — every flag now has a "What it does / When to use / Example" structure, replacing the previous one-line table descriptions that beginners found too terse
+  - **Real Examples section** — 7 hands-on examples with mock output (quick Q&A, git log analysis, Plan Mode, CI/CD code review, batch processing, parallel worktrees, subagent + plan mode combo)
+  - **Combo Patterns section** — 7 production-grade multi-flag recipes with rationale (CI/CD review, long-running refactor, quick Q&A alias, multi-project analysis, structured pipeline, safe sandbox exploration, headless cron job)
+  - **Common Pitfalls section** — 10 traps beginners commonly fall into (`-p` vs `--bare` confusion, dangerous use of `--dangerously-skip-permissions`, missing prompt quotes, binary pipe gotchas, `-c` directory binding, model overuse, max-budget cache caveat, allowedTools Bash patterns, `claude update` in CI/CD, `--bare` ≠ no-network)
+  - **Beginner Cheat Sheet** — 3+3+3 quick-start commands at the bottom
+  - **Car-and-buttons analogy** in the intro to make CLI flags approachable
+  - **Model analogies** — Opus = professor / Sonnet = researcher / Haiku = quick-witted student
+
+### Changed
+- `docs/th/02-cli-commands.md`: 124 → 700+ lines
+- `docs/en/02-cli-commands.md`: 124 → 700+ lines
+- `Claude-Code-Guide-TH.md`: chapter 2 expanded with new sections (Real Examples, Combo Patterns, Pitfalls, Cheat Sheet)
+- `Claude-Code-Guide-EN.md`: chapter 2 expanded with the same new sections
+- All four files synchronized 1:1
+
+### Why
+- User feedback: original tables were too terse for newcomers — flags didn't show usage context, common combos, or the gotchas seasoned users learn the hard way
+- This sets the template for expanding the rest of the chapters in future minor releases
 
 ---
 
@@ -198,7 +227,9 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.4.1...v1.5.0
+[1.4.1]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.2...v1.4.0
 [1.3.2]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.0...v1.3.1
