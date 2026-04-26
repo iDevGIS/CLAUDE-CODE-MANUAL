@@ -70,6 +70,31 @@ claude
 
 ---
 
+## 🎯 ตัวอย่างโปรเจกต์ (ProjectEx)
+
+อยากเห็น Claude Code ทำงานจริงตั้งแต่ `claude` ครั้งแรกจนถึง `git commit`? โฟลเดอร์ [`ProjectEx/`](./ProjectEx/) มีตัวอย่างพร้อมใช้:
+
+| สิ่งที่อยู่ใน ProjectEx | รายละเอียด |
+|---|---|
+| 🛠️ **Todo CLI App** | โค้ดรันได้จริง zero dependencies — `index.js` + `lib/todo.js` + 5 tests (`node:test`) |
+| ⚙️ **Claude Config Pack** | ตัวอย่าง `CLAUDE.md`, `.claude/settings.json` (permissions + PostToolUse hook), slash command `/test-all`, subagent `reviewer` |
+| 📊 **Walkthrough Decks** | สไลด์ 12 หน้า TH + EN ([`TH.pptx`](./ProjectEx/ProjectEx-Walkthrough-TH.pptx) · [`EN.pptx`](./ProjectEx/ProjectEx-Walkthrough-EN.pptx)) |
+| 🖼️ **Screenshots** | 7 รูป mockup ประกอบสไลด์ (regen ได้ด้วย Python) |
+| 🔧 **Build Scripts** | `_build/make_screenshots.py` + `make_pptx.py` regenerate ได้ |
+
+**ลองรันใน 30 วินาที:**
+
+```bash
+cd ProjectEx/todo-app
+node index.js add "buy milk"
+node index.js list
+npm test
+```
+
+> 📥 อ่านรายละเอียดเต็มที่ [`ProjectEx/README.md`](./ProjectEx/README.md)
+
+---
+
 ## 📚 สารบัญคู่มือ
 
 ### พื้นฐาน / Basics

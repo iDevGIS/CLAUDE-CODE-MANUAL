@@ -1,0 +1,15 @@
+{
+  "name": "todo-cli",
+  "version": "1.0.0",
+  "description": "Simple Todo CLI app — example for CLAUDE-CODE-MANUAL",
+  "main": "index.js",
+  "bin": {
+    "todo": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test tests/todo.test.js"
+  },
+  "keywords": ["todo", "cli", "claude-code"],
+  "license": "MIT"
+}

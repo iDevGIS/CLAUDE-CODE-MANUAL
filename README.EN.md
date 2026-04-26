@@ -70,6 +70,31 @@ claude
 
 ---
 
+## 🎯 Example Project (ProjectEx)
+
+Want to see Claude Code work end-to-end — from your first `claude` command to `git commit`? The [`ProjectEx/`](./ProjectEx/) folder has a complete example:
+
+| Inside ProjectEx | Details |
+|---|---|
+| 🛠️ **Todo CLI App** | Runnable code, zero dependencies — `index.js` + `lib/todo.js` + 5 tests (`node:test`) |
+| ⚙️ **Claude Config Pack** | Sample `CLAUDE.md`, `.claude/settings.json` (permissions + PostToolUse hook), slash command `/test-all`, `reviewer` subagent |
+| 📊 **Walkthrough Decks** | 12-slide deck in TH + EN ([`TH.pptx`](./ProjectEx/ProjectEx-Walkthrough-TH.pptx) · [`EN.pptx`](./ProjectEx/ProjectEx-Walkthrough-EN.pptx)) |
+| 🖼️ **Screenshots** | 7 mockup images for the slides (regenerable via Python) |
+| 🔧 **Build Scripts** | `_build/make_screenshots.py` + `make_pptx.py` to rebuild assets |
+
+**Try it in 30 seconds:**
+
+```bash
+cd ProjectEx/todo-app
+node index.js add "buy milk"
+node index.js list
+npm test
+```
+
+> 📥 Full details in [`ProjectEx/README.md`](./ProjectEx/README.md)
+
+---
+
 ## 📚 Table of Contents
 
 ### Basics

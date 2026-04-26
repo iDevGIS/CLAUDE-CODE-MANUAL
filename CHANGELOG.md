@@ -19,6 +19,36 @@
 - Sync เนื้อหา TH ↔ EN เมื่อมี Claude Code version ใหม่
 - เพิ่ม CI/CD integration recipes (GitHub Actions, GitLab CI)
 - ขยายหัวข้ออื่น ๆ ให้อธิบายระดับเดียวกับ chapter 02 (per-flag deep-dive + examples + pitfalls)
+- ถ่าย screenshot ของ Claude session จริงเพื่อแทน mockup ใน ProjectEx
+
+---
+
+## [1.6.0] — 2026-04-26
+
+### Compatibility
+- **Claude Code:** `v2.1.114`
+
+### Added
+- **`ProjectEx/` — Hands-on example project** demonstrating Claude Code end-to-end (from first `claude` to `git commit`)
+  - **`todo-app/`** — runnable Todo CLI with zero dependencies
+    - `index.js` (CLI dispatcher: add/list/done/rm/help)
+    - `lib/todo.js` (pure logic, easy to test)
+    - `tests/todo.test.js` (5 tests using built-in `node:test`)
+    - `package.json` with `npm test` script
+  - **`claude-config/`** — copy-paste-ready Claude Code configuration pack
+    - `CLAUDE.md` — project instructions (stack, conventions, workflow, don't-do list)
+    - `.claude/settings.json` — permissions (allow Bash/git/Edit, deny `rm -rf` and force push) + **PostToolUse hook** that auto-runs `npm test` after edits
+    - `.claude/commands/test-all.md` — slash command `/test-all`
+    - `.claude/agents/reviewer.md` — subagent code reviewer (`model: sonnet`, tools: Read/Grep/git diff)
+  - **Walkthrough decks** — 12-slide presentations in both languages (`ProjectEx-Walkthrough-TH.pptx` 256 KB · `EN.pptx` 258 KB) covering Cover → Stack → Start session → CLAUDE.md → Plan Mode → Implement → Test → Subagent review → Commit → Hooks/Skills → Lessons → Links
+  - **`screenshots/`** — 7 mockup images (rendered with Python/PIL) used in the slides
+  - **`_build/`** — Python scripts to regenerate screenshots and rebuild both decks (`make_screenshots.py`, `make_pptx.py`)
+  - **`ProjectEx/README.md`** — full instructions for running the example, copying the config pack into a project, and trying it with `claude`
+- Both root `README.md` and `README.EN.md` now feature a **🎯 Example Project (ProjectEx)** section between the Quick Start and Table of Contents, with a 5-row capability table and a 30-second try-it-now snippet
+
+### Why
+- Documentation alone wasn't enough — readers asked for a concrete, runnable starting point that shows how Claude Code, `CLAUDE.md`, hooks, slash commands, and subagents all fit together in one project
+- ProjectEx is the missing piece that takes someone from "I read the manual" to "I've used Claude Code on something real"
 
 ---
 
