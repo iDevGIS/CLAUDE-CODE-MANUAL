@@ -4,12 +4,39 @@ A minimal plugin showing the standard structure: `plugin.json` + `commands/` + `
 
 ## Install (locally)
 
+**Quick install (recommended):**
+
 ```bash
-mkdir -p ~/.claude/plugins
-ln -s "$(pwd)" ~/.claude/plugins/taskflow-tools
+# macOS / Linux / WSL / Git Bash
+bash setup.sh
+
+# Windows PowerShell
+pwsh setup.ps1
+```
+
+The script symlinks this directory into `~/.claude/plugins/taskflow-tools`. If symlinking fails (Windows without Developer Mode), it falls back to copying.
+
+**Other modes:**
+
+```bash
+bash setup.sh --copy         # force copy instead of symlink
+bash setup.sh --uninstall    # remove
+bash setup.sh --target DIR   # alternate plugins directory
+```
+
+**Then activate:**
+
+```bash
 claude
 > /plugins
 # enable taskflow-tools
+```
+
+**Manual install (if you prefer):**
+
+```bash
+mkdir -p ~/.claude/plugins
+ln -s "$(pwd)" ~/.claude/plugins/taskflow-tools
 ```
 
 After enabling, the following are available in any project:
@@ -21,6 +48,8 @@ After enabling, the following are available in any project:
 ```
 plugin-example/
 ├── plugin.json          # plugin manifest
+├── setup.sh             # install/uninstall script (Bash)
+├── setup.ps1            # install/uninstall script (PowerShell)
 ├── commands/
 │   └── ping.md          # /ping slash command
 └── agents/

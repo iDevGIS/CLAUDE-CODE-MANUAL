@@ -57,7 +57,7 @@ ProjectEx2/
 │   ├── commands/ping.md
 │   └── agents/helper.md
 │
-└── walkthroughs/                          ← 12 atomic guides (Obsidian-friendly)
+└── walkthroughs/                          ← 13 atomic guides (Obsidian-friendly)
     ├── 01-getting-started.md
     ├── 02-claude-md-hierarchy.md
     ├── 03-permissions-deep-dive.md
@@ -69,7 +69,8 @@ ProjectEx2/
     ├── 09-scheduled-tasks.md
     ├── 10-output-styles-statusline.md
     ├── 11-agent-teams.md
-    └── 12-real-world-flow.md
+    ├── 12-real-world-flow.md
+    └── 13-scaling-beyond-single-process.md  ← NEW: เมื่อ JSON store พังและวิธี migrate
 ```
 
 ---
@@ -115,7 +116,7 @@ claude
 | **Headless mode** | 1 script (CI review) | `taskflow/scripts/headless-review.sh` |
 | **Scheduled tasks** | 2 scripts (summary + installer) | `taskflow/scripts/scheduled-summary.sh` |
 | **Permissions** | allow + deny + ask + defaultMode | `taskflow/.claude/settings.json` |
-| **Walkthroughs** | 12 atomic notes | `walkthroughs/` |
+| **Walkthroughs** | 13 atomic notes | `walkthroughs/` |
 
 → เต็ม map ใน [`FEATURE-MATRIX.md`](./FEATURE-MATRIX.md)
 
@@ -137,6 +138,7 @@ claude
 10. [10 — Output Styles & Status Line](walkthroughs/10-output-styles-statusline.md) — ปรับ UI
 11. [11 — Agent Teams](walkthroughs/11-agent-teams.md) — orchestrate หลาย subagent
 12. [12 — Real-world Flow](walkthroughs/12-real-world-flow.md) — เพิ่ม feature ตั้งแต่ idea จนถึง release
+13. [13 — Scaling Beyond Single-Process](walkthroughs/13-scaling-beyond-single-process.md) — เมื่อ JSON store พัง + migrate ไป file lock / SQLite / Postgres
 
 ---
 

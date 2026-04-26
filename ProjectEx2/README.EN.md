@@ -52,8 +52,8 @@ ProjectEx2/
 │   ├── commands/ping.md
 │   └── agents/helper.md
 │
-└── walkthroughs/                          # 12 atomic guides (Obsidian-friendly)
-    └── 01..12-*.md
+└── walkthroughs/                          # 13 atomic guides (Obsidian-friendly)
+    └── 01..13-*.md
 ```
 
 ---
@@ -99,7 +99,7 @@ claude
 | **Headless mode** | 1 script | `taskflow/scripts/headless-review.sh` |
 | **Scheduled tasks** | 2 scripts | `taskflow/scripts/` |
 | **Permissions** | allow + deny + ask + defaultMode | `taskflow/.claude/settings.json` |
-| **Walkthroughs** | 12 atomic notes | `walkthroughs/` |
+| **Walkthroughs** | 13 atomic notes | `walkthroughs/` |
 
 Full map: [`FEATURE-MATRIX.md`](./FEATURE-MATRIX.md)
 
@@ -121,6 +121,7 @@ Read in order if you're new:
 10. [10 — Output Styles & Status Line](walkthroughs/10-output-styles-statusline.md)
 11. [11 — Agent Teams](walkthroughs/11-agent-teams.md)
 12. [12 — Real-world Flow](walkthroughs/12-real-world-flow.md)
+13. [13 — Scaling Beyond Single-Process](walkthroughs/13-scaling-beyond-single-process.md) — when the JSON store breaks and how to migrate (file lock → SQLite → Postgres)
 
 ---
 

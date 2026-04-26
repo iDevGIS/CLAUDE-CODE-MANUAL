@@ -43,3 +43,20 @@
 - Don't `console.log` from `src/core/` — that breaks testability and library usage.
 - Don't widen permissions in `.claude/settings.json` casually. Use `.claude/settings.local.json` for personal/temporary loosening.
 - Don't commit `.taskflow.json` or `.env`.
+
+## Concurrency model — single-process only
+
+> **Known limitation, intentional.** TaskFlow uses a flat JSON file with a `load → mutate → save` pattern in `src/core/store.js`. There is **no file lock**, no transaction, no atomic write.
+>
+> This is **safe** when:
+> - Only one process accesses `.taskflow.json` at a time (single CLI user, or single HTTP server, but not both concurrently).
+> - The HTTP server is single-process (no cluster/PM2 fork mode).
+>
+> This is **unsafe** when:
+> - CLI and HTTP server run together against the same file → last write wins, lost updates.
+> - Multiple HTTP workers share the file → race on `nextId` allocation, duplicate IDs.
+> - External tooling edits `.taskflow.json` while the server is running.
+>
+> **If you need concurrency**, this project is the wrong shape — see `walkthroughs/13-scaling-beyond-single-process.md` for the migration path (file lock → SQLite → Postgres). Don't bolt locking onto the JSON store; it's a maintenance trap.
+>
+> The `security` subagent is aware of this and will not flag it as a bug — it's a documented design constraint.
