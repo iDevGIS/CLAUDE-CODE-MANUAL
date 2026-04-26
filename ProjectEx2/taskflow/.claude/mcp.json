@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json.schemastore.org/mcp.json",
+  "_comment_": "Example MCP server configuration. Copy to ~/.claude.json or use `claude mcp add`.",
+  "mcpServers": {
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "_note_": "Read/write files in the project directory only — scope it tight."
+    },
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "_note_": "Read PRs, issues, file contents. Token from env — never inline."
+    },
+    "sqlite-readonly": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "--db-path", "./data/readonly.db"],
+      "_note_": "Example of a read-only data source — scope MCP servers to least privilege."
+    },
+    "fetch": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
+      "_note_": "Fetch URLs the model needs to read. Combine with permissions.deny to limit hosts."
+    }
+  }
+}

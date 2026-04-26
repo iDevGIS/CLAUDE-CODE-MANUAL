@@ -14,12 +14,36 @@
 
 ## [Unreleased]
 
+### Added
+- **`ProjectEx2/` — Advanced Claude Code showcase project** (companion to ProjectEx)
+  - **`taskflow/`** — runnable Task Management app (CLI + HTTP API), zero deps, 25 tests
+    - `src/core/` (pure logic: store/task/validate), `src/cli/` (commands/format), `src/server/` (node:http routes)
+    - `tests/` (5 test files) + `scripts/` (lint, headless-review, scheduled-summary, setup-cron)
+  - **CLAUDE.md hierarchy** — root + nested `src/CLAUDE.md` (subtree rules for import boundaries)
+  - **`.claude/settings.json`** — permissions (allow/deny/ask) + defaultMode + env + 7 hook types + statusLine + outputStyle + model
+  - **Hooks (7, full lifecycle)** — `SessionStart`, `UserPromptSubmit`, `PreToolUse` (Edit|Write & Bash), `PostToolUse`, `Notification`, `Stop`, `SubagentStop` + statusline script
+  - **Slash commands × 6** — `/test`, `/lint`, `/review`, `/security-scan`, `/release`, `/docs`
+  - **Subagents × 4** — `reviewer`, `tester`, `security`, `docs-writer` (each with focused tool list + system prompt)
+  - **Skill** — `commit-formatter` (Conventional Commits playbook)
+  - **Output Style** — `senior-engineer` (concise, evidence-first voice)
+  - **MCP config** — `.claude/mcp.json` with 4 example servers (filesystem, github, sqlite-readonly, fetch)
+  - **Plugin example** — standalone `plugin-example/` (`taskflow-tools`) with `plugin.json`, slash command, subagent
+  - **12 Walkthroughs** — atomic notes (Obsidian-friendly): getting-started → CLAUDE.md hierarchy → permissions → hooks lifecycle → skills vs subagents → MCP → plugins → headless mode → scheduled tasks → output styles & status line → agent teams → real-world end-to-end flow
+  - **`FEATURE-MATRIX.md`** — explicit map of each Claude Code feature → file in the project
+  - **`README.md` / `README.EN.md`** — TH + EN landing pages
+- Both root `README.md` and `README.EN.md` now have a **🚀 Advanced Showcase (ProjectEx2)** section after ProjectEx
+
+### Why
+- ProjectEx (v1.6.0) is a great starter, but readers asked for a more substantial example showing how every Claude Code feature actually composes — multi-file architecture, multiple hook types, agent teams, MCP, plugins, headless CI, scheduled tasks
+- ProjectEx2 fills that gap with one runnable, opinionated reference project
+
 ### Planned
 - ใส่ภาพประกอบ / diagram สำหรับ Hooks lifecycle และ Agent Team flow
 - Sync เนื้อหา TH ↔ EN เมื่อมี Claude Code version ใหม่
 - เพิ่ม CI/CD integration recipes (GitHub Actions, GitLab CI)
 - ขยายหัวข้ออื่น ๆ ให้อธิบายระดับเดียวกับ chapter 02 (per-flag deep-dive + examples + pitfalls)
 - ถ่าย screenshot ของ Claude session จริงเพื่อแทน mockup ใน ProjectEx
+- ProjectEx2: ทำ walkthrough deck (.pptx) เหมือน ProjectEx + ถ่าย screenshot จริงของ session
 
 ---
 

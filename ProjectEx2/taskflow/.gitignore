@@ -1,0 +1,8 @@
+node_modules/
+.taskflow.json
+.taskflow.*.json
+.env
+.env.local
+*.log
+.DS_Store
+.claude/settings.local.json

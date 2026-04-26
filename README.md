@@ -95,6 +95,35 @@ npm test
 
 ---
 
+## 🚀 ตัวอย่างขั้นสูง (ProjectEx2)
+
+อยากเห็น Claude Code ครบทุก feature ในโปรเจกต์ขนาดกลางจริง ๆ? โฟลเดอร์ [`ProjectEx2/`](./ProjectEx2/) คือ **showcase ขั้นสูง**:
+
+| สิ่งที่อยู่ใน ProjectEx2 | รายละเอียด |
+|---|---|
+| 🌊 **TaskFlow App** | CLI + HTTP API (Node.js zero-deps) — 25 tests, 6 modules |
+| 🧠 **CLAUDE.md hierarchy** | root + nested (`src/CLAUDE.md`) แสดง memory แบบหลายระดับ |
+| 🪝 **Hooks ครบทุก lifecycle** | 7 events: SessionStart / UserPromptSubmit / Pre-Post ToolUse / Notification / Stop / SubagentStop |
+| ⚙️ **Slash commands × 6** | `/test` `/lint` `/review` `/security-scan` `/release` `/docs` |
+| 🤖 **Subagents × 4** | reviewer, tester, security, docs-writer (พร้อม system prompt + tool list) |
+| 🎨 **Skill + Output Style + Status Line** | commit-formatter / senior-engineer / custom bash statusline |
+| 🔌 **MCP + Plugin** | `mcp.json` 4 servers + standalone `plugin-example/` ที่ install แยก |
+| 🤖 **Headless + Cron** | `claude -p` ใน CI + scheduled summary script |
+| 📚 **12 Walkthroughs** | atomic notes ครบทุกหัวข้อ (Obsidian-friendly) |
+
+**Feature → file map ครบ:** [`ProjectEx2/FEATURE-MATRIX.md`](./ProjectEx2/FEATURE-MATRIX.md)
+
+```bash
+cd ProjectEx2/taskflow
+node src/cli/index.js add "ลอง ProjectEx2" --priority high
+npm test                # 25/25 pass
+claude                  # ดู hooks + statusline + output style ทำงาน
+```
+
+> 📥 รายละเอียดเต็ม [`ProjectEx2/README.md`](./ProjectEx2/README.md)
+
+---
+
 ## 📚 สารบัญคู่มือ
 
 ### พื้นฐาน / Basics
