@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "taskflow-tools",
+  "version": "0.1.0",
+  "description": "Example Claude Code plugin — bundles slash commands and a subagent reusable across TaskFlow-style projects.",
+  "author": "TaskFlow / ProjectEx2",
+  "license": "MIT",
+  "commands": "./commands",
+  "agents": "./agents",
+  "_install_": "Symlink or copy this directory into ~/.claude/plugins/taskflow-tools, then enable with `claude /plugins`."
+}

@@ -95,6 +95,35 @@ npm test
 
 ---
 
+## 🚀 Advanced Showcase (ProjectEx2)
+
+Want to see Claude Code with **every feature** in a mid-sized project? The [`ProjectEx2/`](./ProjectEx2/) folder is the **advanced showcase**:
+
+| Inside ProjectEx2 | Details |
+|---|---|
+| 🌊 **TaskFlow App** | CLI + HTTP API (Node.js, zero-deps) — 25 tests, 6 modules |
+| 🧠 **CLAUDE.md hierarchy** | root + nested (`src/CLAUDE.md`) showing multi-level memory |
+| 🪝 **Hooks across the full lifecycle** | 7 events: SessionStart / UserPromptSubmit / Pre-Post ToolUse / Notification / Stop / SubagentStop |
+| ⚙️ **6 slash commands** | `/test` `/lint` `/review` `/security-scan` `/release` `/docs` |
+| 🤖 **4 subagents** | reviewer, tester, security, docs-writer (with system prompt + tool list) |
+| 🎨 **Skill + Output Style + Status Line** | commit-formatter / senior-engineer / custom bash statusline |
+| 🔌 **MCP + Plugin** | `mcp.json` for 4 servers + standalone `plugin-example/` |
+| 🤖 **Headless + Cron** | `claude -p` in CI + scheduled summary script |
+| 📚 **12 Walkthroughs** | atomic notes covering every topic (Obsidian-friendly) |
+
+**Feature → file map:** [`ProjectEx2/FEATURE-MATRIX.md`](./ProjectEx2/FEATURE-MATRIX.md)
+
+```bash
+cd ProjectEx2/taskflow
+node src/cli/index.js add "try ProjectEx2" --priority high
+npm test                # 25/25 pass
+claude                  # see hooks + statusline + output style in action
+```
+
+> 📥 Full details: [`ProjectEx2/README.md`](./ProjectEx2/README.md)
+
+---
+
 ## 📚 Table of Contents
 
 ### Basics

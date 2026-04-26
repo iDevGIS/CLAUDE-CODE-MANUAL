@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "model": "claude-sonnet-4-6",
+  "outputStyle": "senior-engineer",
+  "statusLine": {
+    "type": "command",
+    "command": "bash .claude/hooks/statusline.sh"
+  },
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash(npm test)",
+      "Bash(npm test:*)",
+      "Bash(npm run:*)",
+      "Bash(node *)",
+      "Bash(curl http://localhost:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git switch:*)",
+      "Read(./**)",
+      "Edit(./**)",
+      "Write(./**)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "Bash(git push --force-with-lease *)",
+      "Bash(npm publish *)",
+      "Bash(curl http://169.254.*)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Write(./.taskflow.json)",
+      "Write(./.taskflow.*.json)",
+      "Write(./node_modules/**)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(gh pr:*)"
+    ]
+  },
+  "env": {
+    "NODE_ENV": "development",
+    "TASKFLOW_LOG": "info",
+    "TASKFLOW_HOOK_DEBUG": "0"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/session-start.sh"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/user-prompt-log.sh"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre-edit-validate.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre-bash-guard.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post-edit-test.sh"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/notify.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/stop-summary.sh"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/subagent-stop.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
