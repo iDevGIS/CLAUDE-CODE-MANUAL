@@ -373,6 +373,10 @@ claude -p --output-format json --max-turns 3 \
 > /release minor
 ```
 
+### Dynamic Workflows
+
+**Dynamic Workflows** สั่ง orchestrate agent หลักสิบถึงหลักร้อยตัวแบบกำหนดได้จากสคริปต์ (fan-out, pipeline, parallel stage, loop-until-done) เหมาะกับงานกวาดให้ครบ, การ verify แบบ adversarial, และ migration ใหญ่ที่ context เดียวเก็บไม่ไหว. Workflow tool รันสคริปต์เบื้องหลังแล้วรายงานเมื่อเสร็จ
+
 ## ก่อนปิดบท
 
 - ขั้น 0 (เดิม) **ไม่ใช่ bug** — มันคือ design choice ที่เหมาะกับ scope เริ่มต้น

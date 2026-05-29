@@ -164,7 +164,7 @@ cp ProjectEx2/taskflow/CLAUDE.md  /path/to/your-project/
 
 ## Compatibility
 
-- **Claude Code:** `v2.1.114+` (บางอย่างเช่น output style ใช้ได้กับ version ใหม่กว่า)
+- **Claude Code:** `v2.1.156+` (บางอย่างเช่น output style ใช้ได้กับ version ใหม่กว่า)
 - **Node.js:** `>= 20`
 - **Shell:** Bash (script ทั้งหมด)
 - **OS:** macOS / Linux (Windows ใช้ WSL)
