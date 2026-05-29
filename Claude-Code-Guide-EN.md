@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.114         │
+│ Welcome to Claude Code v2.1.156         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -280,10 +280,10 @@ git checkout main
 
 **Example:**
 ```bash
-claude --model opus              # Opus 4.7 (smartest, expensive)
+claude --model opus              # Opus 4.8 (smartest, expensive)
 claude --model sonnet            # Sonnet 4.6 (balanced, recommended)
 claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
-claude --model claude-opus-4-7   # Full name (specify exact version)
+claude --model claude-opus-4-8   # Full name (specify exact version)
 ```
 
 > 💡 **Analogy:**
@@ -303,7 +303,7 @@ claude --model opus --effort max         # Opus thinking at full power
 claude --model sonnet --effort low       # Sonnet at fast speed
 ```
 
-> ⚠️ **Gotcha:** `--effort max` works **only with Opus 4.6** — other models fall back to `high`.
+> ⚠️ **Gotcha:** `--effort max` is for the **Opus** family (e.g. Opus 4.8, which defaults to high effort on demanding tasks). Models that don't support an effort parameter ignore it / fall back to their default.
 
 #### `--fallback-model <name>` — Backup Model
 
@@ -579,12 +579,29 @@ claude --agent code-reviewer -p "review this PR"
 
 **What it does:** Runs init hooks before starting the session (e.g., load env, fetch data).
 
+#### `--bg` — Background Session / Exec
+
+**What it does:** Starts a background session, or runs a shell command in the background with `--bg --exec "<cmd>"` (you can also type `! <command>` inside a session). `--bg --name <name>` labels it.
+
+**Example:**
+```bash
+claude --bg --name "test-watch" --exec "npm run test:watch"
+```
+
+#### `--plugin-url <url>` — Install a Plugin from a URL
+
+**What it does:** Installs a plugin straight from a URL. `--plugin-dir` also accepts `.zip` archives.
+
+#### `--from-pr <url>` — Start from a PR
+
+**What it does:** Now accepts GitHub, **GitHub Enterprise, GitLab MR, and Bitbucket** PR URLs.
+
 #### `--version` — Show Version
 
 **Example:**
 ```bash
 $ claude --version
-2.1.114
+2.1.156
 ```
 
 ---
@@ -601,6 +618,9 @@ claude plugin              # Manage plugins
 claude update              # Update to the latest version
 claude agents              # List subagents
 claude remote-control      # Start the remote control server
+claude ultrareview [target] # Non-interactive code review for CI/scripts. Prints findings to stdout (--json for raw). Exit 0 on completion, 1 on failure
+claude project purge [path] # Delete all Claude Code state for a project. Flags: --dry-run, -y (yes), -i (interactive), --all
+claude plugin prune        # Remove orphaned auto-installed plugin dependencies (claude plugin uninstall --prune cascades)
 ```
 
 ---
@@ -934,7 +954,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.114
+- run: npm install -g @anthropic-ai/claude-code@2.1.156
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1015,7 +1035,8 @@ Press `/` in a session to see all available commands.
 | `/commit` | Stage and commit changes |
 | `/pr` | Create a pull request |
 | `/review` | Review code |
-| `/simplify` | Review changed code to improve quality |
+| `/code-review` | Review the diff for bugs/quality at chosen effort level. `--fix` applies fixes; `--comment` posts inline PR comments. (Renamed from the old `/simplify`.) |
+| `/simplify` | Re-introduced as a **cleanup-only** review (reuse/simplify/efficiency) that applies its fixes. |
 | `/init` | Generate CLAUDE.md from project analysis |
 
 ### Workflow and Control
@@ -1029,6 +1050,7 @@ Press `/` in a session to see all available commands.
 | `/loop 5m "command"` | Repeat the command on the given interval |
 | `/batch` | Run large work in parallel |
 | `/schedule` | Create a scheduled task |
+| `/goal` | Set a completion condition Claude keeps working toward across turns |
 
 ### Extensions and Settings
 
@@ -1039,6 +1061,12 @@ Press `/` in a session to see all available commands.
 | `/permissions` | View and manage tool permissions |
 | `/plugins` | Browse and manage plugins |
 | `/claude-api` | Help build apps with the Claude API |
+| `/reload-skills` | Re-scan skill directories without restarting |
+| `/scroll-speed` | Adjust scroll speed with live preview |
+| `/chrome` | Pick the browser for "Claude in Chrome" |
+| `/usage-credits` | Show usage credits (renamed from `/extra-usage`; old name still works). `/usage` now shows a per-category breakdown (skills, subagents, plugins, MCP) |
+
+Note: `/effort` slider labels are now **"Faster" / "Smarter"** (was Speed/Intelligence).
 
 ---
 
@@ -1227,6 +1255,12 @@ Skill(commit)                    # Specific skill
 - `.vscode/`, `.idea/`, `.husky/`
 - `.gitconfig`, `.bashrc`, shell config files
 
+### Auto Mode Updates
+
+**Auto mode** has matured: it no longer requires an opt-in consent step. A new `autoMode.hard_deny` rule type lets you hard-block actions in `settings.json`. The auto-mode classifier is improved for catching data-exfiltration patterns.
+
+> ⚠️ `--dangerously-skip-permissions` now also bypasses prompts for protected paths (`.claude/`, `.git/`, `.vscode/`, shell config files). Treat it as truly unrestricted.
+
 ---
 
 ## 6. Configuration
@@ -1247,7 +1281,7 @@ Skill(commit)                    # Specific skill
 | **An organization needs a locked policy** | Managed settings | IT sets it for everyone — no overrides allowed |
 | **Want Claude to auto-run lint** | `hooks.PostEdit` | Every time Claude edits a file, lint runs automatically |
 | **Want to connect to Slack/Notion** | `mcpServers` | Claude can reach Slack and Notion directly |
-| **Want to use Opus on a critical project** | `model: "claude-opus-4-6"` | Lock the model per project |
+| **Want to use Opus on a critical project** | `model: "claude-opus-4-8"` | Lock the model per project |
 
 ### Settings Hierarchy (highest to lowest)
 
@@ -1269,7 +1303,7 @@ Skill(commit)                    # Specific skill
 ```json
 {
   "theme": "dark",
-  "model": "claude-opus-4-6",
+  "model": "claude-opus-4-8",
   "effort": "high",
   "autoMemoryEnabled": true,
 
@@ -1320,6 +1354,10 @@ Skill(commit)                    # Specific skill
 | `enabledPlugins` | Enabled plugins |
 | `codeIntelligence` | Toggle Code Intelligence |
 | `claudeMdExcludes` | Skip specific CLAUDE.md files |
+
+### `/config` and `/model` Persistence
+
+`/config` changes now persist to `~/.claude/settings.json` and participate in the project/local/policy override precedence. `/model` changes apply to the **current session only** (press `d` to set the default); the selection is remembered as the default for new sessions. The `/effort` slider is labelled **Faster / Smarter**.
 
 ---
 
@@ -1715,6 +1753,17 @@ Event handlers that run shell commands automatically when events happen in Claud
 | `TaskCreated` | A task is created | Inspect the task |
 | `TaskCompleted` | A task is completed | Verify the result |
 | `TeammateIdle` | A teammate is idle | Quality gates |
+| `MessageDisplay` | Before a message is displayed | Transform messages before they're displayed |
+
+### New Hook Capabilities
+
+- `MessageDisplay` hook event — transform messages before they're displayed.
+- `SessionStart` hooks can return `reloadSkills: true` and set the session title via `hookSpecificOutput.sessionTitle`.
+- `PostToolUse` / `PostToolUseFailure` inputs now include `duration_ms` (tool execution time).
+- `PostToolUse` can replace tool output via `hookSpecificOutput.updatedToolOutput`.
+- Hooks support an exec form: `args: string[]` (run without a shell). Hooks also receive the effort level (`$CLAUDE_EFFORT` / JSON).
+
+Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 
 ### Configuring Hooks
 
@@ -1862,7 +1911,7 @@ argument-hint: "[file] [action]"    # Argument hint
 disable-model-invocation: true      # Only invokable by the user (Claude can't auto-call)
 user-invocable: false               # Only Claude can call it
 allowed-tools: "Read,Bash"          # Pre-approved tools
-model: claude-opus-4-6              # Override the model
+model: claude-opus-4-8              # Override the model
 effort: high                        # Override the effort
 context: fork                       # Run inside a subagent
 agent: Explore                      # Agent type
@@ -1975,7 +2024,7 @@ AI assistants that work in a separate context window — ideal for tasks that ne
 ```markdown
 ---
 description: "Specialized security code review"
-model: claude-opus-4-6
+model: claude-opus-4-8
 tools:
   - Read
   - Grep
@@ -2097,6 +2146,10 @@ Create an agent team to review this PR with 3 members:
 - Task status may have some lag
 - Nested teams aren't supported
 - One team per session
+
+### Dynamic Workflows
+
+**Dynamic Workflows** orchestrate tens to hundreds of agents deterministically from a script (fan-out, pipelines, parallel stages, loop-until-done). Use them for comprehensive sweeps, adversarial verification, and large migrations that one context can't hold. The Workflow tool runs the script in the background and reports when done.
 
 ---
 
@@ -2349,6 +2402,21 @@ claude --bare -p "review changed code" \
   --max-turns 10
 ```
 
+### Non-Interactive Review (`ultrareview`)
+
+```bash
+# Non-interactive code review for CI/scripts — prints findings to stdout
+claude ultrareview HEAD~1     # exit 0 on completion, 1 on failure
+claude ultrareview --json     # raw JSON output
+```
+
+### Background Exec
+
+```bash
+# Run a shell command in the background and keep the session detached
+claude --bg --exec "npm run build && npm test"
+```
+
 ### Pipe Data Into Claude
 
 ```bash
@@ -2487,6 +2555,13 @@ claude --plugin-dir ./my-plugin
 /reload-plugins       # Reload plugins without restarting
 ```
 
+### New in v2.1.156
+
+- `--plugin-url <url>` installs a plugin from a URL; `--plugin-dir` accepts `.zip` archives.
+- `claude plugin prune` removes orphaned deps; `uninstall --prune` cascades.
+- Plugin manifests can declare `defaultEnabled: false`.
+- `/plugin` Discover tab suggests plugins matching the current directory.
+
 ---
 
 ## 19. Session Management
@@ -2535,6 +2610,10 @@ claude --fork-session                # Branch into a new session
 ```
 
 Shows an interactive picker to choose a session.
+
+### Background Sessions & Agent View
+
+**Background sessions** let work continue detached from the foreground: start with `claude --bg` or push the current task to the background with `/bg` (or `Ctrl+B`). Pinned background sessions stay alive, restart in place, and shed gracefully under memory pressure; resume them with `/resume` (look for the `bg` marker). **Agent view** (`claude agents`) is a session manager for many concurrent sessions — `claude agents --json` for scripting.
 
 ### Session File Locations
 
@@ -2649,7 +2728,7 @@ Claude spends more time thinking on hard problems such as:
 
 Press `Meta+O` / `Alt+O`, or use `/fast`.
 
-Same Opus 4.6, but with faster output.
+Uses **Opus 4.7** for fast mode, with faster output.
 
 ### Code Intelligence
 
@@ -2929,7 +3008,7 @@ claude --version  # check the version
 
 | Task | Recommended Model | Why |
 |------|-------------------|-----|
-| Architecture, complex bugs | Opus 4.6 | Deep thought, strong analysis |
+| Architecture, complex bugs | Opus 4.8 | Deep thought, strong analysis |
 | General coding, ordinary bugs | Sonnet 4.6 | Fast and economical |
 | Boilerplate, data generation | Haiku 4.5 | Very fast and very cheap |
 
@@ -2964,7 +3043,7 @@ $ claude
 
   ┌──────────────────────────────────────┐
   │  Claude Code v1.x                    │
-  │  Model: Claude Opus 4.6              │
+  │  Model: Claude Opus 4.8              │
   │  Permission: default                 │
   │  Project: ecommerce-api              │
   └──────────────────────────────────────┘
@@ -4097,7 +4176,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.114`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.156`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
@@ -6366,4 +6445,4 @@ Claude Code is a feature-complete AI tool for developers:
 ---
 
 > **Document version:** Last updated April 15, 2026
-> **Applies to:** Latest Claude Code version (Claude Opus 4.6 / Sonnet 4.6 / Haiku 4.5)
+> **Applies to:** Latest Claude Code version (Claude Opus 4.8 / Sonnet 4.6 / Haiku 4.5)

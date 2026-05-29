@@ -63,8 +63,11 @@ my-plugin/
 ### Loading a Plugin
 
 ```bash
-# From a local directory
+# From a local directory (also accepts a .zip archive)
 claude --plugin-dir ./my-plugin
+
+# Straight from a URL
+claude --plugin-url <url>
 
 # Install from the marketplace
 /plugins install <plugin-name>
@@ -73,9 +76,16 @@ claude --plugin-dir ./my-plugin
 ### Managing Plugins
 
 ```
-/plugins              # Browse and manage
+/plugins              # Browse and manage (the Discover tab suggests plugins matching the current directory)
 /reload-plugins       # Reload plugins without restarting
 ```
+
+```bash
+claude plugin prune              # Remove orphaned auto-installed plugin dependencies
+claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned deps
+```
+
+> **Manifest note:** a plugin manifest can declare `"defaultEnabled": false` to ship disabled by default.
 
 ---
 

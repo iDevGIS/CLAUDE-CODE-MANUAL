@@ -67,7 +67,7 @@ AI ผู้ช่วยเฉพาะทางที่ทำงานใน C
 ```markdown
 ---
 description: "รีวิวโค้ดด้านความปลอดภัย"
-model: claude-opus-4-6
+model: claude-opus-4-8
 tools:
   - Read
   - Grep

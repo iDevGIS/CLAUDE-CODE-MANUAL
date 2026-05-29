@@ -95,7 +95,7 @@ argument-hint: "[file] [action]"    # คำแนะนำ Argument
 disable-model-invocation: true      # เฉพาะผู้ใช้เรียก (ไม่ให้ Claude เรียกเอง)
 user-invocable: false               # เฉพาะ Claude เรียก
 allowed-tools: "Read,Bash"          # อนุมัติเครื่องมือล่วงหน้า
-model: claude-opus-4-6              # Override โมเดล
+model: claude-opus-4-8              # Override โมเดล
 effort: high                        # Override Effort
 context: fork                       # รันใน Subagent
 agent: Explore                      # ประเภท Agent

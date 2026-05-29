@@ -32,7 +32,7 @@ related:
 | **องค์กรต้องการล็อก Policy** | Managed settings | IT ตั้งค่าให้ทุกคนในองค์กร ห้าม Override |
 | **ต้องการให้ Claude รัน Lint อัตโนมัติ** | `hooks.PostEdit` | ทุกครั้งที่ Claude แก้ไฟล์ Lint จะรันอัตโนมัติ |
 | **ต้องการเชื่อมต่อ Slack/Notion** | `mcpServers` | Claude เข้าถึง Slack, Notion ได้โดยตรง |
-| **ต้องการใช้ Opus สำหรับโปรเจกต์สำคัญ** | `model: "claude-opus-4-6"` | ล็อกโมเดลเฉพาะโปรเจกต์ |
+| **ต้องการใช้ Opus สำหรับโปรเจกต์สำคัญ** | `model: "claude-opus-4-8"` | ล็อกโมเดลเฉพาะโปรเจกต์ |
 
 ### ลำดับชั้นของการตั้งค่า (จากสูงไปต่ำ)
 
@@ -54,7 +54,7 @@ related:
 ```json
 {
   "theme": "dark",
-  "model": "claude-opus-4-6",
+  "model": "claude-opus-4-8",
   "effort": "high",
   "autoMemoryEnabled": true,
 
@@ -105,6 +105,10 @@ related:
 | `enabledPlugins` | Plugins ที่เปิดใช้ |
 | `codeIntelligence` | เปิด/ปิด Code Intelligence |
 | `claudeMdExcludes` | ข้าม CLAUDE.md บางไฟล์ |
+
+### การ Persist ของ `/config` และ `/model`
+
+การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.
 
 ---
 

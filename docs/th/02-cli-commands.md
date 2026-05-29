@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.114         │
+│ Welcome to Claude Code v2.1.156         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -171,10 +171,10 @@ git checkout main
 
 **ตัวอย่าง:**
 ```bash
-claude --model opus              # ใช้ Opus 4.7 (ฉลาดสุด, แพง)
+claude --model opus              # ใช้ Opus 4.8 (ฉลาดสุด, แพง)
 claude --model sonnet            # ใช้ Sonnet 4.6 (สมดุล, แนะนำ)
 claude --model haiku             # ใช้ Haiku 4.5 (เร็ว, ถูก, สำหรับงานง่าย)
-claude --model claude-opus-4-7   # ใช้ชื่อเต็ม (ระบุ version ตรงๆ)
+claude --model claude-opus-4-8   # ใช้ชื่อเต็ม (ระบุ version ตรงๆ)
 ```
 
 > 💡 **เปรียบเทียบ:**
@@ -194,7 +194,7 @@ claude --model opus --effort max         # Opus + คิดสุดความ
 claude --model sonnet --effort low       # Sonnet + ตอบเร็ว
 ```
 
-> ⚠️ **Gotcha:** `--effort max` ใช้ได้กับ **Opus 4.6 เท่านั้น** — รุ่นอื่นจะ fall back เป็น `high`
+> ⚠️ **Gotcha:** `--effort max` ใช้กับตระกูล **Opus** (เช่น Opus 4.8 ที่ default เป็น high effort กับงานหนัก) — โมเดลที่ไม่รองรับพารามิเตอร์ effort จะ fall back เป็นค่า default ของรุ่นนั้น
 
 #### `--fallback-model <ชื่อ>` — โมเดลสำรอง
 
@@ -470,12 +470,29 @@ claude --agent code-reviewer -p "review this PR"
 
 **ทำอะไร:** รัน init hooks ก่อนเริ่ม session (เช่น load environment, fetch data)
 
+#### `--bg` / `--bg --exec "<cmd>"` — Session เบื้องหลัง
+
+**ทำอะไร:** เปิด session เบื้องหลัง หรือรันคำสั่ง shell เบื้องหลัง (หรือพิมพ์ `! <command>` ใน session) — `--bg --name <name>` ตั้งชื่อได้
+
+**ตัวอย่าง:**
+```bash
+claude --bg --name nightly --exec "npm run build"
+```
+
+#### `--plugin-url <url>` — ติดตั้ง Plugin จาก URL
+
+**ทำอะไร:** ติดตั้ง plugin จาก URL ตรงๆ — `--plugin-dir` รับไฟล์ `.zip` ได้แล้ว
+
+#### `--from-pr <url>` — เริ่มจาก Pull Request
+
+**ทำอะไร:** รองรับ GitHub, **GitHub Enterprise, GitLab MR, Bitbucket** แล้ว
+
 #### `--version` — แสดงเวอร์ชัน
 
 **ตัวอย่าง:**
 ```bash
 $ claude --version
-2.1.114
+2.1.156
 ```
 
 ---
@@ -492,6 +509,9 @@ claude plugin              # จัดการ Plugins
 claude update              # อัปเดตเวอร์ชันล่าสุด
 claude agents              # ดูรายการ Subagents
 claude remote-control      # เริ่ม Remote Control Server
+claude ultrareview [target]   # review โค้ดแบบ non-interactive สำหรับ CI/สคริปต์ พิมพ์ผลออก stdout (--json = raw) exit 0 เมื่อสำเร็จ / 1 เมื่อ fail
+claude project purge [path]   # ลบ state ทั้งหมดของโปรเจกต์ flags: --dry-run, -y, -i, --all
+claude plugin prune        # ลบ plugin dependency ที่ค้าง (claude plugin uninstall --prune ลบแบบ cascade)
 ```
 
 ---
@@ -865,7 +885,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.114
+- run: npm install -g @anthropic-ai/claude-code@2.1.156
 ```
 
 ---

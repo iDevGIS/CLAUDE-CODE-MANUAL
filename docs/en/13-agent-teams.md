@@ -82,6 +82,10 @@ Create an agent team to review this PR with 3 members:
 - **Display mode:** `--teammate-mode in-process` (default) or `tmux` (separate panes)
 - **Stop the team:** "Have the Researcher stop"
 
+### Dynamic Workflows
+
+**Dynamic Workflows** orchestrate tens to hundreds of agents deterministically from a script (fan-out, pipelines, parallel stages, loop-until-done). Use them for comprehensive sweeps, adversarial verification, and large migrations that one context can't hold. The Workflow tool runs the script in the background and reports when done.
+
 ### Limitations
 
 - Cannot resume sessions with in-process teammates

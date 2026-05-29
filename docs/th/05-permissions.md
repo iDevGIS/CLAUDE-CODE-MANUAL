@@ -66,6 +66,8 @@ related:
 - ใช้ Flag `--permission-mode <mode>`
 - ตั้งค่าใน `settings.json`
 
+**Auto mode** โตเต็มวัยแล้ว: ไม่ต้องกด opt-in ก่อนใช้ และเพิ่ม rule แบบ `autoMode.hard_deny` ใน `settings.json` เพื่อ hard-block การกระทำได้; classifier ตรวจจับรูปแบบ data exfiltration ได้ดีขึ้น
+
 ### กฎ Permission
 
 **จับคู่เครื่องมือทั้งหมด:**
@@ -111,6 +113,8 @@ Skill(commit)                    # Skill เฉพาะ
 - `.claude/` (ยกเว้น commands, agents, skills, worktrees)
 - `.vscode/`, `.idea/`, `.husky/`
 - `.gitconfig`, `.bashrc`, ไฟล์ Shell Config
+
+⚠️ `--dangerously-skip-permissions` ตอนนี้ข้าม prompt ของ protected paths (`.claude/`, `.git/`, `.vscode/`, ไฟล์ตั้งค่า shell) ด้วย — ถือว่า 'ไม่จำกัดจริงๆ'
 
 ---
 

@@ -66,6 +66,8 @@ How: claude --permission-mode dontAsk --allowedTools "Read,Bash(npm test)"
 - Use the `--permission-mode <mode>` flag
 - Configure in `settings.json`
 
+**Auto mode** has matured: it no longer requires an opt-in consent step. A new `autoMode.hard_deny` rule type lets you hard-block actions in `settings.json`. The auto-mode classifier is improved for catching data-exfiltration patterns.
+
 ### Permission Rules
 
 **Match all uses of a tool:**
@@ -111,6 +113,8 @@ Skill(commit)                    # Specific skill
 - `.claude/` (except commands, agents, skills, worktrees)
 - `.vscode/`, `.idea/`, `.husky/`
 - `.gitconfig`, `.bashrc`, shell config files
+
+⚠️ `--dangerously-skip-permissions` now also bypasses prompts for protected paths (`.claude/`, `.git/`, `.vscode/`, shell config files). Treat it as truly unrestricted.
 
 ---
 

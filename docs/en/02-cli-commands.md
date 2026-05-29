@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.114         │
+│ Welcome to Claude Code v2.1.156         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -171,10 +171,10 @@ git checkout main
 
 **Example:**
 ```bash
-claude --model opus              # Opus 4.7 (smartest, expensive)
+claude --model opus              # Opus 4.8 (smartest, expensive)
 claude --model sonnet            # Sonnet 4.6 (balanced, recommended)
 claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
-claude --model claude-opus-4-7   # Full name (specify exact version)
+claude --model claude-opus-4-8   # Full name (specify exact version)
 ```
 
 > 💡 **Analogy:**
@@ -194,7 +194,7 @@ claude --model opus --effort max         # Opus thinking at full power
 claude --model sonnet --effort low       # Sonnet at fast speed
 ```
 
-> ⚠️ **Gotcha:** `--effort max` works **only with Opus 4.6** — other models fall back to `high`.
+> ⚠️ **Gotcha:** `--effort max` is for the **Opus** family (e.g. Opus 4.8, which defaults to high effort on demanding tasks). Models that don't support an effort parameter ignore it / fall back to their default.
 
 #### `--fallback-model <name>` — Backup Model
 
@@ -470,12 +470,29 @@ claude --agent code-reviewer -p "review this PR"
 
 **What it does:** Runs init hooks before starting the session (e.g., load env, fetch data).
 
+#### `--bg` / `--bg --exec "<cmd>"` — Background Session
+
+**What it does:** Starts a background session, or runs a shell command in the background (also via `! <command>` inside a session). `--bg --name <name>` labels it.
+
+**Example:**
+```bash
+claude --bg --name nightly --exec "npm run build"
+```
+
+#### `--plugin-url <url>` — Install a Plugin from a URL
+
+**What it does:** Installs a plugin straight from a URL. `--plugin-dir` also accepts `.zip` archives.
+
+#### `--from-pr <url>` — Start from a Pull Request
+
+**What it does:** Now accepts GitHub, **GitHub Enterprise, GitLab MR, and Bitbucket** PR URLs.
+
 #### `--version` — Show Version
 
 **Example:**
 ```bash
 $ claude --version
-2.1.114
+2.1.156
 ```
 
 ---
@@ -492,6 +509,9 @@ claude plugin              # Manage plugins
 claude update              # Update to the latest version
 claude agents              # List subagents
 claude remote-control      # Start the remote control server
+claude ultrareview [target]   # Non-interactive code review for CI/scripts; prints findings to stdout (--json for raw). Exit 0 on completion, 1 on failure
+claude project purge [path]   # Delete all Claude Code state for a project. Flags: --dry-run, -y (yes), -i (interactive), --all
+claude plugin prune        # Remove orphaned auto-installed plugin dependencies (claude plugin uninstall --prune cascades)
 ```
 
 ---
@@ -865,7 +885,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.114
+- run: npm install -g @anthropic-ai/claude-code@2.1.156
 ```
 
 ---

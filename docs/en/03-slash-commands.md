@@ -60,7 +60,8 @@ Press `/` in a session to see all available commands.
 | `/commit` | Stage and commit changes |
 | `/pr` | Create a pull request |
 | `/review` | Review code |
-| `/simplify` | Review changed code to improve quality |
+| `/code-review` | Review the diff for bugs/quality at chosen effort level. `--fix` applies fixes; `--comment` posts inline PR comments. (Renamed from the old `/simplify`.) |
+| `/simplify` | Re-introduced as a **cleanup-only** review (reuse/simplify/efficiency) that applies its fixes. |
 | `/init` | Generate CLAUDE.md from project analysis |
 
 ### Workflow and Control
@@ -74,6 +75,8 @@ Press `/` in a session to see all available commands.
 | `/loop 5m "command"` | Repeat the command on the given interval |
 | `/batch` | Run large work in parallel |
 | `/schedule` | Create a scheduled task |
+| `/goal` | Set a completion condition Claude keeps working toward across turns |
+| `/reload-skills` | Re-scan skill directories without restarting |
 
 ### Extensions and Settings
 
@@ -84,6 +87,11 @@ Press `/` in a session to see all available commands.
 | `/permissions` | View and manage tool permissions |
 | `/plugins` | Browse and manage plugins |
 | `/claude-api` | Help build apps with the Claude API |
+| `/scroll-speed` | Adjust scroll speed with live preview |
+| `/chrome` | Pick the browser for "Claude in Chrome" |
+| `/usage-credits` | Show usage credits (renamed from `/extra-usage`; old name still works). `/usage` now shows a per-category breakdown (skills, subagents, plugins, MCP). |
+
+> Note: `/effort` slider labels are now **"Faster" / "Smarter"** (was Speed/Intelligence).
 
 ---
 

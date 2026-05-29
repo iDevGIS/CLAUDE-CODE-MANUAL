@@ -60,7 +60,8 @@ related:
 | `/commit` | Stage และ Commit การเปลี่ยนแปลง |
 | `/pr` | สร้าง Pull Request |
 | `/review` | รีวิวโค้ด |
-| `/simplify` | ตรวจสอบโค้ดที่เปลี่ยนแปลงเพื่อปรับปรุงคุณภาพ |
+| `/code-review` | review diff หา bug/คุณภาพ ตาม effort level; `--fix` แก้ให้เลย, `--comment` โพสต์คอมเมนต์ inline ใน PR (เปลี่ยนชื่อจาก `/simplify` เดิม) |
+| `/simplify` | กลับมาใหม่เป็น review เน้น **cleanup อย่างเดียว** (reuse/simplify/efficiency) แล้วแก้ให้ |
 | `/init` | สร้าง CLAUDE.md จากการวิเคราะห์โปรเจกต์ |
 
 ### เวิร์คโฟลว์และการควบคุม
@@ -74,6 +75,8 @@ related:
 | `/loop 5m "คำสั่ง"` | ทำซ้ำคำสั่งทุก ๆ เวลาที่กำหนด |
 | `/batch` | ทำงานขนาดใหญ่แบบ Parallel |
 | `/schedule` | สร้างงานตั้งเวลา |
+| `/goal` | ตั้งเงื่อนไข "งานเสร็จเมื่อไหร่" ให้ Claude ทำต่อข้ามหลาย turn |
+| `/reload-skills` | re-scan โฟลเดอร์ skills โดยไม่ต้องรีสตาร์ท |
 
 ### ส่วนขยายและการตั้งค่า
 
@@ -84,6 +87,11 @@ related:
 | `/permissions` | ดูและจัดการสิทธิ์เครื่องมือ |
 | `/plugins` | เรียกดูและจัดการ Plugins |
 | `/claude-api` | ช่วยสร้างแอปด้วย Claude API |
+| `/scroll-speed` | ปรับความเร็ว scroll พร้อม preview สด |
+| `/chrome` | เลือก browser สำหรับ "Claude in Chrome" |
+| `/usage-credits` | ดูเครดิตการใช้งาน (เปลี่ยนชื่อจาก `/extra-usage`; ชื่อเดิมยังใช้ได้). `/usage` แสดง breakdown รายหมวด (skills, subagents, plugins, MCP) |
+
+> หมายเหตุ: ป้าย slider `/effort` ตอนนี้เป็น **"Faster" / "Smarter"** (เดิมคือ Speed/Intelligence)
 
 ---
 

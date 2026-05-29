@@ -25,6 +25,25 @@
 
 ---
 
+## [1.8.0] — 2026-05-30
+
+### Compatibility
+- **Claude Code:** `v2.1.156+`
+
+### Changed
+- **docs: refresh manual for Claude Code `v2.1.156`** — version strings bumped `2.1.114` → `2.1.156` and model lineup updated to **Opus 4.8** (`claude-opus-4-8`, newest flagship, defaults to high effort) / **Sonnet 4.6** / **Haiku 4.5**; fast mode now uses **Opus 4.7**
+- **`--effort max` note corrected** — now documented as the **Opus** family behavior (e.g. Opus 4.8 defaults to high effort on demanding tasks); models without an effort parameter fall back to their default
+
+### Added
+- **New subcommands** — `claude ultrareview [target]` (non-interactive CI review, `--json`, exit 0/1), `claude project purge [path]` (`--dry-run`, `-y`, `-i`, `--all`), `claude plugin prune` (`uninstall --prune` cascades)
+- **New flags** — `--bg` / `--bg --exec "<cmd>"` (background sessions/exec), `--plugin-url <url>` (+ `--plugin-dir` accepts `.zip`), `--from-pr` now accepts GitHub Enterprise / GitLab MR / Bitbucket
+- **New sections** — Dynamic Workflows (orchestrate tens–hundreds of agents from a script), Background Sessions & Agent View, Auto mode `hard_deny` rule type
+
+### Why
+- Keep the manual aligned with the current Claude Code release (`v2.1.156`) and the Opus 4.8 model lineup
+
+---
+
 ## [1.7.0] — 2026-04-26
 
 ### Compatibility
@@ -295,7 +314,10 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.7.0...v1.8.0
+[1.7.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.6.0...v1.7.0
+[1.6.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.4.1...v1.5.0
 [1.4.1]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.3.2...v1.4.0

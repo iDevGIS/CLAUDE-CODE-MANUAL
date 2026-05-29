@@ -95,7 +95,7 @@ argument-hint: "[file] [action]"    # Argument hint
 disable-model-invocation: true      # Only invokable by the user (Claude can't auto-call)
 user-invocable: false               # Only Claude can call it
 allowed-tools: "Read,Bash"          # Pre-approved tools
-model: claude-opus-4-6              # Override the model
+model: claude-opus-4-8              # Override the model
 effort: high                        # Override the effort
 context: fork                       # Run inside a subagent
 agent: Explore                      # Agent type

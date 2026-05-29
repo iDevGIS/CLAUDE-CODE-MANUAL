@@ -3,7 +3,7 @@
 > A comprehensive **Claude Code** manual — covering everything from installation to Hooks, Skills, MCP, Subagents, Agent Teams, and real-world workflows.
 
 [![Made with Claude Code](https://img.shields.io/badge/Made%20with-Claude%20Code-7B61FF)](https://docs.claude.com/claude-code)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-v2.1.114-7B61FF)](https://docs.claude.com/claude-code)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-v2.1.156-7B61FF)](https://docs.claude.com/claude-code)
 [![Language: Thai](https://img.shields.io/badge/Language-ไทย-blue)](./README.md)
 [![Language: English](https://img.shields.io/badge/Language-English-red)](./README.EN.md)
 [![Obsidian: Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?logo=obsidian&logoColor=white)](./docs/en/README.md)
@@ -44,7 +44,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 8 bonus atomic notes** (3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.114`
+> **Claude Code Version:** `2.1.156`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

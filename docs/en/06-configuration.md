@@ -32,7 +32,7 @@ related:
 | **An organization needs a locked policy** | Managed settings | IT sets it for everyone — no overrides allowed |
 | **Want Claude to auto-run lint** | `hooks.PostEdit` | Every time Claude edits a file, lint runs automatically |
 | **Want to connect to Slack/Notion** | `mcpServers` | Claude can reach Slack and Notion directly |
-| **Want to use Opus on a critical project** | `model: "claude-opus-4-6"` | Lock the model per project |
+| **Want to use Opus on a critical project** | `model: "claude-opus-4-8"` | Lock the model per project |
 
 ### Settings Hierarchy (highest to lowest)
 
@@ -54,7 +54,7 @@ related:
 ```json
 {
   "theme": "dark",
-  "model": "claude-opus-4-6",
+  "model": "claude-opus-4-8",
   "effort": "high",
   "autoMemoryEnabled": true,
 
@@ -105,6 +105,10 @@ related:
 | `enabledPlugins` | Enabled plugins |
 | `codeIntelligence` | Toggle Code Intelligence |
 | `claudeMdExcludes` | Skip specific CLAUDE.md files |
+
+### `/config` and `/model` Persistence
+
+`/config` changes now persist to `~/.claude/settings.json` and participate in the project/local/policy override precedence. `/model` changes apply to the **current session only** (press `d` to set the default); the selection is remembered as the default for new sessions. The `/effort` slider is labelled **Faster / Smarter**.
 
 ---
 

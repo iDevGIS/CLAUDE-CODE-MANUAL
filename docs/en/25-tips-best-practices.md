@@ -74,7 +74,7 @@ related:
 
 | Task | Recommended Model | Why |
 |------|-------------------|-----|
-| Architecture, complex bugs | Opus 4.6 | Deep thought, strong analysis |
+| Architecture, complex bugs | Opus 4.8 | Deep thought, strong analysis |
 | General coding, ordinary bugs | Sonnet 4.6 | Fast and economical |
 | Boilerplate, data generation | Haiku 4.5 | Very fast and very cheap |
 

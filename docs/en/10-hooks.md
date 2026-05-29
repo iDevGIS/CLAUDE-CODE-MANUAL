@@ -60,6 +60,7 @@ Event handlers that run shell commands automatically when events happen in Claud
 | `Maintenance` | Maintenance mode | Clean up temp files |
 | `PreToolUse` | Before using a tool | Custom permission checks |
 | `PostToolUse` | After using a tool | Auto-format, validate |
+| `MessageDisplay` | Before a message is displayed | Transform messages before display |
 | `PostWrite` | After writing a file | Lint, format |
 | `PostEdit` | After editing a file | Auto-test |
 | `PreCommit` | Before a Git commit | Pre-commit checks |
@@ -132,6 +133,16 @@ Event handlers that run shell commands automatically when events happen in Claud
   }
 }
 ```
+
+### New Hook Capabilities
+
+- **`MessageDisplay` hook event** — transform messages before they're displayed.
+- **`SessionStart` hooks** can return `reloadSkills: true` and set the session title via `hookSpecificOutput.sessionTitle`.
+- **`PostToolUse` / `PostToolUseFailure` inputs** now include `duration_ms` (tool execution time).
+- **`PostToolUse`** can replace tool output via `hookSpecificOutput.updatedToolOutput`.
+- **Exec form** — hooks support `args: string[]` (run without a shell). Hooks also receive the effort level (`$CLAUDE_EFFORT` / JSON).
+
+> Skills & slash commands can set `disallowed-tools` in their frontmatter.
 
 ---
 

@@ -82,6 +82,10 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 - **โหมดแสดงผล:** `--teammate-mode in-process` (ค่าเริ่มต้น) หรือ `tmux` (แยก Panel)
 - **ปิดทีม:** "ให้ Researcher หยุดทำงาน"
 
+### Dynamic Workflows
+
+**Dynamic Workflows** สั่ง orchestrate agent หลักสิบถึงหลักร้อยตัวแบบกำหนดได้จากสคริปต์ (fan-out, pipeline, parallel stage, loop-until-done) เหมาะกับงานกวาดให้ครบ, การ verify แบบ adversarial, และ migration ใหญ่ที่ context เดียวเก็บไม่ไหว. Workflow tool รันสคริปต์เบื้องหลังแล้วรายงานเมื่อเสร็จ
+
 ### ข้อจำกัด
 
 - ไม่สามารถ Resume Session กับ In-process Teammates

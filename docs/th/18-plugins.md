@@ -63,8 +63,11 @@ my-plugin/
 ### โหลด Plugin
 
 ```bash
-# จากไดเรกทอรี Local
+# จากไดเรกทอรี Local (รับไฟล์ .zip ได้แล้ว)
 claude --plugin-dir ./my-plugin
+
+# ติดตั้งจาก URL ตรงๆ
+claude --plugin-url <url>
 
 # ติดตั้งจาก Marketplace
 /plugins install <plugin-name>
@@ -73,9 +76,16 @@ claude --plugin-dir ./my-plugin
 ### จัดการ Plugins
 
 ```
-/plugins              # เรียกดูและจัดการ
+/plugins              # เรียกดูและจัดการ (แท็บ Discover แนะนำ plugin ที่ตรงกับ directory ปัจจุบัน)
 /reload-plugins       # โหลด Plugins ใหม่โดยไม่ต้อง Restart
 ```
+
+```bash
+claude plugin prune              # ลบ plugin dependency ที่ค้าง
+claude plugin uninstall --prune  # ถอนการติดตั้งแล้วลบ deps ที่ค้างแบบ cascade
+```
+
+> **หมายเหตุ Manifest:** manifest ของ plugin ประกาศ `"defaultEnabled": false` ได้ เพื่อให้ติดตั้งมาแบบปิดไว้ก่อน
 
 ---
 

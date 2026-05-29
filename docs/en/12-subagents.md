@@ -67,7 +67,7 @@ AI assistants that work in a separate context window — ideal for tasks that ne
 ```markdown
 ---
 description: "Specialized security code review"
-model: claude-opus-4-6
+model: claude-opus-4-8
 tools:
   - Read
   - Grep

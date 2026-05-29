@@ -33,6 +33,8 @@ related:
 | **Daily code quality check** | A cron job + `claude --bare -p "check code quality"` | A code quality report every morning |
 | **Migration script** | `claude -p "migrate v1 → v2" --max-turns 50` | Claude performs the migration automatically |
 | **Generate test data** | `claude -p "create 100 seed records" --output-format json` | Receive test data as JSON immediately |
+| **Non-interactive code review** | `claude ultrareview --json` | CI-friendly review; prints findings to stdout, exit 0 on completion / 1 on failure |
+| **Background shell command** | `claude --bg --exec "<cmd>"` | Run a shell command in a detached background session |
 
 **GitHub Actions example:**
 
@@ -90,6 +92,22 @@ claude --bare -p "review changed code" \
   --allowedTools "Read,Bash(npm test),Edit" \
   --output-format json \
   --max-turns 10
+```
+
+### Non-Interactive Code Review
+
+```bash
+# Non-interactive code review for CI/scripts.
+# Prints findings to stdout; --json for raw output.
+# Exit 0 on completion, 1 on failure.
+claude ultrareview --json
+```
+
+### Background Exec
+
+```bash
+# Run a shell command in a detached background session
+claude --bg --exec "npm run build && npm test"
 ```
 
 ### Pipe Data Into Claude

@@ -35,7 +35,7 @@ $ claude
 
   ┌──────────────────────────────────────┐
   │  Claude Code v1.x                    │
-  │  Model: Claude Opus 4.6              │
+  │  Model: Claude Opus 4.8              │
   │  Permission: default                 │
   │  Project: ecommerce-api              │
   └──────────────────────────────────────┘
@@ -1143,7 +1143,7 @@ Claude Code is a feature-complete AI tool for developers:
 ---
 
 > **Document version:** Last updated April 15, 2026
-> **Applies to:** Latest Claude Code version (Claude Opus 4.6 / Sonnet 4.6 / Haiku 4.5)
+> **Applies to:** Latest Claude Code version (Claude Opus 4.8 / Sonnet 4.6 / Haiku 4.5)
 
 ---
 

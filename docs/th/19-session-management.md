@@ -66,6 +66,10 @@ claude --fork-session                # แยก Branch ใหม่
 ~/.claude/projects/<project>/sessions/<session-id>.jsonl
 ```
 
+### Background Sessions & Agent View
+
+**Background sessions** ให้งานทำต่อแบบแยกจาก foreground: เริ่มด้วย `claude --bg` หรือดันงานปัจจุบันไปเบื้องหลังด้วย `/bg` (หรือ `Ctrl+B`). session ที่ pin ไว้จะอยู่ต่อ รีสตาร์ทเอง และสละทรัพยากรอย่างนุ่มนวลเมื่อ memory ตึง; เรียกกลับด้วย `/resume` (มองหา marker `bg`). **Agent view** (`claude agents`) เป็นตัวจัดการหลาย session พร้อมกัน — `claude agents --json` สำหรับสคริปต์
+
 ---
 
 ---
