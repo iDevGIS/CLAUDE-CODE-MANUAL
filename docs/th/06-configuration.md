@@ -106,6 +106,30 @@ related:
 | `codeIntelligence` | เปิด/ปิด Code Intelligence |
 | `claudeMdExcludes` | ข้าม CLAUDE.md บางไฟล์ |
 
+### โมเดลที่เลือกได้ (ใหม่สุด → ถูกสุด)
+
+| โมเดล | id | จุดเด่น |
+|-------|-----|--------|
+| **Fable 5** | `claude-fable-5` | โมเดล **Mythos-class** ใหม่ล่าสุดของ Anthropic และเก่งที่สุดที่เปิดให้ใช้ทั่วไป (มาใน Claude Code **2.1.170**) มาพร้อม **context window 1M token เป็นค่าเริ่มต้น** เหมาะกับงานคิดหนักสุด, context ใหญ่ และงาน agentic |
+| **Opus 4.8** | `claude-opus-4-8` | เรือธงตระกูล **Opus**; coding และวิเคราะห์บั๊กซับซ้อนเก่งสุด; default เป็น **high effort** กับงานหนัก |
+| **Sonnet 4.6** | `claude-sonnet-4-6` | สมดุล เร็ว; เป็นค่าเริ่มต้นที่แนะนำสำหรับงาน coding ทั่วไป |
+| **Haiku 4.5** | `claude-haiku-4-5` | เร็วสุด ถูกสุด; สำหรับงานง่าย/boilerplate |
+
+> หมายเหตุ: Fast mode ยังใช้ **Opus 4.7** (และตอนนี้ทำงานกับ Opus 4.8 ได้ด้วย) — Fable 5 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 4.8 คือตัว **coding เก่งสุด** ในตระกูล Opus
+
+### 🆕 Settings ใหม่ใน v2.1.191
+
+- `fallbackModel` — กำหนด fallback ได้สูงสุด 3 รุ่น ลองตามลำดับเมื่อรุ่นหลัก overload/ใช้ไม่ได้
+- `availableModels` + `enforceAvailableModels` (managed) — allowlist รุ่นที่เลือกได้; เมื่อ enforce แม้แต่ Default ก็ fall back เป็นรุ่นแรกที่อนุญาต และ user/project ขยายรายการเองไม่ได้
+- `requiredMinimumVersion` / `requiredMaximumVersion` (managed) — ไม่ให้เปิดถ้าเวอร์ชัน Claude Code อยู่นอกช่วงที่กำหนด
+- `respondToBashCommands` — กำหนดว่า output ของ `!` จะถูกตอบอัตโนมัติไหม (ค่าเริ่มต้น true)
+- `language` — ล็อกภาษาที่ใช้ตั้งชื่อ session
+- `attribution.sessionUrl` — ตัดลิงก์ session ของ claude.ai ออกจาก commit/PR
+- `disableBundledSkills` — ซ่อน bundled skills/workflows/คำสั่ง built-in
+- `teammateMode: "iterm2"`, `footerLinksRegexes`, `wheelScrollAccelerationEnabled` — ตัวเลือก terminal/UX
+- `sandbox.credentials` — กันคำสั่งใน sandbox อ่านไฟล์ credential / secret env var
+- `sandbox.allowAppleEvents` — เปิดให้คำสั่งใน sandbox ส่ง Apple Events ได้ (macOS)
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

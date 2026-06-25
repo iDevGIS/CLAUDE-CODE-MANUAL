@@ -57,7 +57,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.156`) → success! If not, see [[01-installation|01. Installation]] for more details.
+If you see a version number (e.g. `2.1.191`) → success! If not, see [[01-installation|01. Installation]] for more details.
 
 ## Step 2: Your first conversation (5 minutes)
 

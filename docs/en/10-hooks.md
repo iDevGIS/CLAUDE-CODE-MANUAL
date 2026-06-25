@@ -141,6 +141,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **`PostToolUse` / `PostToolUseFailure` inputs** now include `duration_ms` (tool execution time).
 - **`PostToolUse`** can replace tool output via `hookSpecificOutput.updatedToolOutput`.
 - **Exec form** — hooks support `args: string[]` (run without a shell). Hooks also receive the effort level (`$CLAUDE_EFFORT` / JSON).
+- `Stop` and `SubagentStop` hooks can return `hookSpecificOutput.additionalContext` to give Claude feedback and keep the turn going (not flagged as a hook error).
+- Self-hosted runner: a `post-session` lifecycle hook runs after the session ends and before the workspace is deleted (snapshot uncommitted work, export logs).
+- Matchers can be **comma-separated**, e.g. `"Bash,PowerShell"`.
+- Hook `if` conditions can match tool paths — `Edit(src/**)`, `Read(~/.ssh/**)`, `Read(.env)` now match correctly.
 
 > Skills & slash commands can set `disallowed-tools` in their frontmatter.
 

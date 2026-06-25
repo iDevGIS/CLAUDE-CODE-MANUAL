@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.156         │
+│ Welcome to Claude Code v2.1.191         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -171,7 +171,8 @@ git checkout main
 
 **ตัวอย่าง:**
 ```bash
-claude --model opus              # ใช้ Opus 4.8 (ฉลาดสุด, แพง)
+claude --model claude-fable-5    # Fable 5 — เก่งสุด, context 1M (ใหม่ล่าสุด)
+claude --model opus              # ใช้ Opus 4.8 (coding เก่งสุด, แพง)
 claude --model sonnet            # ใช้ Sonnet 4.6 (สมดุล, แนะนำ)
 claude --model haiku             # ใช้ Haiku 4.5 (เร็ว, ถูก, สำหรับงานง่าย)
 claude --model claude-opus-4-8   # ใช้ชื่อเต็ม (ระบุ version ตรงๆ)
@@ -492,7 +493,7 @@ claude --bg --name nightly --exec "npm run build"
 **ตัวอย่าง:**
 ```bash
 $ claude --version
-2.1.156
+2.1.191
 ```
 
 ---
@@ -513,6 +514,14 @@ claude ultrareview [target]   # review โค้ดแบบ non-interactive ส
 claude project purge [path]   # ลบ state ทั้งหมดของโปรเจกต์ flags: --dry-run, -y, -i, --all
 claude plugin prune        # ลบ plugin dependency ที่ค้าง (claude plugin uninstall --prune ลบแบบ cascade)
 ```
+
+### 🆕 ใหม่ใน v2.1.191
+
+- `claude mcp login <name>` / `claude mcp logout <name>` — login/logout เข้า MCP server จาก CLI ได้เลยโดยไม่ต้องเปิดเมนู `/mcp` ใส่ `--no-browser` เพื่อทำ OAuth ผ่าน SSH ด้วยการ paste URL
+- `claude plugin init <name>` — สร้างโครง plugin ใหม่ใต้ `.claude/skills` (ไม่ต้องผ่าน marketplace)
+- `--safe-mode` (env `CLAUDE_CODE_SAFE_MODE=1`) — เปิด Claude Code โดยปิด customization ทั้งหมด (CLAUDE.md, plugins, skills, hooks, MCP) ไว้สำหรับ debug
+- `--agent <name>` — เลือกว่า session ที่ dispatch/background จะรันเป็น agent ตัวไหน (override ค่า `agent` ใน `settings.json`)
+- `--fallback-model <model>` — ใช้กับ interactive session ได้แล้ว คู่กับ setting `fallbackModel` (ลองได้สูงสุด 3 รุ่นตามลำดับเมื่อ overload)
 
 ---
 
@@ -885,7 +894,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.156
+- run: npm install -g @anthropic-ai/claude-code@2.1.191
 ```
 
 ---

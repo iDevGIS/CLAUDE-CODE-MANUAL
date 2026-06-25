@@ -93,6 +93,17 @@ related:
 
 > หมายเหตุ: ป้าย slider `/effort` ตอนนี้เป็น **"Faster" / "Smarter"** (เดิมคือ Speed/Intelligence)
 
+### 🆕 ใหม่ใน v2.1.191
+
+| คำสั่ง | คำอธิบาย |
+|--------|----------|
+| `/rewind` | กู้ conversation กลับไปยังจุด **ก่อนรัน `/clear`** |
+| `/cd <dir>` | ย้าย working directory ของ session โดยไม่ทำลาย prompt cache |
+| `/config key=value` | ตั้งค่าใด ๆ จาก prompt (เช่น `/config thinking=false`); `/config --help` ดูคีย์ย่อทั้งหมด ใช้ได้ทั้ง interactive, `-p`, Remote Control |
+| `/plugin list` | list plugin ที่ติดตั้ง (filter `--enabled` / `--disabled`) |
+
+หมายเหตุ: `!<cmd>` ตอนนี้ทำให้ Claude **ตอบ output ของคำสั่งให้อัตโนมัติ**; ตั้ง `respondToBashCommands: false` ใน `settings.json` เพื่อคงพฤติกรรมเดิม (เก็บเป็น context เฉย ๆ)
+
 ---
 
 ---

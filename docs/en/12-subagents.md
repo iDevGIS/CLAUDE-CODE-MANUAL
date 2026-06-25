@@ -112,6 +112,10 @@ Claude delegates to the subagent automatically when a task matches its descripti
 /agents
 ```
 
+### New in v2.1.191
+
+Subagents can now spawn their **own** subagents, up to **5 levels deep** (foreground and background share the same depth cap; resumed/forked subagents count toward it).
+
 ---
 
 ---

@@ -152,6 +152,14 @@ my-skill/
 
 Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
+### New in v2.1.191
+
+- Skills/plugins placed in `.claude/skills` are **auto-loaded** (no marketplace). Scaffold one with `claude plugin init <name>`.
+- Nested `.claude/skills` load when you work on files there; on a name clash the nested skill appears as `<dir>:<name>` so both stay available.
+- Frontmatter keys accept kebab-case, snake_case, OR camelCase (`display-name`, `default-enabled`, `fallback`, `metadata.*`).
+- Use `\$` to include a literal `$` before a digit in a command body.
+- Hide bundled skills with `disableBundledSkills` / `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS`.
+
 ---
 
 ---

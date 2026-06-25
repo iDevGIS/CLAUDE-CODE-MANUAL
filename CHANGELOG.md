@@ -25,6 +25,35 @@
 
 ---
 
+## [1.9.0] — 2026-06-25
+
+### Compatibility
+- **Claude Code:** `v2.1.191+`
+
+### Added
+- **New model — Claude Fable 5** (`claude-fable-5`): Anthropic's newest **Mythos-class** model and the most capable model generally available (introduced in Claude Code `2.1.170`), shipping with a **1M-token context window by default**. The documented lineup is now **Fable 5 / Opus 4.8 / Sonnet 4.6 / Haiku 4.5** (fast mode still uses Opus 4.7)
+- **New subcommands** — `claude mcp login`/`logout <name>` (authenticate MCP servers from the CLI, `--no-browser` for SSH), `claude plugin init <name>` (scaffold a plugin under `.claude/skills`)
+- **New flags** — `--safe-mode` (start with all customizations disabled for troubleshooting; env `CLAUDE_CODE_SAFE_MODE`), `--agent <name>` (pick the agent a dispatched/background session runs as), `--fallback-model` now applies to interactive sessions
+- **New slash commands** — `/rewind` (resume from before `/clear`), `/cd <dir>` (move working dir without breaking the prompt cache), `/config key=value` (+ `/config --help`), `/plugin list`
+- **New settings** — `fallbackModel` (≤3), `availableModels` + `enforceAvailableModels`, `requiredMinimumVersion`/`requiredMaximumVersion`, `respondToBashCommands`, `language`, `attribution.sessionUrl`, `disableBundledSkills`, `teammateMode: "iterm2"`, `sandbox.credentials`, `sandbox.allowAppleEvents`
+- **Hooks** — `Stop`/`SubagentStop` can return `hookSpecificOutput.additionalContext`; self-hosted `post-session` lifecycle hook; comma-separated matchers (`"Bash,PowerShell"`); path-based `if` conditions (`Edit(src/**)`, `Read(.env)`)
+- **Skills** — auto-load from `.claude/skills` (no marketplace); nested skills disambiguated as `<dir>:<name>`; frontmatter accepts kebab/snake/camelCase; `\$` literal-dollar escape
+- **Subagents** — can spawn their own subagents, up to **5 levels deep**
+- **Env vars** — `CLAUDE_CODE_SAFE_MODE`, `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS`, `CLAUDE_CLIENT_PRESENCE_FILE`, `CLAUDE_CODE_ENABLE_AUTO_MODE`, `CLAUDE_CODE_RETRY_WATCHDOG`, `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`
+
+### Changed
+- **Version strings** bumped `2.1.156` → `2.1.191` across the guides (EN/TH), atomic notes (`docs/{en,th}`), and READMEs
+- **Model framing** — Opus 4.8 reframed from "the smartest/newest flagship" to "top Opus / strongest coding"; **Fable 5** is now the most capable model overall
+- **Permissions** — new `Tool(param:value)` parameter-matching rules (e.g. `Agent(model:opus)`); `"*"` glob allowed in deny tool-name position; `SendMessage` cross-session relays no longer carry user authority
+- **Auto mode** — now available on Bedrock/Vertex/Foundry (opt in with `CLAUDE_CODE_ENABLE_AUTO_MODE=1`); blocks destructive git (`reset --hard`, `clean -fd`, …) and `terraform/pulumi/cdk destroy` unless explicitly requested
+- **Dynamic Workflows** — trigger keyword renamed **`workflow` → `ultracode`** (with `/effort ultracode`); agent-teams `TeamCreate`/`TeamDelete` tools removed in favor of an implicit team (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` + the Agent tool's `name` parameter)
+- **`!` bash commands** are now auto-answered by Claude (toggle with `respondToBashCommands`)
+
+### Why
+- Keep the manual aligned with the current Claude Code release (`v2.1.191`) and the new **Fable 5** model lineup, capturing ~35 releases of new commands, flags, settings, and hook/skill/subagent capabilities since `2.1.156`
+
+---
+
 ## [1.8.0] — 2026-05-30
 
 ### Compatibility
@@ -314,7 +343,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.8.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.9.0...HEAD
+[1.9.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.5.0...v1.6.0

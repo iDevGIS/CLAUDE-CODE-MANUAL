@@ -93,6 +93,17 @@ Press `/` in a session to see all available commands.
 
 > Note: `/effort` slider labels are now **"Faster" / "Smarter"** (was Speed/Intelligence).
 
+### New in v2.1.191
+
+| Command | Description |
+|---------|-------------|
+| `/rewind` | Resume a conversation from a point **before `/clear`** was run. |
+| `/cd <dir>` | Move the session to a new working directory without breaking the prompt cache. |
+| `/config key=value` | Set any setting from the prompt (e.g. `/config thinking=false`); `/config --help` lists shorthand keys. Works in interactive, `-p`, and Remote Control. |
+| `/plugin list` | List installed plugins (`--enabled` / `--disabled` filters). |
+
+Note: `!<cmd>` now makes Claude **respond to the command's output automatically**; set `respondToBashCommands: false` in `settings.json` to keep the old context-only behavior.
+
 ---
 
 ---

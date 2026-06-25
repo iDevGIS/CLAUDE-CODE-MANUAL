@@ -1142,8 +1142,8 @@ Claude Code is a feature-complete AI tool for developers:
 
 ---
 
-> **Document version:** Last updated April 15, 2026
-> **Applies to:** Latest Claude Code version (Claude Opus 4.8 / Sonnet 4.6 / Haiku 4.5)
+> **Document version:** Last updated June 25, 2026
+> **Applies to:** Latest Claude Code version (Claude Fable 5 / Opus 4.8 / Sonnet 4.6 / Haiku 4.5)
 
 ---
 

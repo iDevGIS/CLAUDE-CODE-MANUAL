@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.156         │
+│ Welcome to Claude Code v2.1.191         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -280,7 +280,8 @@ git checkout main
 
 **Example:**
 ```bash
-claude --model opus              # Opus 4.8 (smartest, expensive)
+claude --model claude-fable-5    # Fable 5 — most capable, 1M context (newest)
+claude --model opus              # Opus 4.8 (top-tier coding, expensive)
 claude --model sonnet            # Sonnet 4.6 (balanced, recommended)
 claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
 claude --model claude-opus-4-8   # Full name (specify exact version)
@@ -601,7 +602,7 @@ claude --bg --name "test-watch" --exec "npm run test:watch"
 **Example:**
 ```bash
 $ claude --version
-2.1.156
+2.1.191
 ```
 
 ---
@@ -954,13 +955,23 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.156
+- run: npm install -g @anthropic-ai/claude-code@2.1.191
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
 
 ❌ **Misconception:** `--bare` = cuts internet
 ✅ **Truth:** `--bare` cuts **local customization** (Hooks/Skills/MCP/Memory) only — the Anthropic API still runs over the internet as usual.
+
+---
+
+### New in v2.1.191
+
+- `claude mcp login <name>` / `claude mcp logout <name>` — authenticate or sign out of an MCP server from the CLI without opening `/mcp`. Add `--no-browser` to complete OAuth over SSH by pasting the URL.
+- `claude plugin init <name>` — scaffold a new plugin under `.claude/skills` (no marketplace needed).
+- `--safe-mode` (env `CLAUDE_CODE_SAFE_MODE=1`) — start Claude Code with ALL customizations disabled (CLAUDE.md, plugins, skills, hooks, MCP) for troubleshooting.
+- `--agent <name>` — choose which configured agent a dispatched/background session runs as (overrides the `agent` field in `settings.json`).
+- `--fallback-model <model>` — now also applies to interactive sessions; pairs with the `fallbackModel` setting (up to 3 models tried in order on overload).
 
 ---
 
@@ -1067,6 +1078,17 @@ Press `/` in a session to see all available commands.
 | `/usage-credits` | Show usage credits (renamed from `/extra-usage`; old name still works). `/usage` now shows a per-category breakdown (skills, subagents, plugins, MCP) |
 
 Note: `/effort` slider labels are now **"Faster" / "Smarter"** (was Speed/Intelligence).
+
+### New in v2.1.191
+
+| Command | Description |
+|---------|-------------|
+| `/rewind` | Resume a conversation from a point **before `/clear`** was run. |
+| `/cd <dir>` | Move the session to a new working directory without breaking the prompt cache. |
+| `/config key=value` | Set any setting from the prompt (e.g. `/config thinking=false`); `/config --help` lists shorthand keys. Works in interactive, `-p`, and Remote Control. |
+| `/plugin list` | List installed plugins (`--enabled` / `--disabled` filters). |
+
+Note: `!<cmd>` now makes Claude **respond to the command's output automatically**; set `respondToBashCommands: false` in `settings.json` to keep the old context-only behavior.
 
 ---
 
@@ -1261,6 +1283,13 @@ Skill(commit)                    # Specific skill
 
 > ⚠️ `--dangerously-skip-permissions` now also bypasses prompts for protected paths (`.claude/`, `.git/`, `.vscode/`, shell config files). Treat it as truly unrestricted.
 
+### New in v2.1.191
+
+- **Parameter-matching rules** — `Tool(param:value)` matches a tool's input parameters (with `*` wildcard), e.g. `Agent(model:opus)` to block Opus subagents.
+- **Glob in deny tool-name position** — `"*"` in a deny rule denies all tools; unknown tool names in deny rules warn at startup.
+- **Cross-session messaging hardened** — messages relayed via `SendMessage` from other Claude sessions no longer carry user authority; receivers refuse relayed permission requests and Auto mode blocks them.
+- **Auto mode safety** — Auto mode now blocks destructive git (`git reset --hard`, `git checkout -- .`, `git clean -fd`, `git stash drop`), `git commit --amend` of commits it didn't make this session, and `terraform/pulumi/cdk destroy` unless you asked for that stack. It's also available on Bedrock/Vertex/Foundry (opt in with `CLAUDE_CODE_ENABLE_AUTO_MODE=1`).
+
 ---
 
 ## 6. Configuration
@@ -1358,6 +1387,19 @@ Skill(commit)                    # Specific skill
 ### `/config` and `/model` Persistence
 
 `/config` changes now persist to `~/.claude/settings.json` and participate in the project/local/policy override precedence. `/model` changes apply to the **current session only** (press `d` to set the default); the selection is remembered as the default for new sessions. The `/effort` slider is labelled **Faster / Smarter**.
+
+### New Settings in v2.1.191
+
+- `fallbackModel` — up to 3 fallback models tried in order when the primary is overloaded/unavailable.
+- `availableModels` + `enforceAvailableModels` (managed) — allowlist of selectable models; when enforced, even the Default falls back to the first allowed model and user/project settings can't widen it.
+- `requiredMinimumVersion` / `requiredMaximumVersion` (managed) — refuse to start outside an allowed Claude Code version range.
+- `respondToBashCommands` — whether `!` bash output is auto-answered (default true).
+- `language` — pin the language used for generated session titles.
+- `attribution.sessionUrl` — omit the claude.ai session link from commits/PRs.
+- `disableBundledSkills` — hide bundled skills/workflows/built-in slash commands.
+- `teammateMode: "iterm2"`, `footerLinksRegexes`, `wheelScrollAccelerationEnabled` — terminal/UX options.
+- `sandbox.credentials` — block sandboxed commands from reading credential files / secret env vars.
+- `sandbox.allowAppleEvents` — opt-in to let sandboxed commands send Apple Events (macOS).
 
 ---
 
@@ -1762,6 +1804,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 - `PostToolUse` / `PostToolUseFailure` inputs now include `duration_ms` (tool execution time).
 - `PostToolUse` can replace tool output via `hookSpecificOutput.updatedToolOutput`.
 - Hooks support an exec form: `args: string[]` (run without a shell). Hooks also receive the effort level (`$CLAUDE_EFFORT` / JSON).
+- `Stop` and `SubagentStop` hooks can return `hookSpecificOutput.additionalContext` to give Claude feedback and keep the turn going (not flagged as a hook error).
+- Self-hosted runner: a `post-session` lifecycle hook runs after the session ends and before the workspace is deleted (snapshot uncommitted work, export logs).
+- Matchers can be **comma-separated**, e.g. `"Bash,PowerShell"`.
+- Hook `if` conditions can match tool paths — `Edit(src/**)`, `Read(~/.ssh/**)`, `Read(.env)` now match correctly.
 
 Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 
@@ -1968,6 +2014,14 @@ my-skill/
 
 Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
+### New in v2.1.191
+
+- Skills/plugins placed in `.claude/skills` are **auto-loaded** (no marketplace). Scaffold one with `claude plugin init <name>`.
+- Nested `.claude/skills` load when you work on files there; on a name clash the nested skill appears as `<dir>:<name>` so both stay available.
+- Frontmatter keys accept kebab-case, snake_case, OR camelCase (`display-name`, `default-enabled`, `fallback`, `metadata.*`).
+- Use `\$` to include a literal `$` before a digit in a command body.
+- Hide bundled skills with `disableBundledSkills` / `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS`.
+
 ---
 
 ## 12. Subagents (Specialized Helpers)
@@ -2069,6 +2123,10 @@ Claude delegates to the subagent automatically when a task matches its descripti
 /agents
 ```
 
+### New in v2.1.191
+
+Subagents can now spawn their **own** subagents, up to **5 levels deep** (foreground and background share the same depth cap; resumed/forked subagents count toward it).
+
 ---
 
 ## 13. Agent Teams
@@ -2150,6 +2208,11 @@ Create an agent team to review this PR with 3 members:
 ### Dynamic Workflows
 
 **Dynamic Workflows** orchestrate tens to hundreds of agents deterministically from a script (fan-out, pipelines, parallel stages, loop-until-done). Use them for comprehensive sweeps, adversarial verification, and large migrations that one context can't hold. The Workflow tool runs the script in the background and reports when done.
+
+### New in v2.1.191
+
+- **Trigger keyword renamed `workflow` → `ultracode`** (the dynamic-workflow keyword, highlighted in violet in the prompt). The bare word "workflow" no longer triggers a run; asking in your own words ("run a workflow") still works. A "Workflow keyword trigger" toggle exists in `/config`, and `/effort ultracode` (xhigh) is offered on models that support it.
+- **Agent teams setup simplified** — the `TeamCreate` / `TeamDelete` tools were removed. With `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`, every session already has one implicit team — spawn teammates directly with the Agent tool's `name` parameter, no setup step.
 
 ---
 
@@ -2555,12 +2618,14 @@ claude --plugin-dir ./my-plugin
 /reload-plugins       # Reload plugins without restarting
 ```
 
-### New in v2.1.156
+### New in v2.1.191
 
 - `--plugin-url <url>` installs a plugin from a URL; `--plugin-dir` accepts `.zip` archives.
 - `claude plugin prune` removes orphaned deps; `uninstall --prune` cascades.
 - Plugin manifests can declare `defaultEnabled: false`.
 - `/plugin` Discover tab suggests plugins matching the current directory.
+- `claude plugin init <name>` scaffolds a plugin under `.claude/skills`; plugins there auto-load (no marketplace).
+- `/plugin list` lists installed plugins (`--enabled` / `--disabled`).
 
 ---
 
@@ -2614,6 +2679,11 @@ Shows an interactive picker to choose a session.
 ### Background Sessions & Agent View
 
 **Background sessions** let work continue detached from the foreground: start with `claude --bg` or push the current task to the background with `/bg` (or `Ctrl+B`). Pinned background sessions stay alive, restart in place, and shed gracefully under memory pressure; resume them with `/resume` (look for the `bg` marker). **Agent view** (`claude agents`) is a session manager for many concurrent sessions — `claude agents --json` for scripting.
+
+### New in v2.1.191
+
+- `claude agents --json` now supports `--all` (include completed sessions) and adds `id`, `state`, and `waitingFor` fields (what a blocked session is waiting on, e.g. a permission prompt).
+- `--agent <name>` selects the agent a dispatched session runs as.
 
 ### Session File Locations
 
@@ -2864,6 +2934,12 @@ your-project/
 | `CLAUDE_CODE_USE_POWERSHELL_TOOL` | Use PowerShell instead of Bash |
 | `CLAUDE_SESSION_ID` | Specify a session ID |
 | `CLAUDE_CODE_TASK_LIST_ID` | Name a task list |
+| `CLAUDE_CODE_SAFE_MODE` | Start with all customizations disabled (= `--safe-mode`). |
+| `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS` | Hide bundled skills/workflows/built-in commands. |
+| `CLAUDE_CLIENT_PRESENCE_FILE` | Marker file to suppress mobile push while you're at the machine. |
+| `CLAUDE_CODE_ENABLE_AUTO_MODE` | Opt into Auto mode on Bedrock/Vertex/Foundry. |
+| `CLAUDE_CODE_RETRY_WATCHDOG` | Retry watchdog for unattended sessions (`CLAUDE_CODE_MAX_RETRIES` caps at 15). |
+| `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | Abort remote MCP tool calls that hang. |
 
 ### Configure in settings.json
 
@@ -3008,6 +3084,7 @@ claude --version  # check the version
 
 | Task | Recommended Model | Why |
 |------|-------------------|-----|
+| Hardest reasoning, huge context | Fable 5 | Most capable model, 1M context by default |
 | Architecture, complex bugs | Opus 4.8 | Deep thought, strong analysis |
 | General coding, ordinary bugs | Sonnet 4.6 | Fast and economical |
 | Boilerplate, data generation | Haiku 4.5 | Very fast and very cheap |
@@ -4176,7 +4253,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.156`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.191`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
@@ -6444,5 +6521,5 @@ Claude Code is a feature-complete AI tool for developers:
 
 ---
 
-> **Document version:** Last updated April 15, 2026
-> **Applies to:** Latest Claude Code version (Claude Opus 4.8 / Sonnet 4.6 / Haiku 4.5)
+> **Document version:** Last updated June 25, 2026
+> **Applies to:** Latest Claude Code version (Claude Fable 5 / Opus 4.8 / Sonnet 4.6 / Haiku 4.5)

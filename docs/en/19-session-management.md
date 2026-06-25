@@ -70,6 +70,11 @@ Shows an interactive picker to choose a session.
 
 **Background sessions** let work continue detached from the foreground: start with `claude --bg` or push the current task to the background with `/bg` (or `Ctrl+B`). Pinned background sessions stay alive, restart in place, and shed gracefully under memory pressure; resume them with `/resume` (look for the `bg` marker). **Agent view** (`claude agents`) is a session manager for many concurrent sessions — `claude agents --json` for scripting.
 
+### New in v2.1.191
+
+- `claude agents --json` now supports `--all` (include completed sessions) and adds `id`, `state`, and `waitingFor` fields (what a blocked session is waiting on, e.g. a permission prompt).
+- `--agent <name>` selects the agent a dispatched session runs as.
+
 ---
 
 ---

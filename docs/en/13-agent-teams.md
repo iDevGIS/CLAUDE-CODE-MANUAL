@@ -86,6 +86,11 @@ Create an agent team to review this PR with 3 members:
 
 **Dynamic Workflows** orchestrate tens to hundreds of agents deterministically from a script (fan-out, pipelines, parallel stages, loop-until-done). Use them for comprehensive sweeps, adversarial verification, and large migrations that one context can't hold. The Workflow tool runs the script in the background and reports when done.
 
+### New in v2.1.191
+
+- **Trigger keyword renamed `workflow` → `ultracode`** (the dynamic-workflow keyword, highlighted in violet in the prompt). The bare word "workflow" no longer triggers a run; asking in your own words ("run a workflow") still works. A "Workflow keyword trigger" toggle exists in `/config`, and `/effort ultracode` (xhigh) is offered on models that support it.
+- **Agent teams setup simplified** — the `TeamCreate` / `TeamDelete` tools were removed. With `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`, every session already has one implicit team — spawn teammates directly with the Agent tool's `name` parameter, no setup step.
+
 ### Limitations
 
 - Cannot resume sessions with in-process teammates

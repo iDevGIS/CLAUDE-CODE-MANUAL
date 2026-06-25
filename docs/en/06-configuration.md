@@ -49,6 +49,16 @@ related:
 | `.claude/settings.json` | Project settings (committed with the team) |
 | `.claude/settings.local.json` | Personal project settings (gitignored) |
 
+### Model Lineup
+
+Set the `model` key to any of these (newest → cheapest):
+
+- **Fable 5** (`claude-fable-5`) — Anthropic's newest **Mythos-class** model and the most capable model generally available; introduced in Claude Code **2.1.170**. Ships with a **1M-token context window by default**. Best for the hardest reasoning, large-context, and agentic work.
+- **Opus 4.8** (`claude-opus-4-8`) — flagship **Opus**; top-tier coding and complex-bug analysis; defaults to **high effort** on demanding tasks.
+- **Sonnet 4.6** (`claude-sonnet-4-6`) — balanced, fast; recommended default for general coding.
+- **Haiku 4.5** (`claude-haiku-4-5`) — fastest, cheapest; for easy/boilerplate tasks.
+- Fast mode still uses **Opus 4.7** (and now works on Opus 4.8 too).
+
 ### Example settings.json
 
 ```json
@@ -105,6 +115,16 @@ related:
 | `enabledPlugins` | Enabled plugins |
 | `codeIntelligence` | Toggle Code Intelligence |
 | `claudeMdExcludes` | Skip specific CLAUDE.md files |
+| `fallbackModel` | Up to 3 fallback models tried in order when the primary is overloaded/unavailable |
+| `availableModels` + `enforceAvailableModels` (managed) | Allowlist of selectable models; when enforced, even the Default falls back to the first allowed model and user/project settings can't widen it |
+| `requiredMinimumVersion` / `requiredMaximumVersion` (managed) | Refuse to start outside an allowed Claude Code version range |
+| `respondToBashCommands` | Whether `!` bash output is auto-answered (default true) |
+| `language` | Pin the language used for generated session titles |
+| `attribution.sessionUrl` | Omit the claude.ai session link from commits/PRs |
+| `disableBundledSkills` | Hide bundled skills/workflows/built-in slash commands |
+| `teammateMode: "iterm2"`, `footerLinksRegexes`, `wheelScrollAccelerationEnabled` | Terminal/UX options |
+| `sandbox.credentials` | Block sandboxed commands from reading credential files / secret env vars |
+| `sandbox.allowAppleEvents` | Opt-in to let sandboxed commands send Apple Events (macOS) |
 
 ### `/config` and `/model` Persistence
 

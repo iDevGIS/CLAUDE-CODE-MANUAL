@@ -3,7 +3,7 @@
 > คู่มือใช้งาน **Claude Code** ฉบับภาษาไทยแบบละเอียด — ครอบคลุมตั้งแต่ติดตั้ง ไล่ไปถึง Hooks, Skills, MCP, Subagents, Agent Teams และการประยุกต์ใช้งานจริง
 
 [![Made with Claude Code](https://img.shields.io/badge/Made%20with-Claude%20Code-7B61FF)](https://docs.claude.com/claude-code)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-v2.1.156-7B61FF)](https://docs.claude.com/claude-code)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-v2.1.191-7B61FF)](https://docs.claude.com/claude-code)
 [![Language: Thai](https://img.shields.io/badge/Language-ไทย-blue)](./README.md)
 [![Language: English](https://img.shields.io/badge/Language-English-red)](./README.EN.md)
 [![Obsidian: Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?logo=obsidian&logoColor=white)](./docs/th/README.md)
@@ -44,7 +44,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 8 atomic notes พิเศษ** (Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.156`
+> **Claude Code Version:** `2.1.191`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

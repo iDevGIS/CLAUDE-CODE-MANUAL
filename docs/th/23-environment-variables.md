@@ -45,6 +45,12 @@ related:
 | `CLAUDE_CODE_USE_POWERSHELL_TOOL` | ใช้ PowerShell แทน Bash |
 | `CLAUDE_SESSION_ID` | ระบุ Session ID |
 | `CLAUDE_CODE_TASK_LIST_ID` | ตั้งชื่อ Task List |
+| `CLAUDE_CODE_SAFE_MODE` | เปิดแบบปิด customization ทั้งหมด (= `--safe-mode`) |
+| `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS` | ซ่อน bundled skills/workflows/คำสั่ง built-in |
+| `CLAUDE_CLIENT_PRESENCE_FILE` | ไฟล์ marker เพื่อปิด push มือถือตอนนั่งอยู่หน้าเครื่อง |
+| `CLAUDE_CODE_ENABLE_AUTO_MODE` | เปิด Auto mode บน Bedrock/Vertex/Foundry |
+| `CLAUDE_CODE_RETRY_WATCHDOG` | watchdog retry สำหรับ session ไม่มีคนเฝ้า (`CLAUDE_CODE_MAX_RETRIES` สูงสุด 15) |
+| `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | ยกเลิก MCP tool call ที่ค้างไม่ตอบ |
 
 ### ตั้งค่าใน settings.json
 

@@ -85,6 +85,11 @@ claude plugin prune              # Remove orphaned auto-installed plugin depende
 claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned deps
 ```
 
+### New in v2.1.191
+
+- `claude plugin init <name>` scaffolds a plugin under `.claude/skills`; plugins there auto-load (no marketplace).
+- `/plugin list` lists installed plugins (`--enabled` / `--disabled`).
+
 > **Manifest note:** a plugin manifest can declare `"defaultEnabled": false` to ship disabled by default.
 
 ---

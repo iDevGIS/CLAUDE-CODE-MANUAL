@@ -110,6 +110,11 @@ claude ultrareview --json
 claude --bg --exec "npm run build && npm test"
 ```
 
+### New in v2.1.191
+
+- `--safe-mode` (env `CLAUDE_CODE_SAFE_MODE=1`) — start with ALL customizations disabled (CLAUDE.md, plugins, skills, hooks, MCP) for clean, reproducible automation runs.
+- `claude mcp login --no-browser` — authenticate an MCP server in CI/SSH by pasting the OAuth URL instead of opening a browser.
+
 ### Pipe Data Into Claude
 
 ```bash

@@ -45,6 +45,12 @@ related:
 | `CLAUDE_CODE_USE_POWERSHELL_TOOL` | Use PowerShell instead of Bash |
 | `CLAUDE_SESSION_ID` | Specify a session ID |
 | `CLAUDE_CODE_TASK_LIST_ID` | Name a task list |
+| `CLAUDE_CODE_SAFE_MODE` | Start with all customizations disabled (= `--safe-mode`) |
+| `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS` | Hide bundled skills/workflows/built-in commands |
+| `CLAUDE_CLIENT_PRESENCE_FILE` | Marker file to suppress mobile push while you're at the machine |
+| `CLAUDE_CODE_ENABLE_AUTO_MODE` | Opt into Auto mode on Bedrock/Vertex/Foundry |
+| `CLAUDE_CODE_RETRY_WATCHDOG` | Retry watchdog for unattended sessions (`CLAUDE_CODE_MAX_RETRIES` caps at 15) |
+| `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | Abort remote MCP tool calls that hang |
 
 ### Configure in settings.json
 

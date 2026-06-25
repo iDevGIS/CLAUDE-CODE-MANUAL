@@ -152,6 +152,14 @@ my-skill/
 
 อ้างอิงใน SKILL.md: `ดูตัวอย่างที่ [examples.md](examples.md)`
 
+### 🆕 ใหม่ใน v2.1.191
+
+- skill/plugin ที่วางใน `.claude/skills` จะถูก **โหลดอัตโนมัติ** (ไม่ต้องผ่าน marketplace) สร้างโครงด้วย `claude plugin init <name>`
+- `.claude/skills` แบบ nested จะโหลดเมื่อทำงานกับไฟล์ในนั้น; ถ้าชื่อชนกัน skill ที่ซ้อนอยู่จะแสดงเป็น `<dir>:<name>` เพื่อให้ใช้ได้ทั้งคู่
+- คีย์ frontmatter รับทั้ง kebab-case, snake_case, camelCase (`display-name`, `default-enabled`, `fallback`, `metadata.*`)
+- ใช้ `\$` เพื่อใส่ `$` ตรง ๆ หน้าตัวเลขใน command body
+- ซ่อน bundled skills ด้วย `disableBundledSkills` / `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS`
+
 ---
 
 ---

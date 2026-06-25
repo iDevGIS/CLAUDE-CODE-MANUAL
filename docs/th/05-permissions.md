@@ -116,6 +116,13 @@ Skill(commit)                    # Skill เฉพาะ
 
 ⚠️ `--dangerously-skip-permissions` ตอนนี้ข้าม prompt ของ protected paths (`.claude/`, `.git/`, `.vscode/`, ไฟล์ตั้งค่า shell) ด้วย — ถือว่า 'ไม่จำกัดจริงๆ'
 
+### 🆕 ใหม่ใน v2.1.191
+
+- **กฎจับ parameter** — `Tool(param:value)` จับค่า parameter ของ tool ได้ (ใช้ `*` wildcard) เช่น `Agent(model:opus)` เพื่อบล็อก subagent ที่ใช้ Opus
+- **Glob ในตำแหน่งชื่อ tool ของ deny** — `"*"` ใน deny rule = บล็อกทุก tool; ชื่อ tool ที่ไม่รู้จักใน deny rule จะเตือนตอน startup
+- **เสริมความปลอดภัย cross-session messaging** — ข้อความที่ relay มาผ่าน `SendMessage` จาก session อื่นไม่มี user authority แล้ว; ผู้รับจะปฏิเสธ permission ที่ relay มา และ Auto mode บล็อกให้
+- **ความปลอดภัย Auto mode** — Auto mode บล็อกคำสั่ง git อันตราย (`git reset --hard`, `git checkout -- .`, `git clean -fd`, `git stash drop`), `git commit --amend` ของ commit ที่ไม่ได้ทำเองใน session นี้ และ `terraform/pulumi/cdk destroy` เว้นแต่สั่งเอง; ใช้บน Bedrock/Vertex/Foundry ได้ (opt-in `CLAUDE_CODE_ENABLE_AUTO_MODE=1`)
+
 ---
 
 ---

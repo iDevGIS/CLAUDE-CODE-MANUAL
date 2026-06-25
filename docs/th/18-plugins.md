@@ -87,6 +87,11 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 
 > **หมายเหตุ Manifest:** manifest ของ plugin ประกาศ `"defaultEnabled": false` ได้ เพื่อให้ติดตั้งมาแบบปิดไว้ก่อน
 
+### 🆕 ใหม่ใน v2.1.191
+
+- `claude plugin init <name>` สร้างโครง plugin ใต้ `.claude/skills`; plugin ในนั้นโหลดอัตโนมัติ (ไม่ต้องผ่าน marketplace)
+- `/plugin list` แสดง plugin ที่ติดตั้ง (`--enabled` / `--disabled`)
+
 ---
 
 ---

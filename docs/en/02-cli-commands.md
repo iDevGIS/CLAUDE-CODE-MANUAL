@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.156         │
+│ Welcome to Claude Code v2.1.191         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -171,7 +171,8 @@ git checkout main
 
 **Example:**
 ```bash
-claude --model opus              # Opus 4.8 (smartest, expensive)
+claude --model claude-fable-5    # Fable 5 — most capable, 1M context (newest)
+claude --model opus              # Opus 4.8 (top-tier coding, expensive)
 claude --model sonnet            # Sonnet 4.6 (balanced, recommended)
 claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
 claude --model claude-opus-4-8   # Full name (specify exact version)
@@ -492,7 +493,7 @@ claude --bg --name nightly --exec "npm run build"
 **Example:**
 ```bash
 $ claude --version
-2.1.156
+2.1.191
 ```
 
 ---
@@ -513,6 +514,14 @@ claude ultrareview [target]   # Non-interactive code review for CI/scripts; prin
 claude project purge [path]   # Delete all Claude Code state for a project. Flags: --dry-run, -y (yes), -i (interactive), --all
 claude plugin prune        # Remove orphaned auto-installed plugin dependencies (claude plugin uninstall --prune cascades)
 ```
+
+### New in v2.1.191
+
+- `claude mcp login <name>` / `claude mcp logout <name>` — authenticate or sign out of an MCP server from the CLI without opening `/mcp`. Add `--no-browser` to complete OAuth over SSH by pasting the URL.
+- `claude plugin init <name>` — scaffold a new plugin under `.claude/skills` (no marketplace needed).
+- `--safe-mode` (env `CLAUDE_CODE_SAFE_MODE=1`) — start Claude Code with ALL customizations disabled (CLAUDE.md, plugins, skills, hooks, MCP) for troubleshooting.
+- `--agent <name>` — choose which configured agent a dispatched/background session runs as (overrides the `agent` field in `settings.json`).
+- `--fallback-model <model>` — now also applies to interactive sessions; pairs with the `fallbackModel` setting (up to 3 models tried in order on overload).
 
 ---
 
@@ -885,7 +894,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.156
+- run: npm install -g @anthropic-ai/claude-code@2.1.191
 ```
 
 ---

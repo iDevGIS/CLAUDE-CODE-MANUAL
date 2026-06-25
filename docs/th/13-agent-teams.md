@@ -86,6 +86,11 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 
 **Dynamic Workflows** สั่ง orchestrate agent หลักสิบถึงหลักร้อยตัวแบบกำหนดได้จากสคริปต์ (fan-out, pipeline, parallel stage, loop-until-done) เหมาะกับงานกวาดให้ครบ, การ verify แบบ adversarial, และ migration ใหญ่ที่ context เดียวเก็บไม่ไหว. Workflow tool รันสคริปต์เบื้องหลังแล้วรายงานเมื่อเสร็จ
 
+### 🆕 ใหม่ใน v2.1.191
+
+- **เปลี่ยนชื่อ keyword `workflow` → `ultracode`** (keyword สั่ง dynamic workflow ขึ้นไฮไลต์สีม่วงใน prompt) คำว่า "workflow" เดี่ยว ๆ ไม่ trigger แล้ว แต่พิมพ์เป็นภาษาคนว่า "run a workflow" ยังได้ มีสวิตช์ "Workflow keyword trigger" ใน `/config` และมี `/effort ultracode` (xhigh) สำหรับรุ่นที่รองรับ
+- **ตั้ง agent team ง่ายขึ้น** — tool `TeamCreate` / `TeamDelete` ถูกถอดออก เมื่อเปิด `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` ทุก session มี team โดยปริยายอยู่แล้ว — spawn เพื่อนร่วมทีมผ่าน parameter `name` ของ Agent tool ได้เลย ไม่ต้องตั้งค่าก่อน
+
 ### ข้อจำกัด
 
 - ไม่สามารถ Resume Session กับ In-process Teammates
