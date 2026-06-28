@@ -104,6 +104,8 @@ related:
 
 หมายเหตุ: `!<cmd>` ตอนนี้ทำให้ Claude **ตอบ output ของคำสั่งให้อัตโนมัติ**; ตั้ง `respondToBashCommands: false` ใน `settings.json` เพื่อคงพฤติกรรมเดิม (เก็บเป็น context เฉย ๆ)
 
+- **Bash mode (`!`)** มี autocomplete ของ path ไฟล์แบบ live แล้ว *(v2.1.193)*
+
 ---
 
 ---

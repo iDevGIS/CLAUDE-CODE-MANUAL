@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.191         │
+│ Welcome to Claude Code v2.1.195         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.191
+- run: npm install -g @anthropic-ai/claude-code@2.1.195
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1089,6 +1089,7 @@ Note: `/effort` slider labels are now **"Faster" / "Smarter"** (was Speed/Intell
 | `/plugin list` | List installed plugins (`--enabled` / `--disabled` filters). |
 
 Note: `!<cmd>` now makes Claude **respond to the command's output automatically**; set `respondToBashCommands: false` in `settings.json` to keep the old context-only behavior.
+- **Bash mode (`!`)** now has live file-path autocomplete. *(v2.1.193)*
 
 ---
 
@@ -1289,6 +1290,10 @@ Skill(commit)                    # Specific skill
 - **Glob in deny tool-name position** — `"*"` in a deny rule denies all tools; unknown tool names in deny rules warn at startup.
 - **Cross-session messaging hardened** — messages relayed via `SendMessage` from other Claude sessions no longer carry user authority; receivers refuse relayed permission requests and Auto mode blocks them.
 - **Auto mode safety** — Auto mode now blocks destructive git (`git reset --hard`, `git checkout -- .`, `git clean -fd`, `git stash drop`), `git commit --amend` of commits it didn't make this session, and `terraform/pulumi/cdk destroy` unless you asked for that stack. It's also available on Bedrock/Vertex/Foundry (opt in with `CLAUDE_CODE_ENABLE_AUTO_MODE=1`).
+
+### New in v2.1.195
+- **`autoMode.classifyAllShell`** — route *all* Bash/PowerShell commands through the Auto-mode classifier, not just arbitrary-code-execution patterns.
+- **Auto-mode denial reasons** now appear in the transcript, the denial toast, and `/permissions` → recent denials.
 
 ---
 
@@ -1808,6 +1813,9 @@ Event handlers that run shell commands automatically when events happen in Claud
 - Self-hosted runner: a `post-session` lifecycle hook runs after the session ends and before the workspace is deleted (snapshot uncommitted work, export logs).
 - Matchers can be **comma-separated**, e.g. `"Bash,PowerShell"`.
 - Hook `if` conditions can match tool paths — `Edit(src/**)`, `Read(~/.ssh/**)`, `Read(.env)` now match correctly.
+
+### New in v2.1.195
+- **Hook matchers exact-match hyphenated identifiers** — names like `code-reviewer` or `mcp__brave-search` no longer substring-match. To match all tools from a hyphenated MCP server, use a pattern like `mcp__brave-search__.*`.
 
 Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 
@@ -2940,6 +2948,9 @@ your-project/
 | `CLAUDE_CODE_ENABLE_AUTO_MODE` | Opt into Auto mode on Bedrock/Vertex/Foundry. |
 | `CLAUDE_CODE_RETRY_WATCHDOG` | Retry watchdog for unattended sessions (`CLAUDE_CODE_MAX_RETRIES` caps at 15). |
 | `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | Abort remote MCP tool calls that hang. |
+| `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | Disable mouse click/drag/hover in fullscreen mode (wheel scroll still works). *(v2.1.195)* |
+| `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` | Disable auto-reaping of idle background shell commands under memory pressure. *(v2.1.193)* |
+| `OTEL_LOG_ASSISTANT_RESPONSES` | Log the model's response text via OpenTelemetry (`=1` on, `=0` off; when unset, follows `OTEL_LOG_USER_PROMPTS`). *(v2.1.193)* |
 
 ### Configure in settings.json
 
@@ -4253,7 +4264,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.191`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.195`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

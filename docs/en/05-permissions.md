@@ -95,6 +95,10 @@ Skill(commit)                    # Specific skill
 - **Cross-session messaging hardened** — messages relayed via `SendMessage` from other Claude sessions no longer carry user authority; receivers refuse relayed permission requests and Auto mode blocks them.
 - **Auto mode safety** — Auto mode now blocks destructive git (`git reset --hard`, `git checkout -- .`, `git clean -fd`, `git stash drop`), `git commit --amend` of commits it didn't make this session, and `terraform/pulumi/cdk destroy` unless you asked for that stack. It's also available on Bedrock/Vertex/Foundry (opt in with `CLAUDE_CODE_ENABLE_AUTO_MODE=1`).
 
+### New in v2.1.195
+- **`autoMode.classifyAllShell`** — route *all* Bash/PowerShell commands through the Auto-mode classifier, not just arbitrary-code-execution patterns.
+- **Auto-mode denial reasons** now appear in the transcript, the denial toast, and `/permissions` → recent denials.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

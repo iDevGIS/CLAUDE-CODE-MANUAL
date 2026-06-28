@@ -146,6 +146,9 @@ Event handlers that run shell commands automatically when events happen in Claud
 - Matchers can be **comma-separated**, e.g. `"Bash,PowerShell"`.
 - Hook `if` conditions can match tool paths — `Edit(src/**)`, `Read(~/.ssh/**)`, `Read(.env)` now match correctly.
 
+### New in v2.1.195
+- **Hook matchers exact-match hyphenated identifiers** — names like `code-reviewer` or `mcp__brave-search` no longer substring-match. To match all tools from a hyphenated MCP server, use a pattern like `mcp__brave-search__.*`.
+
 > Skills & slash commands can set `disallowed-tools` in their frontmatter.
 
 ---

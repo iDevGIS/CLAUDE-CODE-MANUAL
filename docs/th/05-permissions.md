@@ -123,6 +123,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **เสริมความปลอดภัย cross-session messaging** — ข้อความที่ relay มาผ่าน `SendMessage` จาก session อื่นไม่มี user authority แล้ว; ผู้รับจะปฏิเสธ permission ที่ relay มา และ Auto mode บล็อกให้
 - **ความปลอดภัย Auto mode** — Auto mode บล็อกคำสั่ง git อันตราย (`git reset --hard`, `git checkout -- .`, `git clean -fd`, `git stash drop`), `git commit --amend` ของ commit ที่ไม่ได้ทำเองใน session นี้ และ `terraform/pulumi/cdk destroy` เว้นแต่สั่งเอง; ใช้บน Bedrock/Vertex/Foundry ได้ (opt-in `CLAUDE_CODE_ENABLE_AUTO_MODE=1`)
 
+### 🆕 ใหม่ใน v2.1.195
+
+- **`autoMode.classifyAllShell`** — ส่งคำสั่ง Bash/PowerShell *ทุกคำสั่ง* ผ่าน Auto-mode classifier (ไม่ใช่แค่ pattern ที่รันโค้ดอิสระ)
+- **เหตุผลที่ Auto mode ปฏิเสธ** แสดงใน transcript, toast ตอน deny, และ `/permissions` → รายการ deny ล่าสุด แล้ว
+
 ---
 
 ---

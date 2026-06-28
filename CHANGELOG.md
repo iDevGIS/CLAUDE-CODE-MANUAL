@@ -25,6 +25,25 @@
 
 ---
 
+## [1.10.0] — 2026-06-26
+
+### Compatibility
+- **Claude Code:** `v2.1.195+`
+
+### Added
+- **Env vars** — `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` (disable mouse click/drag/hover in fullscreen, keep wheel scroll), `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` (disable idle background-shell memory-pressure reaping), `OTEL_LOG_ASSISTANT_RESPONSES` (log model response text via OpenTelemetry)
+- **Setting** — `autoMode.classifyAllShell` (route all Bash/PowerShell through the Auto-mode classifier); Auto-mode denial reasons now surfaced in the transcript, denial toast, and `/permissions`
+- **Hooks** — matchers now exact-match hyphenated identifiers (`code-reviewer`, `mcp__brave-search`); use `mcp__brave-search__.*` to match all tools of a hyphenated MCP server
+- **Bash mode (`!`)** — live file-path autocomplete
+
+### Changed
+- **Version strings** bumped `2.1.191` → `2.1.195` (current-version references in guides, atomic notes, and READMEs; the `New in v2.1.191` feature sections are kept as historical markers)
+
+### Why
+- Sync the manual with the Claude Code `v2.1.195` release — the `2.1.192`–`2.1.195` delta was mostly bug fixes, so this captures the handful of new settings, env vars, and hook behavior
+
+---
+
 ## [1.9.0] — 2026-06-25
 
 ### Compatibility
@@ -343,7 +362,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.9.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.10.0...HEAD
+[1.10.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.9.0...v1.10.0
 [1.9.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.6.0...v1.7.0

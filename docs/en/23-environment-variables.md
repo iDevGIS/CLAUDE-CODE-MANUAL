@@ -51,6 +51,9 @@ related:
 | `CLAUDE_CODE_ENABLE_AUTO_MODE` | Opt into Auto mode on Bedrock/Vertex/Foundry |
 | `CLAUDE_CODE_RETRY_WATCHDOG` | Retry watchdog for unattended sessions (`CLAUDE_CODE_MAX_RETRIES` caps at 15) |
 | `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | Abort remote MCP tool calls that hang |
+| `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | Disable mouse click/drag/hover in fullscreen mode (wheel scroll still works). *(v2.1.195)* |
+| `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` | Disable auto-reaping of idle background shell commands under memory pressure. *(v2.1.193)* |
+| `OTEL_LOG_ASSISTANT_RESPONSES` | Log the model's response text via OpenTelemetry (`=1` on, `=0` off; when unset, follows `OTEL_LOG_USER_PROMPTS`). *(v2.1.193)* |
 
 ### Configure in settings.json
 

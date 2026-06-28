@@ -103,6 +103,7 @@ Press `/` in a session to see all available commands.
 | `/plugin list` | List installed plugins (`--enabled` / `--disabled` filters). |
 
 Note: `!<cmd>` now makes Claude **respond to the command's output automatically**; set `respondToBashCommands: false` in `settings.json` to keep the old context-only behavior.
+- **Bash mode (`!`)** now has live file-path autocomplete. *(v2.1.193)*
 
 ---
 
