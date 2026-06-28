@@ -12,7 +12,14 @@ aliases:
 
 > Claude Code manual in atomic-note form — one note per topic with wikilinks for Obsidian Graph View.
 >
-> 34 notes across 7 categories — pick whatever you need.
+> 38 notes across 8 categories — pick whatever you need.
+
+## 🔰 Absolute Beginners
+
+- [[35-glossary|35. Glossary — Plain-Language Terms]]
+- [[36-zero-to-first-win|36. Zero to First Win]]
+- [[37-beginner-faq|37. Beginner FAQ — Stuck? Start Here]]
+- [[38-cheat-sheet|38. Pocket Cheat Sheet]]
 
 ## 🎓 Tutorial (Zero to Hero)
 

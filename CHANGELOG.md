@@ -25,6 +25,27 @@
 
 ---
 
+## [1.11.0] — 2026-06-26
+
+### Compatibility
+- **Claude Code:** `v2.1.195+`
+
+### Added
+- **🔰 Absolute-Beginners pack** — 4 new atomic notes per language (TH + EN) aimed at complete non-technical newcomers:
+  - `35-glossary` — plain-language glossary (45 terms) with everyday/household analogies
+  - `36-zero-to-first-win` — hand-held "zero to first win" walkthrough (install → first success) with on-screen mockups and "common confusion" callouts
+  - `37-beginner-faq` — beginner FAQ (14 common stumbles) with reassuring, plain answers
+  - `38-cheat-sheet` — one-page pocket cheat sheet (launch commands, slash commands, shortcuts, example prompts, emergency moves)
+- New **🔰 Absolute Beginners** category in both atomic-note MOC indexes (`docs/{th,en}/README.md`), plus a beginner on-ramp callout and a TOC group in both root READMEs
+
+### Changed
+- Atomic-note count bumped 34 → **38 notes per language** (now 8 categories)
+
+### Why
+- The manual was strong for developers but assumed terminal/Git familiarity; this pack lets a true beginner ("ระดับแม่บ้าน") follow along and reach a first win without prior command-line experience
+
+---
+
 ## [1.10.0] — 2026-06-26
 
 ### Compatibility
@@ -362,7 +383,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.10.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.11.0...HEAD
+[1.11.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.9.0...v1.10.0
 [1.9.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.7.0...v1.8.0

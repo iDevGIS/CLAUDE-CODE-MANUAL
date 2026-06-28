@@ -26,6 +26,13 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 ---
 
+## 🔰 New to Claude Code?
+
+Never used a command line? You can still follow along 👇
+**[🙌 Zero to First Win](./docs/en/36-zero-to-first-win.md)** · **[📖 Plain-Language Glossary](./docs/en/35-glossary.md)** · **[❓ Beginner FAQ](./docs/en/37-beginner-faq.md)** · **[🪪 Pocket Cheat Sheet](./docs/en/38-cheat-sheet.md)**
+
+---
+
 ## 🆕 What's new — synced to Claude Code `v2.1.195`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
@@ -55,7 +62,7 @@ Every topic in English and Thai — switch languages on any page
 </td>
 <td width="33%" align="center" valign="top">
 
-### 📚 34 chapters
+### 📚 38 chapters
 5,000+ lines, from install to Hooks · MCP · Agent Teams
 
 </td>
@@ -97,7 +104,7 @@ You can read the manual in two formats — pick whichever fits your style:
 | Mode | Format | Best for | Start here |
 |------|--------|----------|-----------|
 | 📄 **Single-page** | One long file per language (3,300+ lines) | Sequential reading, search (Ctrl+F), single-link sharing | [`Claude-Code-Guide-EN.md`](./Claude-Code-Guide-EN.md) · [`Claude-Code-Guide-TH.md`](./Claude-Code-Guide-TH.md) |
-| 🧠 **Atomic / Obsidian-friendly** | 34 small notes per language with frontmatter + wikilinks | Open in Obsidian for Graph View, focused topic reading | [`docs/en/README.md`](./docs/en/README.md) · [`docs/th/README.md`](./docs/th/README.md) |
+| 🧠 **Atomic / Obsidian-friendly** | 38 small notes per language with frontmatter + wikilinks | Open in Obsidian for Graph View, focused topic reading | [`docs/en/README.md`](./docs/en/README.md) · [`docs/th/README.md`](./docs/th/README.md) |
 
 > The `docs/` folder splits each topic into small notes with YAML frontmatter, tags, aliases, related, and wikilinks between topics — open the whole folder as an Obsidian vault to use Graph/Backlink features right away.
 
@@ -120,7 +127,7 @@ Included: **core plugins** that are needed (Graph, Backlinks, Outline, Tag pane,
 
 This repo is a **Thai and English manual** for [Claude Code](https://docs.claude.com/claude-code) — Anthropic's official CLI that helps developers write code, fix bugs, refactor, and manage projects with AI.
 
-The total content spans **5,000+ lines** organized into **26 main topics + 8 bonus atomic notes** (3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
+The total content spans **5,000+ lines** organized into **26 main topics + 12 bonus atomic notes** (Absolute-Beginners pack, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
 > **Claude Code Version:** `2.1.195`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
@@ -205,9 +212,18 @@ claude                  # see hooks + statusline + output style in action
 ## 📚 Table of Contents
 
 <details>
-<summary><b>📖 Browse all 34 chapters</b> — Basics · Config · Advanced · Real-world · Tutorial · Cookbook</summary>
+<summary><b>📖 Browse all 38 chapters</b> — Beginners · Basics · Config · Advanced · Real-world · Tutorial · Cookbook</summary>
 
 <br/>
+
+### 🔰 Absolute Beginners
+
+| # | Topic (EN) | หัวข้อ (TH) |
+|---|--------|--------|
+| 35 | [Glossary — Plain-Language Terms](./docs/en/35-glossary.md) | [อภิธานศัพท์ฉบับบ้าน ๆ](./docs/th/35-glossary.md) |
+| 36 | [Zero to First Win](./docs/en/36-zero-to-first-win.md) | [เริ่มจากศูนย์ จับมือทำ](./docs/th/36-zero-to-first-win.md) |
+| 37 | [Beginner FAQ — Stuck? Start Here](./docs/en/37-beginner-faq.md) | [FAQ มือใหม่](./docs/th/37-beginner-faq.md) |
+| 38 | [Pocket Cheat Sheet](./docs/en/38-cheat-sheet.md) | [การ์ดสรุปฉบับพกพา](./docs/th/38-cheat-sheet.md) |
 
 ### Basics
 | # | Topic (EN) | หัวข้อ (TH) |
