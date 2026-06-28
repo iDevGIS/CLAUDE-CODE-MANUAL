@@ -1,14 +1,92 @@
-# CLAUDE-CODE-MANUAL
+<div align="center">
 
-> A comprehensive **Claude Code** manual — covering everything from installation to Hooks, Skills, MCP, Subagents, Agent Teams, and real-world workflows.
+# 📘 CLAUDE-CODE-MANUAL
 
-[![Made with Claude Code](https://img.shields.io/badge/Made%20with-Claude%20Code-7B61FF)](https://docs.claude.com/claude-code)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-v2.1.195-7B61FF)](https://docs.claude.com/claude-code)
-[![Language: Thai](https://img.shields.io/badge/Language-ไทย-blue)](./README.md)
-[![Language: English](https://img.shields.io/badge/Language-English-red)](./README.EN.md)
-[![Obsidian: Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?logo=obsidian&logoColor=white)](./docs/en/README.md)
+### The most detailed **Claude Code** manual — from install to Agent Teams
 
-> 🇹🇭 อ่านภาษาไทย → [`README.md`](./README.md)
+From your first `claude` → to orchestrating your own **Agent Teams**<br/>
+Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real workflows
+
+<br/>
+
+[![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
+
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.195-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.10.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
+[![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
+[![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
+[![Stars](https://img.shields.io/github/stars/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/stargazers)
+
+<br/>
+
+**📖 [Read the full guide](./Claude-Code-Guide-EN.md)** &nbsp;·&nbsp; **🧠 [Open in Obsidian](./docs/en/README.md)** &nbsp;·&nbsp; **🎯 [Example projects](./ProjectEx/README.md)** &nbsp;·&nbsp; **🇹🇭 [ภาษาไทย](./README.md)**
+
+</div>
+
+---
+
+## 🆕 What's new — synced to Claude Code `v2.1.195`
+
+> This manual tracks the latest Claude Code release — it already covers these 👇
+
+| 🔥 New | Details |
+|---|---|
+| 🧠 **Fable 5 model** | `claude-fable-5` — Mythos-class, **1M** context by default, most capable in the lineup (above Opus 4.8 / Sonnet 4.6 / Haiku 4.5) |
+| ⚡ **Dynamic Workflows** | orchestrate tens–hundreds of agents from a script via the **`ultracode`** keyword |
+| ⌨️ **New commands** | `/rewind` · `/cd` · `claude mcp login` · `claude plugin init` |
+| 🚩 **New flags** | `--safe-mode` · `--agent` · `--bg` (background sessions) |
+| 🛡️ **Auto mode** | runs on Bedrock/Vertex/Foundry + auto-blocks `git reset --hard` / `terraform destroy` |
+| ⚙️ **Settings & Hooks** | `autoMode.classifyAllShell` · hooks return `additionalContext` · skills auto-load from `.claude/skills` |
+
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.195` (manual `v1.10.0`)
+
+---
+
+## ✨ Why this manual
+
+<table>
+<tr>
+<td width="33%" align="center" valign="top">
+
+### 🌐 Bilingual
+Every topic in English and Thai — switch languages on any page
+
+</td>
+<td width="33%" align="center" valign="top">
+
+### 📚 34 chapters
+5,000+ lines, from install to Hooks · MCP · Agent Teams
+
+</td>
+<td width="33%" align="center" valign="top">
+
+### 🔄 Always current
+Tracks Claude Code **v2.1.195** + the Fable 5 / Opus 4.8 lineup
+
+</td>
+</tr>
+<tr>
+<td align="center" valign="top">
+
+### 🧠 Obsidian-ready
+34 atomic notes + graph view — clone and open as a vault instantly
+
+</td>
+<td align="center" valign="top">
+
+### 🎯 Real projects
+ProjectEx + ProjectEx2 — runnable code + full feature config
+
+</td>
+<td align="center" valign="top">
+
+### 🛠️ Hands-on
+CLI examples, config snippets, and real end-to-end workflows
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -126,6 +204,11 @@ claude                  # see hooks + statusline + output style in action
 
 ## 📚 Table of Contents
 
+<details>
+<summary><b>📖 Browse all 34 chapters</b> — Basics · Config · Advanced · Real-world · Tutorial · Cookbook</summary>
+
+<br/>
+
 ### Basics
 | # | Topic (EN) | หัวข้อ (TH) |
 |---|--------|--------|
@@ -200,6 +283,8 @@ claude                  # see hooks + statusline + output style in action
 > 💡 Topics 27-34 are exclusive to the Atomic Notes (Obsidian-friendly) format — open via [`docs/en/README.md`](./docs/en/README.md) or [`docs/th/README.md`](./docs/th/README.md) for the full graph view.
 
 ---
+
+</details>
 
 ## 💡 Who is this for?
 
