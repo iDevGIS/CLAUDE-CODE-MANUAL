@@ -129,6 +129,10 @@ claude --mcp-config ./mcp.json
 
 ใช้งาน: Claude สามารถเปิดเว็บ, ถ่ายสกรีนช็อต, คลิกปุ่ม ฯลฯ ได้
 
+### 🆕 ใหม่ใน v2.1.198
+
+- **เข้มความปลอดภัย** — `claude mcp list`/`get` ไม่ spawn server จาก `.mcp.json` ที่ repo อนุมัติตัวเองผ่าน `.claude/settings.json` ที่ commit มา; workspace ที่ยังไม่ trust จะเห็นเป็น `⏸ Pending approval`
+
 ---
 
 ---

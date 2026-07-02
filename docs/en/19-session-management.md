@@ -75,6 +75,11 @@ Shows an interactive picker to choose a session.
 - `claude agents --json` now supports `--all` (include completed sessions) and adds `id`, `state`, and `waitingFor` fields (what a blocked session is waiting on, e.g. a permission prompt).
 - `--agent <name>` selects the agent a dispatched session runs as.
 
+### New in v2.1.198
+
+- **Background agents finish the job** — code work done in a worktree now ends with an automatic commit, push, and **draft PR** instead of stopping to ask.
+- Background sessions that need input or finish now fire the `Notification` hook (`agent_needs_input` / `agent_completed`).
+
 ---
 
 ---

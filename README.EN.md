@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.195-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.10.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.198-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.12.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,20 +33,21 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.195`
+## 🆕 What's new — synced to Claude Code `v2.1.198`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
 | 🔥 New | Details |
 |---|---|
-| 🧠 **Fable 5 model** | `claude-fable-5` — Mythos-class, **1M** context by default, most capable in the lineup (above Opus 4.8 / Sonnet 4.6 / Haiku 4.5) |
+| ✨ **Sonnet 5 model** | `claude-sonnet-5` — the **new default in Claude Code**, native 1M context, promo pricing $2/$10 per Mtok through Aug 31, 2026 |
+| 🧠 **Fable 5 model** | `claude-fable-5` — Mythos-class, **1M** context by default, most capable in the lineup (above Opus 4.8 / Sonnet 5 / Haiku 4.5) |
 | ⚡ **Dynamic Workflows** | orchestrate tens–hundreds of agents from a script via the **`ultracode`** keyword |
 | ⌨️ **New commands** | `/rewind` · `/cd` · `claude mcp login` · `claude plugin init` |
 | 🚩 **New flags** | `--safe-mode` · `--agent` · `--bg` (background sessions) |
 | 🛡️ **Auto mode** | runs on Bedrock/Vertex/Foundry + auto-blocks `git reset --hard` / `terraform destroy` |
 | ⚙️ **Settings & Hooks** | `autoMode.classifyAllShell` · hooks return `additionalContext` · skills auto-load from `.claude/skills` |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.195` (manual `v1.10.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.198` (manual `v1.12.0`)
 
 ---
 
@@ -69,7 +70,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.195** + the Fable 5 / Opus 4.8 lineup
+Tracks Claude Code **v2.1.198** + the Fable 5 / Sonnet 5 lineup
 
 </td>
 </tr>
@@ -77,7 +78,7 @@ Tracks Claude Code **v2.1.195** + the Fable 5 / Opus 4.8 lineup
 <td align="center" valign="top">
 
 ### 🧠 Obsidian-ready
-34 atomic notes + graph view — clone and open as a vault instantly
+38 atomic notes + graph view — clone and open as a vault instantly
 
 </td>
 <td align="center" valign="top">
@@ -129,7 +130,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 12 bonus atomic notes** (Absolute-Beginners pack, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.195`
+> **Claude Code Version:** `2.1.198`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

@@ -82,7 +82,7 @@ Press `/` in a session to see all available commands.
 
 | Command | Description |
 |---------|-------------|
-| `/agents` | View and configure subagents |
+| `/agents` | ~~View and configure subagents~~ **Removed in v2.1.198** — ask Claude to create/manage subagents, or edit `.claude/agents/` directly |
 | `/mcp` | Configure MCP servers |
 | `/permissions` | View and manage tool permissions |
 | `/plugins` | Browse and manage plugins |
@@ -104,6 +104,12 @@ Press `/` in a session to see all available commands.
 
 Note: `!<cmd>` now makes Claude **respond to the command's output automatically**; set `respondToBashCommands: false` in `settings.json` to keep the old context-only behavior.
 - **Bash mode (`!`)** now has live file-path autocomplete. *(v2.1.193)*
+
+### New in v2.1.198
+
+| Command | Description |
+|---------|-------------|
+| `/dataviz` | Chart & dashboard design guidance, with a runnable color-palette validator. |
 
 ---
 

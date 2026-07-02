@@ -75,6 +75,11 @@ claude --fork-session                # แยก Branch ใหม่
 - `claude agents --json` รองรับ `--all` (รวม session ที่เสร็จแล้ว) และเพิ่ม field `id`, `state`, `waitingFor` (บอกว่า session ที่ค้างกำลังรออะไร เช่น permission prompt)
 - `--agent <name>` เลือก agent ที่ session ใช้รัน
 
+### 🆕 ใหม่ใน v2.1.198
+
+- **Background agent ปิดงานเองจบ** — งานโค้ดใน worktree จะ commit + push + เปิด **draft PR** ให้อัตโนมัติ แทนที่จะหยุดรอถาม
+- background session ที่รอ input หรือเสร็จแล้ว จะยิง hook `Notification` (`agent_needs_input` / `agent_completed`)
+
 ---
 
 ---

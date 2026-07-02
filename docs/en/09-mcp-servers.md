@@ -129,6 +129,10 @@ claude --mcp-config ./mcp.json
 
 Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
+### New in v2.1.198
+
+- **Security hardening** — `claude mcp list`/`get` no longer auto-spawn `.mcp.json` servers that a repo self-approved via a committed `.claude/settings.json`; in untrusted workspaces they show as `⏸ Pending approval`.
+
 ---
 
 ---

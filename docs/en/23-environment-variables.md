@@ -54,6 +54,7 @@ related:
 | `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | Disable mouse click/drag/hover in fullscreen mode (wheel scroll still works). *(v2.1.195)* |
 | `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` | Disable auto-reaping of idle background shell commands under memory pressure. *(v2.1.193)* |
 | `OTEL_LOG_ASSISTANT_RESPONSES` | Log the model's response text via OpenTelemetry (`=1` on, `=0` off; when unset, follows `OTEL_LOG_USER_PROMPTS`). *(v2.1.193)* |
+| `CLAUDE_ENABLE_STREAM_WATCHDOG` | Streaming idle watchdog (on by default) — aborts & retries a stream with no events for 5 min; set `0` to disable. *(v2.1.198)* |
 
 ### Configure in settings.json
 

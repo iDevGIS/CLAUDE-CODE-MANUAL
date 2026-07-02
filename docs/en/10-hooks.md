@@ -151,6 +151,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 > Skills & slash commands can set `disallowed-tools` in their frontmatter.
 
+### New in v2.1.198
+
+- The **`Notification`** hook now fires for background agents: `agent_needs_input` (a session is waiting on you) and `agent_completed` (a session finished).
+
 ---
 
 ---

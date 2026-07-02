@@ -54,6 +54,7 @@ related:
 | `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | ปิดการคลิก/ลาก/hover ของเมาส์ใน fullscreen (ยังเลื่อน scroll ได้) *(v2.1.195)* |
 | `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` | ปิดการเก็บกวาด background shell ที่ idle อัตโนมัติเมื่อ memory ตึง *(v2.1.193)* |
 | `OTEL_LOG_ASSISTANT_RESPONSES` | บันทึกข้อความคำตอบของโมเดลผ่าน OpenTelemetry (`=1` เปิด, `=0` ปิด; ถ้าไม่ตั้งจะตามค่า `OTEL_LOG_USER_PROMPTS`) *(v2.1.193)* |
+| `CLAUDE_ENABLE_STREAM_WATCHDOG` | stream watchdog (เปิด default) — ยกเลิก+retry สตรีมที่เงียบเกิน 5 นาที; ตั้ง `0` เพื่อปิด *(v2.1.198)* |
 
 ### ตั้งค่าใน settings.json
 

@@ -112,7 +112,7 @@ related:
 |-------|-----|--------|
 | **Fable 5** | `claude-fable-5` | โมเดล **Mythos-class** ใหม่ล่าสุดของ Anthropic และเก่งที่สุดที่เปิดให้ใช้ทั่วไป (มาใน Claude Code **2.1.170**) มาพร้อม **context window 1M token เป็นค่าเริ่มต้น** เหมาะกับงานคิดหนักสุด, context ใหญ่ และงาน agentic |
 | **Opus 4.8** | `claude-opus-4-8` | เรือธงตระกูล **Opus**; coding และวิเคราะห์บั๊กซับซ้อนเก่งสุด; default เป็น **high effort** กับงานหนัก |
-| **Sonnet 4.6** | `claude-sonnet-4-6` | สมดุล เร็ว; เป็นค่าเริ่มต้นที่แนะนำสำหรับงาน coding ทั่วไป |
+| **Sonnet 5** | `claude-sonnet-5` | **default ใหม่ของ Claude Code** (ตั้งแต่ 2.1.197); สมดุล เร็ว, context **1M native** (โปรฯ $2/$10 ต่อ Mtok ถึง 31 ส.ค. 2026) |
 | **Haiku 4.5** | `claude-haiku-4-5` | เร็วสุด ถูกสุด; สำหรับงานง่าย/boilerplate |
 
 > หมายเหตุ: Fast mode ยังใช้ **Opus 4.7** (และตอนนี้ทำงานกับ Opus 4.8 ได้ด้วย) — Fable 5 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 4.8 คือตัว **coding เก่งสุด** ในตระกูล Opus
@@ -129,6 +129,11 @@ related:
 - `teammateMode: "iterm2"`, `footerLinksRegexes`, `wheelScrollAccelerationEnabled` — ตัวเลือก terminal/UX
 - `sandbox.credentials` — กันคำสั่งใน sandbox อ่านไฟล์ credential / secret env var
 - `sandbox.allowAppleEvents` — เปิดให้คำสั่งใน sandbox ส่ง Apple Events ได้ (macOS)
+
+### 🆕 ใหม่ใน v2.1.198
+
+- **Org default models** — แอดมินตั้งโมเดล default ขององค์กรจาก console ได้; ขึ้นเป็น "Org default" (หรือ "Role default") ใน `/model` จนกว่าคุณจะเลือกเอง
+- **Stream watchdog เปิดเป็นค่าเริ่มต้น** — สตรีมที่เงียบเกิน 5 นาทีจะถูกยกเลิกแล้ว retry อัตโนมัติ; ปิดด้วย `CLAUDE_ENABLE_STREAM_WATCHDOG=0`
 
 ### การ Persist ของ `/config` และ `/model`
 

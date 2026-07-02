@@ -55,7 +55,7 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **Fable 5** (`claude-fable-5`) — Anthropic's newest **Mythos-class** model and the most capable model generally available; introduced in Claude Code **2.1.170**. Ships with a **1M-token context window by default**. Best for the hardest reasoning, large-context, and agentic work.
 - **Opus 4.8** (`claude-opus-4-8`) — flagship **Opus**; top-tier coding and complex-bug analysis; defaults to **high effort** on demanding tasks.
-- **Sonnet 4.6** (`claude-sonnet-4-6`) — balanced, fast; recommended default for general coding.
+- **Sonnet 5** (`claude-sonnet-5`) — the **new default in Claude Code** (since 2.1.197); balanced and fast, with a **native 1M-token context window** (promo pricing $2/$10 per Mtok through Aug 31, 2026).
 - **Haiku 4.5** (`claude-haiku-4-5`) — fastest, cheapest; for easy/boilerplate tasks.
 - Fast mode still uses **Opus 4.7** (and now works on Opus 4.8 too).
 
@@ -129,6 +129,11 @@ Set the `model` key to any of these (newest → cheapest):
 ### `/config` and `/model` Persistence
 
 `/config` changes now persist to `~/.claude/settings.json` and participate in the project/local/policy override precedence. `/model` changes apply to the **current session only** (press `d` to set the default); the selection is remembered as the default for new sessions. The `/effort` slider is labelled **Faster / Smarter**.
+
+### New in v2.1.198
+
+- **Organization default models** — admins set an org-wide default in the console; it shows as "Org default" (or "Role default") in `/model` until you pick a model yourself.
+- **Streaming idle watchdog on by default** — a response stream that produces no events for 5 minutes is aborted and retried automatically; set `CLAUDE_ENABLE_STREAM_WATCHDOG=0` to disable.
 
 ---
 

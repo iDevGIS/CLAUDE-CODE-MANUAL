@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.195         │
+│ Welcome to Claude Code v2.1.198         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -282,7 +282,7 @@ git checkout main
 ```bash
 claude --model claude-fable-5    # Fable 5 — most capable, 1M context (newest)
 claude --model opus              # Opus 4.8 (top-tier coding, expensive)
-claude --model sonnet            # Sonnet 4.6 (balanced, recommended)
+claude --model sonnet            # Sonnet 5 (new default, native 1M context)
 claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
 claude --model claude-opus-4-8   # Full name (specify exact version)
 ```
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.195
+- run: npm install -g @anthropic-ai/claude-code@2.1.198
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1067,7 +1067,7 @@ Press `/` in a session to see all available commands.
 
 | Command | Description |
 |---------|-------------|
-| `/agents` | View and configure subagents |
+| `/agents` | ~~View and configure subagents~~ **Removed in v2.1.198** — ask Claude to create/manage subagents, or edit `.claude/agents/` directly |
 | `/mcp` | Configure MCP servers |
 | `/permissions` | View and manage tool permissions |
 | `/plugins` | Browse and manage plugins |
@@ -1090,6 +1090,12 @@ Note: `/effort` slider labels are now **"Faster" / "Smarter"** (was Speed/Intell
 
 Note: `!<cmd>` now makes Claude **respond to the command's output automatically**; set `respondToBashCommands: false` in `settings.json` to keep the old context-only behavior.
 - **Bash mode (`!`)** now has live file-path autocomplete. *(v2.1.193)*
+
+### New in v2.1.198
+
+| Command | Description |
+|---------|-------------|
+| `/dataviz` | Chart & dashboard design guidance, with a runnable color-palette validator. |
 
 ---
 
@@ -1405,6 +1411,11 @@ Skill(commit)                    # Specific skill
 - `teammateMode: "iterm2"`, `footerLinksRegexes`, `wheelScrollAccelerationEnabled` — terminal/UX options.
 - `sandbox.credentials` — block sandboxed commands from reading credential files / secret env vars.
 - `sandbox.allowAppleEvents` — opt-in to let sandboxed commands send Apple Events (macOS).
+
+### New in v2.1.198
+
+- **Organization default models** — admins set an org-wide default in the console; it shows as "Org default" (or "Role default") in `/model` until you pick a model yourself.
+- **Streaming idle watchdog on by default** — a response stream that produces no events for 5 minutes is aborted and retried automatically; set `CLAUDE_ENABLE_STREAM_WATCHDOG=0` to disable.
 
 ---
 
@@ -1742,6 +1753,10 @@ claude --mcp-config ./mcp.json
 
 Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
+### New in v2.1.198
+
+- **Security hardening** — `claude mcp list`/`get` no longer auto-spawn `.mcp.json` servers that a repo self-approved via a committed `.claude/settings.json`; in untrusted workspaces they show as `⏸ Pending approval`.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -1818,6 +1833,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **Hook matchers exact-match hyphenated identifiers** — names like `code-reviewer` or `mcp__brave-search` no longer substring-match. To match all tools from a hyphenated MCP server, use a pattern like `mcp__brave-search__.*`.
 
 Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
+
+### New in v2.1.198
+
+- The **`Notification`** hook now fires for background agents: `agent_needs_input` (a session is waiting on you) and `agent_completed` (a session finished).
 
 ### Configuring Hooks
 
@@ -2109,7 +2128,7 @@ When reviewing code:
 ```yaml
 ---
 description: "..."              # When Claude should delegate to this agent
-model: claude-sonnet-4-6        # Model to use
+model: claude-sonnet-5          # Model to use
 tools:                          # Allowed tools
   - Read
   - Bash
@@ -2125,15 +2144,17 @@ preloadSkills: true             # Load skills at startup
 
 ### Usage
 
-Claude delegates to the subagent automatically when a task matches its description, or list them with:
-
-```
-/agents
-```
+Claude delegates to the subagent automatically when a task matches its description. (The old `/agents` wizard was removed in v2.1.198 — ask Claude in plain language, e.g. "create a code-reviewer subagent", or edit files under `.claude/agents/` directly.)
 
 ### New in v2.1.191
 
 Subagents can now spawn their **own** subagents, up to **5 levels deep** (foreground and background share the same depth cap; resumed/forked subagents count toward it).
+
+### New in v2.1.198
+
+- **`/agents` wizard removed** — create or manage subagents by asking Claude in plain language, or by editing `.claude/agents/` directly.
+- **Explore agent upgraded** — it now inherits the main session's model (capped at Opus) instead of always running on Haiku.
+- Subagents and context compaction now inherit the session's **extended thinking** configuration.
 
 ---
 
@@ -2693,6 +2714,11 @@ Shows an interactive picker to choose a session.
 - `claude agents --json` now supports `--all` (include completed sessions) and adds `id`, `state`, and `waitingFor` fields (what a blocked session is waiting on, e.g. a permission prompt).
 - `--agent <name>` selects the agent a dispatched session runs as.
 
+### New in v2.1.198
+
+- **Background agents finish the job** — code work done in a worktree now ends with an automatic commit, push, and **draft PR** instead of stopping to ask.
+- Background sessions that need input or finish now fire the `Notification` hook (`agent_needs_input` / `agent_completed`).
+
 ### Session File Locations
 
 ```
@@ -2951,6 +2977,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | Disable mouse click/drag/hover in fullscreen mode (wheel scroll still works). *(v2.1.195)* |
 | `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` | Disable auto-reaping of idle background shell commands under memory pressure. *(v2.1.193)* |
 | `OTEL_LOG_ASSISTANT_RESPONSES` | Log the model's response text via OpenTelemetry (`=1` on, `=0` off; when unset, follows `OTEL_LOG_USER_PROMPTS`). *(v2.1.193)* |
+| `CLAUDE_ENABLE_STREAM_WATCHDOG` | Streaming idle watchdog (on by default) — aborts & retries a stream with no events for 5 min; set `0` to disable. *(v2.1.198)* |
 
 ### Configure in settings.json
 
@@ -3097,7 +3124,7 @@ claude --version  # check the version
 |------|-------------------|-----|
 | Hardest reasoning, huge context | Fable 5 | Most capable model, 1M context by default |
 | Architecture, complex bugs | Opus 4.8 | Deep thought, strong analysis |
-| General coding, ordinary bugs | Sonnet 4.6 | Fast and economical |
+| General coding, ordinary bugs | Sonnet 5 | Fast, economical — the default |
 | Boilerplate, data generation | Haiku 4.5 | Very fast and very cheap |
 
 ### Save Money
@@ -4264,7 +4291,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.195`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.198`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
@@ -6533,4 +6560,4 @@ Claude Code is a feature-complete AI tool for developers:
 ---
 
 > **Document version:** Last updated June 25, 2026
-> **Applies to:** Latest Claude Code version (Claude Fable 5 / Opus 4.8 / Sonnet 4.6 / Haiku 4.5)
+> **Applies to:** Latest Claude Code version (Claude Fable 5 / Opus 4.8 / Sonnet 5 / Haiku 4.5)

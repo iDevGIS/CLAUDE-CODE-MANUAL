@@ -25,6 +25,30 @@
 
 ---
 
+## [1.12.0] — 2026-06-28
+
+### Compatibility
+- **Claude Code:** `v2.1.198+`
+
+### Added
+- **New model — Claude Sonnet 5** (`claude-sonnet-5`): the **new default model in Claude Code** (introduced in `2.1.197`), with a **native 1M-token context window** and promotional pricing of $2/$10 per Mtok through Aug 31, 2026. Documented lineup is now **Fable 5 / Opus 4.8 / Sonnet 5 / Haiku 4.5**
+- **Hooks** — `Notification` hook now fires for background agents (`agent_needs_input` / `agent_completed`)
+- **Slash** — `/dataviz` skill (chart/dashboard design guidance + color-palette validator)
+- **Settings** — organization default models (shows as "Org default" in `/model`); streaming idle watchdog on by default (`CLAUDE_ENABLE_STREAM_WATCHDOG=0` to disable)
+- **Background agents** — finish code work in a worktree by committing, pushing, and opening a **draft PR** automatically
+- **Claude in Chrome** — now generally available
+
+### Changed
+- **Version strings** bumped `2.1.195` → `2.1.198` (current-version references only; historical `New in v2.1.19x` sections kept)
+- **`/agents` wizard removed** (Claude Code `2.1.198`) — create/manage subagents by asking Claude or editing `.claude/agents/` directly; chapter 12 and the slash-command tables updated
+- **Explore agent** now inherits the main session's model (capped at Opus) instead of running on Haiku; subagents/compaction inherit extended-thinking config
+- **Security** — `claude mcp list`/`get` no longer auto-spawn `.mcp.json` servers self-approved via committed settings (`⏸ Pending approval` in untrusted workspaces)
+
+### Why
+- Track the Claude Code `v2.1.198` release — headlined by **Sonnet 5 becoming the default model**, which changes the recommended-model guidance throughout the manual
+
+---
+
 ## [1.11.0] — 2026-06-26
 
 ### Compatibility
@@ -383,7 +407,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.11.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.12.0...HEAD
+[1.12.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.11.0...v1.12.0
 [1.11.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.9.0...v1.10.0
 [1.9.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.8.0...v1.9.0

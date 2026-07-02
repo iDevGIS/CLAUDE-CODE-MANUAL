@@ -90,7 +90,7 @@ When reviewing code:
 ```yaml
 ---
 description: "..."              # When Claude should delegate to this agent
-model: claude-sonnet-4-6        # Model to use
+model: claude-sonnet-5          # Model to use
 tools:                          # Allowed tools
   - Read
   - Bash
@@ -106,15 +106,17 @@ preloadSkills: true             # Load skills at startup
 
 ### Usage
 
-Claude delegates to the subagent automatically when a task matches its description, or list them with:
-
-```
-/agents
-```
+Claude delegates to the subagent automatically when a task matches its description. (The old `/agents` wizard was removed in v2.1.198 — ask Claude in plain language, e.g. "create a code-reviewer subagent", or edit files under `.claude/agents/` directly.)
 
 ### New in v2.1.191
 
 Subagents can now spawn their **own** subagents, up to **5 levels deep** (foreground and background share the same depth cap; resumed/forked subagents count toward it).
+
+### New in v2.1.198
+
+- **`/agents` wizard removed** — create or manage subagents by asking Claude in plain language, or by editing `.claude/agents/` directly.
+- **Explore agent upgraded** — it now inherits the main session's model (capped at Opus) instead of always running on Haiku.
+- Subagents and context compaction now inherit the session's **extended thinking** configuration.
 
 ---
 

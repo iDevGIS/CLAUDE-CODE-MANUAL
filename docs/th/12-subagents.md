@@ -90,7 +90,7 @@ tools:
 ```yaml
 ---
 description: "..."              # เมื่อไหร่ที่ Claude จะ Delegate งานมา
-model: claude-sonnet-4-6        # โมเดลที่ใช้
+model: claude-sonnet-5          # โมเดลที่ใช้
 tools:                          # เครื่องมือที่อนุญ��ต
   - Read
   - Bash
@@ -106,15 +106,17 @@ preloadSkills: true             # โหลด Skill ตั้งแต่เร
 
 ### การใช้งาน
 
-Claude จะ Delegate งานไปที่ Subagent อัตโนมัติเมื่อตรวจพบงานที่ตรงกับ Description หรือดูรายการด้วย:
-
-```
-/agents
-```
+Claude จะ Delegate งานไปที่ Subagent อัตโนมัติเมื่อตรวจพบงานที่ตรงกับ Description (wizard `/agents` เดิมถูกถอดใน v2.1.198 — สั่ง Claude เป็นภาษาคนได้เลย เช่น "สร้าง subagent ชื่อ code-reviewer" หรือแก้ไฟล์ใต้ `.claude/agents/` ตรง ๆ)
 
 ### 🆕 ใหม่ใน v2.1.191
 
 subagent สามารถ spawn subagent ของตัวเองได้แล้ว ซ้อนได้ลึกถึง **5 ชั้น** (foreground/background ใช้เพดานเดียวกัน; subagent ที่ resume/fork ก็นับรวมด้วย)
+
+### 🆕 ใหม่ใน v2.1.198
+
+- **ถอด wizard `/agents`** — สร้าง/จัดการ subagent โดยสั่ง Claude เป็นภาษาคน หรือแก้ `.claude/agents/` ตรง ๆ
+- **Explore agent อัปเกรด** — ใช้โมเดลเดียวกับ session หลัก (cap ที่ Opus) แทนที่จะรัน Haiku ตลอด
+- subagent และ context compaction สืบทอดการตั้งค่า **extended thinking** ของ session แล้ว
 
 ---
 

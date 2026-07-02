@@ -82,7 +82,7 @@ related:
 
 | คำสั่ง | อธิบาย |
 |-------|--------|
-| `/agents` | ดูและตั้งค่า Subagents |
+| `/agents` | ~~ดูและตั้งค่า Subagents~~ **ถูกถอดใน v2.1.198** — สั่ง Claude สร้าง/จัดการ subagent เป็นภาษาคน หรือแก้ `.claude/agents/` ตรง ๆ |
 | `/mcp` | ตั้งค่า MCP Servers |
 | `/permissions` | ดูและจัดการสิทธิ์เครื่องมือ |
 | `/plugins` | เรียกดูและจัดการ Plugins |
@@ -105,6 +105,12 @@ related:
 หมายเหตุ: `!<cmd>` ตอนนี้ทำให้ Claude **ตอบ output ของคำสั่งให้อัตโนมัติ**; ตั้ง `respondToBashCommands: false` ใน `settings.json` เพื่อคงพฤติกรรมเดิม (เก็บเป็น context เฉย ๆ)
 
 - **Bash mode (`!`)** มี autocomplete ของ path ไฟล์แบบ live แล้ว *(v2.1.193)*
+
+### 🆕 ใหม่ใน v2.1.198
+
+| คำสั่ง | คำอธิบาย |
+|--------|----------|
+| `/dataviz` | แนวทางออกแบบ chart/dashboard พร้อมตัวเช็ก color palette ที่รันได้จริง |
 
 ---
 
