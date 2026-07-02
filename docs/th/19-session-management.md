@@ -80,6 +80,8 @@ claude --fork-session                # แยก Branch ใหม่
 - **Background agent ปิดงานเองจบ** — งานโค้ดใน worktree จะ commit + push + เปิด **draft PR** ให้อัตโนมัติ แทนที่จะหยุดรอถาม
 - background session ที่รอ input หรือเสร็จแล้ว จะยิง hook `Notification` (`agent_needs_input` / `agent_completed`)
 
+> 🔎 เจาะลึกทั้งเรื่องนี้ต่อได้ที่ [[41-background-agents]]
+
 ---
 
 ---

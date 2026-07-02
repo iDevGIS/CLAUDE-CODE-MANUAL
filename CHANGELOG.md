@@ -25,6 +25,27 @@
 
 ---
 
+## [1.13.0] — 2026-06-28
+
+### Compatibility
+- **Claude Code:** `v2.1.198+`
+
+### Added
+- **🔎 Deep Dives — 3 new atomic notes per language (TH + EN):**
+  - `39-dynamic-workflows` — Dynamic Workflows & `ultracode` in depth: triggering, script anatomy (`agent`/`parallel`/`pipeline`/`phase`/`budget`), a worked review-workflow example, `/workflows` monitoring, limits (~16 concurrent / 1000 agents per run), and cost guidance
+  - `40-claude-in-chrome` — Claude in Chrome (GA in `2.1.198`): setup + `/chrome`, capabilities (navigate/read/click/forms/screenshots/console/network), real use cases, safety practices
+  - `41-background-agents` — Background sessions & `claude agents` in depth: `--bg`/`/bg`/`Ctrl+B`, the agents view + `--json`, lifecycle & resilience, auto commit/push/draft-PR, `Notification` hook events, permissions & reaping
+- **Mermaid diagrams** embedded in chapters 5 / 10 / 13 (both languages, atomic + single-page): permission decision flow, hooks lifecycle in a turn, agent-team fan-out
+- New **🔎 Deep Dives** category in both MOC indexes and both root-README TOCs
+
+### Changed
+- Atomic-note count 38 → **41 per language** (9 categories); chapter-19 notes link to the new deep-dive
+
+### Why
+- The three fastest-moving feature areas (workflows, browser automation, background agents) deserved more than a paragraph each — and the long-planned lifecycle/flow diagrams make chapters 5/10/13 much easier to grasp
+
+---
+
 ## [1.12.0] — 2026-06-28
 
 ### Compatibility
@@ -407,7 +428,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.12.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.13.0...HEAD
+[1.13.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.12.0...v1.13.0
 [1.12.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.11.0...v1.12.0
 [1.11.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.9.0...v1.10.0

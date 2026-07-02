@@ -80,6 +80,8 @@ Shows an interactive picker to choose a session.
 - **Background agents finish the job** — code work done in a worktree now ends with an automatic commit, push, and **draft PR** instead of stopping to ask.
 - Background sessions that need input or finish now fire the `Notification` hook (`agent_needs_input` / `agent_completed`).
 
+> 🔎 Full deep-dive: [[41-background-agents]]
+
 ---
 
 ---

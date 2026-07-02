@@ -15,6 +15,25 @@ related:
 
 # Hooks (Event Handler System)
 
+**Overview: where hooks fire in a turn**
+
+```mermaid
+flowchart TD
+    S["Session starts"] --> SS["SessionStart"]
+    SS --> U["You type a prompt"]
+    U --> UP["UserPromptSubmit"]
+    UP --> E{"Claude calls a tool?"}
+    E -- "calls" --> PRE["PreToolUse"]
+    PRE -- "allow" --> TL["Tool runs"]
+    PRE -- "block" --> U
+    TL --> POST["PostToolUse"]
+    POST --> E
+    E -- "no more calls" --> RE["Claude replies"]
+    RE --> ST["Stop / SubagentStop"]
+    ST -- "additionalContext" --> U
+    N["Notification<br/>(permission needed · idle · agent_needs_input / agent_completed)"] -. "fires anytime" .-> U
+```
+
 ### Benefits and Use Cases
 
 > **Why use hooks?**

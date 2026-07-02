@@ -12,7 +12,7 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
 [![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.198-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.12.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Manual](https://img.shields.io/badge/Manual-v1.13.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -63,7 +63,7 @@ Every topic in English and Thai — switch languages on any page
 </td>
 <td width="33%" align="center" valign="top">
 
-### 📚 38 chapters
+### 📚 41 chapters
 5,000+ lines, from install to Hooks · MCP · Agent Teams
 
 </td>
@@ -78,7 +78,7 @@ Tracks Claude Code **v2.1.198** + the Fable 5 / Sonnet 5 lineup
 <td align="center" valign="top">
 
 ### 🧠 Obsidian-ready
-38 atomic notes + graph view — clone and open as a vault instantly
+41 atomic notes + graph view — clone and open as a vault instantly
 
 </td>
 <td align="center" valign="top">
@@ -105,7 +105,7 @@ You can read the manual in two formats — pick whichever fits your style:
 | Mode | Format | Best for | Start here |
 |------|--------|----------|-----------|
 | 📄 **Single-page** | One long file per language (3,300+ lines) | Sequential reading, search (Ctrl+F), single-link sharing | [`Claude-Code-Guide-EN.md`](./Claude-Code-Guide-EN.md) · [`Claude-Code-Guide-TH.md`](./Claude-Code-Guide-TH.md) |
-| 🧠 **Atomic / Obsidian-friendly** | 38 small notes per language with frontmatter + wikilinks | Open in Obsidian for Graph View, focused topic reading | [`docs/en/README.md`](./docs/en/README.md) · [`docs/th/README.md`](./docs/th/README.md) |
+| 🧠 **Atomic / Obsidian-friendly** | 41 small notes per language with frontmatter + wikilinks | Open in Obsidian for Graph View, focused topic reading | [`docs/en/README.md`](./docs/en/README.md) · [`docs/th/README.md`](./docs/th/README.md) |
 
 > The `docs/` folder splits each topic into small notes with YAML frontmatter, tags, aliases, related, and wikilinks between topics — open the whole folder as an Obsidian vault to use Graph/Backlink features right away.
 
@@ -128,7 +128,7 @@ Included: **core plugins** that are needed (Graph, Backlinks, Outline, Tag pane,
 
 This repo is a **Thai and English manual** for [Claude Code](https://docs.claude.com/claude-code) — Anthropic's official CLI that helps developers write code, fix bugs, refactor, and manage projects with AI.
 
-The total content spans **5,000+ lines** organized into **26 main topics + 12 bonus atomic notes** (Absolute-Beginners pack, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
+The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
 > **Claude Code Version:** `2.1.198`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
@@ -213,7 +213,7 @@ claude                  # see hooks + statusline + output style in action
 ## 📚 Table of Contents
 
 <details>
-<summary><b>📖 Browse all 38 chapters</b> — Beginners · Basics · Config · Advanced · Real-world · Tutorial · Cookbook</summary>
+<summary><b>📖 Browse all 41 chapters</b> — Beginners · Basics · Config · Advanced · Real-world · Deep Dives · Tutorial · Cookbook</summary>
 
 <br/>
 
@@ -273,6 +273,14 @@ claude                  # see hooks + statusline + output style in action
 | 26 | [Real-World Workflow Simulations](./Claude-Code-Guide-EN.md#26-real-world-workflow-simulations) | [จำลอง Flow การทำงานจริง](./Claude-Code-Guide-TH.md#26-จำลอง-flow-การทำงานจริง) |
 
 > ⚠️ **Note:** EN anchor links are best-effort approximations from the headings produced by the translator sub-agent — if any links break after GitHub renders, open an issue and they'll be fixed.
+
+### 🔎 Deep Dives
+
+| # | Topic (EN) | หัวข้อ (TH) |
+|---|--------|--------|
+| 39 | [Dynamic Workflows & ultracode](./docs/en/39-dynamic-workflows.md) | [Dynamic Workflows & ultracode](./docs/th/39-dynamic-workflows.md) |
+| 40 | [Claude in Chrome (Browser Automation)](./docs/en/40-claude-in-chrome.md) | [Claude in Chrome (สั่งงานเบราว์เซอร์)](./docs/th/40-claude-in-chrome.md) |
+| 41 | [Background Sessions & claude agents](./docs/en/41-background-agents.md) | [Background Sessions & claude agents](./docs/th/41-background-agents.md) |
 
 ### 🎓 Tutorial (Zero to Hero)
 

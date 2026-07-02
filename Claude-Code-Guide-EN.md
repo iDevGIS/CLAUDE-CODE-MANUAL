@@ -1187,6 +1187,24 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 
 ## 5. Permission System
 
+**Overview: how a tool call gets decided**
+
+```mermaid
+flowchart TD
+    T["Claude requests a tool"] --> D{"Deny rule match?"}
+    D -- "Yes" --> X["Blocked"]
+    D -- "No" --> A{"Allow rule match?"}
+    A -- "Yes" --> R["Runs immediately"]
+    A -- "No" --> M{"Permission mode"}
+    M -- "default" --> P["Asks you (y / n / a)"]
+    M -- "acceptEdits" --> E["File edits auto-approved<br/>everything else still asks"]
+    M -- "plan" --> PL["Read-only"]
+    M -- "bypassPermissions" --> R
+    M -- "auto" --> C{"Auto-mode classifier"}
+    C -- "safe" --> R
+    C -- "risky" --> P
+```
+
 ### Benefits and Use Cases
 
 > **Why have permissions?**
@@ -1761,6 +1779,25 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 ## 10. Hooks (Event Handler System)
 
+**Overview: where hooks fire in a turn**
+
+```mermaid
+flowchart TD
+    S["Session starts"] --> SS["SessionStart"]
+    SS --> U["You type a prompt"]
+    U --> UP["UserPromptSubmit"]
+    UP --> E{"Claude calls a tool?"}
+    E -- "calls" --> PRE["PreToolUse"]
+    PRE -- "allow" --> TL["Tool runs"]
+    PRE -- "block" --> U
+    TL --> POST["PostToolUse"]
+    POST --> E
+    E -- "no more calls" --> RE["Claude replies"]
+    RE --> ST["Stop / SubagentStop"]
+    ST -- "additionalContext" --> U
+    N["Notification<br/>(permission needed · idle · agent_needs_input / agent_completed)"] -. "fires anytime" .-> U
+```
+
 ### Benefits and Use Cases
 
 > **Why use hooks?**
@@ -2159,6 +2196,20 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 ---
 
 ## 13. Agent Teams
+
+**Overview: fanning work out to an agent team**
+
+```mermaid
+flowchart LR
+    L["Main session (lead)"] --> A1["Subagent: review"]
+    L --> A2["Subagent: tests"]
+    L --> A3["Subagent: docs"]
+    A1 --> V["Verify / merge results"]
+    A2 --> V
+    A3 --> V
+    V --> L
+    L -. "ultracode →<br/>Workflow script<br/>(tens–hundreds of agents)" .-> W["Large-scale fan-out"]
+```
 
 ### Benefits and Use Cases
 

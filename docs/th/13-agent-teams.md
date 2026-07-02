@@ -15,6 +15,20 @@ related:
 
 # Agent Teams (ทีม AI)
 
+**ภาพรวม: กระจายงานให้ทีม agent**
+
+```mermaid
+flowchart LR
+    L["Session หลัก (lead)"] --> A1["Subagent: review"]
+    L --> A2["Subagent: tests"]
+    L --> A3["Subagent: docs"]
+    A1 --> V["ตรวจทาน / รวมผล"]
+    A2 --> V
+    A3 --> V
+    V --> L
+    L -. "ultracode →<br/>Workflow script<br/>(หลักสิบ–หลักร้อยตัว)" .-> W["fan-out ขนาดใหญ่"]
+```
+
 ### ประโยชน์และ Use Cases
 
 > **ทำไมต้องใช้ Agent Teams?**

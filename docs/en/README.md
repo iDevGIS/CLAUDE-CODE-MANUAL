@@ -12,7 +12,7 @@ aliases:
 
 > Claude Code manual in atomic-note form — one note per topic with wikilinks for Obsidian Graph View.
 >
-> 38 notes across 8 categories — pick whatever you need.
+> 41 notes across 9 categories — pick whatever you need.
 
 ## 🔰 Absolute Beginners
 
@@ -67,6 +67,12 @@ aliases:
 - [[23-environment-variables|23. Environment Variables]]
 - [[24-troubleshooting|24. Troubleshooting]]
 - [[25-tips-best-practices|25. Tips & Best Practices]]
+
+## 🔎 Deep Dives
+
+- [[39-dynamic-workflows|39. Dynamic Workflows & ultracode]]
+- [[40-claude-in-chrome|40. Claude in Chrome (Browser Automation)]]
+- [[41-background-agents|41. Background Sessions & claude agents]]
 
 ## 📖 Cookbook & Use Cases
 

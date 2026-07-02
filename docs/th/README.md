@@ -12,7 +12,7 @@ aliases:
 
 > คู่มือ Claude Code ฉบับ Atomic — โน้ตเล็กแยกตามหัวข้อ พร้อม wikilink สำหรับ Obsidian Graph View
 >
-> 38 โน้ต / 8 หมวด — เลือกหัวข้อที่สนใจได้เลย
+> 41 โน้ต / 9 หมวด — เลือกหัวข้อที่สนใจได้เลย
 
 ## 🔰 สำหรับมือใหม่สุด ๆ (Absolute Beginners)
 
@@ -67,6 +67,12 @@ aliases:
 - [[23-environment-variables|23. Environment Variables]]
 - [[24-troubleshooting|24. การแก้ปัญหา]]
 - [[25-tips-best-practices|25. เคล็ดลับ]]
+
+## 🔎 เจาะลึก (Deep Dives)
+
+- [[39-dynamic-workflows|39. Dynamic Workflows & ultracode]]
+- [[40-claude-in-chrome|40. Claude in Chrome (สั่งงานเบราว์เซอร์)]]
+- [[41-background-agents|41. Background Sessions & claude agents]]
 
 ## 📖 Cookbook & Use Cases
 

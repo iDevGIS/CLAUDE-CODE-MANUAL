@@ -103,6 +103,6 @@ claude -p "summarize the README in 2 lines"
 ## Navigation
 
 - ⬅️ Previous: [[37-beginner-faq]]
-- ➡️ Next: [[README]]
+- ➡️ Next: [[39-dynamic-workflows]]
 - 🏠 Index: [[README]]
 - 🌐 Other language: [[../th/38-cheat-sheet]]

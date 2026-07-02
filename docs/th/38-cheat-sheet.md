@@ -103,6 +103,6 @@ claude -p "สรุปไฟล์ README ให้ 2 บรรทัด"
 ## Navigation
 
 - ⬅️ Previous: [[37-beginner-faq]]
-- ➡️ Next: [[README]]
+- ➡️ Next: [[39-dynamic-workflows]]
 - 🏠 Index: [[README]]
 - 🌐 Other language: [[../en/38-cheat-sheet]]

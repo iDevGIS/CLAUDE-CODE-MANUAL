@@ -15,6 +15,24 @@ related:
 
 # ระบบ Permission (สิทธิ์การเข้าถึง)
 
+**ภาพรวม: คำสั่งหนึ่ง ๆ ถูกตัดสินยังไง**
+
+```mermaid
+flowchart TD
+    T["Claude ขอใช้ tool"] --> D{"ตรง deny rule?"}
+    D -- "ใช่" --> X["บล็อกทันที"]
+    D -- "ไม่" --> A{"ตรง allow rule?"}
+    A -- "ใช่" --> R["รันได้เลย"]
+    A -- "ไม่" --> M{"Permission mode"}
+    M -- "default" --> P["ถามคุณ (y / n / a)"]
+    M -- "acceptEdits" --> E["แก้ไฟล์อัตโนมัติ<br/>อย่างอื่นยังถาม"]
+    M -- "plan" --> PL["อ่านอย่างเดียว"]
+    M -- "bypassPermissions" --> R
+    M -- "auto" --> C{"Auto-mode classifier"}
+    C -- "ปลอดภัย" --> R
+    C -- "เสี่ยง" --> P
+```
+
 ### ประโยชน์และ Use Cases
 
 > **ทำไมต้องมี Permission?**

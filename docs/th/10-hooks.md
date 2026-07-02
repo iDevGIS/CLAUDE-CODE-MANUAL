@@ -15,6 +15,25 @@ related:
 
 # Hooks (ระบบ Event Handler)
 
+**ภาพรวม: hook ยิงตรงไหนบ้างใน 1 turn**
+
+```mermaid
+flowchart TD
+    S["เริ่ม session"] --> SS["SessionStart"]
+    SS --> U["คุณพิมพ์ prompt"]
+    U --> UP["UserPromptSubmit"]
+    UP --> E{"Claude เรียก tool?"}
+    E -- "เรียก" --> PRE["PreToolUse"]
+    PRE -- "อนุญาต" --> TL["tool ทำงาน"]
+    PRE -- "บล็อก" --> U
+    TL --> POST["PostToolUse"]
+    POST --> E
+    E -- "ไม่เรียกแล้ว" --> RE["Claude ตอบ"]
+    RE --> ST["Stop / SubagentStop"]
+    ST -- "additionalContext" --> U
+    N["Notification<br/>(ขอ permission · idle · agent_needs_input / agent_completed)"] -. "ยิงได้ตลอด" .-> U
+```
+
 ### ประโยชน์และ Use Cases
 
 > **ทำไมต้องใช้ Hooks?**

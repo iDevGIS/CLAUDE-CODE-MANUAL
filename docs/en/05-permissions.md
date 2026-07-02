@@ -15,6 +15,24 @@ related:
 
 # Permission System
 
+**Overview: how a tool call gets decided**
+
+```mermaid
+flowchart TD
+    T["Claude requests a tool"] --> D{"Deny rule match?"}
+    D -- "Yes" --> X["Blocked"]
+    D -- "No" --> A{"Allow rule match?"}
+    A -- "Yes" --> R["Runs immediately"]
+    A -- "No" --> M{"Permission mode"}
+    M -- "default" --> P["Asks you (y / n / a)"]
+    M -- "acceptEdits" --> E["File edits auto-approved<br/>everything else still asks"]
+    M -- "plan" --> PL["Read-only"]
+    M -- "bypassPermissions" --> R
+    M -- "auto" --> C{"Auto-mode classifier"}
+    C -- "safe" --> R
+    C -- "risky" --> P
+```
+
 ### Benefits and Use Cases
 
 > **Why have permissions?**

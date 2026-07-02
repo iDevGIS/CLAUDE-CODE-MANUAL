@@ -15,6 +15,20 @@ related:
 
 # Agent Teams
 
+**Overview: fanning work out to an agent team**
+
+```mermaid
+flowchart LR
+    L["Main session (lead)"] --> A1["Subagent: review"]
+    L --> A2["Subagent: tests"]
+    L --> A3["Subagent: docs"]
+    A1 --> V["Verify / merge results"]
+    A2 --> V
+    A3 --> V
+    V --> L
+    L -. "ultracode →<br/>Workflow script<br/>(tens–hundreds of agents)" .-> W["Large-scale fan-out"]
+```
+
 ### Benefits and Use Cases
 
 > **Why use agent teams?**
