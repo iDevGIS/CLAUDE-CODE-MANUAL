@@ -25,6 +25,24 @@
 
 ---
 
+## [1.14.0] — 2026-06-28
+
+### Compatibility
+- **Claude Code:** `v2.1.201+`
+
+### Added
+- **Stacked skill invocations** — `/skill-a /skill-b do XYZ` loads all leading skills, up to 5 (`v2.1.199`) — noted in chapter 3
+- **Permission mode rename** — the "default" mode is now labeled **"Manual"**; `--permission-mode manual` / `"defaultMode": "manual"` accepted alongside `default` (`v2.1.200`) — noted in chapter 5, plus the `AskUserQuestion` no-auto-continue change
+
+### Changed
+- **Version strings** bumped `2.1.198` → `2.1.201` (current-version references only; historical `New in v2.1.198` sections and the ch.40 GA note kept)
+- **`CLAUDE_CODE_RETRY_WATCHDOG`** description updated — now raises default retries for transient errors to 300 and lifts the 15-cap on `CLAUDE_CODE_MAX_RETRIES` (`v2.1.199`)
+
+### Why
+- Track Claude Code `v2.1.201` — a small delta (mostly reliability fixes), captured as targeted edits without a full refresh
+
+---
+
 ## [1.13.0] — 2026-06-28
 
 ### Compatibility
@@ -428,7 +446,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.13.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.14.0...HEAD
+[1.14.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.13.0...v1.14.0
 [1.13.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.12.0...v1.13.0
 [1.12.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.11.0...v1.12.0
 [1.11.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.10.0...v1.11.0

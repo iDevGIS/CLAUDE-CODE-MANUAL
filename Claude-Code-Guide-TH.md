@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.198         │
+│ Welcome to Claude Code v2.1.201         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -958,7 +958,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.198
+- run: npm install -g @anthropic-ai/claude-code@2.1.201
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1090,6 +1090,9 @@ claude -p "..."              # ถามเร็ว ๆ
 | คำสั่ง | คำอธิบาย |
 |--------|----------|
 | `/dataviz` | แนวทางออกแบบ chart/dashboard พร้อมตัวเช็ก color palette ที่รันได้จริง |
+
+### 🆕 ใหม่ใน v2.1.201
+- **เรียก skill ซ้อนกันได้** — `/skill-a /skill-b ทำ XYZ` โหลด skill ที่นำหน้า *ทุกตัว* (สูงสุด 5) ไม่ใช่แค่ตัวแรก *(v2.1.199)*
 
 ---
 
@@ -1312,6 +1315,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.195
 - **`autoMode.classifyAllShell`** — ส่งคำสั่ง Bash/PowerShell *ทุกคำสั่ง* ผ่าน Auto-mode classifier (ไม่ใช่แค่ pattern ที่รันโค้ดอิสระ)
 - **เหตุผลที่ Auto mode ปฏิเสธ** แสดงใน transcript, toast ตอน deny, และ `/permissions` → รายการ deny ล่าสุด แล้ว
+
+### 🆕 ใหม่ใน v2.1.201
+- **โหมด permission "default" เปลี่ยนป้ายเป็น "Manual"** ทั้งใน CLI, `--help`, VS Code, JetBrains — ใช้ได้ทั้ง `--permission-mode manual` และค่า `default` เดิม (`"defaultMode": "manual"` ก็ได้) *(v2.1.200)*
+- กล่อง `AskUserQuestion` ไม่ auto-continue เองแล้ว — เปิด idle timeout ได้ผ่าน `/config` *(v2.1.200)*
 
 ---
 
@@ -3012,7 +3019,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS` | ซ่อน bundled skills/workflows/คำสั่ง built-in |
 | `CLAUDE_CLIENT_PRESENCE_FILE` | ไฟล์ marker เพื่อปิด push มือถือตอนนั่งอยู่หน้าเครื่อง |
 | `CLAUDE_CODE_ENABLE_AUTO_MODE` | เปิด Auto mode บน Bedrock/Vertex/Foundry |
-| `CLAUDE_CODE_RETRY_WATCHDOG` | watchdog retry สำหรับ session ไม่มีคนเฝ้า (`CLAUDE_CODE_MAX_RETRIES` สูงสุด 15) |
+| `CLAUDE_CODE_RETRY_WATCHDOG` | watchdog retry สำหรับ session ไม่มีคนเฝ้า — ยก default retry ของ error ชั่วคราวเป็น 300 และปลดเพดาน 15 ของ `CLAUDE_CODE_MAX_RETRIES` *(v2.1.199)* |
 | `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | ยกเลิก MCP tool call ที่ค้างไม่ตอบ |
 | `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | ปิดการคลิก/ลาก/hover ของเมาส์ใน fullscreen (ยังเลื่อน scroll ได้) *(v2.1.195)* |
 | `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` | ปิดการเก็บกวาด background shell ที่ idle อัตโนมัติเมื่อ memory ตึง *(v2.1.193)* |
@@ -4328,7 +4335,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.198`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.201`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

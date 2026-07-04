@@ -146,6 +146,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **`autoMode.classifyAllShell`** — ส่งคำสั่ง Bash/PowerShell *ทุกคำสั่ง* ผ่าน Auto-mode classifier (ไม่ใช่แค่ pattern ที่รันโค้ดอิสระ)
 - **เหตุผลที่ Auto mode ปฏิเสธ** แสดงใน transcript, toast ตอน deny, และ `/permissions` → รายการ deny ล่าสุด แล้ว
 
+### 🆕 ใหม่ใน v2.1.201
+- **โหมด permission "default" เปลี่ยนป้ายเป็น "Manual"** ทั้งใน CLI, `--help`, VS Code, JetBrains — ใช้ได้ทั้ง `--permission-mode manual` และค่า `default` เดิม (`"defaultMode": "manual"` ก็ได้) *(v2.1.200)*
+- กล่อง `AskUserQuestion` ไม่ auto-continue เองแล้ว — เปิด idle timeout ได้ผ่าน `/config` *(v2.1.200)*
+
 ---
 
 ---

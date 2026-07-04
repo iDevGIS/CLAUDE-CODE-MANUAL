@@ -117,6 +117,10 @@ Skill(commit)                    # Specific skill
 - **`autoMode.classifyAllShell`** — route *all* Bash/PowerShell commands through the Auto-mode classifier, not just arbitrary-code-execution patterns.
 - **Auto-mode denial reasons** now appear in the transcript, the denial toast, and `/permissions` → recent denials.
 
+### New in v2.1.201
+- **The "default" permission mode is now labeled "Manual"** across the CLI, `--help`, VS Code, and JetBrains — `--permission-mode manual` and `"defaultMode": "manual"` are accepted alongside the old `default` value *(v2.1.200)*.
+- `AskUserQuestion` dialogs no longer auto-continue by default — opt into an idle timeout via `/config` *(v2.1.200)*.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

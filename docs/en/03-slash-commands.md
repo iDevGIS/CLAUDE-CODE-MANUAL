@@ -111,6 +111,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 |---------|-------------|
 | `/dataviz` | Chart & dashboard design guidance, with a runnable color-palette validator. |
 
+### New in v2.1.201
+- **Stacked skill invocations** — `/skill-a /skill-b do XYZ` now loads *all* leading skills (up to 5), not just the first *(v2.1.199)*.
+
 ---
 
 ---

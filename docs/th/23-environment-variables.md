@@ -49,7 +49,7 @@ related:
 | `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS` | ซ่อน bundled skills/workflows/คำสั่ง built-in |
 | `CLAUDE_CLIENT_PRESENCE_FILE` | ไฟล์ marker เพื่อปิด push มือถือตอนนั่งอยู่หน้าเครื่อง |
 | `CLAUDE_CODE_ENABLE_AUTO_MODE` | เปิด Auto mode บน Bedrock/Vertex/Foundry |
-| `CLAUDE_CODE_RETRY_WATCHDOG` | watchdog retry สำหรับ session ไม่มีคนเฝ้า (`CLAUDE_CODE_MAX_RETRIES` สูงสุด 15) |
+| `CLAUDE_CODE_RETRY_WATCHDOG` | watchdog retry สำหรับ session ไม่มีคนเฝ้า — ยก default retry ของ error ชั่วคราวเป็น 300 และปลดเพดาน 15 ของ `CLAUDE_CODE_MAX_RETRIES` *(v2.1.199)* |
 | `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | ยกเลิก MCP tool call ที่ค้างไม่ตอบ |
 | `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | ปิดการคลิก/ลาก/hover ของเมาส์ใน fullscreen (ยังเลื่อน scroll ได้) *(v2.1.195)* |
 | `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` | ปิดการเก็บกวาด background shell ที่ idle อัตโนมัติเมื่อ memory ตึง *(v2.1.193)* |
