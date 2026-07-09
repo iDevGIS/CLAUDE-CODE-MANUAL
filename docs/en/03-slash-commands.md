@@ -114,6 +114,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.201
 - **Stacked skill invocations** — `/skill-a /skill-b do XYZ` now loads *all* leading skills (up to 5), not just the first *(v2.1.199)*.
 
+### New in v2.1.205
+- **`/doctor` is now a full setup checkup** that can diagnose *and fix* issues; `/checkup` is an alias.
+- `/review <pr>` is a fast single-pass review again — use `/code-review <level> <pr#>` for the multi-agent review at a chosen effort level *(v2.1.202)*.
+
 ---
 
 ---

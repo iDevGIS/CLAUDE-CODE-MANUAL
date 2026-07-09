@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.201         │
+│ Welcome to Claude Code v2.1.205         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -958,7 +958,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.201
+- run: npm install -g @anthropic-ai/claude-code@2.1.205
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1093,6 +1093,10 @@ claude -p "..."              # ถามเร็ว ๆ
 
 ### 🆕 ใหม่ใน v2.1.201
 - **เรียก skill ซ้อนกันได้** — `/skill-a /skill-b ทำ XYZ` โหลด skill ที่นำหน้า *ทุกตัว* (สูงสุด 5) ไม่ใช่แค่ตัวแรก *(v2.1.199)*
+
+### 🆕 ใหม่ใน v2.1.205
+- **`/doctor` กลายเป็น checkup เต็มรูปแบบ** — วินิจฉัย *และซ่อม* ปัญหา setup ให้เลย; มี alias `/checkup`
+- `/review <pr>` กลับเป็น review เร็วรอบเดียว — งานละเอียดใช้ `/code-review <level> <pr#>` เลือก effort ได้ *(v2.1.202)*
 
 ---
 
@@ -1319,6 +1323,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.201
 - **โหมด permission "default" เปลี่ยนป้ายเป็น "Manual"** ทั้งใน CLI, `--help`, VS Code, JetBrains — ใช้ได้ทั้ง `--permission-mode manual` และค่า `default` เดิม (`"defaultMode": "manual"` ก็ได้) *(v2.1.200)*
 - กล่อง `AskUserQuestion` ไม่ auto-continue เองแล้ว — เปิด idle timeout ได้ผ่าน `/config` *(v2.1.200)*
+
+### 🆕 ใหม่ใน v2.1.205
+- มี **badge ⏸ สีเทา** ที่ footer ตอนอยู่โหมด **Manual** — เห็นตลอดว่ากำลังใช้โหมดไหน *(v2.1.203)*
+- **Auto mode เข้มขึ้น** — บล็อกการแก้ไฟล์ transcript ของ session และถามก่อนรัน `rm -rf` กับตัวแปรที่เดาค่าไม่ได้จาก context
 
 ---
 
@@ -4335,7 +4343,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.201`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.205`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

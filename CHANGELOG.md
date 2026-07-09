@@ -25,6 +25,26 @@
 
 ---
 
+## [1.15.0] — 2026-07-10
+
+### Compatibility
+- **Claude Code:** `v2.1.205+`
+
+### Added
+- **`/doctor` is now a full setup checkup** that can diagnose *and fix* issues, with `/checkup` as an alias (`v2.1.205`) — chapter 3
+- **Manual-mode footer badge** — a grey ⏸ badge shows while in Manual permission mode (`v2.1.203`) — chapter 5
+- **Auto mode hardening** — blocks session-transcript tampering; asks before `rm -rf` on unresolved variables (`v2.1.205`) — chapter 5
+- **"Dynamic workflow size" setting** in `/config` (small/medium/large agent counts, advisory) (`v2.1.202`) — chapter 39
+
+### Changed
+- **Version strings** bumped `2.1.201` → `2.1.205` (current-version references only; historical sections kept)
+- **`/review <pr>`** documented as a fast single-pass review again — `/code-review <level> <pr#>` for the multi-agent review (`v2.1.202`) — chapter 3
+
+### Why
+- Track Claude Code `v2.1.205` — a reliability-heavy stretch (`2.1.202`–`2.1.205`) with a handful of documentable features, captured as targeted edits
+
+---
+
 ## [1.14.0] — 2026-06-28
 
 ### Compatibility
@@ -446,7 +466,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.14.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.15.0...HEAD
+[1.15.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.14.0...v1.15.0
 [1.14.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.13.0...v1.14.0
 [1.13.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.12.0...v1.13.0
 [1.12.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.11.0...v1.12.0

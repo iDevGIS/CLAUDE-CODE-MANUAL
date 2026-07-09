@@ -114,6 +114,7 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 
 - The Workflow runs in the background — keep using your session; it reports when done
 - `/workflows` — live progress; press `f` in the agent detail view to filter by status (v2.1.186)
+- **Workflow size** — the "Dynamic workflow size" setting in `/config` guides how large workflows generally get (small / medium / large agent counts); advisory, not a hard cap (v2.1.202)
 - **Resumable:** edit the script, then resume from the run ID — completed agent calls replay from cache without burning tokens again (this is why `Date.now()` / `Math.random()` are banned)
 
 ## Limits & cost

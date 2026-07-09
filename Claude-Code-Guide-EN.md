@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.201         │
+│ Welcome to Claude Code v2.1.205         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.201
+- run: npm install -g @anthropic-ai/claude-code@2.1.205
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1099,6 +1099,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 
 ### New in v2.1.201
 - **Stacked skill invocations** — `/skill-a /skill-b do XYZ` now loads *all* leading skills (up to 5), not just the first *(v2.1.199)*.
+
+### New in v2.1.205
+- **`/doctor` is now a full setup checkup** that can diagnose *and fix* issues; `/checkup` is an alias.
+- `/review <pr>` is a fast single-pass review again — use `/code-review <level> <pr#>` for the multi-agent review at a chosen effort level *(v2.1.202)*.
 
 ---
 
@@ -1325,6 +1329,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.201
 - **The "default" permission mode is now labeled "Manual"** across the CLI, `--help`, VS Code, and JetBrains — `--permission-mode manual` and `"defaultMode": "manual"` are accepted alongside the old `default` value *(v2.1.200)*.
 - `AskUserQuestion` dialogs no longer auto-continue by default — opt into an idle timeout via `/config` *(v2.1.200)*.
+
+### New in v2.1.205
+- A grey **⏸ badge** now shows in the footer while you're in **Manual** permission mode, so the active mode is always visible *(v2.1.203)*.
+- **Auto mode hardening** — blocks tampering with session transcript files, and asks before running `rm -rf` on a variable it can't resolve from context.
 
 ---
 
@@ -4349,7 +4357,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.201`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.205`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

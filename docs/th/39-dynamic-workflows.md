@@ -114,6 +114,7 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 
 - Workflow รันเบื้องหลัง — ใช้ session ต่อได้ตามปกติ เสร็จแล้วมันรายงานเอง
 - `/workflows` — ดู progress สด ในหน้า agent detail กด `f` เพื่อ filter ตามสถานะ (v2.1.186)
+- **ขนาด workflow** — setting "Dynamic workflow size" ใน `/config` กำหนดแนวโน้มขนาด workflow (จำนวน agent เล็ก/กลาง/ใหญ่) เป็น guideline ไม่ใช่เพดานบังคับ (v2.1.202)
 - **Resume ได้:** แก้สคริปต์แล้วสั่งรันต่อจาก run ID เดิม — agent call ที่เสร็จไปแล้ว replay จาก cache ไม่เผา token ซ้ำ (นี่คือเหตุผลที่ `Date.now()` / `Math.random()` ถูกห้าม)
 
 ## ข้อจำกัด & ค่าใช้จ่าย
