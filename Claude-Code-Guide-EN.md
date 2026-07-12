@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.205         │
+│ Welcome to Claude Code v2.1.207         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.205
+- run: npm install -g @anthropic-ai/claude-code@2.1.207
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1103,6 +1103,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.205
 - **`/doctor` is now a full setup checkup** that can diagnose *and fix* issues; `/checkup` is an alias.
 - `/review <pr>` is a fast single-pass review again — use `/code-review <level> <pr#>` for the multi-agent review at a chosen effort level *(v2.1.202)*.
+
+### New in v2.1.207
+- `/cd` now suggests directory paths as you type, matching `/add-dir` *(v2.1.206)*.
+- `/doctor` gained a check that proposes trimming checked-in `CLAUDE.md` files by cutting content Claude could derive from the codebase itself *(v2.1.206)*.
 
 ---
 
@@ -1333,6 +1337,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.205
 - A grey **⏸ badge** now shows in the footer while you're in **Manual** permission mode, so the active mode is always visible *(v2.1.203)*.
 - **Auto mode hardening** — blocks tampering with session transcript files, and asks before running `rm -rf` on a variable it can't resolve from context.
+
+### New in v2.1.207
+- **Auto mode is now on by default on Bedrock, Vertex AI, and Foundry** — the `CLAUDE_CODE_ENABLE_AUTO_MODE` opt-in is no longer required; turn it off with the `disableAutoMode` setting.
+- Auto mode configuration is no longer read from the repo-resident `.claude/settings.local.json` — put `autoMode` settings in `~/.claude/settings.json` instead.
 
 ---
 
@@ -3037,7 +3045,7 @@ your-project/
 | `CLAUDE_CODE_SAFE_MODE` | Start with all customizations disabled (= `--safe-mode`). |
 | `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS` | Hide bundled skills/workflows/built-in commands. |
 | `CLAUDE_CLIENT_PRESENCE_FILE` | Marker file to suppress mobile push while you're at the machine. |
-| `CLAUDE_CODE_ENABLE_AUTO_MODE` | Opt into Auto mode on Bedrock/Vertex/Foundry. |
+| `CLAUDE_CODE_ENABLE_AUTO_MODE` | Opt into Auto mode on Bedrock/Vertex/Foundry — not required since v2.1.207 (on by default; disable with the `disableAutoMode` setting). |
 | `CLAUDE_CODE_RETRY_WATCHDOG` | Retry watchdog for unattended sessions — raises default retries for transient errors to 300 and lifts the 15-cap on `CLAUDE_CODE_MAX_RETRIES` *(v2.1.199)*. |
 | `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | Abort remote MCP tool calls that hang. |
 | `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | Disable mouse click/drag/hover in fullscreen mode (wheel scroll still works). *(v2.1.195)* |
@@ -4357,7 +4365,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.205`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.207`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

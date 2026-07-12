@@ -154,6 +154,10 @@ Skill(commit)                    # Skill เฉพาะ
 - มี **badge ⏸ สีเทา** ที่ footer ตอนอยู่โหมด **Manual** — เห็นตลอดว่ากำลังใช้โหมดไหน *(v2.1.203)*
 - **Auto mode เข้มขึ้น** — บล็อกการแก้ไฟล์ transcript ของ session และถามก่อนรัน `rm -rf` กับตัวแปรที่เดาค่าไม่ได้จาก context
 
+### 🆕 ใหม่ใน v2.1.207
+- **Auto mode เปิดใช้บน Bedrock, Vertex AI, Foundry ได้เลยโดยไม่ต้อง opt-in** — ไม่ต้องตั้ง `CLAUDE_CODE_ENABLE_AUTO_MODE` แล้ว; ถ้าอยากปิดใช้ setting `disableAutoMode`
+- ค่า `autoMode` ไม่ถูกอ่านจาก `.claude/settings.local.json` ในตัว repo อีกต่อไป — ให้ตั้งใน `~/.claude/settings.json` แทน
+
 ---
 
 ---

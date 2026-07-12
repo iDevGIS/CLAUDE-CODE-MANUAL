@@ -125,6 +125,10 @@ Skill(commit)                    # Specific skill
 - A grey **⏸ badge** now shows in the footer while you're in **Manual** permission mode, so the active mode is always visible *(v2.1.203)*.
 - **Auto mode hardening** — blocks tampering with session transcript files, and asks before running `rm -rf` on a variable it can't resolve from context.
 
+### New in v2.1.207
+- **Auto mode is now on by default on Bedrock, Vertex AI, and Foundry** — the `CLAUDE_CODE_ENABLE_AUTO_MODE` opt-in is no longer required; turn it off with the `disableAutoMode` setting.
+- Auto mode configuration is no longer read from the repo-resident `.claude/settings.local.json` — put `autoMode` settings in `~/.claude/settings.json` instead.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

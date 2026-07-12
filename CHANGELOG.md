@@ -25,6 +25,25 @@
 
 ---
 
+## [1.16.0] — 2026-07-13
+
+### Compatibility
+- **Claude Code:** `v2.1.207+`
+
+### Added
+- **Auto mode on by default on Bedrock / Vertex AI / Foundry** — the `CLAUDE_CODE_ENABLE_AUTO_MODE` opt-in is no longer required; disable with the `disableAutoMode` setting (`v2.1.207`) — chapter 5 + env-var table
+- `/cd` directory path suggestions (matching `/add-dir`) and a `/doctor` check that proposes trimming checked-in `CLAUDE.md` files (`v2.1.206`) — chapter 3
+
+### Changed
+- **Version strings** bumped `2.1.205` → `2.1.207` (current-version references only; historical sections kept)
+- Auto mode config no longer read from repo-resident `.claude/settings.local.json` — documented pointer to `~/.claude/settings.json` (`v2.1.207`)
+- `CLAUDE_CODE_ENABLE_AUTO_MODE` env-var description annotated as not required since `v2.1.207`
+
+### Why
+- Catch-up sync for the `2.1.206`–`2.1.207` delta (the scheduled autosync missed its slots while the machine slept over the weekend); mostly reliability fixes upstream, with the Auto-mode default change being the one doc-impacting item
+
+---
+
 ## [1.15.0] — 2026-07-10
 
 ### Compatibility
@@ -466,7 +485,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.15.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.16.0...HEAD
+[1.16.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.15.0...v1.16.0
 [1.15.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.14.0...v1.15.0
 [1.14.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.13.0...v1.14.0
 [1.13.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.12.0...v1.13.0

@@ -118,6 +118,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/doctor` is now a full setup checkup** that can diagnose *and fix* issues; `/checkup` is an alias.
 - `/review <pr>` is a fast single-pass review again — use `/code-review <level> <pr#>` for the multi-agent review at a chosen effort level *(v2.1.202)*.
 
+### New in v2.1.207
+- `/cd` now suggests directory paths as you type, matching `/add-dir` *(v2.1.206)*.
+- `/doctor` gained a check that proposes trimming checked-in `CLAUDE.md` files by cutting content Claude could derive from the codebase itself *(v2.1.206)*.
+
 ---
 
 ---

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.205         │
+│ Welcome to Claude Code v2.1.207         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -958,7 +958,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.205
+- run: npm install -g @anthropic-ai/claude-code@2.1.207
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1097,6 +1097,10 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.205
 - **`/doctor` กลายเป็น checkup เต็มรูปแบบ** — วินิจฉัย *และซ่อม* ปัญหา setup ให้เลย; มี alias `/checkup`
 - `/review <pr>` กลับเป็น review เร็วรอบเดียว — งานละเอียดใช้ `/code-review <level> <pr#>` เลือก effort ได้ *(v2.1.202)*
+
+### 🆕 ใหม่ใน v2.1.207
+- `/cd` มี suggestion ของ path ให้เลือกขณะพิมพ์แล้ว แบบเดียวกับ `/add-dir` *(v2.1.206)*
+- `/doctor` เพิ่มเช็กที่เสนอ "ตัดทอน" ไฟล์ `CLAUDE.md` ใน repo โดยตัดส่วนที่ Claude อ่านได้จากโค้ดเองอยู่แล้ว *(v2.1.206)*
 
 ---
 
@@ -1327,6 +1331,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.205
 - มี **badge ⏸ สีเทา** ที่ footer ตอนอยู่โหมด **Manual** — เห็นตลอดว่ากำลังใช้โหมดไหน *(v2.1.203)*
 - **Auto mode เข้มขึ้น** — บล็อกการแก้ไฟล์ transcript ของ session และถามก่อนรัน `rm -rf` กับตัวแปรที่เดาค่าไม่ได้จาก context
+
+### 🆕 ใหม่ใน v2.1.207
+- **Auto mode เปิดใช้บน Bedrock, Vertex AI, Foundry ได้เลยโดยไม่ต้อง opt-in** — ไม่ต้องตั้ง `CLAUDE_CODE_ENABLE_AUTO_MODE` แล้ว; ถ้าอยากปิดใช้ setting `disableAutoMode`
+- ค่า `autoMode` ไม่ถูกอ่านจาก `.claude/settings.local.json` ในตัว repo อีกต่อไป — ให้ตั้งใน `~/.claude/settings.json` แทน
 
 ---
 
@@ -3026,7 +3034,7 @@ your-project/
 | `CLAUDE_CODE_SAFE_MODE` | เปิดแบบปิด customization ทั้งหมด (= `--safe-mode`) |
 | `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS` | ซ่อน bundled skills/workflows/คำสั่ง built-in |
 | `CLAUDE_CLIENT_PRESENCE_FILE` | ไฟล์ marker เพื่อปิด push มือถือตอนนั่งอยู่หน้าเครื่อง |
-| `CLAUDE_CODE_ENABLE_AUTO_MODE` | เปิด Auto mode บน Bedrock/Vertex/Foundry |
+| `CLAUDE_CODE_ENABLE_AUTO_MODE` | เปิด Auto mode บน Bedrock/Vertex/Foundry — ไม่จำเป็นตั้งแต่ v2.1.207 (เปิดเป็นค่าเริ่มต้นแล้ว; ปิดด้วย setting `disableAutoMode`) |
 | `CLAUDE_CODE_RETRY_WATCHDOG` | watchdog retry สำหรับ session ไม่มีคนเฝ้า — ยก default retry ของ error ชั่วคราวเป็น 300 และปลดเพดาน 15 ของ `CLAUDE_CODE_MAX_RETRIES` *(v2.1.199)* |
 | `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | ยกเลิก MCP tool call ที่ค้างไม่ตอบ |
 | `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | ปิดการคลิก/ลาก/hover ของเมาส์ใน fullscreen (ยังเลื่อน scroll ได้) *(v2.1.195)* |
@@ -4343,7 +4351,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.205`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.207`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
