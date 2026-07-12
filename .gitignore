@@ -9,3 +9,6 @@
 Thumbs.db
 *.swp
 .vscode/
+
+# Autosync (headless) — Discord payload buffer, overwritten every run
+.autosync-payload.tmp.json
