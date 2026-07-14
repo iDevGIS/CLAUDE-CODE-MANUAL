@@ -55,6 +55,8 @@ related:
 | `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` | ปิดการเก็บกวาด background shell ที่ idle อัตโนมัติเมื่อ memory ตึง *(v2.1.193)* |
 | `OTEL_LOG_ASSISTANT_RESPONSES` | บันทึกข้อความคำตอบของโมเดลผ่าน OpenTelemetry (`=1` เปิด, `=0` ปิด; ถ้าไม่ตั้งจะตามค่า `OTEL_LOG_USER_PROMPTS`) *(v2.1.193)* |
 | `CLAUDE_ENABLE_STREAM_WATCHDOG` | stream watchdog (เปิด default) — ยกเลิก+retry สตรีมที่เงียบเกิน 5 นาที; ตั้ง `0` เพื่อปิด *(v2.1.198)* |
+| `CLAUDE_AX_SCREEN_READER` | โหมด screen reader — แสดงผลเป็น plain text (= `--ax-screen-reader` / setting `axScreenReader`) *(v2.1.208)* |
+| `CLAUDE_CODE_PROCESS_WRAPPER` | wrapper สำหรับองค์กร — ทุก process ที่ Claude Code spawn ตัวเอง (agent view, background service) จะรันผ่าน executable ที่กำหนดไว้ *(v2.1.208)* |
 
 ### ตั้งค่าใน settings.json
 

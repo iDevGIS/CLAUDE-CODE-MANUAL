@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.207         │
+│ Welcome to Claude Code v2.1.208         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -523,6 +523,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - `--agent <name>` — เลือกว่า session ที่ dispatch/background จะรันเป็น agent ตัวไหน (override ค่า `agent` ใน `settings.json`)
 - `--fallback-model <model>` — ใช้กับ interactive session ได้แล้ว คู่กับ setting `fallbackModel` (ลองได้สูงสุด 3 รุ่นตามลำดับเมื่อ overload)
 
+### 🆕 ใหม่ใน v2.1.208
+
+- `--ax-screen-reader` — **โหมด screen reader** (opt-in) แสดงผลเป็น plain text; เปิดผ่าน `CLAUDE_AX_SCREEN_READER=1` หรือ `"axScreenReader": true` ใน settings ก็ได้
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -894,7 +898,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.207
+- run: npm install -g @anthropic-ai/claude-code@2.1.208
 ```
 
 ---

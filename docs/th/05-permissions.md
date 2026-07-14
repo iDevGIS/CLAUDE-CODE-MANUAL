@@ -158,6 +158,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **Auto mode เปิดใช้บน Bedrock, Vertex AI, Foundry ได้เลยโดยไม่ต้อง opt-in** — ไม่ต้องตั้ง `CLAUDE_CODE_ENABLE_AUTO_MODE` แล้ว; ถ้าอยากปิดใช้ setting `disableAutoMode`
 - ค่า `autoMode` ไม่ถูกอ่านจาก `.claude/settings.local.json` ในตัว repo อีกต่อไป — ให้ตั้งใน `~/.claude/settings.json` แทน
 
+### 🆕 ใหม่ใน v2.1.208
+- **คำสั่งลบล้างระบบที่ซ่อนมาก็ถูกถามเสมอ** — คำสั่งที่ซ่อนการลบร้ายแรง (เช่น `rm -rf ~`) ไว้ใน `$(…)`, backtick หรือ `<(…)` จะขึ้นถามยืนยันแม้อยู่ใน `--dangerously-skip-permissions` หรือ Auto mode — เหมือนตอนพิมพ์ตรง ๆ
+
 ---
 
 ---

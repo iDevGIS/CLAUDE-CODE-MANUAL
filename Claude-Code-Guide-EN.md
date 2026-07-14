@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.207         │
+│ Welcome to Claude Code v2.1.208         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.207
+- run: npm install -g @anthropic-ai/claude-code@2.1.208
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -972,6 +972,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - `--safe-mode` (env `CLAUDE_CODE_SAFE_MODE=1`) — start Claude Code with ALL customizations disabled (CLAUDE.md, plugins, skills, hooks, MCP) for troubleshooting.
 - `--agent <name>` — choose which configured agent a dispatched/background session runs as (overrides the `agent` field in `settings.json`).
 - `--fallback-model <model>` — now also applies to interactive sessions; pairs with the `fallbackModel` setting (up to 3 models tried in order on overload).
+
+### New in v2.1.208
+
+- `--ax-screen-reader` — opt-in **screen reader mode** with plain-text rendering; can also be enabled via `CLAUDE_AX_SCREEN_READER=1` or `"axScreenReader": true` in settings.
 
 ---
 
@@ -1342,6 +1346,9 @@ Skill(commit)                    # Specific skill
 - **Auto mode is now on by default on Bedrock, Vertex AI, and Foundry** — the `CLAUDE_CODE_ENABLE_AUTO_MODE` opt-in is no longer required; turn it off with the `disableAutoMode` setting.
 - Auto mode configuration is no longer read from the repo-resident `.claude/settings.local.json` — put `autoMode` settings in `~/.claude/settings.json` instead.
 
+### New in v2.1.208
+- **Hidden catastrophic removals now always prompt** — commands that wrap a catastrophic removal (e.g. `rm -rf ~`) in `$(…)`, backticks, or `<(…)` now ask for confirmation even in `--dangerously-skip-permissions` and Auto mode, matching the plain form.
+
 ---
 
 ## 6. Configuration
@@ -1457,6 +1464,11 @@ Skill(commit)                    # Specific skill
 
 - **Organization default models** — admins set an org-wide default in the console; it shows as "Org default" (or "Role default") in `/model` until you pick a model yourself.
 - **Streaming idle watchdog on by default** — a response stream that produces no events for 5 minutes is aborted and retried automatically; set `CLAUDE_ENABLE_STREAM_WATCHDOG=0` to disable.
+
+### New in v2.1.208
+
+- `axScreenReader` — opt into screen reader mode (plain-text rendering); same as `claude --ax-screen-reader` or `CLAUDE_AX_SCREEN_READER=1`.
+- `vimInsertModeRemaps` — map two-key insert-mode sequences (e.g. `jj`) to Escape in vim mode.
 
 ---
 
@@ -3052,6 +3064,8 @@ your-project/
 | `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` | Disable auto-reaping of idle background shell commands under memory pressure. *(v2.1.193)* |
 | `OTEL_LOG_ASSISTANT_RESPONSES` | Log the model's response text via OpenTelemetry (`=1` on, `=0` off; when unset, follows `OTEL_LOG_USER_PROMPTS`). *(v2.1.193)* |
 | `CLAUDE_ENABLE_STREAM_WATCHDOG` | Streaming idle watchdog (on by default) — aborts & retries a stream with no events for 5 min; set `0` to disable. *(v2.1.198)* |
+| `CLAUDE_AX_SCREEN_READER` | Screen reader mode — plain-text rendering (= `--ax-screen-reader` / the `axScreenReader` setting). *(v2.1.208)* |
+| `CLAUDE_CODE_PROCESS_WRAPPER` | Corporate launcher wrapper — every Claude Code self-spawn (agent view, background service) runs through the required wrapper executable. *(v2.1.208)* |
 
 ### Configure in settings.json
 
@@ -4365,7 +4379,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.207`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.208`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

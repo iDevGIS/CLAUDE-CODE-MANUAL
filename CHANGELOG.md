@@ -25,6 +25,25 @@
 
 ---
 
+## [1.17.0] — 2026-07-14
+
+### Compatibility
+- **Claude Code:** `v2.1.208+`
+
+### Added
+- **Screen reader mode** — flag `--ax-screen-reader` / env `CLAUDE_AX_SCREEN_READER=1` / setting `axScreenReader` for plain-text rendering (`v2.1.208`) — chapters 2, 6 + env-var table
+- `vimInsertModeRemaps` setting — map two-key insert-mode sequences (e.g. `jj`) to Escape in vim mode (`v2.1.208`) — chapter 6
+- `CLAUDE_CODE_PROCESS_WRAPPER` env var — corporate launcher wrapper for every Claude Code self-spawn (`v2.1.208`) — env-var table
+- **Hidden catastrophic removals always prompt** — e.g. `rm -rf ~` wrapped in `$(…)`, backticks, or `<(…)` now asks for confirmation even in `--dangerously-skip-permissions` / Auto mode (`v2.1.208`) — chapter 5
+
+### Changed
+- **Version strings** bumped `2.1.207` → `2.1.208` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.208` (14 Jul 2026) — accessibility milestone (screen reader mode) plus a hardened catastrophic-removal guard; the rest of the release is bug fixes / performance work, which the manual skips per policy
+
+---
+
 ## [1.16.0] — 2026-07-13
 
 ### Compatibility
@@ -486,6 +505,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.16.0...HEAD
+[1.17.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.16.0...v1.17.0
 [1.16.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.15.0...v1.16.0
 [1.15.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.14.0...v1.15.0
 [1.14.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.13.0...v1.14.0

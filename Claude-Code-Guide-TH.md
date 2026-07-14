@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.207         │
+│ Welcome to Claude Code v2.1.208         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -627,6 +627,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - `--agent <name>` — เลือกว่า session ที่ dispatch/background จะรันเป็น agent ตัวไหน (override ค่า `agent` ใน `settings.json`)
 - `--fallback-model <model>` — ใช้กับ interactive session ได้แล้ว คู่กับ setting `fallbackModel` (ลองได้สูงสุด 3 รุ่นตามลำดับเมื่อ overload)
 
+#### 🆕 ใหม่ใน v2.1.208
+
+- `--ax-screen-reader` — **โหมด screen reader** (opt-in) แสดงผลเป็น plain text; เปิดผ่าน `CLAUDE_AX_SCREEN_READER=1` หรือ `"axScreenReader": true` ใน settings ก็ได้
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -958,7 +962,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.207
+- run: npm install -g @anthropic-ai/claude-code@2.1.208
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1336,6 +1340,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **Auto mode เปิดใช้บน Bedrock, Vertex AI, Foundry ได้เลยโดยไม่ต้อง opt-in** — ไม่ต้องตั้ง `CLAUDE_CODE_ENABLE_AUTO_MODE` แล้ว; ถ้าอยากปิดใช้ setting `disableAutoMode`
 - ค่า `autoMode` ไม่ถูกอ่านจาก `.claude/settings.local.json` ในตัว repo อีกต่อไป — ให้ตั้งใน `~/.claude/settings.json` แทน
 
+### 🆕 ใหม่ใน v2.1.208
+- **คำสั่งลบล้างระบบที่ซ่อนมาก็ถูกถามเสมอ** — คำสั่งที่ซ่อนการลบร้ายแรง (เช่น `rm -rf ~`) ไว้ใน `$(…)`, backtick หรือ `<(…)` จะขึ้นถามยืนยันแม้อยู่ใน `--dangerously-skip-permissions` หรือ Auto mode — เหมือนตอนพิมพ์ตรง ๆ
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1451,6 +1458,11 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **Org default models** — แอดมินตั้งโมเดล default ขององค์กรจาก console ได้; ขึ้นเป็น "Org default" (หรือ "Role default") ใน `/model` จนกว่าคุณจะเลือกเอง
 - **Stream watchdog เปิดเป็นค่าเริ่มต้น** — สตรีมที่เงียบเกิน 5 นาทีจะถูกยกเลิกแล้ว retry อัตโนมัติ; ปิดด้วย `CLAUDE_ENABLE_STREAM_WATCHDOG=0`
+
+### 🆕 ใหม่ใน v2.1.208
+
+- `axScreenReader` — เปิดโหมด screen reader (แสดงผลเป็น plain text); เหมือนใช้ `claude --ax-screen-reader` หรือ `CLAUDE_AX_SCREEN_READER=1`
+- `vimInsertModeRemaps` — map ปุ่มสองตัวติดกันในโหมด insert ของ vim (เช่น `jj`) ให้เป็น Escape
 
 ---
 
@@ -3041,6 +3053,8 @@ your-project/
 | `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` | ปิดการเก็บกวาด background shell ที่ idle อัตโนมัติเมื่อ memory ตึง *(v2.1.193)* |
 | `OTEL_LOG_ASSISTANT_RESPONSES` | บันทึกข้อความคำตอบของโมเดลผ่าน OpenTelemetry (`=1` เปิด, `=0` ปิด; ถ้าไม่ตั้งจะตามค่า `OTEL_LOG_USER_PROMPTS`) *(v2.1.193)* |
 | `CLAUDE_ENABLE_STREAM_WATCHDOG` | stream watchdog (เปิด default) — ยกเลิก+retry สตรีมที่เงียบเกิน 5 นาที; ตั้ง `0` เพื่อปิด *(v2.1.198)* |
+| `CLAUDE_AX_SCREEN_READER` | โหมด screen reader — แสดงผลเป็น plain text (= `--ax-screen-reader` / setting `axScreenReader`) *(v2.1.208)* |
+| `CLAUDE_CODE_PROCESS_WRAPPER` | wrapper สำหรับองค์กร — ทุก process ที่ Claude Code spawn ตัวเอง (agent view, background service) จะรันผ่าน executable ที่กำหนดไว้ *(v2.1.208)* |
 
 ### ตั้งค่าใน settings.json
 
@@ -4351,7 +4365,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.207`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.208`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

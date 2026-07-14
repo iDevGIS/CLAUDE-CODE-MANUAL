@@ -135,6 +135,11 @@ Set the `model` key to any of these (newest → cheapest):
 - **Organization default models** — admins set an org-wide default in the console; it shows as "Org default" (or "Role default") in `/model` until you pick a model yourself.
 - **Streaming idle watchdog on by default** — a response stream that produces no events for 5 minutes is aborted and retried automatically; set `CLAUDE_ENABLE_STREAM_WATCHDOG=0` to disable.
 
+### New in v2.1.208
+
+- `axScreenReader` — opt into screen reader mode (plain-text rendering); same as `claude --ax-screen-reader` or `CLAUDE_AX_SCREEN_READER=1`.
+- `vimInsertModeRemaps` — map two-key insert-mode sequences (e.g. `jj`) to Escape in vim mode.
+
 ---
 
 ---
