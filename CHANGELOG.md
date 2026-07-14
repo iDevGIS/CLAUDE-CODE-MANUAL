@@ -25,6 +25,19 @@
 
 ---
 
+## [1.18.0] — 2026-07-14
+
+### Compatibility
+- **Claude Code:** `v2.1.209+`
+
+### Changed
+- **Version strings** bumped `2.1.208` → `2.1.209` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.209` (14 Jul 2026) — single bug-fix release (reverts an overly broad dialog guard in `claude agents` background sessions); no documentable features, so this is a version-reference sync only
+
+---
+
 ## [1.17.0] — 2026-07-14
 
 ### Compatibility
@@ -504,7 +517,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.16.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.18.0...HEAD
+[1.18.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.17.0...v1.18.0
 [1.17.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.16.0...v1.17.0
 [1.16.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.15.0...v1.16.0
 [1.15.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.14.0...v1.15.0

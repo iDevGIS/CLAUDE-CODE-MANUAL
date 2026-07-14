@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.208         │
+│ Welcome to Claude Code v2.1.209         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -898,7 +898,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.208
+- run: npm install -g @anthropic-ai/claude-code@2.1.209
 ```
 
 ---
