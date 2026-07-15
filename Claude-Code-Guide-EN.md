@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.209         │
+│ Welcome to Claude Code v2.1.210         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.209
+- run: npm install -g @anthropic-ai/claude-code@2.1.210
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1348,6 +1348,10 @@ Skill(commit)                    # Specific skill
 
 ### New in v2.1.208
 - **Hidden catastrophic removals now always prompt** — commands that wrap a catastrophic removal (e.g. `rm -rf ~`) in `$(…)`, backticks, or `<(…)` now ask for confirmation even in `--dangerously-skip-permissions` and Auto mode, matching the plain form.
+
+### New in v2.1.210
+- **Startup warning for misnamed permission rules** — `Write(path)`, `NotebookEdit(path)`, and `Glob(path)` rules now trigger a warning at startup; use `Edit(path)` or `Read(path)` instead.
+- **Auto mode classifier defaults to Sonnet 5** — for external sessions the permission classifier now defaults to Sonnet 5, validated on the session's first request and pinned for the rest of the session.
 
 ---
 
@@ -4379,7 +4383,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.209`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.210`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

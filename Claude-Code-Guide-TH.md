@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.209         │
+│ Welcome to Claude Code v2.1.210         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -962,7 +962,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.209
+- run: npm install -g @anthropic-ai/claude-code@2.1.210
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1342,6 +1342,10 @@ Skill(commit)                    # Skill เฉพาะ
 
 ### 🆕 ใหม่ใน v2.1.208
 - **คำสั่งลบล้างระบบที่ซ่อนมาก็ถูกถามเสมอ** — คำสั่งที่ซ่อนการลบร้ายแรง (เช่น `rm -rf ~`) ไว้ใน `$(…)`, backtick หรือ `<(…)` จะขึ้นถามยืนยันแม้อยู่ใน `--dangerously-skip-permissions` หรือ Auto mode — เหมือนตอนพิมพ์ตรง ๆ
+
+### 🆕 ใหม่ใน v2.1.210
+- **เตือนตอน startup ถ้าเขียน permission rule ผิดชื่อ tool** — rule แบบ `Write(path)`, `NotebookEdit(path)` และ `Glob(path)` จะมีคำเตือนตอนเปิดโปรแกรม — ให้ใช้ `Edit(path)` หรือ `Read(path)` แทน
+- **Auto mode ใช้ Sonnet 5 เป็น classifier โดย default** — สำหรับ external session ตัว permission classifier จะใช้ Sonnet 5 โดย validate ตอน request แรกของ session แล้ว pin ไว้ตลอด session
 
 ---
 
@@ -4365,7 +4369,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.209`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.210`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

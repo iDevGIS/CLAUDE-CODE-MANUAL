@@ -25,6 +25,23 @@
 
 ---
 
+## [1.19.0] — 2026-07-15
+
+### Compatibility
+- **Claude Code:** `v2.1.210+`
+
+### Added
+- **Startup warning for misnamed permission rules** — `Write(path)` / `NotebookEdit(path)` / `Glob(path)` rules now warn at startup; use `Edit(path)` or `Read(path)` instead (`v2.1.210`) — chapter 5
+- **Auto mode classifier defaults to Sonnet 5** for external sessions — validated on the session's first request and pinned for the session (`v2.1.210`) — chapter 5
+
+### Changed
+- **Version strings** bumped `2.1.209` → `2.1.210` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.210` (15 Jul 2026) — mostly a bug-fix release; the two documentable items are both permission-related (rule-name startup warning + Auto mode classifier default), added to chapter 5 in both languages
+
+---
+
 ## [1.18.0] — 2026-07-14
 
 ### Compatibility
@@ -517,7 +534,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.18.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.19.0...HEAD
+[1.19.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.18.0...v1.19.0
 [1.18.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.17.0...v1.18.0
 [1.17.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.16.0...v1.17.0
 [1.16.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.15.0...v1.16.0

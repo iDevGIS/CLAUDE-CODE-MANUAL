@@ -161,6 +161,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.208
 - **คำสั่งลบล้างระบบที่ซ่อนมาก็ถูกถามเสมอ** — คำสั่งที่ซ่อนการลบร้ายแรง (เช่น `rm -rf ~`) ไว้ใน `$(…)`, backtick หรือ `<(…)` จะขึ้นถามยืนยันแม้อยู่ใน `--dangerously-skip-permissions` หรือ Auto mode — เหมือนตอนพิมพ์ตรง ๆ
 
+### 🆕 ใหม่ใน v2.1.210
+- **เตือนตอน startup ถ้าเขียน permission rule ผิดชื่อ tool** — rule แบบ `Write(path)`, `NotebookEdit(path)` และ `Glob(path)` จะมีคำเตือนตอนเปิดโปรแกรม — ให้ใช้ `Edit(path)` หรือ `Read(path)` แทน
+- **Auto mode ใช้ Sonnet 5 เป็น classifier โดย default** — สำหรับ external session ตัว permission classifier จะใช้ Sonnet 5 โดย validate ตอน request แรกของ session แล้ว pin ไว้ตลอด session
+
 ---
 
 ---

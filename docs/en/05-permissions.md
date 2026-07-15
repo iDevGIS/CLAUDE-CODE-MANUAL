@@ -132,6 +132,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.208
 - **Hidden catastrophic removals now always prompt** — commands that wrap a catastrophic removal (e.g. `rm -rf ~`) in `$(…)`, backticks, or `<(…)` now ask for confirmation even in `--dangerously-skip-permissions` and Auto mode, matching the plain form.
 
+### New in v2.1.210
+- **Startup warning for misnamed permission rules** — `Write(path)`, `NotebookEdit(path)`, and `Glob(path)` rules now trigger a warning at startup; use `Edit(path)` or `Read(path)` instead.
+- **Auto mode classifier defaults to Sonnet 5** — for external sessions the permission classifier now defaults to Sonnet 5, validated on the session's first request and pinned for the rest of the session.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block
