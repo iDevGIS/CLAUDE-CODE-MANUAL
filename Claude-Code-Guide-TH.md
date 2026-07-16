@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.210         │
+│ Welcome to Claude Code v2.1.211         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -631,6 +631,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - `--ax-screen-reader` — **โหมด screen reader** (opt-in) แสดงผลเป็น plain text; เปิดผ่าน `CLAUDE_AX_SCREEN_READER=1` หรือ `"axScreenReader": true` ใน settings ก็ได้
 
+#### 🆕 ใหม่ใน v2.1.211
+
+- `--forward-subagent-text` — รวมข้อความและ thinking ของ subagent ลงใน output แบบ `stream-json`; เปิดผ่าน `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT=1` ก็ได้
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -962,7 +966,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.210
+- run: npm install -g @anthropic-ai/claude-code@2.1.211
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1105,6 +1109,9 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.207
 - `/cd` มี suggestion ของ path ให้เลือกขณะพิมพ์แล้ว แบบเดียวกับ `/add-dir` *(v2.1.206)*
 - `/doctor` เพิ่มเช็กที่เสนอ "ตัดทอน" ไฟล์ `CLAUDE.md` ใน repo โดยตัดส่วนที่ Claude อ่านได้จากโค้ดเองอยู่แล้ว *(v2.1.206)*
+
+### 🆕 ใหม่ใน v2.1.211
+- `/usage-credits` จะถามยืนยันก่อนส่งคำขอไปยัง admin ขององค์กร
 
 ---
 
@@ -1346,6 +1353,9 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.210
 - **เตือนตอน startup ถ้าเขียน permission rule ผิดชื่อ tool** — rule แบบ `Write(path)`, `NotebookEdit(path)` และ `Glob(path)` จะมีคำเตือนตอนเปิดโปรแกรม — ให้ใช้ `Edit(path)` หรือ `Read(path)` แทน
 - **Auto mode ใช้ Sonnet 5 เป็น classifier โดย default** — สำหรับ external session ตัว permission classifier จะใช้ Sonnet 5 โดย validate ตอน request แรกของ session แล้ว pin ไว้ตลอด session
+
+### 🆕 ใหม่ใน v2.1.211
+- **rule "always allow" ถูกบันทึกที่ root ของ repository** — การอนุมัติที่กดไว้ใน git worktree จะติดตัวข้าม session และ worktree อื่นของ repo เดียวกัน
 
 ---
 
@@ -3059,6 +3069,9 @@ your-project/
 | `CLAUDE_ENABLE_STREAM_WATCHDOG` | stream watchdog (เปิด default) — ยกเลิก+retry สตรีมที่เงียบเกิน 5 นาที; ตั้ง `0` เพื่อปิด *(v2.1.198)* |
 | `CLAUDE_AX_SCREEN_READER` | โหมด screen reader — แสดงผลเป็น plain text (= `--ax-screen-reader` / setting `axScreenReader`) *(v2.1.208)* |
 | `CLAUDE_CODE_PROCESS_WRAPPER` | wrapper สำหรับองค์กร — ทุก process ที่ Claude Code spawn ตัวเอง (agent view, background service) จะรันผ่าน executable ที่กำหนดไว้ *(v2.1.208)* |
+| `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` | รวมข้อความและ thinking ของ subagent ลงใน output แบบ `stream-json` (= `--forward-subagent-text`) *(v2.1.211)* |
+
+> env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
 ### ตั้งค่าใน settings.json
 
@@ -4369,7 +4382,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.210`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.211`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

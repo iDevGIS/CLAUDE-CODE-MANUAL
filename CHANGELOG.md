@@ -25,6 +25,25 @@
 
 ---
 
+## [1.20.0] — 2026-07-16
+
+### Compatibility
+- **Claude Code:** `v2.1.211+`
+
+### Added
+- **`--forward-subagent-text` flag + `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` env var** — include subagent text and thinking in `stream-json` output (`v2.1.211`) — chapters 2 & 23
+- **"Always allow" rules now save at the repository root** — approvals granted in a git worktree persist across sessions and other worktrees of the same repo (`v2.1.211`) — chapter 5
+- **`/usage-credits` asks for confirmation** before sending a request to organization admins (`v2.1.211`) — chapter 3
+- **Integer env vars accept `1e6` / `64_000` spellings** — scientific notation and digit separators for timeouts, token budgets, retry counts (`v2.1.211`) — chapter 23
+
+### Changed
+- **Version strings** bumped `2.1.210` → `2.1.211` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.211` (16 Jul 2026) — mostly a bug-fix release; documentable items are the new stream-json subagent-text flag/env var (chapters 2 & 23), worktree-persistent "always allow" rules (chapter 5), a `/usage-credits` confirmation step (chapter 3), and relaxed integer env-var spellings (chapter 23)
+
+---
+
 ## [1.19.0] — 2026-07-15
 
 ### Compatibility
@@ -534,7 +553,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.19.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.20.0...HEAD
+[1.20.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.19.0...v1.20.0
 [1.19.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.18.0...v1.19.0
 [1.18.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.17.0...v1.18.0
 [1.17.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.16.0...v1.17.0

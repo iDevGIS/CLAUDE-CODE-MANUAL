@@ -136,6 +136,9 @@ Skill(commit)                    # Specific skill
 - **Startup warning for misnamed permission rules** — `Write(path)`, `NotebookEdit(path)`, and `Glob(path)` rules now trigger a warning at startup; use `Edit(path)` or `Read(path)` instead.
 - **Auto mode classifier defaults to Sonnet 5** — for external sessions the permission classifier now defaults to Sonnet 5, validated on the session's first request and pinned for the rest of the session.
 
+### New in v2.1.211
+- **"Always allow" rules now save at the repository root** — approvals granted inside a git worktree persist across sessions and other worktrees of the same repo.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

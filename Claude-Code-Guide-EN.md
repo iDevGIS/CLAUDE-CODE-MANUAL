@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.210         │
+│ Welcome to Claude Code v2.1.211         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.210
+- run: npm install -g @anthropic-ai/claude-code@2.1.211
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -976,6 +976,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.208
 
 - `--ax-screen-reader` — opt-in **screen reader mode** with plain-text rendering; can also be enabled via `CLAUDE_AX_SCREEN_READER=1` or `"axScreenReader": true` in settings.
+
+### New in v2.1.211
+
+- `--forward-subagent-text` — include subagent text and thinking in `stream-json` output; can also be enabled via `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT=1`.
 
 ---
 
@@ -1111,6 +1115,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.207
 - `/cd` now suggests directory paths as you type, matching `/add-dir` *(v2.1.206)*.
 - `/doctor` gained a check that proposes trimming checked-in `CLAUDE.md` files by cutting content Claude could derive from the codebase itself *(v2.1.206)*.
+
+### New in v2.1.211
+- `/usage-credits` now asks for confirmation before sending a request to organization admins.
 
 ---
 
@@ -1352,6 +1359,9 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.210
 - **Startup warning for misnamed permission rules** — `Write(path)`, `NotebookEdit(path)`, and `Glob(path)` rules now trigger a warning at startup; use `Edit(path)` or `Read(path)` instead.
 - **Auto mode classifier defaults to Sonnet 5** — for external sessions the permission classifier now defaults to Sonnet 5, validated on the session's first request and pinned for the rest of the session.
+
+### New in v2.1.211
+- **"Always allow" rules now save at the repository root** — approvals granted inside a git worktree persist across sessions and other worktrees of the same repo.
 
 ---
 
@@ -3070,6 +3080,9 @@ your-project/
 | `CLAUDE_ENABLE_STREAM_WATCHDOG` | Streaming idle watchdog (on by default) — aborts & retries a stream with no events for 5 min; set `0` to disable. *(v2.1.198)* |
 | `CLAUDE_AX_SCREEN_READER` | Screen reader mode — plain-text rendering (= `--ax-screen-reader` / the `axScreenReader` setting). *(v2.1.208)* |
 | `CLAUDE_CODE_PROCESS_WRAPPER` | Corporate launcher wrapper — every Claude Code self-spawn (agent view, background service) runs through the required wrapper executable. *(v2.1.208)* |
+| `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` | Include subagent text and thinking in `stream-json` output (= `--forward-subagent-text`). *(v2.1.211)* |
+
+> Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
 ### Configure in settings.json
 
@@ -4383,7 +4396,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.210`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.211`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

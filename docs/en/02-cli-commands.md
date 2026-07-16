@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.210         │
+│ Welcome to Claude Code v2.1.211         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -527,6 +527,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - `--ax-screen-reader` — opt-in **screen reader mode** with plain-text rendering; can also be enabled via `CLAUDE_AX_SCREEN_READER=1` or `"axScreenReader": true` in settings.
 
+### New in v2.1.211
+
+- `--forward-subagent-text` — include subagent text and thinking in `stream-json` output; can also be enabled via `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT=1`.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -898,7 +902,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.210
+- run: npm install -g @anthropic-ai/claude-code@2.1.211
 ```
 
 ---

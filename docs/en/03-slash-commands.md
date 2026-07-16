@@ -122,6 +122,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - `/cd` now suggests directory paths as you type, matching `/add-dir` *(v2.1.206)*.
 - `/doctor` gained a check that proposes trimming checked-in `CLAUDE.md` files by cutting content Claude could derive from the codebase itself *(v2.1.206)*.
 
+### New in v2.1.211
+- `/usage-credits` now asks for confirmation before sending a request to organization admins.
+
 ---
 
 ---

@@ -165,6 +165,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **เตือนตอน startup ถ้าเขียน permission rule ผิดชื่อ tool** — rule แบบ `Write(path)`, `NotebookEdit(path)` และ `Glob(path)` จะมีคำเตือนตอนเปิดโปรแกรม — ให้ใช้ `Edit(path)` หรือ `Read(path)` แทน
 - **Auto mode ใช้ Sonnet 5 เป็น classifier โดย default** — สำหรับ external session ตัว permission classifier จะใช้ Sonnet 5 โดย validate ตอน request แรกของ session แล้ว pin ไว้ตลอด session
 
+### 🆕 ใหม่ใน v2.1.211
+- **rule "always allow" ถูกบันทึกที่ root ของ repository** — การอนุมัติที่กดไว้ใน git worktree จะติดตัวข้าม session และ worktree อื่นของ repo เดียวกัน
+
 ---
 
 ---

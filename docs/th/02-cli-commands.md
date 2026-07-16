@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.210         │
+│ Welcome to Claude Code v2.1.211         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -527,6 +527,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - `--ax-screen-reader` — **โหมด screen reader** (opt-in) แสดงผลเป็น plain text; เปิดผ่าน `CLAUDE_AX_SCREEN_READER=1` หรือ `"axScreenReader": true` ใน settings ก็ได้
 
+### 🆕 ใหม่ใน v2.1.211
+
+- `--forward-subagent-text` — รวมข้อความและ thinking ของ subagent ลงใน output แบบ `stream-json`; เปิดผ่าน `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT=1` ก็ได้
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -898,7 +902,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.210
+- run: npm install -g @anthropic-ai/claude-code@2.1.211
 ```
 
 ---
