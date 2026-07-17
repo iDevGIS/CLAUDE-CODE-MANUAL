@@ -25,6 +25,29 @@
 
 ---
 
+## [1.21.0] — 2026-07-17
+
+### Compatibility
+- **Claude Code:** `v2.1.212+`
+
+### Added
+- **`claude auto-mode reset`** — restore the default auto-mode configuration, with a confirmation prompt (`--yes` to skip) (`v2.1.212`) — chapter 2
+- **`/subtask`** — new command carrying the old in-session `/fork` behavior (launch a subagent inside the session) (`v2.1.212`) — chapter 3
+- **`/resume` in the agent view** — opens a picker of past sessions (including ones deleted from the list) and resumes the pick as a background session (`v2.1.212`) — chapter 3
+- **Runaway-loop guards** — session-wide WebSearch limit (`CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION`, default 200) and per-session subagent cap (`CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION`, default 200; `/clear` resets) (`v2.1.212`) — chapters 12 & 23
+- **Long MCP calls auto-background** — MCP tool calls over 2 minutes move to the background automatically; threshold/disable via `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` (`v2.1.212`) — chapters 9 & 23
+
+### Changed
+- **`/fork` now forks into a background session** — copies the conversation into a new background session (its own row in `claude agents`) while you keep working; the in-session subagent role moved to `/subtask` (`v2.1.212`) — chapter 3
+- **Bare `/btw` reopens the side-question panel** on the most recent exchange (`v2.1.212`) — chapter 3
+- **Task tool `mode` parameter deprecated** (now ignored) — subagents inherit the parent session's permission mode by default (`v2.1.212`) — chapter 12
+- **Version strings** bumped `2.1.211` → `2.1.212` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.212` — headline change is `/fork` becoming a background-session fork with the new `/subtask` taking over the in-session role (chapter 3); plus a `claude auto-mode reset` subcommand (chapter 2), three new env vars for runaway-loop guards and MCP auto-backgrounding (chapters 9, 12 & 23), an agent-view `/resume` picker and bare-`/btw` panel (chapter 3), and the Task tool `mode` deprecation (chapter 12)
+
+---
+
 ## [1.20.0] — 2026-07-16
 
 ### Compatibility
@@ -553,7 +576,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.20.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.21.0...HEAD
+[1.21.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.20.0...v1.21.0
 [1.20.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.19.0...v1.20.0
 [1.19.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.18.0...v1.19.0
 [1.18.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.17.0...v1.18.0

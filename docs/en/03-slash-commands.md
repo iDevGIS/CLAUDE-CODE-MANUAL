@@ -125,6 +125,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.211
 - `/usage-credits` now asks for confirmation before sending a request to organization admins.
 
+### New in v2.1.212
+- `/fork` now copies the conversation into a **new background session** (its own row in `claude agents`) while you keep working — the old in-session subagent behavior moved to the new **`/subtask`** command.
+- Typing `/resume` in the agent view opens a picker of past sessions (including ones deleted from the list) and resumes your pick as a background session.
+- Bare `/btw` reopens the side-question panel on your most recent exchange so you can browse earlier answers.
+
 ---
 
 ---

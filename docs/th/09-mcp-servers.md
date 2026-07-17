@@ -133,6 +133,10 @@ claude --mcp-config ./mcp.json
 
 - **เข้มความปลอดภัย** — `claude mcp list`/`get` ไม่ spawn server จาก `.mcp.json` ที่ repo อนุมัติตัวเองผ่าน `.claude/settings.json` ที่ commit มา; workspace ที่ยังไม่ trust จะเห็นเป็น `⏸ Pending approval`
 
+### 🆕 ใหม่ใน v2.1.212
+
+- **MCP call ที่รันนานย้ายไป background เอง** — MCP tool call ที่รันเกิน 2 นาทีจะถูกย้ายไปทำงาน background อัตโนมัติ เพื่อให้ session ใช้งานต่อได้; ปรับ threshold หรือปิดได้ด้วย `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`
+
 ---
 
 ---

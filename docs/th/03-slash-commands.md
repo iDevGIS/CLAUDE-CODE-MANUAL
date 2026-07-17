@@ -126,6 +126,11 @@ related:
 ### 🆕 ใหม่ใน v2.1.211
 - `/usage-credits` จะถามยืนยันก่อนส่งคำขอไปยัง admin ขององค์กร
 
+### 🆕 ใหม่ใน v2.1.212
+- `/fork` เปลี่ยนพฤติกรรม — คัดลอก conversation ไปเป็น **background session ใหม่** (มีแถวของตัวเองใน `claude agents`) โดยเราทำงานใน session เดิมต่อได้; แบบเดิมที่เปิด subagent ใน session ย้ายไปเป็นคำสั่งใหม่ **`/subtask`**
+- พิมพ์ `/resume` ใน agent view จะเปิด picker ให้เลือก session เก่า (รวมที่ถูกลบออกจาก list แล้ว) แล้ว resume ตัวที่เลือกเป็น background session
+- `/btw` เปล่า ๆ เปิด panel คำถามข้างเคียงของ exchange ล่าสุดขึ้นมาอีกครั้ง ไว้ไล่ดูคำตอบก่อนหน้าได้
+
 ---
 
 ---

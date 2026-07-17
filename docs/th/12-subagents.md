@@ -118,6 +118,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **Explore agent อัปเกรด** — ใช้โมเดลเดียวกับ session หลัก (cap ที่ Opus) แทนที่จะรัน Haiku ตลอด
 - subagent และ context compaction สืบทอดการตั้งค่า **extended thinking** ของ session แล้ว
 
+### 🆕 ใหม่ใน v2.1.212
+
+- **เพดาน subagent ต่อ session** — spawn subagent ได้ไม่เกิน 200 ตัวต่อ session โดย default (ปรับด้วย `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION`) เพื่อกันลูป delegate ไม่รู้จบ; `/clear` รีเซ็ตโควตา
+- **พารามิเตอร์ `mode` ของ Task tool ถูก deprecate** (ตอนนี้ถูกเมินเฉย) — subagent สืบทอด permission mode ของ session แม่เป็นค่า default
+
 ---
 
 ---

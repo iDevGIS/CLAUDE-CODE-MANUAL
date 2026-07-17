@@ -58,6 +58,9 @@ related:
 | `CLAUDE_AX_SCREEN_READER` | Screen reader mode — plain-text rendering (= `--ax-screen-reader` / the `axScreenReader` setting). *(v2.1.208)* |
 | `CLAUDE_CODE_PROCESS_WRAPPER` | Corporate launcher wrapper — every Claude Code self-spawn (agent view, background service) runs through the required wrapper executable. *(v2.1.208)* |
 | `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` | Include subagent text and thinking in `stream-json` output (= `--forward-subagent-text`). *(v2.1.211)* |
+| `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | Session-wide limit on WebSearch tool calls (default 200) to stop runaway search loops. *(v2.1.212)* |
+| `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | Per-session cap on subagent spawns (default 200); `/clear` resets the budget. *(v2.1.212)* |
+| `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | Threshold (ms) before a long-running MCP tool call moves to the background automatically (default 2 minutes); also disables the behavior. *(v2.1.212)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 

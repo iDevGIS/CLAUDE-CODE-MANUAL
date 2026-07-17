@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.211         │
+│ Welcome to Claude Code v2.1.212         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -635,6 +635,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - `--forward-subagent-text` — รวมข้อความและ thinking ของ subagent ลงใน output แบบ `stream-json`; เปิดผ่าน `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT=1` ก็ได้
 
+#### 🆕 ใหม่ใน v2.1.212
+
+- `claude auto-mode reset` — คืนการตั้งค่า auto-mode กลับเป็น default โดยมีถามยืนยันก่อน (ใส่ `--yes` เพื่อข้าม)
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -966,7 +970,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.211
+- run: npm install -g @anthropic-ai/claude-code@2.1.212
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1112,6 +1116,11 @@ claude -p "..."              # ถามเร็ว ๆ
 
 ### 🆕 ใหม่ใน v2.1.211
 - `/usage-credits` จะถามยืนยันก่อนส่งคำขอไปยัง admin ขององค์กร
+
+### 🆕 ใหม่ใน v2.1.212
+- `/fork` เปลี่ยนพฤติกรรม — คัดลอก conversation ไปเป็น **background session ใหม่** (มีแถวของตัวเองใน `claude agents`) โดยเราทำงานใน session เดิมต่อได้; แบบเดิมที่เปิด subagent ใน session ย้ายไปเป็นคำสั่งใหม่ **`/subtask`**
+- พิมพ์ `/resume` ใน agent view จะเปิด picker ให้เลือก session เก่า (รวมที่ถูกลบออกจาก list แล้ว) แล้ว resume ตัวที่เลือกเป็น background session
+- `/btw` เปล่า ๆ เปิด panel คำถามข้างเคียงของ exchange ล่าสุดขึ้นมาอีกครั้ง ไว้ไล่ดูคำตอบก่อนหน้าได้
 
 ---
 
@@ -1817,6 +1826,10 @@ claude --mcp-config ./mcp.json
 
 - **เข้มความปลอดภัย** — `claude mcp list`/`get` ไม่ spawn server จาก `.mcp.json` ที่ repo อนุมัติตัวเองผ่าน `.claude/settings.json` ที่ commit มา; workspace ที่ยังไม่ trust จะเห็นเป็น `⏸ Pending approval`
 
+### 🆕 ใหม่ใน v2.1.212
+
+- **MCP call ที่รันนานย้ายไป background เอง** — MCP tool call ที่รันเกิน 2 นาทีจะถูกย้ายไปทำงาน background อัตโนมัติ เพื่อให้ session ใช้งานต่อได้; ปรับ threshold หรือปิดได้ด้วย `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -2234,6 +2247,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **ถอด wizard `/agents`** — สร้าง/จัดการ subagent โดยสั่ง Claude เป็นภาษาคน หรือแก้ `.claude/agents/` ตรง ๆ
 - **Explore agent อัปเกรด** — ใช้โมเดลเดียวกับ session หลัก (cap ที่ Opus) แทนที่จะรัน Haiku ตลอด
 - subagent และ context compaction สืบทอดการตั้งค่า **extended thinking** ของ session แล้ว
+
+### 🆕 ใหม่ใน v2.1.212
+
+- **เพดาน subagent ต่อ session** — spawn subagent ได้ไม่เกิน 200 ตัวต่อ session โดย default (ปรับด้วย `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION`) เพื่อกันลูป delegate ไม่รู้จบ; `/clear` รีเซ็ตโควตา
+- **พารามิเตอร์ `mode` ของ Task tool ถูก deprecate** (ตอนนี้ถูกเมินเฉย) — subagent สืบทอด permission mode ของ session แม่เป็นค่า default
 
 ---
 
@@ -3070,6 +3088,9 @@ your-project/
 | `CLAUDE_AX_SCREEN_READER` | โหมด screen reader — แสดงผลเป็น plain text (= `--ax-screen-reader` / setting `axScreenReader`) *(v2.1.208)* |
 | `CLAUDE_CODE_PROCESS_WRAPPER` | wrapper สำหรับองค์กร — ทุก process ที่ Claude Code spawn ตัวเอง (agent view, background service) จะรันผ่าน executable ที่กำหนดไว้ *(v2.1.208)* |
 | `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` | รวมข้อความและ thinking ของ subagent ลงใน output แบบ `stream-json` (= `--forward-subagent-text`) *(v2.1.211)* |
+| `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | จำกัดจำนวนครั้งของ WebSearch ต่อ session (default 200) กันลูปค้นหาไม่รู้จบ *(v2.1.212)* |
+| `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | เพดานจำนวน subagent ที่ spawn ได้ต่อ session (default 200); `/clear` รีเซ็ตโควตา *(v2.1.212)* |
+| `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | ระยะเวลา (ms) ก่อนที่ MCP tool call ที่รันนานจะถูกย้ายไป background อัตโนมัติ (default 2 นาที); ใช้ปิดพฤติกรรมนี้ได้ด้วย *(v2.1.212)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
@@ -4382,7 +4403,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.211`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.212`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

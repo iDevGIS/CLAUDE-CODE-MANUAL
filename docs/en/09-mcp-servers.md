@@ -133,6 +133,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Security hardening** — `claude mcp list`/`get` no longer auto-spawn `.mcp.json` servers that a repo self-approved via a committed `.claude/settings.json`; in untrusted workspaces they show as `⏸ Pending approval`.
 
+### New in v2.1.212
+
+- **Long MCP calls auto-background** — MCP tool calls running longer than 2 minutes now move to the background automatically so the session stays usable; configure the threshold or disable with `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`.
+
 ---
 
 ---

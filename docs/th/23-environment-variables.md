@@ -58,6 +58,9 @@ related:
 | `CLAUDE_AX_SCREEN_READER` | โหมด screen reader — แสดงผลเป็น plain text (= `--ax-screen-reader` / setting `axScreenReader`) *(v2.1.208)* |
 | `CLAUDE_CODE_PROCESS_WRAPPER` | wrapper สำหรับองค์กร — ทุก process ที่ Claude Code spawn ตัวเอง (agent view, background service) จะรันผ่าน executable ที่กำหนดไว้ *(v2.1.208)* |
 | `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` | รวมข้อความและ thinking ของ subagent ลงใน output แบบ `stream-json` (= `--forward-subagent-text`) *(v2.1.211)* |
+| `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | จำกัดจำนวนครั้งของ WebSearch ต่อ session (default 200) กันลูปค้นหาไม่รู้จบ *(v2.1.212)* |
+| `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | เพดานจำนวน subagent ที่ spawn ได้ต่อ session (default 200); `/clear` รีเซ็ตโควตา *(v2.1.212)* |
+| `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | ระยะเวลา (ms) ก่อนที่ MCP tool call ที่รันนานจะถูกย้ายไป background อัตโนมัติ (default 2 นาที); ใช้ปิดพฤติกรรมนี้ได้ด้วย *(v2.1.212)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 

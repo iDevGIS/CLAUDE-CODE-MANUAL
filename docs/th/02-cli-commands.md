@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.211         │
+│ Welcome to Claude Code v2.1.212         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -531,6 +531,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - `--forward-subagent-text` — รวมข้อความและ thinking ของ subagent ลงใน output แบบ `stream-json`; เปิดผ่าน `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT=1` ก็ได้
 
+### 🆕 ใหม่ใน v2.1.212
+
+- `claude auto-mode reset` — คืนการตั้งค่า auto-mode กลับเป็น default โดยมีถามยืนยันก่อน (ใส่ `--yes` เพื่อข้าม)
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -902,7 +906,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.211
+- run: npm install -g @anthropic-ai/claude-code@2.1.212
 ```
 
 ---

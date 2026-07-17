@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.211         │
+│ Welcome to Claude Code v2.1.212         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.211
+- run: npm install -g @anthropic-ai/claude-code@2.1.212
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -980,6 +980,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.211
 
 - `--forward-subagent-text` — include subagent text and thinking in `stream-json` output; can also be enabled via `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT=1`.
+
+### New in v2.1.212
+
+- `claude auto-mode reset` — restore the default auto-mode configuration, with a confirmation prompt (pass `--yes` to skip).
 
 ---
 
@@ -1118,6 +1122,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 
 ### New in v2.1.211
 - `/usage-credits` now asks for confirmation before sending a request to organization admins.
+
+### New in v2.1.212
+- `/fork` now copies the conversation into a **new background session** (its own row in `claude agents`) while you keep working — the old in-session subagent behavior moved to the new **`/subtask`** command.
+- Typing `/resume` in the agent view opens a picker of past sessions (including ones deleted from the list) and resumes your pick as a background session.
+- Bare `/btw` reopens the side-question panel on your most recent exchange so you can browse earlier answers.
 
 ---
 
@@ -1824,6 +1833,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Security hardening** — `claude mcp list`/`get` no longer auto-spawn `.mcp.json` servers that a repo self-approved via a committed `.claude/settings.json`; in untrusted workspaces they show as `⏸ Pending approval`.
 
+### New in v2.1.212
+
+- **Long MCP calls auto-background** — MCP tool calls running longer than 2 minutes now move to the background automatically so the session stays usable; configure the threshold or disable with `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -2241,6 +2254,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **`/agents` wizard removed** — create or manage subagents by asking Claude in plain language, or by editing `.claude/agents/` directly.
 - **Explore agent upgraded** — it now inherits the main session's model (capped at Opus) instead of always running on Haiku.
 - Subagents and context compaction now inherit the session's **extended thinking** configuration.
+
+### New in v2.1.212
+
+- **Per-session subagent cap** — subagent spawns are limited to 200 per session by default (override with `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION`) to stop runaway delegation loops; `/clear` resets the budget.
+- **Task tool `mode` parameter deprecated** (now ignored) — subagents inherit the parent session's permission mode by default.
 
 ---
 
@@ -3081,6 +3099,9 @@ your-project/
 | `CLAUDE_AX_SCREEN_READER` | Screen reader mode — plain-text rendering (= `--ax-screen-reader` / the `axScreenReader` setting). *(v2.1.208)* |
 | `CLAUDE_CODE_PROCESS_WRAPPER` | Corporate launcher wrapper — every Claude Code self-spawn (agent view, background service) runs through the required wrapper executable. *(v2.1.208)* |
 | `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` | Include subagent text and thinking in `stream-json` output (= `--forward-subagent-text`). *(v2.1.211)* |
+| `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | Session-wide limit on WebSearch tool calls (default 200) to stop runaway search loops. *(v2.1.212)* |
+| `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | Per-session cap on subagent spawns (default 200); `/clear` resets the budget. *(v2.1.212)* |
+| `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | Threshold (ms) before a long-running MCP tool call moves to the background automatically (default 2 minutes); also disables the behavior. *(v2.1.212)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
@@ -4396,7 +4417,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.211`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.212`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
