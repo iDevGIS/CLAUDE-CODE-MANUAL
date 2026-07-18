@@ -139,6 +139,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.211
 - **"Always allow" rules now save at the repository root** — approvals granted inside a git worktree persist across sessions and other worktrees of the same repo.
 
+### New in v2.1.214
+- **`docker` daemon-redirect flags now prompt** — `docker` commands (including the Podman `docker` shim) carrying `--url`, `--connection`, `--identity`, or Podman's remote mode now require permission instead of running without one.
+- **`file` magic/list flags need permission** — `file` commands using `-m`/`--magic-file` or `-f`/`--files-from` now require permission instead of being auto-allowed as read-only.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

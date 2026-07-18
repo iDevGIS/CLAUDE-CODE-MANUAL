@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.212         │
+│ Welcome to Claude Code v2.1.214         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.212
+- run: npm install -g @anthropic-ai/claude-code@2.1.214
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1372,6 +1372,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.211
 - **"Always allow" rules now save at the repository root** — approvals granted inside a git worktree persist across sessions and other worktrees of the same repo.
 
+### New in v2.1.214
+- **`docker` daemon-redirect flags now prompt** — `docker` commands (including the Podman `docker` shim) carrying `--url`, `--connection`, `--identity`, or Podman's remote mode now require permission instead of running without one.
+- **`file` magic/list flags need permission** — `file` commands using `-m`/`--magic-file` or `-f`/`--files-from` now require permission instead of being auto-allowed as read-only.
+
 ---
 
 ## 6. Configuration
@@ -1711,6 +1715,10 @@ Always reply in Thai.
 
 Or use `/memory` to toggle it.
 
+### New in v2.1.214
+
+- **`modified` timestamp in memory frontmatter** — memory files now carry an ISO `modified` timestamp in their frontmatter.
+
 ---
 
 ## 9. MCP Servers (Model Context Protocol)
@@ -1936,6 +1944,11 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 ### New in v2.1.198
 
 - The **`Notification`** hook now fires for background agents: `agent_needs_input` (a session is waiting on you) and `agent_completed` (a session finished).
+
+### New in v2.1.214
+
+- **Single-segment `dir/**` in hook `if:` conditions now matches only `<cwd>/dir`** — write `**/dir/**` to match at any depth. (`deny`/`ask` permission rules keep their any-depth match.)
+- **SessionStart reports source `"fork"`** — a session that begins as a fork now reports `"fork"` instead of `"resume"`.
 
 ### Configuring Hooks
 
@@ -2259,6 +2272,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Per-session subagent cap** — subagent spawns are limited to 200 per session by default (override with `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION`) to stop runaway delegation loops; `/clear` resets the budget.
 - **Task tool `mode` parameter deprecated** (now ignored) — subagents inherit the parent session's permission mode by default.
+
+### New in v2.1.214
+
+- **Reasoning effort in `subagentStatusLine`** — the payload now includes each subagent's reasoning effort, so custom agent rows can render both model and effort.
 
 ---
 
@@ -2837,6 +2854,10 @@ Shows an interactive picker to choose a session.
 - **Background agents finish the job** — code work done in a worktree now ends with an automatic commit, push, and **draft PR** instead of stopping to ask.
 - Background sessions that need input or finish now fire the `Notification` hook (`agent_needs_input` / `agent_completed`).
 
+### New in v2.1.214
+
+- **EndConversation tool** — Claude can end a session outright with highly abusive users or jailbreak attempts, as on claude.ai since 2025.
+
 ### Session File Locations
 
 ```
@@ -3102,8 +3123,11 @@ your-project/
 | `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | Session-wide limit on WebSearch tool calls (default 200) to stop runaway search loops. *(v2.1.212)* |
 | `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | Per-session cap on subagent spawns (default 200); `/clear` resets the budget. *(v2.1.212)* |
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | Threshold (ms) before a long-running MCP tool call moves to the background automatically (default 2 minutes); also disables the behavior. *(v2.1.212)* |
+| `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | Truncation limit (default 60 KB) for OpenTelemetry content attributes. *(v2.1.214)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
+
+> OpenTelemetry log events now carry `message.uuid`, `client_request_id`, and `tool_source` attributes for message-level correlation and tool provenance. *(v2.1.214)*
 
 ### Configure in settings.json
 
@@ -4417,7 +4441,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.212`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.214`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

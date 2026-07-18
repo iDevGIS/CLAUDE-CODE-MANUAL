@@ -104,6 +104,10 @@ Always reply in Thai.
 
 Or use `/memory` to toggle it.
 
+### New in v2.1.214
+
+- **`modified` timestamp in memory frontmatter** — memory files now carry an ISO `modified` timestamp in their frontmatter.
+
 ---
 
 ---

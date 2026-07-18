@@ -61,8 +61,11 @@ related:
 | `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | Session-wide limit on WebSearch tool calls (default 200) to stop runaway search loops. *(v2.1.212)* |
 | `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | Per-session cap on subagent spawns (default 200); `/clear` resets the budget. *(v2.1.212)* |
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | Threshold (ms) before a long-running MCP tool call moves to the background automatically (default 2 minutes); also disables the behavior. *(v2.1.212)* |
+| `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | Truncation limit (default 60 KB) for OpenTelemetry content attributes. *(v2.1.214)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
+
+> OpenTelemetry log events now carry `message.uuid`, `client_request_id`, and `tool_source` attributes for message-level correlation and tool provenance. *(v2.1.214)*
 
 ### Configure in settings.json
 

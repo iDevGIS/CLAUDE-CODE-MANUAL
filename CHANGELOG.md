@@ -25,6 +25,30 @@
 
 ---
 
+## [1.22.0] — 2026-07-18
+
+### Compatibility
+- **Claude Code:** `v2.1.214+`
+
+### Added
+- **EndConversation tool** — Claude can end a session outright with highly abusive users or jailbreak attempts, as on claude.ai since 2025 (`v2.1.214`) — chapter 19
+- **`CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH`** — configure the 60 KB truncation limit on OpenTelemetry content attributes (`v2.1.214`) — chapter 23
+- **OTel log attributes** — `message.uuid`, `client_request_id`, and `tool_source` added to OpenTelemetry log events for message-level correlation and tool provenance (`v2.1.214`) — chapter 23
+- **`modified` timestamp in memory frontmatter** — memory files now carry an ISO `modified` timestamp (`v2.1.214`) — chapter 8
+- **Reasoning effort in `subagentStatusLine`** — the payload now includes each subagent's reasoning effort (`v2.1.214`) — chapter 12
+- **Permission prompts for `docker` daemon-redirect flags** — `--url`, `--connection`, `--identity`, and Podman's remote mode now prompt (`v2.1.214`) — chapter 5
+
+### Changed
+- **Hook `if:` single-segment `dir/**` conditions** now match only `<cwd>/dir`; write `**/dir/**` for any-depth matching (`deny`/`ask` permission rules keep any-depth match) (`v2.1.214`) — chapter 10
+- **SessionStart hooks report source `"fork"`** when a session begins as a fork instead of `"resume"` (`v2.1.214`) — chapter 10
+- **`file` with `-m`/`--magic-file` or `-f`/`--files-from`** now requires permission instead of being auto-allowed as read-only (`v2.1.214`) — chapter 5
+- **Version strings** bumped `2.1.212` → `2.1.214` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.214` — a security/observability-heavy release: the new EndConversation tool (chapter 19), a batch of permission-check hardenings with two documentable behavior changes (`docker` daemon-redirect flags and `file` magic/list flags, chapter 5), the hook `if:` glob-scope change and SessionStart `"fork"` source (chapter 10), plus OpenTelemetry additions (`CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` + new log attributes, chapter 23), a memory-frontmatter `modified` timestamp (chapter 8), and reasoning effort in `subagentStatusLine` (chapter 12); there is no 2.1.213 entry in the official changelog
+
+---
+
 ## [1.21.0] — 2026-07-17
 
 ### Compatibility
@@ -577,6 +601,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.21.0...HEAD
+[1.22.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.21.0...v1.22.0
 [1.21.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.20.0...v1.21.0
 [1.20.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.19.0...v1.20.0
 [1.19.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.18.0...v1.19.0

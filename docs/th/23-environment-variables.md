@@ -61,8 +61,11 @@ related:
 | `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | จำกัดจำนวนครั้งของ WebSearch ต่อ session (default 200) กันลูปค้นหาไม่รู้จบ *(v2.1.212)* |
 | `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | เพดานจำนวน subagent ที่ spawn ได้ต่อ session (default 200); `/clear` รีเซ็ตโควตา *(v2.1.212)* |
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | ระยะเวลา (ms) ก่อนที่ MCP tool call ที่รันนานจะถูกย้ายไป background อัตโนมัติ (default 2 นาที); ใช้ปิดพฤติกรรมนี้ได้ด้วย *(v2.1.212)* |
+| `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | เพดานการตัดข้อความ (default 60 KB) ของ content attribute ใน OpenTelemetry *(v2.1.214)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
+
+> log event ของ OpenTelemetry มี attribute `message.uuid`, `client_request_id` และ `tool_source` เพิ่มเข้ามา สำหรับ correlate ระดับ message และบอกที่มาของ tool call *(v2.1.214)*
 
 ### ตั้งค่าใน settings.json
 

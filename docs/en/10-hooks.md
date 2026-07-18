@@ -174,6 +174,11 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 - The **`Notification`** hook now fires for background agents: `agent_needs_input` (a session is waiting on you) and `agent_completed` (a session finished).
 
+### New in v2.1.214
+
+- **Single-segment `dir/**` in hook `if:` conditions now matches only `<cwd>/dir`** — write `**/dir/**` to match at any depth. (`deny`/`ask` permission rules keep their any-depth match.)
+- **SessionStart reports source `"fork"`** — a session that begins as a fork now reports `"fork"` instead of `"resume"`.
+
 ---
 
 ---

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.212         │
+│ Welcome to Claude Code v2.1.214         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -970,7 +970,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.212
+- run: npm install -g @anthropic-ai/claude-code@2.1.214
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1366,6 +1366,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.211
 - **rule "always allow" ถูกบันทึกที่ root ของ repository** — การอนุมัติที่กดไว้ใน git worktree จะติดตัวข้าม session และ worktree อื่นของ repo เดียวกัน
 
+### 🆕 ใหม่ใน v2.1.214
+- **คำสั่ง `docker` ที่ redirect ไป daemon อื่นต้องขอ permission แล้ว** — คำสั่ง `docker` (รวม shim `docker` ของ Podman) ที่มี flag `--url`, `--connection`, `--identity` หรือ remote mode ของ Podman จะขึ้นถาม permission แทนที่จะรันผ่านโดยไม่ถาม
+- **`file` กับ flag พิเศษต้องขอ permission** — `file` ที่ใช้ `-m`/`--magic-file` หรือ `-f`/`--files-from` ไม่ถูก auto-allow เป็น read-only แล้ว
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1704,6 +1708,10 @@ type: feedback
 
 หรือใช้ `/memory` เพื่อเปิด/ปิด
 
+### 🆕 ใหม่ใน v2.1.214
+
+- **timestamp `modified` ใน frontmatter ของ memory** — ไฟล์ memory มี timestamp `modified` แบบ ISO ใน frontmatter แล้ว
+
 ---
 
 ## 9. MCP Servers (Model Context Protocol)
@@ -1993,6 +2001,11 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - hook **`Notification`** ยิงให้ background agent แล้ว: `agent_needs_input` (session รอคุณตอบ) และ `agent_completed` (session เสร็จ)
 
+### 🆕 ใหม่ใน v2.1.214
+
+- **เงื่อนไข `if:` ของ hook แบบ `dir/**` segment เดียว match เฉพาะ `<cwd>/dir` แล้ว** — ถ้าต้องการ match ทุกระดับความลึกให้เขียน `**/dir/**` (rule `deny`/`ask` ของ permission ยัง match ทุกระดับเหมือนเดิม)
+- **SessionStart รายงาน source `"fork"`** — session ที่เริ่มจากการ fork จะรายงาน `"fork"` แทน `"resume"`
+
 ---
 
 ## 11. Skills (คำสั่งที่สร้างเอง)
@@ -2252,6 +2265,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **เพดาน subagent ต่อ session** — spawn subagent ได้ไม่เกิน 200 ตัวต่อ session โดย default (ปรับด้วย `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION`) เพื่อกันลูป delegate ไม่รู้จบ; `/clear` รีเซ็ตโควตา
 - **พารามิเตอร์ `mode` ของ Task tool ถูก deprecate** (ตอนนี้ถูกเมินเฉย) — subagent สืบทอด permission mode ของ session แม่เป็นค่า default
+
+### 🆕 ใหม่ใน v2.1.214
+
+- **reasoning effort ใน `subagentStatusLine`** — payload มี reasoning effort ของ subagent แต่ละตัวแล้ว ทำให้แถว custom agent แสดงได้ทั้งโมเดลและ effort
 
 ---
 
@@ -2832,6 +2849,10 @@ claude --fork-session                # แยก Branch ใหม่
 - **Background agent ปิดงานเองจบ** — งานโค้ดใน worktree จะ commit + push + เปิด **draft PR** ให้อัตโนมัติ แทนที่จะหยุดรอถาม
 - background session ที่รอ input หรือเสร็จแล้ว จะยิง hook `Notification` (`agent_needs_input` / `agent_completed`)
 
+### 🆕 ใหม่ใน v2.1.214
+
+- **tool `EndConversation`** — Claude จบ session เองได้เมื่อเจอผู้ใช้ที่ abusive รุนแรงหรือพยายาม jailbreak เหมือนที่ทำบน claude.ai มาตั้งแต่ปี 2025
+
 ---
 
 ## 20. Scheduled Tasks (งานตั้งเวลา)
@@ -3091,8 +3112,11 @@ your-project/
 | `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | จำกัดจำนวนครั้งของ WebSearch ต่อ session (default 200) กันลูปค้นหาไม่รู้จบ *(v2.1.212)* |
 | `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | เพดานจำนวน subagent ที่ spawn ได้ต่อ session (default 200); `/clear` รีเซ็ตโควตา *(v2.1.212)* |
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | ระยะเวลา (ms) ก่อนที่ MCP tool call ที่รันนานจะถูกย้ายไป background อัตโนมัติ (default 2 นาที); ใช้ปิดพฤติกรรมนี้ได้ด้วย *(v2.1.212)* |
+| `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | เพดานการตัดข้อความ (default 60 KB) ของ content attribute ใน OpenTelemetry *(v2.1.214)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
+
+> log event ของ OpenTelemetry มี attribute `message.uuid`, `client_request_id` และ `tool_source` เพิ่มเข้ามา สำหรับ correlate ระดับ message และบอกที่มาของ tool call *(v2.1.214)*
 
 ### ตั้งค่าใน settings.json
 
@@ -4403,7 +4427,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.212`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.214`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

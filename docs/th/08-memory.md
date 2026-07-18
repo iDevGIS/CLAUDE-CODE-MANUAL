@@ -103,6 +103,10 @@ type: feedback
 
 หรือใช้ `/memory` เพื่อเปิด/ปิด
 
+### 🆕 ใหม่ใน v2.1.214
+
+- **timestamp `modified` ใน frontmatter ของ memory** — ไฟล์ memory มี timestamp `modified` แบบ ISO ใน frontmatter แล้ว
+
 ---
 
 ---

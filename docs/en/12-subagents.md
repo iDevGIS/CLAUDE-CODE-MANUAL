@@ -123,6 +123,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Per-session subagent cap** — subagent spawns are limited to 200 per session by default (override with `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION`) to stop runaway delegation loops; `/clear` resets the budget.
 - **Task tool `mode` parameter deprecated** (now ignored) — subagents inherit the parent session's permission mode by default.
 
+### New in v2.1.214
+
+- **Reasoning effort in `subagentStatusLine`** — the payload now includes each subagent's reasoning effort, so custom agent rows can render both model and effort.
+
 ---
 
 ---

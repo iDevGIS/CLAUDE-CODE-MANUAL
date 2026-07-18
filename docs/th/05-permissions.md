@@ -168,6 +168,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.211
 - **rule "always allow" ถูกบันทึกที่ root ของ repository** — การอนุมัติที่กดไว้ใน git worktree จะติดตัวข้าม session และ worktree อื่นของ repo เดียวกัน
 
+### 🆕 ใหม่ใน v2.1.214
+- **คำสั่ง `docker` ที่ redirect ไป daemon อื่นต้องขอ permission แล้ว** — คำสั่ง `docker` (รวม shim `docker` ของ Podman) ที่มี flag `--url`, `--connection`, `--identity` หรือ remote mode ของ Podman จะขึ้นถาม permission แทนที่จะรันผ่านโดยไม่ถาม
+- **`file` กับ flag พิเศษต้องขอ permission** — `file` ที่ใช้ `-m`/`--magic-file` หรือ `-f`/`--files-from` ไม่ถูก auto-allow เป็น read-only แล้ว
+
 ---
 
 ---

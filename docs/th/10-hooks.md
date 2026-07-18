@@ -178,6 +178,11 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - hook **`Notification`** ยิงให้ background agent แล้ว: `agent_needs_input` (session รอคุณตอบ) และ `agent_completed` (session เสร็จ)
 
+#### 🆕 ใหม่ใน v2.1.214
+
+- **เงื่อนไข `if:` ของ hook แบบ `dir/**` segment เดียว match เฉพาะ `<cwd>/dir` แล้ว** — ถ้าต้องการ match ทุกระดับความลึกให้เขียน `**/dir/**` (rule `deny`/`ask` ของ permission ยัง match ทุกระดับเหมือนเดิม)
+- **SessionStart รายงาน source `"fork"`** — session ที่เริ่มจากการ fork จะรายงาน `"fork"` แทน `"resume"`
+
 ---
 
 ---
