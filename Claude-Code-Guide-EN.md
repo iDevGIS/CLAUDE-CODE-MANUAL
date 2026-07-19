@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.214         │
+│ Welcome to Claude Code v2.1.215         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.214
+- run: npm install -g @anthropic-ai/claude-code@2.1.215
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1127,6 +1127,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - `/fork` now copies the conversation into a **new background session** (its own row in `claude agents`) while you keep working — the old in-session subagent behavior moved to the new **`/subtask`** command.
 - Typing `/resume` in the agent view opens a picker of past sessions (including ones deleted from the list) and resumes your pick as a background session.
 - Bare `/btw` reopens the side-question panel on your most recent exchange so you can browse earlier answers.
+
+### New in v2.1.215
+- **`/verify` and `/code-review` are manual-only now** — Claude no longer runs these skills on its own; invoke them with `/verify` or `/code-review` when you want them.
 
 ---
 
@@ -4441,7 +4444,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.214`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.215`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

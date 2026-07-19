@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.214         │
+│ Welcome to Claude Code v2.1.215         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -970,7 +970,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.214
+- run: npm install -g @anthropic-ai/claude-code@2.1.215
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1121,6 +1121,9 @@ claude -p "..."              # ถามเร็ว ๆ
 - `/fork` เปลี่ยนพฤติกรรม — คัดลอก conversation ไปเป็น **background session ใหม่** (มีแถวของตัวเองใน `claude agents`) โดยเราทำงานใน session เดิมต่อได้; แบบเดิมที่เปิด subagent ใน session ย้ายไปเป็นคำสั่งใหม่ **`/subtask`**
 - พิมพ์ `/resume` ใน agent view จะเปิด picker ให้เลือก session เก่า (รวมที่ถูกลบออกจาก list แล้ว) แล้ว resume ตัวที่เลือกเป็น background session
 - `/btw` เปล่า ๆ เปิด panel คำถามข้างเคียงของ exchange ล่าสุดขึ้นมาอีกครั้ง ไว้ไล่ดูคำตอบก่อนหน้าได้
+
+### 🆕 ใหม่ใน v2.1.215
+- **`/verify` กับ `/code-review` ต้องสั่งเองแล้ว** — Claude จะไม่รัน skill สองตัวนี้เองอีกต่อไป อยากใช้เมื่อไหร่ให้พิมพ์ `/verify` หรือ `/code-review` เอง
 
 ---
 
@@ -4427,7 +4430,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.214`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.215`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

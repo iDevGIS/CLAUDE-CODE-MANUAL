@@ -25,6 +25,20 @@
 
 ---
 
+## [1.23.0] — 2026-07-20
+
+### Compatibility
+- **Claude Code:** `v2.1.215+`
+
+### Changed
+- **`/verify` and `/code-review` are no longer auto-invoked** — Claude no longer runs these skills on its own; invoke them explicitly with `/verify` or `/code-review` when you want them (`v2.1.215`) — chapter 3
+- **Version strings** bumped `2.1.214` → `2.1.215` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.215` — a single-item release: the `/verify` and `/code-review` skills stop being auto-invoked by Claude and become manual-only (chapter 3); everything else in the release notes is unchanged behavior
+
+---
+
 ## [1.22.0] — 2026-07-18
 
 ### Compatibility
@@ -600,7 +614,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.21.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.23.0...HEAD
+[1.23.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.22.0...v1.23.0
 [1.22.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.21.0...v1.22.0
 [1.21.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.20.0...v1.21.0
 [1.20.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.19.0...v1.20.0

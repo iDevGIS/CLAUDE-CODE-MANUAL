@@ -130,6 +130,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - Typing `/resume` in the agent view opens a picker of past sessions (including ones deleted from the list) and resumes your pick as a background session.
 - Bare `/btw` reopens the side-question panel on your most recent exchange so you can browse earlier answers.
 
+### New in v2.1.215
+- **`/verify` and `/code-review` are manual-only now** — Claude no longer runs these skills on its own; invoke them with `/verify` or `/code-review` when you want them.
+
 ---
 
 ---
