@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.215         │
+│ Welcome to Claude Code v2.1.216         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.215
+- run: npm install -g @anthropic-ai/claude-code@2.1.216
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1499,6 +1499,10 @@ Skill(commit)                    # Specific skill
 
 - `axScreenReader` — opt into screen reader mode (plain-text rendering); same as `claude --ax-screen-reader` or `CLAUDE_AX_SCREEN_READER=1`.
 - `vimInsertModeRemaps` — map two-key insert-mode sequences (e.g. `jj`) to Escape in vim mode.
+
+### New in v2.1.216
+
+- `sandbox.filesystem.disabled` — skip filesystem isolation for sandboxed commands while keeping network egress control.
 
 ---
 
@@ -4444,7 +4448,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.215`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.216`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

@@ -140,6 +140,10 @@ Set the `model` key to any of these (newest → cheapest):
 - `axScreenReader` — opt into screen reader mode (plain-text rendering); same as `claude --ax-screen-reader` or `CLAUDE_AX_SCREEN_READER=1`.
 - `vimInsertModeRemaps` — map two-key insert-mode sequences (e.g. `jj`) to Escape in vim mode.
 
+### New in v2.1.216
+
+- `sandbox.filesystem.disabled` — skip filesystem isolation for sandboxed commands while keeping network egress control.
+
 ---
 
 ---

@@ -140,6 +140,10 @@ related:
 - `axScreenReader` — เปิดโหมด screen reader (แสดงผลเป็น plain text); เหมือนใช้ `claude --ax-screen-reader` หรือ `CLAUDE_AX_SCREEN_READER=1`
 - `vimInsertModeRemaps` — map ปุ่มสองตัวติดกันในโหมด insert ของ vim (เช่น `jj`) ให้เป็น Escape
 
+### 🆕 ใหม่ใน v2.1.216
+
+- `sandbox.filesystem.disabled` — ปิดเฉพาะการแยก filesystem ของ sandbox โดยยังคุมการออกเน็ต (network egress) ตามเดิม
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

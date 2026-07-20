@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.215         │
+│ Welcome to Claude Code v2.1.216         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -970,7 +970,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.215
+- run: npm install -g @anthropic-ai/claude-code@2.1.216
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1493,6 +1493,10 @@ Skill(commit)                    # Skill เฉพาะ
 
 - `axScreenReader` — เปิดโหมด screen reader (แสดงผลเป็น plain text); เหมือนใช้ `claude --ax-screen-reader` หรือ `CLAUDE_AX_SCREEN_READER=1`
 - `vimInsertModeRemaps` — map ปุ่มสองตัวติดกันในโหมด insert ของ vim (เช่น `jj`) ให้เป็น Escape
+
+### 🆕 ใหม่ใน v2.1.216
+
+- `sandbox.filesystem.disabled` — ปิดเฉพาะการแยก filesystem ของ sandbox โดยยังคุมการออกเน็ต (network egress) ตามเดิม
 
 ---
 
@@ -4430,7 +4434,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.215`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.216`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

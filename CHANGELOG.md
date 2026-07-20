@@ -25,6 +25,22 @@
 
 ---
 
+## [1.24.0] — 2026-07-21
+
+### Compatibility
+- **Claude Code:** `v2.1.216+`
+
+### Added
+- **`sandbox.filesystem.disabled` setting** — skip filesystem isolation for sandboxed commands while keeping network egress control (`v2.1.216`) — chapter 6
+
+### Changed
+- **Version strings** bumped `2.1.215` → `2.1.216` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.216` — a fixes-heavy release; the only documentable change is the new `sandbox.filesystem.disabled` setting (chapter 6). Everything else is bug fixes and UI polish
+
+---
+
 ## [1.23.0] — 2026-07-20
 
 ### Compatibility
@@ -614,7 +630,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.23.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.24.0...HEAD
+[1.24.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.23.0...v1.24.0
 [1.23.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.22.0...v1.23.0
 [1.22.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.21.0...v1.22.0
 [1.21.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.20.0...v1.21.0
