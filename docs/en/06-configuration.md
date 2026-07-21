@@ -144,6 +144,10 @@ Set the `model` key to any of these (newest → cheapest):
 
 - `sandbox.filesystem.disabled` — skip filesystem isolation for sandboxed commands while keeping network egress control.
 
+### New in v2.1.217
+
+- `emojiCompletionEnabled` — emoji shortcode autocomplete in the prompt input: type `:heart:` to insert ❤️, or a partial like `:hea` for suggestions; set to `false` to disable.
+
 ---
 
 ---

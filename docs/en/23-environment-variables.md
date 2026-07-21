@@ -62,6 +62,9 @@ related:
 | `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | Per-session cap on subagent spawns (default 200); `/clear` resets the budget. *(v2.1.212)* |
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | Threshold (ms) before a long-running MCP tool call moves to the background automatically (default 2 minutes); also disables the behavior. *(v2.1.212)* |
 | `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | Truncation limit (default 60 KB) for OpenTelemetry content attributes. *(v2.1.214)* |
+| `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | Cap on concurrently-running subagents (default 20), so one message can't fan out unbounded background agents. *(v2.1.217)* |
+| `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | Allow subagents to spawn nested subagents — off by default since v2.1.217. *(v2.1.217)* |
+| `FORCE_HYPERLINK` | Footer PR badge links render as clickable hyperlinks even when terminal support can't be detected (e.g. over ssh/tmux); set `0` to opt out. *(v2.1.217)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 

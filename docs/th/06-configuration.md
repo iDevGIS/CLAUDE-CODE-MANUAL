@@ -144,6 +144,10 @@ related:
 
 - `sandbox.filesystem.disabled` — ปิดเฉพาะการแยก filesystem ของ sandbox โดยยังคุมการออกเน็ต (network egress) ตามเดิม
 
+### 🆕 ใหม่ใน v2.1.217
+
+- `emojiCompletionEnabled` — autocomplete emoji shortcode ในช่องพิมพ์ prompt: พิมพ์ `:heart:` เพื่อแทรก ❤️ หรือพิมพ์บางส่วนเช่น `:hea` เพื่อดูตัวเลือก; ตั้ง `false` เพื่อปิด
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

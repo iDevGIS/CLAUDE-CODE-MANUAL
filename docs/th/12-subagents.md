@@ -127,6 +127,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **reasoning effort ใน `subagentStatusLine`** — payload มี reasoning effort ของ subagent แต่ละตัวแล้ว ทำให้แถว custom agent แสดงได้ทั้งโมเดลและ effort
 
+### 🆕 ใหม่ใน v2.1.217
+
+- **เพดานรันพร้อมกัน** — subagent รันพร้อมกันได้สูงสุด 20 ตัว (ปรับด้วย `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) กันไม่ให้ข้อความเดียว fan out background agent แบบไม่จำกัด
+- **ปิดการ spawn ซ้อนเป็นค่าเริ่มต้น** — subagent ไม่ spawn subagent ของตัวเองแล้วโดย default; ตั้ง `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` ถ้าต้องการให้ซ้อนลึกขึ้น
+
 ---
 
 ---

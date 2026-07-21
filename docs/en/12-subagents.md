@@ -127,6 +127,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Reasoning effort in `subagentStatusLine`** — the payload now includes each subagent's reasoning effort, so custom agent rows can render both model and effort.
 
+### New in v2.1.217
+
+- **Concurrency cap** — at most 20 subagents run at the same time (override with `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`), so one message can't fan out unbounded background agents.
+- **Nested spawning off by default** — subagents no longer spawn their own subagents; set `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` to allow deeper nesting.
+
 ---
 
 ---

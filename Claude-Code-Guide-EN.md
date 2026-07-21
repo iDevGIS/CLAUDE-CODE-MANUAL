@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.216         │
+│ Welcome to Claude Code v2.1.217         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.216
+- run: npm install -g @anthropic-ai/claude-code@2.1.217
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1503,6 +1503,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.216
 
 - `sandbox.filesystem.disabled` — skip filesystem isolation for sandboxed commands while keeping network egress control.
+
+### New in v2.1.217
+
+- `emojiCompletionEnabled` — emoji shortcode autocomplete in the prompt input: type `:heart:` to insert ❤️, or a partial like `:hea` for suggestions; set to `false` to disable.
 
 ---
 
@@ -2283,6 +2287,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 ### New in v2.1.214
 
 - **Reasoning effort in `subagentStatusLine`** — the payload now includes each subagent's reasoning effort, so custom agent rows can render both model and effort.
+
+### New in v2.1.217
+
+- **Concurrency cap** — at most 20 subagents run at the same time (override with `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`), so one message can't fan out unbounded background agents.
+- **Nested spawning off by default** — subagents no longer spawn their own subagents; set `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` to allow deeper nesting.
 
 ---
 
@@ -3131,6 +3140,9 @@ your-project/
 | `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | Per-session cap on subagent spawns (default 200); `/clear` resets the budget. *(v2.1.212)* |
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | Threshold (ms) before a long-running MCP tool call moves to the background automatically (default 2 minutes); also disables the behavior. *(v2.1.212)* |
 | `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | Truncation limit (default 60 KB) for OpenTelemetry content attributes. *(v2.1.214)* |
+| `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | Cap on concurrently-running subagents (default 20), so one message can't fan out unbounded background agents. *(v2.1.217)* |
+| `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | Allow subagents to spawn nested subagents — off by default since v2.1.217. *(v2.1.217)* |
+| `FORCE_HYPERLINK` | Footer PR badge links render as clickable hyperlinks even when terminal support can't be detected (e.g. over ssh/tmux); set `0` to opt out. *(v2.1.217)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
@@ -4448,7 +4460,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.216`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.217`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

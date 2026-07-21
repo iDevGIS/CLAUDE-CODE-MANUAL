@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.216         │
+│ Welcome to Claude Code v2.1.217         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -970,7 +970,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.216
+- run: npm install -g @anthropic-ai/claude-code@2.1.217
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1497,6 +1497,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.216
 
 - `sandbox.filesystem.disabled` — ปิดเฉพาะการแยก filesystem ของ sandbox โดยยังคุมการออกเน็ต (network egress) ตามเดิม
+
+### 🆕 ใหม่ใน v2.1.217
+
+- `emojiCompletionEnabled` — autocomplete emoji shortcode ในช่องพิมพ์ prompt: พิมพ์ `:heart:` เพื่อแทรก ❤️ หรือพิมพ์บางส่วนเช่น `:hea` เพื่อดูตัวเลือก; ตั้ง `false` เพื่อปิด
 
 ---
 
@@ -2276,6 +2280,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 ### 🆕 ใหม่ใน v2.1.214
 
 - **reasoning effort ใน `subagentStatusLine`** — payload มี reasoning effort ของ subagent แต่ละตัวแล้ว ทำให้แถว custom agent แสดงได้ทั้งโมเดลและ effort
+
+### 🆕 ใหม่ใน v2.1.217
+
+- **เพดานรันพร้อมกัน** — subagent รันพร้อมกันได้สูงสุด 20 ตัว (ปรับด้วย `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) กันไม่ให้ข้อความเดียว fan out background agent แบบไม่จำกัด
+- **ปิดการ spawn ซ้อนเป็นค่าเริ่มต้น** — subagent ไม่ spawn subagent ของตัวเองแล้วโดย default; ตั้ง `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` ถ้าต้องการให้ซ้อนลึกขึ้น
 
 ---
 
@@ -3120,6 +3129,9 @@ your-project/
 | `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | เพดานจำนวน subagent ที่ spawn ได้ต่อ session (default 200); `/clear` รีเซ็ตโควตา *(v2.1.212)* |
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | ระยะเวลา (ms) ก่อนที่ MCP tool call ที่รันนานจะถูกย้ายไป background อัตโนมัติ (default 2 นาที); ใช้ปิดพฤติกรรมนี้ได้ด้วย *(v2.1.212)* |
 | `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | เพดานการตัดข้อความ (default 60 KB) ของ content attribute ใน OpenTelemetry *(v2.1.214)* |
+| `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | เพดานจำนวน subagent ที่รันพร้อมกัน (default 20) กันไม่ให้ข้อความเดียว fan out background agent แบบไม่จำกัด *(v2.1.217)* |
+| `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | อนุญาตให้ subagent spawn subagent ซ้อนกันได้ — ปิดเป็นค่าเริ่มต้นตั้งแต่ v2.1.217 *(v2.1.217)* |
+| `FORCE_HYPERLINK` | ลิงก์ PR badge ที่ footer เป็น hyperlink คลิกได้แม้ตรวจไม่พบว่า terminal รองรับ (เช่นผ่าน ssh/tmux); ตั้ง `0` เพื่อปิด *(v2.1.217)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
@@ -4434,7 +4446,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.216`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.217`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

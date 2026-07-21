@@ -25,6 +25,25 @@
 
 ---
 
+## [1.25.0] — 2026-07-22
+
+### Compatibility
+- **Claude Code:** `v2.1.217+`
+
+### Added
+- **`emojiCompletionEnabled` setting** — emoji shortcode autocomplete in the prompt input: type `:heart:` to insert ❤️, or a partial like `:hea` for suggestions; set `false` to disable (`v2.1.217`) — chapter 6
+- **Concurrent subagent cap** — at most 20 subagents run at the same time; override with `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` (`v2.1.217`) — chapters 12 & 23
+- **`FORCE_HYPERLINK`** — footer PR badge links render as clickable hyperlinks even when terminal support can't be detected (e.g. over ssh/tmux); set `0` to opt out (`v2.1.217`) — chapter 23
+
+### Changed
+- **Nested subagent spawning off by default** — subagents no longer spawn their own subagents unless `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` allows deeper nesting (`v2.1.217`) — chapters 12 & 23
+- **Version strings** bumped `2.1.216` → `2.1.217` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.217` — mostly bug fixes; the documentable changes are the emoji autocomplete setting (chapter 6) plus new subagent fan-out guards and the `FORCE_HYPERLINK` env var (chapters 12 & 23)
+
+---
+
 ## [1.24.0] — 2026-07-21
 
 ### Compatibility
@@ -630,7 +649,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.24.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.25.0...HEAD
+[1.25.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.24.0...v1.25.0
 [1.24.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.23.0...v1.24.0
 [1.23.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.22.0...v1.23.0
 [1.22.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.21.0...v1.22.0
