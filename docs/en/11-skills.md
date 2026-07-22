@@ -160,6 +160,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - Use `\$` to include a literal `$` before a digit in a command body.
 - Hide bundled skills with `disableBundledSkills` / `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS`.
 
+### New in v2.1.218
+
+- **`context: fork` skills run in the background by default** — opt out per skill with `background: false` in the frontmatter.
+- **Friendlier frontmatter booleans** — skill and plugin frontmatter booleans now accept `yes`/`no`/`on`/`off`/`1`/`0` (case-insensitive) alongside `true`/`false`.
+
 ---
 
 ---

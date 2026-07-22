@@ -148,6 +148,10 @@ related:
 
 - `emojiCompletionEnabled` — autocomplete emoji shortcode ในช่องพิมพ์ prompt: พิมพ์ `:heart:` เพื่อแทรก ❤️ หรือพิมพ์บางส่วนเช่น `:hea` เพื่อดูตัวเลือก; ตั้ง `false` เพื่อปิด
 
+### 🆕 ใหม่ใน v2.1.218
+
+- **Server-managed settings ถามน้อยลง** — toggle ฟีเจอร์/ค่าใช้จ่ายแบบไม่มีพิษภัยที่องค์กร push มา จะไม่ trigger prompt ขออนุมัติ settings อีกแล้ว
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

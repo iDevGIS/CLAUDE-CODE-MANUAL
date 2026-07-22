@@ -143,6 +143,10 @@ Skill(commit)                    # Specific skill
 - **`docker` daemon-redirect flags now prompt** — `docker` commands (including the Podman `docker` shim) carrying `--url`, `--connection`, `--identity`, or Podman's remote mode now require permission instead of running without one.
 - **`file` magic/list flags need permission** — `file` commands using `-m`/`--magic-file` or `-f`/`--files-from` now require permission instead of being auto-allowed as read-only.
 
+### New in v2.1.218
+- **Auto mode opens fewer dialogs** — the dangerous-rm, background-`&`, and suspicious-Windows-path checks no longer open permission dialogs; the auto-mode classifier adjudicates them instead.
+- **Plan mode with auto prompts less** — Bash commands the static analyzer can't prove read-only no longer trigger a prompt; the auto-mode classifier judges them instead.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

@@ -137,6 +137,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Long MCP calls auto-background** — MCP tool calls running longer than 2 minutes now move to the background automatically so the session stays usable; configure the threshold or disable with `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`.
 
+### New in v2.1.218
+
+- **Clearer connection errors** — `claude mcp list` and `/mcp` now show the HTTP status and error text when a server fails to connect, and warn about MCP config values with hidden leading or trailing whitespace.
+
 ---
 
 ---

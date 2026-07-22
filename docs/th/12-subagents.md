@@ -132,6 +132,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **เพดานรันพร้อมกัน** — subagent รันพร้อมกันได้สูงสุด 20 ตัว (ปรับด้วย `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) กันไม่ให้ข้อความเดียว fan out background agent แบบไม่จำกัด
 - **ปิดการ spawn ซ้อนเป็นค่าเริ่มต้น** — subagent ไม่ spawn subagent ของตัวเองแล้วโดย default; ตั้ง `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` ถ้าต้องการให้ซ้อนลึกขึ้น
 
+### 🆕 ใหม่ใน v2.1.218
+
+- **ห้ามใช้ `:` ในชื่อ agent** — ไฟล์ markdown ของ agent จะ reject ชื่อ agent ที่มี `:` เพราะสงวนไว้สำหรับ plugin namespacing
+
 ---
 
 ---

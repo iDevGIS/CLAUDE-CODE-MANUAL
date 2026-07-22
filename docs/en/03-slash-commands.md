@@ -133,6 +133,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.215
 - **`/verify` and `/code-review` are manual-only now** — Claude no longer runs these skills on its own; invoke them with `/verify` or `/code-review` when you want them.
 
+### New in v2.1.218
+- **`/code-review` runs as a background subagent** — review work no longer fills your conversation, and stacked slash commands stay as its review target.
+- **`/deep-research` is manual-only now** — it starts only when you invoke it; Claude no longer launches it on its own.
+
 ---
 
 ---

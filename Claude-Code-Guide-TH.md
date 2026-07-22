@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.217         │
+│ Welcome to Claude Code v2.1.218         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -970,7 +970,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.217
+- run: npm install -g @anthropic-ai/claude-code@2.1.218
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1124,6 +1124,10 @@ claude -p "..."              # ถามเร็ว ๆ
 
 ### 🆕 ใหม่ใน v2.1.215
 - **`/verify` กับ `/code-review` ต้องสั่งเองแล้ว** — Claude จะไม่รัน skill สองตัวนี้เองอีกต่อไป อยากใช้เมื่อไหร่ให้พิมพ์ `/verify` หรือ `/code-review` เอง
+
+### 🆕 ใหม่ใน v2.1.218
+- **`/code-review` รันเป็น background subagent แล้ว** — งานรีวิวไม่กินพื้นที่ conversation ของเราอีกต่อไป และ slash command ที่ stack ต่อกันยังคงเป็นเป้าหมายของการรีวิวเหมือนเดิม
+- **`/deep-research` ต้องสั่งเองแล้ว** — เริ่มทำงานเฉพาะตอนเราเรียกใช้เอง Claude จะไม่เปิดเองอีกต่อไป
 
 ---
 
@@ -1373,6 +1377,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **คำสั่ง `docker` ที่ redirect ไป daemon อื่นต้องขอ permission แล้ว** — คำสั่ง `docker` (รวม shim `docker` ของ Podman) ที่มี flag `--url`, `--connection`, `--identity` หรือ remote mode ของ Podman จะขึ้นถาม permission แทนที่จะรันผ่านโดยไม่ถาม
 - **`file` กับ flag พิเศษต้องขอ permission** — `file` ที่ใช้ `-m`/`--magic-file` หรือ `-f`/`--files-from` ไม่ถูก auto-allow เป็น read-only แล้ว
 
+### 🆕 ใหม่ใน v2.1.218
+- **Auto mode เปิด dialog น้อยลง** — เช็ค dangerous-rm, background-`&` และ path Windows น่าสงสัย ไม่เปิด permission dialog แล้ว ให้ classifier ของ auto mode เป็นคนตัดสินแทน
+- **Plan mode + auto ถามน้อยลง** — คำสั่ง Bash ที่ static analyzer พิสูจน์ไม่ได้ว่า read-only จะไม่ขึ้นถามแล้ว ให้ classifier ของ auto mode ตัดสินแทน
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1501,6 +1509,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.217
 
 - `emojiCompletionEnabled` — autocomplete emoji shortcode ในช่องพิมพ์ prompt: พิมพ์ `:heart:` เพื่อแทรก ❤️ หรือพิมพ์บางส่วนเช่น `:hea` เพื่อดูตัวเลือก; ตั้ง `false` เพื่อปิด
+
+### 🆕 ใหม่ใน v2.1.218
+
+- **Server-managed settings ถามน้อยลง** — toggle ฟีเจอร์/ค่าใช้จ่ายแบบไม่มีพิษภัยที่องค์กร push มา จะไม่ trigger prompt ขออนุมัติ settings อีกแล้ว
 
 ---
 
@@ -1849,6 +1861,10 @@ claude --mcp-config ./mcp.json
 
 - **MCP call ที่รันนานย้ายไป background เอง** — MCP tool call ที่รันเกิน 2 นาทีจะถูกย้ายไปทำงาน background อัตโนมัติ เพื่อให้ session ใช้งานต่อได้; ปรับ threshold หรือปิดได้ด้วย `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`
 
+### 🆕 ใหม่ใน v2.1.218
+
+- **error ตอนต่อไม่ติดชัดขึ้น** — `claude mcp list` และ `/mcp` แสดง HTTP status พร้อมข้อความ error เมื่อ server ต่อไม่สำเร็จ และเตือนถ้าค่าใน MCP config มี whitespace แอบนำหน้า/ต่อท้าย
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -2165,6 +2181,11 @@ my-skill/
 - ใช้ `\$` เพื่อใส่ `$` ตรง ๆ หน้าตัวเลขใน command body
 - ซ่อน bundled skills ด้วย `disableBundledSkills` / `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS`
 
+### 🆕 ใหม่ใน v2.1.218
+
+- **skill แบบ `context: fork` รันใน background เป็นค่าเริ่มต้นแล้ว** — ปิดเฉพาะ skill ได้ด้วย `background: false` ใน frontmatter
+- **frontmatter boolean ยืดหยุ่นขึ้น** — boolean ใน frontmatter ของ skill/plugin รับ `yes`/`no`/`on`/`off`/`1`/`0` (ไม่สนตัวพิมพ์) เพิ่มจาก `true`/`false`
+
 ---
 
 ## 12. Subagents (ตัวช่วยเฉพาะทาง)
@@ -2285,6 +2306,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **เพดานรันพร้อมกัน** — subagent รันพร้อมกันได้สูงสุด 20 ตัว (ปรับด้วย `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) กันไม่ให้ข้อความเดียว fan out background agent แบบไม่จำกัด
 - **ปิดการ spawn ซ้อนเป็นค่าเริ่มต้น** — subagent ไม่ spawn subagent ของตัวเองแล้วโดย default; ตั้ง `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` ถ้าต้องการให้ซ้อนลึกขึ้น
+
+### 🆕 ใหม่ใน v2.1.218
+
+- **ห้ามใช้ `:` ในชื่อ agent** — ไฟล์ markdown ของ agent จะ reject ชื่อ agent ที่มี `:` เพราะสงวนไว้สำหรับ plugin namespacing
 
 ---
 
@@ -4446,7 +4471,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.217`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.218`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

@@ -172,6 +172,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **คำสั่ง `docker` ที่ redirect ไป daemon อื่นต้องขอ permission แล้ว** — คำสั่ง `docker` (รวม shim `docker` ของ Podman) ที่มี flag `--url`, `--connection`, `--identity` หรือ remote mode ของ Podman จะขึ้นถาม permission แทนที่จะรันผ่านโดยไม่ถาม
 - **`file` กับ flag พิเศษต้องขอ permission** — `file` ที่ใช้ `-m`/`--magic-file` หรือ `-f`/`--files-from` ไม่ถูก auto-allow เป็น read-only แล้ว
 
+### 🆕 ใหม่ใน v2.1.218
+- **Auto mode เปิด dialog น้อยลง** — เช็ค dangerous-rm, background-`&` และ path Windows น่าสงสัย ไม่เปิด permission dialog แล้ว ให้ classifier ของ auto mode เป็นคนตัดสินแทน
+- **Plan mode + auto ถามน้อยลง** — คำสั่ง Bash ที่ static analyzer พิสูจน์ไม่ได้ว่า read-only จะไม่ขึ้นถามแล้ว ให้ classifier ของ auto mode ตัดสินแทน
+
 ---
 
 ---

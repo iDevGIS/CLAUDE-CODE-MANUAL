@@ -132,6 +132,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Concurrency cap** — at most 20 subagents run at the same time (override with `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`), so one message can't fan out unbounded background agents.
 - **Nested spawning off by default** — subagents no longer spawn their own subagents; set `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` to allow deeper nesting.
 
+### New in v2.1.218
+
+- **No `:` in agent names** — agent markdown files now reject agent names containing `:`, which is reserved for plugin namespacing.
+
 ---
 
 ---

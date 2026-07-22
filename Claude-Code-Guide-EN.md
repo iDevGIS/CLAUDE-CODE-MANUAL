@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.217         │
+│ Welcome to Claude Code v2.1.218         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.217
+- run: npm install -g @anthropic-ai/claude-code@2.1.218
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1130,6 +1130,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 
 ### New in v2.1.215
 - **`/verify` and `/code-review` are manual-only now** — Claude no longer runs these skills on its own; invoke them with `/verify` or `/code-review` when you want them.
+
+### New in v2.1.218
+- **`/code-review` runs as a background subagent** — review work no longer fills your conversation, and stacked slash commands stay as its review target.
+- **`/deep-research` is manual-only now** — it starts only when you invoke it; Claude no longer launches it on its own.
 
 ---
 
@@ -1379,6 +1383,10 @@ Skill(commit)                    # Specific skill
 - **`docker` daemon-redirect flags now prompt** — `docker` commands (including the Podman `docker` shim) carrying `--url`, `--connection`, `--identity`, or Podman's remote mode now require permission instead of running without one.
 - **`file` magic/list flags need permission** — `file` commands using `-m`/`--magic-file` or `-f`/`--files-from` now require permission instead of being auto-allowed as read-only.
 
+### New in v2.1.218
+- **Auto mode opens fewer dialogs** — the dangerous-rm, background-`&`, and suspicious-Windows-path checks no longer open permission dialogs; the auto-mode classifier adjudicates them instead.
+- **Plan mode with auto prompts less** — Bash commands the static analyzer can't prove read-only no longer trigger a prompt; the auto-mode classifier judges them instead.
+
 ---
 
 ## 6. Configuration
@@ -1507,6 +1515,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.217
 
 - `emojiCompletionEnabled` — emoji shortcode autocomplete in the prompt input: type `:heart:` to insert ❤️, or a partial like `:hea` for suggestions; set to `false` to disable.
+
+### New in v2.1.218
+
+- **Server-managed settings prompt less** — benign feature and cost toggles pushed by your organization no longer trigger the settings-approval prompt.
 
 ---
 
@@ -1856,6 +1868,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Long MCP calls auto-background** — MCP tool calls running longer than 2 minutes now move to the background automatically so the session stays usable; configure the threshold or disable with `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`.
 
+### New in v2.1.218
+
+- **Clearer connection errors** — `claude mcp list` and `/mcp` now show the HTTP status and error text when a server fails to connect, and warn about MCP config values with hidden leading or trailing whitespace.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -2172,6 +2188,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - Use `\$` to include a literal `$` before a digit in a command body.
 - Hide bundled skills with `disableBundledSkills` / `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS`.
 
+### New in v2.1.218
+
+- **`context: fork` skills run in the background by default** — opt out per skill with `background: false` in the frontmatter.
+- **Friendlier frontmatter booleans** — skill and plugin frontmatter booleans now accept `yes`/`no`/`on`/`off`/`1`/`0` (case-insensitive) alongside `true`/`false`.
+
 ---
 
 ## 12. Subagents (Specialized Helpers)
@@ -2292,6 +2313,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Concurrency cap** — at most 20 subagents run at the same time (override with `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`), so one message can't fan out unbounded background agents.
 - **Nested spawning off by default** — subagents no longer spawn their own subagents; set `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` to allow deeper nesting.
+
+### New in v2.1.218
+
+- **No `:` in agent names** — agent markdown files now reject agent names containing `:`, which is reserved for plugin namespacing.
 
 ---
 
@@ -4460,7 +4485,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.217`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.218`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

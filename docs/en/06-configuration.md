@@ -148,6 +148,10 @@ Set the `model` key to any of these (newest → cheapest):
 
 - `emojiCompletionEnabled` — emoji shortcode autocomplete in the prompt input: type `:heart:` to insert ❤️, or a partial like `:hea` for suggestions; set to `false` to disable.
 
+### New in v2.1.218
+
+- **Server-managed settings prompt less** — benign feature and cost toggles pushed by your organization no longer trigger the settings-approval prompt.
+
 ---
 
 ---

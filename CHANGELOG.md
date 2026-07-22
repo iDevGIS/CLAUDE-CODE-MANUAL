@@ -25,6 +25,29 @@
 
 ---
 
+## [1.26.0] — 2026-07-23
+
+### Compatibility
+- **Claude Code:** `v2.1.218+`
+
+### Added
+- **MCP connection diagnostics** — `claude mcp list` and `/mcp` show the HTTP status and error text when a server fails to connect, plus a warning for MCP config values with hidden leading/trailing whitespace (`v2.1.218`) — chapter 9
+- **Flexible frontmatter booleans** — skill and plugin frontmatter booleans accept `yes`/`no`/`on`/`off`/`1`/`0` (case-insensitive) alongside `true`/`false` (`v2.1.218`) — chapter 11
+
+### Changed
+- **`/code-review` runs as a background subagent** — review work no longer fills the conversation; stacked slash commands stay as its review target (`v2.1.218`) — chapter 3
+- **`/deep-research` is manual-only** — it starts only when invoked; Claude no longer launches it on its own (`v2.1.218`) — chapter 3
+- **Auto mode opens fewer dialogs** — the dangerous-rm, background-`&`, and suspicious-Windows-path checks are adjudicated by the auto-mode classifier instead of permission dialogs; plan mode with auto no longer prompts for Bash commands the static analyzer can't prove read-only (`v2.1.218`) — chapter 5
+- **Server-managed settings prompt less** — benign feature and cost toggles no longer trigger the settings-approval prompt (`v2.1.218`) — chapter 6
+- **`context: fork` skills run in the background by default** — opt out per skill with `background: false` (`v2.1.218`) — chapter 11
+- **Agent names reject `:`** — reserved for plugin namespacing (`v2.1.218`) — chapter 12
+- **Version strings** bumped `2.1.217` → `2.1.218` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.218` — a large batch of bug fixes plus several behavior changes worth documenting: `/code-review` backgrounding and `/deep-research` manual-only (chapter 3), quieter auto/plan-mode permission flow (chapter 5), MCP connection diagnostics (chapter 9), forked-skill backgrounding + boolean frontmatter (chapter 11), and the `:` restriction in agent names (chapter 12)
+
+---
+
 ## [1.25.0] — 2026-07-22
 
 ### Compatibility
@@ -649,7 +672,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.25.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.26.0...HEAD
+[1.26.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.25.0...v1.26.0
 [1.25.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.24.0...v1.25.0
 [1.24.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.23.0...v1.24.0
 [1.23.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.22.0...v1.23.0

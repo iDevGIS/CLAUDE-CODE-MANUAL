@@ -160,6 +160,11 @@ my-skill/
 - ใช้ `\$` เพื่อใส่ `$` ตรง ๆ หน้าตัวเลขใน command body
 - ซ่อน bundled skills ด้วย `disableBundledSkills` / `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS`
 
+### 🆕 ใหม่ใน v2.1.218
+
+- **skill แบบ `context: fork` รันใน background เป็นค่าเริ่มต้นแล้ว** — ปิดเฉพาะ skill ได้ด้วย `background: false` ใน frontmatter
+- **frontmatter boolean ยืดหยุ่นขึ้น** — boolean ใน frontmatter ของ skill/plugin รับ `yes`/`no`/`on`/`off`/`1`/`0` (ไม่สนตัวพิมพ์) เพิ่มจาก `true`/`false`
+
 ---
 
 ---

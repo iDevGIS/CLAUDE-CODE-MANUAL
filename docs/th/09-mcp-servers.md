@@ -137,6 +137,10 @@ claude --mcp-config ./mcp.json
 
 - **MCP call ที่รันนานย้ายไป background เอง** — MCP tool call ที่รันเกิน 2 นาทีจะถูกย้ายไปทำงาน background อัตโนมัติ เพื่อให้ session ใช้งานต่อได้; ปรับ threshold หรือปิดได้ด้วย `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`
 
+### 🆕 ใหม่ใน v2.1.218
+
+- **error ตอนต่อไม่ติดชัดขึ้น** — `claude mcp list` และ `/mcp` แสดง HTTP status พร้อมข้อความ error เมื่อ server ต่อไม่สำเร็จ และเตือนถ้าค่าใน MCP config มี whitespace แอบนำหน้า/ต่อท้าย
+
 ---
 
 ---
