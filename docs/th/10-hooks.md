@@ -183,6 +183,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **เงื่อนไข `if:` ของ hook แบบ `dir/**` segment เดียว match เฉพาะ `<cwd>/dir` แล้ว** — ถ้าต้องการ match ทุกระดับความลึกให้เขียน `**/dir/**` (rule `deny`/`ask` ของ permission ยัง match ทุกระดับเหมือนเดิม)
 - **SessionStart รายงาน source `"fork"`** — session ที่เริ่มจากการ fork จะรายงาน `"fork"` แทน `"resume"`
 
+#### 🆕 ใหม่ใน v2.1.219
+
+- **hook `DirectoryAdded`** — ยิงหลัง `/add-dir` (หรือ control request `register_repo_root` ของ SDK) ลงทะเบียน working directory ใหม่กลาง session
+
 ---
 
 ---

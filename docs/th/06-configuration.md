@@ -32,7 +32,7 @@ related:
 | **องค์กรต้องการล็อก Policy** | Managed settings | IT ตั้งค่าให้ทุกคนในองค์กร ห้าม Override |
 | **ต้องการให้ Claude รัน Lint อัตโนมัติ** | `hooks.PostEdit` | ทุกครั้งที่ Claude แก้ไฟล์ Lint จะรันอัตโนมัติ |
 | **ต้องการเชื่อมต่อ Slack/Notion** | `mcpServers` | Claude เข้าถึง Slack, Notion ได้โดยตรง |
-| **ต้องการใช้ Opus สำหรับโปรเจกต์สำคัญ** | `model: "claude-opus-4-8"` | ล็อกโมเดลเฉพาะโปรเจกต์ |
+| **ต้องการใช้ Opus สำหรับโปรเจกต์สำคัญ** | `model: "claude-opus-5"` | ล็อกโมเดลเฉพาะโปรเจกต์ |
 
 ### ลำดับชั้นของการตั้งค่า (จากสูงไปต่ำ)
 
@@ -54,7 +54,7 @@ related:
 ```json
 {
   "theme": "dark",
-  "model": "claude-opus-4-8",
+  "model": "claude-opus-5",
   "effort": "high",
   "autoMemoryEnabled": true,
 
@@ -111,11 +111,12 @@ related:
 | โมเดล | id | จุดเด่น |
 |-------|-----|--------|
 | **Fable 5** | `claude-fable-5` | โมเดล **Mythos-class** ใหม่ล่าสุดของ Anthropic และเก่งที่สุดที่เปิดให้ใช้ทั่วไป (มาใน Claude Code **2.1.170**) มาพร้อม **context window 1M token เป็นค่าเริ่มต้น** เหมาะกับงานคิดหนักสุด, context ใหญ่ และงาน agentic |
-| **Opus 4.8** | `claude-opus-4-8` | เรือธงตระกูล **Opus**; coding และวิเคราะห์บั๊กซับซ้อนเก่งสุด; default เป็น **high effort** กับงานหนัก |
+| **Opus 5** | `claude-opus-5` | **default Opus ตัวใหม่** (ตั้งแต่ Claude Code **2.1.219**); context **1M**; fast mode ราคา **$10/$50 ต่อ Mtok** |
+| **Opus 4.8** | `claude-opus-4-8` | เรือธง **Opus** ตัวก่อน; coding และวิเคราะห์บั๊กซับซ้อนเก่งสุด; default เป็น **high effort** กับงานหนัก |
 | **Sonnet 5** | `claude-sonnet-5` | **default ใหม่ของ Claude Code** (ตั้งแต่ 2.1.197); สมดุล เร็ว, context **1M native** (โปรฯ $2/$10 ต่อ Mtok ถึง 31 ส.ค. 2026) |
 | **Haiku 4.5** | `claude-haiku-4-5` | เร็วสุด ถูกสุด; สำหรับงานง่าย/boilerplate |
 
-> หมายเหตุ: Fast mode ยังใช้ **Opus 4.7** (และตอนนี้ทำงานกับ Opus 4.8 ได้ด้วย) — Fable 5 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 4.8 คือตัว **coding เก่งสุด** ในตระกูล Opus
+> หมายเหตุ: Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกจาก fast mode ใน 2.1.219) — Fable 5 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 5 คือ **default Opus** ตัวปัจจุบัน
 
 ### 🆕 Settings ใหม่ใน v2.1.191
 
@@ -151,6 +152,12 @@ related:
 ### 🆕 ใหม่ใน v2.1.218
 
 - **Server-managed settings ถามน้อยลง** — toggle ฟีเจอร์/ค่าใช้จ่ายแบบไม่มีพิษภัยที่องค์กร push มา จะไม่ trigger prompt ขออนุมัติ settings อีกแล้ว
+
+### 🆕 ใหม่ใน v2.1.219
+
+- **Claude Opus 5** (`claude-opus-5`) — **default Opus ตัวใหม่**: context 1M และ fast mode ราคา $10/$50 ต่อ Mtok; fast mode ตอนนี้ใช้กับ Opus 5 และ Opus 4.8 (ถอด Opus 4.7 ออกจาก fast mode แล้ว)
+- `sandbox.network.strictAllowlist` — ปฏิเสธ host ที่ไม่อยู่ใน allowlist ของคำสั่งใน sandbox ทันทีโดยไม่ถาม
+- `workflowSizeGuideline` — ตั้ง guideline ขนาด Dynamic workflow จาก settings ไฟล์ไหนก็ได้; ระหว่างที่ตั้งไว้ แถวนี้ใน `/config` จะถูกซ่อน
 
 ### การ Persist ของ `/config` และ `/model`
 

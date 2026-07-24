@@ -67,7 +67,7 @@ AI assistants that work in a separate context window — ideal for tasks that ne
 ```markdown
 ---
 description: "Specialized security code review"
-model: claude-opus-4-8
+model: claude-opus-5
 tools:
   - Read
   - Grep
@@ -135,6 +135,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 ### New in v2.1.218
 
 - **No `:` in agent names** — agent markdown files now reject agent names containing `:`, which is reserved for plugin namespacing.
+
+### New in v2.1.219
+
+- **Nested spawning on by default** — subagents can now spawn their own subagents up to depth 3; set `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` to disable nesting.
+- **Nested subagents in `stream-json`** — subagents spawned at depth 2+ now appear when `--forward-subagent-text` is set, keyed by the `tool_use` id of the Agent call that spawned them.
 
 ---
 

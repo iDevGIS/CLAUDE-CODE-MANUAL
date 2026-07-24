@@ -50,7 +50,7 @@ Claude spends more time thinking on hard problems such as:
 
 Press `Meta+O` / `Alt+O`, or use `/fast`.
 
-Uses **Opus 4.7** for fast mode, with faster output.
+Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed in v2.1.219), with faster output.
 
 ### Code Intelligence
 

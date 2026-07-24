@@ -130,6 +130,11 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 - [[13-agent-teams]] — ทีม agent แบบโต้ตอบที่แชร์ task list และให้โมเดลประสานกันเอง เหมาะกับงานที่ต้อง "คุยกัน" ส่วน workflow เหมาะกับงานปริมาณมากที่กำหนดลำดับล่วงหน้าได้
 - [[41-background-agents]] — งานเบื้องหลังรูปแบบอื่นของ Claude Code (workflow เองก็เป็น background run แบบหนึ่ง)
 
+### 🆕 ใหม่ใน v2.1.219
+
+- **ขนาด default เป็น "medium" แล้ว** — dynamic workflow ตั้งเป้าใช้ agent ไม่เกิน ~15 ตัวโดย default; เปลี่ยนขนาด (หรือปลดเป็น unrestricted) ได้ที่ **Dynamic workflow size** ใน `/config` หรือตั้งผ่าน settings key ใหม่ `workflowSizeGuideline` จาก settings ไฟล์ไหนก็ได้ (ระหว่างที่ตั้งไว้ แถวใน `/config` จะถูกซ่อน)
+- **status line บอกขนาด** — status line ของ workflow ที่กำลังรันแสดงขนาด default ปัจจุบัน พร้อมชี้ไปที่ `/config`
+
 ---
 
 ---

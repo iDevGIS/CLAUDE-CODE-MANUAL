@@ -179,6 +179,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **Single-segment `dir/**` in hook `if:` conditions now matches only `<cwd>/dir`** — write `**/dir/**` to match at any depth. (`deny`/`ask` permission rules keep their any-depth match.)
 - **SessionStart reports source `"fork"`** — a session that begins as a fork now reports `"fork"` instead of `"resume"`.
 
+### New in v2.1.219
+
+- **`DirectoryAdded` hook** — fires after `/add-dir` (or the SDK `register_repo_root` control request) registers a new working directory mid-session.
+
 ---
 
 ---

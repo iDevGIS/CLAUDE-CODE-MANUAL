@@ -130,6 +130,11 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 - [[13-agent-teams]] — interactive agent teams that share a task list and coordinate model-to-model; great when agents need to "talk", while workflows shine on high-volume work you can shape up front
 - [[41-background-agents]] — Claude Code's other background-work modes (a workflow is itself one kind of background run)
 
+### New in v2.1.219
+
+- **Default size guideline is now "medium"** — dynamic workflows aim for fewer than 15 agents by default; pick another size (or unrestricted) via **Dynamic workflow size** in `/config`, or set it from any settings file with the new `workflowSizeGuideline` key (the `/config` row is hidden while a settings file sets it).
+- **Size shown in the status line** — the running-workflow status line now shows the current default workflow size, with a pointer to `/config`.
+
 ---
 
 ---

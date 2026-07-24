@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.218         │
+│ Welcome to Claude Code v2.1.219         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -281,10 +281,10 @@ git checkout main
 **Example:**
 ```bash
 claude --model claude-fable-5    # Fable 5 — most capable, 1M context (newest)
-claude --model opus              # Opus 4.8 (top-tier coding, expensive)
+claude --model opus              # Opus 5 (new default Opus, 1M context)
 claude --model sonnet            # Sonnet 5 (new default, native 1M context)
 claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
-claude --model claude-opus-4-8   # Full name (specify exact version)
+claude --model claude-opus-5     # Full name (specify exact version)
 ```
 
 > 💡 **Analogy:**
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.218
+- run: npm install -g @anthropic-ai/claude-code@2.1.219
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1407,7 +1407,7 @@ Skill(commit)                    # Specific skill
 | **An organization needs a locked policy** | Managed settings | IT sets it for everyone — no overrides allowed |
 | **Want Claude to auto-run lint** | `hooks.PostEdit` | Every time Claude edits a file, lint runs automatically |
 | **Want to connect to Slack/Notion** | `mcpServers` | Claude can reach Slack and Notion directly |
-| **Want to use Opus on a critical project** | `model: "claude-opus-4-8"` | Lock the model per project |
+| **Want to use Opus on a critical project** | `model: "claude-opus-5"` | Lock the model per project |
 
 ### Settings Hierarchy (highest to lowest)
 
@@ -1429,7 +1429,7 @@ Skill(commit)                    # Specific skill
 ```json
 {
   "theme": "dark",
-  "model": "claude-opus-4-8",
+  "model": "claude-opus-5",
   "effort": "high",
   "autoMemoryEnabled": true,
 
@@ -1519,6 +1519,12 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.218
 
 - **Server-managed settings prompt less** — benign feature and cost toggles pushed by your organization no longer trigger the settings-approval prompt.
+
+### New in v2.1.219
+
+- **Claude Opus 5** (`claude-opus-5`) — the new **default Opus model**: 1M context, and fast mode at $10/$50 per Mtok. Fast mode now runs on Opus 5 and Opus 4.8 (Opus 4.7 was removed from fast mode).
+- `sandbox.network.strictAllowlist` — deny non-allowlisted hosts for sandboxed commands outright instead of prompting.
+- `workflowSizeGuideline` — set the advisory Dynamic-workflow size guideline from any settings file; the `/config` row is hidden while a settings file sets it.
 
 ---
 
@@ -1872,6 +1878,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Clearer connection errors** — `claude mcp list` and `/mcp` now show the HTTP status and error text when a server fails to connect, and warn about MCP config values with hidden leading or trailing whitespace.
 
+### New in v2.1.219
+
+- **`mcp_server_errors` in the headless init event** — the `stream-json` init event now lists `--mcp-config` entries that were skipped by config validation; terminal runs print a startup warning instead.
+- **Managed `${VAR}` resolution changed** — managed MCP allowlist/denylist entries now resolve `${VAR}` from the startup environment and managed-settings `env`, no longer from settings-file `env`.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -1976,6 +1987,10 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 
 - **Single-segment `dir/**` in hook `if:` conditions now matches only `<cwd>/dir`** — write `**/dir/**` to match at any depth. (`deny`/`ask` permission rules keep their any-depth match.)
 - **SessionStart reports source `"fork"`** — a session that begins as a fork now reports `"fork"` instead of `"resume"`.
+
+### New in v2.1.219
+
+- **`DirectoryAdded` hook** — fires after `/add-dir` (or the SDK `register_repo_root` control request) registers a new working directory mid-session.
 
 ### Configuring Hooks
 
@@ -2123,7 +2138,7 @@ argument-hint: "[file] [action]"    # Argument hint
 disable-model-invocation: true      # Only invokable by the user (Claude can't auto-call)
 user-invocable: false               # Only Claude can call it
 allowed-tools: "Read,Bash"          # Pre-approved tools
-model: claude-opus-4-8              # Override the model
+model: claude-opus-5                # Override the model
 effort: high                        # Override the effort
 context: fork                       # Run inside a subagent
 agent: Explore                      # Agent type
@@ -2249,7 +2264,7 @@ AI assistants that work in a separate context window — ideal for tasks that ne
 ```markdown
 ---
 description: "Specialized security code review"
-model: claude-opus-4-8
+model: claude-opus-5
 tools:
   - Read
   - Grep
@@ -2317,6 +2332,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 ### New in v2.1.218
 
 - **No `:` in agent names** — agent markdown files now reject agent names containing `:`, which is reserved for plugin namespacing.
+
+### New in v2.1.219
+
+- **Nested spawning on by default** — subagents can now spawn their own subagents up to depth 3; set `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` to disable nesting.
+- **Nested subagents in `stream-json`** — subagents spawned at depth 2+ now appear when `--forward-subagent-text` is set, keyed by the `tool_use` id of the Agent call that spawned them.
 
 ---
 
@@ -3012,7 +3032,7 @@ Claude spends more time thinking on hard problems such as:
 
 Press `Meta+O` / `Alt+O`, or use `/fast`.
 
-Uses **Opus 4.7** for fast mode, with faster output.
+Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed in v2.1.219), with faster output.
 
 ### Code Intelligence
 
@@ -3166,7 +3186,7 @@ your-project/
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | Threshold (ms) before a long-running MCP tool call moves to the background automatically (default 2 minutes); also disables the behavior. *(v2.1.212)* |
 | `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | Truncation limit (default 60 KB) for OpenTelemetry content attributes. *(v2.1.214)* |
 | `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | Cap on concurrently-running subagents (default 20), so one message can't fan out unbounded background agents. *(v2.1.217)* |
-| `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | Allow subagents to spawn nested subagents — off by default since v2.1.217. *(v2.1.217)* |
+| `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | Cap on nested-subagent spawn depth — default 3 since v2.1.219 (nesting was off by default in v2.1.217–218); set `1` to disable nesting. *(v2.1.217, changed v2.1.219)* |
 | `FORCE_HYPERLINK` | Footer PR badge links render as clickable hyperlinks even when terminal support can't be detected (e.g. over ssh/tmux); set `0` to opt out. *(v2.1.217)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
@@ -3317,7 +3337,7 @@ claude --version  # check the version
 | Task | Recommended Model | Why |
 |------|-------------------|-----|
 | Hardest reasoning, huge context | Fable 5 | Most capable model, 1M context by default |
-| Architecture, complex bugs | Opus 4.8 | Deep thought, strong analysis |
+| Architecture, complex bugs | Opus 5 | Deep thought, strong analysis |
 | General coding, ordinary bugs | Sonnet 5 | Fast, economical — the default |
 | Boilerplate, data generation | Haiku 4.5 | Very fast and very cheap |
 
@@ -4485,7 +4505,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.218`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.219`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
@@ -6754,4 +6774,4 @@ Claude Code is a feature-complete AI tool for developers:
 ---
 
 > **Document version:** Last updated June 25, 2026
-> **Applies to:** Latest Claude Code version (Claude Fable 5 / Opus 4.8 / Sonnet 5 / Haiku 4.5)
+> **Applies to:** Latest Claude Code version (Claude Fable 5 / Opus 5 / Sonnet 5 / Haiku 4.5)

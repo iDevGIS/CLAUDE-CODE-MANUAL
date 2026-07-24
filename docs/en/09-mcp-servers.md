@@ -141,6 +141,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Clearer connection errors** — `claude mcp list` and `/mcp` now show the HTTP status and error text when a server fails to connect, and warn about MCP config values with hidden leading or trailing whitespace.
 
+### New in v2.1.219
+
+- **`mcp_server_errors` in the headless init event** — the `stream-json` init event now lists `--mcp-config` entries that were skipped by config validation; terminal runs print a startup warning instead.
+- **Managed `${VAR}` resolution changed** — managed MCP allowlist/denylist entries now resolve `${VAR}` from the startup environment and managed-settings `env`, no longer from settings-file `env`.
+
 ---
 
 ---

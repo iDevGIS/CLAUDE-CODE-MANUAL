@@ -141,6 +141,11 @@ claude --mcp-config ./mcp.json
 
 - **error ตอนต่อไม่ติดชัดขึ้น** — `claude mcp list` และ `/mcp` แสดง HTTP status พร้อมข้อความ error เมื่อ server ต่อไม่สำเร็จ และเตือนถ้าค่าใน MCP config มี whitespace แอบนำหน้า/ต่อท้าย
 
+### 🆕 ใหม่ใน v2.1.219
+
+- **`mcp_server_errors` ใน init event ของ headless** — init event แบบ `stream-json` แสดงรายการ `--mcp-config` ที่ถูกข้ามเพราะไม่ผ่าน config validation; ส่วนการรันใน terminal จะพิมพ์คำเตือนตอน startup แทน
+- **การ resolve `${VAR}` ของ managed เปลี่ยน** — รายการ allowlist/denylist ของ managed MCP ตอนนี้ resolve `${VAR}` จาก environment ตอน startup และ `env` ของ managed settings ไม่ใช่จาก `env` ใน settings ไฟล์อีกต่อไป
+
 ---
 
 ---

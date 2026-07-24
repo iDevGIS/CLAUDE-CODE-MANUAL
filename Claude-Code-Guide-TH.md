@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.218         │
+│ Welcome to Claude Code v2.1.219         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -281,10 +281,10 @@ git checkout main
 **ตัวอย่าง:**
 ```bash
 claude --model claude-fable-5    # Fable 5 — เก่งสุด, context 1M (ใหม่ล่าสุด)
-claude --model opus              # ใช้ Opus 4.8 (Opus ตัวท็อป, เก่งโค้ดสุด, แพง)
+claude --model opus              # ใช้ Opus 5 (default Opus ตัวใหม่, context 1M)
 claude --model sonnet            # ใช้ Sonnet 5 (default ใหม่, context 1M native)
 claude --model haiku             # ใช้ Haiku 4.5 (เร็ว, ถูก, สำหรับงานง่าย)
-claude --model claude-opus-4-8   # ใช้ชื่อเต็ม (ระบุ version ตรงๆ)
+claude --model claude-opus-5     # ใช้ชื่อเต็ม (ระบุ version ตรงๆ)
 ```
 
 > 💡 **เปรียบเทียบ:**
@@ -970,7 +970,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.218
+- run: npm install -g @anthropic-ai/claude-code@2.1.219
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1401,7 +1401,7 @@ Skill(commit)                    # Skill เฉพาะ
 | **องค์กรต้องการล็อก Policy** | Managed settings | IT ตั้งค่าให้ทุกคนในองค์กร ห้าม Override |
 | **ต้องการให้ Claude รัน Lint อัตโนมัติ** | `hooks.PostEdit` | ทุกครั้งที่ Claude แก้ไฟล์ Lint จะรันอัตโนมัติ |
 | **ต้องการเชื่อมต่อ Slack/Notion** | `mcpServers` | Claude เข้าถึง Slack, Notion ได้โดยตรง |
-| **ต้องการใช้ Opus สำหรับโปรเจกต์สำคัญ** | `model: "claude-opus-4-8"` | ล็อกโมเดลเฉพาะโปรเจกต์ |
+| **ต้องการใช้ Opus สำหรับโปรเจกต์สำคัญ** | `model: "claude-opus-5"` | ล็อกโมเดลเฉพาะโปรเจกต์ |
 
 ### ลำดับชั้นของการตั้งค่า (จากสูงไปต่ำ)
 
@@ -1423,7 +1423,7 @@ Skill(commit)                    # Skill เฉพาะ
 ```json
 {
   "theme": "dark",
-  "model": "claude-opus-4-8",
+  "model": "claude-opus-5",
   "effort": "high",
   "autoMemoryEnabled": true,
 
@@ -1513,6 +1513,12 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.218
 
 - **Server-managed settings ถามน้อยลง** — toggle ฟีเจอร์/ค่าใช้จ่ายแบบไม่มีพิษภัยที่องค์กร push มา จะไม่ trigger prompt ขออนุมัติ settings อีกแล้ว
+
+### 🆕 ใหม่ใน v2.1.219
+
+- **Claude Opus 5** (`claude-opus-5`) — **default Opus ตัวใหม่**: context 1M และ fast mode ราคา $10/$50 ต่อ Mtok; fast mode ตอนนี้ใช้กับ Opus 5 และ Opus 4.8 (ถอด Opus 4.7 ออกจาก fast mode แล้ว)
+- `sandbox.network.strictAllowlist` — ปฏิเสธ host ที่ไม่อยู่ใน allowlist ของคำสั่งใน sandbox ทันทีโดยไม่ถาม
+- `workflowSizeGuideline` — ตั้ง guideline ขนาด Dynamic workflow จาก settings ไฟล์ไหนก็ได้; ระหว่างที่ตั้งไว้ แถวนี้ใน `/config` จะถูกซ่อน
 
 ---
 
@@ -1865,6 +1871,11 @@ claude --mcp-config ./mcp.json
 
 - **error ตอนต่อไม่ติดชัดขึ้น** — `claude mcp list` และ `/mcp` แสดง HTTP status พร้อมข้อความ error เมื่อ server ต่อไม่สำเร็จ และเตือนถ้าค่าใน MCP config มี whitespace แอบนำหน้า/ต่อท้าย
 
+### 🆕 ใหม่ใน v2.1.219
+
+- **`mcp_server_errors` ใน init event ของ headless** — init event แบบ `stream-json` แสดงรายการ `--mcp-config` ที่ถูกข้ามเพราะไม่ผ่าน config validation; ส่วนการรันใน terminal จะพิมพ์คำเตือนตอน startup แทน
+- **การ resolve `${VAR}` ของ managed เปลี่ยน** — รายการ allowlist/denylist ของ managed MCP ตอนนี้ resolve `${VAR}` จาก environment ตอน startup และ `env` ของ managed settings ไม่ใช่จาก `env` ใน settings ไฟล์อีกต่อไป
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -2033,6 +2044,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **เงื่อนไข `if:` ของ hook แบบ `dir/**` segment เดียว match เฉพาะ `<cwd>/dir` แล้ว** — ถ้าต้องการ match ทุกระดับความลึกให้เขียน `**/dir/**` (rule `deny`/`ask` ของ permission ยัง match ทุกระดับเหมือนเดิม)
 - **SessionStart รายงาน source `"fork"`** — session ที่เริ่มจากการ fork จะรายงาน `"fork"` แทน `"resume"`
 
+### 🆕 ใหม่ใน v2.1.219
+
+- **hook `DirectoryAdded`** — ยิงหลัง `/add-dir` (หรือ control request `register_repo_root` ของ SDK) ลงทะเบียน working directory ใหม่กลาง session
+
 ---
 
 ## 11. Skills (คำสั่งที่สร้างเอง)
@@ -2116,7 +2131,7 @@ argument-hint: "[file] [action]"    # คำแนะนำ Argument
 disable-model-invocation: true      # เฉพาะผู้ใช้เรียก (ไม่ให้ Claude เรียกเอง)
 user-invocable: false               # เฉพาะ Claude เรียก
 allowed-tools: "Read,Bash"          # อนุมัติเครื่องมือล่วงหน้า
-model: claude-opus-4-8              # Override โมเดล
+model: claude-opus-5                # Override โมเดล
 effort: high                        # Override Effort
 context: fork                       # รันใน Subagent
 agent: Explore                      # ประเภท Agent
@@ -2242,7 +2257,7 @@ AI ผู้ช่วยเฉพาะทางที่ทำงานใน C
 ```markdown
 ---
 description: "รีวิวโค้ดด้านความปลอดภัย"
-model: claude-opus-4-8
+model: claude-opus-5
 tools:
   - Read
   - Grep
@@ -2310,6 +2325,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 ### 🆕 ใหม่ใน v2.1.218
 
 - **ห้ามใช้ `:` ในชื่อ agent** — ไฟล์ markdown ของ agent จะ reject ชื่อ agent ที่มี `:` เพราะสงวนไว้สำหรับ plugin namespacing
+
+### 🆕 ใหม่ใน v2.1.219
+
+- **เปิดการ spawn ซ้อนเป็นค่าเริ่มต้น** — subagent spawn subagent ของตัวเองซ้อนได้ลึกสุด 3 ชั้นแล้วโดย default; ตั้ง `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` ถ้าต้องการปิดการซ้อน
+- **subagent ซ้อนใน `stream-json`** — subagent ที่ถูก spawn ที่ depth 2 ขึ้นไปจะโผล่ใน output เมื่อเปิด `--forward-subagent-text` โดย key ด้วย `tool_use` id ของ Agent call ที่ spawn มัน
 
 ---
 
@@ -3001,7 +3021,7 @@ Claude จะใช้เวลาคิดนานขึ้นสำหรั�
 
 กด `Meta+O` / `Alt+O` หรือ `/fast`
 
-ใช้ Opus 4.7 สำหรับ fast mode พร้อม Output ที่เร็วขึ้น
+Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกใน v2.1.219) พร้อม Output ที่เร็วขึ้น
 
 ### Code Intelligence
 
@@ -3155,7 +3175,7 @@ your-project/
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | ระยะเวลา (ms) ก่อนที่ MCP tool call ที่รันนานจะถูกย้ายไป background อัตโนมัติ (default 2 นาที); ใช้ปิดพฤติกรรมนี้ได้ด้วย *(v2.1.212)* |
 | `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | เพดานการตัดข้อความ (default 60 KB) ของ content attribute ใน OpenTelemetry *(v2.1.214)* |
 | `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | เพดานจำนวน subagent ที่รันพร้อมกัน (default 20) กันไม่ให้ข้อความเดียว fan out background agent แบบไม่จำกัด *(v2.1.217)* |
-| `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | อนุญาตให้ subagent spawn subagent ซ้อนกันได้ — ปิดเป็นค่าเริ่มต้นตั้งแต่ v2.1.217 *(v2.1.217)* |
+| `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | เพดานความลึกของ subagent ที่ spawn ซ้อนกัน — default 3 ตั้งแต่ v2.1.219 (ช่วง v2.1.217–218 ปิดเป็นค่าเริ่มต้น); ตั้ง `1` เพื่อปิดการซ้อน *(v2.1.217, เปลี่ยน v2.1.219)* |
 | `FORCE_HYPERLINK` | ลิงก์ PR badge ที่ footer เป็น hyperlink คลิกได้แม้ตรวจไม่พบว่า terminal รองรับ (เช่นผ่าน ssh/tmux); ตั้ง `0` เพื่อปิด *(v2.1.217)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
@@ -3306,7 +3326,7 @@ claude --version  # ตรวจสอบเวอร์ชัน
 | งาน | โมเดลที่แนะนำ | เหตุผล |
 |-----|--------------|--------|
 | งานคิดหนักสุด, context ใหญ่มาก | Fable 5 | โมเดลเก่งสุด, context 1M เป็นค่าเริ่มต้น |
-| วางสถาปัตยกรรม, แก้ Bug ซับซ้อน | Opus 4.8 | คิดลึก วิเคราะห์ดี |
+| วางสถาปัตยกรรม, แก้ Bug ซับซ้อน | Opus 5 | คิดลึก วิเคราะห์ดี |
 | เขียนโค้ดทั่วไป, แก้ Bug ธรรมดา | Sonnet 5 | เร็ว ประหยัด — เป็น default |
 | งาน Boilerplate, Generate Data | Haiku 4.5 | เร็วมาก ถูกมาก |
 
@@ -4471,7 +4491,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.218`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.219`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
@@ -6740,4 +6760,4 @@ Claude Code เป็นเครื่องมือ AI สำหรับน�
 ---
 
 > **เวอร์ชันเอกสาร:** ปรับปรุงล่าสุด 25 มิถุนายน 2026  
-> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5 / Opus 4.8 / Sonnet 5 / Haiku 4.5)
+> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5 / Opus 5 / Sonnet 5 / Haiku 4.5)

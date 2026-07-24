@@ -32,7 +32,7 @@ related:
 | **An organization needs a locked policy** | Managed settings | IT sets it for everyone — no overrides allowed |
 | **Want Claude to auto-run lint** | `hooks.PostEdit` | Every time Claude edits a file, lint runs automatically |
 | **Want to connect to Slack/Notion** | `mcpServers` | Claude can reach Slack and Notion directly |
-| **Want to use Opus on a critical project** | `model: "claude-opus-4-8"` | Lock the model per project |
+| **Want to use Opus on a critical project** | `model: "claude-opus-5"` | Lock the model per project |
 
 ### Settings Hierarchy (highest to lowest)
 
@@ -54,17 +54,18 @@ related:
 Set the `model` key to any of these (newest → cheapest):
 
 - **Fable 5** (`claude-fable-5`) — Anthropic's newest **Mythos-class** model and the most capable model generally available; introduced in Claude Code **2.1.170**. Ships with a **1M-token context window by default**. Best for the hardest reasoning, large-context, and agentic work.
-- **Opus 4.8** (`claude-opus-4-8`) — flagship **Opus**; top-tier coding and complex-bug analysis; defaults to **high effort** on demanding tasks.
+- **Opus 5** (`claude-opus-5`) — the **new default Opus model** (since Claude Code 2.1.219); **1M context**; fast mode at **$10/$50 per Mtok**.
+- **Opus 4.8** (`claude-opus-4-8`) — previous **Opus** flagship; top-tier coding and complex-bug analysis; defaults to **high effort** on demanding tasks.
 - **Sonnet 5** (`claude-sonnet-5`) — the **new default in Claude Code** (since 2.1.197); balanced and fast, with a **native 1M-token context window** (promo pricing $2/$10 per Mtok through Aug 31, 2026).
 - **Haiku 4.5** (`claude-haiku-4-5`) — fastest, cheapest; for easy/boilerplate tasks.
-- Fast mode still uses **Opus 4.7** (and now works on Opus 4.8 too).
+- Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed from fast mode in 2.1.219).
 
 ### Example settings.json
 
 ```json
 {
   "theme": "dark",
-  "model": "claude-opus-4-8",
+  "model": "claude-opus-5",
   "effort": "high",
   "autoMemoryEnabled": true,
 
@@ -151,6 +152,12 @@ Set the `model` key to any of these (newest → cheapest):
 ### New in v2.1.218
 
 - **Server-managed settings prompt less** — benign feature and cost toggles pushed by your organization no longer trigger the settings-approval prompt.
+
+### New in v2.1.219
+
+- **Claude Opus 5** (`claude-opus-5`) — the new **default Opus model**: 1M context, and fast mode at $10/$50 per Mtok. Fast mode now runs on Opus 5 and Opus 4.8 (Opus 4.7 was removed from fast mode).
+- `sandbox.network.strictAllowlist` — deny non-allowlisted hosts for sandboxed commands outright instead of prompting.
+- `workflowSizeGuideline` — set the advisory Dynamic-workflow size guideline from any settings file; the `/config` row is hidden while a settings file sets it.
 
 ---
 

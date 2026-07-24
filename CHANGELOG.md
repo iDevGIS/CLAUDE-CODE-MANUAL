@@ -25,6 +25,31 @@
 
 ---
 
+## [1.27.0] — 2026-07-25
+
+### Compatibility
+- **Claude Code:** `v2.1.219+`
+
+### Added
+- **Claude Opus 5** (`claude-opus-5`) — the new **default Opus model**: 1M context, fast mode at $10/$50 per Mtok (`v2.1.219`) — chapters 2, 6, 21, 25 + READMEs
+- **`sandbox.network.strictAllowlist` setting** — deny non-allowlisted hosts for sandboxed commands without prompting (`v2.1.219`) — chapter 6
+- **`workflowSizeGuideline` setting** — set the advisory Dynamic-workflow size guideline from any settings file; the `/config` row hides while set (`v2.1.219`) — chapters 6 & 39
+- **`DirectoryAdded` hook** — fires after `/add-dir` or the SDK `register_repo_root` control request registers a new working directory mid-session (`v2.1.219`) — chapter 10
+- **`mcp_server_errors` in the headless init event** — `stream-json` init lists `--mcp-config` entries skipped by config validation; terminal runs print a startup warning (`v2.1.219`) — chapter 9
+- **Nested subagents in `stream-json`** — depth-2+ subagents appear under `--forward-subagent-text`, keyed by the spawning Agent `tool_use` id (`v2.1.219`) — chapter 12
+
+### Changed
+- **Nested subagent spawning on by default** — subagents can spawn nested subagents up to depth 3 (was off by default since `v2.1.217`); set `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` to disable (`v2.1.219`) — chapters 12 & 23
+- **Fast mode lineup** — `/fast` now applies to Opus 5 and Opus 4.8; Opus 4.7 removed from fast mode (`v2.1.219`) — chapters 6 & 21
+- **Dynamic workflows default to a medium size guideline** (aim for fewer than 15 agents); the running-workflow status line shows the current size with a pointer to `/config` (`v2.1.219`) — chapter 39
+- **Managed MCP allowlist/denylist `${VAR}` entries** now resolve from the startup environment and managed-settings env instead of settings-file env (`v2.1.219`) — chapter 9
+- **Version strings** bumped `2.1.218` → `2.1.219` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.219` ships **Claude Opus 5** as the new default Opus model (lineup + fast-mode references updated across the manual) plus several documentable platform changes: new sandbox/workflow settings (chapters 6 & 39), the `DirectoryAdded` hook (chapter 10), headless MCP diagnostics and managed `${VAR}` resolution (chapter 9), and nested-subagent spawning on by default (chapters 12 & 23)
+
+---
+
 ## [1.26.0] — 2026-07-23
 
 ### Compatibility
@@ -673,6 +698,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.26.0...HEAD
+[1.27.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.26.0...v1.27.0
 [1.26.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.25.0...v1.26.0
 [1.25.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.24.0...v1.25.0
 [1.24.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.23.0...v1.24.0
