@@ -163,6 +163,10 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **`sandbox.credentials` gained `mode: "mask"`** (Linux and WSL) — instead of denying the read outright, a sandboxed command reads a **sentinel copy** of the credential file, and the sandbox proxy substitutes the real value on egress. Mask the whole file, or only the spans captured by an `extract` regex. On macOS, file masking falls back to `deny`.
 
+### New in v2.1.222
+
+- **Remote Control auto-start is user-scope only** — repo-local settings (`.claude/settings.json` and `.claude/settings.local.json`) can no longer turn Remote Control auto-start **on**; they can still turn it **off**. Enable it at user scope via `/config`.
+
 ---
 
 ---

@@ -12,3 +12,6 @@ Thumbs.db
 
 # Autosync (headless) — Discord payload buffer, overwritten every run
 .autosync-payload.tmp.json
+
+# Autosync (headless) — upstream CHANGELOG scratch copy, overwritten every run
+.cc-changelog.tmp.md

@@ -25,6 +25,28 @@
 
 ---
 
+## [1.30.0] — 2026-08-05
+
+### Compatibility
+- **Claude Code:** `v2.1.222+`
+
+### Changed
+- **Remote Control auto-start is user-scope only** — repo-local settings (`.claude/settings.json`, `.claude/settings.local.json`) can no longer turn it **on** (they can still turn it **off**); enable it at user scope via `/config` (ch 06)
+- **Auto mode screens agent-to-agent messages** — messages sent to other agent sessions via `SendMessage` now pass through the permission classifier before dispatch (ch 05)
+- **Diffs read raw git blobs** — the `/diff` view, the Remote Control workspace diff, and file-edit diffs in Claude Code on the web ignore workspace-configured diff drivers and `textconv` (ch 03)
+- **`disable-model-invocation` skills aren't reimplemented** — Claude is now told to ask the user to run such a skill instead of replicating its workflow (ch 11)
+
+### Removed
+- **ultraplan** — the ultraplan feature (`/ultraplan`, "Refine with Ultraplan" in plan mode) was removed from Claude Code; the manual never documented it, so no content had to be pulled (ch 03 notes the removal)
+
+### Version
+- **Version strings** bumped `2.1.221` → `2.1.222` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.222` is mostly a fix release; the documentable delta is four behavior changes (Remote Control scope, auto-mode `SendMessage` screening, raw-blob diffs, `disable-model-invocation` handling) plus the ultraplan removal — bug fixes and UI polish were skipped per the sync policy
+
+---
+
 ## [1.29.0] — 2026-08-04
 
 ### Compatibility
@@ -737,7 +759,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.29.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.30.0...HEAD
+[1.30.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.29.0...v1.30.0
 [1.29.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.28.0...v1.29.0
 [1.28.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.27.0...v1.28.0
 [1.27.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.26.0...v1.27.0

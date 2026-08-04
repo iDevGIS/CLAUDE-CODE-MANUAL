@@ -163,6 +163,10 @@ related:
 
 - **`sandbox.credentials` มี `mode: "mask"` แล้ว** (Linux และ WSL) — แทนที่จะปฏิเสธการอ่านไปเลย คำสั่งใน sandbox จะได้อ่านไฟล์ credential ฉบับ **sentinel** ส่วนค่าจริงถูก sandbox proxy สลับกลับเข้าไปตอนส่งออก (egress); เลือก mask ทั้งไฟล์ หรือเฉพาะช่วงที่ regex `extract` จับได้ก็ได้ — บน macOS การ mask ไฟล์จะถอยไปเป็น `deny`
 
+### 🆕 ใหม่ใน v2.1.222
+
+- **auto-start ของ Remote Control ตั้งได้เฉพาะ user scope** — settings ระดับ repo (`.claude/settings.json` และ `.claude/settings.local.json`) **เปิด** auto-start ของ Remote Control ไม่ได้อีกแล้ว (ยัง **ปิด** ได้อยู่); ถ้าจะเปิดต้องตั้งที่ user scope ผ่าน `/config`
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

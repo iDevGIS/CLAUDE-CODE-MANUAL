@@ -142,6 +142,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/fork` creates its own worktree** — a forked session now works in a fresh worktree instead of the original session's checkout.
 - **`/plugin install` retries on a stale catalog** — it refreshes the marketplace catalog and tries again before reporting a plugin as not found; plugins installed from `/plugin` also activate immediately when it's safe, instead of always needing `/reload-plugins`.
 
+### New in v2.1.222
+- **Diffs read raw git blobs** — the `/diff` view, the Remote Control workspace diff, and file-edit diffs in Claude Code on the web now use raw git blob content, ignoring workspace-configured diff drivers and `textconv`.
+- **ultraplan is gone** — the ultraplan feature (`/ultraplan`, and "Refine with Ultraplan" in plan mode) has been removed.
+
 ---
 
 ---

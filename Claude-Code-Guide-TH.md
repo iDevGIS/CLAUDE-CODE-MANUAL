@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.221         │
+│ Welcome to Claude Code v2.1.222         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -970,7 +970,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.221
+- run: npm install -g @anthropic-ai/claude-code@2.1.222
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1133,6 +1133,10 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/status` บอกชนิดของ session แล้ว** — `interactive` หรือถ้าเป็น background job ก็บอกว่า `attached` หรือ `unattended`
 - **`/fork` สร้าง worktree ของตัวเอง** — session ที่ fork ออกมาทำงานใน worktree ใหม่ ไม่ใช้ checkout เดิมของ session ต้นทางอีกต่อไป
 - **`/plugin install` ลองใหม่เมื่อ catalog เก่า** — จะรีเฟรช catalog ของ marketplace แล้วลองอีกครั้งก่อนแจ้งว่าหา plugin ไม่เจอ; plugin ที่ติดตั้งผ่าน `/plugin` ยังเริ่มทำงานทันทีถ้าปลอดภัย ไม่ต้องสั่ง `/reload-plugins` ทุกครั้งแล้ว
+
+### 🆕 ใหม่ใน v2.1.222
+- **diff อ่านจาก git blob ดิบแล้ว** — หน้า `/diff`, diff ของ workspace ใน Remote Control และ diff ของการแก้ไฟล์ใน Claude Code บนเว็บ ใช้เนื้อหา git blob ดิบ ๆ โดยไม่สนใจ diff driver และ `textconv` ที่ตั้งไว้ใน workspace
+- **ถอด ultraplan ออกแล้ว** — ฟีเจอร์ ultraplan (`/ultraplan` และ "Refine with Ultraplan" ใน plan mode) ถูกถอดออกจาก Claude Code
 
 ---
 
@@ -1392,6 +1396,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **mask ไฟล์ credential ใน sandbox ได้แล้ว** — `sandbox.credentials` มี `mode: "mask"` ให้คำสั่งใน sandbox อ่านไฟล์ฉบับ sentinel ส่วนค่าจริงถูกสลับกลับเข้าไปตอนส่งออก (Linux/WSL ส่วน macOS ถอยไปเป็น `deny`)
 - **Auto mode ถูกลงและคาดเดาง่ายขึ้น** — การเช็ค permission ของ tool call ที่รันขนานกันใช้ prefix ของ conversation ที่ cache ไว้ซ้ำ และถ้าสลับ permission mode ระหว่างที่การเช็คค้างอยู่ ระบบจะขึ้นถามใหม่แทนที่จะใช้ผลเก่า
 
+### 🆕 ใหม่ใน v2.1.222
+- **Auto mode ตรวจข้อความที่ส่งหา agent ตัวอื่นแล้ว** — ข้อความที่ส่งไปยัง agent session อื่นผ่าน `SendMessage` ต้องผ่าน permission classifier ก่อนถูกส่งออกไป
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1534,6 +1541,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.221
 
 - **`sandbox.credentials` มี `mode: "mask"` แล้ว** (Linux และ WSL) — แทนที่จะปฏิเสธการอ่านไปเลย คำสั่งใน sandbox จะได้อ่านไฟล์ credential ฉบับ **sentinel** ส่วนค่าจริงถูก sandbox proxy สลับกลับเข้าไปตอนส่งออก (egress); เลือก mask ทั้งไฟล์ หรือเฉพาะช่วงที่ regex `extract` จับได้ก็ได้ — บน macOS การ mask ไฟล์จะถอยไปเป็น `deny`
+
+### 🆕 ใหม่ใน v2.1.222
+
+- **auto-start ของ Remote Control ตั้งได้เฉพาะ user scope** — settings ระดับ repo (`.claude/settings.json` และ `.claude/settings.local.json`) **เปิด** auto-start ของ Remote Control ไม่ได้อีกแล้ว (ยัง **ปิด** ได้อยู่); ถ้าจะเปิดต้องตั้งที่ user scope ผ่าน `/config`
 
 ---
 
@@ -2226,6 +2237,10 @@ my-skill/
 - **skill `claude-api` มี subcommand `prompt-audit`** — ใช้ตรวจ prompt และคำอธิบาย tool ว่ายังเขียนตามแพตเทิร์นของโมเดลรุ่นเก่าอยู่หรือไม่
 - **path `skills` ของ plugin ใส่ `"."` ได้แล้ว** — ชี้ไปที่ root ของ plugin ได้ตรง ๆ และข้อความ validation error ของ `SKILL.md` ที่อยู่ระดับ root ก็แนะนำวิธีนี้ให้ด้วย
 - **skill ที่ชื่อชนกับ built-in ใช้ในโหมด headless ได้แล้ว** — skill จาก plugin/องค์กรที่ตั้งชื่อทับ built-in ของ terminal (เช่น `/help`, `/feedback`) กลับมาเรียกใช้ได้ใน session แบบ non-interactive
+
+### 🆕 ใหม่ใน v2.1.222
+
+- **skill ที่ตั้ง `disable-model-invocation` จะไม่ถูกทำเลียนแบบ** — เมื่อ Claude พยายามเรียก skill ที่ตั้ง `disable-model-invocation` ระบบจะบอกให้ Claude ขอให้เราสั่ง skill นั้นเอง แทนที่จะไปทำ workflow ของ skill เลียนแบบเอง
 
 ---
 
@@ -4537,7 +4552,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.221`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.222`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

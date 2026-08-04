@@ -153,6 +153,9 @@ Skill(commit)                    # Specific skill
 - **Sandboxed credential files can be masked** — the new `mode: "mask"` on `sandbox.credentials` lets a sandboxed command read a sentinel copy while the real value is substituted on egress (Linux/WSL; macOS falls back to `deny`). See [[06-configuration]].
 - **Auto mode is cheaper and more predictable** — permission checks for parallel tool calls reuse the cached conversation prefix, and switching permission mode while a check is pending now prompts reliably instead of applying the stale result.
 
+### New in v2.1.222
+- **Auto mode screens agent-to-agent messages** — messages sent to other agent sessions via `SendMessage` now pass through the permission classifier before dispatch.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

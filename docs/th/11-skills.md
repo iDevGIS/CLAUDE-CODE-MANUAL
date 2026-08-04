@@ -171,6 +171,10 @@ my-skill/
 - **path `skills` ของ plugin ใส่ `"."` ได้แล้ว** — ชี้ไปที่ root ของ plugin ได้ตรง ๆ และข้อความ validation error ของ `SKILL.md` ที่อยู่ระดับ root ก็แนะนำวิธีนี้ให้ด้วย
 - **skill ที่ชื่อชนกับ built-in ใช้ในโหมด headless ได้แล้ว** — skill จาก plugin/องค์กรที่ตั้งชื่อทับ built-in ของ terminal (เช่น `/help`, `/feedback`) กลับมาเรียกใช้ได้ใน session แบบ non-interactive
 
+### 🆕 ใหม่ใน v2.1.222
+
+- **skill ที่ตั้ง `disable-model-invocation` จะไม่ถูกทำเลียนแบบ** — เมื่อ Claude พยายามเรียก skill ที่ตั้ง `disable-model-invocation` ระบบจะบอกให้ Claude ขอให้เราสั่ง skill นั้นเอง แทนที่จะไปทำ workflow ของ skill เลียนแบบเอง
+
 ---
 
 ---

@@ -182,6 +182,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **mask ไฟล์ credential ใน sandbox ได้แล้ว** — `sandbox.credentials` มี `mode: "mask"` ให้คำสั่งใน sandbox อ่านไฟล์ฉบับ sentinel ส่วนค่าจริงถูกสลับกลับเข้าไปตอนส่งออก (ใช้ได้บน Linux/WSL ส่วน macOS จะถอยไปเป็น `deny`) ดู [[06-configuration]]
 - **Auto mode ถูกลงและคาดเดาง่ายขึ้น** — การเช็ค permission ของ tool call ที่รันขนานกันใช้ prefix ของ conversation ที่ cache ไว้ซ้ำ และถ้าสลับ permission mode ระหว่างที่การเช็คค้างอยู่ ระบบจะขึ้นถามใหม่แทนที่จะใช้ผลเก่า
 
+### 🆕 ใหม่ใน v2.1.222
+- **Auto mode ตรวจข้อความที่ส่งหา agent ตัวอื่นแล้ว** — ข้อความที่ส่งไปยัง agent session อื่นผ่าน `SendMessage` ต้องผ่าน permission classifier ก่อนถูกส่งออกไป
+
 ---
 
 ---

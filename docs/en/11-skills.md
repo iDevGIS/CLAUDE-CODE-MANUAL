@@ -171,6 +171,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **A plugin's `skills` path can be `"."`** — point it at the plugin root; the root-level `SKILL.md` validation error now suggests exactly that.
 - **Built-in-named skills work headlessly** — plugin- and org-delivered skills named after terminal-only built-ins (e.g. `/help`, `/feedback`) are invocable in non-interactive sessions again.
 
+### New in v2.1.222
+
+- **`disable-model-invocation` skills aren't reimplemented** — when Claude tries to invoke a skill marked `disable-model-invocation`, it is now told to ask you to run the skill instead of replicating its workflow on its own.
+
 ---
 
 ---

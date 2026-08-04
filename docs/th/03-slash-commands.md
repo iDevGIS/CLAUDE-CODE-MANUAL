@@ -143,6 +143,10 @@ related:
 - **`/fork` สร้าง worktree ของตัวเอง** — session ที่ fork ออกมาทำงานใน worktree ใหม่ ไม่ใช้ checkout เดิมของ session ต้นทางอีกต่อไป
 - **`/plugin install` ลองใหม่เมื่อ catalog เก่า** — จะรีเฟรช catalog ของ marketplace แล้วลองอีกครั้งก่อนแจ้งว่าหา plugin ไม่เจอ; plugin ที่ติดตั้งผ่าน `/plugin` ยังเริ่มทำงานทันทีถ้าปลอดภัย ไม่ต้องสั่ง `/reload-plugins` ทุกครั้งแล้ว
 
+### 🆕 ใหม่ใน v2.1.222
+- **diff อ่านจาก git blob ดิบแล้ว** — หน้า `/diff`, diff ของ workspace ใน Remote Control และ diff ของการแก้ไฟล์ใน Claude Code บนเว็บ ใช้เนื้อหา git blob ดิบ ๆ โดยไม่สนใจ diff driver และ `textconv` ที่ตั้งไว้ใน workspace
+- **ถอด ultraplan ออกแล้ว** — ฟีเจอร์ ultraplan (`/ultraplan` และ "Refine with Ultraplan" ใน plan mode) ถูกถอดออกจาก Claude Code
+
 ---
 
 ---

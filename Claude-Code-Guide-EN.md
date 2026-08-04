@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.221         │
+│ Welcome to Claude Code v2.1.222         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.221
+- run: npm install -g @anthropic-ai/claude-code@2.1.222
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1139,6 +1139,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/status` shows the session kind** — `interactive`, or a background job that is `attached` or `unattended`.
 - **`/fork` creates its own worktree** — a forked session now works in a fresh worktree instead of the original session's checkout.
 - **`/plugin install` retries on a stale catalog** — it refreshes the marketplace catalog and tries again before reporting a plugin as not found; plugins installed from `/plugin` also activate immediately when it's safe, instead of always needing `/reload-plugins`.
+
+### New in v2.1.222
+- **Diffs read raw git blobs** — the `/diff` view, the Remote Control workspace diff, and file-edit diffs in Claude Code on the web now use raw git blob content, ignoring workspace-configured diff drivers and `textconv`.
+- **ultraplan is gone** — the ultraplan feature (`/ultraplan`, and "Refine with Ultraplan" in plan mode) has been removed.
 
 ---
 
@@ -1398,6 +1402,9 @@ Skill(commit)                    # Specific skill
 - **Sandboxed credential files can be masked** — the new `mode: "mask"` on `sandbox.credentials` lets a sandboxed command read a sentinel copy while the real value is substituted on egress (Linux/WSL; macOS falls back to `deny`).
 - **Auto mode is cheaper and more predictable** — permission checks for parallel tool calls reuse the cached conversation prefix, and switching permission mode while a check is pending now prompts reliably instead of applying the stale result.
 
+### New in v2.1.222
+- **Auto mode screens agent-to-agent messages** — messages sent to other agent sessions via `SendMessage` now pass through the permission classifier before dispatch.
+
 ---
 
 ## 6. Configuration
@@ -1540,6 +1547,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.221
 
 - **`sandbox.credentials` gained `mode: "mask"`** (Linux and WSL) — instead of denying the read outright, a sandboxed command reads a **sentinel copy** of the credential file, and the sandbox proxy substitutes the real value on egress. Mask the whole file, or only the spans captured by an `extract` regex. On macOS, file masking falls back to `deny`.
+
+### New in v2.1.222
+
+- **Remote Control auto-start is user-scope only** — repo-local settings (`.claude/settings.json` and `.claude/settings.local.json`) can no longer turn Remote Control auto-start **on**; they can still turn it **off**. Enable it at user scope via `/config`.
 
 ---
 
@@ -2233,6 +2244,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **`claude-api` skill gained a `prompt-audit` subcommand** — audits your prompts and tool descriptions for patterns written for older models.
 - **A plugin's `skills` path can be `"."`** — point it at the plugin root; the root-level `SKILL.md` validation error now suggests exactly that.
 - **Built-in-named skills work headlessly** — plugin- and org-delivered skills named after terminal-only built-ins (e.g. `/help`, `/feedback`) are invocable in non-interactive sessions again.
+
+### New in v2.1.222
+
+- **`disable-model-invocation` skills aren't reimplemented** — when Claude tries to invoke a skill marked `disable-model-invocation`, it is now told to ask you to run the skill instead of replicating its workflow on its own.
 
 ---
 
@@ -4551,7 +4566,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.221`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.222`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
