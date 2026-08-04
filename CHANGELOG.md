@@ -25,6 +25,33 @@
 
 ---
 
+## [1.29.0] — 2026-08-04
+
+### Compatibility
+- **Claude Code:** `v2.1.221+`
+
+### Added
+- **Sandbox credential masking** — `sandbox.credentials` gained `mode: "mask"` (Linux/WSL): sandboxed commands read a sentinel copy (whole file, or only the spans an `extract` regex captures) while the sandbox proxy substitutes the real value on egress; macOS falls back to `deny` (ch 05 & 06)
+- **VS Code Focus view** — chat-menu toggle that hides tool activity behind an expandable per-turn summary with a live running-tool indicator; `Ctrl+Alt+F` or "Claude Code: Toggle Focus view" (ch 17)
+- **`claude-api` skill `prompt-audit` subcommand** — audits prompts and tool descriptions for older-model patterns (ch 11)
+- **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN`** documented — set `0` to disable interrupted-turn auto-resume; falsy values honored since 2.1.221 (ch 19 & 23)
+
+### Changed
+- **Background sessions wrap up differently** — commit and push to preserve work, open a draft PR **only when the task calls for one**, follow `CLAUDE.md` git instructions, and always report where the work lives (ch 19 & 41, refines the v2.1.198 behavior)
+- **`/fork` creates its own worktree** instead of working in the original session's checkout (ch 03, 19 & 41)
+- **`/status` shows the session kind** — `interactive`, or a background job that is `attached` / `unattended` (ch 03, 19 & 41)
+- **Plugins** — installs from `/plugin` activate immediately when safe (no forced `/reload-plugins`); `/plugin install` refreshes a stale marketplace catalog and retries; `skills` path accepts `"."`; `claude plugin validate` warns about names Claude Desktop's managed marketplace sync would reject (ch 03, 11 & 18)
+- **Permission checks tightened** — commands hidden in zsh `[[ ]]` regex conditionals and Windows paths containing quote characters now prompt; auto-mode checks for parallel tool calls reuse the cached conversation prefix and re-prompt when the mode changes mid-check (ch 05)
+- **MCP** — tool search re-enabled on Google Vertex AI for Claude 4.5-generation and newer models; `--mcp-config` servers connect before the first turn in print mode (ch 09)
+- **Claude in Chrome closes the tabs it opens** once they're no longer needed (ch 40)
+- **Skills named after terminal-only built-ins** (e.g. `/help`, `/feedback`) are invocable in non-interactive sessions again (ch 11)
+- **Version strings** bumped `2.1.220` → `2.1.221` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `2.1.221` is a large release: new sandbox credential masking, a VS Code Focus view, reworked background-session wrap-up, plugin activation/validation changes, and permission-check hardening — all of which change documented behavior in this manual
+
+---
+
 ## [1.28.0] — 2026-07-25
 
 ### Compatibility
@@ -710,7 +737,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.26.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.29.0...HEAD
+[1.29.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.28.0...v1.29.0
 [1.28.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.27.0...v1.28.0
 [1.27.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.26.0...v1.27.0
 [1.26.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.25.0...v1.26.0

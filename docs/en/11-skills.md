@@ -165,6 +165,12 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **`context: fork` skills run in the background by default** — opt out per skill with `background: false` in the frontmatter.
 - **Friendlier frontmatter booleans** — skill and plugin frontmatter booleans now accept `yes`/`no`/`on`/`off`/`1`/`0` (case-insensitive) alongside `true`/`false`.
 
+### New in v2.1.221
+
+- **`claude-api` skill gained a `prompt-audit` subcommand** — audits your prompts and tool descriptions for patterns written for older models.
+- **A plugin's `skills` path can be `"."`** — point it at the plugin root; the root-level `SKILL.md` validation error now suggests exactly that.
+- **Built-in-named skills work headlessly** — plugin- and org-delivered skills named after terminal-only built-ins (e.g. `/help`, `/feedback`) are invocable in non-interactive sessions again.
+
 ---
 
 ---

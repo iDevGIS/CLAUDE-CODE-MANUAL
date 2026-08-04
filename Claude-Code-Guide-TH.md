@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.220         │
+│ Welcome to Claude Code v2.1.221         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -970,7 +970,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.220
+- run: npm install -g @anthropic-ai/claude-code@2.1.221
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1128,6 +1128,11 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.218
 - **`/code-review` รันเป็น background subagent แล้ว** — งานรีวิวไม่กินพื้นที่ conversation ของเราอีกต่อไป และ slash command ที่ stack ต่อกันยังคงเป็นเป้าหมายของการรีวิวเหมือนเดิม
 - **`/deep-research` ต้องสั่งเองแล้ว** — เริ่มทำงานเฉพาะตอนเราเรียกใช้เอง Claude จะไม่เปิดเองอีกต่อไป
+
+### 🆕 ใหม่ใน v2.1.221
+- **`/status` บอกชนิดของ session แล้ว** — `interactive` หรือถ้าเป็น background job ก็บอกว่า `attached` หรือ `unattended`
+- **`/fork` สร้าง worktree ของตัวเอง** — session ที่ fork ออกมาทำงานใน worktree ใหม่ ไม่ใช้ checkout เดิมของ session ต้นทางอีกต่อไป
+- **`/plugin install` ลองใหม่เมื่อ catalog เก่า** — จะรีเฟรช catalog ของ marketplace แล้วลองอีกครั้งก่อนแจ้งว่าหา plugin ไม่เจอ; plugin ที่ติดตั้งผ่าน `/plugin` ยังเริ่มทำงานทันทีถ้าปลอดภัย ไม่ต้องสั่ง `/reload-plugins` ทุกครั้งแล้ว
 
 ---
 
@@ -1381,6 +1386,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **Auto mode เปิด dialog น้อยลง** — เช็ค dangerous-rm, background-`&` และ path Windows น่าสงสัย ไม่เปิด permission dialog แล้ว ให้ classifier ของ auto mode เป็นคนตัดสินแทน
 - **Plan mode + auto ถามน้อยลง** — คำสั่ง Bash ที่ static analyzer พิสูจน์ไม่ได้ว่า read-only จะไม่ขึ้นถามแล้ว ให้ classifier ของ auto mode ตัดสินแทน
 
+### 🆕 ใหม่ใน v2.1.221
+- **คำสั่งที่ซ่อนใน zsh ต้องขอ permission แล้ว** — คำสั่งที่แอบรันใน regex conditional `[[ ]]` เคยเล็ดลอดการเช็ค permission ของ Bash tool ตอนนี้ต้องขึ้นถามก่อนเสมอ
+- **path ที่มีเครื่องหมายคำพูดบน Windows ต้องขอ permission แล้ว** — การเช็ค permission ฝั่ง PowerShell เคยอ่าน path ที่มี quote ผิด ตอนนี้ path แบบนี้จะขึ้นถามอนุมัติ
+- **mask ไฟล์ credential ใน sandbox ได้แล้ว** — `sandbox.credentials` มี `mode: "mask"` ให้คำสั่งใน sandbox อ่านไฟล์ฉบับ sentinel ส่วนค่าจริงถูกสลับกลับเข้าไปตอนส่งออก (Linux/WSL ส่วน macOS ถอยไปเป็น `deny`)
+- **Auto mode ถูกลงและคาดเดาง่ายขึ้น** — การเช็ค permission ของ tool call ที่รันขนานกันใช้ prefix ของ conversation ที่ cache ไว้ซ้ำ และถ้าสลับ permission mode ระหว่างที่การเช็คค้างอยู่ ระบบจะขึ้นถามใหม่แทนที่จะใช้ผลเก่า
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1519,6 +1530,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **Claude Opus 5** (`claude-opus-5`) — **default Opus ตัวใหม่**: context 1M และ fast mode ราคา $10/$50 ต่อ Mtok; fast mode ตอนนี้ใช้กับ Opus 5 และ Opus 4.8 (ถอด Opus 4.7 ออกจาก fast mode แล้ว)
 - `sandbox.network.strictAllowlist` — ปฏิเสธ host ที่ไม่อยู่ใน allowlist ของคำสั่งใน sandbox ทันทีโดยไม่ถาม
 - `workflowSizeGuideline` — ตั้ง guideline ขนาด Dynamic workflow จาก settings ไฟล์ไหนก็ได้; ระหว่างที่ตั้งไว้ แถวนี้ใน `/config` จะถูกซ่อน
+
+### 🆕 ใหม่ใน v2.1.221
+
+- **`sandbox.credentials` มี `mode: "mask"` แล้ว** (Linux และ WSL) — แทนที่จะปฏิเสธการอ่านไปเลย คำสั่งใน sandbox จะได้อ่านไฟล์ credential ฉบับ **sentinel** ส่วนค่าจริงถูก sandbox proxy สลับกลับเข้าไปตอนส่งออก (egress); เลือก mask ทั้งไฟล์ หรือเฉพาะช่วงที่ regex `extract` จับได้ก็ได้ — บน macOS การ mask ไฟล์จะถอยไปเป็น `deny`
 
 ---
 
@@ -1876,6 +1891,11 @@ claude --mcp-config ./mcp.json
 - **`mcp_server_errors` ใน init event ของ headless** — init event แบบ `stream-json` แสดงรายการ `--mcp-config` ที่ถูกข้ามเพราะไม่ผ่าน config validation; ส่วนการรันใน terminal จะพิมพ์คำเตือนตอน startup แทน
 - **การ resolve `${VAR}` ของ managed เปลี่ยน** — รายการ allowlist/denylist ของ managed MCP ตอนนี้ resolve `${VAR}` จาก environment ตอน startup และ `env` ของ managed settings ไม่ใช่จาก `env` ใน settings ไฟล์อีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.221
+
+- **tool search ใช้บน Google Vertex AI ได้อีกครั้ง** — เปิดใช้กลับมาสำหรับโมเดลรุ่น Claude 4.5 ขึ้นไป ทำให้ schema ของ MCP tool แบบ deferred โหลดตอนต้องใช้ได้บน Vertex ด้วย
+- **server จาก `--mcp-config` ต่อให้เสร็จก่อน turn แรกใน print mode** — บน `claude -p` เครื่องมือ MCP พร้อมใช้ตั้งแต่ต้น ไม่เกิดอาการโมเดลพิมพ์ tool call ออกมาเป็นข้อความธรรมดาอีก
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -2200,6 +2220,12 @@ my-skill/
 
 - **skill แบบ `context: fork` รันใน background เป็นค่าเริ่มต้นแล้ว** — ปิดเฉพาะ skill ได้ด้วย `background: false` ใน frontmatter
 - **frontmatter boolean ยืดหยุ่นขึ้น** — boolean ใน frontmatter ของ skill/plugin รับ `yes`/`no`/`on`/`off`/`1`/`0` (ไม่สนตัวพิมพ์) เพิ่มจาก `true`/`false`
+
+### 🆕 ใหม่ใน v2.1.221
+
+- **skill `claude-api` มี subcommand `prompt-audit`** — ใช้ตรวจ prompt และคำอธิบาย tool ว่ายังเขียนตามแพตเทิร์นของโมเดลรุ่นเก่าอยู่หรือไม่
+- **path `skills` ของ plugin ใส่ `"."` ได้แล้ว** — ชี้ไปที่ root ของ plugin ได้ตรง ๆ และข้อความ validation error ของ `SKILL.md` ที่อยู่ระดับ root ก็แนะนำวิธีนี้ให้ด้วย
+- **skill ที่ชื่อชนกับ built-in ใช้ในโหมด headless ได้แล้ว** — skill จาก plugin/องค์กรที่ตั้งชื่อทับ built-in ของ terminal (เช่น `/help`, `/feedback`) กลับมาเรียกใช้ได้ใน session แบบ non-interactive
 
 ---
 
@@ -2745,6 +2771,10 @@ cat src/*.ts | claude -p "หา Bug"
 **การตั้งค่า VS Code:**
 - `claudeCode.initialPermissionMode` - โหมด Permission เริ่มต้น
 
+### 🆕 ใหม่ใน v2.1.221
+
+- **Focus view (VS Code)** — toggle ในเมนูแชตที่ซ่อนรายละเอียดการเรียก tool ไว้หลังสรุปแบบ "ต่อ turn" ที่กดขยายได้ พร้อมตัวบอกสถานะ tool ที่กำลังรันแบบสด เปิด/ปิดด้วย `Ctrl+Alt+F` หรือคำสั่ง **"Claude Code: Toggle Focus view"**
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**
@@ -2841,6 +2871,13 @@ claude --plugin-dir ./my-plugin
 - `claude plugin init <name>` สร้างโครง plugin ใต้ `.claude/skills`; plugin ในนั้นโหลดอัตโนมัติ (ไม่ต้องผ่าน marketplace)
 - `/plugin list` แสดง plugin ที่ติดตั้ง (`--enabled` / `--disabled`)
 
+### 🆕 ใหม่ใน v2.1.221
+
+- **ติดตั้งแล้วใช้ได้ทันทีถ้าปลอดภัย** — plugin ที่ติดตั้งผ่าน `/plugin` เริ่มทำงานเลย ไม่ต้องรอสั่ง `/reload-plugins` ทุกครั้งแล้ว
+- **`/plugin install` ลองใหม่เมื่อ catalog เก่า** — จะรีเฟรช catalog ของ marketplace แล้วลองอีกครั้ง ก่อนแจ้งว่าหา plugin ไม่เจอ
+- **`skills` ใส่ `"."` ได้** — ชี้ path `skills` ของ plugin ไปที่ root ของ plugin ได้เลย และข้อความ validation error ของ `SKILL.md` ระดับ root ก็แนะนำวิธีนี้
+- **`claude plugin validate` เตือนชื่อที่ใช้ไม่ได้** — แจ้งเตือนเมื่อชื่อ marketplace หรือชื่อ plugin จะถูกปฏิเสธโดย managed marketplace sync ของ Claude Desktop
+
 ---
 
 ## 19. Session Management
@@ -2913,6 +2950,14 @@ claude --fork-session                # แยก Branch ใหม่
 ### 🆕 ใหม่ใน v2.1.214
 
 - **tool `EndConversation`** — Claude จบ session เองได้เมื่อเจอผู้ใช้ที่ abusive รุนแรงหรือพยายาม jailbreak เหมือนที่ทำบน claude.ai มาตั้งแต่ปี 2025
+
+### 🆕 ใหม่ใน v2.1.221
+
+- **`/fork` ได้ worktree ของตัวเอง** — session ที่ fork ออกมาไม่ทำงานใน checkout ของ session ต้นทางอีกต่อไป
+- **`/status` บอกชนิดของ session** — `interactive` หรือถ้าเป็น background job ก็บอกว่า `attached` หรือ `unattended`
+- **background session ปิดงานต่างจากเดิม** — จะ commit + push เพื่อรักษางานไว้, เปิด **draft PR เฉพาะเมื่องานนั้นควรมี**, ทำตามคำสั่งเรื่อง git ใน `CLAUDE.md` ของเรา และจบด้วยการรายงานเสมอว่างานไปอยู่ที่ไหน (ปรับจากพฤติกรรม v2.1.198 ด้านบน)
+- **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN=0` มีผลจริงแล้ว** — ค่าที่เป็น falsy ปิด auto-resume ของ turn ที่ถูกขัดจังหวะได้จริง
+- **เปลี่ยนชื่อ session ซิงก์ทุกทาง** — เปลี่ยนชื่อจาก Claude Code Desktop หรือ claude.ai แล้วชื่อ session ฝั่ง CLI อัปเดตตามด้วย
 
 ---
 
@@ -3177,6 +3222,7 @@ your-project/
 | `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | เพดานจำนวน subagent ที่รันพร้อมกัน (default 20) กันไม่ให้ข้อความเดียว fan out background agent แบบไม่จำกัด *(v2.1.217)* |
 | `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | เพดานความลึกของ subagent ที่ spawn ซ้อนกัน — default 3 ตั้งแต่ v2.1.219 (ช่วง v2.1.217–218 ปิดเป็นค่าเริ่มต้น); ตั้ง `1` เพื่อปิดการซ้อน *(v2.1.217, เปลี่ยน v2.1.219)* |
 | `FORCE_HYPERLINK` | ลิงก์ PR badge ที่ footer เป็น hyperlink คลิกได้แม้ตรวจไม่พบว่า terminal รองรับ (เช่นผ่าน ssh/tmux); ตั้ง `0` เพื่อปิด *(v2.1.217)* |
+| `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` | การ auto-resume ของ turn ที่ถูกขัดจังหวะ; ตั้ง `0` เพื่อปิด — ค่าที่เป็น falsy มีผลจริงตั้งแต่ v2.1.221 *(v2.1.221)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
@@ -4491,7 +4537,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.220`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.221`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

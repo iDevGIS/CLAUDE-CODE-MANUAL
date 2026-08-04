@@ -147,6 +147,12 @@ Skill(commit)                    # Specific skill
 - **Auto mode opens fewer dialogs** — the dangerous-rm, background-`&`, and suspicious-Windows-path checks no longer open permission dialogs; the auto-mode classifier adjudicates them instead.
 - **Plan mode with auto prompts less** — Bash commands the static analyzer can't prove read-only no longer trigger a prompt; the auto-mode classifier judges them instead.
 
+### New in v2.1.221
+- **Hidden zsh commands now prompt** — commands smuggled inside `[[ ]]` regex conditionals used to slip past the Bash permission check; they go through permission prompts now.
+- **Quoted Windows paths now prompt** — PowerShell permission checks mishandled paths containing quote characters; such paths now ask for approval.
+- **Sandboxed credential files can be masked** — the new `mode: "mask"` on `sandbox.credentials` lets a sandboxed command read a sentinel copy while the real value is substituted on egress (Linux/WSL; macOS falls back to `deny`). See [[06-configuration]].
+- **Auto mode is cheaper and more predictable** — permission checks for parallel tool calls reuse the cached conversation prefix, and switching permission mode while a check is pending now prompts reliably instead of applying the stale result.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

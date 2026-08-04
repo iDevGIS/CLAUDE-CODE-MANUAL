@@ -90,6 +90,13 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - `claude plugin init <name>` scaffolds a plugin under `.claude/skills`; plugins there auto-load (no marketplace).
 - `/plugin list` lists installed plugins (`--enabled` / `--disabled`).
 
+### New in v2.1.221
+
+- **Installs activate immediately when safe** — a plugin installed from `/plugin` starts working right away instead of always waiting for `/reload-plugins`.
+- **`/plugin install` retries on a stale catalog** — it refreshes the marketplace catalog and tries again before reporting a plugin as not found.
+- **`skills` accepts `"."`** — point a plugin's `skills` path at the plugin root; the root-level `SKILL.md` validation error now suggests it too.
+- **`claude plugin validate` warns about unusable names** — it flags a marketplace or plugin name that Claude Desktop's managed marketplace sync would reject.
+
 > **Manifest note:** a plugin manifest can declare `"defaultEnabled": false` to ship disabled by default.
 
 ---

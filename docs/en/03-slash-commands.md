@@ -137,6 +137,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/code-review` runs as a background subagent** — review work no longer fills your conversation, and stacked slash commands stay as its review target.
 - **`/deep-research` is manual-only now** — it starts only when you invoke it; Claude no longer launches it on its own.
 
+### New in v2.1.221
+- **`/status` shows the session kind** — `interactive`, or a background job that is `attached` or `unattended`.
+- **`/fork` creates its own worktree** — a forked session now works in a fresh worktree instead of the original session's checkout.
+- **`/plugin install` retries on a stale catalog** — it refreshes the marketplace catalog and tries again before reporting a plugin as not found; plugins installed from `/plugin` also activate immediately when it's safe, instead of always needing `/reload-plugins`.
+
 ---
 
 ---

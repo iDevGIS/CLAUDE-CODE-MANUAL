@@ -84,6 +84,14 @@ Shows an interactive picker to choose a session.
 
 - **EndConversation tool** — Claude can end a session outright with highly abusive users or jailbreak attempts, as on claude.ai since 2025.
 
+### New in v2.1.221
+
+- **`/fork` gets its own worktree** — a forked session no longer works in the original session's checkout.
+- **`/status` shows the session kind** — `interactive`, or a background job that is `attached` or `unattended`.
+- **Background sessions wrap up differently** — they commit and push to preserve work, open a **draft PR only when the task calls for one**, follow your `CLAUDE.md` git instructions, and always end by reporting where the work lives (refines the v2.1.198 behavior above).
+- **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN=0` is honored** — falsy values now actually disable interrupted-turn auto-resume.
+- **Session renames sync both ways** — renaming a session from Claude Code Desktop or claude.ai updates the CLI's session name too.
+
 > 🔎 Full deep-dive: [[41-background-agents]]
 
 ---

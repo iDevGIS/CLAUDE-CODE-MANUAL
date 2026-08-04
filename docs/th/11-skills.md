@@ -165,6 +165,12 @@ my-skill/
 - **skill แบบ `context: fork` รันใน background เป็นค่าเริ่มต้นแล้ว** — ปิดเฉพาะ skill ได้ด้วย `background: false` ใน frontmatter
 - **frontmatter boolean ยืดหยุ่นขึ้น** — boolean ใน frontmatter ของ skill/plugin รับ `yes`/`no`/`on`/`off`/`1`/`0` (ไม่สนตัวพิมพ์) เพิ่มจาก `true`/`false`
 
+### 🆕 ใหม่ใน v2.1.221
+
+- **skill `claude-api` มี subcommand `prompt-audit`** — ใช้ตรวจ prompt และคำอธิบาย tool ว่ายังเขียนตามแพตเทิร์นของโมเดลรุ่นเก่าอยู่หรือไม่
+- **path `skills` ของ plugin ใส่ `"."` ได้แล้ว** — ชี้ไปที่ root ของ plugin ได้ตรง ๆ และข้อความ validation error ของ `SKILL.md` ที่อยู่ระดับ root ก็แนะนำวิธีนี้ให้ด้วย
+- **skill ที่ชื่อชนกับ built-in ใช้ในโหมด headless ได้แล้ว** — skill จาก plugin/องค์กรที่ตั้งชื่อทับ built-in ของ terminal (เช่น `/help`, `/feedback`) กลับมาเรียกใช้ได้ใน session แบบ non-interactive
+
 ---
 
 ---

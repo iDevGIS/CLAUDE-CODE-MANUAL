@@ -65,6 +65,7 @@ related:
 | `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | เพดานจำนวน subagent ที่รันพร้อมกัน (default 20) กันไม่ให้ข้อความเดียว fan out background agent แบบไม่จำกัด *(v2.1.217)* |
 | `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | เพดานความลึกของ subagent ที่ spawn ซ้อนกัน — default 3 ตั้งแต่ v2.1.219 (ช่วง v2.1.217–218 ปิดเป็นค่าเริ่มต้น); ตั้ง `1` เพื่อปิดการซ้อน *(v2.1.217, เปลี่ยน v2.1.219)* |
 | `FORCE_HYPERLINK` | ลิงก์ PR badge ที่ footer เป็น hyperlink คลิกได้แม้ตรวจไม่พบว่า terminal รองรับ (เช่นผ่าน ssh/tmux); ตั้ง `0` เพื่อปิด *(v2.1.217)* |
+| `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` | การ auto-resume ของ turn ที่ถูกขัดจังหวะ; ตั้ง `0` เพื่อปิด — ค่าที่เป็น falsy มีผลจริงตั้งแต่ v2.1.221 *(v2.1.221)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.220         │
+│ Welcome to Claude Code v2.1.221         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.220
+- run: npm install -g @anthropic-ai/claude-code@2.1.221
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1134,6 +1134,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.218
 - **`/code-review` runs as a background subagent** — review work no longer fills your conversation, and stacked slash commands stay as its review target.
 - **`/deep-research` is manual-only now** — it starts only when you invoke it; Claude no longer launches it on its own.
+
+### New in v2.1.221
+- **`/status` shows the session kind** — `interactive`, or a background job that is `attached` or `unattended`.
+- **`/fork` creates its own worktree** — a forked session now works in a fresh worktree instead of the original session's checkout.
+- **`/plugin install` retries on a stale catalog** — it refreshes the marketplace catalog and tries again before reporting a plugin as not found; plugins installed from `/plugin` also activate immediately when it's safe, instead of always needing `/reload-plugins`.
 
 ---
 
@@ -1387,6 +1392,12 @@ Skill(commit)                    # Specific skill
 - **Auto mode opens fewer dialogs** — the dangerous-rm, background-`&`, and suspicious-Windows-path checks no longer open permission dialogs; the auto-mode classifier adjudicates them instead.
 - **Plan mode with auto prompts less** — Bash commands the static analyzer can't prove read-only no longer trigger a prompt; the auto-mode classifier judges them instead.
 
+### New in v2.1.221
+- **Hidden zsh commands now prompt** — commands smuggled inside `[[ ]]` regex conditionals used to slip past the Bash permission check; they go through permission prompts now.
+- **Quoted Windows paths now prompt** — PowerShell permission checks mishandled paths containing quote characters; such paths now ask for approval.
+- **Sandboxed credential files can be masked** — the new `mode: "mask"` on `sandbox.credentials` lets a sandboxed command read a sentinel copy while the real value is substituted on egress (Linux/WSL; macOS falls back to `deny`).
+- **Auto mode is cheaper and more predictable** — permission checks for parallel tool calls reuse the cached conversation prefix, and switching permission mode while a check is pending now prompts reliably instead of applying the stale result.
+
 ---
 
 ## 6. Configuration
@@ -1525,6 +1536,10 @@ Skill(commit)                    # Specific skill
 - **Claude Opus 5** (`claude-opus-5`) — the new **default Opus model**: 1M context, and fast mode at $10/$50 per Mtok. Fast mode now runs on Opus 5 and Opus 4.8 (Opus 4.7 was removed from fast mode).
 - `sandbox.network.strictAllowlist` — deny non-allowlisted hosts for sandboxed commands outright instead of prompting.
 - `workflowSizeGuideline` — set the advisory Dynamic-workflow size guideline from any settings file; the `/config` row is hidden while a settings file sets it.
+
+### New in v2.1.221
+
+- **`sandbox.credentials` gained `mode: "mask"`** (Linux and WSL) — instead of denying the read outright, a sandboxed command reads a **sentinel copy** of the credential file, and the sandbox proxy substitutes the real value on egress. Mask the whole file, or only the spans captured by an `extract` regex. On macOS, file masking falls back to `deny`.
 
 ---
 
@@ -1883,6 +1898,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **`mcp_server_errors` in the headless init event** — the `stream-json` init event now lists `--mcp-config` entries that were skipped by config validation; terminal runs print a startup warning instead.
 - **Managed `${VAR}` resolution changed** — managed MCP allowlist/denylist entries now resolve `${VAR}` from the startup environment and managed-settings `env`, no longer from settings-file `env`.
 
+### New in v2.1.221
+
+- **Tool search works on Google Vertex AI again** — it is re-enabled for Claude 4.5-generation and newer models, so deferred MCP tool schemas load on demand there too.
+- **`--mcp-config` servers connect before the first turn in print mode** — in `claude -p`, MCP tools are ready up front instead of the model emitting tool calls as literal text.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -2207,6 +2227,12 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **`context: fork` skills run in the background by default** — opt out per skill with `background: false` in the frontmatter.
 - **Friendlier frontmatter booleans** — skill and plugin frontmatter booleans now accept `yes`/`no`/`on`/`off`/`1`/`0` (case-insensitive) alongside `true`/`false`.
+
+### New in v2.1.221
+
+- **`claude-api` skill gained a `prompt-audit` subcommand** — audits your prompts and tool descriptions for patterns written for older models.
+- **A plugin's `skills` path can be `"."`** — point it at the plugin root; the root-level `SKILL.md` validation error now suggests exactly that.
+- **Built-in-named skills work headlessly** — plugin- and org-delivered skills named after terminal-only built-ins (e.g. `/help`, `/feedback`) are invocable in non-interactive sessions again.
 
 ---
 
@@ -2756,6 +2782,10 @@ cat src/*.ts | claude -p "find bugs"
 **VS Code settings:**
 - `claudeCode.initialPermissionMode` — initial permission mode
 
+### New in v2.1.221
+
+- **Focus view (VS Code)** — a chat-menu toggle that hides tool activity behind an expandable per-turn summary, with a live indicator of the running tool. Toggle it with `Ctrl+Alt+F` or the **"Claude Code: Toggle Focus view"** command.
+
 ### JetBrains IDEs
 
 **Install:**
@@ -2852,6 +2882,13 @@ claude --plugin-dir ./my-plugin
 - `claude plugin init <name>` scaffolds a plugin under `.claude/skills`; plugins there auto-load (no marketplace).
 - `/plugin list` lists installed plugins (`--enabled` / `--disabled`).
 
+### New in v2.1.221
+
+- **Installs activate immediately when safe** — a plugin installed from `/plugin` starts working right away instead of always waiting for `/reload-plugins`.
+- **`/plugin install` retries on a stale catalog** — it refreshes the marketplace catalog and tries again before reporting a plugin as not found.
+- **`skills` accepts `"."`** — point a plugin's `skills` path at the plugin root; the root-level `SKILL.md` validation error now suggests it too.
+- **`claude plugin validate` warns about unusable names** — it flags a marketplace or plugin name that Claude Desktop's managed marketplace sync would reject.
+
 ---
 
 ## 19. Session Management
@@ -2918,6 +2955,14 @@ Shows an interactive picker to choose a session.
 ### New in v2.1.214
 
 - **EndConversation tool** — Claude can end a session outright with highly abusive users or jailbreak attempts, as on claude.ai since 2025.
+
+### New in v2.1.221
+
+- **`/fork` gets its own worktree** — a forked session no longer works in the original session's checkout.
+- **`/status` shows the session kind** — `interactive`, or a background job that is `attached` or `unattended`.
+- **Background sessions wrap up differently** — they commit and push to preserve work, open a **draft PR only when the task calls for one**, follow your `CLAUDE.md` git instructions, and always end by reporting where the work lives (refines the v2.1.198 behavior above).
+- **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN=0` is honored** — falsy values now actually disable interrupted-turn auto-resume.
+- **Session renames sync both ways** — renaming a session from Claude Code Desktop or claude.ai updates the CLI's session name too.
 
 ### Session File Locations
 
@@ -3188,6 +3233,7 @@ your-project/
 | `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | Cap on concurrently-running subagents (default 20), so one message can't fan out unbounded background agents. *(v2.1.217)* |
 | `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | Cap on nested-subagent spawn depth — default 3 since v2.1.219 (nesting was off by default in v2.1.217–218); set `1` to disable nesting. *(v2.1.217, changed v2.1.219)* |
 | `FORCE_HYPERLINK` | Footer PR badge links render as clickable hyperlinks even when terminal support can't be detected (e.g. over ssh/tmux); set `0` to opt out. *(v2.1.217)* |
+| `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` | Auto-resume of an interrupted turn; set `0` to disable — falsy values are honored since v2.1.221. *(v2.1.221)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
@@ -4505,7 +4551,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.220`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.221`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

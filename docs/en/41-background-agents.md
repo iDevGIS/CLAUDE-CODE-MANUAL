@@ -101,6 +101,12 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 - **`claude --bg` cannot be combined with `-p`/`--print`** — rejected up front (v2.1.198); for headless runs see [[16-headless-mode]]
 - Come back to a background session later via `/resume` — look for the `bg` marker in the list
 
+### New in v2.1.221
+
+- **How a background session wraps up changed** — it commits and pushes to preserve the work, opens a **draft PR only when the task calls for one** (no longer on every code change), follows the git instructions in your `CLAUDE.md`, and always ends by reporting where the work lives.
+- **`/status` shows the session kind** — `interactive`, or a background job that is `attached` or `unattended`.
+- **`/fork` creates its own worktree** instead of working in the original session's checkout.
+
 ## Use cases
 
 - Let a long refactor or a heavy test suite run in the background while you keep coding

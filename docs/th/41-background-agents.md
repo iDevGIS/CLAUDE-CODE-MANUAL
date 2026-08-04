@@ -101,6 +101,12 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 - **`claude --bg` ใช้ร่วมกับ `-p`/`--print` ไม่ได้** — โดน reject ตั้งแต่ยังไม่เริ่มรัน (v2.1.198) ถ้าต้องการ headless ดู [[16-headless-mode]]
 - กลับมาคุยกับ background session ทีหลังได้ด้วย `/resume` — มองหา marker `bg` ในรายการ
 
+### 🆕 ใหม่ใน v2.1.221
+
+- **วิธีปิดงานของ background session เปลี่ยนไป** — จะ commit + push เพื่อรักษางานไว้, เปิด **draft PR เฉพาะเมื่องานนั้นควรมี** (ไม่ใช่ทุกครั้งที่แก้โค้ดแล้ว), ทำตามคำสั่งเรื่อง git ใน `CLAUDE.md` ของเรา และจบด้วยการรายงานเสมอว่างานไปอยู่ที่ไหน
+- **`/status` บอกชนิดของ session** — `interactive` หรือถ้าเป็น background job ก็บอกว่า `attached` หรือ `unattended`
+- **`/fork` สร้าง worktree ของตัวเอง** แทนการทำงานใน checkout ของ session ต้นทาง
+
 ## Use cases
 
 - ปล่อย refactor ยาว ๆ หรือ test suite ใหญ่ ๆ รันเบื้องหลัง ระหว่างที่คุณเขียนโค้ดต่อ

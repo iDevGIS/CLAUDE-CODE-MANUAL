@@ -49,6 +49,10 @@ related:
 **การตั้งค่า VS Code:**
 - `claudeCode.initialPermissionMode` - โหมด Permission เริ่มต้น
 
+### 🆕 ใหม่ใน v2.1.221
+
+- **Focus view (VS Code)** — toggle ในเมนูแชตที่ซ่อนรายละเอียดการเรียก tool ไว้หลังสรุปแบบ "ต่อ turn" ที่กดขยายได้ พร้อมตัวบอกสถานะ tool ที่กำลังรันแบบสด เปิด/ปิดด้วย `Ctrl+Alt+F` หรือคำสั่ง **"Claude Code: Toggle Focus view"**
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**

@@ -176,6 +176,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **Auto mode เปิด dialog น้อยลง** — เช็ค dangerous-rm, background-`&` และ path Windows น่าสงสัย ไม่เปิด permission dialog แล้ว ให้ classifier ของ auto mode เป็นคนตัดสินแทน
 - **Plan mode + auto ถามน้อยลง** — คำสั่ง Bash ที่ static analyzer พิสูจน์ไม่ได้ว่า read-only จะไม่ขึ้นถามแล้ว ให้ classifier ของ auto mode ตัดสินแทน
 
+### 🆕 ใหม่ใน v2.1.221
+- **คำสั่งที่ซ่อนใน zsh ต้องขอ permission แล้ว** — คำสั่งที่แอบรันใน regex conditional `[[ ]]` เคยเล็ดลอดการเช็ค permission ของ Bash tool ตอนนี้ต้องขึ้นถามก่อนเสมอ
+- **path ที่มีเครื่องหมายคำพูดบน Windows ต้องขอ permission แล้ว** — การเช็ค permission ฝั่ง PowerShell เคยอ่าน path ที่มี quote ผิด ตอนนี้ path แบบนี้จะขึ้นถามอนุมัติ
+- **mask ไฟล์ credential ใน sandbox ได้แล้ว** — `sandbox.credentials` มี `mode: "mask"` ให้คำสั่งใน sandbox อ่านไฟล์ฉบับ sentinel ส่วนค่าจริงถูกสลับกลับเข้าไปตอนส่งออก (ใช้ได้บน Linux/WSL ส่วน macOS จะถอยไปเป็น `deny`) ดู [[06-configuration]]
+- **Auto mode ถูกลงและคาดเดาง่ายขึ้น** — การเช็ค permission ของ tool call ที่รันขนานกันใช้ prefix ของ conversation ที่ cache ไว้ซ้ำ และถ้าสลับ permission mode ระหว่างที่การเช็คค้างอยู่ ระบบจะขึ้นถามใหม่แทนที่จะใช้ผลเก่า
+
 ---
 
 ---

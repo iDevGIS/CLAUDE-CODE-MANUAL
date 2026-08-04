@@ -103,6 +103,10 @@ Claude in Chrome connects Claude Code to **your real Google Chrome** via a Chrom
 > - Prefer a **separate Chrome profile** dedicated to automation, not your personal one.
 > - Concurrent sessions are fine — each session's browsing is **isolated in its own tab group**.
 
+### New in v2.1.221
+
+- **Claude closes the tabs it opens** — once a tab is no longer needed, Claude in Chrome closes it instead of leaving it behind.
+
 For the full security playbook, see [[32-security-best-practices]].
 
 ---

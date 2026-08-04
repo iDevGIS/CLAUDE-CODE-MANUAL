@@ -159,6 +159,10 @@ Set the `model` key to any of these (newest → cheapest):
 - `sandbox.network.strictAllowlist` — deny non-allowlisted hosts for sandboxed commands outright instead of prompting.
 - `workflowSizeGuideline` — set the advisory Dynamic-workflow size guideline from any settings file; the `/config` row is hidden while a settings file sets it.
 
+### New in v2.1.221
+
+- **`sandbox.credentials` gained `mode: "mask"`** (Linux and WSL) — instead of denying the read outright, a sandboxed command reads a **sentinel copy** of the credential file, and the sandbox proxy substitutes the real value on egress. Mask the whole file, or only the spans captured by an `extract` regex. On macOS, file masking falls back to `deny`.
+
 ---
 
 ---

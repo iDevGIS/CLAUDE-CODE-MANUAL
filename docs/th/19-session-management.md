@@ -84,6 +84,14 @@ claude --fork-session                # แยก Branch ใหม่
 
 - **tool `EndConversation`** — Claude จบ session เองได้เมื่อเจอผู้ใช้ที่ abusive รุนแรงหรือพยายาม jailbreak เหมือนที่ทำบน claude.ai มาตั้งแต่ปี 2025
 
+### 🆕 ใหม่ใน v2.1.221
+
+- **`/fork` ได้ worktree ของตัวเอง** — session ที่ fork ออกมาไม่ทำงานใน checkout ของ session ต้นทางอีกต่อไป
+- **`/status` บอกชนิดของ session** — `interactive` หรือถ้าเป็น background job ก็บอกว่า `attached` หรือ `unattended`
+- **background session ปิดงานต่างจากเดิม** — จะ commit + push เพื่อรักษางานไว้, เปิด **draft PR เฉพาะเมื่องานนั้นควรมี**, ทำตามคำสั่งเรื่อง git ใน `CLAUDE.md` ของเรา และจบด้วยการรายงานเสมอว่างานไปอยู่ที่ไหน (ปรับจากพฤติกรรม v2.1.198 ด้านบน)
+- **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN=0` มีผลจริงแล้ว** — ค่าที่เป็น falsy ปิด auto-resume ของ turn ที่ถูกขัดจังหวะได้จริง
+- **เปลี่ยนชื่อ session ซิงก์ทุกทาง** — เปลี่ยนชื่อจาก Claude Code Desktop หรือ claude.ai แล้วชื่อ session ฝั่ง CLI อัปเดตตามด้วย
+
 > 🔎 เจาะลึกทั้งเรื่องนี้ต่อได้ที่ [[41-background-agents]]
 
 ---

@@ -138,6 +138,11 @@ related:
 - **`/code-review` รันเป็น background subagent แล้ว** — งานรีวิวไม่กินพื้นที่ conversation ของเราอีกต่อไป และ slash command ที่ stack ต่อกันยังคงเป็นเป้าหมายของการรีวิวเหมือนเดิม
 - **`/deep-research` ต้องสั่งเองแล้ว** — เริ่มทำงานเฉพาะตอนเราเรียกใช้เอง Claude จะไม่เปิดเองอีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.221
+- **`/status` บอกชนิดของ session แล้ว** — `interactive` หรือถ้าเป็น background job ก็บอกว่า `attached` หรือ `unattended`
+- **`/fork` สร้าง worktree ของตัวเอง** — session ที่ fork ออกมาทำงานใน worktree ใหม่ ไม่ใช้ checkout เดิมของ session ต้นทางอีกต่อไป
+- **`/plugin install` ลองใหม่เมื่อ catalog เก่า** — จะรีเฟรช catalog ของ marketplace แล้วลองอีกครั้งก่อนแจ้งว่าหา plugin ไม่เจอ; plugin ที่ติดตั้งผ่าน `/plugin` ยังเริ่มทำงานทันทีถ้าปลอดภัย ไม่ต้องสั่ง `/reload-plugins` ทุกครั้งแล้ว
+
 ---
 
 ---

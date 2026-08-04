@@ -146,6 +146,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **`mcp_server_errors` in the headless init event** — the `stream-json` init event now lists `--mcp-config` entries that were skipped by config validation; terminal runs print a startup warning instead.
 - **Managed `${VAR}` resolution changed** — managed MCP allowlist/denylist entries now resolve `${VAR}` from the startup environment and managed-settings `env`, no longer from settings-file `env`.
 
+### New in v2.1.221
+
+- **Tool search works on Google Vertex AI again** — it is re-enabled for Claude 4.5-generation and newer models, so deferred MCP tool schemas load on demand there too.
+- **`--mcp-config` servers connect before the first turn in print mode** — in `claude -p`, MCP tools are ready up front instead of the model emitting tool calls as literal text.
+
 ---
 
 ---

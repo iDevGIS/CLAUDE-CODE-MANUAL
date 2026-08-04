@@ -146,6 +146,11 @@ claude --mcp-config ./mcp.json
 - **`mcp_server_errors` ใน init event ของ headless** — init event แบบ `stream-json` แสดงรายการ `--mcp-config` ที่ถูกข้ามเพราะไม่ผ่าน config validation; ส่วนการรันใน terminal จะพิมพ์คำเตือนตอน startup แทน
 - **การ resolve `${VAR}` ของ managed เปลี่ยน** — รายการ allowlist/denylist ของ managed MCP ตอนนี้ resolve `${VAR}` จาก environment ตอน startup และ `env` ของ managed settings ไม่ใช่จาก `env` ใน settings ไฟล์อีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.221
+
+- **tool search ใช้บน Google Vertex AI ได้อีกครั้ง** — เปิดใช้กลับมาสำหรับโมเดลรุ่น Claude 4.5 ขึ้นไป ทำให้ schema ของ MCP tool แบบ deferred โหลดตอนต้องใช้ได้บน Vertex ด้วย
+- **server จาก `--mcp-config` ต่อให้เสร็จก่อน turn แรกใน print mode** — บน `claude -p` เครื่องมือ MCP พร้อมใช้ตั้งแต่ต้น ไม่เกิดอาการโมเดลพิมพ์ tool call ออกมาเป็นข้อความธรรมดาอีก
+
 ---
 
 ---

@@ -92,6 +92,13 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - `claude plugin init <name>` สร้างโครง plugin ใต้ `.claude/skills`; plugin ในนั้นโหลดอัตโนมัติ (ไม่ต้องผ่าน marketplace)
 - `/plugin list` แสดง plugin ที่ติดตั้ง (`--enabled` / `--disabled`)
 
+### 🆕 ใหม่ใน v2.1.221
+
+- **ติดตั้งแล้วใช้ได้ทันทีถ้าปลอดภัย** — plugin ที่ติดตั้งผ่าน `/plugin` เริ่มทำงานเลย ไม่ต้องรอสั่ง `/reload-plugins` ทุกครั้งแล้ว
+- **`/plugin install` ลองใหม่เมื่อ catalog เก่า** — จะรีเฟรช catalog ของ marketplace แล้วลองอีกครั้ง ก่อนแจ้งว่าหา plugin ไม่เจอ
+- **`skills` ใส่ `"."` ได้** — ชี้ path `skills` ของ plugin ไปที่ root ของ plugin ได้เลย และข้อความ validation error ของ `SKILL.md` ระดับ root ก็แนะนำวิธีนี้
+- **`claude plugin validate` เตือนชื่อที่ใช้ไม่ได้** — แจ้งเตือนเมื่อชื่อ marketplace หรือชื่อ plugin จะถูกปฏิเสธโดย managed marketplace sync ของ Claude Desktop
+
 ---
 
 ---
