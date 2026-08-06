@@ -167,6 +167,12 @@ related:
 
 - **auto-start ของ Remote Control ตั้งได้เฉพาะ user scope** — settings ระดับ repo (`.claude/settings.json` และ `.claude/settings.local.json`) **เปิด** auto-start ของ Remote Control ไม่ได้อีกแล้ว (ยัง **ปิด** ได้อยู่); ถ้าจะเปิดต้องตั้งที่ user scope ผ่าน `/config`
 
+### 🆕 ใหม่ใน v2.1.223
+
+- **wildcard ระดับ owner สำหรับนโยบาย marketplace** — managed settings `strictKnownMarketplaces` และ `blockedMarketplaces` รับค่าแบบ `"owner/*"` แล้ว เขียนบรรทัดเดียวก็อนุญาต/บล็อก marketplace repo ทั้งหมดใต้ GitHub org นั้นได้
+- **`modelOverrides` ข้าม key ที่ไม่รู้จัก** — key ที่ไม่ใช่ model ID ของ Anthropic จะไม่ถูกตีความเป็น canonical model ID ของ session อีกต่อไป แต่ถูกข้ามไปตามที่เอกสารระบุไว้
+- **`env` ของ admin merge ทีละ key** — managed settings ที่ส่งมาจาก server ไม่ล้มบล็อก `env` ของ `managed-settings.json` บนเครื่องหรือ MDM profile อีกแล้ว ทั้งสองฝั่ง merge กันทีละ key
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

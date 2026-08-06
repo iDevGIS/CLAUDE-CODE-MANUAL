@@ -141,6 +141,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Nested spawning on by default** — subagents can now spawn their own subagents up to depth 3; set `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` to disable nesting.
 - **Nested subagents in `stream-json`** — subagents spawned at depth 2+ now appear when `--forward-subagent-text` is set, keyed by the `tool_use` id of the Agent call that spawned them.
 
+### New in v2.1.223
+
+- **Warning when a requested subagent model is restricted** — workflow agents, forked skills, slash commands, and resumed background agents now warn you when the model they asked for is restricted and the parent model runs instead, so the substitution isn't silent.
+
 ---
 
 ---

@@ -167,6 +167,12 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **Remote Control auto-start is user-scope only** — repo-local settings (`.claude/settings.json` and `.claude/settings.local.json`) can no longer turn Remote Control auto-start **on**; they can still turn it **off**. Enable it at user scope via `/config`.
 
+### New in v2.1.223
+
+- **Owner wildcards for marketplace policy** — the `strictKnownMarketplaces` and `blockedMarketplaces` managed settings accept `"owner/*"` entries, so one line allows or blocks every marketplace repo under a GitHub org.
+- **`modelOverrides` ignores unknown keys** — keys that aren't Anthropic model IDs are no longer treated as the session's canonical model ID; they're ignored, as documented.
+- **Admin `env` merges per key** — server-delivered managed settings no longer disable the `env` block of a machine-local `managed-settings.json` or MDM profile; the two merge key by key.
+
 ---
 
 ---

@@ -146,6 +146,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **Diffs read raw git blobs** — the `/diff` view, the Remote Control workspace diff, and file-edit diffs in Claude Code on the web now use raw git blob content, ignoring workspace-configured diff drivers and `textconv`.
 - **ultraplan is gone** — the ultraplan feature (`/ultraplan`, and "Refine with Ultraplan" in plan mode) has been removed.
 
+### New in v2.1.223
+- **`/review` is now an alias of `/code-review`** — one command reviews the current diff or a PR (`/code-review <level> <pr#>`); use `/code-review ultra` for a deep cloud review.
+- **`/code-review` remembers your effort level** — calling it with no level reuses the level you typed last; type a level like `/code-review high` to change it.
+
 ---
 
 ---

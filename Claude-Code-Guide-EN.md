@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.222         │
+│ Welcome to Claude Code v2.1.223         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.222
+- run: npm install -g @anthropic-ai/claude-code@2.1.223
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -984,6 +984,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.212
 
 - `claude auto-mode reset` — restore the default auto-mode configuration, with a confirmation prompt (pass `--yes` to skip).
+
+### New in v2.1.223
+
+- `claude --teleport <session id>` — cloud sessions now show a `/teleport` hint telling you how to continue that session locally.
 
 ---
 
@@ -1143,6 +1147,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.222
 - **Diffs read raw git blobs** — the `/diff` view, the Remote Control workspace diff, and file-edit diffs in Claude Code on the web now use raw git blob content, ignoring workspace-configured diff drivers and `textconv`.
 - **ultraplan is gone** — the ultraplan feature (`/ultraplan`, and "Refine with Ultraplan" in plan mode) has been removed.
+
+### New in v2.1.223
+- **`/review` is now an alias of `/code-review`** — one command reviews the current diff or a PR (`/code-review <level> <pr#>`); use `/code-review ultra` for a deep cloud review.
+- **`/code-review` remembers your effort level** — calling it with no level reuses the level you typed last; type a level like `/code-review high` to change it.
 
 ---
 
@@ -1551,6 +1559,12 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.222
 
 - **Remote Control auto-start is user-scope only** — repo-local settings (`.claude/settings.json` and `.claude/settings.local.json`) can no longer turn Remote Control auto-start **on**; they can still turn it **off**. Enable it at user scope via `/config`.
+
+### New in v2.1.223
+
+- **Owner wildcards for marketplace policy** — the `strictKnownMarketplaces` and `blockedMarketplaces` managed settings accept `"owner/*"` entries, so one line allows or blocks every marketplace repo under a GitHub org.
+- **`modelOverrides` ignores unknown keys** — keys that aren't Anthropic model IDs are no longer treated as the session's canonical model ID; they're ignored, as documented.
+- **Admin `env` merges per key** — server-delivered managed settings no longer disable the `env` block of a machine-local `managed-settings.json` or MDM profile; the two merge key by key.
 
 ---
 
@@ -2378,6 +2392,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Nested spawning on by default** — subagents can now spawn their own subagents up to depth 3; set `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` to disable nesting.
 - **Nested subagents in `stream-json`** — subagents spawned at depth 2+ now appear when `--forward-subagent-text` is set, keyed by the `tool_use` id of the Agent call that spawned them.
+
+### New in v2.1.223
+
+- **Warning when a requested subagent model is restricted** — workflow agents, forked skills, slash commands, and resumed background agents now warn you when the model they asked for is restricted and the parent model runs instead, so the substitution isn't silent.
 
 ---
 
@@ -3249,6 +3267,8 @@ your-project/
 | `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | Cap on nested-subagent spawn depth — default 3 since v2.1.219 (nesting was off by default in v2.1.217–218); set `1` to disable nesting. *(v2.1.217, changed v2.1.219)* |
 | `FORCE_HYPERLINK` | Footer PR badge links render as clickable hyperlinks even when terminal support can't be detected (e.g. over ssh/tmux); set `0` to opt out. *(v2.1.217)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` | Auto-resume of an interrupted turn; set `0` to disable — falsy values are honored since v2.1.221. *(v2.1.221)* |
+| `CLAUDE_CODE_DISABLE_1M_CONTEXT` | Holds **every** Claude model with a native 1M window to 200K via auto-compaction (previously only a fixed list of models); a startup warning appears when auto-compaction isn't holding the session to 200K. *(changed v2.1.223)* |
+| `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | Set `1` to let sessions on unrecognized model IDs grow past the assumed context window again — since v2.1.223 auto-compact keeps them inside it by default. *(v2.1.223)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
@@ -4566,7 +4586,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.222`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.223`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

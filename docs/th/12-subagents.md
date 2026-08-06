@@ -141,6 +141,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **เปิดการ spawn ซ้อนเป็นค่าเริ่มต้น** — subagent spawn subagent ของตัวเองซ้อนได้ลึกสุด 3 ชั้นแล้วโดย default; ตั้ง `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` ถ้าต้องการปิดการซ้อน
 - **subagent ซ้อนใน `stream-json`** — subagent ที่ถูก spawn ที่ depth 2 ขึ้นไปจะโผล่ใน output เมื่อเปิด `--forward-subagent-text` โดย key ด้วย `tool_use` id ของ Agent call ที่ spawn มัน
 
+### 🆕 ใหม่ใน v2.1.223
+
+- **เตือนเมื่อโมเดลของ subagent ที่ขอมาถูกจำกัด** — workflow agent, skill ที่ fork, slash command และ background agent ที่ resume จะขึ้นคำเตือนเมื่อโมเดลที่ขอถูกจำกัดสิทธิ์และต้องรันด้วยโมเดลของ parent แทน จะได้ไม่โดนสลับโมเดลแบบเงียบ ๆ
+
 ---
 
 ---

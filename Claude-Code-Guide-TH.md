@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.222         │
+│ Welcome to Claude Code v2.1.223         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -639,6 +639,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - `claude auto-mode reset` — คืนการตั้งค่า auto-mode กลับเป็น default โดยมีถามยืนยันก่อน (ใส่ `--yes` เพื่อข้าม)
 
+### 🆕 ใหม่ใน v2.1.223
+
+- `claude --teleport <session id>` — session บน cloud จะมี hint `/teleport` บอกวิธีทำงาน session นั้นต่อบนเครื่องเราเอง
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -970,7 +974,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.222
+- run: npm install -g @anthropic-ai/claude-code@2.1.223
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1137,6 +1141,10 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.222
 - **diff อ่านจาก git blob ดิบแล้ว** — หน้า `/diff`, diff ของ workspace ใน Remote Control และ diff ของการแก้ไฟล์ใน Claude Code บนเว็บ ใช้เนื้อหา git blob ดิบ ๆ โดยไม่สนใจ diff driver และ `textconv` ที่ตั้งไว้ใน workspace
 - **ถอด ultraplan ออกแล้ว** — ฟีเจอร์ ultraplan (`/ultraplan` และ "Refine with Ultraplan" ใน plan mode) ถูกถอดออกจาก Claude Code
+
+### 🆕 ใหม่ใน v2.1.223
+- **`/review` กลายเป็น alias ของ `/code-review`** — เหลือคำสั่งเดียวที่รีวิว diff ปัจจุบันหรือรีวิว PR (`/code-review <level> <pr#>`); อยากได้รีวิวลึกบน cloud ใช้ `/code-review ultra`
+- **`/code-review` จำ effort level ล่าสุด** — เรียกเปล่า ๆ จะใช้ level ที่พิมพ์ไว้ครั้งก่อน ถ้าจะเปลี่ยนก็พิมพ์ level ไปด้วย เช่น `/code-review high`
 
 ---
 
@@ -1545,6 +1553,12 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.222
 
 - **auto-start ของ Remote Control ตั้งได้เฉพาะ user scope** — settings ระดับ repo (`.claude/settings.json` และ `.claude/settings.local.json`) **เปิด** auto-start ของ Remote Control ไม่ได้อีกแล้ว (ยัง **ปิด** ได้อยู่); ถ้าจะเปิดต้องตั้งที่ user scope ผ่าน `/config`
+
+### 🆕 ใหม่ใน v2.1.223
+
+- **wildcard ระดับ owner สำหรับนโยบาย marketplace** — managed settings `strictKnownMarketplaces` และ `blockedMarketplaces` รับค่าแบบ `"owner/*"` แล้ว เขียนบรรทัดเดียวก็อนุญาต/บล็อก marketplace repo ทั้งหมดใต้ GitHub org นั้นได้
+- **`modelOverrides` ข้าม key ที่ไม่รู้จัก** — key ที่ไม่ใช่ model ID ของ Anthropic จะไม่ถูกตีความเป็น canonical model ID ของ session อีกต่อไป แต่ถูกข้ามไปตามที่เอกสารระบุไว้
+- **`env` ของ admin merge ทีละ key** — managed settings ที่ส่งมาจาก server ไม่ล้มบล็อก `env` ของ `managed-settings.json` บนเครื่องหรือ MDM profile อีกแล้ว ทั้งสองฝั่ง merge กันทีละ key
 
 ---
 
@@ -2371,6 +2385,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **เปิดการ spawn ซ้อนเป็นค่าเริ่มต้น** — subagent spawn subagent ของตัวเองซ้อนได้ลึกสุด 3 ชั้นแล้วโดย default; ตั้ง `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` ถ้าต้องการปิดการซ้อน
 - **subagent ซ้อนใน `stream-json`** — subagent ที่ถูก spawn ที่ depth 2 ขึ้นไปจะโผล่ใน output เมื่อเปิด `--forward-subagent-text` โดย key ด้วย `tool_use` id ของ Agent call ที่ spawn มัน
+
+### 🆕 ใหม่ใน v2.1.223
+
+- **เตือนเมื่อโมเดลของ subagent ที่ขอมาถูกจำกัด** — workflow agent, skill ที่ fork, slash command และ background agent ที่ resume จะขึ้นคำเตือนเมื่อโมเดลที่ขอถูกจำกัดสิทธิ์และต้องรันด้วยโมเดลของ parent แทน จะได้ไม่โดนสลับโมเดลแบบเงียบ ๆ
 
 ---
 
@@ -3238,6 +3256,8 @@ your-project/
 | `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | เพดานความลึกของ subagent ที่ spawn ซ้อนกัน — default 3 ตั้งแต่ v2.1.219 (ช่วง v2.1.217–218 ปิดเป็นค่าเริ่มต้น); ตั้ง `1` เพื่อปิดการซ้อน *(v2.1.217, เปลี่ยน v2.1.219)* |
 | `FORCE_HYPERLINK` | ลิงก์ PR badge ที่ footer เป็น hyperlink คลิกได้แม้ตรวจไม่พบว่า terminal รองรับ (เช่นผ่าน ssh/tmux); ตั้ง `0` เพื่อปิด *(v2.1.217)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` | การ auto-resume ของ turn ที่ถูกขัดจังหวะ; ตั้ง `0` เพื่อปิด — ค่าที่เป็น falsy มีผลจริงตั้งแต่ v2.1.221 *(v2.1.221)* |
+| `CLAUDE_CODE_DISABLE_1M_CONTEXT` | กด context ของโมเดล Claude **ทุกตัว** ที่มี window 1M แบบ native ให้เหลือ 200K ด้วย auto-compaction (เดิมมีผลเฉพาะรายชื่อโมเดลที่ fix ไว้); ถ้า auto-compaction กดไม่อยู่ที่ 200K จะมีคำเตือนตอนเปิดโปรแกรม *(เปลี่ยน v2.1.223)* |
+| `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | ตั้ง `1` เพื่อให้ session ที่ใช้ model ID ที่ไม่รู้จักโตเกิน context window ที่ระบบเดาไว้ได้เหมือนเดิม — ตั้งแต่ v2.1.223 auto-compact จะคุมไม่ให้เกินเป็นค่าเริ่มต้น *(v2.1.223)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
@@ -4552,7 +4572,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.222`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.223`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

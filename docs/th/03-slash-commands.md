@@ -147,6 +147,10 @@ related:
 - **diff อ่านจาก git blob ดิบแล้ว** — หน้า `/diff`, diff ของ workspace ใน Remote Control และ diff ของการแก้ไฟล์ใน Claude Code บนเว็บ ใช้เนื้อหา git blob ดิบ ๆ โดยไม่สนใจ diff driver และ `textconv` ที่ตั้งไว้ใน workspace
 - **ถอด ultraplan ออกแล้ว** — ฟีเจอร์ ultraplan (`/ultraplan` และ "Refine with Ultraplan" ใน plan mode) ถูกถอดออกจาก Claude Code
 
+### 🆕 ใหม่ใน v2.1.223
+- **`/review` กลายเป็น alias ของ `/code-review`** — เหลือคำสั่งเดียวที่รีวิว diff ปัจจุบันหรือรีวิว PR (`/code-review <level> <pr#>`); อยากได้รีวิวลึกบน cloud ใช้ `/code-review ultra`
+- **`/code-review` จำ effort level ล่าสุด** — เรียกเปล่า ๆ จะใช้ level ที่พิมพ์ไว้ครั้งก่อน ถ้าจะเปลี่ยนก็พิมพ์ level ไปด้วย เช่น `/code-review high`
+
 ---
 
 ---

@@ -25,6 +25,29 @@
 
 ---
 
+## [1.31.0] — 2026-08-06
+
+### Compatibility
+- **Claude Code:** `v2.1.223+`
+
+### Added
+- **Owner wildcards for marketplace policy** — `strictKnownMarketplaces` and `blockedMarketplaces` managed settings accept `"owner/*"` entries to allow or block every marketplace repo under a GitHub org (ch 06)
+- **`claude --teleport <session id>`** — cloud sessions show a `/teleport` hint for continuing the session locally (ch 02)
+- **Restricted-subagent-model warning** — workflow agents, forked skills, slash commands, and resumed background agents warn when the requested model is restricted and the parent model runs instead (ch 12)
+- **`CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT`** — set `1` to let sessions on unrecognized model IDs grow past the assumed context window again (ch 23)
+
+### Changed
+- **`/review` is an alias of `/code-review`** — one command reviews the current diff or a PR (`/code-review <level> <pr#>`); `/code-review ultra` runs the deep cloud review, and calling it with no level reuses the level typed last (ch 03)
+- **`CLAUDE_CODE_DISABLE_1M_CONTEXT` covers every native-1M model** — it now holds all of them to 200K via auto-compaction instead of a fixed list, with a startup warning when auto-compaction isn't holding the session to 200K (ch 23)
+- **Auto-compact bounds unknown model IDs** — sessions on unrecognized model IDs stay inside the assumed context window by default (ch 23)
+- **`modelOverrides` ignores unknown keys** — keys that aren't Anthropic model IDs are no longer treated as the session's canonical model ID (ch 06)
+- **Admin `env` merges per key** — server-delivered managed settings no longer disable the `env` block of a machine-local `managed-settings.json` or MDM profile (ch 06)
+
+### Why
+- Claude Code `v2.1.223` reshapes review into a single `/code-review` surface, tightens context-window enforcement across model IDs, and gives admins org-wide marketplace policy — all of which change what readers should type and configure
+
+---
+
 ## [1.30.0] — 2026-08-05
 
 ### Compatibility
@@ -759,7 +782,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.30.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.31.0...HEAD
+[1.31.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.30.0...v1.31.0
 [1.30.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.29.0...v1.30.0
 [1.29.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.28.0...v1.29.0
 [1.28.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.27.0...v1.28.0

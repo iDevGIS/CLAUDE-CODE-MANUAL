@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.222         │
+│ Welcome to Claude Code v2.1.223         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -535,6 +535,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - `claude auto-mode reset` — restore the default auto-mode configuration, with a confirmation prompt (pass `--yes` to skip).
 
+### New in v2.1.223
+
+- `claude --teleport <session id>` — cloud sessions now show a `/teleport` hint telling you how to continue that session locally.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -906,7 +910,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.222
+- run: npm install -g @anthropic-ai/claude-code@2.1.223
 ```
 
 ---
