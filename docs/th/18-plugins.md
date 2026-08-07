@@ -99,6 +99,10 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **`skills` ใส่ `"."` ได้** — ชี้ path `skills` ของ plugin ไปที่ root ของ plugin ได้เลย และข้อความ validation error ของ `SKILL.md` ระดับ root ก็แนะนำวิธีนี้
 - **`claude plugin validate` เตือนชื่อที่ใช้ไม่ได้** — แจ้งเตือนเมื่อชื่อ marketplace หรือชื่อ plugin จะถูกปฏิเสธโดย managed marketplace sync ของ Claude Desktop
 
+### 🆕 ใหม่ใน v2.1.224
+
+- **plugin source แบบ `archive`** — ติดตั้ง plugin จากไฟล์ zip ที่เสิร์ฟผ่าน HTTPS ได้เลย ไม่ต้องใช้ git และไม่ต้องใช้ npm; ระบุ SHA-256 ที่คาดไว้เพื่อ pin และตรวจสอบไฟล์ที่โหลดมาได้ด้วย
+
 ---
 
 ---

@@ -97,6 +97,10 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **`skills` accepts `"."`** — point a plugin's `skills` path at the plugin root; the root-level `SKILL.md` validation error now suggests it too.
 - **`claude plugin validate` warns about unusable names** — it flags a marketplace or plugin name that Claude Desktop's managed marketplace sync would reject.
 
+### New in v2.1.224
+
+- **`archive` plugin source** — install a plugin from a zip served over HTTPS, with no git and no npm involved; pin the download to an expected SHA-256 to verify what you install.
+
 > **Manifest note:** a plugin manifest can declare `"defaultEnabled": false` to ship disabled by default.
 
 ---

@@ -185,6 +185,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.222
 - **Auto mode ตรวจข้อความที่ส่งหา agent ตัวอื่นแล้ว** — ข้อความที่ส่งไปยัง agent session อื่นผ่าน `SendMessage` ต้องผ่าน permission classifier ก่อนถูกส่งออกไป
 
+### 🆕 ใหม่ใน v2.1.224
+- **เห็นรายละเอียดตอนโดน sandbox บล็อกใน Bash แล้ว** — คำสั่งที่ถูกปฏิเสธจะรายงานว่าไฟล์ไหนหรือการต่อเน็ตแบบไหนถูกบล็อกและเพราะอะไร จากเดิมที่รายละเอียดนี้ไม่เคยไปถึงผลลัพธ์ของ tool เลย
+- **ตัวเลือก mask credential แบบมีโครงสร้างเพิ่มขึ้น** — การ mask ของ `sandbox.credentials` รองรับค่า env ที่มีโครงสร้าง, claim ใน JWT และการเซ็น AWS SigV4 ใหม่แล้ว; ตัวเลือกใหม่ทั้งหมดต้องเปิด `network.tlsTerminate` และมีผลเฉพาะเมื่อตั้งใน user settings, managed settings หรือ `--settings` ดู [[06-configuration]]
+
 ---
 
 ---

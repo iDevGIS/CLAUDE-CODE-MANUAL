@@ -25,6 +25,34 @@
 
 ---
 
+## [1.32.0] — 2026-08-07
+
+### Compatibility
+- **Claude Code:** `v2.1.224+`
+
+### Added
+- **`claude self-hosted-runner`** — turn your own machines or containers into self-hosted environments where Claude Code web, mobile, and desktop sessions run (Team and Enterprise plans) (ch 02)
+- **`archive` plugin source** — install a plugin from a zip served over HTTPS, without git or npm, with optional SHA-256 pinning (ch 18)
+- **Cross-session `SendMessage`** — Claude Code sessions can message each other, including across your machines, with `ListAgents` to discover them (macOS and Linux) (ch 12)
+- **`crossSessionInbound` and `dialogExpiry` settings** — cross-session messages sent to a session running with bypassed permissions are held for your approval; messages to other sessions auto-deliver (ch 06)
+- **More sandbox credential-masking options** — `extract` + `onExtractNoMatch` for structured env values, `decode: "jwt"` with `maskClaims` for JWT-aware masking, and `awsPairs` / `sigv4` for AWS SigV4 re-signing; all require `network.tlsTerminate` and are honored only from user, managed, or `--settings` settings (ch 05 & 06)
+- **`ANTHROPIC_BEDROCK_REGION_PREFIX`** — on Bedrock, prefer a specific cross-region inference profile instead of the `AWS_REGION`-derived one (ch 23)
+
+### Changed
+- **Sandbox violations reach the Bash tool result** — a denied command now reports which file or network access was blocked and why, instead of the details never surfacing (ch 05)
+- **Managed-settings approval stops re-prompting** — the prompt no longer re-appears after re-login or an organization switch when the org's settings are unchanged (ch 06)
+
+### Removed
+- **The 200-subagent-per-session spawn cap** — long-running sessions no longer refuse new agents; the concurrency cap and spawn-depth limit still apply, so the `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` entry was updated (ch 12 & 23)
+
+### Version
+- **Version strings** bumped `2.1.223` → `2.1.224` (current-version references only; historical sections kept)
+
+### Why
+- Claude Code `v2.1.224` opens up where sessions can run (self-hosted runners), how they talk to each other (cross-session `SendMessage` + `ListAgents`, with the old 200-agent ceiling gone), and how secrets are masked inside the sandbox — all of which change what readers install, configure, and can rely on
+
+---
+
 ## [1.31.0] — 2026-08-06
 
 ### Compatibility
@@ -783,6 +811,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.31.0...HEAD
+[1.32.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.31.0...v1.32.0
 [1.31.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.30.0...v1.31.0
 [1.30.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.29.0...v1.30.0
 [1.29.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.28.0...v1.29.0

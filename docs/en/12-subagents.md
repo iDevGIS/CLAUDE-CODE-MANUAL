@@ -145,6 +145,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Warning when a requested subagent model is restricted** — workflow agents, forked skills, slash commands, and resumed background agents now warn you when the model they asked for is restricted and the parent model runs instead, so the substitution isn't silent.
 
+### New in v2.1.224
+
+- **Cross-session `SendMessage`** — Claude Code sessions can now message each other, including sessions on your other machines, and `ListAgents` discovers the ones you can reach (macOS and Linux).
+- **The 200-subagent-per-session spawn cap is gone** — long-running sessions no longer refuse new agents. The concurrency cap (`CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) and the spawn-depth limit still apply.
+
 ---
 
 ---

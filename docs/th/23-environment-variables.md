@@ -59,7 +59,7 @@ related:
 | `CLAUDE_CODE_PROCESS_WRAPPER` | wrapper สำหรับองค์กร — ทุก process ที่ Claude Code spawn ตัวเอง (agent view, background service) จะรันผ่าน executable ที่กำหนดไว้ *(v2.1.208)* |
 | `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` | รวมข้อความและ thinking ของ subagent ลงใน output แบบ `stream-json` (= `--forward-subagent-text`) *(v2.1.211)* |
 | `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | จำกัดจำนวนครั้งของ WebSearch ต่อ session (default 200) กันลูปค้นหาไม่รู้จบ *(v2.1.212)* |
-| `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | เพดานจำนวน subagent ที่ spawn ได้ต่อ session (default 200); `/clear` รีเซ็ตโควตา *(v2.1.212)* |
+| `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | เพดานจำนวน subagent ที่ spawn ได้ต่อ session; `/clear` รีเซ็ตโควตา — ค่า default 200 ถูกถอดออกใน v2.1.224 แล้ว session ที่รันยาวจึงไม่ปฏิเสธ agent ใหม่ (เพดานจำนวนที่รันพร้อมกันและความลึกยังมีผล) *(v2.1.212, เปลี่ยน v2.1.224)* |
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | ระยะเวลา (ms) ก่อนที่ MCP tool call ที่รันนานจะถูกย้ายไป background อัตโนมัติ (default 2 นาที); ใช้ปิดพฤติกรรมนี้ได้ด้วย *(v2.1.212)* |
 | `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | เพดานการตัดข้อความ (default 60 KB) ของ content attribute ใน OpenTelemetry *(v2.1.214)* |
 | `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | เพดานจำนวน subagent ที่รันพร้อมกัน (default 20) กันไม่ให้ข้อความเดียว fan out background agent แบบไม่จำกัด *(v2.1.217)* |
@@ -68,6 +68,7 @@ related:
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` | การ auto-resume ของ turn ที่ถูกขัดจังหวะ; ตั้ง `0` เพื่อปิด — ค่าที่เป็น falsy มีผลจริงตั้งแต่ v2.1.221 *(v2.1.221)* |
 | `CLAUDE_CODE_DISABLE_1M_CONTEXT` | กด context ของโมเดล Claude **ทุกตัว** ที่มี window 1M แบบ native ให้เหลือ 200K ด้วย auto-compaction (เดิมมีผลเฉพาะรายชื่อโมเดลที่ fix ไว้); ถ้า auto-compaction กดไม่อยู่ที่ 200K จะมีคำเตือนตอนเปิดโปรแกรม *(เปลี่ยน v2.1.223)* |
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | ตั้ง `1` เพื่อให้ session ที่ใช้ model ID ที่ไม่รู้จักโตเกิน context window ที่ระบบเดาไว้ได้เหมือนเดิม — ตั้งแต่ v2.1.223 auto-compact จะคุมไม่ให้เกินเป็นค่าเริ่มต้น *(v2.1.223)* |
+| `ANTHROPIC_BEDROCK_REGION_PREFIX` | บน Bedrock ใช้เลือก cross-region inference profile ที่ต้องการ แทนตัวที่ระบบอนุมานจาก `AWS_REGION` *(v2.1.224)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 

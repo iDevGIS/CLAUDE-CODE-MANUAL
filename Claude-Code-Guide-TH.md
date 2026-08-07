@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.223         │
+│ Welcome to Claude Code v2.1.224         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -643,6 +643,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - `claude --teleport <session id>` — session บน cloud จะมี hint `/teleport` บอกวิธีทำงาน session นั้นต่อบนเครื่องเราเอง
 
+### 🆕 ใหม่ใน v2.1.224
+
+- `claude self-hosted-runner` — เปลี่ยนเครื่องหรือ container ของเราเองให้เป็น **self-hosted environment** คือที่ที่ session ของ Claude Code ฝั่งเว็บ/มือถือ/เดสก์ท็อปจะไปรัน (แพลน Team และ Enterprise)
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -974,7 +978,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.223
+- run: npm install -g @anthropic-ai/claude-code@2.1.224
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1407,6 +1411,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.222
 - **Auto mode ตรวจข้อความที่ส่งหา agent ตัวอื่นแล้ว** — ข้อความที่ส่งไปยัง agent session อื่นผ่าน `SendMessage` ต้องผ่าน permission classifier ก่อนถูกส่งออกไป
 
+### 🆕 ใหม่ใน v2.1.224
+- **เห็นรายละเอียดตอนโดน sandbox บล็อกใน Bash แล้ว** — คำสั่งที่ถูกปฏิเสธจะรายงานว่าไฟล์ไหนหรือการต่อเน็ตแบบไหนถูกบล็อกและเพราะอะไร จากเดิมที่รายละเอียดนี้ไม่เคยไปถึงผลลัพธ์ของ tool เลย
+- **ตัวเลือก mask credential แบบมีโครงสร้างเพิ่มขึ้น** — การ mask ของ `sandbox.credentials` รองรับค่า env ที่มีโครงสร้าง, claim ใน JWT และการเซ็น AWS SigV4 ใหม่แล้ว; ตัวเลือกใหม่ทั้งหมดต้องเปิด `network.tlsTerminate` และมีผลเฉพาะเมื่อตั้งใน user settings, managed settings หรือ `--settings`
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1559,6 +1567,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **wildcard ระดับ owner สำหรับนโยบาย marketplace** — managed settings `strictKnownMarketplaces` และ `blockedMarketplaces` รับค่าแบบ `"owner/*"` แล้ว เขียนบรรทัดเดียวก็อนุญาต/บล็อก marketplace repo ทั้งหมดใต้ GitHub org นั้นได้
 - **`modelOverrides` ข้าม key ที่ไม่รู้จัก** — key ที่ไม่ใช่ model ID ของ Anthropic จะไม่ถูกตีความเป็น canonical model ID ของ session อีกต่อไป แต่ถูกข้ามไปตามที่เอกสารระบุไว้
 - **`env` ของ admin merge ทีละ key** — managed settings ที่ส่งมาจาก server ไม่ล้มบล็อก `env` ของ `managed-settings.json` บนเครื่องหรือ MDM profile อีกแล้ว ทั้งสองฝั่ง merge กันทีละ key
+
+### 🆕 ใหม่ใน v2.1.224
+
+- **ตัวเลือก mask credential ของ sandbox เพิ่ม** — `extract` คู่กับ `onExtractNoMatch` สำหรับค่า env ที่มีโครงสร้าง, `decode: "jwt"` คู่กับ `maskClaims` สำหรับ mask ราย claim ของ JWT และ `awsPairs` / `sigv4` สำหรับเซ็น AWS SigV4 ใหม่หลังสลับค่า ทั้งหมดนี้ต้องเปิด `network.tlsTerminate` และมีผลเฉพาะเมื่อตั้งใน user settings, managed settings หรือ `--settings` เท่านั้น
+- **`crossSessionInbound` และ `dialogExpiry`** — ข้อความข้าม session ที่ส่ง **เข้า** session ซึ่งรันแบบ bypass permission จะถูกกักไว้รออนุมัติจากเราก่อน ส่วนข้อความที่ส่ง **ออกไปยัง** session อื่นจะถูกส่งให้อัตโนมัติ
+- **prompt อนุมัติ managed settings ไม่ถามซ้ำแล้ว** — ถ้า settings ขององค์กรไม่เปลี่ยน prompt อนุมัติจะไม่โผล่ซ้ำหลัง login ใหม่หรือสลับ organization
 
 ---
 
@@ -2390,6 +2404,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **เตือนเมื่อโมเดลของ subagent ที่ขอมาถูกจำกัด** — workflow agent, skill ที่ fork, slash command และ background agent ที่ resume จะขึ้นคำเตือนเมื่อโมเดลที่ขอถูกจำกัดสิทธิ์และต้องรันด้วยโมเดลของ parent แทน จะได้ไม่โดนสลับโมเดลแบบเงียบ ๆ
 
+### 🆕 ใหม่ใน v2.1.224
+
+- **`SendMessage` ข้าม session ได้แล้ว** — session ของ Claude Code คุยกันเองได้ รวมถึง session ที่อยู่บนเครื่องอื่นของเรา และใช้ `ListAgents` หา session ที่ติดต่อได้ (macOS และ Linux)
+- **เพดาน spawn subagent 200 ตัวต่อ session ถูกถอดออก** — session ที่รันยาว ๆ จะไม่ปฏิเสธการสร้าง agent ใหม่อีก แต่เพดานจำนวนที่รันพร้อมกัน (`CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) และเพดานความลึกของการ spawn ยังมีผลอยู่
+
 ---
 
 ## 13. Agent Teams (ทีม AI)
@@ -2911,6 +2930,10 @@ claude --plugin-dir ./my-plugin
 - **`skills` ใส่ `"."` ได้** — ชี้ path `skills` ของ plugin ไปที่ root ของ plugin ได้เลย และข้อความ validation error ของ `SKILL.md` ระดับ root ก็แนะนำวิธีนี้
 - **`claude plugin validate` เตือนชื่อที่ใช้ไม่ได้** — แจ้งเตือนเมื่อชื่อ marketplace หรือชื่อ plugin จะถูกปฏิเสธโดย managed marketplace sync ของ Claude Desktop
 
+### 🆕 ใหม่ใน v2.1.224
+
+- **plugin source แบบ `archive`** — ติดตั้ง plugin จากไฟล์ zip ที่เสิร์ฟผ่าน HTTPS ได้เลย ไม่ต้องใช้ git และไม่ต้องใช้ npm; ระบุ SHA-256 ที่คาดไว้เพื่อ pin และตรวจสอบไฟล์ที่โหลดมาได้ด้วย
+
 ---
 
 ## 19. Session Management
@@ -3249,7 +3272,7 @@ your-project/
 | `CLAUDE_CODE_PROCESS_WRAPPER` | wrapper สำหรับองค์กร — ทุก process ที่ Claude Code spawn ตัวเอง (agent view, background service) จะรันผ่าน executable ที่กำหนดไว้ *(v2.1.208)* |
 | `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` | รวมข้อความและ thinking ของ subagent ลงใน output แบบ `stream-json` (= `--forward-subagent-text`) *(v2.1.211)* |
 | `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | จำกัดจำนวนครั้งของ WebSearch ต่อ session (default 200) กันลูปค้นหาไม่รู้จบ *(v2.1.212)* |
-| `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | เพดานจำนวน subagent ที่ spawn ได้ต่อ session (default 200); `/clear` รีเซ็ตโควตา *(v2.1.212)* |
+| `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | เพดานจำนวน subagent ที่ spawn ได้ต่อ session; `/clear` รีเซ็ตโควตา — ค่า default 200 ถูกถอดออกใน v2.1.224 แล้ว session ที่รันยาวจึงไม่ปฏิเสธ agent ใหม่ (เพดานจำนวนที่รันพร้อมกันและความลึกยังมีผล) *(v2.1.212, เปลี่ยน v2.1.224)* |
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | ระยะเวลา (ms) ก่อนที่ MCP tool call ที่รันนานจะถูกย้ายไป background อัตโนมัติ (default 2 นาที); ใช้ปิดพฤติกรรมนี้ได้ด้วย *(v2.1.212)* |
 | `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | เพดานการตัดข้อความ (default 60 KB) ของ content attribute ใน OpenTelemetry *(v2.1.214)* |
 | `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | เพดานจำนวน subagent ที่รันพร้อมกัน (default 20) กันไม่ให้ข้อความเดียว fan out background agent แบบไม่จำกัด *(v2.1.217)* |
@@ -3258,6 +3281,7 @@ your-project/
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` | การ auto-resume ของ turn ที่ถูกขัดจังหวะ; ตั้ง `0` เพื่อปิด — ค่าที่เป็น falsy มีผลจริงตั้งแต่ v2.1.221 *(v2.1.221)* |
 | `CLAUDE_CODE_DISABLE_1M_CONTEXT` | กด context ของโมเดล Claude **ทุกตัว** ที่มี window 1M แบบ native ให้เหลือ 200K ด้วย auto-compaction (เดิมมีผลเฉพาะรายชื่อโมเดลที่ fix ไว้); ถ้า auto-compaction กดไม่อยู่ที่ 200K จะมีคำเตือนตอนเปิดโปรแกรม *(เปลี่ยน v2.1.223)* |
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | ตั้ง `1` เพื่อให้ session ที่ใช้ model ID ที่ไม่รู้จักโตเกิน context window ที่ระบบเดาไว้ได้เหมือนเดิม — ตั้งแต่ v2.1.223 auto-compact จะคุมไม่ให้เกินเป็นค่าเริ่มต้น *(v2.1.223)* |
+| `ANTHROPIC_BEDROCK_REGION_PREFIX` | บน Bedrock ใช้เลือก cross-region inference profile ที่ต้องการ แทนตัวที่ระบบอนุมานจาก `AWS_REGION` *(v2.1.224)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
@@ -4572,7 +4596,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.223`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.224`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

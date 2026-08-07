@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.223-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.31.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.224-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.32.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.223`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.224`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -56,8 +56,11 @@
 | 🔎 **`/review` = `/code-review`** | รวมเหลือคำสั่งเดียว รีวิว diff หรือ PR (`/code-review <level> <pr#>`) · จำ effort level ล่าสุดให้ (v2.1.223) |
 | 🧮 **คุม context window** | `CLAUDE_CODE_DISABLE_1M_CONTEXT` กดโมเดล 1M ทุกตัวเหลือ 200K · auto-compact คุม model ID ที่ไม่รู้จักด้วย (v2.1.223) |
 | 🏬 **wildcard marketplace** | `strictKnownMarketplaces` / `blockedMarketplaces` รับ `"owner/*"` คุมทั้ง org ได้ในบรรทัดเดียว (v2.1.223) |
+| 🖥️ **Self-hosted environment** | `claude self-hosted-runner` เปลี่ยนเครื่อง/container ของเราเองให้เป็นที่รัน session ฝั่งเว็บ/มือถือ/เดสก์ท็อป — แพลน Team & Enterprise (v2.1.224) |
+| 💬 **`SendMessage` ข้าม session** | session คุยกันเองข้ามเครื่องได้ · `ListAgents` หา session ที่ติดต่อได้ · ถอดเพดาน subagent 200 ตัว (macOS/Linux, v2.1.224) |
+| 📦 **plugin source แบบ `archive`** | ติดตั้ง plugin จาก zip ผ่าน HTTPS — ไม่ต้องใช้ git หรือ npm — pin ด้วย SHA-256 ได้ (v2.1.224) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.223` (manual `v1.31.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.224` (manual `v1.32.0`)
 
 ---
 
@@ -80,7 +83,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.223** + โมเดล Fable 5 / Opus 5 / Sonnet 5
+ตรงกับ Claude Code **v2.1.224** + โมเดล Fable 5 / Opus 5 / Sonnet 5
 
 </td>
 </tr>
@@ -140,7 +143,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.223`
+> **Claude Code Version:** `2.1.224`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

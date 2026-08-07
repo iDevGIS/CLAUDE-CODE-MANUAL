@@ -156,6 +156,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.222
 - **Auto mode screens agent-to-agent messages** — messages sent to other agent sessions via `SendMessage` now pass through the permission classifier before dispatch.
 
+### New in v2.1.224
+- **Sandbox violations are visible in Bash results** — a denied command now reports which file or network access the sandbox blocked and why, instead of the details never reaching the tool result.
+- **Credential masking gained structured options** — `sandbox.credentials` masking now handles structured env values, JWT claims, and AWS SigV4 re-signing; the new options require `network.tlsTerminate` and are honored only from user settings, managed settings, or `--settings`. See [[06-configuration]].
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

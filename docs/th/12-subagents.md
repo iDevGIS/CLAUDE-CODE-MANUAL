@@ -145,6 +145,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **เตือนเมื่อโมเดลของ subagent ที่ขอมาถูกจำกัด** — workflow agent, skill ที่ fork, slash command และ background agent ที่ resume จะขึ้นคำเตือนเมื่อโมเดลที่ขอถูกจำกัดสิทธิ์และต้องรันด้วยโมเดลของ parent แทน จะได้ไม่โดนสลับโมเดลแบบเงียบ ๆ
 
+### 🆕 ใหม่ใน v2.1.224
+
+- **`SendMessage` ข้าม session ได้แล้ว** — session ของ Claude Code คุยกันเองได้ รวมถึง session ที่อยู่บนเครื่องอื่นของเรา และใช้ `ListAgents` หา session ที่ติดต่อได้ (macOS และ Linux)
+- **เพดาน spawn subagent 200 ตัวต่อ session ถูกถอดออก** — session ที่รันยาว ๆ จะไม่ปฏิเสธการสร้าง agent ใหม่อีก แต่เพดานจำนวนที่รันพร้อมกัน (`CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) และเพดานความลึกของการ spawn ยังมีผลอยู่
+
 ---
 
 ---

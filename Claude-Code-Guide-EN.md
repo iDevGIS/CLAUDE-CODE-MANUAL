@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.223         │
+│ Welcome to Claude Code v2.1.224         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.223
+- run: npm install -g @anthropic-ai/claude-code@2.1.224
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -988,6 +988,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.223
 
 - `claude --teleport <session id>` — cloud sessions now show a `/teleport` hint telling you how to continue that session locally.
+
+### New in v2.1.224
+
+- `claude self-hosted-runner` — turn your own machines or containers into **self-hosted environments**: a place where Claude Code web, mobile, and desktop sessions run (Team and Enterprise plans).
 
 ---
 
@@ -1413,6 +1417,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.222
 - **Auto mode screens agent-to-agent messages** — messages sent to other agent sessions via `SendMessage` now pass through the permission classifier before dispatch.
 
+### New in v2.1.224
+- **Sandbox violations are visible in Bash results** — a denied command now reports which file or network access the sandbox blocked and why, instead of the details never reaching the tool result.
+- **Credential masking gained structured options** — `sandbox.credentials` masking now handles structured env values, JWT claims, and AWS SigV4 re-signing; the new options require `network.tlsTerminate` and are honored only from user settings, managed settings, or `--settings`.
+
 ---
 
 ## 6. Configuration
@@ -1565,6 +1573,12 @@ Skill(commit)                    # Specific skill
 - **Owner wildcards for marketplace policy** — the `strictKnownMarketplaces` and `blockedMarketplaces` managed settings accept `"owner/*"` entries, so one line allows or blocks every marketplace repo under a GitHub org.
 - **`modelOverrides` ignores unknown keys** — keys that aren't Anthropic model IDs are no longer treated as the session's canonical model ID; they're ignored, as documented.
 - **Admin `env` merges per key** — server-delivered managed settings no longer disable the `env` block of a machine-local `managed-settings.json` or MDM profile; the two merge key by key.
+
+### New in v2.1.224
+
+- **More sandbox credential-masking options** — `extract` plus `onExtractNoMatch` for structured env values, `decode: "jwt"` with `maskClaims` for JWT-aware masking, and `awsPairs` / `sigv4` for AWS SigV4 re-signing. All of these need `network.tlsTerminate`, and they are honored only from user settings, managed settings, or `--settings`.
+- **`crossSessionInbound` and `dialogExpiry`** — cross-session messages sent **to** a session running with bypassed permissions are held for your approval; messages going **to other** sessions auto-deliver.
+- **Managed-settings approval stops re-prompting** — the approval prompt no longer re-appears after re-login or an organization switch when the organization's settings are unchanged.
 
 ---
 
@@ -2397,6 +2411,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Warning when a requested subagent model is restricted** — workflow agents, forked skills, slash commands, and resumed background agents now warn you when the model they asked for is restricted and the parent model runs instead, so the substitution isn't silent.
 
+### New in v2.1.224
+
+- **Cross-session `SendMessage`** — Claude Code sessions can now message each other, including sessions on your other machines, and `ListAgents` discovers the ones you can reach (macOS and Linux).
+- **The 200-subagent-per-session spawn cap is gone** — long-running sessions no longer refuse new agents. The concurrency cap (`CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) and the spawn-depth limit still apply.
+
 ---
 
 ## 13. Agent Teams
@@ -2922,6 +2941,10 @@ claude --plugin-dir ./my-plugin
 - **`skills` accepts `"."`** — point a plugin's `skills` path at the plugin root; the root-level `SKILL.md` validation error now suggests it too.
 - **`claude plugin validate` warns about unusable names** — it flags a marketplace or plugin name that Claude Desktop's managed marketplace sync would reject.
 
+### New in v2.1.224
+
+- **`archive` plugin source** — install a plugin from a zip served over HTTPS, with no git and no npm involved; pin the download to an expected SHA-256 to verify what you install.
+
 ---
 
 ## 19. Session Management
@@ -3260,7 +3283,7 @@ your-project/
 | `CLAUDE_CODE_PROCESS_WRAPPER` | Corporate launcher wrapper — every Claude Code self-spawn (agent view, background service) runs through the required wrapper executable. *(v2.1.208)* |
 | `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` | Include subagent text and thinking in `stream-json` output (= `--forward-subagent-text`). *(v2.1.211)* |
 | `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | Session-wide limit on WebSearch tool calls (default 200) to stop runaway search loops. *(v2.1.212)* |
-| `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | Per-session cap on subagent spawns (default 200); `/clear` resets the budget. *(v2.1.212)* |
+| `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | Per-session cap on subagent spawns; `/clear` resets the budget. The default cap of 200 was removed in v2.1.224 — long sessions no longer refuse new agents (concurrency and depth limits still apply). *(v2.1.212, changed v2.1.224)* |
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | Threshold (ms) before a long-running MCP tool call moves to the background automatically (default 2 minutes); also disables the behavior. *(v2.1.212)* |
 | `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | Truncation limit (default 60 KB) for OpenTelemetry content attributes. *(v2.1.214)* |
 | `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | Cap on concurrently-running subagents (default 20), so one message can't fan out unbounded background agents. *(v2.1.217)* |
@@ -3269,6 +3292,7 @@ your-project/
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` | Auto-resume of an interrupted turn; set `0` to disable — falsy values are honored since v2.1.221. *(v2.1.221)* |
 | `CLAUDE_CODE_DISABLE_1M_CONTEXT` | Holds **every** Claude model with a native 1M window to 200K via auto-compaction (previously only a fixed list of models); a startup warning appears when auto-compaction isn't holding the session to 200K. *(changed v2.1.223)* |
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | Set `1` to let sessions on unrecognized model IDs grow past the assumed context window again — since v2.1.223 auto-compact keeps them inside it by default. *(v2.1.223)* |
+| `ANTHROPIC_BEDROCK_REGION_PREFIX` | On Bedrock, prefer a specific cross-region inference profile instead of the one derived from `AWS_REGION`. *(v2.1.224)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
@@ -4586,7 +4610,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.223`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.224`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

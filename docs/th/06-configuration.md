@@ -173,6 +173,12 @@ related:
 - **`modelOverrides` ข้าม key ที่ไม่รู้จัก** — key ที่ไม่ใช่ model ID ของ Anthropic จะไม่ถูกตีความเป็น canonical model ID ของ session อีกต่อไป แต่ถูกข้ามไปตามที่เอกสารระบุไว้
 - **`env` ของ admin merge ทีละ key** — managed settings ที่ส่งมาจาก server ไม่ล้มบล็อก `env` ของ `managed-settings.json` บนเครื่องหรือ MDM profile อีกแล้ว ทั้งสองฝั่ง merge กันทีละ key
 
+### 🆕 ใหม่ใน v2.1.224
+
+- **ตัวเลือก mask credential ของ sandbox เพิ่ม** — `extract` คู่กับ `onExtractNoMatch` สำหรับค่า env ที่มีโครงสร้าง, `decode: "jwt"` คู่กับ `maskClaims` สำหรับ mask ราย claim ของ JWT และ `awsPairs` / `sigv4` สำหรับเซ็น AWS SigV4 ใหม่หลังสลับค่า ทั้งหมดนี้ต้องเปิด `network.tlsTerminate` และมีผลเฉพาะเมื่อตั้งใน user settings, managed settings หรือ `--settings` เท่านั้น
+- **`crossSessionInbound` และ `dialogExpiry`** — ข้อความข้าม session ที่ส่ง **เข้า** session ซึ่งรันแบบ bypass permission จะถูกกักไว้รออนุมัติจากเราก่อน ส่วนข้อความที่ส่ง **ออกไปยัง** session อื่นจะถูกส่งให้อัตโนมัติ
+- **prompt อนุมัติ managed settings ไม่ถามซ้ำแล้ว** — ถ้า settings ขององค์กรไม่เปลี่ยน prompt อนุมัติจะไม่โผล่ซ้ำหลัง login ใหม่หรือสลับ organization
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

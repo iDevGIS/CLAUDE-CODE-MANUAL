@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.223         │
+│ Welcome to Claude Code v2.1.224         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -539,6 +539,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - `claude --teleport <session id>` — cloud sessions now show a `/teleport` hint telling you how to continue that session locally.
 
+### New in v2.1.224
+
+- `claude self-hosted-runner` — turn your own machines or containers into **self-hosted environments**: a place where Claude Code web, mobile, and desktop sessions run (Team and Enterprise plans).
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -910,7 +914,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.223
+- run: npm install -g @anthropic-ai/claude-code@2.1.224
 ```
 
 ---

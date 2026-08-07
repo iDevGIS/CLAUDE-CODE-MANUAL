@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.223         │
+│ Welcome to Claude Code v2.1.224         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -539,6 +539,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - `claude --teleport <session id>` — session บน cloud จะมี hint `/teleport` บอกวิธีทำงาน session นั้นต่อบนเครื่องเราเอง
 
+### 🆕 ใหม่ใน v2.1.224
+
+- `claude self-hosted-runner` — เปลี่ยนเครื่องหรือ container ของเราเองให้เป็น **self-hosted environment** คือที่ที่ session ของ Claude Code ฝั่งเว็บ/มือถือ/เดสก์ท็อปจะไปรัน (แพลน Team และ Enterprise)
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -910,7 +914,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.223
+- run: npm install -g @anthropic-ai/claude-code@2.1.224
 ```
 
 ---

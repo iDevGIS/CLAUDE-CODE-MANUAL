@@ -173,6 +173,12 @@ Set the `model` key to any of these (newest → cheapest):
 - **`modelOverrides` ignores unknown keys** — keys that aren't Anthropic model IDs are no longer treated as the session's canonical model ID; they're ignored, as documented.
 - **Admin `env` merges per key** — server-delivered managed settings no longer disable the `env` block of a machine-local `managed-settings.json` or MDM profile; the two merge key by key.
 
+### New in v2.1.224
+
+- **More sandbox credential-masking options** — `extract` plus `onExtractNoMatch` for structured env values, `decode: "jwt"` with `maskClaims` for JWT-aware masking, and `awsPairs` / `sigv4` for AWS SigV4 re-signing. All of these need `network.tlsTerminate`, and they are honored only from user settings, managed settings, or `--settings`.
+- **`crossSessionInbound` and `dialogExpiry`** — cross-session messages sent **to** a session running with bypassed permissions are held for your approval; messages going **to other** sessions auto-deliver.
+- **Managed-settings approval stops re-prompting** — the approval prompt no longer re-appears after re-login or an organization switch when the organization's settings are unchanged.
+
 ---
 
 ---

@@ -59,7 +59,7 @@ related:
 | `CLAUDE_CODE_PROCESS_WRAPPER` | Corporate launcher wrapper — every Claude Code self-spawn (agent view, background service) runs through the required wrapper executable. *(v2.1.208)* |
 | `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` | Include subagent text and thinking in `stream-json` output (= `--forward-subagent-text`). *(v2.1.211)* |
 | `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | Session-wide limit on WebSearch tool calls (default 200) to stop runaway search loops. *(v2.1.212)* |
-| `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | Per-session cap on subagent spawns (default 200); `/clear` resets the budget. *(v2.1.212)* |
+| `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | Per-session cap on subagent spawns; `/clear` resets the budget. The default cap of 200 was removed in v2.1.224 — long sessions no longer refuse new agents (concurrency and depth limits still apply). *(v2.1.212, changed v2.1.224)* |
 | `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS` | Threshold (ms) before a long-running MCP tool call moves to the background automatically (default 2 minutes); also disables the behavior. *(v2.1.212)* |
 | `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | Truncation limit (default 60 KB) for OpenTelemetry content attributes. *(v2.1.214)* |
 | `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | Cap on concurrently-running subagents (default 20), so one message can't fan out unbounded background agents. *(v2.1.217)* |
@@ -68,6 +68,7 @@ related:
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` | Auto-resume of an interrupted turn; set `0` to disable — falsy values are honored since v2.1.221. *(v2.1.221)* |
 | `CLAUDE_CODE_DISABLE_1M_CONTEXT` | Holds **every** Claude model with a native 1M window to 200K via auto-compaction (previously only a fixed list of models); a startup warning appears when auto-compaction isn't holding the session to 200K. *(changed v2.1.223)* |
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | Set `1` to let sessions on unrecognized model IDs grow past the assumed context window again — since v2.1.223 auto-compact keeps them inside it by default. *(v2.1.223)* |
+| `ANTHROPIC_BEDROCK_REGION_PREFIX` | On Bedrock, prefer a specific cross-region inference profile instead of the one derived from `AWS_REGION`. *(v2.1.224)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
