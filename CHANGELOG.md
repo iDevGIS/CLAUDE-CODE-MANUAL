@@ -25,6 +25,25 @@
 
 ---
 
+## [1.33.0] — 2026-08-08
+
+### Compatibility
+- **Claude Code:** `v2.1.226+`
+
+### Added
+- **`SendMessage` can start a conversation with a Remote Control session** — message a Remote Control session on another machine *by name* instead of only replying after it messaged you first; `ListAgents` lists them as `name [ref]` (`v2.1.225`) — chapter 12
+- **Workspace trust prompt in `claude agents`** — starting it in an untrusted directory now shows the same trust prompt `claude` does (`v2.1.225`) — chapter 02
+- **Gateway spend limits in the usage warning** — behind an LLM gateway, the limit-reached message names the cap, its reset time, and the operator's message (requires the gateway on `2.1.225`) (`v2.1.225`) — chapter 31
+
+### Changed
+- **A confirmed Remote Control recipient is never swapped** — `SendMessage` no longer substitutes a same-named session on this machine when the remote list can't be checked (`v2.1.225`) — chapter 12
+- **Version strings** bumped `2.1.224` → `2.1.226` (current-version references only; historical sections kept)
+
+### Why
+- Catch-up sync for the `2.1.225`–`2.1.226` delta: `2.1.226` is bug fixes and reliability only, so everything documentable here comes from `2.1.225` — two `SendMessage`/Remote Control refinements (chapter 12), the `claude agents` workspace-trust prompt (chapter 02), and gateway spend-limit detail in the usage warning (chapter 31). The rest of `2.1.225` is fixes (OAuth token handling, MCP keychain 401s, auto-mode block counting, headless cross-session parking) and Remote Control/VS Code polish, which the manual does not track
+
+---
+
 ## [1.32.0] — 2026-08-07
 
 ### Compatibility
@@ -810,7 +829,8 @@
 
 ---
 
-[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.31.0...HEAD
+[Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.33.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.32.0...v1.33.0
 [1.32.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.31.0...v1.32.0
 [1.31.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.30.0...v1.31.0
 [1.30.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.29.0...v1.30.0

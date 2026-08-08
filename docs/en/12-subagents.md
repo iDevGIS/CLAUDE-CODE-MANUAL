@@ -150,6 +150,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Cross-session `SendMessage`** — Claude Code sessions can now message each other, including sessions on your other machines, and `ListAgents` discovers the ones you can reach (macOS and Linux).
 - **The 200-subagent-per-session spawn cap is gone** — long-running sessions no longer refuse new agents. The concurrency cap (`CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) and the spawn-depth limit still apply.
 
+### New in v2.1.226
+
+- **`SendMessage` can open a conversation with a Remote Control session** — you can now message a Remote Control session on another machine **by name**, instead of only being able to reply after it messaged you first. `ListAgents` lists these as `name [ref]` *(v2.1.225)*.
+- **A confirmed Remote Control recipient is never swapped** — once you have confirmed a Remote Control recipient, `SendMessage` will not silently substitute a same-named session on this machine when the local session list can't be checked *(v2.1.225)*.
+
 ---
 
 ---

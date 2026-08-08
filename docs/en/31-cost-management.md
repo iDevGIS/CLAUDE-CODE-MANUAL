@@ -202,6 +202,10 @@ Set alerts in the Anthropic Console:
 4. Notify via email/Slack
 ```
 
+### New in v2.1.226
+
+- **Gateway spend limits now show up in the usage warning** — if you run Claude Code behind an LLM gateway, the limit-reached message names the cap that was hit, when it resets, and the operator's own message, instead of a generic warning (needs the gateway on `2.1.225`) *(v2.1.225)*.
+
 ## Real-world comparison
 
 ### Case A: Refactoring a medium-sized function

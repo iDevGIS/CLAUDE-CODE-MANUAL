@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.224         │
+│ Welcome to Claude Code v2.1.226         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -647,6 +647,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - `claude self-hosted-runner` — เปลี่ยนเครื่องหรือ container ของเราเองให้เป็น **self-hosted environment** คือที่ที่ session ของ Claude Code ฝั่งเว็บ/มือถือ/เดสก์ท็อปจะไปรัน (แพลน Team และ Enterprise)
 
+### 🆕 ใหม่ใน v2.1.226
+
+- `claude agents` ขึ้น **prompt ยืนยันความไว้ใจ workspace** เมื่อเปิดในไดเรกทอรีที่ยังไม่ได้ trust แล้ว เหมือนที่ `claude` ทำอยู่เดิม *(v2.1.225)*
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -978,7 +982,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.224
+- run: npm install -g @anthropic-ai/claude-code@2.1.226
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -2408,6 +2412,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **`SendMessage` ข้าม session ได้แล้ว** — session ของ Claude Code คุยกันเองได้ รวมถึง session ที่อยู่บนเครื่องอื่นของเรา และใช้ `ListAgents` หา session ที่ติดต่อได้ (macOS และ Linux)
 - **เพดาน spawn subagent 200 ตัวต่อ session ถูกถอดออก** — session ที่รันยาว ๆ จะไม่ปฏิเสธการสร้าง agent ใหม่อีก แต่เพดานจำนวนที่รันพร้อมกัน (`CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) และเพดานความลึกของการ spawn ยังมีผลอยู่
+
+### 🆕 ใหม่ใน v2.1.226
+
+- **`SendMessage` เริ่มบทสนทนากับ session ฝั่ง Remote Control ได้แล้ว** — ทักไปหา session Remote Control บนเครื่องอื่น **ด้วยชื่อ** ได้เลย จากเดิมที่ตอบกลับได้อย่างเดียวหลังฝั่งนั้นทักมาก่อน โดย `ListAgents` จะแสดง session พวกนี้เป็น `name [ref]` *(v2.1.225)*
+- **ผู้รับฝั่ง Remote Control ที่ยืนยันแล้วจะไม่ถูกสลับตัว** — เมื่อเรายืนยันผู้รับฝั่ง Remote Control ไปแล้ว `SendMessage` จะไม่แอบเปลี่ยนไปส่งให้ session ชื่อซ้ำกันบนเครื่องนี้แทน แม้ตอนนั้นจะเช็ก list ของ session ฝั่งนั้นไม่ได้ *(v2.1.225)*
 
 ---
 
@@ -4596,7 +4605,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.224`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.226`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
@@ -5852,6 +5861,10 @@ Claude Code เปิดให้อัตโนมัติ — แต่จะ
 3. ตั้ง alert ที่ 80% ของ budget
 4. แจ้งเตือนผ่าน email/Slack
 ```
+
+### 🆕 ใหม่ใน v2.1.226
+
+- **คำเตือนเรื่องโควตาบอกเพดานของ gateway แล้ว** — ถ้ารัน Claude Code ผ่าน LLM gateway ข้อความตอนชนเพดานจะบอกว่าชนเพดานตัวไหน รีเซ็ตเมื่อไร และข้อความจากผู้ดูแล gateway ด้วย แทนที่จะเป็นคำเตือนกลาง ๆ (ฝั่ง gateway ต้องเป็น `2.1.225`) *(v2.1.225)*
 
 ### 🧮 ตัวอย่างเปรียบเทียบจริง
 

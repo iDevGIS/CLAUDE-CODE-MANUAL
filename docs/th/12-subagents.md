@@ -150,6 +150,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **`SendMessage` ข้าม session ได้แล้ว** — session ของ Claude Code คุยกันเองได้ รวมถึง session ที่อยู่บนเครื่องอื่นของเรา และใช้ `ListAgents` หา session ที่ติดต่อได้ (macOS และ Linux)
 - **เพดาน spawn subagent 200 ตัวต่อ session ถูกถอดออก** — session ที่รันยาว ๆ จะไม่ปฏิเสธการสร้าง agent ใหม่อีก แต่เพดานจำนวนที่รันพร้อมกัน (`CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) และเพดานความลึกของการ spawn ยังมีผลอยู่
 
+### 🆕 ใหม่ใน v2.1.226
+
+- **`SendMessage` เริ่มบทสนทนากับ session ฝั่ง Remote Control ได้แล้ว** — ทักไปหา session Remote Control บนเครื่องอื่น **ด้วยชื่อ** ได้เลย จากเดิมที่ตอบกลับได้อย่างเดียวหลังฝั่งนั้นทักมาก่อน โดย `ListAgents` จะแสดง session พวกนี้เป็น `name [ref]` *(v2.1.225)*
+- **ผู้รับฝั่ง Remote Control ที่ยืนยันแล้วจะไม่ถูกสลับตัว** — เมื่อเรายืนยันผู้รับฝั่ง Remote Control ไปแล้ว `SendMessage` จะไม่แอบเปลี่ยนไปส่งให้ session ชื่อซ้ำกันบนเครื่องนี้แทน แม้ตอนนั้นจะเช็ก list ของ session ฝั่งนั้นไม่ได้ *(v2.1.225)*
+
 ---
 
 ---

@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.224         │
+│ Welcome to Claude Code v2.1.226         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -543,6 +543,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - `claude self-hosted-runner` — เปลี่ยนเครื่องหรือ container ของเราเองให้เป็น **self-hosted environment** คือที่ที่ session ของ Claude Code ฝั่งเว็บ/มือถือ/เดสก์ท็อปจะไปรัน (แพลน Team และ Enterprise)
 
+### 🆕 ใหม่ใน v2.1.226
+
+- `claude agents` ขึ้น **prompt ยืนยันความไว้ใจ workspace** เมื่อเปิดในไดเรกทอรีที่ยังไม่ได้ trust แล้ว เหมือนที่ `claude` ทำอยู่เดิม *(v2.1.225)*
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -914,7 +918,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.224
+- run: npm install -g @anthropic-ai/claude-code@2.1.226
 ```
 
 ---
