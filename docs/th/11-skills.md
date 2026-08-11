@@ -175,6 +175,10 @@ my-skill/
 
 - **skill ที่ตั้ง `disable-model-invocation` จะไม่ถูกทำเลียนแบบ** — เมื่อ Claude พยายามเรียก skill ที่ตั้ง `disable-model-invocation` ระบบจะบอกให้ Claude ขอให้เราสั่ง skill นั้นเอง แทนที่จะไปทำ workflow ของ skill เลียนแบบเอง
 
+### 🆕 ใหม่ใน v2.1.228
+
+- **skill ที่ sync มาจาก claude.ai ถูกจำกัดสิทธิ์แล้ว** — บัง command ในเครื่องเราหรือ MCP prompt ไม่ได้อีกต่อไป, คำอธิบายถูก sanitize และติดป้ายว่ามาจากการ sync, และเนื้อ skill พวกนี้จะ**ไม่**รันคำสั่ง `!` หรือ expand ไฟล์ด้วย `@` บนเครื่องเรา
+
 ---
 
 ---

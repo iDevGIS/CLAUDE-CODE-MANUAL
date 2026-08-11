@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.227         │
+│ Welcome to Claude Code v2.1.228         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -982,7 +982,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.227
+- run: npm install -g @anthropic-ai/claude-code@2.1.228
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1418,6 +1418,9 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.224
 - **เห็นรายละเอียดตอนโดน sandbox บล็อกใน Bash แล้ว** — คำสั่งที่ถูกปฏิเสธจะรายงานว่าไฟล์ไหนหรือการต่อเน็ตแบบไหนถูกบล็อกและเพราะอะไร จากเดิมที่รายละเอียดนี้ไม่เคยไปถึงผลลัพธ์ของ tool เลย
 - **ตัวเลือก mask credential แบบมีโครงสร้างเพิ่มขึ้น** — การ mask ของ `sandbox.credentials` รองรับค่า env ที่มีโครงสร้าง, claim ใน JWT และการเซ็น AWS SigV4 ใหม่แล้ว; ตัวเลือกใหม่ทั้งหมดต้องเปิด `network.tlsTerminate` และมีผลเฉพาะเมื่อตั้งใน user settings, managed settings หรือ `--settings`
+
+### 🆕 ใหม่ใน v2.1.228
+- **โมเดลรุ่นใหม่ใช้ `Write` ทับไฟล์เดิมได้โดยไม่ต้องอ่านก่อน** — tool `Write` ยอมให้โมเดลรุ่นใหม่เขียนทับไฟล์ที่ยังไม่ได้อ่านใน session นี้ ให้เป็นกติกาเดียวกับ tool `Edit`; ส่วนโมเดลรุ่นเก่ายังต้องอ่านไฟล์ก่อนเหมือนเดิม
 
 ---
 
@@ -2273,6 +2276,10 @@ my-skill/
 ### 🆕 ใหม่ใน v2.1.222
 
 - **skill ที่ตั้ง `disable-model-invocation` จะไม่ถูกทำเลียนแบบ** — เมื่อ Claude พยายามเรียก skill ที่ตั้ง `disable-model-invocation` ระบบจะบอกให้ Claude ขอให้เราสั่ง skill นั้นเอง แทนที่จะไปทำ workflow ของ skill เลียนแบบเอง
+
+### 🆕 ใหม่ใน v2.1.228
+
+- **skill ที่ sync มาจาก claude.ai ถูกจำกัดสิทธิ์แล้ว** — บัง command ในเครื่องเราหรือ MCP prompt ไม่ได้อีกต่อไป, คำอธิบายถูก sanitize และติดป้ายว่ามาจากการ sync, และเนื้อ skill พวกนี้จะ**ไม่**รันคำสั่ง `!` หรือ expand ไฟล์ด้วย `@` บนเครื่องเรา
 
 ---
 
@@ -4605,7 +4612,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.227`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.228`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

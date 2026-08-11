@@ -25,6 +25,21 @@
 
 ---
 
+## [1.35.0] — 2026-08-12
+
+### Compatibility
+- **Claude Code:** `v2.1.228+`
+
+### Changed
+- **Skills synced from claude.ai are sandboxed** — they can no longer shadow local commands or MCP prompts, their descriptions are sanitized and labeled as synced, and their bodies don't run `!` commands or expand `@` file references on your machine (`v2.1.228`) — chapter 11
+- **`Write` drops the read-first requirement for newer models** — newer models can overwrite an existing file they haven't read in the session, matching the `Edit` tool's rules; older models still must read first (`v2.1.228`) — chapter 05
+- **Version strings** bumped `2.1.227` → `2.1.228` (current-version references only; historical sections kept)
+
+### Why
+- `2.1.228` is mostly fixes (TUI redraw stalls, Git Bash discovery on Windows, `/tui` model reversion, cross-session inbox, self-hosted runner checkout hooks, session/plugin-cache cleanup, marketplace settings merge) plus Vertex AI and compaction polish — the two changes that alter documented behavior are the claude.ai skill-sync hardening (a real trust boundary readers should know about) and the relaxed `Write` read-first rule
+
+---
+
 ## [1.34.0] — 2026-08-11
 
 ### Compatibility
@@ -843,6 +858,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.35.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.34.0...v1.35.0
 [1.34.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...v1.34.0
 [1.33.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.32.0...v1.33.0
 [1.32.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.31.0...v1.32.0

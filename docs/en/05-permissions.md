@@ -160,6 +160,9 @@ Skill(commit)                    # Specific skill
 - **Sandbox violations are visible in Bash results** — a denied command now reports which file or network access the sandbox blocked and why, instead of the details never reaching the tool result.
 - **Credential masking gained structured options** — `sandbox.credentials` masking now handles structured env values, JWT claims, and AWS SigV4 re-signing; the new options require `network.tlsTerminate` and are honored only from user settings, managed settings, or `--settings`. See [[06-configuration]].
 
+### New in v2.1.228
+- **Write no longer forces a read first on newer models** — the `Write` tool lets newer models overwrite an existing file they haven't read in the session, matching the `Edit` tool's rules; older models still have to read the file first.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

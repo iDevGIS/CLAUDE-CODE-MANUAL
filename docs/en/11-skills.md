@@ -175,6 +175,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **`disable-model-invocation` skills aren't reimplemented** — when Claude tries to invoke a skill marked `disable-model-invocation`, it is now told to ask you to run the skill instead of replicating its workflow on its own.
 
+### New in v2.1.228
+
+- **Skills synced from claude.ai are sandboxed** — they can no longer shadow your local commands or MCP prompts, their descriptions are sanitized and labeled as synced, and on your machine their bodies do **not** run `!` commands or expand `@` file references.
+
 ---
 
 ---

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.227         │
+│ Welcome to Claude Code v2.1.228         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.227
+- run: npm install -g @anthropic-ai/claude-code@2.1.228
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1424,6 +1424,9 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.224
 - **Sandbox violations are visible in Bash results** — a denied command now reports which file or network access the sandbox blocked and why, instead of the details never reaching the tool result.
 - **Credential masking gained structured options** — `sandbox.credentials` masking now handles structured env values, JWT claims, and AWS SigV4 re-signing; the new options require `network.tlsTerminate` and are honored only from user settings, managed settings, or `--settings`.
+
+### New in v2.1.228
+- **Write no longer forces a read first on newer models** — the `Write` tool lets newer models overwrite an existing file they haven't read in the session, matching the `Edit` tool's rules; older models still have to read the file first.
 
 ---
 
@@ -2280,6 +2283,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 ### New in v2.1.222
 
 - **`disable-model-invocation` skills aren't reimplemented** — when Claude tries to invoke a skill marked `disable-model-invocation`, it is now told to ask you to run the skill instead of replicating its workflow on its own.
+
+### New in v2.1.228
+
+- **Skills synced from claude.ai are sandboxed** — they can no longer shadow your local commands or MCP prompts, their descriptions are sanitized and labeled as synced, and on your machine their bodies do **not** run `!` commands or expand `@` file references.
 
 ---
 
@@ -4619,7 +4626,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.227`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.228`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
