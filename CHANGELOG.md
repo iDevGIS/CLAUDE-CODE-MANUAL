@@ -25,6 +25,19 @@
 
 ---
 
+## [1.34.0] — 2026-08-11
+
+### Compatibility
+- **Claude Code:** `v2.1.227+`
+
+### Changed
+- **Version strings** bumped `2.1.226` → `2.1.227` (current-version references only; historical sections kept)
+
+### Why
+- `2.1.227` ไม่มีอะไรที่คู่มือ track: ทั้งหมดเป็น bug fix (feature flag ตอน login token หมดอายุ, Bash ใต้ `claude-code-action` + `allowed_non_write_users`, `/tui` ดึงบทสนทนาที่ rewind ไปแล้วกลับมา) กับงาน polish (เมนู slash command ทำสีเฉพาะแถวที่เลือก + ตัวหนาตรงตัวอักษรที่ match, ลด event-loop stall) — จึงเป็นการ sync เลขเวอร์ชันอย่างเดียว ไม่มี section "New in" ใหม่
+
+---
+
 ## [1.33.0] — 2026-08-08
 
 ### Compatibility
@@ -830,6 +843,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.34.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...v1.34.0
 [1.33.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.32.0...v1.33.0
 [1.32.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.31.0...v1.32.0
 [1.31.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.30.0...v1.31.0
