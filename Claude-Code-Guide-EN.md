@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.228         │
+│ Welcome to Claude Code v2.1.229         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.228
+- run: npm install -g @anthropic-ai/claude-code@2.1.229
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -996,6 +996,11 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.226
 
 - `claude agents` now shows the **workspace trust prompt** when it starts in an untrusted directory, matching what `claude` already does *(v2.1.225)*.
+
+### New in v2.1.229
+
+- `claude remote-control --continue` — resume the most recent Remote Control session instead of starting a new one.
+- **`claude self-hosted-runner` requires `--base-dir` on Windows** — Windows startup no longer has a default checkout directory, so you must pass the base directory explicitly.
 
 ---
 
@@ -1159,6 +1164,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.223
 - **`/review` is now an alias of `/code-review`** — one command reviews the current diff or a PR (`/code-review <level> <pr#>`); use `/code-review ultra` for a deep cloud review.
 - **`/code-review` remembers your effort level** — calling it with no level reuses the level you typed last; type a level like `/code-review high` to change it.
+
+### New in v2.1.229
+- **`/commit-push-pr` no longer auto-approves dangerous flags** — git/gh commands carrying flags like `--force`, `--amend`, or `--no-verify` now go through the normal permission prompt instead of being approved for you.
+- **`/login` repeats the token-override warning** — after a successful login it reminds you again that `CLAUDE_CODE_OAUTH_TOKEN` overrides the credentials you just created.
 
 ---
 
@@ -1427,6 +1436,9 @@ Skill(commit)                    # Specific skill
 
 ### New in v2.1.228
 - **Write no longer forces a read first on newer models** — the `Write` tool lets newer models overwrite an existing file they haven't read in the session, matching the `Edit` tool's rules; older models still have to read the file first.
+
+### New in v2.1.229
+- **Sandbox network domain lists are stricter** — IPv6 literals must be bracketed (`[::1]:443`), and ambiguous spellings are enforced fail-closed and flagged by `/doctor`.
 
 ---
 
@@ -2058,6 +2070,10 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 
 - **`DirectoryAdded` hook** — fires after `/add-dir` (or the SDK `register_repo_root` control request) registers a new working directory mid-session.
 
+### New in v2.1.229
+
+- **Server-supplied hooks on self-hosted runners** — self-hosted runner sessions can now receive hooks supplied by the server, matching how managed environments already behave.
+
 ### Configuring Hooks
 
 **In `.claude/settings.json`:**
@@ -2431,6 +2447,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **`SendMessage` can open a conversation with a Remote Control session** — you can now message a Remote Control session on another machine **by name**, instead of only being able to reply after it messaged you first. `ListAgents` lists these as `name [ref]` *(v2.1.225)*.
 - **A confirmed Remote Control recipient is never swapped** — once you have confirmed a Remote Control recipient, `SendMessage` will not silently substitute a same-named session on this machine when the local session list can't be checked *(v2.1.225)*.
+
+### New in v2.1.229
+
+- **`ListAgents` shows reachability** — disconnected Remote Control sessions are marked `offline`, and your cloud sessions are labeled `cloud`, so you can tell at a glance which ones you can actually message.
 
 ---
 
@@ -2854,6 +2874,12 @@ cat src/*.ts | claude -p "find bugs"
 
 - **Focus view (VS Code)** — a chat-menu toggle that hides tool activity behind an expandable per-turn summary, with a live indicator of the running tool. Toggle it with `Ctrl+Alt+F` or the **"Claude Code: Toggle Focus view"** command.
 
+### New in v2.1.229
+
+- **Session groups (VS Code)** — group sessions in the sidebar: right-click to create, rename, or delete a group, and Cmd/Ctrl- or Shift-click to move several sessions at once.
+- **Resizable `/btw` panel (VS Code)** — drag the boundary of the side-question panel, in both the side-docked and stacked layouts.
+- **"Report a problem" and `/bug` open the built-in feedback dialog** in VS Code, instead of a retired survey link.
+
 ### JetBrains IDEs
 
 **Install:**
@@ -2960,6 +2986,10 @@ claude --plugin-dir ./my-plugin
 ### New in v2.1.224
 
 - **`archive` plugin source** — install a plugin from a zip served over HTTPS, with no git and no npm involved; pin the download to an expected SHA-256 to verify what you install.
+
+### New in v2.1.229
+
+- **`command` marketplace source** — a marketplace can point at a local command (for example an IDE) that prints the plugin directory. The path is re-resolved at the start of every session and applied without restarting Claude Code; with `mode: "link"` the directory is used in place instead of being copied.
 
 ---
 
@@ -3309,6 +3339,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_1M_CONTEXT` | Holds **every** Claude model with a native 1M window to 200K via auto-compaction (previously only a fixed list of models); a startup warning appears when auto-compaction isn't holding the session to 200K. *(changed v2.1.223)* |
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | Set `1` to let sessions on unrecognized model IDs grow past the assumed context window again — since v2.1.223 auto-compact keeps them inside it by default. *(v2.1.223)* |
 | `ANTHROPIC_BEDROCK_REGION_PREFIX` | On Bedrock, prefer a specific cross-region inference profile instead of the one derived from `AWS_REGION`. *(v2.1.224)* |
+| `CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS` | Stagger between sibling workflow agents that share a prompt prefix, so later agents hit the cached prefix; set `0` to disable. *(v2.1.229)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
@@ -4626,7 +4657,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.228`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.229`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

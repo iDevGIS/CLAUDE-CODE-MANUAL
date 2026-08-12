@@ -53,6 +53,12 @@ related:
 
 - **Focus view (VS Code)** — a chat-menu toggle that hides tool activity behind an expandable per-turn summary, with a live indicator of the running tool. Toggle it with `Ctrl+Alt+F` or the **"Claude Code: Toggle Focus view"** command.
 
+### New in v2.1.229
+
+- **Session groups (VS Code)** — group sessions in the sidebar: right-click to create, rename, or delete a group, and Cmd/Ctrl- or Shift-click to move several sessions at once.
+- **Resizable `/btw` panel (VS Code)** — drag the boundary of the side-question panel, in both the side-docked and stacked layouts.
+- **"Report a problem" and `/bug` open the built-in feedback dialog** in VS Code, instead of a retired survey link.
+
 ### JetBrains IDEs
 
 **Install:**

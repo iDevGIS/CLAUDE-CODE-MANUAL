@@ -183,6 +183,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 - **`DirectoryAdded` hook** — fires after `/add-dir` (or the SDK `register_repo_root` control request) registers a new working directory mid-session.
 
+### New in v2.1.229
+
+- **Server-supplied hooks on self-hosted runners** — self-hosted runner sessions can now receive hooks supplied by the server, matching how managed environments already behave.
+
 ---
 
 ---

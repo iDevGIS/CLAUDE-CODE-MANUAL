@@ -150,6 +150,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/review` is now an alias of `/code-review`** — one command reviews the current diff or a PR (`/code-review <level> <pr#>`); use `/code-review ultra` for a deep cloud review.
 - **`/code-review` remembers your effort level** — calling it with no level reuses the level you typed last; type a level like `/code-review high` to change it.
 
+### New in v2.1.229
+- **`/commit-push-pr` no longer auto-approves dangerous flags** — git/gh commands carrying flags like `--force`, `--amend`, or `--no-verify` now go through the normal permission prompt instead of being approved for you.
+- **`/login` repeats the token-override warning** — after a successful login it reminds you again that `CLAUDE_CODE_OAUTH_TOKEN` overrides the credentials you just created.
+
 ---
 
 ---

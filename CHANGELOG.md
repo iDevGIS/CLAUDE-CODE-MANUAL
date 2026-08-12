@@ -25,6 +25,32 @@
 
 ---
 
+## [1.36.0] — 2026-08-13
+
+### Compatibility
+- **Claude Code:** `v2.1.229+`
+
+### Added
+- **`claude remote-control --continue`** — resume the most recent Remote Control session instead of starting a new one (`v2.1.229`) — chapter 02
+- **`command` marketplace source** — a marketplace can point at a local command (e.g. an IDE) that prints the plugin directory; it is re-resolved each session and applied without a restart, and `mode: "link"` uses the directory in place (`v2.1.229`) — chapter 18
+- **`CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS`** — workflow fan-outs stagger same-prefix sibling agents so later agents read the cached prompt prefix; set `0` to disable (`v2.1.229`) — chapters 23, 39
+- **Server-supplied hooks on self-hosted runners** — self-hosted runner sessions can receive hooks supplied by the server, matching managed-environment behavior (`v2.1.229`) — chapter 10
+- **Session groups and a resizable `/btw` panel (VS Code)** — group sessions in the sidebar (right-click to create/rename/delete, Cmd/Ctrl- or Shift-click to move several) and drag the side-question panel's boundary; "Report a problem" and `/bug` now open the built-in feedback dialog (`v2.1.229`) — chapter 17
+
+### Changed
+- **`/commit-push-pr` no longer auto-approves dangerous flags** — git/gh commands carrying `--force`, `--amend`, `--no-verify` and friends go through the normal permission prompt (`v2.1.229`) — chapter 03
+- **Sandbox network domain lists are stricter** — IPv6 literals must be bracketed (`[::1]:443`), and ambiguous spellings are enforced fail-closed and flagged by `/doctor` (`v2.1.229`) — chapter 05
+- **`claude self-hosted-runner` requires `--base-dir` on Windows** — there is no default checkout directory on Windows (`v2.1.229`) — chapter 02
+- **`ListAgents` shows reachability** — disconnected Remote Control sessions are marked `offline` and cloud sessions are labeled `cloud` (`v2.1.229`) — chapter 12
+- **Workflow concurrency follows container CPU limits** — inside a CPU-limited container the cap no longer uses the host machine's core count (`v2.1.229`) — chapter 39
+- **`/login` repeats the `CLAUDE_CODE_OAUTH_TOKEN` override warning** after a successful login (`v2.1.229`) — chapter 03
+- **Version strings** bumped `2.1.228` → `2.1.229` (current-version references only; historical sections kept)
+
+### Why
+- `2.1.229` is a large release, but most of it is fixes (streaming duplication, narrow-terminal crashes, Windows UNC paths, MCP OAuth redirect URIs, compaction limits) — the documentable parts are the two new surfaces (`remote-control --continue`, `command` marketplace sources), two behavior changes readers can trip over (`/commit-push-pr` approvals and the stricter sandbox domain parsing), and the workflow prompt-cache stagger with its new env var
+
+---
+
 ## [1.35.0] — 2026-08-12
 
 ### Compatibility
@@ -858,6 +884,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.36.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.35.0...v1.36.0
 [1.35.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.34.0...v1.35.0
 [1.34.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...v1.34.0
 [1.33.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.32.0...v1.33.0

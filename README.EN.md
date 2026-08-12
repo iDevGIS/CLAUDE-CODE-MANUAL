@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.228-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.35.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.229-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.36.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.228`
+## 🆕 What's new — synced to Claude Code `v2.1.229`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -63,8 +63,11 @@ Never used a command line? You can still follow along 👇
 | 🔐 **`claude agents` asks for trust** | starting it in an untrusted directory now shows the workspace trust prompt, like `claude` (v2.1.225) |
 | 🔏 **claude.ai-synced skills sandboxed** | they can't shadow local commands or MCP prompts · their bodies don't run `!` or expand `@` on your machine (v2.1.228) |
 | ✍️ **`Write` drops the read-first rule** | newer models can overwrite a file they haven't read, matching `Edit`'s rules (v2.1.228) |
+| 🔌 **`command` marketplace source** | a local command (e.g. an IDE) prints the plugin directory · re-resolved each session with no restart · `mode: "link"` uses it in place (v2.1.229) |
+| ↩️ **`claude remote-control --continue`** | resume the most recent Remote Control session (v2.1.229) |
+| 🛑 **`/commit-push-pr` stops auto-approving risky flags** | `--force` · `--amend` · `--no-verify` and friends now need your approval (v2.1.229) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.228` (manual `v1.35.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.229` (manual `v1.36.0`)
 
 ---
 
@@ -87,7 +90,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.228** + the Fable 5 / Opus 5 / Sonnet 5 lineup
+Tracks Claude Code **v2.1.229** + the Fable 5 / Opus 5 / Sonnet 5 lineup
 
 </td>
 </tr>
@@ -147,7 +150,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.228`
+> **Claude Code Version:** `2.1.229`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

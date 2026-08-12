@@ -103,6 +103,10 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 
 > **Manifest note:** a plugin manifest can declare `"defaultEnabled": false` to ship disabled by default.
 
+### New in v2.1.229
+
+- **`command` marketplace source** — a marketplace can point at a local command (for example an IDE) that prints the plugin directory. The path is re-resolved at the start of every session and applied without restarting Claude Code; with `mode: "link"` the directory is used in place instead of being copied.
+
 ---
 
 ---

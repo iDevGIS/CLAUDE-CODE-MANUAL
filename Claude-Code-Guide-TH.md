@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.228         │
+│ Welcome to Claude Code v2.1.229         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -651,6 +651,11 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - `claude agents` ขึ้น **prompt ยืนยันความไว้ใจ workspace** เมื่อเปิดในไดเรกทอรีที่ยังไม่ได้ trust แล้ว เหมือนที่ `claude` ทำอยู่เดิม *(v2.1.225)*
 
+### 🆕 ใหม่ใน v2.1.229
+
+- `claude remote-control --continue` — ต่อ session Remote Control ล่าสุดได้เลย แทนที่จะเริ่ม session ใหม่
+- **`claude self-hosted-runner` บน Windows ต้องใส่ `--base-dir`** — ตอนเริ่มบน Windows ไม่มีไดเรกทอรี checkout ค่าเริ่มต้นให้แล้ว ต้องระบุ base directory เองทุกครั้ง
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -982,7 +987,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.228
+- run: npm install -g @anthropic-ai/claude-code@2.1.229
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1153,6 +1158,10 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.223
 - **`/review` กลายเป็น alias ของ `/code-review`** — เหลือคำสั่งเดียวที่รีวิว diff ปัจจุบันหรือรีวิว PR (`/code-review <level> <pr#>`); อยากได้รีวิวลึกบน cloud ใช้ `/code-review ultra`
 - **`/code-review` จำ effort level ล่าสุด** — เรียกเปล่า ๆ จะใช้ level ที่พิมพ์ไว้ครั้งก่อน ถ้าจะเปลี่ยนก็พิมพ์ level ไปด้วย เช่น `/code-review high`
+
+### 🆕 ใหม่ใน v2.1.229
+- **`/commit-push-pr` ไม่ auto-approve คำสั่งที่มี flag อันตรายแล้ว** — คำสั่ง git/gh ที่ติด flag อย่าง `--force`, `--amend` หรือ `--no-verify` จะขึ้น permission prompt ตามปกติ แทนที่จะถูกอนุมัติให้อัตโนมัติ
+- **`/login` เตือนเรื่อง token override ซ้ำ** — หลัง login สำเร็จ ระบบจะเตือนอีกครั้งว่า `CLAUDE_CODE_OAUTH_TOKEN` จะ override credential ที่เพิ่งสร้างไป
 
 ---
 
@@ -1421,6 +1430,9 @@ Skill(commit)                    # Skill เฉพาะ
 
 ### 🆕 ใหม่ใน v2.1.228
 - **โมเดลรุ่นใหม่ใช้ `Write` ทับไฟล์เดิมได้โดยไม่ต้องอ่านก่อน** — tool `Write` ยอมให้โมเดลรุ่นใหม่เขียนทับไฟล์ที่ยังไม่ได้อ่านใน session นี้ ให้เป็นกติกาเดียวกับ tool `Edit`; ส่วนโมเดลรุ่นเก่ายังต้องอ่านไฟล์ก่อนเหมือนเดิม
+
+### 🆕 ใหม่ใน v2.1.229
+- **รายการโดเมนเครือข่ายของ sandbox เข้มขึ้น** — IPv6 แบบระบุเลขตรง ๆ ต้องใส่วงเล็บเหลี่ยม (`[::1]:443`) และการเขียนที่กำกวมจะถูกบังคับแบบ fail-closed พร้อมถูก `/doctor` ชี้ให้เห็น
 
 ---
 
@@ -2114,6 +2126,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **hook `DirectoryAdded`** — ยิงหลัง `/add-dir` (หรือ control request `register_repo_root` ของ SDK) ลงทะเบียน working directory ใหม่กลาง session
 
+### 🆕 ใหม่ใน v2.1.229
+
+- **self-hosted runner รับ hook จากฝั่ง server ได้แล้ว** — session ที่รันบน self-hosted runner รับ hook ที่ server ส่งมาให้ได้ เหมือนกับที่ managed environment ทำอยู่แล้ว
+
 ---
 
 ## 11. Skills (คำสั่งที่สร้างเอง)
@@ -2424,6 +2440,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **`SendMessage` เริ่มบทสนทนากับ session ฝั่ง Remote Control ได้แล้ว** — ทักไปหา session Remote Control บนเครื่องอื่น **ด้วยชื่อ** ได้เลย จากเดิมที่ตอบกลับได้อย่างเดียวหลังฝั่งนั้นทักมาก่อน โดย `ListAgents` จะแสดง session พวกนี้เป็น `name [ref]` *(v2.1.225)*
 - **ผู้รับฝั่ง Remote Control ที่ยืนยันแล้วจะไม่ถูกสลับตัว** — เมื่อเรายืนยันผู้รับฝั่ง Remote Control ไปแล้ว `SendMessage` จะไม่แอบเปลี่ยนไปส่งให้ session ชื่อซ้ำกันบนเครื่องนี้แทน แม้ตอนนั้นจะเช็ก list ของ session ฝั่งนั้นไม่ได้ *(v2.1.225)*
+
+### 🆕 ใหม่ใน v2.1.229
+
+- **`ListAgents` บอกสถานะการติดต่อแล้ว** — session Remote Control ที่หลุดการเชื่อมต่อจะถูกทำเครื่องหมายว่า `offline` และ session บน cloud ของเราจะติดป้าย `cloud` ทำให้ดูออกทันทีว่าตัวไหนทักได้จริง
 
 ---
 
@@ -2843,6 +2863,12 @@ cat src/*.ts | claude -p "หา Bug"
 
 - **Focus view (VS Code)** — toggle ในเมนูแชตที่ซ่อนรายละเอียดการเรียก tool ไว้หลังสรุปแบบ "ต่อ turn" ที่กดขยายได้ พร้อมตัวบอกสถานะ tool ที่กำลังรันแบบสด เปิด/ปิดด้วย `Ctrl+Alt+F` หรือคำสั่ง **"Claude Code: Toggle Focus view"**
 
+### 🆕 ใหม่ใน v2.1.229
+
+- **จัดกลุ่ม session ได้ (VS Code)** — จัดกลุ่ม session ใน sidebar ได้แล้ว คลิกขวาเพื่อสร้าง/เปลี่ยนชื่อ/ลบกลุ่ม และกด Cmd/Ctrl หรือ Shift ค้างเพื่อย้ายหลาย session พร้อมกัน
+- **ปรับขนาดพาเนล `/btw` ได้ (VS Code)** — ลากขอบพาเนลถามแทรกข้างได้ทั้งแบบ dock ด้านข้างและแบบวางซ้อน
+- **"Report a problem" กับ `/bug` เปิด dialog ส่ง feedback ในตัว** ของ VS Code แทนลิงก์แบบสอบถามเดิมที่เลิกใช้แล้ว
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**
@@ -2949,6 +2975,10 @@ claude --plugin-dir ./my-plugin
 ### 🆕 ใหม่ใน v2.1.224
 
 - **plugin source แบบ `archive`** — ติดตั้ง plugin จากไฟล์ zip ที่เสิร์ฟผ่าน HTTPS ได้เลย ไม่ต้องใช้ git และไม่ต้องใช้ npm; ระบุ SHA-256 ที่คาดไว้เพื่อ pin และตรวจสอบไฟล์ที่โหลดมาได้ด้วย
+
+### 🆕 ใหม่ใน v2.1.229
+
+- **marketplace source แบบ `command`** — ให้ marketplace ชี้ไปที่คำสั่งในเครื่อง (เช่น IDE) ที่พิมพ์ path ของไดเรกทอรี plugin ออกมา โดยระบบจะ resolve path ใหม่ทุกครั้งที่เริ่ม session และใช้ผลลัพธ์ได้เลยโดยไม่ต้อง restart Claude Code; ถ้าตั้ง `mode: "link"` จะใช้ไดเรกทอรีนั้นที่เดิมแทนการคัดลอก
 
 ---
 
@@ -3298,6 +3328,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_1M_CONTEXT` | กด context ของโมเดล Claude **ทุกตัว** ที่มี window 1M แบบ native ให้เหลือ 200K ด้วย auto-compaction (เดิมมีผลเฉพาะรายชื่อโมเดลที่ fix ไว้); ถ้า auto-compaction กดไม่อยู่ที่ 200K จะมีคำเตือนตอนเปิดโปรแกรม *(เปลี่ยน v2.1.223)* |
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | ตั้ง `1` เพื่อให้ session ที่ใช้ model ID ที่ไม่รู้จักโตเกิน context window ที่ระบบเดาไว้ได้เหมือนเดิม — ตั้งแต่ v2.1.223 auto-compact จะคุมไม่ให้เกินเป็นค่าเริ่มต้น *(v2.1.223)* |
 | `ANTHROPIC_BEDROCK_REGION_PREFIX` | บน Bedrock ใช้เลือก cross-region inference profile ที่ต้องการ แทนตัวที่ระบบอนุมานจาก `AWS_REGION` *(v2.1.224)* |
+| `CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS` | ระยะหน่วงระหว่าง agent พี่น้องใน workflow ที่ใช้ prompt prefix เดียวกัน เพื่อให้ตัวหลังอ่าน prefix จาก cache; ตั้ง `0` เพื่อปิด *(v2.1.229)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
@@ -4612,7 +4643,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.228`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.229`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

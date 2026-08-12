@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.228         │
+│ Welcome to Claude Code v2.1.229         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -547,6 +547,11 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - `claude agents` ขึ้น **prompt ยืนยันความไว้ใจ workspace** เมื่อเปิดในไดเรกทอรีที่ยังไม่ได้ trust แล้ว เหมือนที่ `claude` ทำอยู่เดิม *(v2.1.225)*
 
+### 🆕 ใหม่ใน v2.1.229
+
+- `claude remote-control --continue` — ต่อ session Remote Control ล่าสุดได้เลย แทนที่จะเริ่ม session ใหม่
+- **`claude self-hosted-runner` บน Windows ต้องใส่ `--base-dir`** — ตอนเริ่มบน Windows ไม่มีไดเรกทอรี checkout ค่าเริ่มต้นให้แล้ว ต้องระบุ base directory เองทุกครั้ง
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -918,7 +923,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.228
+- run: npm install -g @anthropic-ai/claude-code@2.1.229
 ```
 
 ---

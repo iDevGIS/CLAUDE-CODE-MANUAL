@@ -187,6 +187,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **hook `DirectoryAdded`** — ยิงหลัง `/add-dir` (หรือ control request `register_repo_root` ของ SDK) ลงทะเบียน working directory ใหม่กลาง session
 
+#### 🆕 ใหม่ใน v2.1.229
+
+- **self-hosted runner รับ hook จากฝั่ง server ได้แล้ว** — session ที่รันบน self-hosted runner รับ hook ที่ server ส่งมาให้ได้ เหมือนกับที่ managed environment ทำอยู่แล้ว
+
 ---
 
 ---

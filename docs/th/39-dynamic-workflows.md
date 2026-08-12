@@ -135,6 +135,11 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 - **ขนาด default เป็น "medium" แล้ว** — dynamic workflow ตั้งเป้าใช้ agent ไม่เกิน ~15 ตัวโดย default; เปลี่ยนขนาด (หรือปลดเป็น unrestricted) ได้ที่ **Dynamic workflow size** ใน `/config` หรือตั้งผ่าน settings key ใหม่ `workflowSizeGuideline` จาก settings ไฟล์ไหนก็ได้ (ระหว่างที่ตั้งไว้ แถวใน `/config` จะถูกซ่อน)
 - **status line บอกขนาด** — status line ของ workflow ที่กำลังรันแสดงขนาด default ปัจจุบัน พร้อมชี้ไปที่ `/config`
 
+### 🆕 ใหม่ใน v2.1.229
+
+- **หน่วงเวลา agent พี่น้องเพื่อใช้ prompt cache** — ตอน fan-out ระบบจะทยอยปล่อย agent พี่น้องที่ใช้ prompt prefix เดียวกัน เพื่อให้ตัวหลัง ๆ อ่าน prefix จาก cache แทนที่จะจ่ายค่า token ซ้ำ; ปิดพฤติกรรมนี้ด้วย `CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS=0`
+- **นับ CPU ตามลิมิตของ container แล้ว** — เมื่อรันใน container ที่จำกัด CPU เพดานจำนวน agent ที่รันพร้อมกันจะยึดลิมิต CPU ของ container แทนจำนวนคอร์ของเครื่อง host
+
 ---
 
 ---

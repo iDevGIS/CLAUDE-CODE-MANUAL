@@ -155,6 +155,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **`SendMessage` can open a conversation with a Remote Control session** — you can now message a Remote Control session on another machine **by name**, instead of only being able to reply after it messaged you first. `ListAgents` lists these as `name [ref]` *(v2.1.225)*.
 - **A confirmed Remote Control recipient is never swapped** — once you have confirmed a Remote Control recipient, `SendMessage` will not silently substitute a same-named session on this machine when the local session list can't be checked *(v2.1.225)*.
 
+### New in v2.1.229
+
+- **`ListAgents` shows reachability** — disconnected Remote Control sessions are marked `offline`, and your cloud sessions are labeled `cloud`, so you can tell at a glance which ones you can actually message.
+
 ---
 
 ---

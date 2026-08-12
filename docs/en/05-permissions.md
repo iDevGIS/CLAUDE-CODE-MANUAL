@@ -163,6 +163,9 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.228
 - **Write no longer forces a read first on newer models** — the `Write` tool lets newer models overwrite an existing file they haven't read in the session, matching the `Edit` tool's rules; older models still have to read the file first.
 
+### New in v2.1.229
+- **Sandbox network domain lists are stricter** — IPv6 literals must be bracketed (`[::1]:443`), and ambiguous spellings are enforced fail-closed and flagged by `/doctor`.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

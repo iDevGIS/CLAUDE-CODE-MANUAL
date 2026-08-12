@@ -151,6 +151,10 @@ related:
 - **`/review` กลายเป็น alias ของ `/code-review`** — เหลือคำสั่งเดียวที่รีวิว diff ปัจจุบันหรือรีวิว PR (`/code-review <level> <pr#>`); อยากได้รีวิวลึกบน cloud ใช้ `/code-review ultra`
 - **`/code-review` จำ effort level ล่าสุด** — เรียกเปล่า ๆ จะใช้ level ที่พิมพ์ไว้ครั้งก่อน ถ้าจะเปลี่ยนก็พิมพ์ level ไปด้วย เช่น `/code-review high`
 
+### 🆕 ใหม่ใน v2.1.229
+- **`/commit-push-pr` ไม่ auto-approve คำสั่งที่มี flag อันตรายแล้ว** — คำสั่ง git/gh ที่ติด flag อย่าง `--force`, `--amend` หรือ `--no-verify` จะขึ้น permission prompt ตามปกติ แทนที่จะถูกอนุมัติให้อัตโนมัติ
+- **`/login` เตือนเรื่อง token override ซ้ำ** — หลัง login สำเร็จ ระบบจะเตือนอีกครั้งว่า `CLAUDE_CODE_OAUTH_TOKEN` จะ override credential ที่เพิ่งสร้างไป
+
 ---
 
 ---

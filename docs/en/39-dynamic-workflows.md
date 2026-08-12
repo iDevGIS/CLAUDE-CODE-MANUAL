@@ -135,6 +135,11 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 - **Default size guideline is now "medium"** — dynamic workflows aim for fewer than 15 agents by default; pick another size (or unrestricted) via **Dynamic workflow size** in `/config`, or set it from any settings file with the new `workflowSizeGuideline` key (the `/config` row is hidden while a settings file sets it).
 - **Size shown in the status line** — the running-workflow status line now shows the current default workflow size, with a pointer to `/config`.
 
+### New in v2.1.229
+
+- **Sibling agents are staggered for prompt caching** — a fan-out staggers sibling agents that share a prompt prefix, so the later ones read the cached prefix instead of re-paying for it. Set `CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS=0` to disable the stagger.
+- **Container CPU limits are respected** — inside a CPU-limited container the concurrency cap follows the container's CPU limit instead of the host machine's core count.
+
 ---
 
 ---

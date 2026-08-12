@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.228         │
+│ Welcome to Claude Code v2.1.229         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -547,6 +547,11 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - `claude agents` now shows the **workspace trust prompt** when it starts in an untrusted directory, matching what `claude` already does *(v2.1.225)*.
 
+### New in v2.1.229
+
+- `claude remote-control --continue` — resume the most recent Remote Control session instead of starting a new one.
+- **`claude self-hosted-runner` requires `--base-dir` on Windows** — Windows startup no longer has a default checkout directory, so you must pass the base directory explicitly.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -918,7 +923,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.228
+- run: npm install -g @anthropic-ai/claude-code@2.1.229
 ```
 
 ---
