@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.229         │
+│ Welcome to Claude Code v2.1.231         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.229
+- run: npm install -g @anthropic-ai/claude-code@2.1.231
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -4657,7 +4657,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.229`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.231`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

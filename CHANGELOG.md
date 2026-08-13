@@ -25,6 +25,19 @@
 
 ---
 
+## [1.37.0] — 2026-08-13
+
+### Compatibility
+- **Claude Code:** `v2.1.231+`
+
+### Changed
+- **Version strings** bumped `2.1.229` → `2.1.231` (current-version references only; historical sections kept)
+
+### Why
+- `2.1.231` ships a single change — a fix for MCP OAuth sign-in failing with a redirect URI mismatch on servers that use a pre-registered OAuth client (such as Slack). It is a bug fix with no new command, flag, setting, or behavior for readers to learn, so this release is a compatibility bump only
+
+---
+
 ## [1.36.0] — 2026-08-13
 
 ### Compatibility
@@ -884,6 +897,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.37.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.36.0...v1.37.0
 [1.36.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.35.0...v1.36.0
 [1.35.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.34.0...v1.35.0
 [1.34.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...v1.34.0
