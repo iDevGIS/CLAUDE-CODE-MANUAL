@@ -70,6 +70,9 @@ related:
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | ตั้ง `1` เพื่อให้ session ที่ใช้ model ID ที่ไม่รู้จักโตเกิน context window ที่ระบบเดาไว้ได้เหมือนเดิม — ตั้งแต่ v2.1.223 auto-compact จะคุมไม่ให้เกินเป็นค่าเริ่มต้น *(v2.1.223)* |
 | `ANTHROPIC_BEDROCK_REGION_PREFIX` | บน Bedrock ใช้เลือก cross-region inference profile ที่ต้องการ แทนตัวที่ระบบอนุมานจาก `AWS_REGION` *(v2.1.224)* |
 | `CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS` | ระยะหน่วงระหว่าง agent พี่น้องใน workflow ที่ใช้ prompt prefix เดียวกัน เพื่อให้ตัวหลังอ่าน prefix จาก cache; ตั้ง `0` เพื่อปิด *(v2.1.229)* |
+| `CLAUDE_CODE_TOOL_MEMORY_LIMIT` | จำกัด memory ของคำสั่ง Bash tool ด้วย cgroup บน Linux (ต้องเปิดเอง) กัน build ที่หลุดควบคุมทำ session ค้าง *(v2.1.233)* |
+| `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` | TTL ของ URL cache ที่ WebFetch ใช้ในแต่ละ session (ค่าเริ่มต้นเท่าเดิม: 15 นาที) *(v2.1.233)* |
+| `CLAUDE_CODE_ENABLE_TODO_TOOLS` | ตั้ง `1` เพื่อเอา todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`) กลับมา — โมเดล Opus 4.8, Sonnet 5, Fable 5, Mythos 5 และรุ่นที่ใหม่กว่าไม่มีเครื่องมือกลุ่มนี้แล้ว *(v2.1.233)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 

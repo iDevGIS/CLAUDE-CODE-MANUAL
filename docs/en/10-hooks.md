@@ -187,6 +187,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 - **Server-supplied hooks on self-hosted runners** — self-hosted runner sessions can now receive hooks supplied by the server, matching how managed environments already behave.
 
+### New in v2.1.233
+
+- **Todo/task tools are gone on newer models** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` and `TodoWrite` (the tools behind the `TaskCreated` event) are no longer available on Opus 4.8, Sonnet 5, Fable 5, Mythos 5, and newer models; set `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` to bring them back.
+
 ---
 
 ---

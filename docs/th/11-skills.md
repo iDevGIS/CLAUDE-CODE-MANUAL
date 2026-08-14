@@ -179,6 +179,10 @@ my-skill/
 
 - **skill ที่ sync มาจาก claude.ai ถูกจำกัดสิทธิ์แล้ว** — บัง command ในเครื่องเราหรือ MCP prompt ไม่ได้อีกต่อไป, คำอธิบายถูก sanitize และติดป้ายว่ามาจากการ sync, และเนื้อ skill พวกนี้จะ**ไม่**รันคำสั่ง `!` หรือ expand ไฟล์ด้วย `@` บนเครื่องเรา
 
+### 🆕 ใหม่ใน v2.1.233
+
+- **`claude plugin validate` ตรวจโฟลเดอร์ `.claude/skills` เปล่า ๆ ได้แล้ว** — ตรวจ skill ที่ไม่ได้ห่อเป็น plugin ด้วย และรายงานไฟล์ SKILL.md ที่ frontmatter parse ไม่ผ่าน
+
 ---
 
 ---

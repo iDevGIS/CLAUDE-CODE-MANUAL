@@ -186,6 +186,10 @@ related:
 - **`blockedMarketplaces` แบบ url บล็อกตอน git clone ด้วย** — entry แบบ url ในนโยบายองค์กรที่ชี้ไป repo URL ตรง ๆ ยังบล็อก URL นั้นอยู่ แม้ CLI จะจัดว่าเป็นการ git clone
 - **dialog อนุมัติ managed settings ชัดขึ้น** — แสดง URL ของ endpoint, ใช้ถ้อยคำที่ชัดขึ้นกับการเปลี่ยนที่แตะแค่ telemetry, ข้ามตัวเลือก OpenTelemetry ทั่ว ๆ ไป และบังคับให้กดอนุมัติเมื่อ server สั่ง override binary ของ sandbox (`sandbox.bwrapPath`, `sandbox.socatPath`, `sandbox.ripgrep`)
 
+### 🆕 ใหม่ใน v2.1.233
+
+- **`modelOverrides` ปิด diagnostic เรื่อง model ที่ไม่รู้จักได้** — เมื่อยิง request ด้วย model ID ที่ Claude Code ไม่รู้จัก print mode จะเขียนบรรทัด `[claude-code:unrecognized_model]` ลง stderr; แมป ID นั้นไว้ใน `modelOverrides` แล้วข้อความจะหายไป
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

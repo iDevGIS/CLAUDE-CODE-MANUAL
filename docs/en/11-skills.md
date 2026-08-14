@@ -179,6 +179,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **Skills synced from claude.ai are sandboxed** — they can no longer shadow your local commands or MCP prompts, their descriptions are sanitized and labeled as synced, and on your machine their bodies do **not** run `!` commands or expand `@` file references.
 
+### New in v2.1.233
+
+- **`claude plugin validate` checks a bare `.claude/skills` directory** — validation now covers skills that aren't wrapped in a plugin, reporting SKILL.md files whose frontmatter fails to parse.
+
 ---
 
 ---

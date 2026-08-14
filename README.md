@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.232-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.38.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.233-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.39.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.232`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.233`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -69,8 +69,11 @@
 | 🍴 **fork subagent เป็นค่าเริ่มต้น** | `subagent_type: "fork"` สืบทอดบทสนทนาเต็ม + prompt cache · agent ที่ไม่ใช่ teammate รันเป็น background โดย default (v2.1.232) |
 | 💬 **พิมพ์ `@` ทัก session อื่น** | mention session อื่นด้วยชื่อในช่อง prompt แล้ว Claude ใช้ `SendMessage` ทักให้ · ชื่อ session บนเครื่องเดียวกันไม่ซ้ำกันแล้ว (v2.1.232) |
 | 🦊 **รองรับ GitLab** | marketplace โคลนจาก URL `gitlab.com` ตรง ๆ ได้ (รวม subgroup ซ้อน) · redact token ตระกูล GitLab · `glab` ได้การป้องกันระดับเดียวกับ `gh` (v2.1.232) |
+| 🔀 **GitLab merge request** | ใส่ URL ของ MR ให้ `--worktree` ได้แล้ว · หน้า `claude agents` แสดง MR เป็น `!N` (v2.1.233) |
+| 🗂️ **โมเดลใหม่ไม่มี todo/task tools** | `TaskCreate`/`TaskGet`/`TaskUpdate`/`TaskList` + `TodoWrite` ถูกถอดจาก Opus 4.8 · Sonnet 5 · Fable 5 · Mythos 5 และรุ่นใหม่กว่า — ตั้ง `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` เพื่อเอากลับ (v2.1.233) |
+| 🧪 **env var ใหม่** | `CLAUDE_CODE_TOOL_MEMORY_LIMIT` จำกัด memory ของคำสั่ง Bash ด้วย cgroup บน Linux · `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` ปรับ TTL ของ WebFetch URL cache (v2.1.233) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.232` (manual `v1.38.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.233` (manual `v1.39.0`)
 
 ---
 
@@ -93,7 +96,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.232** + โมเดล Fable 5 / Opus 5 / Sonnet 5
+ตรงกับ Claude Code **v2.1.233** + โมเดล Fable 5 / Opus 5 / Sonnet 5
 
 </td>
 </tr>
@@ -153,7 +156,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.232`
+> **Claude Code Version:** `2.1.233`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

@@ -70,6 +70,9 @@ related:
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | Set `1` to let sessions on unrecognized model IDs grow past the assumed context window again — since v2.1.223 auto-compact keeps them inside it by default. *(v2.1.223)* |
 | `ANTHROPIC_BEDROCK_REGION_PREFIX` | On Bedrock, prefer a specific cross-region inference profile instead of the one derived from `AWS_REGION`. *(v2.1.224)* |
 | `CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS` | Stagger between sibling workflow agents that share a prompt prefix, so later agents hit the cached prefix; set `0` to disable. *(v2.1.229)* |
+| `CLAUDE_CODE_TOOL_MEMORY_LIMIT` | Opt-in memory cgroup for Bash tool commands on Linux, so a runaway build can't stall the session. *(v2.1.233)* |
+| `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` | TTL of the WebFetch session URL cache (default unchanged: 15 minutes). *(v2.1.233)* |
+| `CLAUDE_CODE_ENABLE_TODO_TOOLS` | Set `1` to restore the todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`), which are no longer available on Opus 4.8, Sonnet 5, Fable 5, Mythos 5, and newer models. *(v2.1.233)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 

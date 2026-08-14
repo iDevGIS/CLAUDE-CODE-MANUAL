@@ -191,6 +191,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **self-hosted runner รับ hook จากฝั่ง server ได้แล้ว** — session ที่รันบน self-hosted runner รับ hook ที่ server ส่งมาให้ได้ เหมือนกับที่ managed environment ทำอยู่แล้ว
 
+#### 🆕 ใหม่ใน v2.1.233
+
+- **โมเดลรุ่นใหม่ไม่มี todo/task tools แล้ว** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` และ `TodoWrite` (กลุ่มเครื่องมือที่ทำให้เกิด event `TaskCreated`) ถูกถอดออกจาก Opus 4.8, Sonnet 5, Fable 5, Mythos 5 และรุ่นที่ใหม่กว่า; ตั้ง `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` เพื่อเอากลับมา
+
 ---
 
 ---

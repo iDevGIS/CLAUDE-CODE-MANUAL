@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.232         │
+│ Welcome to Claude Code v2.1.233         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.232
+- run: npm install -g @anthropic-ai/claude-code@2.1.233
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1001,6 +1001,12 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 - `claude remote-control --continue` — resume the most recent Remote Control session instead of starting a new one.
 - **`claude self-hosted-runner` requires `--base-dir` on Windows** — Windows startup no longer has a default checkout directory, so you must pass the base directory explicitly.
+
+### New in v2.1.233
+
+- **GitLab merge requests in `--worktree` and `claude agents`** — the `--worktree` flag accepts a GitLab merge request URL, and the `claude agents` view displays merge requests as `!N`.
+- **`[claude-code:unrecognized_model]` diagnostics in print mode** — when a request goes out for a model ID Claude Code doesn't recognize, print mode writes a `[claude-code:unrecognized_model]` line to stderr; map the ID with `modelOverrides` to silence it.
+- **`claude self-hosted-runner` starts faster** — the session branch is created without rewriting the working tree, and two server round trips no longer block the agent's launch.
 
 ---
 
@@ -1617,6 +1623,10 @@ Skill(commit)                    # Specific skill
 - **`blockedMarketplaces` url entries also block git clones** — an enterprise-policy url entry for a bare repo URL keeps blocking that URL when the CLI classifies it as a git clone.
 - **The managed-settings approval dialog is clearer** — it shows endpoint URLs, words telemetry-only changes more plainly, skips routine OpenTelemetry options, and now requires approval for server-managed sandbox binary overrides (`sandbox.bwrapPath`, `sandbox.socatPath`, `sandbox.ripgrep`).
 
+### New in v2.1.233
+
+- **`modelOverrides` silences the unrecognized-model diagnostic** — print mode writes a `[claude-code:unrecognized_model]` line to stderr when a request goes out for a model ID Claude Code doesn't recognize; mapping that ID in `modelOverrides` stops the message.
+
 ---
 
 ## 7. CLAUDE.md - Persistent Project Instructions
@@ -2092,6 +2102,10 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 
 - **Server-supplied hooks on self-hosted runners** — self-hosted runner sessions can now receive hooks supplied by the server, matching how managed environments already behave.
 
+### New in v2.1.233
+
+- **Todo/task tools are gone on newer models** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` and `TodoWrite` (the tools behind the `TaskCreated` event) are no longer available on Opus 4.8, Sonnet 5, Fable 5, Mythos 5, and newer models; set `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` to bring them back.
+
 ### Configuring Hooks
 
 **In `.claude/settings.json`:**
@@ -2321,6 +2335,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 ### New in v2.1.228
 
 - **Skills synced from claude.ai are sandboxed** — they can no longer shadow your local commands or MCP prompts, their descriptions are sanitized and labeled as synced, and on your machine their bodies do **not** run `!` commands or expand `@` file references.
+
+### New in v2.1.233
+
+- **`claude plugin validate` checks a bare `.claude/skills` directory** — validation now covers skills that aren't wrapped in a plugin, reporting SKILL.md files whose frontmatter fails to parse.
 
 ---
 
@@ -3376,6 +3394,9 @@ your-project/
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | Set `1` to let sessions on unrecognized model IDs grow past the assumed context window again — since v2.1.223 auto-compact keeps them inside it by default. *(v2.1.223)* |
 | `ANTHROPIC_BEDROCK_REGION_PREFIX` | On Bedrock, prefer a specific cross-region inference profile instead of the one derived from `AWS_REGION`. *(v2.1.224)* |
 | `CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS` | Stagger between sibling workflow agents that share a prompt prefix, so later agents hit the cached prefix; set `0` to disable. *(v2.1.229)* |
+| `CLAUDE_CODE_TOOL_MEMORY_LIMIT` | Opt-in memory cgroup for Bash tool commands on Linux, so a runaway build can't stall the session. *(v2.1.233)* |
+| `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` | TTL of the WebFetch session URL cache (default unchanged: 15 minutes). *(v2.1.233)* |
+| `CLAUDE_CODE_ENABLE_TODO_TOOLS` | Set `1` to restore the todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`), which are no longer available on Opus 4.8, Sonnet 5, Fable 5, Mythos 5, and newer models. *(v2.1.233)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
@@ -4693,7 +4714,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.232`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.233`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

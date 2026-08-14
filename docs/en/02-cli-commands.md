@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.232         │
+│ Welcome to Claude Code v2.1.233         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -552,6 +552,12 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - `claude remote-control --continue` — resume the most recent Remote Control session instead of starting a new one.
 - **`claude self-hosted-runner` requires `--base-dir` on Windows** — Windows startup no longer has a default checkout directory, so you must pass the base directory explicitly.
 
+### New in v2.1.233
+
+- **GitLab merge requests in `--worktree` and `claude agents`** — the `--worktree` flag accepts a GitLab merge request URL, and the `claude agents` view displays merge requests as `!N`.
+- **`[claude-code:unrecognized_model]` diagnostics in print mode** — when a request goes out for a model ID Claude Code doesn't recognize, print mode writes a `[claude-code:unrecognized_model]` line to stderr; map the ID with `modelOverrides` to silence it.
+- **`claude self-hosted-runner` starts faster** — the session branch is created without rewriting the working tree, and two server round trips no longer block the agent's launch.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -923,7 +929,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.232
+- run: npm install -g @anthropic-ai/claude-code@2.1.233
 ```
 
 ---

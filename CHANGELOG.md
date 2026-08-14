@@ -25,6 +25,31 @@
 
 ---
 
+## [1.39.0] — 2026-08-15
+
+### Compatibility
+- **Claude Code:** `v2.1.233+`
+
+### Added
+- **GitLab merge request support in `--worktree` and `claude agents`** — the `--worktree` flag accepts a GitLab merge request URL, and the `claude agents` view displays merge requests as `!N` (`v2.1.233`) — chapter 02
+- **`CLAUDE_CODE_TOOL_MEMORY_LIMIT`** — opt-in memory cgroup for Bash tool commands on Linux, so a runaway build can't stall the session (`v2.1.233`) — chapter 23
+- **`CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS`** — configures the TTL of the WebFetch session URL cache; the default is unchanged at 15 minutes (`v2.1.233`) — chapter 23
+- **`CLAUDE_CODE_ENABLE_TODO_TOOLS`** — set `1` to restore the todo/task tools on models that no longer carry them (`v2.1.233`) — chapters 10, 23
+- **`[claude-code:unrecognized_model]` print-mode diagnostic** — print mode writes this line to stderr when a request goes out for a model ID Claude Code doesn't recognize; mapping the ID with `modelOverrides` silences it (`v2.1.233`) — chapters 02, 06
+
+### Changed
+- **Todo/task tools are gone on newer models** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` and `TodoWrite` are no longer available on Opus 4.8, Sonnet 5, Fable 5, Mythos 5, and newer models (`v2.1.233`) — chapters 10, 23
+- **`claude plugin validate` checks a bare `.claude/skills` directory** — validation covers skills that aren't wrapped in a plugin and reports SKILL.md files whose frontmatter fails to parse (`v2.1.233`) — chapter 11
+- **`claude self-hosted-runner` starts faster** — the session branch is created without rewriting the working tree, and two server round trips no longer block the agent's launch (`v2.1.233`) — chapter 02
+- **Version strings** bumped `2.1.232` → `2.1.233` (current-version references only; historical sections kept)
+
+### Why
+- The todo/task tool removal is the reader-facing change of `2.1.233`: anyone on Opus 4.8 / Sonnet 5 / Fable 5 / Mythos 5 loses `TodoWrite` and the `Task*` tools by default, which also affects the `TaskCreated` hook — so it is documented in both the hooks chapter and the env-var table alongside its escape hatch
+- GitLab support keeps widening after `2.1.232`; merge request URLs in `--worktree` and the `claude agents` view are the practical follow-up for GitLab teams
+- Apps gateway items in this release (the opt-in `forward_user_identity` setting on Anthropic upstreams and upstream 400/413 error forwarding for Vertex / Foundry / Claude Platform on AWS) are left out — the manual still has no gateway-configuration chapter, matching the `1.38.0` decision
+
+---
+
 ## [1.38.0] — 2026-08-14
 
 ### Compatibility
@@ -925,6 +950,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.39.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.38.0...v1.39.0
 [1.38.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.37.0...v1.38.0
 [1.37.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.36.0...v1.37.0
 [1.36.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.35.0...v1.36.0

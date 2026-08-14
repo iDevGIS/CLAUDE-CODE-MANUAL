@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.232         │
+│ Welcome to Claude Code v2.1.233         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -552,6 +552,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - `claude remote-control --continue` — ต่อ session Remote Control ล่าสุดได้เลย แทนที่จะเริ่ม session ใหม่
 - **`claude self-hosted-runner` บน Windows ต้องใส่ `--base-dir`** — ตอนเริ่มบน Windows ไม่มีไดเรกทอรี checkout ค่าเริ่มต้นให้แล้ว ต้องระบุ base directory เองทุกครั้ง
 
+### 🆕 ใหม่ใน v2.1.233
+
+- **GitLab merge request ใน `--worktree` และ `claude agents`** — flag `--worktree` รับ URL ของ merge request บน GitLab ได้แล้ว และหน้า `claude agents` แสดง merge request เป็น `!N`
+- **print mode มี diagnostic `[claude-code:unrecognized_model]`** — เมื่อยิง request ด้วย model ID ที่ Claude Code ไม่รู้จัก print mode จะเขียนบรรทัด `[claude-code:unrecognized_model]` ลง stderr; แมป ID นั้นด้วย `modelOverrides` เพื่อปิดข้อความนี้
+- **`claude self-hosted-runner` เริ่ม session เร็วขึ้น** — สร้าง branch ของ session โดยไม่ต้องเขียน working tree ใหม่ และไม่มี round trip ไปเซิร์ฟเวอร์ 2 รอบมาขวางตอน agent เริ่มทำงานแล้ว
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -923,7 +929,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.232
+- run: npm install -g @anthropic-ai/claude-code@2.1.233
 ```
 
 ---

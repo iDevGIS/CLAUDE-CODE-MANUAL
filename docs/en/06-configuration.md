@@ -186,6 +186,10 @@ Set the `model` key to any of these (newest → cheapest):
 - **`blockedMarketplaces` url entries also block git clones** — an enterprise-policy url entry for a bare repo URL keeps blocking that URL when the CLI classifies it as a git clone.
 - **The managed-settings approval dialog is clearer** — it shows endpoint URLs, words telemetry-only changes more plainly, skips routine OpenTelemetry options, and now requires approval for server-managed sandbox binary overrides (`sandbox.bwrapPath`, `sandbox.socatPath`, `sandbox.ripgrep`).
 
+### New in v2.1.233
+
+- **`modelOverrides` silences the unrecognized-model diagnostic** — print mode writes a `[claude-code:unrecognized_model]` line to stderr when a request goes out for a model ID Claude Code doesn't recognize; mapping that ID in `modelOverrides` stops the message.
+
 ---
 
 ---

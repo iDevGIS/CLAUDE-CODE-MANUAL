@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.232         │
+│ Welcome to Claude Code v2.1.233         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -656,6 +656,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - `claude remote-control --continue` — ต่อ session Remote Control ล่าสุดได้เลย แทนที่จะเริ่ม session ใหม่
 - **`claude self-hosted-runner` บน Windows ต้องใส่ `--base-dir`** — ตอนเริ่มบน Windows ไม่มีไดเรกทอรี checkout ค่าเริ่มต้นให้แล้ว ต้องระบุ base directory เองทุกครั้ง
 
+### 🆕 ใหม่ใน v2.1.233
+
+- **GitLab merge request ใน `--worktree` และ `claude agents`** — flag `--worktree` รับ URL ของ merge request บน GitLab ได้แล้ว และหน้า `claude agents` แสดง merge request เป็น `!N`
+- **print mode มี diagnostic `[claude-code:unrecognized_model]`** — เมื่อยิง request ด้วย model ID ที่ Claude Code ไม่รู้จัก print mode จะเขียนบรรทัด `[claude-code:unrecognized_model]` ลง stderr; แมป ID นั้นด้วย `modelOverrides` เพื่อปิดข้อความนี้
+- **`claude self-hosted-runner` เริ่ม session เร็วขึ้น** — สร้าง branch ของ session โดยไม่ต้องเขียน working tree ใหม่ และไม่มี round trip ไปเซิร์ฟเวอร์ 2 รอบมาขวางตอน agent เริ่มทำงานแล้ว
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -987,7 +993,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.232
+- run: npm install -g @anthropic-ai/claude-code@2.1.233
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1611,6 +1617,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **`blockedMarketplaces` แบบ url บล็อกตอน git clone ด้วย** — entry แบบ url ในนโยบายองค์กรที่ชี้ไป repo URL ตรง ๆ ยังบล็อก URL นั้นอยู่ แม้ CLI จะจัดว่าเป็นการ git clone
 - **dialog อนุมัติ managed settings ชัดขึ้น** — แสดง URL ของ endpoint, ใช้ถ้อยคำที่ชัดขึ้นกับการเปลี่ยนที่แตะแค่ telemetry, ข้ามตัวเลือก OpenTelemetry ทั่ว ๆ ไป และบังคับให้กดอนุมัติเมื่อ server สั่ง override binary ของ sandbox (`sandbox.bwrapPath`, `sandbox.socatPath`, `sandbox.ripgrep`)
 
+### 🆕 ใหม่ใน v2.1.233
+
+- **`modelOverrides` ปิด diagnostic เรื่อง model ที่ไม่รู้จักได้** — เมื่อยิง request ด้วย model ID ที่ Claude Code ไม่รู้จัก print mode จะเขียนบรรทัด `[claude-code:unrecognized_model]` ลง stderr; แมป ID นั้นไว้ใน `modelOverrides` แล้วข้อความจะหายไป
+
 ---
 
 ## 7. CLAUDE.md - คำสั่งถาวรสำหรับโปรเจกต์
@@ -2148,6 +2158,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **self-hosted runner รับ hook จากฝั่ง server ได้แล้ว** — session ที่รันบน self-hosted runner รับ hook ที่ server ส่งมาให้ได้ เหมือนกับที่ managed environment ทำอยู่แล้ว
 
+### 🆕 ใหม่ใน v2.1.233
+
+- **โมเดลรุ่นใหม่ไม่มี todo/task tools แล้ว** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` และ `TodoWrite` (กลุ่มเครื่องมือที่ทำให้เกิด event `TaskCreated`) ถูกถอดออกจาก Opus 4.8, Sonnet 5, Fable 5, Mythos 5 และรุ่นที่ใหม่กว่า; ตั้ง `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` เพื่อเอากลับมา
+
 ---
 
 ## 11. Skills (คำสั่งที่สร้างเอง)
@@ -2314,6 +2328,10 @@ my-skill/
 ### 🆕 ใหม่ใน v2.1.228
 
 - **skill ที่ sync มาจาก claude.ai ถูกจำกัดสิทธิ์แล้ว** — บัง command ในเครื่องเราหรือ MCP prompt ไม่ได้อีกต่อไป, คำอธิบายถูก sanitize และติดป้ายว่ามาจากการ sync, และเนื้อ skill พวกนี้จะ**ไม่**รันคำสั่ง `!` หรือ expand ไฟล์ด้วย `@` บนเครื่องเรา
+
+### 🆕 ใหม่ใน v2.1.233
+
+- **`claude plugin validate` ตรวจโฟลเดอร์ `.claude/skills` เปล่า ๆ ได้แล้ว** — ตรวจ skill ที่ไม่ได้ห่อเป็น plugin ด้วย และรายงานไฟล์ SKILL.md ที่ frontmatter parse ไม่ผ่าน
 
 ---
 
@@ -3365,6 +3383,9 @@ your-project/
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | ตั้ง `1` เพื่อให้ session ที่ใช้ model ID ที่ไม่รู้จักโตเกิน context window ที่ระบบเดาไว้ได้เหมือนเดิม — ตั้งแต่ v2.1.223 auto-compact จะคุมไม่ให้เกินเป็นค่าเริ่มต้น *(v2.1.223)* |
 | `ANTHROPIC_BEDROCK_REGION_PREFIX` | บน Bedrock ใช้เลือก cross-region inference profile ที่ต้องการ แทนตัวที่ระบบอนุมานจาก `AWS_REGION` *(v2.1.224)* |
 | `CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS` | ระยะหน่วงระหว่าง agent พี่น้องใน workflow ที่ใช้ prompt prefix เดียวกัน เพื่อให้ตัวหลังอ่าน prefix จาก cache; ตั้ง `0` เพื่อปิด *(v2.1.229)* |
+| `CLAUDE_CODE_TOOL_MEMORY_LIMIT` | จำกัด memory ของคำสั่ง Bash tool ด้วย cgroup บน Linux (ต้องเปิดเอง) กัน build ที่หลุดควบคุมทำ session ค้าง *(v2.1.233)* |
+| `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` | TTL ของ URL cache ที่ WebFetch ใช้ในแต่ละ session (ค่าเริ่มต้นเท่าเดิม: 15 นาที) *(v2.1.233)* |
+| `CLAUDE_CODE_ENABLE_TODO_TOOLS` | ตั้ง `1` เพื่อเอา todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`) กลับมา — โมเดล Opus 4.8, Sonnet 5, Fable 5, Mythos 5 และรุ่นที่ใหม่กว่าไม่มีเครื่องมือกลุ่มนี้แล้ว *(v2.1.233)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
@@ -4679,7 +4700,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.232`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.233`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
