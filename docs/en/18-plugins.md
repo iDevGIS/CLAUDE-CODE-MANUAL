@@ -107,6 +107,12 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 
 - **`command` marketplace source** — a marketplace can point at a local command (for example an IDE) that prints the plugin directory. The path is re-resolved at the start of every session and applied without restarting Claude Code; with `mode: "link"` the directory is used in place instead of being copied.
 
+### New in v2.1.232
+
+- **GitLab marketplaces** — bare `gitlab.com` repo URLs, including nested subgroups, now clone the same way `github.com` URLs do, and a clone auth failure names your actual git host in the hint.
+- **`additionalMarketplaces` / `allowedMarketplaces`** — friendlier aliases for the `extraKnownMarketplaces` and `strictKnownMarketplaces` settings.
+- **`/plugin install plugin@marketplace` refreshes the marketplace first** — a plugin published after your last refresh installs without a manual marketplace update.
+
 ---
 
 ---

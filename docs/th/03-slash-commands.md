@@ -155,6 +155,12 @@ related:
 - **`/commit-push-pr` ไม่ auto-approve คำสั่งที่มี flag อันตรายแล้ว** — คำสั่ง git/gh ที่ติด flag อย่าง `--force`, `--amend` หรือ `--no-verify` จะขึ้น permission prompt ตามปกติ แทนที่จะถูกอนุมัติให้อัตโนมัติ
 - **`/login` เตือนเรื่อง token override ซ้ำ** — หลัง login สำเร็จ ระบบจะเตือนอีกครั้งว่า `CLAUDE_CODE_OAUTH_TOKEN` จะ override credential ที่เพิ่งสร้างไป
 
+### 🆕 ใหม่ใน v2.1.232
+- **Fable 5 กลับมาเป็นตัวเลือกใน `/advisor`** — องค์กรที่มีสิทธิ์ใช้ Fable เลือก Fable 5 เป็น advisor ได้อีกครั้ง โดยตั้งค่ายินยอมเรื่อง usage credit ผ่าน `/model fable`
+- **`/feedback` และ `/bug` เปิดทันที** — เรียกระหว่างที่ Claude กำลังตอบอยู่ก็เปิดให้เลย ไม่ต้องรอ turn จบก่อนแล้ว
+- **`/plugin install plugin@marketplace` refresh marketplace ให้ก่อน** — plugin ที่เพิ่งเผยแพร่ติดตั้งได้เลย ไม่ต้องสั่งอัปเดต marketplace เอง
+- **`/config` มีแถวใหม่ 2 แถว** — "Dialog expiry" และ "Messages from your other sessions" (ตั้งรับ / กักไว้ / ปฏิเสธ ข้อความข้าม session ที่ส่งเข้ามา) ดูรายละเอียดที่ [[06-configuration]]
+
 ---
 
 ---

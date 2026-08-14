@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.231         │
+│ Welcome to Claude Code v2.1.232         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -987,7 +987,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.231
+- run: npm install -g @anthropic-ai/claude-code@2.1.232
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1162,6 +1162,12 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.229
 - **`/commit-push-pr` ไม่ auto-approve คำสั่งที่มี flag อันตรายแล้ว** — คำสั่ง git/gh ที่ติด flag อย่าง `--force`, `--amend` หรือ `--no-verify` จะขึ้น permission prompt ตามปกติ แทนที่จะถูกอนุมัติให้อัตโนมัติ
 - **`/login` เตือนเรื่อง token override ซ้ำ** — หลัง login สำเร็จ ระบบจะเตือนอีกครั้งว่า `CLAUDE_CODE_OAUTH_TOKEN` จะ override credential ที่เพิ่งสร้างไป
+
+### 🆕 ใหม่ใน v2.1.232
+- **Fable 5 กลับมาเป็นตัวเลือกใน `/advisor`** — องค์กรที่มีสิทธิ์ใช้ Fable เลือก Fable 5 เป็น advisor ได้อีกครั้ง โดยตั้งค่ายินยอมเรื่อง usage credit ผ่าน `/model fable`
+- **`/feedback` และ `/bug` เปิดทันที** — เรียกระหว่างที่ Claude กำลังตอบอยู่ก็เปิดให้เลย ไม่ต้องรอ turn จบก่อนแล้ว
+- **`/plugin install plugin@marketplace` refresh marketplace ให้ก่อน** — plugin ที่เพิ่งเผยแพร่ติดตั้งได้เลย ไม่ต้องสั่งอัปเดต marketplace เอง
+- **`/config` มีแถวใหม่ 2 แถว** — "Dialog expiry" และ "Messages from your other sessions" (ตั้งรับ / กักไว้ / ปฏิเสธ ข้อความข้าม session ที่ส่งเข้ามา)
 
 ---
 
@@ -1434,6 +1440,11 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.229
 - **รายการโดเมนเครือข่ายของ sandbox เข้มขึ้น** — IPv6 แบบระบุเลขตรง ๆ ต้องใส่วงเล็บเหลี่ยม (`[::1]:443`) และการเขียนที่กำกวมจะถูกบังคับแบบ fail-closed พร้อมถูก `/doctor` ชี้ให้เห็น
 
+### 🆕 ใหม่ใน v2.1.232
+- **redact ความลับของ GitLab แล้ว** — token ตระกูล `glrt-`, `gloas-`, `glptt-`, `glagent-`, `glimt-`, `glsoat-`, `glcbt-`, `glft-` และ `glffct-` ถูก redact ส่วน token `glpat-` / `gldt-` ที่ routable จะถูก redact ทั้งก้อน
+- **`glab` ได้การป้องกันเท่ากับ `gh`** — config store ของ GitLab CLI ได้การป้องกันระดับ sandbox และ credential path แบบเดียวกับของ GitHub CLI แล้ว
+- **override binary ของ sandbox จากฝั่ง server ต้องขออนุมัติ** — `sandbox.bwrapPath`, `sandbox.socatPath` และ `sandbox.ripgrep` ที่ส่งมาทาง managed settings ต้องให้เรากดอนุมัติก่อน ไม่ถูกใช้แบบเงียบ ๆ อีกต่อไป
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1592,6 +1603,13 @@ Skill(commit)                    # Skill เฉพาะ
 - **ตัวเลือก mask credential ของ sandbox เพิ่ม** — `extract` คู่กับ `onExtractNoMatch` สำหรับค่า env ที่มีโครงสร้าง, `decode: "jwt"` คู่กับ `maskClaims` สำหรับ mask ราย claim ของ JWT และ `awsPairs` / `sigv4` สำหรับเซ็น AWS SigV4 ใหม่หลังสลับค่า ทั้งหมดนี้ต้องเปิด `network.tlsTerminate` และมีผลเฉพาะเมื่อตั้งใน user settings, managed settings หรือ `--settings` เท่านั้น
 - **`crossSessionInbound` และ `dialogExpiry`** — ข้อความข้าม session ที่ส่ง **เข้า** session ซึ่งรันแบบ bypass permission จะถูกกักไว้รออนุมัติจากเราก่อน ส่วนข้อความที่ส่ง **ออกไปยัง** session อื่นจะถูกส่งให้อัตโนมัติ
 - **prompt อนุมัติ managed settings ไม่ถามซ้ำแล้ว** — ถ้า settings ขององค์กรไม่เปลี่ยน prompt อนุมัติจะไม่โผล่ซ้ำหลัง login ใหม่หรือสลับ organization
+
+### 🆕 ใหม่ใน v2.1.232
+
+- **`/config` มีแถว "Dialog expiry" และ "Messages from your other sessions"** — ตั้งค่า `dialogExpiry` และ `crossSessionInbound` จาก `/config` ได้แล้ว โดยข้อความข้าม session ที่ส่งเข้ามาเลือกได้ว่าจะรับ (accept) / กักไว้ (hold) / ปฏิเสธ (refuse)
+- **`additionalMarketplaces` และ `allowedMarketplaces`** — เป็น alias ที่อ่านง่ายกว่าของ `extraKnownMarketplaces` และ `strictKnownMarketplaces` ใช้ได้แล้ว
+- **`blockedMarketplaces` แบบ url บล็อกตอน git clone ด้วย** — entry แบบ url ในนโยบายองค์กรที่ชี้ไป repo URL ตรง ๆ ยังบล็อก URL นั้นอยู่ แม้ CLI จะจัดว่าเป็นการ git clone
+- **dialog อนุมัติ managed settings ชัดขึ้น** — แสดง URL ของ endpoint, ใช้ถ้อยคำที่ชัดขึ้นกับการเปลี่ยนที่แตะแค่ telemetry, ข้ามตัวเลือก OpenTelemetry ทั่ว ๆ ไป และบังคับให้กดอนุมัติเมื่อ server สั่ง override binary ของ sandbox (`sandbox.bwrapPath`, `sandbox.socatPath`, `sandbox.ripgrep`)
 
 ---
 
@@ -2445,6 +2463,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **`ListAgents` บอกสถานะการติดต่อแล้ว** — session Remote Control ที่หลุดการเชื่อมต่อจะถูกทำเครื่องหมายว่า `offline` และ session บน cloud ของเราจะติดป้าย `cloud` ทำให้ดูออกทันทีว่าตัวไหนทักได้จริง
 
+### 🆕 ใหม่ใน v2.1.232
+
+- **เปิด fork subagent เป็นค่าเริ่มต้น** — subagent แบบ `subagent_type: "fork"` สืบทอดบทสนทนาทั้งหมดและ prompt cache ของ session แม่ เริ่มงานโดยรู้ทุกอย่างที่ parent รู้ แทนที่จะเริ่มจาก context ว่าง ๆ
+- **agent ที่ไม่ใช่ teammate รันเป็น background โดย default** — ใน session แบบ interactive การ spawn agent ที่ไม่ใช่ teammate จะไปรันเป็น background ให้ ทำให้เราทำงานต่อได้ระหว่างที่มันรัน
+
 ---
 
 ## 13. Agent Teams (ทีม AI)
@@ -2980,6 +3003,12 @@ claude --plugin-dir ./my-plugin
 
 - **marketplace source แบบ `command`** — ให้ marketplace ชี้ไปที่คำสั่งในเครื่อง (เช่น IDE) ที่พิมพ์ path ของไดเรกทอรี plugin ออกมา โดยระบบจะ resolve path ใหม่ทุกครั้งที่เริ่ม session และใช้ผลลัพธ์ได้เลยโดยไม่ต้อง restart Claude Code; ถ้าตั้ง `mode: "link"` จะใช้ไดเรกทอรีนั้นที่เดิมแทนการคัดลอก
 
+### 🆕 ใหม่ใน v2.1.232
+
+- **marketplace บน GitLab** — URL ของ repo บน `gitlab.com` แบบเปล่า ๆ (รวมถึงที่อยู่ใน subgroup ซ้อนกัน) โคลนได้เหมือน URL ของ `github.com` แล้ว และถ้า clone ติด auth ข้อความแนะนำจะระบุ git host จริงของเราให้ด้วย
+- **`additionalMarketplaces` / `allowedMarketplaces`** — เป็น alias ที่อ่านง่ายกว่าของ setting `extraKnownMarketplaces` และ `strictKnownMarketplaces`
+- **`/plugin install plugin@marketplace` refresh marketplace ให้ก่อน** — plugin ที่เพิ่งถูกเผยแพร่หลัง refresh ครั้งล่าสุดก็ติดตั้งได้เลย ไม่ต้องสั่งอัปเดต marketplace เอง
+
 ---
 
 ## 19. Session Management
@@ -3060,6 +3089,13 @@ claude --fork-session                # แยก Branch ใหม่
 - **background session ปิดงานต่างจากเดิม** — จะ commit + push เพื่อรักษางานไว้, เปิด **draft PR เฉพาะเมื่องานนั้นควรมี**, ทำตามคำสั่งเรื่อง git ใน `CLAUDE.md` ของเรา และจบด้วยการรายงานเสมอว่างานไปอยู่ที่ไหน (ปรับจากพฤติกรรม v2.1.198 ด้านบน)
 - **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN=0` มีผลจริงแล้ว** — ค่าที่เป็น falsy ปิด auto-resume ของ turn ที่ถูกขัดจังหวะได้จริง
 - **เปลี่ยนชื่อ session ซิงก์ทุกทาง** — เปลี่ยนชื่อจาก Claude Code Desktop หรือ claude.ai แล้วชื่อ session ฝั่ง CLI อัปเดตตามด้วย
+
+### 🆕 ใหม่ใน v2.1.232
+
+- **พิมพ์ `@` เพื่อ mention session อื่น** — พิมพ์ `@` ในช่อง prompt แล้วเรียกชื่อ session อื่นของ Claude ได้เลย จากนั้น Claude จะใช้ `SendMessage` ทักไปหา session นั้นให้ตรง ๆ
+- **`SendMessage` รับชื่อเปล่า ๆ ได้** — ถ้าชื่อที่พิมพ์ตรงกับ session ที่ยังรันอยู่เพียงตัวเดียว ระบบจะส่งให้เลย ไม่ต้องให้เรายืนยันด้วย ref ก่อนอีกแล้ว
+- **ชื่อ session บนเครื่องเดียวกันไม่ซ้ำกัน** — ถ้าเริ่มหรือเปลี่ยนชื่อ session แบบ interactive ไปชนกับ session อื่นที่ยังรันอยู่ ระบบจะเติมชื่อให้เป็นแบบ `name-word-word` พร้อมแจ้งให้เราทราบ
+- **ตั้งค่าข้อความข้าม session ที่ส่งเข้ามาได้จาก `/config`** — แถวใหม่ "Messages from your other sessions" เลือกได้ว่าจะรับ กักไว้ หรือปฏิเสธ
 
 ---
 
@@ -4643,7 +4679,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.231`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.232`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

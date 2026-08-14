@@ -107,6 +107,12 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 
 - **marketplace source แบบ `command`** — ให้ marketplace ชี้ไปที่คำสั่งในเครื่อง (เช่น IDE) ที่พิมพ์ path ของไดเรกทอรี plugin ออกมา โดยระบบจะ resolve path ใหม่ทุกครั้งที่เริ่ม session และใช้ผลลัพธ์ได้เลยโดยไม่ต้อง restart Claude Code; ถ้าตั้ง `mode: "link"` จะใช้ไดเรกทอรีนั้นที่เดิมแทนการคัดลอก
 
+### 🆕 ใหม่ใน v2.1.232
+
+- **marketplace บน GitLab** — URL ของ repo บน `gitlab.com` แบบเปล่า ๆ (รวมถึงที่อยู่ใน subgroup ซ้อนกัน) โคลนได้เหมือน URL ของ `github.com` แล้ว และถ้า clone ติด auth ข้อความแนะนำจะระบุ git host จริงของเราให้ด้วย
+- **`additionalMarketplaces` / `allowedMarketplaces`** — เป็น alias ที่อ่านง่ายกว่าของ setting `extraKnownMarketplaces` และ `strictKnownMarketplaces`
+- **`/plugin install plugin@marketplace` refresh marketplace ให้ก่อน** — plugin ที่เพิ่งถูกเผยแพร่หลัง refresh ครั้งล่าสุดก็ติดตั้งได้เลย ไม่ต้องสั่งอัปเดต marketplace เอง
+
 ---
 
 ---

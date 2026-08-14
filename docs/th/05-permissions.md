@@ -195,6 +195,11 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.229
 - **รายการโดเมนเครือข่ายของ sandbox เข้มขึ้น** — IPv6 แบบระบุเลขตรง ๆ ต้องใส่วงเล็บเหลี่ยม (`[::1]:443`) และการเขียนที่กำกวมจะถูกบังคับแบบ fail-closed พร้อมถูก `/doctor` ชี้ให้เห็น
 
+### 🆕 ใหม่ใน v2.1.232
+- **redact ความลับของ GitLab แล้ว** — token ตระกูล `glrt-`, `gloas-`, `glptt-`, `glagent-`, `glimt-`, `glsoat-`, `glcbt-`, `glft-` และ `glffct-` ถูก redact ส่วน token `glpat-` / `gldt-` ที่ routable จะถูก redact ทั้งก้อน
+- **`glab` ได้การป้องกันเท่ากับ `gh`** — config store ของ GitLab CLI ได้การป้องกันระดับ sandbox และ credential path แบบเดียวกับของ GitHub CLI แล้ว
+- **override binary ของ sandbox จากฝั่ง server ต้องขออนุมัติ** — `sandbox.bwrapPath`, `sandbox.socatPath` และ `sandbox.ripgrep` ที่ส่งมาทาง managed settings ต้องให้เรากดอนุมัติก่อน ไม่ถูกใช้แบบเงียบ ๆ อีกต่อไป
+
 ---
 
 ---

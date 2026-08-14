@@ -166,6 +166,11 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.229
 - **Sandbox network domain lists are stricter** — IPv6 literals must be bracketed (`[::1]:443`), and ambiguous spellings are enforced fail-closed and flagged by `/doctor`.
 
+### New in v2.1.232
+- **GitLab secrets are redacted** — the `glrt-`, `gloas-`, `glptt-`, `glagent-`, `glimt-`, `glsoat-`, `glcbt-`, `glft-` and `glffct-` token families are redacted, and routable `glpat-` / `gldt-` tokens are redacted in full.
+- **`glab` is protected like `gh`** — the GitLab CLI's config store now gets the same sandbox and credential-path protection as the GitHub CLI's.
+- **Server-managed sandbox binary overrides need approval** — `sandbox.bwrapPath`, `sandbox.socatPath` and `sandbox.ripgrep` delivered through managed settings now require your approval instead of applying silently.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

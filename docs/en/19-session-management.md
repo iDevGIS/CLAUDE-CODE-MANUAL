@@ -92,6 +92,13 @@ Shows an interactive picker to choose a session.
 - **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN=0` is honored** — falsy values now actually disable interrupted-turn auto-resume.
 - **Session renames sync both ways** — renaming a session from Claude Code Desktop or claude.ai updates the CLI's session name too.
 
+### New in v2.1.232
+
+- **Type `@` to mention another session** — mention another Claude session by name in the prompt and Claude reaches it directly with `SendMessage`.
+- **`SendMessage` accepts a bare name** — a bare name that exactly matches one live session is delivered straight away, instead of asking you to confirm with a ref first.
+- **Session names stay unique on one machine** — starting or renaming an interactive session to a name another live session already uses gives it a `name-word-word` variant and tells you.
+- **Cross-session inbound is configurable from `/config`** — the new "Messages from your other sessions" row accepts, holds, or refuses them. See [[06-configuration]].
+
 > 🔎 Full deep-dive: [[41-background-agents]]
 
 ---

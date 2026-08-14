@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.231         │
+│ Welcome to Claude Code v2.1.232         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.231
+- run: npm install -g @anthropic-ai/claude-code@2.1.232
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1168,6 +1168,12 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.229
 - **`/commit-push-pr` no longer auto-approves dangerous flags** — git/gh commands carrying flags like `--force`, `--amend`, or `--no-verify` now go through the normal permission prompt instead of being approved for you.
 - **`/login` repeats the token-override warning** — after a successful login it reminds you again that `CLAUDE_CODE_OAUTH_TOKEN` overrides the credentials you just created.
+
+### New in v2.1.232
+- **Fable 5 is an `/advisor` option again** — organizations with Fable access can pick Fable 5 as an advisor; the usage-credits consent is set up through `/model fable`.
+- **`/feedback` and `/bug` open immediately** — invoking them while Claude is responding no longer waits for the turn to finish.
+- **`/plugin install plugin@marketplace` refreshes the marketplace first** — a newly published plugin installs without you updating the marketplace by hand.
+- **`/config` gained two rows** — "Dialog expiry" and "Messages from your other sessions" (accept / hold / refuse for cross-session inbound).
 
 ---
 
@@ -1440,6 +1446,11 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.229
 - **Sandbox network domain lists are stricter** — IPv6 literals must be bracketed (`[::1]:443`), and ambiguous spellings are enforced fail-closed and flagged by `/doctor`.
 
+### New in v2.1.232
+- **GitLab secrets are redacted** — the `glrt-`, `gloas-`, `glptt-`, `glagent-`, `glimt-`, `glsoat-`, `glcbt-`, `glft-` and `glffct-` token families are redacted, and routable `glpat-` / `gldt-` tokens are redacted in full.
+- **`glab` is protected like `gh`** — the GitLab CLI's config store now gets the same sandbox and credential-path protection as the GitHub CLI's.
+- **Server-managed sandbox binary overrides need approval** — `sandbox.bwrapPath`, `sandbox.socatPath` and `sandbox.ripgrep` delivered through managed settings now require your approval instead of applying silently.
+
 ---
 
 ## 6. Configuration
@@ -1598,6 +1609,13 @@ Skill(commit)                    # Specific skill
 - **More sandbox credential-masking options** — `extract` plus `onExtractNoMatch` for structured env values, `decode: "jwt"` with `maskClaims` for JWT-aware masking, and `awsPairs` / `sigv4` for AWS SigV4 re-signing. All of these need `network.tlsTerminate`, and they are honored only from user settings, managed settings, or `--settings`.
 - **`crossSessionInbound` and `dialogExpiry`** — cross-session messages sent **to** a session running with bypassed permissions are held for your approval; messages going **to other** sessions auto-deliver.
 - **Managed-settings approval stops re-prompting** — the approval prompt no longer re-appears after re-login or an organization switch when the organization's settings are unchanged.
+
+### New in v2.1.232
+
+- **`/config` rows for "Dialog expiry" and "Messages from your other sessions"** — the `dialogExpiry` and `crossSessionInbound` settings are editable from `/config`; cross-session inbound can be set to accept, hold, or refuse.
+- **`additionalMarketplaces` and `allowedMarketplaces`** — friendlier aliases accepted for `extraKnownMarketplaces` and `strictKnownMarketplaces`.
+- **`blockedMarketplaces` url entries also block git clones** — an enterprise-policy url entry for a bare repo URL keeps blocking that URL when the CLI classifies it as a git clone.
+- **The managed-settings approval dialog is clearer** — it shows endpoint URLs, words telemetry-only changes more plainly, skips routine OpenTelemetry options, and now requires approval for server-managed sandbox binary overrides (`sandbox.bwrapPath`, `sandbox.socatPath`, `sandbox.ripgrep`).
 
 ---
 
@@ -2452,6 +2470,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **`ListAgents` shows reachability** — disconnected Remote Control sessions are marked `offline`, and your cloud sessions are labeled `cloud`, so you can tell at a glance which ones you can actually message.
 
+### New in v2.1.232
+
+- **Subagent forking is on by default** — a `subagent_type: "fork"` subagent inherits the full conversation and the prompt cache, so it starts with everything the parent knows instead of a fresh context.
+- **Non-teammate agents run in the background by default** — in interactive sessions, agent spawns that aren't teammates now go to the background, so you keep working while they run.
+
 ---
 
 ## 13. Agent Teams
@@ -2991,6 +3014,12 @@ claude --plugin-dir ./my-plugin
 
 - **`command` marketplace source** — a marketplace can point at a local command (for example an IDE) that prints the plugin directory. The path is re-resolved at the start of every session and applied without restarting Claude Code; with `mode: "link"` the directory is used in place instead of being copied.
 
+### New in v2.1.232
+
+- **GitLab marketplaces** — bare `gitlab.com` repo URLs, including nested subgroups, now clone the same way `github.com` URLs do, and a clone auth failure names your actual git host in the hint.
+- **`additionalMarketplaces` / `allowedMarketplaces`** — friendlier aliases for the `extraKnownMarketplaces` and `strictKnownMarketplaces` settings.
+- **`/plugin install plugin@marketplace` refreshes the marketplace first** — a plugin published after your last refresh installs without a manual marketplace update.
+
 ---
 
 ## 19. Session Management
@@ -3065,6 +3094,13 @@ Shows an interactive picker to choose a session.
 - **Background sessions wrap up differently** — they commit and push to preserve work, open a **draft PR only when the task calls for one**, follow your `CLAUDE.md` git instructions, and always end by reporting where the work lives (refines the v2.1.198 behavior above).
 - **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN=0` is honored** — falsy values now actually disable interrupted-turn auto-resume.
 - **Session renames sync both ways** — renaming a session from Claude Code Desktop or claude.ai updates the CLI's session name too.
+
+### New in v2.1.232
+
+- **Type `@` to mention another session** — mention another Claude session by name in the prompt and Claude reaches it directly with `SendMessage`.
+- **`SendMessage` accepts a bare name** — a bare name that exactly matches one live session is delivered straight away, instead of asking you to confirm with a ref first.
+- **Session names stay unique on one machine** — starting or renaming an interactive session to a name another live session already uses gives it a `name-word-word` variant and tells you.
+- **Cross-session inbound is configurable from `/config`** — the new "Messages from your other sessions" row accepts, holds, or refuses them.
 
 ### Session File Locations
 
@@ -4657,7 +4693,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.231`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.232`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

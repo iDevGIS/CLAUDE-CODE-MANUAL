@@ -25,6 +25,34 @@
 
 ---
 
+## [1.38.0] — 2026-08-14
+
+### Compatibility
+- **Claude Code:** `v2.1.232+`
+
+### Added
+- **`@` session mentions** — type `@` in the prompt to mention another Claude session by name; Claude then reaches it directly with `SendMessage` (`v2.1.232`) — chapter 19
+- **`/config` rows "Dialog expiry" and "Messages from your other sessions"** — the `dialogExpiry` and `crossSessionInbound` settings are now editable from `/config`, with accept / hold / refuse for cross-session inbound (`v2.1.232`) — chapters 03, 06, 19
+- **GitLab secret redaction** — the `glrt-`, `gloas-`, `glptt-`, `glagent-`, `glimt-`, `glsoat-`, `glcbt-`, `glft-` and `glffct-` token families are redacted, routable `glpat-` / `gldt-` tokens are redacted in full, and the `glab` CLI config store gets the same sandbox and credential-path protection as `gh` (`v2.1.232`) — chapter 05
+- **GitLab plugin marketplaces** — bare `gitlab.com` repo URLs, nested subgroups included, clone like `github.com` URLs, and clone auth-failure hints name your actual git host (`v2.1.232`) — chapter 18
+- **`additionalMarketplaces` / `allowedMarketplaces`** — friendlier setting aliases for `extraKnownMarketplaces` and `strictKnownMarketplaces` (`v2.1.232`) — chapters 06, 18
+- **Fable 5 back in `/advisor`** — organizations with Fable access can pick Fable 5 as an advisor again, with usage-credits consent set up through `/model fable` (`v2.1.232`) — chapter 03
+
+### Changed
+- **Subagent forking is on by default** — a `subagent_type: "fork"` subagent inherits the full conversation and prompt cache, and non-teammate agent spawns in interactive sessions now run in the background by default (`v2.1.232`) — chapter 12
+- **`SendMessage` accepts a bare name** — a bare name matching exactly one live session is delivered straight away instead of asking you to confirm with a ref first (`v2.1.232`) — chapter 19
+- **Session names stay unique per machine** — starting or renaming an interactive session to a name another live session already uses produces a `name-word-word` variant and tells you (`v2.1.232`) — chapter 19
+- **Server-managed sandbox binary overrides need approval** — `sandbox.bwrapPath`, `sandbox.socatPath` and `sandbox.ripgrep` from managed settings now go through the approval dialog, which also shows endpoint URLs and skips routine OpenTelemetry options (`v2.1.232`) — chapters 05, 06
+- **`blockedMarketplaces` url entries also block git clones** — an enterprise-policy url entry for a bare repo URL keeps blocking that URL when the CLI classifies it as a git clone (`v2.1.232`) — chapter 06
+- **`/plugin install plugin@marketplace` refreshes the marketplace first** — newly published plugins install without a manual marketplace update; `/feedback` and `/bug` also open immediately instead of waiting for the current turn (`v2.1.232`) — chapters 03, 18
+- **Version strings** bumped `2.1.231` → `2.1.232` (current-version references only; historical sections kept)
+
+### Why
+- `2.1.232` is a big release with a lot for readers: subagent forking flipping to on-by-default changes how delegation behaves, `@` mentions plus bare-name `SendMessage` and unique session names round out the cross-session story, and GitLab now gets first-class treatment in both secret redaction and plugin marketplaces
+- The Cloud gateway changes in this release (the `desktop:` overlay accepting every released Desktop setting, and stricter boot-time validation of `managed.policies[].match.groups` / `admin.admin_groups` / `email_domain`) are not documented here — the manual has no gateway-configuration chapter to attach them to
+
+---
+
 ## [1.37.0] — 2026-08-13
 
 ### Compatibility
@@ -897,6 +925,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.38.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.37.0...v1.38.0
 [1.37.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.36.0...v1.37.0
 [1.36.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.35.0...v1.36.0
 [1.35.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.34.0...v1.35.0

@@ -92,6 +92,13 @@ claude --fork-session                # แยก Branch ใหม่
 - **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN=0` มีผลจริงแล้ว** — ค่าที่เป็น falsy ปิด auto-resume ของ turn ที่ถูกขัดจังหวะได้จริง
 - **เปลี่ยนชื่อ session ซิงก์ทุกทาง** — เปลี่ยนชื่อจาก Claude Code Desktop หรือ claude.ai แล้วชื่อ session ฝั่ง CLI อัปเดตตามด้วย
 
+### 🆕 ใหม่ใน v2.1.232
+
+- **พิมพ์ `@` เพื่อ mention session อื่น** — พิมพ์ `@` ในช่อง prompt แล้วเรียกชื่อ session อื่นของ Claude ได้เลย จากนั้น Claude จะใช้ `SendMessage` ทักไปหา session นั้นให้ตรง ๆ
+- **`SendMessage` รับชื่อเปล่า ๆ ได้** — ถ้าชื่อที่พิมพ์ตรงกับ session ที่ยังรันอยู่เพียงตัวเดียว ระบบจะส่งให้เลย ไม่ต้องให้เรายืนยันด้วย ref ก่อนอีกแล้ว
+- **ชื่อ session บนเครื่องเดียวกันไม่ซ้ำกัน** — ถ้าเริ่มหรือเปลี่ยนชื่อ session แบบ interactive ไปชนกับ session อื่นที่ยังรันอยู่ ระบบจะเติมชื่อให้เป็นแบบ `name-word-word` พร้อมแจ้งให้เราทราบ
+- **ตั้งค่าข้อความข้าม session ที่ส่งเข้ามาได้จาก `/config`** — แถวใหม่ "Messages from your other sessions" เลือกได้ว่าจะรับ กักไว้ หรือปฏิเสธ ดูรายละเอียดที่ [[06-configuration]]
+
 > 🔎 เจาะลึกทั้งเรื่องนี้ต่อได้ที่ [[41-background-agents]]
 
 ---

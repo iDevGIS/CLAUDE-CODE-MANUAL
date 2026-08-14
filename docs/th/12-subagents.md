@@ -159,6 +159,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **`ListAgents` บอกสถานะการติดต่อแล้ว** — session Remote Control ที่หลุดการเชื่อมต่อจะถูกทำเครื่องหมายว่า `offline` และ session บน cloud ของเราจะติดป้าย `cloud` ทำให้ดูออกทันทีว่าตัวไหนทักได้จริง
 
+### 🆕 ใหม่ใน v2.1.232
+
+- **เปิด fork subagent เป็นค่าเริ่มต้น** — subagent แบบ `subagent_type: "fork"` สืบทอดบทสนทนาทั้งหมดและ prompt cache ของ session แม่ เริ่มงานโดยรู้ทุกอย่างที่ parent รู้ แทนที่จะเริ่มจาก context ว่าง ๆ
+- **agent ที่ไม่ใช่ teammate รันเป็น background โดย default** — ใน session แบบ interactive การ spawn agent ที่ไม่ใช่ teammate จะไปรันเป็น background ให้ ทำให้เราทำงานต่อได้ระหว่างที่มันรัน
+
 ---
 
 ---

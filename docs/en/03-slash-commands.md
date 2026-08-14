@@ -154,6 +154,12 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/commit-push-pr` no longer auto-approves dangerous flags** — git/gh commands carrying flags like `--force`, `--amend`, or `--no-verify` now go through the normal permission prompt instead of being approved for you.
 - **`/login` repeats the token-override warning** — after a successful login it reminds you again that `CLAUDE_CODE_OAUTH_TOKEN` overrides the credentials you just created.
 
+### New in v2.1.232
+- **Fable 5 is an `/advisor` option again** — organizations with Fable access can pick Fable 5 as an advisor; the usage-credits consent is set up through `/model fable`.
+- **`/feedback` and `/bug` open immediately** — invoking them while Claude is responding no longer waits for the turn to finish.
+- **`/plugin install plugin@marketplace` refreshes the marketplace first** — a newly published plugin installs without you updating the marketplace by hand.
+- **`/config` gained two rows** — "Dialog expiry" and "Messages from your other sessions" (accept / hold / refuse for cross-session inbound). See [[06-configuration]].
+
 ---
 
 ---

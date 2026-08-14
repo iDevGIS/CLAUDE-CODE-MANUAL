@@ -159,6 +159,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **`ListAgents` shows reachability** — disconnected Remote Control sessions are marked `offline`, and your cloud sessions are labeled `cloud`, so you can tell at a glance which ones you can actually message.
 
+### New in v2.1.232
+
+- **Subagent forking is on by default** — a `subagent_type: "fork"` subagent inherits the full conversation and the prompt cache, so it starts with everything the parent knows instead of a fresh context.
+- **Non-teammate agents run in the background by default** — in interactive sessions, agent spawns that aren't teammates now go to the background, so you keep working while they run.
+
 ---
 
 ---

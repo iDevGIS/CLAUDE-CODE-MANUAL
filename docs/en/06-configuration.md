@@ -179,6 +179,13 @@ Set the `model` key to any of these (newest → cheapest):
 - **`crossSessionInbound` and `dialogExpiry`** — cross-session messages sent **to** a session running with bypassed permissions are held for your approval; messages going **to other** sessions auto-deliver.
 - **Managed-settings approval stops re-prompting** — the approval prompt no longer re-appears after re-login or an organization switch when the organization's settings are unchanged.
 
+### New in v2.1.232
+
+- **`/config` rows for "Dialog expiry" and "Messages from your other sessions"** — the `dialogExpiry` and `crossSessionInbound` settings are editable from `/config`; cross-session inbound can be set to accept, hold, or refuse.
+- **`additionalMarketplaces` and `allowedMarketplaces`** — friendlier aliases accepted for `extraKnownMarketplaces` and `strictKnownMarketplaces`.
+- **`blockedMarketplaces` url entries also block git clones** — an enterprise-policy url entry for a bare repo URL keeps blocking that URL when the CLI classifies it as a git clone.
+- **The managed-settings approval dialog is clearer** — it shows endpoint URLs, words telemetry-only changes more plainly, skips routine OpenTelemetry options, and now requires approval for server-managed sandbox binary overrides (`sandbox.bwrapPath`, `sandbox.socatPath`, `sandbox.ripgrep`).
+
 ---
 
 ---
