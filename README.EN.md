@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.233-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.39.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.234-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.40.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.233`
+## 🆕 What's new — synced to Claude Code `v2.1.234`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -72,8 +72,11 @@ Never used a command line? You can still follow along 👇
 | 🔀 **GitLab merge requests** | pass an MR URL to `--worktree` · the `claude agents` view shows merge requests as `!N` (v2.1.233) |
 | 🗂️ **Todo/task tools off on newer models** | `TaskCreate`/`TaskGet`/`TaskUpdate`/`TaskList` and `TodoWrite` are gone on Opus 4.8 · Sonnet 5 · Fable 5 · Mythos 5 and newer — set `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` to bring them back (v2.1.233) |
 | 🧪 **New env vars** | `CLAUDE_CODE_TOOL_MEMORY_LIMIT` caps Bash tool memory via a Linux cgroup · `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` tunes the WebFetch URL cache TTL (v2.1.233) |
+| ⌨️ **Dialogs open mid-turn** | `/permissions` and `/add-dir` can be used while Claude is working · permission rule changes apply to the rest of the current turn (v2.1.234) |
+| ⏳ **Auto-continue at usage limit** | Claude Code picks the session back up automatically when a claude.ai usage limit resets — turn it off in `/config` (v2.1.234) |
+| 🧪 **Two more env vars** | `CLAUDE_CODE_PROJECT_DIR_NAME` names the per-project transcript directory · `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` controls how long a `/goal` waits on background tasks (v2.1.234) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.233` (manual `v1.39.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.234` (manual `v1.40.0`)
 
 ---
 
@@ -96,7 +99,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.233** + the Fable 5 / Opus 5 / Sonnet 5 lineup
+Tracks Claude Code **v2.1.234** + the Fable 5 / Opus 5 / Sonnet 5 lineup
 
 </td>
 </tr>
@@ -156,7 +159,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.233`
+> **Claude Code Version:** `2.1.234`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

@@ -161,6 +161,14 @@ related:
 - **`/plugin install plugin@marketplace` refresh marketplace ให้ก่อน** — plugin ที่เพิ่งเผยแพร่ติดตั้งได้เลย ไม่ต้องสั่งอัปเดต marketplace เอง
 - **`/config` มีแถวใหม่ 2 แถว** — "Dialog expiry" และ "Messages from your other sessions" (ตั้งรับ / กักไว้ / ปฏิเสธ ข้อความข้าม session ที่ส่งเข้ามา) ดูรายละเอียดที่ [[06-configuration]]
 
+### 🆕 ใหม่ใน v2.1.234
+- **`/permissions` เปิดระหว่าง Claude ทำงานได้แล้ว** — กฎที่แก้มีผลกับ turn ที่กำลังรันอยู่เลย ดูที่ [[05-permissions]]
+- **dialog อื่น ๆ เปิดกลาง turn ได้เพิ่ม** — `/add-dir <path>` ใช้ระหว่าง Claude ทำงานได้แล้ว และ dialog ของ `/add-dir`, `/autocompact`, `/theme`, `/help`, `/config`, `/advisor` เปิดกลาง turn ได้ในโหมด fullscreen TUI
+- **`/goal` เคลียร์ตัวเองเมื่อเจอ error ที่กู้ไม่ได้** — ถ้า turn ตายเพราะสิ่งที่แก้ไม่ได้ (auth ถูกเพิกถอน, credit หมด, context ล้น) goal จะถูกเคลียร์พร้อมแจ้งเตือน แทนที่จะค้างเป็น goal ที่ยัง armed อยู่
+- **`/goal` ตามงาน background ที่รอนาน** — ถ้างาน background ทำให้ goal รออยู่เกิน 30 นาที Claude จะเข้าไปเช็กงานนั้นแทนการรอไปเรื่อย ๆ; ตั้ง `CLAUDE_CODE_GOAL_CHECKIN_MINUTES=0` เพื่อปิด ดูที่ [[23-environment-variables]]
+- **`/config` เพิ่ม "Continue automatically at usage limit" และถอด "Default teammate model"** — ดูที่ [[06-configuration]]
+- **`/tui` ไม่ทำกฎจำกัด tool ตอน launch หายแล้ว** — เดิม restart แล้วกฎ `--allowed-tools` / `--disallowed-tools` หลุด ตอนนี้ถ้า session มีข้อจำกัดที่ restart แล้วพกไปด้วยไม่ได้ มันจะไม่ยอมสลับ พร้อมบอกเหตุผล
+
 ---
 
 ---

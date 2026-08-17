@@ -190,6 +190,12 @@ related:
 
 - **`modelOverrides` ปิด diagnostic เรื่อง model ที่ไม่รู้จักได้** — เมื่อยิง request ด้วย model ID ที่ Claude Code ไม่รู้จัก print mode จะเขียนบรรทัด `[claude-code:unrecognized_model]` ลง stderr; แมป ID นั้นไว้ใน `modelOverrides` แล้วข้อความจะหายไป
 
+### 🆕 ใหม่ใน v2.1.234
+
+- **"Continue automatically at usage limit"** — Claude Code จะทำงาน session ต่อให้อัตโนมัติเมื่อ usage limit ของ claude.ai รีเซ็ต; ปิดได้ที่แถวนี้ใน `/config`
+- **ถอด "Default teammate model" ออกจาก `/config`** — teammate ใน agent team จะใช้โมเดลเดียวกับ leader เว้นแต่ตอน spawn ระบุโมเดลไว้เอง ดูที่ [[13-agent-teams]]
+- **badge ของ GitLab merge request** — repo ที่มี remote เป็น GitLab และ login `glab` CLI ไว้แล้ว จะเห็น `MR !N` ที่ footer และ statusline พร้อมสถานะ draft / pending / green
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

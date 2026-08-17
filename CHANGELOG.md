@@ -25,6 +25,38 @@
 
 ---
 
+## [1.40.0] — 2026-08-18
+
+### Compatibility
+- **Claude Code:** `v2.1.234+`
+
+### Added
+- **`CLAUDE_CODE_PROJECT_DIR_NAME`** — optional short name for the per-project transcript directory, for hosts that give each session its own config directory (`v2.1.234`) — chapter 23
+- **`CLAUDE_CODE_GOAL_CHECKIN_MINUTES`** — how long background tasks may keep a `/goal` waiting (30 minutes by default) before Claude checks in on them; set `0` to opt out (`v2.1.234`) — chapters 03, 23
+- **`selection:clear` keybinding action** — a key can be bound to clear an in-app text selection; it also works in the agents view (`v2.1.234`) — chapter 04
+- **`/config` row "Continue automatically at usage limit"** — Claude Code continues the session automatically when a claude.ai usage limit resets (`v2.1.234`) — chapter 06
+- **GitLab merge request badge in the footer and statusline** — repos with a GitLab remote and an authenticated `glab` CLI show `MR !N` with draft / pending / green states (`v2.1.234`) — chapter 06
+
+### Changed
+- **`/permissions` and `/add-dir` work mid-turn** — `/permissions` opens while Claude is working and rule changes apply to the rest of the current turn; the `/add-dir`, `/autocompact`, `/theme`, `/help`, `/config` and `/advisor` dialogs open mid-turn in the fullscreen TUI (`v2.1.234`) — chapter 03
+- **`/goal` clears itself on an unrecoverable error** — a turn that dies on revoked auth, an exhausted credit balance, or a context overflow clears the goal with a notice instead of leaving it armed (`v2.1.234`) — chapter 03
+- **`/tui` no longer drops launch tool restrictions** — it declines to switch, with the reason, when the session has `--allowed-tools` / `--disallowed-tools` rules a restart can't carry over (`v2.1.234`) — chapter 03
+- **`Esc` in fullscreen mode keeps a mouse text selection** — it still interrupts or dismisses, but the highlighted selection stays (`v2.1.234`) — chapter 04
+- **`claude setup-token` rejects unexpected extra arguments** instead of silently ignoring them (`v2.1.234`) — chapter 02
+- **Between-turn background task notifications are wrapped in `<system-reminder>` tags**, matching mid-turn delivery (`v2.1.234`) — chapter 41
+- **Version strings** bumped `2.1.233` → `2.1.234` (current-version references only; historical sections kept)
+
+### Removed
+- **"Default teammate model" setting in `/config`** — agent-team teammates now use the leader's model unless the spawn names one (`v2.1.234`) — chapter 06
+
+### Why
+- `2.1.234` is mostly a "dialogs no longer block on the turn" release: `/permissions`, `/add-dir` and the other fullscreen dialogs opening mid-turn changes day-to-day flow, so it is documented in the slash-command chapter alongside the `/goal` lifecycle changes it ships with
+- The two new env vars are documented with their behavior chapters (`/goal` check-ins in chapter 03, both rows in the chapter 23 table) so readers meet them where the feature lives
+- The Windows NT-namespace (`\??\`) path hardening is left out — the manual has never covered that credential-leak vector, and this release only extends the existing rejection to the remaining pre-approval file reads
+- Remote Control sync improvements (permission mode / model / effort published to phones and claude.ai/code) are left out as UI-state plumbing with no reader-facing setting to document
+
+---
+
 ## [1.39.0] — 2026-08-15
 
 ### Compatibility
@@ -950,6 +982,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.40.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.39.0...v1.40.0
 [1.39.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.38.0...v1.39.0
 [1.38.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.37.0...v1.38.0
 [1.37.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.36.0...v1.37.0

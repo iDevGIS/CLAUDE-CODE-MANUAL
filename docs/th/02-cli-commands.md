@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.233         │
+│ Welcome to Claude Code v2.1.234         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -558,6 +558,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **print mode มี diagnostic `[claude-code:unrecognized_model]`** — เมื่อยิง request ด้วย model ID ที่ Claude Code ไม่รู้จัก print mode จะเขียนบรรทัด `[claude-code:unrecognized_model]` ลง stderr; แมป ID นั้นด้วย `modelOverrides` เพื่อปิดข้อความนี้
 - **`claude self-hosted-runner` เริ่ม session เร็วขึ้น** — สร้าง branch ของ session โดยไม่ต้องเขียน working tree ใหม่ และไม่มี round trip ไปเซิร์ฟเวอร์ 2 รอบมาขวางตอน agent เริ่มทำงานแล้ว
 
+### 🆕 ใหม่ใน v2.1.234
+
+- **`claude setup-token` ไม่รับ argument เกินมาแล้ว** — ใส่ argument แปลกปลอมเข้าไปจะขึ้น error แทนที่จะเงียบแล้วข้ามไปเฉย ๆ
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -929,7 +933,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.233
+- run: npm install -g @anthropic-ai/claude-code@2.1.234
 ```
 
 ---

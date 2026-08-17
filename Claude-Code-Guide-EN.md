@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.233         │
+│ Welcome to Claude Code v2.1.234         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.233
+- run: npm install -g @anthropic-ai/claude-code@2.1.234
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1007,6 +1007,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **GitLab merge requests in `--worktree` and `claude agents`** — the `--worktree` flag accepts a GitLab merge request URL, and the `claude agents` view displays merge requests as `!N`.
 - **`[claude-code:unrecognized_model]` diagnostics in print mode** — when a request goes out for a model ID Claude Code doesn't recognize, print mode writes a `[claude-code:unrecognized_model]` line to stderr; map the ID with `modelOverrides` to silence it.
 - **`claude self-hosted-runner` starts faster** — the session branch is created without rewriting the working tree, and two server round trips no longer block the agent's launch.
+
+### New in v2.1.234
+
+- **`claude setup-token` rejects unexpected extra arguments** — stray arguments now produce an error instead of being silently ignored.
 
 ---
 
@@ -1181,6 +1185,14 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/plugin install plugin@marketplace` refreshes the marketplace first** — a newly published plugin installs without you updating the marketplace by hand.
 - **`/config` gained two rows** — "Dialog expiry" and "Messages from your other sessions" (accept / hold / refuse for cross-session inbound).
 
+### New in v2.1.234
+- **`/permissions` opens while Claude is working** — rule changes apply to the rest of the current turn.
+- **More dialogs open mid-turn** — `/add-dir <path>` can be used while Claude is working, and the `/add-dir`, `/autocompact`, `/theme`, `/help`, `/config` and `/advisor` dialogs open mid-turn in the fullscreen TUI.
+- **`/goal` clears itself on an unrecoverable error** — when a turn dies on something it can't recover from (revoked auth, an exhausted credit balance, a context overflow), the goal clears with a notice instead of staying armed.
+- **`/goal` checks in on long-waiting background tasks** — when background tasks keep a goal waiting for 30+ minutes, Claude checks in on them instead of waiting indefinitely; set `CLAUDE_CODE_GOAL_CHECKIN_MINUTES=0` to opt out.
+- **`/config` gained "Continue automatically at usage limit" and lost "Default teammate model"** — see 6. Configuration.
+- **`/tui` no longer drops launch tool restrictions** — it used to lose `--allowed-tools` / `--disallowed-tools` rules when restarting; now it declines to switch, and says why, when the session has restrictions a restart can't carry over.
+
 ---
 
 ## 4. Keyboard Shortcuts
@@ -1266,6 +1278,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 **Movement:** `h/j/k/l` (arrows), `w/e/b` (words), `0/$` (start/end of line), `gg/G` (start/end of document)
 
 **Editing:** `x` (delete character), `dd/D` (delete line), `yy` (copy), `p/P` (paste), `>>/<<` (indent)
+
+### New in v2.1.234
+
+- **`selection:clear` keybinding action** — a key can be bound to clear an in-app text selection (via `/keybindings` or `~/.claude/keybindings.json`); it also works in the agents view.
+- **`Esc` in fullscreen mode keeps a mouse text selection** — it interrupts or dismisses as usual, and the highlighted selection stays.
 
 ---
 
@@ -1626,6 +1643,12 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.233
 
 - **`modelOverrides` silences the unrecognized-model diagnostic** — print mode writes a `[claude-code:unrecognized_model]` line to stderr when a request goes out for a model ID Claude Code doesn't recognize; mapping that ID in `modelOverrides` stops the message.
+
+### New in v2.1.234
+
+- **"Continue automatically at usage limit"** — Claude Code now continues your session automatically when a claude.ai usage limit resets; turn it off with this `/config` row.
+- **"Default teammate model" removed from `/config`** — agent-team teammates now use the leader's model unless the spawn names one.
+- **GitLab merge request badge** — repos with a GitLab remote and an authenticated `glab` CLI show `MR !N` in the footer and statusline, with draft / pending / green states.
 
 ---
 
@@ -3397,6 +3420,8 @@ your-project/
 | `CLAUDE_CODE_TOOL_MEMORY_LIMIT` | Opt-in memory cgroup for Bash tool commands on Linux, so a runaway build can't stall the session. *(v2.1.233)* |
 | `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` | TTL of the WebFetch session URL cache (default unchanged: 15 minutes). *(v2.1.233)* |
 | `CLAUDE_CODE_ENABLE_TODO_TOOLS` | Set `1` to restore the todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`), which are no longer available on Opus 4.8, Sonnet 5, Fable 5, Mythos 5, and newer models. *(v2.1.233)* |
+| `CLAUDE_CODE_PROJECT_DIR_NAME` | Optional short name for the per-project transcript directory — for hosts that give each session its own config directory. *(v2.1.234)* |
+| `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` | How long background tasks may keep a `/goal` waiting (30 minutes by default) before Claude checks in on them; set `0` to opt out. *(v2.1.234)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
@@ -4714,7 +4739,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.233`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.234`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

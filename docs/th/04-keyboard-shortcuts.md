@@ -97,6 +97,11 @@ related:
 
 **แก้ไข:** `x` (ลบตัวอักษร), `dd/D` (ลบบรรทัด), `yy` (คัดลอก), `p/P` (วาง), `>>/<<` (ย่อหน้า)
 
+### 🆕 ใหม่ใน v2.1.234
+
+- **action `selection:clear` สำหรับ keybinding** — ผูกปุ่มไว้ล้าง text selection ในแอปได้ (ตั้งผ่าน `/keybindings` หรือ `~/.claude/keybindings.json`) ใช้ได้ในหน้า agents ด้วย
+- **`Esc` ในโหมด fullscreen ไม่ล้าง selection ที่ลากด้วยเมาส์แล้ว** — ยังใช้ interrupt / ปิด dialog ได้เหมือนเดิม แต่ส่วนที่ไฮไลต์ไว้จะอยู่ต่อ
+
 ---
 
 ---

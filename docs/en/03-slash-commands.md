@@ -160,6 +160,14 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/plugin install plugin@marketplace` refreshes the marketplace first** — a newly published plugin installs without you updating the marketplace by hand.
 - **`/config` gained two rows** — "Dialog expiry" and "Messages from your other sessions" (accept / hold / refuse for cross-session inbound). See [[06-configuration]].
 
+### New in v2.1.234
+- **`/permissions` opens while Claude is working** — rule changes apply to the rest of the current turn. See [[05-permissions]].
+- **More dialogs open mid-turn** — `/add-dir <path>` can be used while Claude is working, and the `/add-dir`, `/autocompact`, `/theme`, `/help`, `/config` and `/advisor` dialogs open mid-turn in the fullscreen TUI.
+- **`/goal` clears itself on an unrecoverable error** — when a turn dies on something it can't recover from (revoked auth, an exhausted credit balance, a context overflow), the goal clears with a notice instead of staying armed.
+- **`/goal` checks in on long-waiting background tasks** — when background tasks keep a goal waiting for 30+ minutes, Claude checks in on them instead of waiting indefinitely; set `CLAUDE_CODE_GOAL_CHECKIN_MINUTES=0` to opt out. See [[23-environment-variables]].
+- **`/config` gained "Continue automatically at usage limit" and lost "Default teammate model"** — see [[06-configuration]].
+- **`/tui` no longer drops launch tool restrictions** — it used to lose `--allowed-tools` / `--disallowed-tools` rules when restarting; now it declines to switch, and says why, when the session has restrictions a restart can't carry over.
+
 ---
 
 ---

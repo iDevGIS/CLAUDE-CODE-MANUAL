@@ -190,6 +190,12 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **`modelOverrides` silences the unrecognized-model diagnostic** — print mode writes a `[claude-code:unrecognized_model]` line to stderr when a request goes out for a model ID Claude Code doesn't recognize; mapping that ID in `modelOverrides` stops the message.
 
+### New in v2.1.234
+
+- **"Continue automatically at usage limit"** — Claude Code now continues your session automatically when a claude.ai usage limit resets; turn it off with this `/config` row.
+- **"Default teammate model" removed from `/config`** — agent-team teammates now use the leader's model unless the spawn names one. See [[13-agent-teams]].
+- **GitLab merge request badge** — repos with a GitLab remote and an authenticated `glab` CLI show `MR !N` in the footer and statusline, with draft / pending / green states.
+
 ---
 
 ---

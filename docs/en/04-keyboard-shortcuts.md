@@ -97,6 +97,11 @@ related:
 
 **Editing:** `x` (delete character), `dd/D` (delete line), `yy` (copy), `p/P` (paste), `>>/<<` (indent)
 
+### New in v2.1.234
+
+- **`selection:clear` keybinding action** — a key can be bound to clear an in-app text selection (via `/keybindings` or `~/.claude/keybindings.json`); it also works in the agents view.
+- **`Esc` in fullscreen mode keeps a mouse text selection** — it interrupts or dismisses as usual, and the highlighted selection stays.
+
 ---
 
 ---

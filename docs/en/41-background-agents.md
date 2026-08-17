@@ -107,6 +107,10 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 - **`/status` shows the session kind** — `interactive`, or a background job that is `attached` or `unattended`.
 - **`/fork` creates its own worktree** instead of working in the original session's checkout.
 
+### New in v2.1.234
+
+- **Between-turn task notifications are wrapped** — background task notifications delivered between turns are sent to the model inside `<system-reminder>` tags, matching how mid-turn notifications are delivered.
+
 ## Use cases
 
 - Let a long refactor or a heavy test suite run in the background while you keep coding

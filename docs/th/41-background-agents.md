@@ -107,6 +107,10 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 - **`/status` บอกชนิดของ session** — `interactive` หรือถ้าเป็น background job ก็บอกว่า `attached` หรือ `unattended`
 - **`/fork` สร้าง worktree ของตัวเอง** แทนการทำงานใน checkout ของ session ต้นทาง
 
+### 🆕 ใหม่ใน v2.1.234
+
+- **การแจ้งเตือนงาน background ระหว่าง turn ถูกห่อด้วยแท็กแล้ว** — notification ของ background task ที่ส่งช่วงคั่นระหว่าง turn จะถูกส่งให้โมเดลในแท็ก `<system-reminder>` เหมือนกับที่ส่งกลาง turn
+
 ## Use cases
 
 - ปล่อย refactor ยาว ๆ หรือ test suite ใหญ่ ๆ รันเบื้องหลัง ระหว่างที่คุณเขียนโค้ดต่อ

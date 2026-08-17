@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.233         │
+│ Welcome to Claude Code v2.1.234         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -662,6 +662,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **print mode มี diagnostic `[claude-code:unrecognized_model]`** — เมื่อยิง request ด้วย model ID ที่ Claude Code ไม่รู้จัก print mode จะเขียนบรรทัด `[claude-code:unrecognized_model]` ลง stderr; แมป ID นั้นด้วย `modelOverrides` เพื่อปิดข้อความนี้
 - **`claude self-hosted-runner` เริ่ม session เร็วขึ้น** — สร้าง branch ของ session โดยไม่ต้องเขียน working tree ใหม่ และไม่มี round trip ไปเซิร์ฟเวอร์ 2 รอบมาขวางตอน agent เริ่มทำงานแล้ว
 
+### 🆕 ใหม่ใน v2.1.234
+
+- **`claude setup-token` ไม่รับ argument เกินมาแล้ว** — ใส่ argument แปลกปลอมเข้าไปจะขึ้น error แทนที่จะเงียบแล้วข้ามไปเฉย ๆ
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -993,7 +997,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.233
+- run: npm install -g @anthropic-ai/claude-code@2.1.234
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1175,6 +1179,14 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/plugin install plugin@marketplace` refresh marketplace ให้ก่อน** — plugin ที่เพิ่งเผยแพร่ติดตั้งได้เลย ไม่ต้องสั่งอัปเดต marketplace เอง
 - **`/config` มีแถวใหม่ 2 แถว** — "Dialog expiry" และ "Messages from your other sessions" (ตั้งรับ / กักไว้ / ปฏิเสธ ข้อความข้าม session ที่ส่งเข้ามา)
 
+### 🆕 ใหม่ใน v2.1.234
+- **`/permissions` เปิดระหว่าง Claude ทำงานได้แล้ว** — กฎที่แก้มีผลกับ turn ที่กำลังรันอยู่เลย
+- **dialog อื่น ๆ เปิดกลาง turn ได้เพิ่ม** — `/add-dir <path>` ใช้ระหว่าง Claude ทำงานได้แล้ว และ dialog ของ `/add-dir`, `/autocompact`, `/theme`, `/help`, `/config`, `/advisor` เปิดกลาง turn ได้ในโหมด fullscreen TUI
+- **`/goal` เคลียร์ตัวเองเมื่อเจอ error ที่กู้ไม่ได้** — ถ้า turn ตายเพราะสิ่งที่แก้ไม่ได้ (auth ถูกเพิกถอน, credit หมด, context ล้น) goal จะถูกเคลียร์พร้อมแจ้งเตือน แทนที่จะค้างเป็น goal ที่ยัง armed อยู่
+- **`/goal` ตามงาน background ที่รอนาน** — ถ้างาน background ทำให้ goal รออยู่เกิน 30 นาที Claude จะเข้าไปเช็กงานนั้นแทนการรอไปเรื่อย ๆ; ตั้ง `CLAUDE_CODE_GOAL_CHECKIN_MINUTES=0` เพื่อปิด
+- **`/config` เพิ่ม "Continue automatically at usage limit" และถอด "Default teammate model"** — ดูที่ 6. การตั้งค่า
+- **`/tui` ไม่ทำกฎจำกัด tool ตอน launch หายแล้ว** — เดิม restart แล้วกฎ `--allowed-tools` / `--disallowed-tools` หลุด ตอนนี้ถ้า session มีข้อจำกัดที่ restart แล้วพกไปด้วยไม่ได้ มันจะไม่ยอมสลับ พร้อมบอกเหตุผล
+
 ---
 
 ## 4. คีย์ลัด (Keyboard Shortcuts)
@@ -1260,6 +1272,11 @@ claude -p "..."              # ถามเร็ว ๆ
 **เลื่อน:** `h/j/k/l` (ลูกศร), `w/e/b` (คำ), `0/$` (ต้น/ท้ายบรรทัด), `gg/G` (ต้น/ท้ายเอกสาร)
 
 **แก้ไข:** `x` (ลบตัวอักษร), `dd/D` (ลบบรรทัด), `yy` (คัดลอก), `p/P` (วาง), `>>/<<` (ย่อหน้า)
+
+### 🆕 ใหม่ใน v2.1.234
+
+- **action `selection:clear` สำหรับ keybinding** — ผูกปุ่มไว้ล้าง text selection ในแอปได้ (ตั้งผ่าน `/keybindings` หรือ `~/.claude/keybindings.json`) ใช้ได้ในหน้า agents ด้วย
+- **`Esc` ในโหมด fullscreen ไม่ล้าง selection ที่ลากด้วยเมาส์แล้ว** — ยังใช้ interrupt / ปิด dialog ได้เหมือนเดิม แต่ส่วนที่ไฮไลต์ไว้จะอยู่ต่อ
 
 ---
 
@@ -1620,6 +1637,12 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.233
 
 - **`modelOverrides` ปิด diagnostic เรื่อง model ที่ไม่รู้จักได้** — เมื่อยิง request ด้วย model ID ที่ Claude Code ไม่รู้จัก print mode จะเขียนบรรทัด `[claude-code:unrecognized_model]` ลง stderr; แมป ID นั้นไว้ใน `modelOverrides` แล้วข้อความจะหายไป
+
+### 🆕 ใหม่ใน v2.1.234
+
+- **"Continue automatically at usage limit"** — Claude Code จะทำงาน session ต่อให้อัตโนมัติเมื่อ usage limit ของ claude.ai รีเซ็ต; ปิดได้ที่แถวนี้ใน `/config`
+- **ถอด "Default teammate model" ออกจาก `/config`** — teammate ใน agent team จะใช้โมเดลเดียวกับ leader เว้นแต่ตอน spawn ระบุโมเดลไว้เอง
+- **badge ของ GitLab merge request** — repo ที่มี remote เป็น GitLab และ login `glab` CLI ไว้แล้ว จะเห็น `MR !N` ที่ footer และ statusline พร้อมสถานะ draft / pending / green
 
 ---
 
@@ -3386,6 +3409,8 @@ your-project/
 | `CLAUDE_CODE_TOOL_MEMORY_LIMIT` | จำกัด memory ของคำสั่ง Bash tool ด้วย cgroup บน Linux (ต้องเปิดเอง) กัน build ที่หลุดควบคุมทำ session ค้าง *(v2.1.233)* |
 | `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` | TTL ของ URL cache ที่ WebFetch ใช้ในแต่ละ session (ค่าเริ่มต้นเท่าเดิม: 15 นาที) *(v2.1.233)* |
 | `CLAUDE_CODE_ENABLE_TODO_TOOLS` | ตั้ง `1` เพื่อเอา todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`) กลับมา — โมเดล Opus 4.8, Sonnet 5, Fable 5, Mythos 5 และรุ่นที่ใหม่กว่าไม่มีเครื่องมือกลุ่มนี้แล้ว *(v2.1.233)* |
+| `CLAUDE_CODE_PROJECT_DIR_NAME` | ตั้งชื่อสั้น ๆ ให้ไดเรกทอรี transcript ของแต่ละโปรเจกต์ (ไม่บังคับ) — สำหรับ host ที่ให้แต่ละ session มี config directory ของตัวเอง *(v2.1.234)* |
+| `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` | งาน background ทำให้ `/goal` รอได้นานแค่ไหน (ค่าเริ่มต้น 30 นาที) ก่อนที่ Claude จะเข้าไปเช็กงานนั้น; ตั้ง `0` เพื่อปิด *(v2.1.234)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
@@ -4700,7 +4725,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.233`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.234`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
