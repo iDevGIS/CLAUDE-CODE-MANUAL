@@ -196,6 +196,10 @@ Set the `model` key to any of these (newest → cheapest):
 - **"Default teammate model" removed from `/config`** — agent-team teammates now use the leader's model unless the spawn names one. See [[13-agent-teams]].
 - **GitLab merge request badge** — repos with a GitLab remote and an authenticated `glab` CLI show `MR !N` in the footer and statusline, with draft / pending / green states.
 
+### New in v2.1.235
+
+- **`spellcheck` setting** — an optional setting that underlines misspelled words in the prompt input as you type, using the `aspell`, `hunspell` or `ispell` you already have installed.
+
 ---
 
 ---

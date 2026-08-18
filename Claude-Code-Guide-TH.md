@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.234         │
+│ Welcome to Claude Code v2.1.235         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -666,6 +666,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **`claude setup-token` ไม่รับ argument เกินมาแล้ว** — ใส่ argument แปลกปลอมเข้าไปจะขึ้น error แทนที่จะเงียบแล้วข้ามไปเฉย ๆ
 
+### 🆕 ใหม่ใน v2.1.235
+
+- **`claude rc` เช็ก enterprise gateway ด้วยแล้ว** — Remote Control ใช้การเช็กความพร้อมของ enterprise gateway ชุดเดียวกับตอนเปิด session แบบ interactive
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -997,7 +1001,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.234
+- run: npm install -g @anthropic-ai/claude-code@2.1.235
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1468,6 +1472,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **`glab` ได้การป้องกันเท่ากับ `gh`** — config store ของ GitLab CLI ได้การป้องกันระดับ sandbox และ credential path แบบเดียวกับของ GitHub CLI แล้ว
 - **override binary ของ sandbox จากฝั่ง server ต้องขออนุมัติ** — `sandbox.bwrapPath`, `sandbox.socatPath` และ `sandbox.ripgrep` ที่ส่งมาทาง managed settings ต้องให้เรากดอนุมัติก่อน ไม่ถูกใช้แบบเงียบ ๆ อีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.235
+- **dialog permission ตรงกับสิทธิ์ที่ให้จริง** — ข้อความที่แสดงและตัวเลือก "don't ask again" จะบอกตรงกับสิ่งที่การกดอนุมัติครอบคลุมจริง ๆ เสมอ และถ้าแสดงเนื้อหาได้ไม่ครบ จะไม่ยื่นตัวเลือก "don't ask again" ให้
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1643,6 +1650,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **"Continue automatically at usage limit"** — Claude Code จะทำงาน session ต่อให้อัตโนมัติเมื่อ usage limit ของ claude.ai รีเซ็ต; ปิดได้ที่แถวนี้ใน `/config`
 - **ถอด "Default teammate model" ออกจาก `/config`** — teammate ใน agent team จะใช้โมเดลเดียวกับ leader เว้นแต่ตอน spawn ระบุโมเดลไว้เอง
 - **badge ของ GitLab merge request** — repo ที่มี remote เป็น GitLab และ login `glab` CLI ไว้แล้ว จะเห็น `MR !N` ที่ footer และ statusline พร้อมสถานะ draft / pending / green
+
+### 🆕 ใหม่ใน v2.1.235
+
+- **setting `spellcheck`** — setting เสริมที่ขีดเส้นใต้คำสะกดผิดในช่องพิมพ์ prompt ระหว่างที่เราพิมพ์ โดยใช้ `aspell`, `hunspell` หรือ `ispell` ที่ติดตั้งไว้ในเครื่องอยู่แล้ว
 
 ---
 
@@ -2508,6 +2519,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **เปิด fork subagent เป็นค่าเริ่มต้น** — subagent แบบ `subagent_type: "fork"` สืบทอดบทสนทนาทั้งหมดและ prompt cache ของ session แม่ เริ่มงานโดยรู้ทุกอย่างที่ parent รู้ แทนที่จะเริ่มจาก context ว่าง ๆ
 - **agent ที่ไม่ใช่ teammate รันเป็น background โดย default** — ใน session แบบ interactive การ spawn agent ที่ไม่ใช่ teammate จะไปรันเป็น background ให้ ทำให้เราทำงานต่อได้ระหว่างที่มันรัน
+
+### 🆕 ใหม่ใน v2.1.235
+
+- **ไม่ใส่ `subagent_type` แล้วได้ error ที่ชัดเจน** — ใน session ที่ไม่มี agent แบบ general-purpose ให้ใช้ Agent tool จะไม่บอกว่ามันเป็นค่า default อีกต่อไป; ถ้าไม่ใส่ `subagent_type` จะได้ error ที่ไล่รายชื่อ agent ที่ใช้ได้จริงมาให้
 
 ---
 
@@ -4725,7 +4740,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.234`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.235`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

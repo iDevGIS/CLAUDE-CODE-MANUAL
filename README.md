@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.234-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.40.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.235-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.41.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.234`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.235`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -75,8 +75,10 @@
 | ⌨️ **เปิด dialog กลาง turn ได้** | `/permissions` และ `/add-dir` ใช้ระหว่าง Claude ทำงานได้แล้ว · กฎ permission ที่แก้มีผลกับ turn ที่รันอยู่เลย (v2.1.234) |
 | ⏳ **ทำต่อเองเมื่อ limit รีเซ็ต** | Claude Code เดินงาน session ต่อให้อัตโนมัติเมื่อ usage limit ของ claude.ai รีเซ็ต — ปิดได้ใน `/config` (v2.1.234) |
 | 🧪 **env var ใหม่อีก 2 ตัว** | `CLAUDE_CODE_PROJECT_DIR_NAME` ตั้งชื่อสั้น ๆ ให้โฟลเดอร์ transcript ต่อโปรเจกต์ · `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` คุมว่า `/goal` ปล่อยงาน background รอได้นานแค่ไหน (v2.1.234) |
+| 🔤 **setting `spellcheck`** | ขีดเส้นใต้คำสะกดผิดในช่องพิมพ์ prompt ระหว่างพิมพ์ โดยใช้ `aspell` / `hunspell` / `ispell` ที่ติดตั้งไว้ในเครื่อง (v2.1.235) |
+| 🔐 **dialog permission ตรงกับสิทธิ์จริง** | ข้อความและตัวเลือก "don't ask again" บอกตรงกับสิ่งที่การอนุมัติครอบคลุม · แสดงเนื้อหาไม่ครบก็ไม่ยื่น "don't ask again" ให้ (v2.1.235) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.234` (manual `v1.40.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.235` (manual `v1.41.0`)
 
 ---
 
@@ -99,7 +101,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.234** + โมเดล Fable 5 / Opus 5 / Sonnet 5
+ตรงกับ Claude Code **v2.1.235** + โมเดล Fable 5 / Opus 5 / Sonnet 5
 
 </td>
 </tr>
@@ -159,7 +161,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.234`
+> **Claude Code Version:** `2.1.235`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

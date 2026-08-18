@@ -164,6 +164,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **เปิด fork subagent เป็นค่าเริ่มต้น** — subagent แบบ `subagent_type: "fork"` สืบทอดบทสนทนาทั้งหมดและ prompt cache ของ session แม่ เริ่มงานโดยรู้ทุกอย่างที่ parent รู้ แทนที่จะเริ่มจาก context ว่าง ๆ
 - **agent ที่ไม่ใช่ teammate รันเป็น background โดย default** — ใน session แบบ interactive การ spawn agent ที่ไม่ใช่ teammate จะไปรันเป็น background ให้ ทำให้เราทำงานต่อได้ระหว่างที่มันรัน
 
+### 🆕 ใหม่ใน v2.1.235
+
+- **ไม่ใส่ `subagent_type` แล้วได้ error ที่ชัดเจน** — ใน session ที่ไม่มี agent แบบ general-purpose ให้ใช้ Agent tool จะไม่บอกว่ามันเป็นค่า default อีกต่อไป; ถ้าไม่ใส่ `subagent_type` จะได้ error ที่ไล่รายชื่อ agent ที่ใช้ได้จริงมาให้
+
 ---
 
 ---

@@ -171,6 +171,9 @@ Skill(commit)                    # Specific skill
 - **`glab` is protected like `gh`** — the GitLab CLI's config store now gets the same sandbox and credential-path protection as the GitHub CLI's.
 - **Server-managed sandbox binary overrides need approval** — `sandbox.bwrapPath`, `sandbox.socatPath` and `sandbox.ripgrep` delivered through managed settings now require your approval instead of applying silently.
 
+### New in v2.1.235
+- **Permission dialogs match what a grant actually covers** — the display text and the "don't ask again" option now always describe exactly what approving would allow, and "don't ask again" is withheld when the contents can't be fully displayed.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

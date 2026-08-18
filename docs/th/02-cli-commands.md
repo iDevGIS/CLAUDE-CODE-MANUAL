@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.234         │
+│ Welcome to Claude Code v2.1.235         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -562,6 +562,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **`claude setup-token` ไม่รับ argument เกินมาแล้ว** — ใส่ argument แปลกปลอมเข้าไปจะขึ้น error แทนที่จะเงียบแล้วข้ามไปเฉย ๆ
 
+### 🆕 ใหม่ใน v2.1.235
+
+- **`claude rc` เช็ก enterprise gateway ด้วยแล้ว** — Remote Control ใช้การเช็กความพร้อมของ enterprise gateway ชุดเดียวกับตอนเปิด session แบบ interactive
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -933,7 +937,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.234
+- run: npm install -g @anthropic-ai/claude-code@2.1.235
 ```
 
 ---

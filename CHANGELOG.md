@@ -25,6 +25,27 @@
 
 ---
 
+## [1.41.0] — 2026-08-19
+
+### Compatibility
+- **Claude Code:** `v2.1.235+`
+
+### Added
+- **`spellcheck` setting** — optional setting that underlines misspelled words in the prompt input as you type, using an installed `aspell`, `hunspell` or `ispell` (`v2.1.235`) — chapter 06
+
+### Changed
+- **Permission dialogs match what a grant actually covers** — display text and the "don't ask again" option always describe what approving would allow, and "don't ask again" is withheld when the contents can't be fully displayed (`v2.1.235`) — chapter 05
+- **An omitted `subagent_type` returns a clear error** — in sessions where the general-purpose agent isn't available, the Agent tool no longer advertises it as the default and instead lists the agents that can be used (`v2.1.235`) — chapter 12
+- **`claude rc` applies the enterprise-gateway availability check** used by interactive startup (`v2.1.235`) — chapter 02
+- **Version strings** bumped `2.1.234` → `2.1.235` (current-version references only; historical sections kept)
+
+### Why
+- `2.1.235` is a small, mostly corrective release; only four changes have reader-facing surface, and `spellcheck` is the single genuinely new setting
+- The permission-dialog change is documented in chapter 05 because it alters what a "don't ask again" answer means in practice, not just how the dialog looks
+- The Shift+Tab fix inside the permission comment field, the `SendMessage` size check, the embedded-`grep` improvements, the context-limit error wording, the Vim-mode and dialog-navigation fixes, and the cloud-session memory work are left out as bug fixes and UI polish with no documented behavior to change
+
+---
+
 ## [1.40.0] — 2026-08-18
 
 ### Compatibility
@@ -982,6 +1003,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.41.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.40.0...v1.41.0
 [1.40.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.39.0...v1.40.0
 [1.39.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.38.0...v1.39.0
 [1.38.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.37.0...v1.38.0

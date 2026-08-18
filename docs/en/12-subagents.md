@@ -164,6 +164,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Subagent forking is on by default** — a `subagent_type: "fork"` subagent inherits the full conversation and the prompt cache, so it starts with everything the parent knows instead of a fresh context.
 - **Non-teammate agents run in the background by default** — in interactive sessions, agent spawns that aren't teammates now go to the background, so you keep working while they run.
 
+### New in v2.1.235
+
+- **A missing `subagent_type` gives a clear error** — in sessions where the general-purpose agent isn't available, the Agent tool no longer advertises it as the default; omitting `subagent_type` there returns an error listing the agents you can actually use.
+
 ---
 
 ---

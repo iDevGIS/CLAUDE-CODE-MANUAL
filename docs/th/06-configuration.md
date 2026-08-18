@@ -196,6 +196,10 @@ related:
 - **ถอด "Default teammate model" ออกจาก `/config`** — teammate ใน agent team จะใช้โมเดลเดียวกับ leader เว้นแต่ตอน spawn ระบุโมเดลไว้เอง ดูที่ [[13-agent-teams]]
 - **badge ของ GitLab merge request** — repo ที่มี remote เป็น GitLab และ login `glab` CLI ไว้แล้ว จะเห็น `MR !N` ที่ footer และ statusline พร้อมสถานะ draft / pending / green
 
+### 🆕 ใหม่ใน v2.1.235
+
+- **setting `spellcheck`** — setting เสริมที่ขีดเส้นใต้คำสะกดผิดในช่องพิมพ์ prompt ระหว่างที่เราพิมพ์ โดยใช้ `aspell`, `hunspell` หรือ `ispell` ที่ติดตั้งไว้ในเครื่องอยู่แล้ว
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.234         │
+│ Welcome to Claude Code v2.1.235         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -562,6 +562,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **`claude setup-token` rejects unexpected extra arguments** — stray arguments now produce an error instead of being silently ignored.
 
+### New in v2.1.235
+
+- **`claude rc` checks enterprise gateway availability** — Remote Control now runs the same enterprise-gateway availability check that interactive startup does.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -933,7 +937,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.234
+- run: npm install -g @anthropic-ai/claude-code@2.1.235
 ```
 
 ---

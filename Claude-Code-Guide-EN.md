@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.234         │
+│ Welcome to Claude Code v2.1.235         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.234
+- run: npm install -g @anthropic-ai/claude-code@2.1.235
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1011,6 +1011,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.234
 
 - **`claude setup-token` rejects unexpected extra arguments** — stray arguments now produce an error instead of being silently ignored.
+
+### New in v2.1.235
+
+- **`claude rc` checks enterprise gateway availability** — Remote Control now runs the same enterprise-gateway availability check that interactive startup does.
 
 ---
 
@@ -1474,6 +1478,9 @@ Skill(commit)                    # Specific skill
 - **`glab` is protected like `gh`** — the GitLab CLI's config store now gets the same sandbox and credential-path protection as the GitHub CLI's.
 - **Server-managed sandbox binary overrides need approval** — `sandbox.bwrapPath`, `sandbox.socatPath` and `sandbox.ripgrep` delivered through managed settings now require your approval instead of applying silently.
 
+### New in v2.1.235
+- **Permission dialogs match what a grant actually covers** — the display text and the "don't ask again" option now always describe exactly what approving would allow, and "don't ask again" is withheld when the contents can't be fully displayed.
+
 ---
 
 ## 6. Configuration
@@ -1649,6 +1656,10 @@ Skill(commit)                    # Specific skill
 - **"Continue automatically at usage limit"** — Claude Code now continues your session automatically when a claude.ai usage limit resets; turn it off with this `/config` row.
 - **"Default teammate model" removed from `/config`** — agent-team teammates now use the leader's model unless the spawn names one.
 - **GitLab merge request badge** — repos with a GitLab remote and an authenticated `glab` CLI show `MR !N` in the footer and statusline, with draft / pending / green states.
+
+### New in v2.1.235
+
+- **`spellcheck` setting** — an optional setting that underlines misspelled words in the prompt input as you type, using the `aspell`, `hunspell` or `ispell` you already have installed.
 
 ---
 
@@ -2515,6 +2526,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Subagent forking is on by default** — a `subagent_type: "fork"` subagent inherits the full conversation and the prompt cache, so it starts with everything the parent knows instead of a fresh context.
 - **Non-teammate agents run in the background by default** — in interactive sessions, agent spawns that aren't teammates now go to the background, so you keep working while they run.
+
+### New in v2.1.235
+
+- **A missing `subagent_type` gives a clear error** — in sessions where the general-purpose agent isn't available, the Agent tool no longer advertises it as the default; omitting `subagent_type` there returns an error listing the agents you can actually use.
 
 ---
 
@@ -4739,7 +4754,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.234`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.235`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

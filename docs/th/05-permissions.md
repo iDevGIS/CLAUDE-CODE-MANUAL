@@ -200,6 +200,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **`glab` ได้การป้องกันเท่ากับ `gh`** — config store ของ GitLab CLI ได้การป้องกันระดับ sandbox และ credential path แบบเดียวกับของ GitHub CLI แล้ว
 - **override binary ของ sandbox จากฝั่ง server ต้องขออนุมัติ** — `sandbox.bwrapPath`, `sandbox.socatPath` และ `sandbox.ripgrep` ที่ส่งมาทาง managed settings ต้องให้เรากดอนุมัติก่อน ไม่ถูกใช้แบบเงียบ ๆ อีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.235
+- **dialog permission ตรงกับสิทธิ์ที่ให้จริง** — ข้อความที่แสดงและตัวเลือก "don't ask again" จะบอกตรงกับสิ่งที่การกดอนุมัติครอบคลุมจริง ๆ เสมอ และถ้าแสดงเนื้อหาได้ไม่ครบ จะไม่ยื่นตัวเลือก "don't ask again" ให้
+
 ---
 
 ---
