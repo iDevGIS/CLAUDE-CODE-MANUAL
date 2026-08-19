@@ -168,6 +168,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/config` gained "Continue automatically at usage limit" and lost "Default teammate model"** — see [[06-configuration]].
 - **`/tui` no longer drops launch tool restrictions** — it used to lose `--allowed-tools` / `--disallowed-tools` rules when restarting; now it declines to switch, and says why, when the session has restrictions a restart can't carry over.
 
+### New in v2.1.236
+- **A slash-command typo is reported, not guessed** — pressing Enter on a misspelled command, or one that isn't available in this session, now tells you instead of running the closest fuzzy match; prefixes and aliases still run as before.
+- **`/goal` checks in on its own while parked** — an idle session whose goal is waiting on long-running background work now checks in automatically after 30 minutes, then 1 hour, then 2 hours, instead of waiting for you to come back. See [[23-environment-variables]].
+- **`/usage` shows usage-credits spend for Team and Enterprise** — the spend row now appears for Team and Enterprise members, and shows a capped row at 0% before anything has been spent.
+
 ---
 
 ---

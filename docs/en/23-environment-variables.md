@@ -75,6 +75,7 @@ related:
 | `CLAUDE_CODE_ENABLE_TODO_TOOLS` | Set `1` to restore the todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`), which are no longer available on Opus 4.8, Sonnet 5, Fable 5, Mythos 5, and newer models. *(v2.1.233)* |
 | `CLAUDE_CODE_PROJECT_DIR_NAME` | Optional short name for the per-project transcript directory — for hosts that give each session its own config directory. *(v2.1.234)* |
 | `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` | How long background tasks may keep a `/goal` waiting (30 minutes by default) before Claude checks in on them; set `0` to opt out. *(v2.1.234)* |
+| `ANTHROPIC_DEFAULT_MODEL` | The model new sessions start on. Unlike `ANTHROPIC_MODEL`, a `/model` pick still overrides it and that pick persists across restarts. *(v2.1.236)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 

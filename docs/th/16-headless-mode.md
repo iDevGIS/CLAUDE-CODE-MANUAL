@@ -127,6 +127,10 @@ cat src/*.ts | claude -p "หา Bug"
 
 เพิ่มหมายเหตุ `--safe-mode` (ปิด customization) และ `claude mcp login --no-browser` (auth MCP สำหรับ CI/SSH)
 
+### 🆕 ใหม่ใน v2.1.236
+
+- **SIGTERM ในโหมด print/SDK จบงานสะอาดขึ้น** — สัญญาณ `SIGTERM` จะไม่บันทึก turn ที่ถูกขัดจังหวะหรือ tool denial ปลอม ๆ ลง transcript ก่อนออกอีกแล้ว · คำสั่งที่กำลังรันยังถูกสั่งหยุดเหมือนเดิม และ process ยังออกด้วย exit code 143
+
 ---
 
 ---

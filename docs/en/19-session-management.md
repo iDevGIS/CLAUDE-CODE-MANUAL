@@ -99,6 +99,12 @@ Shows an interactive picker to choose a session.
 - **Session names stay unique on one machine** — starting or renaming an interactive session to a name another live session already uses gives it a `name-word-word` variant and tells you.
 - **Cross-session inbound is configurable from `/config`** — the new "Messages from your other sessions" row accepts, holds, or refuses them. See [[06-configuration]].
 
+### New in v2.1.236
+
+- **`notify_when_idle` on cross-session `SendMessage`** — ask another Claude Code session on this machine to send one notice when it next goes idle. Opt-in, one-shot, no polling (macOS and Linux).
+- **`SendMessage` refuses an oversized burst up front** — once a rapid burst would exceed what the target session's inbox accepts, further messages are refused immediately instead of being reported as sent while they were dropped.
+- **Remote Control marks a session offline within seconds** when the CLI exits or its terminal closes.
+
 > 🔎 Full deep-dive: [[41-background-agents]]
 
 ---

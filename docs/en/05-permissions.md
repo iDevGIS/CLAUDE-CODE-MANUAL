@@ -174,6 +174,12 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.235
 - **Permission dialogs match what a grant actually covers** — the display text and the "don't ask again" option now always describe exactly what approving would allow, and "don't ask again" is withheld when the contents can't be fully displayed.
 
+### New in v2.1.236
+- **Wildcard read-deny rules win inside allowed regions (macOS sandbox)** — a rule like `**/.env` now takes precedence inside a region the sandbox is allowed to read, covers the contents of any directory it matches, and can't be bypassed by renaming the denied file.
+- **Auto mode reviews `Monitor` like Bash** — `Monitor` allow rules are set aside while auto mode is active, so Monitor commands go through the same review as Bash commands.
+- **Auto mode's classifier behaves the same off the Claude API** — on Bedrock, Vertex AI and Foundry, and when telemetry is disabled, it now uses the Claude API defaults, including severity-scored classification.
+- **Auto mode's git status check can't be fooled** — a repo setting `status.showUntrackedFiles=no` no longer makes it report a clean tree.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

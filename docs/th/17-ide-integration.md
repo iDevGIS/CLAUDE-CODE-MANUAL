@@ -59,6 +59,10 @@ related:
 - **ปรับขนาดพาเนล `/btw` ได้ (VS Code)** — ลากขอบพาเนลถามแทรกข้างได้ทั้งแบบ dock ด้านข้างและแบบวางซ้อน
 - **"Report a problem" กับ `/bug` เปิด dialog ส่ง feedback ในตัว** ของ VS Code แทนลิงก์แบบสอบถามเดิมที่เลิกใช้แล้ว
 
+### 🆕 ใหม่ใน v2.1.236
+
+- **รองรับ screen reader ในหน้า transcript (VS Code)** — ประกาศสดเมื่อมีคำตอบใหม่ คำขอ permission ข้อผิดพลาด และการเปลี่ยนสถานะ · พร้อมเดินอ่านทีละ turn ด้วย heading navigation
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**

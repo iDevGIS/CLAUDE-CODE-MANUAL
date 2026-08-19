@@ -115,6 +115,10 @@ claude --bg --exec "npm run build && npm test"
 - `--safe-mode` (env `CLAUDE_CODE_SAFE_MODE=1`) — start with ALL customizations disabled (CLAUDE.md, plugins, skills, hooks, MCP) for clean, reproducible automation runs.
 - `claude mcp login --no-browser` — authenticate an MCP server in CI/SSH by pasting the OAuth URL instead of opening a browser.
 
+### New in v2.1.236
+
+- **SIGTERM exits cleanly in print/SDK mode** — a `SIGTERM` no longer records an interrupted turn or synthetic tool denials in the transcript before exiting; running commands are still terminated and the process still exits with code 143.
+
 ### Pipe Data Into Claude
 
 ```bash

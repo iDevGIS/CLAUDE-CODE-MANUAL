@@ -59,6 +59,10 @@ related:
 - **Resizable `/btw` panel (VS Code)** — drag the boundary of the side-question panel, in both the side-docked and stacked layouts.
 - **"Report a problem" and `/bug` open the built-in feedback dialog** in VS Code, instead of a retired survey link.
 
+### New in v2.1.236
+
+- **Screen reader support for the transcript (VS Code)** — live announcements for replies, permission requests, errors and status changes, plus per-turn heading navigation.
+
 ### JetBrains IDEs
 
 **Install:**

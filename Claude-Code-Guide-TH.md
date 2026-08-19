@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.235         │
+│ Welcome to Claude Code v2.1.236         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1001,7 +1001,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.235
+- run: npm install -g @anthropic-ai/claude-code@2.1.236
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1190,6 +1190,11 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/goal` ตามงาน background ที่รอนาน** — ถ้างาน background ทำให้ goal รออยู่เกิน 30 นาที Claude จะเข้าไปเช็กงานนั้นแทนการรอไปเรื่อย ๆ; ตั้ง `CLAUDE_CODE_GOAL_CHECKIN_MINUTES=0` เพื่อปิด
 - **`/config` เพิ่ม "Continue automatically at usage limit" และถอด "Default teammate model"** — ดูที่ 6. การตั้งค่า
 - **`/tui` ไม่ทำกฎจำกัด tool ตอน launch หายแล้ว** — เดิม restart แล้วกฎ `--allowed-tools` / `--disallowed-tools` หลุด ตอนนี้ถ้า session มีข้อจำกัดที่ restart แล้วพกไปด้วยไม่ได้ มันจะไม่ยอมสลับ พร้อมบอกเหตุผล
+
+### 🆕 ใหม่ใน v2.1.236
+- **พิมพ์ชื่อ slash command ผิดจะถูกแจ้ง ไม่ใช่เดาให้** — กด Enter บนคำสั่งที่สะกดผิดหรือคำสั่งที่ session นี้ใช้ไม่ได้ ระบบจะบอกตรง ๆ แทนที่จะรันคำสั่งที่ใกล้เคียงที่สุดแบบ fuzzy match ให้ · ส่วนการพิมพ์แบบย่อ (prefix) และ alias ยังรันได้เหมือนเดิม
+- **`/goal` เช็กงานเองระหว่างจอดรอ** — session ที่ idle และมี goal ค้างรองาน background ที่รันยาว จะเข้าไปเช็กงานให้อัตโนมัติเมื่อครบ 30 นาที แล้ว 1 ชั่วโมง แล้ว 2 ชั่วโมง แทนที่จะรอจนกว่าเราจะกลับมา
+- **`/usage` แสดงยอดใช้ usage credits ของ Team และ Enterprise** — แถวยอดใช้จ่ายโผล่ให้สมาชิกแพลน Team และ Enterprise ด้วยแล้ว และแสดงแถวเพดานที่ 0% ตั้งแต่ยังไม่มีการใช้จ่าย
 
 ---
 
@@ -1474,6 +1479,12 @@ Skill(commit)                    # Skill เฉพาะ
 
 ### 🆕 ใหม่ใน v2.1.235
 - **dialog permission ตรงกับสิทธิ์ที่ให้จริง** — ข้อความที่แสดงและตัวเลือก "don't ask again" จะบอกตรงกับสิ่งที่การกดอนุมัติครอบคลุมจริง ๆ เสมอ และถ้าแสดงเนื้อหาได้ไม่ครบ จะไม่ยื่นตัวเลือก "don't ask again" ให้
+
+### 🆕 ใหม่ใน v2.1.236
+- **กฎ deny แบบ wildcard ชนะในเขตที่อนุญาตให้อ่าน (sandbox บน macOS)** — กฎอย่าง `**/.env` มีลำดับเหนือกว่าแม้อยู่ในเขตที่ sandbox อ่านได้ · ครอบคลุมถึงไฟล์ข้างในไดเรกทอรีที่ match ด้วย · และเลี่ยงด้วยการเปลี่ยนชื่อไฟล์ที่ถูก deny ไม่ได้แล้ว
+- **auto mode ตรวจ `Monitor` เหมือน Bash** — ระหว่างที่ auto mode ทำงาน กฎ allow ของ `Monitor` จะถูกพักไว้ คำสั่ง Monitor จึงถูกรีวิวด้วยมาตรฐานเดียวกับคำสั่ง Bash
+- **classifier ของ auto mode ทำงานเหมือนกันแม้ไม่ได้อยู่บน Claude API** — บน Bedrock, Vertex AI, Foundry และตอนที่ปิด telemetry ใช้ค่าเริ่มต้นชุดเดียวกับ Claude API แล้ว รวมถึงการให้คะแนนความรุนแรง (severity-scored classification)
+- **การเช็ก git status ของ auto mode ถูกหลอกไม่ได้แล้ว** — repo ที่ตั้ง `status.showUntrackedFiles=no` ไม่ทำให้ระบบรายงานว่า working tree สะอาดอีกต่อไป
 
 ---
 
@@ -2900,6 +2911,10 @@ git diff | claude -p "รีวิวการเปลี่ยนแปลง�
 cat src/*.ts | claude -p "หา Bug"
 ```
 
+### 🆕 ใหม่ใน v2.1.236
+
+- **SIGTERM ในโหมด print/SDK จบงานสะอาดขึ้น** — สัญญาณ `SIGTERM` จะไม่บันทึก turn ที่ถูกขัดจังหวะหรือ tool denial ปลอม ๆ ลง transcript ก่อนออกอีกแล้ว · คำสั่งที่กำลังรันยังถูกสั่งหยุดเหมือนเดิม และ process ยังออกด้วย exit code 143
+
 ---
 
 ## 17. IDE Integration
@@ -2947,6 +2962,10 @@ cat src/*.ts | claude -p "หา Bug"
 - **จัดกลุ่ม session ได้ (VS Code)** — จัดกลุ่ม session ใน sidebar ได้แล้ว คลิกขวาเพื่อสร้าง/เปลี่ยนชื่อ/ลบกลุ่ม และกด Cmd/Ctrl หรือ Shift ค้างเพื่อย้ายหลาย session พร้อมกัน
 - **ปรับขนาดพาเนล `/btw` ได้ (VS Code)** — ลากขอบพาเนลถามแทรกข้างได้ทั้งแบบ dock ด้านข้างและแบบวางซ้อน
 - **"Report a problem" กับ `/bug` เปิด dialog ส่ง feedback ในตัว** ของ VS Code แทนลิงก์แบบสอบถามเดิมที่เลิกใช้แล้ว
+
+### 🆕 ใหม่ใน v2.1.236
+
+- **รองรับ screen reader ในหน้า transcript (VS Code)** — ประกาศสดเมื่อมีคำตอบใหม่ คำขอ permission ข้อผิดพลาด และการเปลี่ยนสถานะ · พร้อมเดินอ่านทีละ turn ด้วย heading navigation
 
 ### JetBrains IDEs
 
@@ -3152,6 +3171,12 @@ claude --fork-session                # แยก Branch ใหม่
 - **`SendMessage` รับชื่อเปล่า ๆ ได้** — ถ้าชื่อที่พิมพ์ตรงกับ session ที่ยังรันอยู่เพียงตัวเดียว ระบบจะส่งให้เลย ไม่ต้องให้เรายืนยันด้วย ref ก่อนอีกแล้ว
 - **ชื่อ session บนเครื่องเดียวกันไม่ซ้ำกัน** — ถ้าเริ่มหรือเปลี่ยนชื่อ session แบบ interactive ไปชนกับ session อื่นที่ยังรันอยู่ ระบบจะเติมชื่อให้เป็นแบบ `name-word-word` พร้อมแจ้งให้เราทราบ
 - **ตั้งค่าข้อความข้าม session ที่ส่งเข้ามาได้จาก `/config`** — แถวใหม่ "Messages from your other sessions" เลือกได้ว่าจะรับ กักไว้ หรือปฏิเสธ
+
+### 🆕 ใหม่ใน v2.1.236
+
+- **`notify_when_idle` ใน `SendMessage` ข้าม session** — สั่งให้ session อื่นของ Claude Code บนเครื่องเดียวกันส่งแจ้งเตือนกลับมา 1 ครั้ง ตอนที่มัน idle ครั้งถัดไป · เป็น opt-in ยิงครั้งเดียวจบ ไม่ต้อง poll (macOS และ Linux)
+- **`SendMessage` ปฏิเสธข้อความรัวเกินโควตาตั้งแต่ต้นทาง** — ถ้าการส่งรัว ๆ จะเกินที่ inbox ของ session ปลายทางรับไหว ระบบจะปฏิเสธตั้งแต่แรก แทนที่จะรายงานว่าส่งแล้วทั้งที่ข้อความถูกทิ้ง
+- **Remote Control ขึ้นสถานะ offline ภายในไม่กี่วินาที** เมื่อ CLI ปิดตัวหรือ terminal ของ session นั้นถูกปิด
 
 ---
 
@@ -3426,6 +3451,7 @@ your-project/
 | `CLAUDE_CODE_ENABLE_TODO_TOOLS` | ตั้ง `1` เพื่อเอา todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`) กลับมา — โมเดล Opus 4.8, Sonnet 5, Fable 5, Mythos 5 และรุ่นที่ใหม่กว่าไม่มีเครื่องมือกลุ่มนี้แล้ว *(v2.1.233)* |
 | `CLAUDE_CODE_PROJECT_DIR_NAME` | ตั้งชื่อสั้น ๆ ให้ไดเรกทอรี transcript ของแต่ละโปรเจกต์ (ไม่บังคับ) — สำหรับ host ที่ให้แต่ละ session มี config directory ของตัวเอง *(v2.1.234)* |
 | `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` | งาน background ทำให้ `/goal` รอได้นานแค่ไหน (ค่าเริ่มต้น 30 นาที) ก่อนที่ Claude จะเข้าไปเช็กงานนั้น; ตั้ง `0` เพื่อปิด *(v2.1.234)* |
+| `ANTHROPIC_DEFAULT_MODEL` | โมเดลที่ session ใหม่เริ่มต้นด้วย — ต่างจาก `ANTHROPIC_MODEL` ตรงที่การเลือกโมเดลด้วย `/model` ยังทับค่านี้ได้ และค่าที่เลือกอยู่ข้าม restart *(v2.1.236)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
@@ -4740,7 +4766,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.235`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.236`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

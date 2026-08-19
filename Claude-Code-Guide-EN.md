@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.235         │
+│ Welcome to Claude Code v2.1.236         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.235
+- run: npm install -g @anthropic-ai/claude-code@2.1.236
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1196,6 +1196,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/goal` checks in on long-waiting background tasks** — when background tasks keep a goal waiting for 30+ minutes, Claude checks in on them instead of waiting indefinitely; set `CLAUDE_CODE_GOAL_CHECKIN_MINUTES=0` to opt out.
 - **`/config` gained "Continue automatically at usage limit" and lost "Default teammate model"** — see 6. Configuration.
 - **`/tui` no longer drops launch tool restrictions** — it used to lose `--allowed-tools` / `--disallowed-tools` rules when restarting; now it declines to switch, and says why, when the session has restrictions a restart can't carry over.
+
+### New in v2.1.236
+- **A slash-command typo is reported, not guessed** — pressing Enter on a misspelled command, or one that isn't available in this session, now tells you instead of running the closest fuzzy match; prefixes and aliases still run as before.
+- **`/goal` checks in on its own while parked** — an idle session whose goal is waiting on long-running background work now checks in automatically after 30 minutes, then 1 hour, then 2 hours, instead of waiting for you to come back.
+- **`/usage` shows usage-credits spend for Team and Enterprise** — the spend row now appears for Team and Enterprise members, and shows a capped row at 0% before anything has been spent.
 
 ---
 
@@ -1480,6 +1485,12 @@ Skill(commit)                    # Specific skill
 
 ### New in v2.1.235
 - **Permission dialogs match what a grant actually covers** — the display text and the "don't ask again" option now always describe exactly what approving would allow, and "don't ask again" is withheld when the contents can't be fully displayed.
+
+### New in v2.1.236
+- **Wildcard read-deny rules win inside allowed regions (macOS sandbox)** — a rule like `**/.env` now takes precedence inside a region the sandbox is allowed to read, covers the contents of any directory it matches, and can't be bypassed by renaming the denied file.
+- **Auto mode reviews `Monitor` like Bash** — `Monitor` allow rules are set aside while auto mode is active, so Monitor commands go through the same review as Bash commands.
+- **Auto mode's classifier behaves the same off the Claude API** — on Bedrock, Vertex AI and Foundry, and when telemetry is disabled, it now uses the Claude API defaults, including severity-scored classification.
+- **Auto mode's git status check can't be fooled** — a repo setting `status.showUntrackedFiles=no` no longer makes it report a clean tree.
 
 ---
 
@@ -2911,6 +2922,10 @@ git diff | claude -p "review these changes"
 cat src/*.ts | claude -p "find bugs"
 ```
 
+### New in v2.1.236
+
+- **SIGTERM exits cleanly in print/SDK mode** — a `SIGTERM` no longer records an interrupted turn or synthetic tool denials in the transcript before exiting; running commands are still terminated and the process still exits with code 143.
+
 ---
 
 ## 17. IDE Integration
@@ -2958,6 +2973,10 @@ cat src/*.ts | claude -p "find bugs"
 - **Session groups (VS Code)** — group sessions in the sidebar: right-click to create, rename, or delete a group, and Cmd/Ctrl- or Shift-click to move several sessions at once.
 - **Resizable `/btw` panel (VS Code)** — drag the boundary of the side-question panel, in both the side-docked and stacked layouts.
 - **"Report a problem" and `/bug` open the built-in feedback dialog** in VS Code, instead of a retired survey link.
+
+### New in v2.1.236
+
+- **Screen reader support for the transcript (VS Code)** — live announcements for replies, permission requests, errors and status changes, plus per-turn heading navigation.
 
 ### JetBrains IDEs
 
@@ -3157,6 +3176,12 @@ Shows an interactive picker to choose a session.
 - **`SendMessage` accepts a bare name** — a bare name that exactly matches one live session is delivered straight away, instead of asking you to confirm with a ref first.
 - **Session names stay unique on one machine** — starting or renaming an interactive session to a name another live session already uses gives it a `name-word-word` variant and tells you.
 - **Cross-session inbound is configurable from `/config`** — the new "Messages from your other sessions" row accepts, holds, or refuses them.
+
+### New in v2.1.236
+
+- **`notify_when_idle` on cross-session `SendMessage`** — ask another Claude Code session on this machine to send one notice when it next goes idle. Opt-in, one-shot, no polling (macOS and Linux).
+- **`SendMessage` refuses an oversized burst up front** — once a rapid burst would exceed what the target session's inbox accepts, further messages are refused immediately instead of being reported as sent while they were dropped.
+- **Remote Control marks a session offline within seconds** when the CLI exits or its terminal closes.
 
 ### Session File Locations
 
@@ -3437,6 +3462,7 @@ your-project/
 | `CLAUDE_CODE_ENABLE_TODO_TOOLS` | Set `1` to restore the todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`), which are no longer available on Opus 4.8, Sonnet 5, Fable 5, Mythos 5, and newer models. *(v2.1.233)* |
 | `CLAUDE_CODE_PROJECT_DIR_NAME` | Optional short name for the per-project transcript directory — for hosts that give each session its own config directory. *(v2.1.234)* |
 | `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` | How long background tasks may keep a `/goal` waiting (30 minutes by default) before Claude checks in on them; set `0` to opt out. *(v2.1.234)* |
+| `ANTHROPIC_DEFAULT_MODEL` | The model new sessions start on. Unlike `ANTHROPIC_MODEL`, a `/model` pick still overrides it and that pick persists across restarts. *(v2.1.236)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
@@ -4754,7 +4780,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.235`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.236`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

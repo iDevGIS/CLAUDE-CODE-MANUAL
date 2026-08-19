@@ -25,6 +25,35 @@
 
 ---
 
+## [1.42.0] — 2026-08-20
+
+### Compatibility
+- **Claude Code:** `v2.1.236+`
+
+### Added
+- **`ANTHROPIC_DEFAULT_MODEL`** — sets the model new sessions start on; unlike `ANTHROPIC_MODEL`, a `/model` pick still overrides it and that pick persists across restarts (`v2.1.236`) — chapter 23
+- **`notify_when_idle` on cross-session `SendMessage`** — ask another Claude Code session on this machine to send one notice when it next goes idle; opt-in, one-shot, no polling (macOS and Linux) (`v2.1.236`) — chapter 19
+- **Screen reader support for the VS Code transcript** — live announcements for replies, permission requests, errors and status changes, plus per-turn heading navigation (`v2.1.236`) — chapter 17
+
+### Changed
+- **Wildcard read-deny rules win inside allowed regions (macOS sandbox)** — a rule like `**/.env` now takes precedence inside a region the sandbox may read, covers the contents of any directory it matches, and can't be bypassed by renaming the denied file (`v2.1.236`) — chapter 05
+- **Auto mode reviews `Monitor` like Bash** — `Monitor` allow rules are set aside while auto mode is active (`v2.1.236`) — chapter 05
+- **Auto mode's classifier matches the Claude API defaults off-platform** — on Bedrock, Vertex AI and Foundry, and when telemetry is disabled, including severity-scored classification (`v2.1.236`) — chapter 05
+- **Auto mode's git status check can't be fooled** by a repo's `status.showUntrackedFiles=no` (`v2.1.236`) — chapter 05
+- **A slash-command typo is reported, not guessed** — a misspelled or unavailable command no longer runs the closest fuzzy match; prefixes and aliases still run (`v2.1.236`) — chapter 03
+- **`/goal` checks in on its own while parked** — an idle session whose goal waits on long-running background work checks in after 30 minutes, then 1h, then 2h (`v2.1.236`) — chapter 03
+- **`/usage` shows the usage-credits spend row for Team and Enterprise**, with a capped row at 0% before anything is spent (`v2.1.236`) — chapter 03
+- **SIGTERM exits cleanly in print/SDK mode** — no interrupted turn or synthetic tool denials recorded; commands are still terminated and the exit code is still 143 (`v2.1.236`) — chapter 16
+- **`SendMessage` refuses an oversized burst up front** instead of reporting messages as sent while they were dropped, and **Remote Control marks a session offline within seconds** when the CLI or its terminal closes (`v2.1.236`) — chapter 19
+- **Version strings** bumped `2.1.235` → `2.1.236` (current-version references only; historical sections kept)
+
+### Why
+- `2.1.236` is a larger release than `2.1.235`, but most of it is fixes; the documentable surface is one new env var, one new `SendMessage` option, the macOS sandbox precedence rule, and four behavior changes spread across auto mode, slash commands and headless mode
+- The sandbox item is documented in chapter 05 because it changes what a `**/.env`-style deny rule actually guarantees — previously an allowed read region could win over it
+- The `/model` picker highlight and scrolling changes, the fullscreen renderer and tmux title fixes, the recap cap, the startup session-counter work and the remaining UI fixes are left out as bug fixes and UI polish with no documented behavior to change
+
+---
+
 ## [1.41.0] — 2026-08-19
 
 ### Compatibility
@@ -1003,6 +1032,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.42.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.41.0...v1.42.0
 [1.41.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.40.0...v1.41.0
 [1.40.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.39.0...v1.40.0
 [1.39.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.38.0...v1.39.0

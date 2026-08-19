@@ -11,7 +11,7 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.235-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.236-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
 [![Manual](https://img.shields.io/badge/Manual-v1.41.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.235`
+## 🆕 What's new — synced to Claude Code `v2.1.236`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -77,8 +77,12 @@ Never used a command line? You can still follow along 👇
 | 🧪 **Two more env vars** | `CLAUDE_CODE_PROJECT_DIR_NAME` names the per-project transcript directory · `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` controls how long a `/goal` waits on background tasks (v2.1.234) |
 | 🔤 **`spellcheck` setting** | underlines misspelled words in the prompt input as you type, using your installed `aspell` / `hunspell` / `ispell` (v2.1.235) |
 | 🔐 **Permission dialogs match the grant** | display text and "don't ask again" always describe what approving covers · "don't ask again" is withheld when contents can't be fully displayed (v2.1.235) |
+| 🧪 **`ANTHROPIC_DEFAULT_MODEL`** | sets the model new sessions start on — unlike `ANTHROPIC_MODEL`, a `/model` pick still overrides it and persists across restarts (v2.1.236) |
+| 🔔 **`notify_when_idle` on `SendMessage`** | ask another session on this machine to send one notice when it next goes idle — opt-in, one-shot, no polling (macOS/Linux, v2.1.236) |
+| 🔐 **Wildcard read-deny rules win** | `**/.env` takes precedence inside allowed read regions (macOS sandbox) · covers matched directories' contents · can't be bypassed by renaming (v2.1.236) |
+| 🛡️ **Auto mode reviews `Monitor` like Bash** | `Monitor` allow rules are set aside while auto mode is active · the classifier uses Claude API defaults on Bedrock/Vertex/Foundry too (v2.1.236) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.235` (manual `v1.41.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.236` (manual `v1.42.0`)
 
 ---
 
@@ -101,7 +105,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.235** + the Fable 5 / Opus 5 / Sonnet 5 lineup
+Tracks Claude Code **v2.1.236** + the Fable 5 / Opus 5 / Sonnet 5 lineup
 
 </td>
 </tr>
@@ -161,7 +165,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.235`
+> **Claude Code Version:** `2.1.236`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

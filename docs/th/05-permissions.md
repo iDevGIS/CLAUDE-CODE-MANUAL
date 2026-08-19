@@ -203,6 +203,12 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.235
 - **dialog permission ตรงกับสิทธิ์ที่ให้จริง** — ข้อความที่แสดงและตัวเลือก "don't ask again" จะบอกตรงกับสิ่งที่การกดอนุมัติครอบคลุมจริง ๆ เสมอ และถ้าแสดงเนื้อหาได้ไม่ครบ จะไม่ยื่นตัวเลือก "don't ask again" ให้
 
+### 🆕 ใหม่ใน v2.1.236
+- **กฎ deny แบบ wildcard ชนะในเขตที่อนุญาตให้อ่าน (sandbox บน macOS)** — กฎอย่าง `**/.env` มีลำดับเหนือกว่าแม้อยู่ในเขตที่ sandbox อ่านได้ · ครอบคลุมถึงไฟล์ข้างในไดเรกทอรีที่ match ด้วย · และเลี่ยงด้วยการเปลี่ยนชื่อไฟล์ที่ถูก deny ไม่ได้แล้ว
+- **auto mode ตรวจ `Monitor` เหมือน Bash** — ระหว่างที่ auto mode ทำงาน กฎ allow ของ `Monitor` จะถูกพักไว้ คำสั่ง Monitor จึงถูกรีวิวด้วยมาตรฐานเดียวกับคำสั่ง Bash
+- **classifier ของ auto mode ทำงานเหมือนกันแม้ไม่ได้อยู่บน Claude API** — บน Bedrock, Vertex AI, Foundry และตอนที่ปิด telemetry ใช้ค่าเริ่มต้นชุดเดียวกับ Claude API แล้ว รวมถึงการให้คะแนนความรุนแรง (severity-scored classification)
+- **การเช็ก git status ของ auto mode ถูกหลอกไม่ได้แล้ว** — repo ที่ตั้ง `status.showUntrackedFiles=no` ไม่ทำให้ระบบรายงานว่า working tree สะอาดอีกต่อไป
+
 ---
 
 ---
