@@ -200,6 +200,10 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **`spellcheck` setting** — an optional setting that underlines misspelled words in the prompt input as you type, using the `aspell`, `hunspell` or `ispell` you already have installed.
 
+### New in v2.1.237
+
+- **Built-in "Concise" output style** — a stock output style where Claude leads with results and skips preamble and narration, while doing the work just as thoroughly. Pick it under **Output style** in `/config`.
+
 ---
 
 ---

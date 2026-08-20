@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.236         │
+│ Welcome to Claude Code v2.1.237         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.236
+- run: npm install -g @anthropic-ai/claude-code@2.1.237
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1671,6 +1671,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.235
 
 - **`spellcheck` setting** — an optional setting that underlines misspelled words in the prompt input as you type, using the `aspell`, `hunspell` or `ispell` you already have installed.
+
+### New in v2.1.237
+
+- **Built-in "Concise" output style** — a stock output style where Claude leads with results and skips preamble and narration, while doing the work just as thoroughly. Pick it under **Output style** in `/config`.
 
 ---
 
@@ -4780,7 +4784,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.236`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.237`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

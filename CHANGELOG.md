@@ -25,6 +25,24 @@
 
 ---
 
+## [1.43.0] — 2026-08-20
+
+### Compatibility
+- **Claude Code:** `v2.1.237+`
+
+### Added
+- **Built-in "Concise" output style** — a stock output style where Claude leads with results and skips preamble and narration, while doing the work just as thoroughly; selectable under **Output style** in `/config` (`v2.1.237`) — chapter 06
+
+### Changed
+- **Version strings** bumped `2.1.236` → `2.1.237` (current-version references only; historical sections kept)
+- **`README.EN.md` manual badge** re-synced — it had been left at `v1.41.0` while the rest of the README moved to `v1.42.0`
+
+### Why
+- `2.1.237` is a small release: the only documentable item is the new built-in "Concise" output style. The prompt-caching fix for LLM-gateway / custom-base-URL sessions is a bug fix and is not documented
+- The output style went into chapter 06 because it is selected from `/config`, alongside the other output-style and appearance rows
+
+---
+
 ## [1.42.0] — 2026-08-20
 
 ### Compatibility
@@ -1032,6 +1050,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.43.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.42.0...v1.43.0
 [1.42.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.41.0...v1.42.0
 [1.41.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.40.0...v1.41.0
 [1.40.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.39.0...v1.40.0

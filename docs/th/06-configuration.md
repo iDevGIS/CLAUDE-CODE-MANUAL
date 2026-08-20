@@ -200,6 +200,10 @@ related:
 
 - **setting `spellcheck`** — setting เสริมที่ขีดเส้นใต้คำสะกดผิดในช่องพิมพ์ prompt ระหว่างที่เราพิมพ์ โดยใช้ `aspell`, `hunspell` หรือ `ispell` ที่ติดตั้งไว้ในเครื่องอยู่แล้ว
 
+### 🆕 ใหม่ใน v2.1.237
+
+- **output style "Concise" ที่มีมาให้ในตัว** — output style สำเร็จรูปที่ทำให้ Claude ตอบด้วยผลลัพธ์ก่อน ตัดคำเกริ่นและการบรรยายระหว่างทางออก แต่ยังทำงานละเอียดเท่าเดิม เลือกได้ที่หัวข้อ **Output style** ใน `/config`
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

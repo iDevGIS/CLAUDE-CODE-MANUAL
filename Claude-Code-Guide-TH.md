@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.236         │
+│ Welcome to Claude Code v2.1.237         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1001,7 +1001,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.236
+- run: npm install -g @anthropic-ai/claude-code@2.1.237
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1665,6 +1665,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.235
 
 - **setting `spellcheck`** — setting เสริมที่ขีดเส้นใต้คำสะกดผิดในช่องพิมพ์ prompt ระหว่างที่เราพิมพ์ โดยใช้ `aspell`, `hunspell` หรือ `ispell` ที่ติดตั้งไว้ในเครื่องอยู่แล้ว
+
+### 🆕 ใหม่ใน v2.1.237
+
+- **output style "Concise" ที่มีมาให้ในตัว** — output style สำเร็จรูปที่ทำให้ Claude ตอบด้วยผลลัพธ์ก่อน ตัดคำเกริ่นและการบรรยายระหว่างทางออก แต่ยังทำงานละเอียดเท่าเดิม เลือกได้ที่หัวข้อ **Output style** ใน `/config`
 
 ---
 
@@ -4766,7 +4770,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.236`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.237`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
