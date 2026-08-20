@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.237         │
+│ Welcome to Claude Code v2.1.238         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.237
+- run: npm install -g @anthropic-ai/claude-code@2.1.238
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1015,6 +1015,12 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.235
 
 - **`claude rc` checks enterprise gateway availability** — Remote Control now runs the same enterprise-gateway availability check that interactive startup does.
+
+### New in v2.1.238
+
+- **`claude self-hosted-runner --defer-shutdown-max-min <minutes>`** — on `SIGTERM` the runner keeps serving sessions that are still attached, parks whatever is left after that many minutes, then exits.
+- **`claude self-hosted-runner --proxy-authorization-command` / `--proxy-authorization-file`** — for egress proxies that require a freshly issued `Proxy-Authorization` header on every connection.
+- **`claude plugin install` / `claude plugin update` ask for confirmation** — both now prompt `[y/N]`, showing a catalog entry's `headersHelper` command before it runs; pass `-y` to skip the prompt.
 
 ---
 
@@ -1292,6 +1298,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 
 - **`selection:clear` keybinding action** — a key can be bound to clear an in-app text selection (via `/keybindings` or `~/.claude/keybindings.json`); it also works in the agents view.
 - **`Esc` in fullscreen mode keeps a mouse text selection** — it interrupts or dismisses as usual, and the highlighted selection stays.
+
+### New in v2.1.238
+
+- **`keybindingFlavor` setting** — set it to `"readline"` and `Ctrl+W` in the prompt deletes back to the previous whitespace, as in Bash; the default `"classic"` behaviour is unchanged.
+- **`Ctrl+L` / `Cmd+K` in fullscreen only repaint** — the double-press `/clear` shortcut was removed, so 1-row nvim terminals no longer trigger automatic `/clear` loops.
 
 ---
 
@@ -1675,6 +1686,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.237
 
 - **Built-in "Concise" output style** — a stock output style where Claude leads with results and skips preamble and narration, while doing the work just as thoroughly. Pick it under **Output style** in `/config`.
+
+### New in v2.1.238
+
+- **`keybindingFlavor` setting** — set it to `"readline"` to make `Ctrl+W` in the prompt delete back to the previous whitespace, as in Bash. The default, `"classic"`, is unchanged.
 
 ---
 
@@ -3099,6 +3114,11 @@ claude --plugin-dir ./my-plugin
 - **`additionalMarketplaces` / `allowedMarketplaces`** — friendlier aliases for the `extraKnownMarketplaces` and `strictKnownMarketplaces` settings.
 - **`/plugin install plugin@marketplace` refreshes the marketplace first** — a plugin published after your last refresh installs without a manual marketplace update.
 
+### New in v2.1.238
+
+- **`headersHelper` on a url marketplace or a catalog entry** — it runs a command that mints HTTP headers (for example a short-lived token) used for catalog fetches and same-origin archive fetches.
+- **A catalog entry's `headersHelper` runs only on install or update** — of that one plugin, and only after its command is shown to you; `claude plugin install` / `claude plugin update` ask `[y/N]` first (or pass `-y`).
+
 ---
 
 ## 19. Session Management
@@ -3186,6 +3206,11 @@ Shows an interactive picker to choose a session.
 - **`notify_when_idle` on cross-session `SendMessage`** — ask another Claude Code session on this machine to send one notice when it next goes idle. Opt-in, one-shot, no polling (macOS and Linux).
 - **`SendMessage` refuses an oversized burst up front** — once a rapid burst would exceed what the target session's inbox accepts, further messages are refused immediately instead of being reported as sent while they were dropped.
 - **Remote Control marks a session offline within seconds** when the CLI exits or its terminal closes.
+
+### New in v2.1.238
+
+- **A refused cross-session message says so** — sending to a session on this machine that refuses inbound messages (e.g. `crossSessionInbound: "refuse"`) now reports "refused" to the sender instead of a silent success.
+- **A dropped cross-session message says so too** — a session whose inbox drops your messages (rate limit or full queue) now tells your session, instead of the messages vanishing silently.
 
 ### Session File Locations
 
@@ -4784,7 +4809,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.237`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.238`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

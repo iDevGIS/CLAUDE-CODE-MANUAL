@@ -204,6 +204,10 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **Built-in "Concise" output style** — a stock output style where Claude leads with results and skips preamble and narration, while doing the work just as thoroughly. Pick it under **Output style** in `/config`.
 
+### New in v2.1.238
+
+- **`keybindingFlavor` setting** — set it to `"readline"` to make `Ctrl+W` in the prompt delete back to the previous whitespace, as in Bash. The default, `"classic"`, is unchanged. See [[04-keyboard-shortcuts]].
+
 ---
 
 ---

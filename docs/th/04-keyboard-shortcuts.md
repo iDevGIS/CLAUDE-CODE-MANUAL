@@ -102,6 +102,11 @@ related:
 - **action `selection:clear` สำหรับ keybinding** — ผูกปุ่มไว้ล้าง text selection ในแอปได้ (ตั้งผ่าน `/keybindings` หรือ `~/.claude/keybindings.json`) ใช้ได้ในหน้า agents ด้วย
 - **`Esc` ในโหมด fullscreen ไม่ล้าง selection ที่ลากด้วยเมาส์แล้ว** — ยังใช้ interrupt / ปิด dialog ได้เหมือนเดิม แต่ส่วนที่ไฮไลต์ไว้จะอยู่ต่อ
 
+### 🆕 ใหม่ใน v2.1.238
+
+- **setting `keybindingFlavor`** — ตั้งเป็น `"readline"` แล้ว `Ctrl+W` ในช่อง prompt จะลบย้อนไปจนถึงช่องว่างก่อนหน้า เหมือนใน Bash; ค่าเริ่มต้น `"classic"` ยังทำงานเหมือนเดิมทุกอย่าง ดูที่ [[06-configuration]]
+- **`Ctrl+L` / `Cmd+K` ในโหมด fullscreen แค่วาดจอใหม่เท่านั้น** — ทางลัดกดสองครั้งเพื่อ `/clear` ถูกถอดออกแล้ว terminal ของ nvim ที่สูงแถวเดียวจึงไม่ไปกระตุ้นวน `/clear` อัตโนมัติอีก
+
 ---
 
 ---

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.237         │
+│ Welcome to Claude Code v2.1.238         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -670,6 +670,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **`claude rc` เช็ก enterprise gateway ด้วยแล้ว** — Remote Control ใช้การเช็กความพร้อมของ enterprise gateway ชุดเดียวกับตอนเปิด session แบบ interactive
 
+### 🆕 ใหม่ใน v2.1.238
+
+- **`claude self-hosted-runner --defer-shutdown-max-min <นาที>`** — เมื่อโดน `SIGTERM` runner จะยังเสิร์ฟ session ที่ยัง attach อยู่ต่อ พอครบจำนวนนาทีที่กำหนดก็ park ส่วนที่เหลือแล้วค่อยปิดตัว
+- **`claude self-hosted-runner --proxy-authorization-command` / `--proxy-authorization-file`** — สำหรับ egress proxy ที่ต้องการ header `Proxy-Authorization` ที่ออกใหม่สด ๆ ทุกการเชื่อมต่อ
+- **`claude plugin install` / `claude plugin update` ถามยืนยันก่อน** — ทั้งสองคำสั่งขึ้น prompt `[y/N]` แล้ว โดยโชว์คำสั่ง `headersHelper` ของ catalog entry ให้ดูก่อนรัน; ใส่ `-y` เพื่อข้ามการถาม
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1001,7 +1007,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.237
+- run: npm install -g @anthropic-ai/claude-code@2.1.238
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1286,6 +1292,11 @@ claude -p "..."              # ถามเร็ว ๆ
 
 - **action `selection:clear` สำหรับ keybinding** — ผูกปุ่มไว้ล้าง text selection ในแอปได้ (ตั้งผ่าน `/keybindings` หรือ `~/.claude/keybindings.json`) ใช้ได้ในหน้า agents ด้วย
 - **`Esc` ในโหมด fullscreen ไม่ล้าง selection ที่ลากด้วยเมาส์แล้ว** — ยังใช้ interrupt / ปิด dialog ได้เหมือนเดิม แต่ส่วนที่ไฮไลต์ไว้จะอยู่ต่อ
+
+### 🆕 ใหม่ใน v2.1.238
+
+- **setting `keybindingFlavor`** — ตั้งเป็น `"readline"` แล้ว `Ctrl+W` ในช่อง prompt จะลบย้อนไปจนถึงช่องว่างก่อนหน้า เหมือนใน Bash; ค่าเริ่มต้น `"classic"` ยังทำงานเหมือนเดิมทุกอย่าง
+- **`Ctrl+L` / `Cmd+K` ในโหมด fullscreen แค่วาดจอใหม่เท่านั้น** — ทางลัดกดสองครั้งเพื่อ `/clear` ถูกถอดออกแล้ว terminal ของ nvim ที่สูงแถวเดียวจึงไม่ไปกระตุ้นวน `/clear` อัตโนมัติอีก
 
 ---
 
@@ -1669,6 +1680,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.237
 
 - **output style "Concise" ที่มีมาให้ในตัว** — output style สำเร็จรูปที่ทำให้ Claude ตอบด้วยผลลัพธ์ก่อน ตัดคำเกริ่นและการบรรยายระหว่างทางออก แต่ยังทำงานละเอียดเท่าเดิม เลือกได้ที่หัวข้อ **Output style** ใน `/config`
+
+### 🆕 ใหม่ใน v2.1.238
+
+- **setting `keybindingFlavor`** — ตั้งเป็น `"readline"` เพื่อให้ `Ctrl+W` ในช่อง prompt ลบย้อนกลับไปจนถึงช่องว่างก่อนหน้า เหมือนใน Bash ส่วนค่าเริ่มต้น `"classic"` ยังเหมือนเดิมทุกอย่าง
 
 ---
 
@@ -3088,6 +3103,11 @@ claude --plugin-dir ./my-plugin
 - **`additionalMarketplaces` / `allowedMarketplaces`** — เป็น alias ที่อ่านง่ายกว่าของ setting `extraKnownMarketplaces` และ `strictKnownMarketplaces`
 - **`/plugin install plugin@marketplace` refresh marketplace ให้ก่อน** — plugin ที่เพิ่งถูกเผยแพร่หลัง refresh ครั้งล่าสุดก็ติดตั้งได้เลย ไม่ต้องสั่งอัปเดต marketplace เอง
 
+### 🆕 ใหม่ใน v2.1.238
+
+- **`headersHelper` ใน marketplace แบบ url หรือใน catalog entry** — สั่งรันคำสั่งที่ออก HTTP header ให้ (เช่น token อายุสั้น) แล้วใช้ header ชุดนั้นตอนดึง catalog และตอนดึงไฟล์ archive ที่อยู่ origin เดียวกัน
+- **`headersHelper` ของ catalog entry จะรันเฉพาะตอนติดตั้งหรืออัปเดต** plugin ตัวนั้น และรันหลังจากโชว์คำสั่งให้เราดูแล้วเท่านั้น โดย `claude plugin install` / `claude plugin update` จะถาม `[y/N]` ก่อน (หรือใส่ `-y`)
+
 ---
 
 ## 19. Session Management
@@ -3181,6 +3201,11 @@ claude --fork-session                # แยก Branch ใหม่
 - **`notify_when_idle` ใน `SendMessage` ข้าม session** — สั่งให้ session อื่นของ Claude Code บนเครื่องเดียวกันส่งแจ้งเตือนกลับมา 1 ครั้ง ตอนที่มัน idle ครั้งถัดไป · เป็น opt-in ยิงครั้งเดียวจบ ไม่ต้อง poll (macOS และ Linux)
 - **`SendMessage` ปฏิเสธข้อความรัวเกินโควตาตั้งแต่ต้นทาง** — ถ้าการส่งรัว ๆ จะเกินที่ inbox ของ session ปลายทางรับไหว ระบบจะปฏิเสธตั้งแต่แรก แทนที่จะรายงานว่าส่งแล้วทั้งที่ข้อความถูกทิ้ง
 - **Remote Control ขึ้นสถานะ offline ภายในไม่กี่วินาที** เมื่อ CLI ปิดตัวหรือ terminal ของ session นั้นถูกปิด
+
+### 🆕 ใหม่ใน v2.1.238
+
+- **ข้อความข้าม session ที่ถูกปฏิเสธ จะบอกว่าถูกปฏิเสธ** — ส่งไปหา session บนเครื่องเดียวกันที่ตั้งไม่รับข้อความเข้า (เช่น `crossSessionInbound: "refuse"`) ฝั่งผู้ส่งจะได้ผลลัพธ์ว่า "refused" แทนที่จะขึ้นว่าสำเร็จเงียบ ๆ
+- **ข้อความที่ถูกทิ้งก็บอกเหมือนกัน** — ถ้า inbox ของ session ปลายทางทิ้งข้อความเรา (ติด rate limit หรือคิวเต็ม) ระบบจะแจ้งกลับมาที่ session ของเรา แทนที่ข้อความจะหายไปเฉย ๆ
 
 ---
 
@@ -4770,7 +4795,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.237`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.238`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

@@ -105,6 +105,11 @@ Shows an interactive picker to choose a session.
 - **`SendMessage` refuses an oversized burst up front** — once a rapid burst would exceed what the target session's inbox accepts, further messages are refused immediately instead of being reported as sent while they were dropped.
 - **Remote Control marks a session offline within seconds** when the CLI exits or its terminal closes.
 
+### New in v2.1.238
+
+- **A refused cross-session message says so** — sending to a session on this machine that refuses inbound messages (e.g. `crossSessionInbound: "refuse"`) now reports "refused" to the sender instead of a silent success. See [[06-configuration]].
+- **A dropped cross-session message says so too** — a session whose inbox drops your messages (rate limit or full queue) now tells your session, instead of the messages vanishing silently.
+
 > 🔎 Full deep-dive: [[41-background-agents]]
 
 ---

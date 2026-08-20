@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.237         │
+│ Welcome to Claude Code v2.1.238         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -566,6 +566,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **`claude rc` เช็ก enterprise gateway ด้วยแล้ว** — Remote Control ใช้การเช็กความพร้อมของ enterprise gateway ชุดเดียวกับตอนเปิด session แบบ interactive
 
+### 🆕 ใหม่ใน v2.1.238
+
+- **`claude self-hosted-runner --defer-shutdown-max-min <นาที>`** — เมื่อโดน `SIGTERM` runner จะยังเสิร์ฟ session ที่ยัง attach อยู่ต่อ พอครบจำนวนนาทีที่กำหนดก็ park ส่วนที่เหลือแล้วค่อยปิดตัว
+- **`claude self-hosted-runner --proxy-authorization-command` / `--proxy-authorization-file`** — สำหรับ egress proxy ที่ต้องการ header `Proxy-Authorization` ที่ออกใหม่สด ๆ ทุกการเชื่อมต่อ
+- **`claude plugin install` / `claude plugin update` ถามยืนยันก่อน** — ทั้งสองคำสั่งขึ้น prompt `[y/N]` แล้ว โดยโชว์คำสั่ง `headersHelper` ของ catalog entry ให้ดูก่อนรัน; ใส่ `-y` เพื่อข้ามการถาม ดูที่ [[18-plugins]]
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -937,7 +943,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.237
+- run: npm install -g @anthropic-ai/claude-code@2.1.238
 ```
 
 ---

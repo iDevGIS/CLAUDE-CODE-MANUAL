@@ -113,6 +113,11 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **`additionalMarketplaces` / `allowedMarketplaces`** — friendlier aliases for the `extraKnownMarketplaces` and `strictKnownMarketplaces` settings.
 - **`/plugin install plugin@marketplace` refreshes the marketplace first** — a plugin published after your last refresh installs without a manual marketplace update.
 
+### New in v2.1.238
+
+- **`headersHelper` on a url marketplace or a catalog entry** — it runs a command that mints HTTP headers (for example a short-lived token) used for catalog fetches and same-origin archive fetches.
+- **A catalog entry's `headersHelper` runs only on install or update** — of that one plugin, and only after its command is shown to you; `claude plugin install` / `claude plugin update` ask `[y/N]` first (or pass `-y`). See [[02-cli-commands]].
+
 ---
 
 ---

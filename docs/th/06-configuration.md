@@ -204,6 +204,10 @@ related:
 
 - **output style "Concise" ที่มีมาให้ในตัว** — output style สำเร็จรูปที่ทำให้ Claude ตอบด้วยผลลัพธ์ก่อน ตัดคำเกริ่นและการบรรยายระหว่างทางออก แต่ยังทำงานละเอียดเท่าเดิม เลือกได้ที่หัวข้อ **Output style** ใน `/config`
 
+### 🆕 ใหม่ใน v2.1.238
+
+- **setting `keybindingFlavor`** — ตั้งเป็น `"readline"` เพื่อให้ `Ctrl+W` ในช่อง prompt ลบย้อนกลับไปจนถึงช่องว่างก่อนหน้า เหมือนใน Bash ส่วนค่าเริ่มต้น `"classic"` ยังเหมือนเดิมทุกอย่าง ดูที่ [[04-keyboard-shortcuts]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

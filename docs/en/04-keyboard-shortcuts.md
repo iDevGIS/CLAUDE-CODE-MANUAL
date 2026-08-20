@@ -102,6 +102,11 @@ related:
 - **`selection:clear` keybinding action** — a key can be bound to clear an in-app text selection (via `/keybindings` or `~/.claude/keybindings.json`); it also works in the agents view.
 - **`Esc` in fullscreen mode keeps a mouse text selection** — it interrupts or dismisses as usual, and the highlighted selection stays.
 
+### New in v2.1.238
+
+- **`keybindingFlavor` setting** — set it to `"readline"` and `Ctrl+W` in the prompt deletes back to the previous whitespace, as in Bash; the default `"classic"` behaviour is unchanged. See [[06-configuration]].
+- **`Ctrl+L` / `Cmd+K` in fullscreen only repaint** — the double-press `/clear` shortcut was removed, so 1-row nvim terminals no longer trigger automatic `/clear` loops.
+
 ---
 
 ---

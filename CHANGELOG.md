@@ -25,6 +25,32 @@
 
 ---
 
+## [1.44.0] — 2026-08-21
+
+### Compatibility
+- **Claude Code:** `v2.1.238+`
+
+### Added
+- **`keybindingFlavor` setting** — set it to `"readline"` to make `Ctrl+W` in the prompt delete back to the previous whitespace, as in Bash; the default `"classic"` is unchanged (`v2.1.238`) — chapters 04, 06
+- **`headersHelper` on a url marketplace or a catalog entry** — runs a command that mints HTTP headers (for example a short-lived token) for catalog and same-origin archive fetches; a catalog entry's helper runs only when you install or update that plugin, after its command is shown (`v2.1.238`) — chapter 18
+- **`claude self-hosted-runner --defer-shutdown-max-min <minutes>`** — on `SIGTERM`, keep serving attached sessions, park what is left after that many minutes, then exit (`v2.1.238`) — chapter 02
+- **`claude self-hosted-runner --proxy-authorization-command` / `--proxy-authorization-file`** — for egress proxies that require a freshly issued `Proxy-Authorization` header on every connection (`v2.1.238`) — chapter 02
+
+### Changed
+- **`claude plugin install` / `claude plugin update` ask `[y/N]`** — the confirmation shows a catalog entry's `headersHelper` command before it runs; pass `-y` to skip (`v2.1.238`) — chapters 02, 18
+- **A refused or dropped cross-session message is reported** — sending to a session that refuses inbound messages (e.g. `crossSessionInbound: "refuse"`) now reports "refused" instead of a silent success, and a session whose inbox drops messages (rate limit or full queue) tells the sender (`v2.1.238`) — chapter 19
+- **Version strings** bumped `2.1.237` → `2.1.238` (current-version references only; historical sections kept)
+
+### Removed
+- **The double-press `/clear` shortcut** — `Ctrl+L` and `Cmd+K` in fullscreen now always just repaint, so 1-row nvim terminals no longer trigger automatic `/clear` loops (`v2.1.238`) — chapter 04
+
+### Why
+- `2.1.238` is mostly fixes; the documentable surface is one new setting, one new marketplace/catalog field with its install-time confirmation, two `self-hosted-runner` flags, a removed keyboard shortcut, and two cross-session messaging behaviours that now report failure instead of succeeding silently
+- `keybindingFlavor` landed in both 04 and 06 — it is a settings key, but what it changes is a prompt keybinding, so each chapter cross-links the other
+- The cross-session reporting changes went into 19 rather than 06 because they describe what a sender sees, not how `crossSessionInbound` is configured
+
+---
+
 ## [1.43.0] — 2026-08-20
 
 ### Compatibility
@@ -1050,6 +1076,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.44.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.43.0...v1.44.0
 [1.43.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.42.0...v1.43.0
 [1.42.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.41.0...v1.42.0
 [1.41.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.40.0...v1.41.0

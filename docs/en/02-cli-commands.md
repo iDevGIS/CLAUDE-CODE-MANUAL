@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.237         │
+│ Welcome to Claude Code v2.1.238         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -566,6 +566,12 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **`claude rc` checks enterprise gateway availability** — Remote Control now runs the same enterprise-gateway availability check that interactive startup does.
 
+### New in v2.1.238
+
+- **`claude self-hosted-runner --defer-shutdown-max-min <minutes>`** — on `SIGTERM` the runner keeps serving sessions that are still attached, parks whatever is left after that many minutes, then exits.
+- **`claude self-hosted-runner --proxy-authorization-command` / `--proxy-authorization-file`** — for egress proxies that require a freshly issued `Proxy-Authorization` header on every connection.
+- **`claude plugin install` / `claude plugin update` ask for confirmation** — both now prompt `[y/N]`, showing a catalog entry's `headersHelper` command before it runs; pass `-y` to skip the prompt. See [[18-plugins]].
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -937,7 +943,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.237
+- run: npm install -g @anthropic-ai/claude-code@2.1.238
 ```
 
 ---
