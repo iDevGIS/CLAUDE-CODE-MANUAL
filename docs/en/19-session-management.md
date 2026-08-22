@@ -110,6 +110,12 @@ Shows an interactive picker to choose a session.
 - **A refused cross-session message says so** — sending to a session on this machine that refuses inbound messages (e.g. `crossSessionInbound: "refuse"`) now reports "refused" to the sender instead of a silent success. See [[06-configuration]].
 - **A dropped cross-session message says so too** — a session whose inbox drops your messages (rate limit or full queue) now tells your session, instead of the messages vanishing silently.
 
+### New in v2.1.239
+
+- **Cross-session messaging arrives on Windows** — Claude Code sessions across your machines can now message each other with `SendMessage` and find each other with `ListAgents`, as on macOS and Linux.
+- **`ListAgents` tells a session its own name** — the one peers use to message it, and `SendMessage` to your own name says so instead of "no agent named …".
+- **`ListAgents` and `/list-agents` list live teammates** — previously only subagents and other sessions appeared, so a reachable teammate looked absent.
+
 > 🔎 Full deep-dive: [[41-background-agents]]
 
 ---

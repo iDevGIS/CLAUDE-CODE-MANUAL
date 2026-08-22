@@ -173,6 +173,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/goal` checks in on its own while parked** — an idle session whose goal is waiting on long-running background work now checks in automatically after 30 minutes, then 1 hour, then 2 hours, instead of waiting for you to come back. See [[23-environment-variables]].
 - **`/usage` shows usage-credits spend for Team and Enterprise** — the spend row now appears for Team and Enterprise members, and shows a capped row at 0% before anything has been spent.
 
+### New in v2.1.239
+- **`/claude-api upgrade`** — migrates a Python project from the `anthropic` SDK 0.x to 1.x, and the skill's Python reference is updated for 1.x (timeouts use `anthropic.Timeout`, not `httpx.Timeout`).
+- **`/goal` check-ins back off** — repeat check-ins on long-running background work now wait 30 minutes, then 1 hour, then every 2 hours, instead of repeating every 30 minutes.
+- **`/goal` survives the resume picker** — resuming a session from the `claude --resume` picker now restores its active goal.
+
 ---
 
 ---

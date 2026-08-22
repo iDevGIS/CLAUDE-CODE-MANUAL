@@ -25,6 +25,32 @@
 
 ---
 
+## [1.45.0] — 2026-08-22
+
+### Compatibility
+- **Claude Code:** `v2.1.239+`
+
+### Added
+- **`/claude-api upgrade`** — migrates a Python project from the `anthropic` SDK 0.x to 1.x, and the skill's Python reference is updated for 1.x (timeouts use `anthropic.Timeout`, not `httpx.Timeout`) (`v2.1.239`) — chapter 03
+- **Cross-session messaging on Windows** — Claude Code sessions across your machines can now message each other with `SendMessage` and find each other with `ListAgents`, as on macOS and Linux (`v2.1.239`) — chapter 19
+
+### Changed
+- **Cost estimates include the US-only-inference premium** — `/cost`, the status line, and `--max-budget-usd` now include the 1.1× premium for data-residency workspaces (`v2.1.239`) — chapter 31
+- **Plugins synced from claude.ai show as `name@synced`** — in cloud sessions they work with `claude plugin enable/disable <name>@synced`, and never override a same-named plugin you installed yourself (`v2.1.239`) — chapter 18
+- **`keybindingFlavor: "readline"` now also matches Bash for word keys** — `Alt+F` and `Ctrl`/`Option+→` stop at the end of the word, `Alt+D` deletes to it (`Ctrl+Y` pastes it back), and punctuation separates words (`v2.1.239`) — chapter 04
+- **`CLAUDE_CODE_RETRY_WATCHDOG` fails fast on hard billing errors** — persistent retry mode now fails immediately on organization spend-limit and out-of-credits errors instead of waiting indefinitely for a reset (`v2.1.239`) — chapter 23
+- **`/goal` check-ins back off and survive resume** — repeat check-ins on long-running background work now wait 30 min, then 1 h, then every 2 h; resuming from the `claude --resume` picker restores the active goal (`v2.1.239`) — chapter 03
+- **`ListAgents` tells a session its own name and lists live teammates** — `SendMessage` to your own name says so, and reachable teammates no longer look absent in `ListAgents` / `/list-agents` (`v2.1.239`) — chapter 19
+- **Claude in Chrome cleans up its tab group** — `/clear` closes the session's Chrome tab group, and empty groups are closed on `/resume` and when Claude Code exits (`v2.1.239`) — chapter 40
+- **Version strings** bumped `2.1.238` → `2.1.239` (current-version references only; historical sections kept)
+
+### Why
+- `2.1.239` is fix-heavy; the documentable surface is one new skill subcommand, a cost-estimate accuracy change, the claude.ai plugin `@synced` naming, the readline word-key extension, a retry-watchdog fail-fast, two `/goal` behaviour changes, `ListAgents` self/teammate visibility, Chrome tab-group cleanup, and Windows joining cross-session messaging
+- The Windows cross-session item went to 19 alongside the existing `SendMessage`/`ListAgents` coverage rather than opening a platform chapter
+- The 1.1× premium went to 31 (cost management) because it changes what `/cost` and budget flags report, not how they are invoked
+
+---
+
 ## [1.44.0] — 2026-08-21
 
 ### Compatibility
@@ -1076,6 +1102,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.45.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.44.0...v1.45.0
 [1.44.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.43.0...v1.44.0
 [1.43.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.42.0...v1.43.0
 [1.42.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.41.0...v1.42.0

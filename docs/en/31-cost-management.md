@@ -206,6 +206,10 @@ Set alerts in the Anthropic Console:
 
 - **Gateway spend limits now show up in the usage warning** — if you run Claude Code behind an LLM gateway, the limit-reached message names the cap that was hit, when it resets, and the operator's own message, instead of a generic warning (needs the gateway on `2.1.225`) *(v2.1.225)*.
 
+### New in v2.1.239
+
+- **Cost estimates include the US-only-inference premium** — `/cost`, the status line, and `--max-budget-usd` now include the 1.1× premium for data-residency workspaces.
+
 ## Real-world comparison
 
 ### Case A: Refactoring a medium-sized function

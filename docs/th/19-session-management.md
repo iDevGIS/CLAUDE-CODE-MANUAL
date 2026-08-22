@@ -110,6 +110,12 @@ claude --fork-session                # แยก Branch ใหม่
 - **ข้อความข้าม session ที่ถูกปฏิเสธ จะบอกว่าถูกปฏิเสธ** — ส่งไปหา session บนเครื่องเดียวกันที่ตั้งไม่รับข้อความเข้า (เช่น `crossSessionInbound: "refuse"`) ฝั่งผู้ส่งจะได้ผลลัพธ์ว่า "refused" แทนที่จะขึ้นว่าสำเร็จเงียบ ๆ ดูที่ [[06-configuration]]
 - **ข้อความที่ถูกทิ้งก็บอกเหมือนกัน** — ถ้า inbox ของ session ปลายทางทิ้งข้อความเรา (ติด rate limit หรือคิวเต็ม) ระบบจะแจ้งกลับมาที่ session ของเรา แทนที่ข้อความจะหายไปเฉย ๆ
 
+### 🆕 ใหม่ใน v2.1.239
+
+- **cross-session messaging มาถึง Windows แล้ว** — session ของ Claude Code ข้ามเครื่องส่งข้อความหากันด้วย `SendMessage` และหากันเจอด้วย `ListAgents` ได้แล้ว เหมือนบน macOS และ Linux
+- **`ListAgents` บอกชื่อของ session ตัวเองด้วย** — ชื่อที่เพื่อนใช้ส่งข้อความหาเรา และถ้า `SendMessage` ไปหาชื่อตัวเองระบบจะบอกตรง ๆ แทนที่จะขึ้น "no agent named …"
+- **`ListAgents` และ `/list-agents` แสดง teammate ที่ออนไลน์อยู่** — เมื่อก่อนขึ้นเฉพาะ subagent กับ session อื่น teammate ที่ติดต่อได้จริงเลยดูเหมือนหายไป
+
 > 🔎 เจาะลึกทั้งเรื่องนี้ต่อได้ที่ [[41-background-agents]]
 
 ---

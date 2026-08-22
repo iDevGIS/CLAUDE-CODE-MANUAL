@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.238         │
+│ Welcome to Claude Code v2.1.239         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1007,7 +1007,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.238
+- run: npm install -g @anthropic-ai/claude-code@2.1.239
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1202,6 +1202,11 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/goal` เช็กงานเองระหว่างจอดรอ** — session ที่ idle และมี goal ค้างรองาน background ที่รันยาว จะเข้าไปเช็กงานให้อัตโนมัติเมื่อครบ 30 นาที แล้ว 1 ชั่วโมง แล้ว 2 ชั่วโมง แทนที่จะรอจนกว่าเราจะกลับมา
 - **`/usage` แสดงยอดใช้ usage credits ของ Team และ Enterprise** — แถวยอดใช้จ่ายโผล่ให้สมาชิกแพลน Team และ Enterprise ด้วยแล้ว และแสดงแถวเพดานที่ 0% ตั้งแต่ยังไม่มีการใช้จ่าย
 
+### 🆕 ใหม่ใน v2.1.239
+- **`/claude-api upgrade`** — migrate โปรเจกต์ Python จาก `anthropic` SDK 0.x ไป 1.x ให้ พร้อมอัปเดต Python reference ของ skill เป็น 1.x แล้ว (timeout ใช้ `anthropic.Timeout` ไม่ใช่ `httpx.Timeout`)
+- **`/goal` เว้นช่วงการเช็กงานให้ห่างขึ้น** — การเช็กงาน background ที่รันยาวซ้ำ ๆ จะเว้นช่วง 30 นาที แล้ว 1 ชั่วโมง แล้วทุก 2 ชั่วโมง แทนที่จะถามซ้ำทุก 30 นาที
+- **`/goal` รอดข้ามหน้า resume** — resume session จากหน้าเลือกของ `claude --resume` แล้ว goal ที่ active อยู่จะกลับมาทำงานต่อด้วย
+
 ---
 
 ## 4. คีย์ลัด (Keyboard Shortcuts)
@@ -1297,6 +1302,10 @@ claude -p "..."              # ถามเร็ว ๆ
 
 - **setting `keybindingFlavor`** — ตั้งเป็น `"readline"` แล้ว `Ctrl+W` ในช่อง prompt จะลบย้อนไปจนถึงช่องว่างก่อนหน้า เหมือนใน Bash; ค่าเริ่มต้น `"classic"` ยังทำงานเหมือนเดิมทุกอย่าง
 - **`Ctrl+L` / `Cmd+K` ในโหมด fullscreen แค่วาดจอใหม่เท่านั้น** — ทางลัดกดสองครั้งเพื่อ `/clear` ถูกถอดออกแล้ว terminal ของ nvim ที่สูงแถวเดียวจึงไม่ไปกระตุ้นวน `/clear` อัตโนมัติอีก
+
+### 🆕 ใหม่ใน v2.1.239
+
+- **`keybindingFlavor: "readline"` จับคู่ปุ่มระดับคำให้เหมือน Bash ด้วยแล้ว** — `Alt+F` และ `Ctrl`/`Option+→` หยุดที่ท้ายคำ, `Alt+D` ลบไปจนถึงท้ายคำ (กด `Ctrl+Y` วางกลับได้) และเครื่องหมายวรรคตอนถือเป็นตัวแบ่งคำ
 
 ---
 
@@ -3108,6 +3117,10 @@ claude --plugin-dir ./my-plugin
 - **`headersHelper` ใน marketplace แบบ url หรือใน catalog entry** — สั่งรันคำสั่งที่ออก HTTP header ให้ (เช่น token อายุสั้น) แล้วใช้ header ชุดนั้นตอนดึง catalog และตอนดึงไฟล์ archive ที่อยู่ origin เดียวกัน
 - **`headersHelper` ของ catalog entry จะรันเฉพาะตอนติดตั้งหรืออัปเดต** plugin ตัวนั้น และรันหลังจากโชว์คำสั่งให้เราดูแล้วเท่านั้น โดย `claude plugin install` / `claude plugin update` จะถาม `[y/N]` ก่อน (หรือใส่ `-y`)
 
+### 🆕 ใหม่ใน v2.1.239
+
+- **Plugin ที่ sync มาจาก claude.ai แสดงเป็น `name@synced`** — ใน cloud session ใช้กับ `claude plugin enable/disable <name>@synced` ได้ และจะไม่ทับ plugin ชื่อเดียวกันที่เราติดตั้งเองเด็ดขาด
+
 ---
 
 ## 19. Session Management
@@ -3206,6 +3219,12 @@ claude --fork-session                # แยก Branch ใหม่
 
 - **ข้อความข้าม session ที่ถูกปฏิเสธ จะบอกว่าถูกปฏิเสธ** — ส่งไปหา session บนเครื่องเดียวกันที่ตั้งไม่รับข้อความเข้า (เช่น `crossSessionInbound: "refuse"`) ฝั่งผู้ส่งจะได้ผลลัพธ์ว่า "refused" แทนที่จะขึ้นว่าสำเร็จเงียบ ๆ
 - **ข้อความที่ถูกทิ้งก็บอกเหมือนกัน** — ถ้า inbox ของ session ปลายทางทิ้งข้อความเรา (ติด rate limit หรือคิวเต็ม) ระบบจะแจ้งกลับมาที่ session ของเรา แทนที่ข้อความจะหายไปเฉย ๆ
+
+### 🆕 ใหม่ใน v2.1.239
+
+- **cross-session messaging มาถึง Windows แล้ว** — session ของ Claude Code ข้ามเครื่องส่งข้อความหากันด้วย `SendMessage` และหากันเจอด้วย `ListAgents` ได้แล้ว เหมือนบน macOS และ Linux
+- **`ListAgents` บอกชื่อของ session ตัวเองด้วย** — ชื่อที่เพื่อนใช้ส่งข้อความหาเรา และถ้า `SendMessage` ไปหาชื่อตัวเองระบบจะบอกตรง ๆ แทนที่จะขึ้น "no agent named …"
+- **`ListAgents` และ `/list-agents` แสดง teammate ที่ออนไลน์อยู่** — เมื่อก่อนขึ้นเฉพาะ subagent กับ session อื่น teammate ที่ติดต่อได้จริงเลยดูเหมือนหายไป
 
 ---
 
@@ -3454,7 +3473,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS` | ซ่อน bundled skills/workflows/คำสั่ง built-in |
 | `CLAUDE_CLIENT_PRESENCE_FILE` | ไฟล์ marker เพื่อปิด push มือถือตอนนั่งอยู่หน้าเครื่อง |
 | `CLAUDE_CODE_ENABLE_AUTO_MODE` | เปิด Auto mode บน Bedrock/Vertex/Foundry — ไม่จำเป็นตั้งแต่ v2.1.207 (เปิดเป็นค่าเริ่มต้นแล้ว; ปิดด้วย setting `disableAutoMode`) |
-| `CLAUDE_CODE_RETRY_WATCHDOG` | watchdog retry สำหรับ session ไม่มีคนเฝ้า — ยก default retry ของ error ชั่วคราวเป็น 300 และปลดเพดาน 15 ของ `CLAUDE_CODE_MAX_RETRIES` *(v2.1.199)* |
+| `CLAUDE_CODE_RETRY_WATCHDOG` | watchdog retry สำหรับ session ไม่มีคนเฝ้า — ยก default retry ของ error ชั่วคราวเป็น 300 และปลดเพดาน 15 ของ `CLAUDE_CODE_MAX_RETRIES` *(v2.1.199)*; เจอ error องค์กรชนเพดานใช้จ่ายหรือเครดิตหมดจะ fail ทันที ไม่รอ reset แบบไม่มีกำหนด *(v2.1.239)* |
 | `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | ยกเลิก MCP tool call ที่ค้างไม่ตอบ |
 | `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | ปิดการคลิก/ลาก/hover ของเมาส์ใน fullscreen (ยังเลื่อน scroll ได้) *(v2.1.195)* |
 | `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` | ปิดการเก็บกวาด background shell ที่ idle อัตโนมัติเมื่อ memory ตึง *(v2.1.193)* |
@@ -4795,7 +4814,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.238`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.239`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
@@ -6055,6 +6074,10 @@ Claude Code เปิดให้อัตโนมัติ — แต่จะ
 ### 🆕 ใหม่ใน v2.1.226
 
 - **คำเตือนเรื่องโควตาบอกเพดานของ gateway แล้ว** — ถ้ารัน Claude Code ผ่าน LLM gateway ข้อความตอนชนเพดานจะบอกว่าชนเพดานตัวไหน รีเซ็ตเมื่อไร และข้อความจากผู้ดูแล gateway ด้วย แทนที่จะเป็นคำเตือนกลาง ๆ (ฝั่ง gateway ต้องเป็น `2.1.225`) *(v2.1.225)*
+
+### 🆕 ใหม่ใน v2.1.239
+
+- **ค่าประเมิน cost รวม premium ของ US-only inference แล้ว** — `/cost`, status line และ `--max-budget-usd` คิดรวมตัวคูณ 1.1× สำหรับ workspace แบบ data-residency ให้ด้วย
 
 ### 🧮 ตัวอย่างเปรียบเทียบจริง
 

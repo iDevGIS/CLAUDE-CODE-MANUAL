@@ -174,6 +174,11 @@ related:
 - **`/goal` เช็กงานเองระหว่างจอดรอ** — session ที่ idle และมี goal ค้างรองาน background ที่รันยาว จะเข้าไปเช็กงานให้อัตโนมัติเมื่อครบ 30 นาที แล้ว 1 ชั่วโมง แล้ว 2 ชั่วโมง แทนที่จะรอจนกว่าเราจะกลับมา ดูที่ [[23-environment-variables]]
 - **`/usage` แสดงยอดใช้ usage credits ของ Team และ Enterprise** — แถวยอดใช้จ่ายโผล่ให้สมาชิกแพลน Team และ Enterprise ด้วยแล้ว และแสดงแถวเพดานที่ 0% ตั้งแต่ยังไม่มีการใช้จ่าย
 
+### 🆕 ใหม่ใน v2.1.239
+- **`/claude-api upgrade`** — migrate โปรเจกต์ Python จาก `anthropic` SDK 0.x ไป 1.x ให้ พร้อมอัปเดต Python reference ของ skill เป็น 1.x แล้ว (timeout ใช้ `anthropic.Timeout` ไม่ใช่ `httpx.Timeout`)
+- **`/goal` เว้นช่วงการเช็กงานให้ห่างขึ้น** — การเช็กงาน background ที่รันยาวซ้ำ ๆ จะเว้นช่วง 30 นาที แล้ว 1 ชั่วโมง แล้วทุก 2 ชั่วโมง แทนที่จะถามซ้ำทุก 30 นาที
+- **`/goal` รอดข้ามหน้า resume** — resume session จากหน้าเลือกของ `claude --resume` แล้ว goal ที่ active อยู่จะกลับมาทำงานต่อด้วย
+
 ---
 
 ---

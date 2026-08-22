@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.238         │
+│ Welcome to Claude Code v2.1.239         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.238
+- run: npm install -g @anthropic-ai/claude-code@2.1.239
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1208,6 +1208,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/goal` checks in on its own while parked** — an idle session whose goal is waiting on long-running background work now checks in automatically after 30 minutes, then 1 hour, then 2 hours, instead of waiting for you to come back.
 - **`/usage` shows usage-credits spend for Team and Enterprise** — the spend row now appears for Team and Enterprise members, and shows a capped row at 0% before anything has been spent.
 
+### New in v2.1.239
+- **`/claude-api upgrade`** — migrates a Python project from the `anthropic` SDK 0.x to 1.x, and the skill's Python reference is updated for 1.x (timeouts use `anthropic.Timeout`, not `httpx.Timeout`).
+- **`/goal` check-ins back off** — repeat check-ins on long-running background work now wait 30 minutes, then 1 hour, then every 2 hours, instead of repeating every 30 minutes.
+- **`/goal` survives the resume picker** — resuming a session from the `claude --resume` picker now restores its active goal.
+
 ---
 
 ## 4. Keyboard Shortcuts
@@ -1303,6 +1308,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 
 - **`keybindingFlavor` setting** — set it to `"readline"` and `Ctrl+W` in the prompt deletes back to the previous whitespace, as in Bash; the default `"classic"` behaviour is unchanged.
 - **`Ctrl+L` / `Cmd+K` in fullscreen only repaint** — the double-press `/clear` shortcut was removed, so 1-row nvim terminals no longer trigger automatic `/clear` loops.
+
+### New in v2.1.239
+
+- **`keybindingFlavor: "readline"` now also matches Bash for word keys** — `Alt+F` and `Ctrl`/`Option+→` stop at the end of the word, `Alt+D` deletes to it (`Ctrl+Y` pastes it back), and punctuation separates words.
 
 ---
 
@@ -3119,6 +3128,10 @@ claude --plugin-dir ./my-plugin
 - **`headersHelper` on a url marketplace or a catalog entry** — it runs a command that mints HTTP headers (for example a short-lived token) used for catalog fetches and same-origin archive fetches.
 - **A catalog entry's `headersHelper` runs only on install or update** — of that one plugin, and only after its command is shown to you; `claude plugin install` / `claude plugin update` ask `[y/N]` first (or pass `-y`).
 
+### New in v2.1.239
+
+- **Plugins synced from claude.ai show as `name@synced`** — in cloud sessions they work with `claude plugin enable/disable <name>@synced`, and never override a same-named plugin you installed yourself.
+
 ---
 
 ## 19. Session Management
@@ -3211,6 +3224,12 @@ Shows an interactive picker to choose a session.
 
 - **A refused cross-session message says so** — sending to a session on this machine that refuses inbound messages (e.g. `crossSessionInbound: "refuse"`) now reports "refused" to the sender instead of a silent success.
 - **A dropped cross-session message says so too** — a session whose inbox drops your messages (rate limit or full queue) now tells your session, instead of the messages vanishing silently.
+
+### New in v2.1.239
+
+- **Cross-session messaging arrives on Windows** — Claude Code sessions across your machines can now message each other with `SendMessage` and find each other with `ListAgents`, as on macOS and Linux.
+- **`ListAgents` tells a session its own name** — the one peers use to message it, and `SendMessage` to your own name says so instead of "no agent named …".
+- **`ListAgents` and `/list-agents` list live teammates** — previously only subagents and other sessions appeared, so a reachable teammate looked absent.
 
 ### Session File Locations
 
@@ -3465,7 +3484,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS` | Hide bundled skills/workflows/built-in commands. |
 | `CLAUDE_CLIENT_PRESENCE_FILE` | Marker file to suppress mobile push while you're at the machine. |
 | `CLAUDE_CODE_ENABLE_AUTO_MODE` | Opt into Auto mode on Bedrock/Vertex/Foundry — not required since v2.1.207 (on by default; disable with the `disableAutoMode` setting). |
-| `CLAUDE_CODE_RETRY_WATCHDOG` | Retry watchdog for unattended sessions — raises default retries for transient errors to 300 and lifts the 15-cap on `CLAUDE_CODE_MAX_RETRIES` *(v2.1.199)*. |
+| `CLAUDE_CODE_RETRY_WATCHDOG` | Retry watchdog for unattended sessions — raises default retries for transient errors to 300 and lifts the 15-cap on `CLAUDE_CODE_MAX_RETRIES` *(v2.1.199)*; fails immediately on organization spend-limit and out-of-credits errors instead of waiting indefinitely for a reset *(v2.1.239)*. |
 | `CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT` | Abort remote MCP tool calls that hang. |
 | `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` | Disable mouse click/drag/hover in fullscreen mode (wheel scroll still works). *(v2.1.195)* |
 | `CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP` | Disable auto-reaping of idle background shell commands under memory pressure. *(v2.1.193)* |
@@ -4809,7 +4828,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.238`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.239`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
@@ -6069,6 +6088,10 @@ Set alerts in the Anthropic Console:
 ### New in v2.1.226
 
 - **Gateway spend limits now show up in the usage warning** — if you run Claude Code behind an LLM gateway, the limit-reached message names the cap that was hit, when it resets, and the operator's own message, instead of a generic warning (needs the gateway on `2.1.225`) *(v2.1.225)*.
+
+### New in v2.1.239
+
+- **Cost estimates include the US-only-inference premium** — `/cost`, the status line, and `--max-budget-usd` now include the 1.1× premium for data-residency workspaces.
 
 ### Real-world comparison
 

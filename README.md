@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.238-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.44.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.239-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.45.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.238`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.239`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -85,8 +85,12 @@
 | ⌨️ **setting `keybindingFlavor`** | ตั้งเป็น `"readline"` ให้ `Ctrl+W` ลบย้อนถึงช่องว่างก่อนหน้าแบบ Bash — ค่าเริ่มต้น `"classic"` เหมือนเดิม · `Ctrl+L`/`Cmd+K` ใน fullscreen แค่วาดจอใหม่ ทางลัด `/clear` กดสองครั้งถูกถอด (v2.1.238) |
 | 🔑 **`headersHelper` ของ marketplace** | รันคำสั่งออก HTTP header (เช่น token อายุสั้น) ให้ตอนดึง catalog และ archive origin เดียวกัน · ของ catalog entry รันเฉพาะตอน install/update และโชว์คำสั่งก่อน — `claude plugin install/update` ถาม `[y/N]` (หรือใส่ `-y`) (v2.1.238) |
 | 🖥️ **flag ใหม่ของ self-hosted runner** | `--defer-shutdown-max-min` ให้เสิร์ฟ session ที่ยัง attach ต่อหลัง `SIGTERM` แล้วค่อย park ส่วนที่เหลือ · `--proxy-authorization-command` / `--proxy-authorization-file` สำหรับ proxy ที่ต้องออก header ใหม่ทุกการเชื่อมต่อ (v2.1.238) |
+| 💰 **ค่าประเมิน cost รวม premium 1.1×** | `/cost` · status line · `--max-budget-usd` คิดรวม premium 1.1× ของ US-only inference สำหรับ workspace แบบ data-residency (v2.1.239) |
+| 🐍 **`/claude-api upgrade`** | migrate โปรเจกต์ Python จาก `anthropic` SDK 0.x ไป 1.x · Python reference ของ skill อัปเดตเป็น 1.x แล้ว (v2.1.239) |
+| 🪟 **cross-session messaging บน Windows** | session ข้ามเครื่องคุยกันด้วย `SendMessage` / หากันด้วย `ListAgents` ได้เหมือน macOS/Linux · `ListAgents` บอกชื่อตัวเองและแสดง teammate ที่ออนไลน์ด้วย (v2.1.239) |
+| 🔌 **plugin จาก claude.ai เป็น `name@synced`** | ใน cloud session ใช้ `claude plugin enable/disable <name>@synced` ได้ และไม่ทับ plugin ชื่อเดียวกันที่เราติดตั้งเอง (v2.1.239) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.238` (manual `v1.44.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.239` (manual `v1.45.0`)
 
 ---
 
@@ -109,7 +113,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.238** + โมเดล Fable 5 / Opus 5 / Sonnet 5
+ตรงกับ Claude Code **v2.1.239** + โมเดล Fable 5 / Opus 5 / Sonnet 5
 
 </td>
 </tr>
@@ -169,7 +173,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.238`
+> **Claude Code Version:** `2.1.239`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

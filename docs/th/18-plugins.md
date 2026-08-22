@@ -118,6 +118,10 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **`headersHelper` ใน marketplace แบบ url หรือใน catalog entry** — สั่งรันคำสั่งที่ออก HTTP header ให้ (เช่น token อายุสั้น) แล้วใช้ header ชุดนั้นตอนดึง catalog และตอนดึงไฟล์ archive ที่อยู่ origin เดียวกัน
 - **`headersHelper` ของ catalog entry จะรันเฉพาะตอนติดตั้งหรืออัปเดต** plugin ตัวนั้น และรันหลังจากโชว์คำสั่งให้เราดูแล้วเท่านั้น โดย `claude plugin install` / `claude plugin update` จะถาม `[y/N]` ก่อน (หรือใส่ `-y`) ดูที่ [[02-cli-commands]]
 
+### 🆕 ใหม่ใน v2.1.239
+
+- **Plugin ที่ sync มาจาก claude.ai แสดงเป็น `name@synced`** — ใน cloud session ใช้กับ `claude plugin enable/disable <name>@synced` ได้ และจะไม่ทับ plugin ชื่อเดียวกันที่เราติดตั้งเองเด็ดขาด
+
 ---
 
 ---

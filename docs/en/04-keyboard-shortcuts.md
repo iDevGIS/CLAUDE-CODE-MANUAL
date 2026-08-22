@@ -107,6 +107,10 @@ related:
 - **`keybindingFlavor` setting** — set it to `"readline"` and `Ctrl+W` in the prompt deletes back to the previous whitespace, as in Bash; the default `"classic"` behaviour is unchanged. See [[06-configuration]].
 - **`Ctrl+L` / `Cmd+K` in fullscreen only repaint** — the double-press `/clear` shortcut was removed, so 1-row nvim terminals no longer trigger automatic `/clear` loops.
 
+### New in v2.1.239
+
+- **`keybindingFlavor: "readline"` now also matches Bash for word keys** — `Alt+F` and `Ctrl`/`Option+→` stop at the end of the word, `Alt+D` deletes to it (`Ctrl+Y` pastes it back), and punctuation separates words. See [[06-configuration]].
+
 ---
 
 ---

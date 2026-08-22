@@ -107,6 +107,10 @@ Claude in Chrome connects Claude Code to **your real Google Chrome** via a Chrom
 
 - **Claude closes the tabs it opens** — once a tab is no longer needed, Claude in Chrome closes it instead of leaving it behind.
 
+### New in v2.1.239
+
+- **`/clear` closes the session's Chrome tab group** — and empty tab groups are also closed on `/resume` and when Claude Code exits.
+
 For the full security playbook, see [[32-security-best-practices]].
 
 ---

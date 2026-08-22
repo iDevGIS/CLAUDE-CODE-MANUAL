@@ -105,6 +105,10 @@ Claude in Chrome คือการเชื่อม Claude Code เข้า�
 
 - **Claude ปิด tab ที่ตัวเองเปิด** — พอไม่ต้องใช้ tab นั้นแล้ว Claude in Chrome จะปิดให้ ไม่ทิ้งค้างไว้เต็มเบราว์เซอร์
 
+### 🆕 ใหม่ใน v2.1.239
+
+- **`/clear` ปิด tab group ของ session ใน Chrome ให้เลย** — และ tab group ที่ว่างจะถูกปิดตอน `/resume` กับตอนออกจาก Claude Code ด้วย
+
 แนวปฏิบัติความปลอดภัยฉบับเต็ม อ่านต่อที่ [[32-security-best-practices]]
 
 ---
