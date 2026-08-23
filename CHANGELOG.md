@@ -25,6 +25,20 @@
 
 ---
 
+## [1.47.0] — 2026-08-23
+
+### Compatibility
+- **Claude Code:** `v2.1.241+`
+
+### Changed
+- **Version strings** bumped `2.1.240` → `2.1.241` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.241` ships only "Bug fixes and reliability improvements" — no new model, command, flag, slash command, setting, or environment variable, and no documented behaviour change
+- Nothing to add to any chapter, so this release is a compatibility bump: the manual now states it tracks `v2.1.241`, with every chapter's content unchanged and still accurate
+
+---
+
 ## [1.46.0] — 2026-08-23
 
 ### Compatibility
@@ -1116,6 +1130,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.47.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.46.0...v1.47.0
 [1.46.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.45.0...v1.46.0
 [1.45.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.44.0...v1.45.0
 [1.44.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.43.0...v1.44.0
