@@ -25,6 +25,32 @@
 
 ---
 
+## [1.48.0] — 2026-08-25
+
+### Compatibility
+- **Claude Code:** `v2.1.245+`
+
+### Added
+- **`modelPicker` setting** — curate the `/model` picker with an ordered, labeled list of models (any id spelling, including Vertex/Bedrock ids), appended to or replacing the built-in lineup (`v2.1.243`) — chapter 06
+- **`promptCacheTtl` / `subagentPromptCacheTtl` settings** — API-key and cloud-provider users can keep a 1-hour prompt cache on the main conversation while subagents stay at 5 minutes (`v2.1.243`) — chapter 06
+- **`modelPricing` managed setting** — an organization's contracted per-model rates and discount multiplier are used for `/cost`, the status line, and telemetry cost figures instead of list price (`v2.1.243`) — chapters 06, 31
+- **Keyless Console sign-in in `/login`** — the Anthropic Console path offers "Sign in with your Console account" (recommended) alongside creating an API key, so organizations that don't allow API keys can sign in (`v2.1.243`) — chapter 03
+- **`/usage` Loops breakdown** — per-loop run count, total tokens, tokens per run, and last run, so runaway or chatty `/loop` tasks are easy to spot (`v2.1.243`) — chapters 03, 31
+- **`/status` additions** — a `Skipped sources` line for managed settings sources not applied because a higher-precedence source is active, and a line showing whether GitHub is connected for Claude Code on the web (Pro/Max) (`v2.1.243`) — chapter 03
+
+### Changed
+- **Sandboxed Bash prompt no longer lists allowed network hosts** — Claude attempts requests (and you can approve new hosts) instead of assuming unlisted hosts are blocked (`v2.1.243`) — chapter 05
+- **Sonnet 5's $2/$10 per Mtok is now its standard list price** — no longer presented as a limited-time promo in the `/model` picker and the bundled `claude-api` skill; the manual's "promo through Aug 31, 2026" phrasing updated accordingly (`v2.1.243`) — chapter 06 + READMEs
+- **`/model`, `/fast` and `/effort` apply immediately everywhere** — also on Bedrock, Vertex and Foundry and when telemetry is disabled, instead of queueing until the turn ends (`v2.1.243`) — chapter 03
+- **Version strings** bumped `2.1.241` → `2.1.245` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.242`–`2.1.245`: the documentable surface all ships in `2.1.243` — four new settings, a keyless Console sign-in, `/usage` and `/status` additions, a sandbox-prompt behaviour change, three commands now applying immediately off the Claude API, and Sonnet 5's promo becoming list price; `2.1.245` is a Linux glibc-2.44 startup-crash fix only
+- `modelPricing` and the `/usage` Loops breakdown landed in both their home chapters (06/03) and 31 — they are a setting and a command, but what they change is what cost figures report, so cost management cross-links them
+- The Sonnet 5 pricing change also retired the promo phrasing wherever the manual stated it (chapter 06 model tables and both READMEs), keeping historical CHANGELOG entries as written
+
+---
+
 ## [1.47.0] — 2026-08-23
 
 ### Compatibility
@@ -1130,6 +1156,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.48.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.47.0...v1.48.0
 [1.47.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.46.0...v1.47.0
 [1.46.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.45.0...v1.46.0
 [1.45.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.44.0...v1.45.0

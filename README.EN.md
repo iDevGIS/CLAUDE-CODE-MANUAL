@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.241-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.47.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.245-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.48.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,14 +33,14 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.241`
+## 🆕 What's new — synced to Claude Code `v2.1.245`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
 | 🔥 New | Details |
 |---|---|
 | 🚀 **Opus 5 model** | `claude-opus-5` — the **new default Opus** (v2.1.219), 1M context, fast mode $10/$50 per Mtok |
-| ✨ **Sonnet 5 model** | `claude-sonnet-5` — the **new default in Claude Code**, native 1M context, promo pricing $2/$10 per Mtok through Aug 31, 2026 |
+| ✨ **Sonnet 5 model** | `claude-sonnet-5` — the **new default in Claude Code**, native 1M context, standard pricing $2/$10 per Mtok |
 | 🧠 **Fable 5 model** | `claude-fable-5` — Mythos-class, **1M** context by default, most capable in the lineup (above Opus 5 / Sonnet 5 / Haiku 4.5) |
 | ⚡ **Dynamic Workflows** | orchestrate tens–hundreds of agents from a script via the **`ultracode`** keyword |
 | ⌨️ **New commands** | `/rewind` · `/cd` · `claude mcp login` · `claude plugin init` |
@@ -89,8 +89,13 @@ Never used a command line? You can still follow along 👇
 | 🐍 **`/claude-api upgrade`** | migrates Python projects from the `anthropic` SDK 0.x to 1.x · the skill's Python reference is updated for 1.x (v2.1.239) |
 | 🪟 **Cross-session messaging on Windows** | sessions across your machines message each other with `SendMessage` / find each other with `ListAgents`, as on macOS/Linux · `ListAgents` tells a session its own name and lists live teammates (v2.1.239) |
 | 🔌 **claude.ai plugins as `name@synced`** | in cloud sessions they work with `claude plugin enable/disable <name>@synced` and never override a same-named plugin you installed yourself (v2.1.239) |
+| ⚙️ **3 new settings** | `modelPicker` curates the `/model` picker with your own ordered, labeled model list · `promptCacheTtl`/`subagentPromptCacheTtl` keep a 1-hour prompt cache on the main conversation · `modelPricing` (managed) applies an org's contracted per-model rates to `/cost` and telemetry (v2.1.243) |
+| 🔑 **Keyless Console sign-in** | `/login` → Anthropic Console now offers "Sign in with your Console account" — organizations that don't allow API keys can still sign in (v2.1.243) |
+| 📊 **`/usage` Loops breakdown** | per-loop run count · total tokens · tokens per run · last run — runaway or chatty `/loop` tasks are easy to spot (v2.1.243) |
+| 🌐 **Sandbox stops listing allowed hosts** | the sandboxed Bash prompt no longer lists allowed network hosts — Claude attempts requests (and you can approve new hosts) instead of assuming unlisted hosts are blocked (v2.1.243) |
+| 💵 **Sonnet 5 at standard pricing** | $2/$10 per Mtok is now its standard list price, no longer a limited-time promo (v2.1.243) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.241` (manual `v1.47.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.245` (manual `v1.48.0`)
 
 ---
 
@@ -113,7 +118,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.241** + the Fable 5 / Opus 5 / Sonnet 5 lineup
+Tracks Claude Code **v2.1.245** + the Fable 5 / Opus 5 / Sonnet 5 lineup
 
 </td>
 </tr>
@@ -173,7 +178,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.241`
+> **Claude Code Version:** `2.1.245`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

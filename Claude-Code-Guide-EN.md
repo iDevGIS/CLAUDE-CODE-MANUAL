@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.241         │
+│ Welcome to Claude Code v2.1.245         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.241
+- run: npm install -g @anthropic-ai/claude-code@2.1.245
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1212,6 +1212,12 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/claude-api upgrade`** — migrates a Python project from the `anthropic` SDK 0.x to 1.x, and the skill's Python reference is updated for 1.x (timeouts use `anthropic.Timeout`, not `httpx.Timeout`).
 - **`/goal` check-ins back off** — repeat check-ins on long-running background work now wait 30 minutes, then 1 hour, then every 2 hours, instead of repeating every 30 minutes.
 - **`/goal` survives the resume picker** — resuming a session from the `claude --resume` picker now restores its active goal.
+
+### New in v2.1.243
+- **`/usage` gains a Loops breakdown** — per-loop run count, total tokens, tokens per run, and last run, so runaway or chatty `/loop` tasks are easy to spot.
+- **Keyless Console sign-in in `/login`** — the Anthropic Console path now offers "Sign in with your Console account" (recommended) alongside creating an API key, so organizations that don't allow API keys can still sign in.
+- **`/status` reports more** — a `Skipped sources` line lists managed settings sources that are present but not applied because a higher-precedence managed source is active, and a new line shows whether GitHub is connected for Claude Code on the web (Pro/Max), pointing to `/web-setup` when it isn't.
+- **`/model`, `/fast` and `/effort` apply immediately everywhere** — on Bedrock, Vertex and Foundry, and when telemetry is disabled, they now run right away instead of queueing until the turn ends.
 
 ---
 
@@ -1512,6 +1518,9 @@ Skill(commit)                    # Specific skill
 - **Auto mode's classifier behaves the same off the Claude API** — on Bedrock, Vertex AI and Foundry, and when telemetry is disabled, it now uses the Claude API defaults, including severity-scored classification.
 - **Auto mode's git status check can't be fooled** — a repo setting `status.showUntrackedFiles=no` no longer makes it report a clean tree.
 
+### New in v2.1.243
+- **The sandboxed Bash prompt no longer lists allowed network hosts** — Claude now attempts requests (and you can approve new hosts) instead of assuming unlisted hosts are blocked.
+
 ---
 
 ## 6. Configuration
@@ -1699,6 +1708,13 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.238
 
 - **`keybindingFlavor` setting** — set it to `"readline"` to make `Ctrl+W` in the prompt delete back to the previous whitespace, as in Bash. The default, `"classic"`, is unchanged.
+
+### New in v2.1.243
+
+- **`modelPicker` setting** — curate the `/model` picker with an ordered, labeled list of models (any id spelling, including Vertex/Bedrock ids), appended to or replacing the built-in lineup.
+- **`promptCacheTtl` / `subagentPromptCacheTtl` settings** — let API-key and cloud-provider users keep a 1-hour prompt cache on the main conversation while subagents stay at 5 minutes.
+- **`modelPricing` managed setting** — an organization's contracted per-model rates and discount multiplier are used for `/cost`, the status line, and telemetry cost figures instead of list price.
+- **Sonnet 5's $2/$10 per Mtok is now its standard list price** — the `/model` picker and the bundled `claude-api` skill no longer present it as a limited-time promo.
 
 ---
 
@@ -4828,7 +4844,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.241`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.245`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
@@ -6092,6 +6108,11 @@ Set alerts in the Anthropic Console:
 ### New in v2.1.239
 
 - **Cost estimates include the US-only-inference premium** — `/cost`, the status line, and `--max-budget-usd` now include the 1.1× premium for data-residency workspaces.
+
+### New in v2.1.243
+
+- **`modelPricing` managed setting** — organizations can supply contracted per-model rates and a discount multiplier, and `/cost`, the status line, and telemetry cost figures use them instead of list price.
+- **`/usage` gains a Loops breakdown** — per-loop run count, total tokens, tokens per run, and last run, so runaway or chatty `/loop` tasks are easy to spot.
 
 ### Real-world comparison
 

@@ -113,7 +113,7 @@ related:
 | **Fable 5** | `claude-fable-5` | โมเดล **Mythos-class** ใหม่ล่าสุดของ Anthropic และเก่งที่สุดที่เปิดให้ใช้ทั่วไป (มาใน Claude Code **2.1.170**) มาพร้อม **context window 1M token เป็นค่าเริ่มต้น** เหมาะกับงานคิดหนักสุด, context ใหญ่ และงาน agentic |
 | **Opus 5** | `claude-opus-5` | **default Opus ตัวใหม่** (ตั้งแต่ Claude Code **2.1.219**); context **1M**; fast mode ราคา **$10/$50 ต่อ Mtok** |
 | **Opus 4.8** | `claude-opus-4-8` | เรือธง **Opus** ตัวก่อน; coding และวิเคราะห์บั๊กซับซ้อนเก่งสุด; default เป็น **high effort** กับงานหนัก |
-| **Sonnet 5** | `claude-sonnet-5` | **default ใหม่ของ Claude Code** (ตั้งแต่ 2.1.197); สมดุล เร็ว, context **1M native** (โปรฯ $2/$10 ต่อ Mtok ถึง 31 ส.ค. 2026) |
+| **Sonnet 5** | `claude-sonnet-5` | **default ใหม่ของ Claude Code** (ตั้งแต่ 2.1.197); สมดุล เร็ว, context **1M native** ($2/$10 ต่อ Mtok — เป็นราคา standard ตั้งแต่ 2.1.243) |
 | **Haiku 4.5** | `claude-haiku-4-5` | เร็วสุด ถูกสุด; สำหรับงานง่าย/boilerplate |
 
 > หมายเหตุ: Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกจาก fast mode ใน 2.1.219) — Fable 5 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 5 คือ **default Opus** ตัวปัจจุบัน
@@ -207,6 +207,13 @@ related:
 ### 🆕 ใหม่ใน v2.1.238
 
 - **setting `keybindingFlavor`** — ตั้งเป็น `"readline"` เพื่อให้ `Ctrl+W` ในช่อง prompt ลบย้อนกลับไปจนถึงช่องว่างก่อนหน้า เหมือนใน Bash ส่วนค่าเริ่มต้น `"classic"` ยังเหมือนเดิมทุกอย่าง ดูที่ [[04-keyboard-shortcuts]]
+
+### 🆕 ใหม่ใน v2.1.243
+
+- **setting `modelPicker`** — จัดรายการใน `/model` picker เองได้ เป็นลิสต์โมเดลเรียงลำดับพร้อมป้ายชื่อ (สะกด id แบบไหนก็ได้ รวมถึง id ของ Vertex/Bedrock) จะเอาไปต่อท้ายหรือแทนที่ lineup ในตัวก็ได้
+- **setting `promptCacheTtl` / `subagentPromptCacheTtl`** — ผู้ใช้ API key และ cloud provider ตั้ง prompt cache ของบทสนทนาหลักเป็น 1 ชั่วโมง โดยให้ subagent อยู่ที่ 5 นาทีตามเดิมได้
+- **managed setting `modelPricing`** — องค์กรใส่เรตราคาต่อโมเดลตามสัญญาและตัวคูณส่วนลดได้ แล้ว `/cost`, status line และตัวเลข cost ใน telemetry จะใช้เรตนั้นแทนราคา list ดูที่ [[31-cost-management]]
+- **ราคา $2/$10 ต่อ Mtok ของ Sonnet 5 เป็นราคา standard แล้ว** — `/model` picker และ skill `claude-api` ที่มากับตัว เลิกแสดงเป็นราคาโปรโมชันแบบจำกัดเวลา
 
 ### การ Persist ของ `/config` และ `/model`
 

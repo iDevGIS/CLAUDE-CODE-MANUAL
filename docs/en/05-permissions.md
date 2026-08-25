@@ -180,6 +180,9 @@ Skill(commit)                    # Specific skill
 - **Auto mode's classifier behaves the same off the Claude API** — on Bedrock, Vertex AI and Foundry, and when telemetry is disabled, it now uses the Claude API defaults, including severity-scored classification.
 - **Auto mode's git status check can't be fooled** — a repo setting `status.showUntrackedFiles=no` no longer makes it report a clean tree.
 
+### New in v2.1.243
+- **The sandboxed Bash prompt no longer lists allowed network hosts** — Claude now attempts requests (and you can approve new hosts) instead of assuming unlisted hosts are blocked.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

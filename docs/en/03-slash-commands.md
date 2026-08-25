@@ -178,6 +178,12 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/goal` check-ins back off** — repeat check-ins on long-running background work now wait 30 minutes, then 1 hour, then every 2 hours, instead of repeating every 30 minutes.
 - **`/goal` survives the resume picker** — resuming a session from the `claude --resume` picker now restores its active goal.
 
+### New in v2.1.243
+- **`/usage` gains a Loops breakdown** — per-loop run count, total tokens, tokens per run, and last run, so runaway or chatty `/loop` tasks are easy to spot. See [[31-cost-management]].
+- **Keyless Console sign-in in `/login`** — the Anthropic Console path now offers "Sign in with your Console account" (recommended) alongside creating an API key, so organizations that don't allow API keys can still sign in.
+- **`/status` reports more** — a `Skipped sources` line lists managed settings sources that are present but not applied because a higher-precedence managed source is active, and a new line shows whether GitHub is connected for Claude Code on the web (Pro/Max), pointing to `/web-setup` when it isn't.
+- **`/model`, `/fast` and `/effort` apply immediately everywhere** — on Bedrock, Vertex and Foundry, and when telemetry is disabled, they now run right away instead of queueing until the turn ends.
+
 ---
 
 ---

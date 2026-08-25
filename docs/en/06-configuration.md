@@ -56,7 +56,7 @@ Set the `model` key to any of these (newest → cheapest):
 - **Fable 5** (`claude-fable-5`) — Anthropic's newest **Mythos-class** model and the most capable model generally available; introduced in Claude Code **2.1.170**. Ships with a **1M-token context window by default**. Best for the hardest reasoning, large-context, and agentic work.
 - **Opus 5** (`claude-opus-5`) — the **new default Opus model** (since Claude Code 2.1.219); **1M context**; fast mode at **$10/$50 per Mtok**.
 - **Opus 4.8** (`claude-opus-4-8`) — previous **Opus** flagship; top-tier coding and complex-bug analysis; defaults to **high effort** on demanding tasks.
-- **Sonnet 5** (`claude-sonnet-5`) — the **new default in Claude Code** (since 2.1.197); balanced and fast, with a **native 1M-token context window** (promo pricing $2/$10 per Mtok through Aug 31, 2026).
+- **Sonnet 5** (`claude-sonnet-5`) — the **new default in Claude Code** (since 2.1.197); balanced and fast, with a **native 1M-token context window** ($2/$10 per Mtok — its standard list price since 2.1.243).
 - **Haiku 4.5** (`claude-haiku-4-5`) — fastest, cheapest; for easy/boilerplate tasks.
 - Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed from fast mode in 2.1.219).
 
@@ -207,6 +207,13 @@ Set the `model` key to any of these (newest → cheapest):
 ### New in v2.1.238
 
 - **`keybindingFlavor` setting** — set it to `"readline"` to make `Ctrl+W` in the prompt delete back to the previous whitespace, as in Bash. The default, `"classic"`, is unchanged. See [[04-keyboard-shortcuts]].
+
+### New in v2.1.243
+
+- **`modelPicker` setting** — curate the `/model` picker with an ordered, labeled list of models (any id spelling, including Vertex/Bedrock ids), appended to or replacing the built-in lineup.
+- **`promptCacheTtl` / `subagentPromptCacheTtl` settings** — let API-key and cloud-provider users keep a 1-hour prompt cache on the main conversation while subagents stay at 5 minutes.
+- **`modelPricing` managed setting** — an organization's contracted per-model rates and discount multiplier are used for `/cost`, the status line, and telemetry cost figures instead of list price. See [[31-cost-management]].
+- **Sonnet 5's $2/$10 per Mtok is now its standard list price** — the `/model` picker and the bundled `claude-api` skill no longer present it as a limited-time promo.
 
 ---
 

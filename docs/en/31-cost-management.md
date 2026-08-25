@@ -210,6 +210,11 @@ Set alerts in the Anthropic Console:
 
 - **Cost estimates include the US-only-inference premium** — `/cost`, the status line, and `--max-budget-usd` now include the 1.1× premium for data-residency workspaces.
 
+### New in v2.1.243
+
+- **`modelPricing` managed setting** — organizations can supply contracted per-model rates and a discount multiplier, and `/cost`, the status line, and telemetry cost figures use them instead of list price. See [[06-configuration]].
+- **`/usage` gains a Loops breakdown** — per-loop run count, total tokens, tokens per run, and last run, so runaway or chatty `/loop` tasks are easy to spot.
+
 ## Real-world comparison
 
 ### Case A: Refactoring a medium-sized function

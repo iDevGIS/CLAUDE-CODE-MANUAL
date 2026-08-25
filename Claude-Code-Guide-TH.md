@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.241         │
+│ Welcome to Claude Code v2.1.245         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1007,7 +1007,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.241
+- run: npm install -g @anthropic-ai/claude-code@2.1.245
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1206,6 +1206,12 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/claude-api upgrade`** — migrate โปรเจกต์ Python จาก `anthropic` SDK 0.x ไป 1.x ให้ พร้อมอัปเดต Python reference ของ skill เป็น 1.x แล้ว (timeout ใช้ `anthropic.Timeout` ไม่ใช่ `httpx.Timeout`)
 - **`/goal` เว้นช่วงการเช็กงานให้ห่างขึ้น** — การเช็กงาน background ที่รันยาวซ้ำ ๆ จะเว้นช่วง 30 นาที แล้ว 1 ชั่วโมง แล้วทุก 2 ชั่วโมง แทนที่จะถามซ้ำทุก 30 นาที
 - **`/goal` รอดข้ามหน้า resume** — resume session จากหน้าเลือกของ `claude --resume` แล้ว goal ที่ active อยู่จะกลับมาทำงานต่อด้วย
+
+### 🆕 ใหม่ใน v2.1.243
+- **`/usage` มี breakdown ของ Loops** — บอกจำนวนรอบต่อ loop, token รวม, token ต่อรอบ และรอบล่าสุด ทำให้จับ task `/loop` ที่หลุดคุมหรือกินเปลืองผิดปกติได้ง่าย
+- **`/login` เข้าด้วยบัญชี Console ได้โดยไม่ต้องสร้าง API key** — เส้นทาง Anthropic Console เพิ่มตัวเลือก "Sign in with your Console account" (แนะนำ) คู่กับการสร้าง API key องค์กรที่ไม่อนุญาตให้ใช้ API key ก็ sign in ได้แล้ว
+- **`/status` บอกมากขึ้น** — เพิ่มบรรทัด `Skipped sources` แสดง managed settings source ที่มีอยู่แต่ไม่ถูกใช้เพราะมี source ลำดับสูงกว่า active อยู่ และเพิ่มบรรทัดบอกว่าเชื่อม GitHub สำหรับ Claude Code on the web แล้วหรือยัง (Pro/Max) พร้อมชี้ไป `/web-setup` ถ้ายังไม่เชื่อม
+- **`/model`, `/fast` และ `/effort` มีผลทันทีทุกที่** — บน Bedrock, Vertex, Foundry และตอนที่ปิด telemetry ก็รันทันทีแล้ว แทนที่จะเข้าคิวรอจนจบ turn
 
 ---
 
@@ -1506,6 +1512,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **classifier ของ auto mode ทำงานเหมือนกันแม้ไม่ได้อยู่บน Claude API** — บน Bedrock, Vertex AI, Foundry และตอนที่ปิด telemetry ใช้ค่าเริ่มต้นชุดเดียวกับ Claude API แล้ว รวมถึงการให้คะแนนความรุนแรง (severity-scored classification)
 - **การเช็ก git status ของ auto mode ถูกหลอกไม่ได้แล้ว** — repo ที่ตั้ง `status.showUntrackedFiles=no` ไม่ทำให้ระบบรายงานว่า working tree สะอาดอีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.243
+- **prompt ของ Bash แบบ sandbox เลิกแจกรายชื่อ network host ที่อนุญาต** — Claude จะลองยิง request เองก่อน (แล้วเราค่อยกดอนุมัติ host ใหม่ได้) แทนที่จะเหมาเอาเองว่า host ที่ไม่อยู่ในรายชื่อถูกบล็อก
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1693,6 +1702,13 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.238
 
 - **setting `keybindingFlavor`** — ตั้งเป็น `"readline"` เพื่อให้ `Ctrl+W` ในช่อง prompt ลบย้อนกลับไปจนถึงช่องว่างก่อนหน้า เหมือนใน Bash ส่วนค่าเริ่มต้น `"classic"` ยังเหมือนเดิมทุกอย่าง
+
+### 🆕 ใหม่ใน v2.1.243
+
+- **setting `modelPicker`** — จัดรายการใน `/model` picker เองได้ เป็นลิสต์โมเดลเรียงลำดับพร้อมป้ายชื่อ (สะกด id แบบไหนก็ได้ รวมถึง id ของ Vertex/Bedrock) จะเอาไปต่อท้ายหรือแทนที่ lineup ในตัวก็ได้
+- **setting `promptCacheTtl` / `subagentPromptCacheTtl`** — ผู้ใช้ API key และ cloud provider ตั้ง prompt cache ของบทสนทนาหลักเป็น 1 ชั่วโมง โดยให้ subagent อยู่ที่ 5 นาทีตามเดิมได้
+- **managed setting `modelPricing`** — องค์กรใส่เรตราคาต่อโมเดลตามสัญญาและตัวคูณส่วนลดได้ แล้ว `/cost`, status line และตัวเลข cost ใน telemetry จะใช้เรตนั้นแทนราคา list
+- **ราคา $2/$10 ต่อ Mtok ของ Sonnet 5 เป็นราคา standard แล้ว** — `/model` picker และ skill `claude-api` ที่มากับตัว เลิกแสดงเป็นราคาโปรโมชันแบบจำกัดเวลา
 
 ---
 
@@ -4814,7 +4830,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.241`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.245`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
@@ -6078,6 +6094,11 @@ Claude Code เปิดให้อัตโนมัติ — แต่จะ
 ### 🆕 ใหม่ใน v2.1.239
 
 - **ค่าประเมิน cost รวม premium ของ US-only inference แล้ว** — `/cost`, status line และ `--max-budget-usd` คิดรวมตัวคูณ 1.1× สำหรับ workspace แบบ data-residency ให้ด้วย
+
+### 🆕 ใหม่ใน v2.1.243
+
+- **managed setting `modelPricing`** — องค์กรใส่เรตราคาต่อโมเดลตามสัญญาและตัวคูณส่วนลดได้ แล้ว `/cost`, status line และตัวเลข cost ใน telemetry จะใช้เรตนั้นแทนราคา list
+- **`/usage` มี breakdown ของ Loops** — บอกจำนวนรอบต่อ loop, token รวม, token ต่อรอบ และรอบล่าสุด ทำให้จับ task `/loop` ที่หลุดคุมหรือกินเปลืองผิดปกติได้ง่าย
 
 ### 🧮 ตัวอย่างเปรียบเทียบจริง
 

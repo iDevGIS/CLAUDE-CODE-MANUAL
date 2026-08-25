@@ -209,6 +209,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **classifier ของ auto mode ทำงานเหมือนกันแม้ไม่ได้อยู่บน Claude API** — บน Bedrock, Vertex AI, Foundry และตอนที่ปิด telemetry ใช้ค่าเริ่มต้นชุดเดียวกับ Claude API แล้ว รวมถึงการให้คะแนนความรุนแรง (severity-scored classification)
 - **การเช็ก git status ของ auto mode ถูกหลอกไม่ได้แล้ว** — repo ที่ตั้ง `status.showUntrackedFiles=no` ไม่ทำให้ระบบรายงานว่า working tree สะอาดอีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.243
+- **prompt ของ Bash แบบ sandbox เลิกแจกรายชื่อ network host ที่อนุญาต** — Claude จะลองยิง request เองก่อน (แล้วเราค่อยกดอนุมัติ host ใหม่ได้) แทนที่จะเหมาเอาเองว่า host ที่ไม่อยู่ในรายชื่อถูกบล็อก
+
 ---
 
 ---

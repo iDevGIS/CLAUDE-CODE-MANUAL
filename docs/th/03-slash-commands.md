@@ -179,6 +179,12 @@ related:
 - **`/goal` เว้นช่วงการเช็กงานให้ห่างขึ้น** — การเช็กงาน background ที่รันยาวซ้ำ ๆ จะเว้นช่วง 30 นาที แล้ว 1 ชั่วโมง แล้วทุก 2 ชั่วโมง แทนที่จะถามซ้ำทุก 30 นาที
 - **`/goal` รอดข้ามหน้า resume** — resume session จากหน้าเลือกของ `claude --resume` แล้ว goal ที่ active อยู่จะกลับมาทำงานต่อด้วย
 
+### 🆕 ใหม่ใน v2.1.243
+- **`/usage` มี breakdown ของ Loops** — บอกจำนวนรอบต่อ loop, token รวม, token ต่อรอบ และรอบล่าสุด ทำให้จับ task `/loop` ที่หลุดคุมหรือกินเปลืองผิดปกติได้ง่าย ดูที่ [[31-cost-management]]
+- **`/login` เข้าด้วยบัญชี Console ได้โดยไม่ต้องสร้าง API key** — เส้นทาง Anthropic Console เพิ่มตัวเลือก "Sign in with your Console account" (แนะนำ) คู่กับการสร้าง API key องค์กรที่ไม่อนุญาตให้ใช้ API key ก็ sign in ได้แล้ว
+- **`/status` บอกมากขึ้น** — เพิ่มบรรทัด `Skipped sources` แสดง managed settings source ที่มีอยู่แต่ไม่ถูกใช้เพราะมี source ลำดับสูงกว่า active อยู่ และเพิ่มบรรทัดบอกว่าเชื่อม GitHub สำหรับ Claude Code on the web แล้วหรือยัง (Pro/Max) พร้อมชี้ไป `/web-setup` ถ้ายังไม่เชื่อม
+- **`/model`, `/fast` และ `/effort` มีผลทันทีทุกที่** — บน Bedrock, Vertex, Foundry และตอนที่ปิด telemetry ก็รันทันทีแล้ว แทนที่จะเข้าคิวรอจนจบ turn
+
 ---
 
 ---

@@ -210,6 +210,11 @@ Claude Code เปิดให้อัตโนมัติ — แต่จะ
 
 - **ค่าประเมิน cost รวม premium ของ US-only inference แล้ว** — `/cost`, status line และ `--max-budget-usd` คิดรวมตัวคูณ 1.1× สำหรับ workspace แบบ data-residency ให้ด้วย
 
+### 🆕 ใหม่ใน v2.1.243
+
+- **managed setting `modelPricing`** — องค์กรใส่เรตราคาต่อโมเดลตามสัญญาและตัวคูณส่วนลดได้ แล้ว `/cost`, status line และตัวเลข cost ใน telemetry จะใช้เรตนั้นแทนราคา list ดูที่ [[06-configuration]]
+- **`/usage` มี breakdown ของ Loops** — บอกจำนวนรอบต่อ loop, token รวม, token ต่อรอบ และรอบล่าสุด ทำให้จับ task `/loop` ที่หลุดคุมหรือกินเปลืองผิดปกติได้ง่าย
+
 ## 🧮 ตัวอย่างเปรียบเทียบจริง
 
 ### Case A: Refactor Function ขนาดกลาง
