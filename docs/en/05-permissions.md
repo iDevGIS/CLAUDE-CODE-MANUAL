@@ -183,6 +183,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.243
 - **The sandboxed Bash prompt no longer lists allowed network hosts** — Claude now attempts requests (and you can approve new hosts) instead of assuming unlisted hosts are blocked.
 
+### New in v2.1.246
+- **Startup warning for wildcard-before-subcommand Bash rules** — allow rules like `Bash(git * main)` now trigger a warning at startup, since they also match options inserted before the subcommand.
+- **`/permissions` gains an Auto mode tab** — view and edit auto mode classifier rules straight from the dialog.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

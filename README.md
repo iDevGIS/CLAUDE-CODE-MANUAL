@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.245-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.48.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.246-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.49.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.245`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.246`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -94,8 +94,10 @@
 | 📊 **`/usage` แสดง breakdown ของ Loops** | จำนวนรอบต่อ loop · token รวม · token ต่อรอบ · รอบล่าสุด — จับ `/loop` ที่หลุดคุมหรือกินเปลืองได้ง่าย (v2.1.243) |
 | 🌐 **sandbox เลิก list host ที่อนุญาต** | prompt ของ Bash แบบ sandbox ไม่แจกรายชื่อ network host แล้ว — Claude ลองยิง request เอง (แล้วเราค่อยอนุมัติ host ใหม่) แทนการเหมาว่า host นอกรายชื่อถูกบล็อก (v2.1.243) |
 | 💵 **Sonnet 5 ราคา standard** | $2/$10 ต่อ Mtok เป็นราคา list ปกติแล้ว ไม่ใช่โปรโมชันจำกัดเวลา (v2.1.243) |
+| 🛡️ **แท็บ Auto mode ใน `/permissions`** | ดู/แก้ rule ของ auto mode classifier ได้จาก dialog · เตือน Bash allow rule ที่มี wildcard ก่อน subcommand เช่น `Bash(git * main)` (v2.1.246) |
+| 📂 **`/cd` มีผลทันที** | settings, hooks, `.mcp.json`, skills, agents ของ directory ใหม่ใช้ได้ทันทีหลังย้าย ไม่ต้องรอ `--resume` (v2.1.246) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.245` (manual `v1.48.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.246` (manual `v1.49.0`)
 
 ---
 
@@ -118,7 +120,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.245** + โมเดล Fable 5 / Opus 5 / Sonnet 5
+ตรงกับ Claude Code **v2.1.246** + โมเดล Fable 5 / Opus 5 / Sonnet 5
 
 </td>
 </tr>
@@ -178,7 +180,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.245`
+> **Claude Code Version:** `2.1.246`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

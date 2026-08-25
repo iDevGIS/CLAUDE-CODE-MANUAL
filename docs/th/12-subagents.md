@@ -168,6 +168,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **ไม่ใส่ `subagent_type` แล้วได้ error ที่ชัดเจน** — ใน session ที่ไม่มี agent แบบ general-purpose ให้ใช้ Agent tool จะไม่บอกว่ามันเป็นค่า default อีกต่อไป; ถ้าไม่ใส่ `subagent_type` จะได้ error ที่ไล่รายชื่อ agent ที่ใช้ได้จริงมาให้
 
+### 🆕 ใหม่ใน v2.1.246
+
+- **Subagent ที่หยุดเพราะชน `maxTurns` คืนผลแบบ partial** — ผลลัพธ์ถูก mark ว่ายังไม่จบ พร้อม hint ให้คุยต่อผ่าน `SendMessage` แทนที่จะดูเหมือนงานเสร็จแล้ว
+
 ---
 
 ---

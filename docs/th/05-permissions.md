@@ -212,6 +212,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.243
 - **prompt ของ Bash แบบ sandbox เลิกแจกรายชื่อ network host ที่อนุญาต** — Claude จะลองยิง request เองก่อน (แล้วเราค่อยกดอนุมัติ host ใหม่ได้) แทนที่จะเหมาเอาเองว่า host ที่ไม่อยู่ในรายชื่อถูกบล็อก
 
+### 🆕 ใหม่ใน v2.1.246
+- **เตือนตอน start ถ้า Bash allow rule มี wildcard ก่อน subcommand** — rule แบบ `Bash(git * main)` จะโดนเตือนตอนเปิดโปรแกรม เพราะมัน match option ที่แทรกมาก่อน subcommand ด้วย
+- **`/permissions` มีแท็บ Auto mode** — ดูและแก้ rule ของ auto mode classifier ได้จาก dialog โดยตรง
+
 ---
 
 ---

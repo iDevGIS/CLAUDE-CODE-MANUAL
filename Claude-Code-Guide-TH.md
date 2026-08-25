@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.245         │
+│ Welcome to Claude Code v2.1.246         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -676,6 +676,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **`claude self-hosted-runner --proxy-authorization-command` / `--proxy-authorization-file`** — สำหรับ egress proxy ที่ต้องการ header `Proxy-Authorization` ที่ออกใหม่สด ๆ ทุกการเชื่อมต่อ
 - **`claude plugin install` / `claude plugin update` ถามยืนยันก่อน** — ทั้งสองคำสั่งขึ้น prompt `[y/N]` แล้ว โดยโชว์คำสั่ง `headersHelper` ของ catalog entry ให้ดูก่อนรัน; ใส่ `-y` เพื่อข้ามการถาม
 
+### 🆕 ใหม่ใน v2.1.246
+
+- **Session แบบ non-interactive ไปต่อเองเมื่อ stream ขาด** — `claude -p`, SDK และ cloud session จะ continue คำตอบที่ถูกตัดกลางทางจาก server error, การเชื่อมต่อหลุด หรือ stall ให้อัตโนมัติ แทนที่จะจบด้วย error
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1007,7 +1011,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.245
+- run: npm install -g @anthropic-ai/claude-code@2.1.246
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1212,6 +1216,11 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/login` เข้าด้วยบัญชี Console ได้โดยไม่ต้องสร้าง API key** — เส้นทาง Anthropic Console เพิ่มตัวเลือก "Sign in with your Console account" (แนะนำ) คู่กับการสร้าง API key องค์กรที่ไม่อนุญาตให้ใช้ API key ก็ sign in ได้แล้ว
 - **`/status` บอกมากขึ้น** — เพิ่มบรรทัด `Skipped sources` แสดง managed settings source ที่มีอยู่แต่ไม่ถูกใช้เพราะมี source ลำดับสูงกว่า active อยู่ และเพิ่มบรรทัดบอกว่าเชื่อม GitHub สำหรับ Claude Code on the web แล้วหรือยัง (Pro/Max) พร้อมชี้ไป `/web-setup` ถ้ายังไม่เชื่อม
 - **`/model`, `/fast` และ `/effort` มีผลทันทีทุกที่** — บน Bedrock, Vertex, Foundry และตอนที่ปิด telemetry ก็รันทันทีแล้ว แทนที่จะเข้าคิวรอจนจบ turn
+
+### 🆕 ใหม่ใน v2.1.246
+- **`/cd` ใช้ของใน directory ใหม่ทันที** — project settings, hooks, `.mcp.json` servers (ผ่าน prompt ขออนุมัติตามปกติ), skills และ agents มีผลทันทีหลังย้าย ไม่ต้องรอ `--resume` แล้ว
+- **Claude เริ่ม `/code-review` เองได้ทุกที่** — รวมถึงบน Bedrock, Vertex AI, Foundry, ผ่าน Claude apps gateway และตอนที่ปิด telemetry หรือ traffic ที่ไม่จำเป็น
+- **`/goal` จำกัดจำนวน check-in** — session ที่ idle จะเริ่ม check-in งาน background ที่รันยาวได้ไม่เกิน 3 ครั้งต่อ goal ส่งข้อความถัดไปเมื่อไหร่จะปลดล็อกให้อีก 3 ครั้ง
 
 ---
 
@@ -1514,6 +1523,10 @@ Skill(commit)                    # Skill เฉพาะ
 
 ### 🆕 ใหม่ใน v2.1.243
 - **prompt ของ Bash แบบ sandbox เลิกแจกรายชื่อ network host ที่อนุญาต** — Claude จะลองยิง request เองก่อน (แล้วเราค่อยกดอนุมัติ host ใหม่ได้) แทนที่จะเหมาเอาเองว่า host ที่ไม่อยู่ในรายชื่อถูกบล็อก
+
+### 🆕 ใหม่ใน v2.1.246
+- **เตือนตอน start ถ้า Bash allow rule มี wildcard ก่อน subcommand** — rule แบบ `Bash(git * main)` จะโดนเตือนตอนเปิดโปรแกรม เพราะมัน match option ที่แทรกมาก่อน subcommand ด้วย
+- **`/permissions` มีแท็บ Auto mode** — ดูและแก้ rule ของ auto mode classifier ได้จาก dialog โดยตรง
 
 ---
 
@@ -2578,6 +2591,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 ### 🆕 ใหม่ใน v2.1.235
 
 - **ไม่ใส่ `subagent_type` แล้วได้ error ที่ชัดเจน** — ใน session ที่ไม่มี agent แบบ general-purpose ให้ใช้ Agent tool จะไม่บอกว่ามันเป็นค่า default อีกต่อไป; ถ้าไม่ใส่ `subagent_type` จะได้ error ที่ไล่รายชื่อ agent ที่ใช้ได้จริงมาให้
+
+### 🆕 ใหม่ใน v2.1.246
+
+- **Subagent ที่หยุดเพราะชน `maxTurns` คืนผลแบบ partial** — ผลลัพธ์ถูก mark ว่ายังไม่จบ พร้อม hint ให้คุยต่อผ่าน `SendMessage` แทนที่จะดูเหมือนงานเสร็จแล้ว
 
 ---
 
@@ -4830,7 +4847,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.245`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.246`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

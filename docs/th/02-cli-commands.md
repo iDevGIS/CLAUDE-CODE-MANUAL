@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.245         │
+│ Welcome to Claude Code v2.1.246         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -572,6 +572,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **`claude self-hosted-runner --proxy-authorization-command` / `--proxy-authorization-file`** — สำหรับ egress proxy ที่ต้องการ header `Proxy-Authorization` ที่ออกใหม่สด ๆ ทุกการเชื่อมต่อ
 - **`claude plugin install` / `claude plugin update` ถามยืนยันก่อน** — ทั้งสองคำสั่งขึ้น prompt `[y/N]` แล้ว โดยโชว์คำสั่ง `headersHelper` ของ catalog entry ให้ดูก่อนรัน; ใส่ `-y` เพื่อข้ามการถาม ดูที่ [[18-plugins]]
 
+### 🆕 ใหม่ใน v2.1.246
+
+- **Session แบบ non-interactive ไปต่อเองเมื่อ stream ขาด** — `claude -p`, SDK และ cloud session จะ continue คำตอบที่ถูกตัดกลางทางจาก server error, การเชื่อมต่อหลุด หรือ stall ให้อัตโนมัติ แทนที่จะจบด้วย error
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -943,7 +947,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.245
+- run: npm install -g @anthropic-ai/claude-code@2.1.246
 ```
 
 ---

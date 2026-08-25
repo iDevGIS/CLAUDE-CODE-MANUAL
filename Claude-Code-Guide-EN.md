@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.245         │
+│ Welcome to Claude Code v2.1.246         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.245
+- run: npm install -g @anthropic-ai/claude-code@2.1.246
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1021,6 +1021,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **`claude self-hosted-runner --defer-shutdown-max-min <minutes>`** — on `SIGTERM` the runner keeps serving sessions that are still attached, parks whatever is left after that many minutes, then exits.
 - **`claude self-hosted-runner --proxy-authorization-command` / `--proxy-authorization-file`** — for egress proxies that require a freshly issued `Proxy-Authorization` header on every connection.
 - **`claude plugin install` / `claude plugin update` ask for confirmation** — both now prompt `[y/N]`, showing a catalog entry's `headersHelper` command before it runs; pass `-y` to skip the prompt.
+
+### New in v2.1.246
+
+- **Non-interactive sessions auto-continue after a dropped stream** — `claude -p`, SDK and cloud sessions now automatically continue a response cut off mid-stream by a server error, connection loss, or stall, instead of ending with an error.
 
 ---
 
@@ -1218,6 +1222,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **Keyless Console sign-in in `/login`** — the Anthropic Console path now offers "Sign in with your Console account" (recommended) alongside creating an API key, so organizations that don't allow API keys can still sign in.
 - **`/status` reports more** — a `Skipped sources` line lists managed settings sources that are present but not applied because a higher-precedence managed source is active, and a new line shows whether GitHub is connected for Claude Code on the web (Pro/Max), pointing to `/web-setup` when it isn't.
 - **`/model`, `/fast` and `/effort` apply immediately everywhere** — on Bedrock, Vertex and Foundry, and when telemetry is disabled, they now run right away instead of queueing until the turn ends.
+
+### New in v2.1.246
+- **`/cd` applies the new directory's setup immediately** — project settings, hooks, `.mcp.json` servers (behind the usual approval prompt), skills, and agents take effect right after the move instead of waiting for `--resume`.
+- **Claude can start `/code-review` on its own everywhere** — including on Bedrock, Vertex AI and Foundry, through the Claude apps gateway, and when telemetry or non-essential traffic is disabled.
+- **`/goal` check-ins are capped** — idle sessions start at most three check-ins on long-running background work per goal; your next message allows three more.
 
 ---
 
@@ -1520,6 +1529,10 @@ Skill(commit)                    # Specific skill
 
 ### New in v2.1.243
 - **The sandboxed Bash prompt no longer lists allowed network hosts** — Claude now attempts requests (and you can approve new hosts) instead of assuming unlisted hosts are blocked.
+
+### New in v2.1.246
+- **Startup warning for wildcard-before-subcommand Bash rules** — allow rules like `Bash(git * main)` now trigger a warning at startup, since they also match options inserted before the subcommand.
+- **`/permissions` gains an Auto mode tab** — view and edit auto mode classifier rules straight from the dialog.
 
 ---
 
@@ -2585,6 +2598,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 ### New in v2.1.235
 
 - **A missing `subagent_type` gives a clear error** — in sessions where the general-purpose agent isn't available, the Agent tool no longer advertises it as the default; omitting `subagent_type` there returns an error listing the agents you can actually use.
+
+### New in v2.1.246
+
+- **Subagents that stop at `maxTurns` return partial output** — the result now comes back marked as partial, with a hint to continue the subagent via `SendMessage`, instead of appearing finished.
 
 ---
 
@@ -4844,7 +4861,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.245`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.246`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

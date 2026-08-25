@@ -168,6 +168,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **A missing `subagent_type` gives a clear error** — in sessions where the general-purpose agent isn't available, the Agent tool no longer advertises it as the default; omitting `subagent_type` there returns an error listing the agents you can actually use.
 
+### New in v2.1.246
+
+- **Subagents that stop at `maxTurns` return partial output** — the result now comes back marked as partial, with a hint to continue the subagent via `SendMessage`, instead of appearing finished.
+
 ---
 
 ---

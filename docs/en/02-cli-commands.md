@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.245         │
+│ Welcome to Claude Code v2.1.246         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -572,6 +572,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`claude self-hosted-runner --proxy-authorization-command` / `--proxy-authorization-file`** — for egress proxies that require a freshly issued `Proxy-Authorization` header on every connection.
 - **`claude plugin install` / `claude plugin update` ask for confirmation** — both now prompt `[y/N]`, showing a catalog entry's `headersHelper` command before it runs; pass `-y` to skip the prompt. See [[18-plugins]].
 
+### New in v2.1.246
+
+- **Non-interactive sessions auto-continue after a dropped stream** — `claude -p`, SDK and cloud sessions now automatically continue a response cut off mid-stream by a server error, connection loss, or stall, instead of ending with an error.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -943,7 +947,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.245
+- run: npm install -g @anthropic-ai/claude-code@2.1.246
 ```
 
 ---

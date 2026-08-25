@@ -25,6 +25,29 @@
 
 ---
 
+## [1.49.0] — 2026-08-26
+
+### Compatibility
+- **Claude Code:** `v2.1.246+`
+
+### Added
+- **Auto mode tab in `/permissions`** — view and edit auto mode classifier rules straight from the dialog (`v2.1.246`) — chapter 05
+- **Startup warning for wildcard-before-subcommand Bash allow rules** — rules like `Bash(git * main)` also match options inserted before the subcommand, so Claude Code now warns about them at startup (`v2.1.246`) — chapter 05
+
+### Changed
+- **`/cd` applies the new directory's setup immediately** — project settings, hooks, `.mcp.json` servers (behind the usual approval prompt), skills, and agents take effect right after the move instead of waiting for `--resume` (`v2.1.246`) — chapter 03
+- **Claude can start `/code-review` on its own everywhere** — including on Bedrock, Vertex AI and Foundry, through the Claude apps gateway, and when telemetry or non-essential traffic is disabled (`v2.1.246`) — chapter 03
+- **`/goal` idle check-ins capped at three per goal** — the next user message allows three more (`v2.1.246`) — chapter 03
+- **Subagents that stop at `maxTurns` return partial output** — marked as partial with a hint to continue via `SendMessage`, instead of appearing finished (`v2.1.246`) — chapter 12
+- **Non-interactive sessions auto-continue after a dropped stream** — `claude -p`, SDK and cloud sessions continue a response cut off mid-stream by a server error, connection loss, or stall, instead of ending with an error (`v2.1.246`) — chapter 02
+- **Version strings** bumped `2.1.245` → `2.1.246` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.246` is mostly bug fixes and UI polish, but ships two new permission surfaces (the `/permissions` Auto mode tab and the wildcard-rule startup warning) and five documentable behaviour changes (`/cd`, `/code-review`, `/goal`, subagent `maxTurns` results, and headless stream recovery)
+- Each item landed in its home chapter (02 CLI, 03 slash commands, 05 permissions, 12 subagents) across both monolithic guides and both atomic-note languages
+
+---
+
 ## [1.48.0] — 2026-08-25
 
 ### Compatibility
@@ -1156,6 +1179,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.49.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.48.0...v1.49.0
 [1.48.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.47.0...v1.48.0
 [1.47.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.46.0...v1.47.0
 [1.46.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.45.0...v1.46.0

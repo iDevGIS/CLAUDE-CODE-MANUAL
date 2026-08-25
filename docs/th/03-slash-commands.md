@@ -185,6 +185,11 @@ related:
 - **`/status` บอกมากขึ้น** — เพิ่มบรรทัด `Skipped sources` แสดง managed settings source ที่มีอยู่แต่ไม่ถูกใช้เพราะมี source ลำดับสูงกว่า active อยู่ และเพิ่มบรรทัดบอกว่าเชื่อม GitHub สำหรับ Claude Code on the web แล้วหรือยัง (Pro/Max) พร้อมชี้ไป `/web-setup` ถ้ายังไม่เชื่อม
 - **`/model`, `/fast` และ `/effort` มีผลทันทีทุกที่** — บน Bedrock, Vertex, Foundry และตอนที่ปิด telemetry ก็รันทันทีแล้ว แทนที่จะเข้าคิวรอจนจบ turn
 
+### 🆕 ใหม่ใน v2.1.246
+- **`/cd` ใช้ของใน directory ใหม่ทันที** — project settings, hooks, `.mcp.json` servers (ผ่าน prompt ขออนุมัติตามปกติ), skills และ agents มีผลทันทีหลังย้าย ไม่ต้องรอ `--resume` แล้ว
+- **Claude เริ่ม `/code-review` เองได้ทุกที่** — รวมถึงบน Bedrock, Vertex AI, Foundry, ผ่าน Claude apps gateway และตอนที่ปิด telemetry หรือ traffic ที่ไม่จำเป็น
+- **`/goal` จำกัดจำนวน check-in** — session ที่ idle จะเริ่ม check-in งาน background ที่รันยาวได้ไม่เกิน 3 ครั้งต่อ goal ส่งข้อความถัดไปเมื่อไหร่จะปลดล็อกให้อีก 3 ครั้ง
+
 ---
 
 ---

@@ -184,6 +184,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/status` reports more** — a `Skipped sources` line lists managed settings sources that are present but not applied because a higher-precedence managed source is active, and a new line shows whether GitHub is connected for Claude Code on the web (Pro/Max), pointing to `/web-setup` when it isn't.
 - **`/model`, `/fast` and `/effort` apply immediately everywhere** — on Bedrock, Vertex and Foundry, and when telemetry is disabled, they now run right away instead of queueing until the turn ends.
 
+### New in v2.1.246
+- **`/cd` applies the new directory's setup immediately** — project settings, hooks, `.mcp.json` servers (behind the usual approval prompt), skills, and agents take effect right after the move instead of waiting for `--resume`.
+- **Claude can start `/code-review` on its own everywhere** — including on Bedrock, Vertex AI and Foundry, through the Claude apps gateway, and when telemetry or non-essential traffic is disabled.
+- **`/goal` check-ins are capped** — idle sessions start at most three check-ins on long-running background work per goal; your next message allows three more.
+
 ---
 
 ---
