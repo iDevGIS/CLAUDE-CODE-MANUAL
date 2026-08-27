@@ -189,6 +189,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **Claude can start `/code-review` on its own everywhere** — including on Bedrock, Vertex AI and Foundry, through the Claude apps gateway, and when telemetry or non-essential traffic is disabled.
 - **`/goal` check-ins are capped** — idle sessions start at most three check-ins on long-running background work per goal; your next message allows three more.
 
+### New in v2.1.247
+- **Claude can draft feedback reports** — when something goes wrong in a session, Claude can draft a feedback report with the new `SendFeedback` tool for you to review and send from `/feedback`. Turn it off with the `feedbackDrafts` setting (see [[06-configuration]]).
+- **`/claude-api cost-optimize`** — profiles an existing project's Claude API spend and works through cost levers (caching, token hygiene, batch, effort, model choice) one measured change at a time. The `/claude-api` skill also gains Admin API coverage (organization members, invites, workspaces, API keys, rate limit reports, workload identity federation, CMEK).
+
 ---
 
 ---

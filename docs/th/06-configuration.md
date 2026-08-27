@@ -215,6 +215,11 @@ related:
 - **managed setting `modelPricing`** — องค์กรใส่เรตราคาต่อโมเดลตามสัญญาและตัวคูณส่วนลดได้ แล้ว `/cost`, status line และตัวเลข cost ใน telemetry จะใช้เรตนั้นแทนราคา list ดูที่ [[31-cost-management]]
 - **ราคา $2/$10 ต่อ Mtok ของ Sonnet 5 เป็นราคา standard แล้ว** — `/model` picker และ skill `claude-api` ที่มากับตัว เลิกแสดงเป็นราคาโปรโมชันแบบจำกัดเวลา
 
+### 🆕 ใหม่ใน v2.1.247
+
+- **setting `feedbackDrafts`** — ปิดไม่ให้ Claude ร่างรายงาน feedback (ผ่านเครื่องมือ `SendFeedback`) ที่ร่างไว้ให้เราตรวจแล้วส่งจาก `/feedback` ดู [[03-slash-commands]]
+- **`spinnerTipsOverride` รับ entry แบบละเอียดขึ้น** — ใส่ entry แบบ `{id, text, cooldownSessions, priority}`, path `tipsFile` และ `label` ได้ องค์กรเลยหมุน tip ของตัวเองสลับกับ tip ในตัวได้
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

@@ -118,6 +118,11 @@ Shows an interactive picker to choose a session.
 
 > 🔎 Full deep-dive: [[41-background-agents]]
 
+### New in v2.1.247
+
+- **Sonnet 5 auto-compacts at its full 1M context** — its default auto-compact window now covers the whole 1M window, so sessions on the 1M window auto-compact at about 967K tokens instead of about 934K.
+- **Cross-session peer messages collapse by default** — an incoming message shows as a one-line `Message from @<sender>: <first line>` preview; press Ctrl+O to expand the full body.
+
 ---
 
 ---

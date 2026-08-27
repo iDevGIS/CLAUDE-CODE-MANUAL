@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.246         │
+│ Welcome to Claude Code v2.1.247         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1011,7 +1011,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.246
+- run: npm install -g @anthropic-ai/claude-code@2.1.247
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1221,6 +1221,10 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/cd` ใช้ของใน directory ใหม่ทันที** — project settings, hooks, `.mcp.json` servers (ผ่าน prompt ขออนุมัติตามปกติ), skills และ agents มีผลทันทีหลังย้าย ไม่ต้องรอ `--resume` แล้ว
 - **Claude เริ่ม `/code-review` เองได้ทุกที่** — รวมถึงบน Bedrock, Vertex AI, Foundry, ผ่าน Claude apps gateway และตอนที่ปิด telemetry หรือ traffic ที่ไม่จำเป็น
 - **`/goal` จำกัดจำนวน check-in** — session ที่ idle จะเริ่ม check-in งาน background ที่รันยาวได้ไม่เกิน 3 ครั้งต่อ goal ส่งข้อความถัดไปเมื่อไหร่จะปลดล็อกให้อีก 3 ครั้ง
+
+### 🆕 ใหม่ใน v2.1.247
+- **Claude ร่างรายงาน feedback ให้ได้** — เวลามีอะไรพังใน session Claude ใช้เครื่องมือใหม่ `SendFeedback` ร่างรายงาน feedback ไว้ให้เราตรวจแล้วส่งเองจาก `/feedback` ได้ ปิดได้ด้วย setting `feedbackDrafts`
+- **`/claude-api cost-optimize`** — วิเคราะห์ค่าใช้จ่าย Claude API ของโปรเจกต์ที่มีอยู่ แล้วไล่ปรับตัวช่วยลด cost (caching, token hygiene, batch, effort, การเลือกโมเดล) ทีละอย่างแบบวัดผลได้ · skill `/claude-api` ยังเพิ่มเนื้อหา Admin API ด้วย (สมาชิกองค์กร, invite, workspace, API key, rate limit report, workload identity federation, CMEK)
 
 ---
 
@@ -1528,6 +1532,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **เตือนตอน start ถ้า Bash allow rule มี wildcard ก่อน subcommand** — rule แบบ `Bash(git * main)` จะโดนเตือนตอนเปิดโปรแกรม เพราะมัน match option ที่แทรกมาก่อน subcommand ด้วย
 - **`/permissions` มีแท็บ Auto mode** — ดูและแก้ rule ของ auto mode classifier ได้จาก dialog โดยตรง
 
+### 🆕 ใหม่ใน v2.1.247
+- **prompt ขอสิทธิ์ Bash แนะนำ auto mode** — มี tip อธิบาย auto mode อยู่บน prompt พร้อมตัวเลือก "Yes, and switch to auto mode" กดปุ่มเดียวทั้งอนุมัติทั้งสลับโหมด
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1722,6 +1729,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **setting `promptCacheTtl` / `subagentPromptCacheTtl`** — ผู้ใช้ API key และ cloud provider ตั้ง prompt cache ของบทสนทนาหลักเป็น 1 ชั่วโมง โดยให้ subagent อยู่ที่ 5 นาทีตามเดิมได้
 - **managed setting `modelPricing`** — องค์กรใส่เรตราคาต่อโมเดลตามสัญญาและตัวคูณส่วนลดได้ แล้ว `/cost`, status line และตัวเลข cost ใน telemetry จะใช้เรตนั้นแทนราคา list
 - **ราคา $2/$10 ต่อ Mtok ของ Sonnet 5 เป็นราคา standard แล้ว** — `/model` picker และ skill `claude-api` ที่มากับตัว เลิกแสดงเป็นราคาโปรโมชันแบบจำกัดเวลา
+
+### 🆕 ใหม่ใน v2.1.247
+
+- **setting `feedbackDrafts`** — ปิดไม่ให้ Claude ร่างรายงาน feedback (ผ่านเครื่องมือ `SendFeedback`) ที่ร่างไว้ให้เราตรวจแล้วส่งจาก `/feedback`
+- **`spinnerTipsOverride` รับ entry แบบละเอียดขึ้น** — ใส่ entry แบบ `{id, text, cooldownSessions, priority}`, path `tipsFile` และ `label` ได้ องค์กรเลยหมุน tip ของตัวเองสลับกับ tip ในตัวได้
 
 ---
 
@@ -3258,6 +3270,11 @@ claude --fork-session                # แยก Branch ใหม่
 - **cross-session messaging มาถึง Windows แล้ว** — session ของ Claude Code ข้ามเครื่องส่งข้อความหากันด้วย `SendMessage` และหากันเจอด้วย `ListAgents` ได้แล้ว เหมือนบน macOS และ Linux
 - **`ListAgents` บอกชื่อของ session ตัวเองด้วย** — ชื่อที่เพื่อนใช้ส่งข้อความหาเรา และถ้า `SendMessage` ไปหาชื่อตัวเองระบบจะบอกตรง ๆ แทนที่จะขึ้น "no agent named …"
 - **`ListAgents` และ `/list-agents` แสดง teammate ที่ออนไลน์อยู่** — เมื่อก่อนขึ้นเฉพาะ subagent กับ session อื่น teammate ที่ติดต่อได้จริงเลยดูเหมือนหายไป
+
+### 🆕 ใหม่ใน v2.1.247
+
+- **Sonnet 5 auto-compact ที่ context เต็ม 1M** — หน้าต่าง auto-compact ตั้งต้นครอบคลุม 1M เต็มหน้าต่างแล้ว session บนหน้าต่าง 1M เลย auto-compact ที่ราว ๆ 967K token แทนราว ๆ 934K
+- **ข้อความจาก session อื่นย่อเหลือบรรทัดเดียวโดย default** — ข้อความที่ส่งเข้ามาแสดงเป็น preview บรรทัดเดียว `Message from @<sender>: <first line>` กด Ctrl+O เพื่อกางดูเนื้อหาเต็ม
 
 ---
 
@@ -4847,7 +4864,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.246`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.247`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.246         │
+│ Welcome to Claude Code v2.1.247         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.246
+- run: npm install -g @anthropic-ai/claude-code@2.1.247
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1227,6 +1227,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/cd` applies the new directory's setup immediately** — project settings, hooks, `.mcp.json` servers (behind the usual approval prompt), skills, and agents take effect right after the move instead of waiting for `--resume`.
 - **Claude can start `/code-review` on its own everywhere** — including on Bedrock, Vertex AI and Foundry, through the Claude apps gateway, and when telemetry or non-essential traffic is disabled.
 - **`/goal` check-ins are capped** — idle sessions start at most three check-ins on long-running background work per goal; your next message allows three more.
+
+### New in v2.1.247
+- **Claude can draft feedback reports** — when something goes wrong in a session, Claude can draft a feedback report with the new `SendFeedback` tool for you to review and send from `/feedback`. Turn it off with the `feedbackDrafts` setting.
+- **`/claude-api cost-optimize`** — profiles an existing project's Claude API spend and works through cost levers (caching, token hygiene, batch, effort, model choice) one measured change at a time. The `/claude-api` skill also gains Admin API coverage (organization members, invites, workspaces, API keys, rate limit reports, workload identity federation, CMEK).
 
 ---
 
@@ -1534,6 +1538,9 @@ Skill(commit)                    # Specific skill
 - **Startup warning for wildcard-before-subcommand Bash rules** — allow rules like `Bash(git * main)` now trigger a warning at startup, since they also match options inserted before the subcommand.
 - **`/permissions` gains an Auto mode tab** — view and edit auto mode classifier rules straight from the dialog.
 
+### New in v2.1.247
+- **Bash permission prompts point to auto mode** — a tip on the prompt explains auto mode, with a one-keystroke "Yes, and switch to auto mode" option.
+
 ---
 
 ## 6. Configuration
@@ -1728,6 +1735,11 @@ Skill(commit)                    # Specific skill
 - **`promptCacheTtl` / `subagentPromptCacheTtl` settings** — let API-key and cloud-provider users keep a 1-hour prompt cache on the main conversation while subagents stay at 5 minutes.
 - **`modelPricing` managed setting** — an organization's contracted per-model rates and discount multiplier are used for `/cost`, the status line, and telemetry cost figures instead of list price.
 - **Sonnet 5's $2/$10 per Mtok is now its standard list price** — the `/model` picker and the bundled `claude-api` skill no longer present it as a limited-time promo.
+
+### New in v2.1.247
+
+- **`feedbackDrafts` setting** — turn off Claude drafting feedback reports (via the `SendFeedback` tool) for you to review and send from `/feedback`.
+- **`spinnerTipsOverride` gains richer entries** — `{id, text, cooldownSessions, priority}` entries, a `tipsFile` path, and a `label`, so organizations can rotate their own tips alongside the built-in ones.
 
 ---
 
@@ -3263,6 +3275,11 @@ Shows an interactive picker to choose a session.
 - **Cross-session messaging arrives on Windows** — Claude Code sessions across your machines can now message each other with `SendMessage` and find each other with `ListAgents`, as on macOS and Linux.
 - **`ListAgents` tells a session its own name** — the one peers use to message it, and `SendMessage` to your own name says so instead of "no agent named …".
 - **`ListAgents` and `/list-agents` list live teammates** — previously only subagents and other sessions appeared, so a reachable teammate looked absent.
+
+### New in v2.1.247
+
+- **Sonnet 5 auto-compacts at its full 1M context** — its default auto-compact window now covers the whole 1M window, so sessions on the 1M window auto-compact at about 967K tokens instead of about 934K.
+- **Cross-session peer messages collapse by default** — an incoming message shows as a one-line `Message from @<sender>: <first line>` preview; press Ctrl+O to expand the full body.
 
 ### Session File Locations
 
@@ -4861,7 +4878,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.246`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.247`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

@@ -25,6 +25,28 @@
 
 ---
 
+## [1.50.0] — 2026-08-27
+
+### Compatibility
+- **Claude Code:** `v2.1.247+`
+
+### Added
+- **Claude can draft feedback reports** — the new `SendFeedback` tool lets Claude draft a report when something goes wrong in a session, for you to review and send from `/feedback`; turn off with the new `feedbackDrafts` setting (`v2.1.247`) — chapters 03, 06
+- **`/claude-api cost-optimize`** — profiles an existing project's Claude API spend and works through cost levers (caching, token hygiene, batch, effort, model choice) one measured change at a time; the skill also gains Admin API coverage (organization members, invites, workspaces, API keys, rate limit reports, workload identity federation, CMEK) (`v2.1.247`) — chapter 03
+- **Bash permission prompts point to auto mode** — a tip explains auto mode, with a one-keystroke "Yes, and switch to auto mode" option (`v2.1.247`) — chapter 05
+- **`spinnerTipsOverride` gains richer entries** — `{id, text, cooldownSessions, priority}` entries, `tipsFile`, and `label`, so organizations can rotate their own tips alongside the built-in ones (`v2.1.247`) — chapter 06
+
+### Changed
+- **Sonnet 5's default auto-compact window is its full 1M context** — sessions on the 1M window now auto-compact at about 967K tokens instead of about 934K (`v2.1.247`) — chapter 19
+- **Cross-session peer messages collapse by default** — a one-line `Message from @<sender>: <first line>` preview, with Ctrl+O to expand the full body (`v2.1.247`) — chapter 19
+- **Version strings** bumped `2.1.246` → `2.1.247` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.247` is mostly bug fixes and hardening, but ships one new tool surface (`SendFeedback` + the `feedbackDrafts` setting), a new `/claude-api` subcommand, a new auto-mode affordance on Bash prompts, an org-facing `spinnerTipsOverride` expansion, and two behaviour changes (Sonnet 5 auto-compact window, peer-message preview)
+- Each item landed in its home chapter (03 slash commands, 05 permissions, 06 configuration, 19 session management) across both monolithic guides and both atomic-note languages
+
+---
+
 ## [1.49.0] — 2026-08-26
 
 ### Compatibility
@@ -1179,6 +1201,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.50.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.49.0...v1.50.0
 [1.49.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.48.0...v1.49.0
 [1.48.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.47.0...v1.48.0
 [1.47.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.46.0...v1.47.0

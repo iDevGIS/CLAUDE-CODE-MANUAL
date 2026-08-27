@@ -216,6 +216,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **เตือนตอน start ถ้า Bash allow rule มี wildcard ก่อน subcommand** — rule แบบ `Bash(git * main)` จะโดนเตือนตอนเปิดโปรแกรม เพราะมัน match option ที่แทรกมาก่อน subcommand ด้วย
 - **`/permissions` มีแท็บ Auto mode** — ดูและแก้ rule ของ auto mode classifier ได้จาก dialog โดยตรง
 
+### 🆕 ใหม่ใน v2.1.247
+- **prompt ขอสิทธิ์ Bash แนะนำ auto mode** — มี tip อธิบาย auto mode อยู่บน prompt พร้อมตัวเลือก "Yes, and switch to auto mode" กดปุ่มเดียวทั้งอนุมัติทั้งสลับโหมด
+
 ---
 
 ---

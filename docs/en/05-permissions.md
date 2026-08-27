@@ -187,6 +187,9 @@ Skill(commit)                    # Specific skill
 - **Startup warning for wildcard-before-subcommand Bash rules** — allow rules like `Bash(git * main)` now trigger a warning at startup, since they also match options inserted before the subcommand.
 - **`/permissions` gains an Auto mode tab** — view and edit auto mode classifier rules straight from the dialog.
 
+### New in v2.1.247
+- **Bash permission prompts point to auto mode** — a tip on the prompt explains auto mode, with a one-keystroke "Yes, and switch to auto mode" option.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

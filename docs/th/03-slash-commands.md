@@ -190,6 +190,10 @@ related:
 - **Claude เริ่ม `/code-review` เองได้ทุกที่** — รวมถึงบน Bedrock, Vertex AI, Foundry, ผ่าน Claude apps gateway และตอนที่ปิด telemetry หรือ traffic ที่ไม่จำเป็น
 - **`/goal` จำกัดจำนวน check-in** — session ที่ idle จะเริ่ม check-in งาน background ที่รันยาวได้ไม่เกิน 3 ครั้งต่อ goal ส่งข้อความถัดไปเมื่อไหร่จะปลดล็อกให้อีก 3 ครั้ง
 
+### 🆕 ใหม่ใน v2.1.247
+- **Claude ร่างรายงาน feedback ให้ได้** — เวลามีอะไรพังใน session Claude ใช้เครื่องมือใหม่ `SendFeedback` ร่างรายงาน feedback ไว้ให้เราตรวจแล้วส่งเองจาก `/feedback` ได้ ปิดได้ด้วย setting `feedbackDrafts` (ดู [[06-configuration]])
+- **`/claude-api cost-optimize`** — วิเคราะห์ค่าใช้จ่าย Claude API ของโปรเจกต์ที่มีอยู่ แล้วไล่ปรับตัวช่วยลด cost (caching, token hygiene, batch, effort, การเลือกโมเดล) ทีละอย่างแบบวัดผลได้ · skill `/claude-api` ยังเพิ่มเนื้อหา Admin API ด้วย (สมาชิกองค์กร, invite, workspace, API key, rate limit report, workload identity federation, CMEK)
+
 ---
 
 ---

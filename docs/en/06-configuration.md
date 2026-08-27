@@ -215,6 +215,11 @@ Set the `model` key to any of these (newest → cheapest):
 - **`modelPricing` managed setting** — an organization's contracted per-model rates and discount multiplier are used for `/cost`, the status line, and telemetry cost figures instead of list price. See [[31-cost-management]].
 - **Sonnet 5's $2/$10 per Mtok is now its standard list price** — the `/model` picker and the bundled `claude-api` skill no longer present it as a limited-time promo.
 
+### New in v2.1.247
+
+- **`feedbackDrafts` setting** — turn off Claude drafting feedback reports (via the `SendFeedback` tool) for you to review and send from `/feedback`. See [[03-slash-commands]].
+- **`spinnerTipsOverride` gains richer entries** — `{id, text, cooldownSessions, priority}` entries, a `tipsFile` path, and a `label`, so organizations can rotate their own tips alongside the built-in ones.
+
 ---
 
 ---
