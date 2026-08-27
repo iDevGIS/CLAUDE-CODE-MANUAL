@@ -193,6 +193,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **Claude can draft feedback reports** — when something goes wrong in a session, Claude can draft a feedback report with the new `SendFeedback` tool for you to review and send from `/feedback`. Turn it off with the `feedbackDrafts` setting (see [[06-configuration]]).
 - **`/claude-api cost-optimize`** — profiles an existing project's Claude API spend and works through cost levers (caching, token hygiene, batch, effort, model choice) one measured change at a time. The `/claude-api` skill also gains Admin API coverage (organization members, invites, workspaces, API keys, rate limit reports, workload identity federation, CMEK).
 
+### New in v2.1.248
+- **`/usage-credits`** — for Enterprise organizations billed through AWS Marketplace, self-serve Enterprise, and Enterprise trials: members can request a higher usage limit from their admin.
+- **`/loop` self-paced mode is available everywhere** — the self-paced dynamic mode and the no-prompt autonomous default now also work on Bedrock, Vertex, and Foundry.
+- **`/doctor` and `/status` explain server-managed settings** — a startup warning appears when the settings fail to load, and a line explains the load failure or why they weren't fetched (Bedrock/Vertex/third-party provider, custom `ANTHROPIC_BASE_URL`).
+
 ---
 
 ---

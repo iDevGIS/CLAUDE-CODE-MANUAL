@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.247         │
+│ Welcome to Claude Code v2.1.248         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.247
+- run: npm install -g @anthropic-ai/claude-code@2.1.248
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1025,6 +1025,11 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.246
 
 - **Non-interactive sessions auto-continue after a dropped stream** — `claude -p`, SDK and cloud sessions now automatically continue a response cut off mid-stream by a server error, connection loss, or stall, instead of ending with an error.
+
+### New in v2.1.248
+
+- **`--restricted` flag** — removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`), keeps file tools inside the working directory, refuses `bypassPermissions`, and ignores user, project, and local settings files. Also available as `CLAUDE_CODE_RESTRICTED=1`.
+- **`claude self-hosted-runner --client-label <label>`** — override the label the runner registers with (default: the hostname); also settable via `SELF_HOSTED_RUNNER_CLIENT_LABEL`.
 
 ---
 
@@ -1231,6 +1236,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.247
 - **Claude can draft feedback reports** — when something goes wrong in a session, Claude can draft a feedback report with the new `SendFeedback` tool for you to review and send from `/feedback`. Turn it off with the `feedbackDrafts` setting.
 - **`/claude-api cost-optimize`** — profiles an existing project's Claude API spend and works through cost levers (caching, token hygiene, batch, effort, model choice) one measured change at a time. The `/claude-api` skill also gains Admin API coverage (organization members, invites, workspaces, API keys, rate limit reports, workload identity federation, CMEK).
+
+### New in v2.1.248
+- **`/usage-credits`** — for Enterprise organizations billed through AWS Marketplace, self-serve Enterprise, and Enterprise trials: members can request a higher usage limit from their admin.
+- **`/loop` self-paced mode is available everywhere** — the self-paced dynamic mode and the no-prompt autonomous default now also work on Bedrock, Vertex, and Foundry.
+- **`/doctor` and `/status` explain server-managed settings** — a startup warning appears when the settings fail to load, and a line explains the load failure or why they weren't fetched (Bedrock/Vertex/third-party provider, custom `ANTHROPIC_BASE_URL`).
 
 ---
 
@@ -1740,6 +1750,10 @@ Skill(commit)                    # Specific skill
 
 - **`feedbackDrafts` setting** — turn off Claude drafting feedback reports (via the `SendFeedback` tool) for you to review and send from `/feedback`.
 - **`spinnerTipsOverride` gains richer entries** — `{id, text, cooldownSessions, priority}` entries, a `tipsFile` path, and a `label`, so organizations can rotate their own tips alongside the built-in ones.
+
+### New in v2.1.248
+
+- **`desktopSessionCleanupPeriodDays` setting** — transcript cleanup keeps desktop-written sessions while they are in the Claude Desktop app (unless org policy manages retention); this setting caps how long that exemption lasts.
 
 ---
 
@@ -2615,6 +2629,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Subagents that stop at `maxTurns` return partial output** — the result now comes back marked as partial, with a hint to continue the subagent via `SendMessage`, instead of appearing finished.
 
+### New in v2.1.248
+
+- **`experimental.cacheTtl` in agent frontmatter** — set a per-agent prompt cache TTL (`"5m"` or `"1h"`), used when no subagent cache TTL setting (`subagentPromptCacheTtl`) is configured.
+
 ---
 
 ## 13. Agent Teams
@@ -3281,6 +3299,10 @@ Shows an interactive picker to choose a session.
 - **Sonnet 5 auto-compacts at its full 1M context** — its default auto-compact window now covers the whole 1M window, so sessions on the 1M window auto-compact at about 967K tokens instead of about 934K.
 - **Cross-session peer messages collapse by default** — an incoming message shows as a one-line `Message from @<sender>: <first line>` preview; press Ctrl+O to expand the full body.
 
+### New in v2.1.248
+
+- **Cross-session messaging works everywhere** — `SendMessage` / `ListAgents` between sessions on the same machine now also work on Bedrock, Vertex, and Foundry, and when telemetry is disabled.
+
 ### Session File Locations
 
 ```
@@ -3561,6 +3583,8 @@ your-project/
 | `CLAUDE_CODE_PROJECT_DIR_NAME` | Optional short name for the per-project transcript directory — for hosts that give each session its own config directory. *(v2.1.234)* |
 | `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` | How long background tasks may keep a `/goal` waiting (30 minutes by default) before Claude checks in on them; set `0` to opt out. *(v2.1.234)* |
 | `ANTHROPIC_DEFAULT_MODEL` | The model new sessions start on. Unlike `ANTHROPIC_MODEL`, a `/model` pick still overrides it and that pick persists across restarts. *(v2.1.236)* |
+| `CLAUDE_CODE_RESTRICTED` | Restricted mode (= `--restricted`) — removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`), keeps file tools inside the working directory, refuses `bypassPermissions`, and ignores user, project, and local settings files. *(v2.1.248)* |
+| `SELF_HOSTED_RUNNER_CLIENT_LABEL` | The label `claude self-hosted-runner` registers with (= `--client-label`; default: the hostname). *(v2.1.248)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
@@ -4878,7 +4902,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.247`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.248`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

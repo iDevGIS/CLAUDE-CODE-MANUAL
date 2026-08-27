@@ -194,6 +194,11 @@ related:
 - **Claude ร่างรายงาน feedback ให้ได้** — เวลามีอะไรพังใน session Claude ใช้เครื่องมือใหม่ `SendFeedback` ร่างรายงาน feedback ไว้ให้เราตรวจแล้วส่งเองจาก `/feedback` ได้ ปิดได้ด้วย setting `feedbackDrafts` (ดู [[06-configuration]])
 - **`/claude-api cost-optimize`** — วิเคราะห์ค่าใช้จ่าย Claude API ของโปรเจกต์ที่มีอยู่ แล้วไล่ปรับตัวช่วยลด cost (caching, token hygiene, batch, effort, การเลือกโมเดล) ทีละอย่างแบบวัดผลได้ · skill `/claude-api` ยังเพิ่มเนื้อหา Admin API ด้วย (สมาชิกองค์กร, invite, workspace, API key, rate limit report, workload identity federation, CMEK)
 
+### 🆕 ใหม่ใน v2.1.248
+- **`/usage-credits`** — สำหรับองค์กร Enterprise ที่จ่ายผ่าน AWS Marketplace, Enterprise แบบ self-serve และ Enterprise trial — สมาชิกใช้ขอเพิ่ม usage limit จาก admin ได้
+- **`/loop` โหมด self-paced ใช้ได้ทุกที่แล้ว** — dynamic mode แบบกำหนดจังหวะเองและโหมด autonomous แบบไม่ใส่ prompt ใช้ได้บน Bedrock, Vertex และ Foundry ด้วยแล้ว
+- **`/doctor` และ `/status` อธิบายเรื่อง server-managed settings** — มีคำเตือนตอนเปิดโปรแกรมเมื่อ settings โหลดไม่สำเร็จ และมีบรรทัดอธิบายสาเหตุที่โหลดพังหรือทำไมไม่ได้ fetch (Bedrock/Vertex/third-party provider, `ANTHROPIC_BASE_URL` แบบ custom)
+
 ---
 
 ---

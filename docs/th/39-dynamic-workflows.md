@@ -140,6 +140,10 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 - **หน่วงเวลา agent พี่น้องเพื่อใช้ prompt cache** — ตอน fan-out ระบบจะทยอยปล่อย agent พี่น้องที่ใช้ prompt prefix เดียวกัน เพื่อให้ตัวหลัง ๆ อ่าน prefix จาก cache แทนที่จะจ่ายค่า token ซ้ำ; ปิดพฤติกรรมนี้ด้วย `CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS=0`
 - **นับ CPU ตามลิมิตของ container แล้ว** — เมื่อรันใน container ที่จำกัด CPU เพดานจำนวน agent ที่รันพร้อมกันจะยึดลิมิต CPU ของ container แทนจำนวนคอร์ของเครื่อง host
 
+### 🆕 ใหม่ใน v2.1.248
+
+- **Workflow tool กิน prompt น้อยลง** — คำอธิบายของ tool เหลือราว 1K token จากเดิม 5.7K โดยย้าย reference สำหรับเขียนสคริปต์ไปไว้ใน skill `workflow-authoring` ที่มากับตัว ให้ Claude โหลดก่อนลงมือเขียนสคริปต์ workflow
+
 ---
 
 ---

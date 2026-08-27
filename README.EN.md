@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.247-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.50.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.248-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.51.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.247`
+## 🆕 What's new — synced to Claude Code `v2.1.248`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -99,8 +99,12 @@ Never used a command line? You can still follow along 👇
 | 📝 **Claude drafts feedback reports** | when something goes wrong in a session, Claude drafts a report with the `SendFeedback` tool for you to review and send from `/feedback` · turn off with the `feedbackDrafts` setting (v2.1.247) |
 | 💸 **`/claude-api cost-optimize`** | profiles a project's Claude API spend and works through caching · token hygiene · batch · effort · model choice one measured change at a time · the skill also gains Admin API coverage (v2.1.247) |
 | 🗜️ **Sonnet 5 auto-compacts at full 1M** | its default auto-compact window now covers the whole 1M window — sessions on the 1M window compact at ~967K tokens instead of ~934K (v2.1.247) |
+| 🔒 **`--restricted` flag** | removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`) · keeps file tools inside the working directory · refuses `bypassPermissions` · ignores user/project/local settings files — or set `CLAUDE_CODE_RESTRICTED=1` (v2.1.248) |
+| 💳 **`/usage-credits`** | Enterprise members (AWS Marketplace · self-serve · trials) can request a higher usage limit from their admin (v2.1.248) |
+| ⏱️ **Per-agent `experimental.cacheTtl`** | set a prompt-cache TTL in agent frontmatter (`"5m"`/`"1h"`), used when no `subagentPromptCacheTtl` setting is configured (v2.1.248) |
+| 💬 **Cross-session messaging everywhere** | `SendMessage`/`ListAgents` on the same machine now work on Bedrock/Vertex/Foundry and with telemetry disabled · `/loop` self-paced mode too (v2.1.248) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.247` (manual `v1.50.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.248` (manual `v1.51.0`)
 
 ---
 
@@ -123,7 +127,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.247** + the Fable 5 / Opus 5 / Sonnet 5 lineup
+Tracks Claude Code **v2.1.248** + the Fable 5 / Opus 5 / Sonnet 5 lineup
 
 </td>
 </tr>
@@ -183,7 +187,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.247`
+> **Claude Code Version:** `2.1.248`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

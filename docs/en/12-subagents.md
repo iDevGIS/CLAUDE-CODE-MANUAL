@@ -172,6 +172,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Subagents that stop at `maxTurns` return partial output** — the result now comes back marked as partial, with a hint to continue the subagent via `SendMessage`, instead of appearing finished.
 
+### New in v2.1.248
+
+- **`experimental.cacheTtl` in agent frontmatter** — set a per-agent prompt cache TTL (`"5m"` or `"1h"`), used when no subagent cache TTL setting (`subagentPromptCacheTtl`) is configured. See [[06-configuration]].
+
 ---
 
 ---

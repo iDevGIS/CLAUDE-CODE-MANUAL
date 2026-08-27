@@ -140,6 +140,10 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 - **Sibling agents are staggered for prompt caching** — a fan-out staggers sibling agents that share a prompt prefix, so the later ones read the cached prefix instead of re-paying for it. Set `CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS=0` to disable the stagger.
 - **Container CPU limits are respected** — inside a CPU-limited container the concurrency cap follows the container's CPU limit instead of the host machine's core count.
 
+### New in v2.1.248
+
+- **Leaner Workflow tool prompt** — the tool's description now costs about 1K tokens instead of 5.7K; the script-writing reference moved into a bundled `workflow-authoring` skill that Claude loads before authoring a workflow script.
+
 ---
 
 ---

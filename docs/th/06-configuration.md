@@ -220,6 +220,10 @@ related:
 - **setting `feedbackDrafts`** — ปิดไม่ให้ Claude ร่างรายงาน feedback (ผ่านเครื่องมือ `SendFeedback`) ที่ร่างไว้ให้เราตรวจแล้วส่งจาก `/feedback` ดู [[03-slash-commands]]
 - **`spinnerTipsOverride` รับ entry แบบละเอียดขึ้น** — ใส่ entry แบบ `{id, text, cooldownSessions, priority}`, path `tipsFile` และ `label` ได้ องค์กรเลยหมุน tip ของตัวเองสลับกับ tip ในตัวได้
 
+### 🆕 ใหม่ใน v2.1.248
+
+- **setting `desktopSessionCleanupPeriodDays`** — การเก็บกวาด transcript จะไม่ลบ session ที่เขียนโดย Claude Desktop ตราบที่ยังอยู่ในแอป (เว้นแต่ policy องค์กรคุม retention เอง); setting นี้กำหนดเพดานว่าข้อยกเว้นนั้นอยู่ได้นานกี่วัน
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

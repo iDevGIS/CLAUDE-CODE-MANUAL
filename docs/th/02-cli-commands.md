@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.247         │
+│ Welcome to Claude Code v2.1.248         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -576,6 +576,11 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **Session แบบ non-interactive ไปต่อเองเมื่อ stream ขาด** — `claude -p`, SDK และ cloud session จะ continue คำตอบที่ถูกตัดกลางทางจาก server error, การเชื่อมต่อหลุด หรือ stall ให้อัตโนมัติ แทนที่จะจบด้วย error
 
+### 🆕 ใหม่ใน v2.1.248
+
+- **flag `--restricted`** — ถอด tool ในตัวที่รันคำสั่งหรือโค้ดและ `WebFetch` ออก (เว้นแต่ระบุชื่อไว้ใน `--tools`), จำกัด file tools ให้อยู่ใน working directory, ปฏิเสธ `bypassPermissions` และไม่อ่านไฟล์ settings ระดับ user, project, local ทั้งหมด · ตั้งผ่าน env var `CLAUDE_CODE_RESTRICTED=1` ก็ได้ — ดู [[23-environment-variables]]
+- **`claude self-hosted-runner --client-label <label>`** — กำหนด label ที่ runner ใช้ลงทะเบียนเอง (ค่าเริ่มต้น: hostname ของเครื่อง) · ตั้งผ่าน `SELF_HOSTED_RUNNER_CLIENT_LABEL` ก็ได้
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -947,7 +952,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.247
+- run: npm install -g @anthropic-ai/claude-code@2.1.248
 ```
 
 ---

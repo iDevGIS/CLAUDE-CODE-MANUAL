@@ -76,6 +76,8 @@ related:
 | `CLAUDE_CODE_PROJECT_DIR_NAME` | ตั้งชื่อสั้น ๆ ให้ไดเรกทอรี transcript ของแต่ละโปรเจกต์ (ไม่บังคับ) — สำหรับ host ที่ให้แต่ละ session มี config directory ของตัวเอง *(v2.1.234)* |
 | `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` | งาน background ทำให้ `/goal` รอได้นานแค่ไหน (ค่าเริ่มต้น 30 นาที) ก่อนที่ Claude จะเข้าไปเช็กงานนั้น; ตั้ง `0` เพื่อปิด *(v2.1.234)* |
 | `ANTHROPIC_DEFAULT_MODEL` | โมเดลที่ session ใหม่เริ่มต้นด้วย — ต่างจาก `ANTHROPIC_MODEL` ตรงที่การเลือกโมเดลด้วย `/model` ยังทับค่านี้ได้ และค่าที่เลือกอยู่ข้าม restart *(v2.1.236)* |
+| `CLAUDE_CODE_RESTRICTED` | โหมด restricted (= `--restricted`) — ถอด tool ในตัวที่รันคำสั่งหรือโค้ดและ `WebFetch` ออก (เว้นแต่ระบุชื่อไว้ใน `--tools`), จำกัด file tools ให้อยู่ใน working directory, ปฏิเสธ `bypassPermissions` และไม่อ่านไฟล์ settings ระดับ user, project, local *(v2.1.248)* |
+| `SELF_HOSTED_RUNNER_CLIENT_LABEL` | label ที่ `claude self-hosted-runner` ใช้ลงทะเบียน (= `--client-label`; ค่าเริ่มต้น: hostname ของเครื่อง) *(v2.1.248)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 

@@ -76,6 +76,8 @@ related:
 | `CLAUDE_CODE_PROJECT_DIR_NAME` | Optional short name for the per-project transcript directory — for hosts that give each session its own config directory. *(v2.1.234)* |
 | `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` | How long background tasks may keep a `/goal` waiting (30 minutes by default) before Claude checks in on them; set `0` to opt out. *(v2.1.234)* |
 | `ANTHROPIC_DEFAULT_MODEL` | The model new sessions start on. Unlike `ANTHROPIC_MODEL`, a `/model` pick still overrides it and that pick persists across restarts. *(v2.1.236)* |
+| `CLAUDE_CODE_RESTRICTED` | Restricted mode (= `--restricted`) — removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`), keeps file tools inside the working directory, refuses `bypassPermissions`, and ignores user, project, and local settings files. *(v2.1.248)* |
+| `SELF_HOSTED_RUNNER_CLIENT_LABEL` | The label `claude self-hosted-runner` registers with (= `--client-label`; default: the hostname). *(v2.1.248)* |
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 

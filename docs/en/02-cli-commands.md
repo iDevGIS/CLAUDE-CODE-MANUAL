@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.247         │
+│ Welcome to Claude Code v2.1.248         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -576,6 +576,11 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **Non-interactive sessions auto-continue after a dropped stream** — `claude -p`, SDK and cloud sessions now automatically continue a response cut off mid-stream by a server error, connection loss, or stall, instead of ending with an error.
 
+### New in v2.1.248
+
+- **`--restricted` flag** — removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`), keeps file tools inside the working directory, refuses `bypassPermissions`, and ignores user, project, and local settings files. Also available as `CLAUDE_CODE_RESTRICTED=1` — see [[23-environment-variables]].
+- **`claude self-hosted-runner --client-label <label>`** — override the label the runner registers with (default: the hostname); also settable via `SELF_HOSTED_RUNNER_CLIENT_LABEL`.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -947,7 +952,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.247
+- run: npm install -g @anthropic-ai/claude-code@2.1.248
 ```
 
 ---

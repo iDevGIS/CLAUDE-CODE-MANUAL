@@ -220,6 +220,10 @@ Set the `model` key to any of these (newest → cheapest):
 - **`feedbackDrafts` setting** — turn off Claude drafting feedback reports (via the `SendFeedback` tool) for you to review and send from `/feedback`. See [[03-slash-commands]].
 - **`spinnerTipsOverride` gains richer entries** — `{id, text, cooldownSessions, priority}` entries, a `tipsFile` path, and a `label`, so organizations can rotate their own tips alongside the built-in ones.
 
+### New in v2.1.248
+
+- **`desktopSessionCleanupPeriodDays` setting** — transcript cleanup keeps desktop-written sessions while they are in the Claude Desktop app (unless org policy manages retention); this setting caps how long that exemption lasts.
+
 ---
 
 ---

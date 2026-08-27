@@ -123,6 +123,10 @@ claude --fork-session                # แยก Branch ใหม่
 - **Sonnet 5 auto-compact ที่ context เต็ม 1M** — หน้าต่าง auto-compact ตั้งต้นครอบคลุม 1M เต็มหน้าต่างแล้ว session บนหน้าต่าง 1M เลย auto-compact ที่ราว ๆ 967K token แทนราว ๆ 934K
 - **ข้อความจาก session อื่นย่อเหลือบรรทัดเดียวโดย default** — ข้อความที่ส่งเข้ามาแสดงเป็น preview บรรทัดเดียว `Message from @<sender>: <first line>` กด Ctrl+O เพื่อกางดูเนื้อหาเต็ม
 
+### 🆕 ใหม่ใน v2.1.248
+
+- **cross-session messaging ใช้ได้ทุกที่แล้ว** — `SendMessage` / `ListAgents` ระหว่าง session บนเครื่องเดียวกันใช้ได้บน Bedrock, Vertex และ Foundry รวมถึงตอนที่ปิด telemetry ด้วย
+
 ---
 
 ---

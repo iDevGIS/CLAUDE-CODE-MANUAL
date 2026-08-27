@@ -172,6 +172,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **Subagent ที่หยุดเพราะชน `maxTurns` คืนผลแบบ partial** — ผลลัพธ์ถูก mark ว่ายังไม่จบ พร้อม hint ให้คุยต่อผ่าน `SendMessage` แทนที่จะดูเหมือนงานเสร็จแล้ว
 
+### 🆕 ใหม่ใน v2.1.248
+
+- **`experimental.cacheTtl` ใน frontmatter ของ agent** — ตั้ง TTL ของ prompt cache รายตัว agent ได้ (`"5m"` หรือ `"1h"`) ใช้เมื่อไม่ได้ตั้ง setting TTL ของ subagent (`subagentPromptCacheTtl`) ไว้ ดู [[06-configuration]]
+
 ---
 
 ---

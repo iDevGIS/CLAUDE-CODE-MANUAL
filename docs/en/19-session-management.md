@@ -123,6 +123,10 @@ Shows an interactive picker to choose a session.
 - **Sonnet 5 auto-compacts at its full 1M context** — its default auto-compact window now covers the whole 1M window, so sessions on the 1M window auto-compact at about 967K tokens instead of about 934K.
 - **Cross-session peer messages collapse by default** — an incoming message shows as a one-line `Message from @<sender>: <first line>` preview; press Ctrl+O to expand the full body.
 
+### New in v2.1.248
+
+- **Cross-session messaging works everywhere** — `SendMessage` / `ListAgents` between sessions on the same machine now also work on Bedrock, Vertex, and Foundry, and when telemetry is disabled.
+
 ---
 
 ---

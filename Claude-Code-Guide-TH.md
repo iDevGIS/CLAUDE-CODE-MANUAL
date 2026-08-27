@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.247         │
+│ Welcome to Claude Code v2.1.248         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -680,6 +680,11 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **Session แบบ non-interactive ไปต่อเองเมื่อ stream ขาด** — `claude -p`, SDK และ cloud session จะ continue คำตอบที่ถูกตัดกลางทางจาก server error, การเชื่อมต่อหลุด หรือ stall ให้อัตโนมัติ แทนที่จะจบด้วย error
 
+### 🆕 ใหม่ใน v2.1.248
+
+- **flag `--restricted`** — ถอด tool ในตัวที่รันคำสั่งหรือโค้ดและ `WebFetch` ออก (เว้นแต่ระบุชื่อไว้ใน `--tools`), จำกัด file tools ให้อยู่ใน working directory, ปฏิเสธ `bypassPermissions` และไม่อ่านไฟล์ settings ระดับ user, project, local ทั้งหมด · ตั้งผ่าน env var `CLAUDE_CODE_RESTRICTED=1` ก็ได้
+- **`claude self-hosted-runner --client-label <label>`** — กำหนด label ที่ runner ใช้ลงทะเบียนเอง (ค่าเริ่มต้น: hostname ของเครื่อง) · ตั้งผ่าน `SELF_HOSTED_RUNNER_CLIENT_LABEL` ก็ได้
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1011,7 +1016,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.247
+- run: npm install -g @anthropic-ai/claude-code@2.1.248
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1225,6 +1230,11 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.247
 - **Claude ร่างรายงาน feedback ให้ได้** — เวลามีอะไรพังใน session Claude ใช้เครื่องมือใหม่ `SendFeedback` ร่างรายงาน feedback ไว้ให้เราตรวจแล้วส่งเองจาก `/feedback` ได้ ปิดได้ด้วย setting `feedbackDrafts`
 - **`/claude-api cost-optimize`** — วิเคราะห์ค่าใช้จ่าย Claude API ของโปรเจกต์ที่มีอยู่ แล้วไล่ปรับตัวช่วยลด cost (caching, token hygiene, batch, effort, การเลือกโมเดล) ทีละอย่างแบบวัดผลได้ · skill `/claude-api` ยังเพิ่มเนื้อหา Admin API ด้วย (สมาชิกองค์กร, invite, workspace, API key, rate limit report, workload identity federation, CMEK)
+
+### 🆕 ใหม่ใน v2.1.248
+- **`/usage-credits`** — สำหรับองค์กร Enterprise ที่จ่ายผ่าน AWS Marketplace, Enterprise แบบ self-serve และ Enterprise trial — สมาชิกใช้ขอเพิ่ม usage limit จาก admin ได้
+- **`/loop` โหมด self-paced ใช้ได้ทุกที่แล้ว** — dynamic mode แบบกำหนดจังหวะเองและโหมด autonomous แบบไม่ใส่ prompt ใช้ได้บน Bedrock, Vertex และ Foundry ด้วยแล้ว
+- **`/doctor` และ `/status` อธิบายเรื่อง server-managed settings** — มีคำเตือนตอนเปิดโปรแกรมเมื่อ settings โหลดไม่สำเร็จ และมีบรรทัดอธิบายสาเหตุที่โหลดพังหรือทำไมไม่ได้ fetch (Bedrock/Vertex/third-party provider, `ANTHROPIC_BASE_URL` แบบ custom)
 
 ---
 
@@ -1734,6 +1744,10 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **setting `feedbackDrafts`** — ปิดไม่ให้ Claude ร่างรายงาน feedback (ผ่านเครื่องมือ `SendFeedback`) ที่ร่างไว้ให้เราตรวจแล้วส่งจาก `/feedback`
 - **`spinnerTipsOverride` รับ entry แบบละเอียดขึ้น** — ใส่ entry แบบ `{id, text, cooldownSessions, priority}`, path `tipsFile` และ `label` ได้ องค์กรเลยหมุน tip ของตัวเองสลับกับ tip ในตัวได้
+
+### 🆕 ใหม่ใน v2.1.248
+
+- **setting `desktopSessionCleanupPeriodDays`** — การเก็บกวาด transcript จะไม่ลบ session ที่เขียนโดย Claude Desktop ตราบที่ยังอยู่ในแอป (เว้นแต่ policy องค์กรคุม retention เอง); setting นี้กำหนดเพดานว่าข้อยกเว้นนั้นอยู่ได้นานกี่วัน
 
 ---
 
@@ -2608,6 +2622,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **Subagent ที่หยุดเพราะชน `maxTurns` คืนผลแบบ partial** — ผลลัพธ์ถูก mark ว่ายังไม่จบ พร้อม hint ให้คุยต่อผ่าน `SendMessage` แทนที่จะดูเหมือนงานเสร็จแล้ว
 
+### 🆕 ใหม่ใน v2.1.248
+
+- **`experimental.cacheTtl` ใน frontmatter ของ agent** — ตั้ง TTL ของ prompt cache รายตัว agent ได้ (`"5m"` หรือ `"1h"`) ใช้เมื่อไม่ได้ตั้ง setting TTL ของ subagent (`subagentPromptCacheTtl`) ไว้
+
 ---
 
 ## 13. Agent Teams (ทีม AI)
@@ -3276,6 +3294,10 @@ claude --fork-session                # แยก Branch ใหม่
 - **Sonnet 5 auto-compact ที่ context เต็ม 1M** — หน้าต่าง auto-compact ตั้งต้นครอบคลุม 1M เต็มหน้าต่างแล้ว session บนหน้าต่าง 1M เลย auto-compact ที่ราว ๆ 967K token แทนราว ๆ 934K
 - **ข้อความจาก session อื่นย่อเหลือบรรทัดเดียวโดย default** — ข้อความที่ส่งเข้ามาแสดงเป็น preview บรรทัดเดียว `Message from @<sender>: <first line>` กด Ctrl+O เพื่อกางดูเนื้อหาเต็ม
 
+### 🆕 ใหม่ใน v2.1.248
+
+- **cross-session messaging ใช้ได้ทุกที่แล้ว** — `SendMessage` / `ListAgents` ระหว่าง session บนเครื่องเดียวกันใช้ได้บน Bedrock, Vertex และ Foundry รวมถึงตอนที่ปิด telemetry ด้วย
+
 ---
 
 ## 20. Scheduled Tasks (งานตั้งเวลา)
@@ -3550,6 +3572,8 @@ your-project/
 | `CLAUDE_CODE_PROJECT_DIR_NAME` | ตั้งชื่อสั้น ๆ ให้ไดเรกทอรี transcript ของแต่ละโปรเจกต์ (ไม่บังคับ) — สำหรับ host ที่ให้แต่ละ session มี config directory ของตัวเอง *(v2.1.234)* |
 | `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` | งาน background ทำให้ `/goal` รอได้นานแค่ไหน (ค่าเริ่มต้น 30 นาที) ก่อนที่ Claude จะเข้าไปเช็กงานนั้น; ตั้ง `0` เพื่อปิด *(v2.1.234)* |
 | `ANTHROPIC_DEFAULT_MODEL` | โมเดลที่ session ใหม่เริ่มต้นด้วย — ต่างจาก `ANTHROPIC_MODEL` ตรงที่การเลือกโมเดลด้วย `/model` ยังทับค่านี้ได้ และค่าที่เลือกอยู่ข้าม restart *(v2.1.236)* |
+| `CLAUDE_CODE_RESTRICTED` | โหมด restricted (= `--restricted`) — ถอด tool ในตัวที่รันคำสั่งหรือโค้ดและ `WebFetch` ออก (เว้นแต่ระบุชื่อไว้ใน `--tools`), จำกัด file tools ให้อยู่ใน working directory, ปฏิเสธ `bypassPermissions` และไม่อ่านไฟล์ settings ระดับ user, project, local *(v2.1.248)* |
+| `SELF_HOSTED_RUNNER_CLIENT_LABEL` | label ที่ `claude self-hosted-runner` ใช้ลงทะเบียน (= `--client-label`; ค่าเริ่มต้น: hostname ของเครื่อง) *(v2.1.248)* |
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
@@ -4864,7 +4888,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.247`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.248`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

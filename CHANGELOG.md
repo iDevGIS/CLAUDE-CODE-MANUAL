@@ -25,6 +25,30 @@
 
 ---
 
+## [1.51.0] — 2026-08-28
+
+### Compatibility
+- **Claude Code:** `v2.1.248+`
+
+### Added
+- **`--restricted` flag / `CLAUDE_CODE_RESTRICTED=1`** — removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`), keeps file tools inside the working directory, refuses `bypassPermissions`, and ignores user, project, and local settings files (`v2.1.248`) — chapters 02, 23
+- **`experimental.cacheTtl` in agent frontmatter** — a per-agent prompt cache TTL (`"5m"` or `"1h"`), used when no subagent cache TTL setting is configured (`v2.1.248`) — chapter 12
+- **`claude self-hosted-runner --client-label` / `SELF_HOSTED_RUNNER_CLIENT_LABEL`** — override the label the runner registers with (default: the hostname) (`v2.1.248`) — chapters 02, 23
+- **`/usage-credits`** — for Enterprise organizations billed through AWS Marketplace, self-serve Enterprise, and Enterprise trials: members can request a higher usage limit from their admin (`v2.1.248`) — chapter 03
+- **`desktopSessionCleanupPeriodDays` setting** — caps how long desktop-written sessions stay exempt from transcript cleanup while they are in the Claude Desktop app (`v2.1.248`) — chapter 06
+- **Server-managed settings diagnostics** — a startup warning when the settings fail to load, and a `/doctor` and `/status` line explaining the failure or why they weren't fetched (Bedrock/Vertex/third-party provider, custom `ANTHROPIC_BASE_URL`) (`v2.1.248`) — chapter 03
+
+### Changed
+- **Cross-session messaging works everywhere** — `SendMessage` / `ListAgents` between sessions on the same machine now also work on Bedrock, Vertex, and Foundry, and when telemetry is disabled (`v2.1.248`) — chapter 19
+- **`/loop` self-paced mode is always available** — the self-paced dynamic mode and the no-prompt autonomous default now also work on Bedrock, Vertex, and Foundry (`v2.1.248`) — chapter 03
+- **Leaner Workflow tool prompt** — its description now costs about 1K tokens instead of 5.7K, with the script-writing reference moved into a bundled `workflow-authoring` skill (`v2.1.248`) — chapter 39
+- **Version strings** bumped `2.1.247` → `2.1.248` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.248` ships a real new security surface (restricted mode), a per-agent caching control in frontmatter, a runner flag, a new Enterprise slash command, a new cleanup setting, managed-settings diagnostics, and availability changes for cross-session messaging, `/loop`, and the Workflow tool prompt — each landed in its home chapter (02 CLI, 03 slash commands, 06 configuration, 12 subagents, 19 session management, 23 environment variables, 39 dynamic workflows) across both monolithic guides and both atomic-note languages
+
+---
+
 ## [1.50.0] — 2026-08-27
 
 ### Compatibility
@@ -1201,6 +1225,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.51.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.50.0...v1.51.0
 [1.50.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.49.0...v1.50.0
 [1.49.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.48.0...v1.49.0
 [1.48.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.47.0...v1.48.0
