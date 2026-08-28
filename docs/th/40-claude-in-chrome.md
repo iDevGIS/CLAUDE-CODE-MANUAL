@@ -109,6 +109,10 @@ Claude in Chrome คือการเชื่อม Claude Code เข้า�
 
 - **`/clear` ปิด tab group ของ session ใน Chrome ให้เลย** — และ tab group ที่ว่างจะถูกปิดตอน `/resume` กับตอนออกจาก Claude Code ด้วย
 
+### 🆕 ใหม่ใน v2.1.251
+
+- **ทุกการกระทำในเบราว์เซอร์ผ่าน permission check ของ Claude Code เสมอ** — รวมถึง session ที่ปิด telemetry ซึ่งเดิมใช้ prompt ของ Chrome extension เอง
+
 แนวปฏิบัติความปลอดภัยฉบับเต็ม อ่านต่อที่ [[32-security-best-practices]]
 
 ---

@@ -191,6 +191,11 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 - **Todo/task tools are gone on newer models** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` and `TodoWrite` (the tools behind the `TaskCreated` event) are no longer available on Opus 4.8, Sonnet 5, Fable 5, Mythos 5, and newer models; set `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` to bring them back.
 
+### New in v2.1.251
+
+- **`PreModelSwitch` / `PostModelSwitch` hook events** — run when the model is about to change and after it has changed; a `PreModelSwitch` hook can block, confirm, or annotate the switch.
+- **`SessionStart` resume hooks learn about staleness** — on resume they now receive the session's staleness and the estimated re-cache cost.
+
 ---
 
 ---

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.250         │
+│ Welcome to Claude Code v2.1.251         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -685,6 +685,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **flag `--restricted`** — ถอด tool ในตัวที่รันคำสั่งหรือโค้ดและ `WebFetch` ออก (เว้นแต่ระบุชื่อไว้ใน `--tools`), จำกัด file tools ให้อยู่ใน working directory, ปฏิเสธ `bypassPermissions` และไม่อ่านไฟล์ settings ระดับ user, project, local ทั้งหมด · ตั้งผ่าน env var `CLAUDE_CODE_RESTRICTED=1` ก็ได้
 - **`claude self-hosted-runner --client-label <label>`** — กำหนด label ที่ runner ใช้ลงทะเบียนเอง (ค่าเริ่มต้น: hostname ของเครื่อง) · ตั้งผ่าน `SELF_HOSTED_RUNNER_CLIENT_LABEL` ก็ได้
 
+### 🆕 ใหม่ใน v2.1.251
+
+- **คำสั่ง background session โผล่ใน `claude --help` แล้ว** — `attach`, `logs`, `stop`, `respawn` และ `rm` แสดงใน help text แล้ว และข้อความของ `--resume` สำหรับ background session ที่กำลังรันอยู่จะบอกคำสั่ง `claude attach <id>` ที่ต้องใช้ให้เป๊ะ ๆ
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1016,7 +1020,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.250
+- run: npm install -g @anthropic-ai/claude-code@2.1.251
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1235,6 +1239,12 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/usage-credits`** — สำหรับองค์กร Enterprise ที่จ่ายผ่าน AWS Marketplace, Enterprise แบบ self-serve และ Enterprise trial — สมาชิกใช้ขอเพิ่ม usage limit จาก admin ได้
 - **`/loop` โหมด self-paced ใช้ได้ทุกที่แล้ว** — dynamic mode แบบกำหนดจังหวะเองและโหมด autonomous แบบไม่ใส่ prompt ใช้ได้บน Bedrock, Vertex และ Foundry ด้วยแล้ว
 - **`/doctor` และ `/status` อธิบายเรื่อง server-managed settings** — มีคำเตือนตอนเปิดโปรแกรมเมื่อ settings โหลดไม่สำเร็จ และมีบรรทัดอธิบายสาเหตุที่โหลดพังหรือทำไมไม่ได้ fetch (Bedrock/Vertex/third-party provider, `ANTHROPIC_BASE_URL` แบบ custom)
+
+### 🆕 ใหม่ใน v2.1.251
+- **`/usage` มีแถบ Spend limit** — สำหรับ developer ที่ใช้งานผ่าน Claude apps gateway ที่ตั้ง spend limit ไว้ · status line script ได้ field `rate_limits.spend_limit` เพิ่มมาคู่กัน
+- **`/cost` แสดงสถิติ prompt-cache ราย session** — hit ratio, จำนวน miss, token ที่ re-cache และสถานะ warm/cold พร้อม object `prompt_cache` สำหรับ status line script
+- **`/effort` จำค่า default แยกตามโมเดล** — สลับโมเดลไปมาแล้วแต่ละโมเดลเก็บ effort level ของตัวเองไว้
+- **`/radio` ใช้ได้ทุกที่แล้ว** — บน Bedrock, Vertex AI, Foundry และ Claude Platform on AWS รวมถึงตอนปิด telemetry
 
 ---
 
@@ -1545,6 +1555,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.247
 - **prompt ขอสิทธิ์ Bash แนะนำ auto mode** — มี tip อธิบาย auto mode อยู่บน prompt พร้อมตัวเลือก "Yes, and switch to auto mode" กดปุ่มเดียวทั้งอนุมัติทั้งสลับโหมด
 
+### 🆕 ใหม่ใน v2.1.251
+- **server-managed settings ที่เสี่ยงต้องขออนุมัติก่อน** — settings จาก server ที่สั่ง terminate TLS ของ sandbox, เปลี่ยนเส้นทาง traffic ของ sandbox ผ่าน proxy ขององค์กร, inject credential หรือลดระดับ isolation ของ sandbox ต้องได้รับอนุมัติจากเราก่อนถึงจะมีผล · `ANTHROPIC_CUSTOM_HEADERS` จาก managed หรือ project settings ก็ต้องขออนุมัติเมื่อตั้ง header ด้าน credential, org/tenant, routing หรือ API behavior (เช่น `Authorization`, `Host`)
+- **การกระทำในเบราว์เซอร์ผ่าน permission check ของ Claude Code เสมอ** — รวมถึง session ที่ปิด telemetry ซึ่งเดิมใช้ prompt ของ Chrome extension เอง
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1748,6 +1762,11 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.248
 
 - **setting `desktopSessionCleanupPeriodDays`** — การเก็บกวาด transcript จะไม่ลบ session ที่เขียนโดย Claude Desktop ตราบที่ยังอยู่ในแอป (เว้นแต่ policy องค์กรคุม retention เอง); setting นี้กำหนดเพดานว่าข้อยกเว้นนั้นอยู่ได้นานกี่วัน
+
+### 🆕 ใหม่ใน v2.1.251
+
+- **`env` ระดับ project ตั้งที่อยู่ config/temp ไม่ได้แล้ว** — `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` และ `TMPDIR`/`TMP`/`TEMP` ที่ตั้งใน block `env` ของ `.claude/settings.json` ระดับ project จะถูกเมิน — ให้ไปตั้งใน shell, user settings หรือ managed settings แทน
+- **Enterprise แบบ seat-based ได้ Opus 5 เป็น default** — โมเดลเริ่มต้นของ Enterprise subscription แบบ seat-based เปลี่ยนเป็น Opus 5 เท่าเทียมกับแผนพรีเมียมอื่น
 
 ---
 
@@ -2290,6 +2309,11 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **โมเดลรุ่นใหม่ไม่มี todo/task tools แล้ว** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` และ `TodoWrite` (กลุ่มเครื่องมือที่ทำให้เกิด event `TaskCreated`) ถูกถอดออกจาก Opus 4.8, Sonnet 5, Fable 5, Mythos 5 และรุ่นที่ใหม่กว่า; ตั้ง `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` เพื่อเอากลับมา
 
+### 🆕 ใหม่ใน v2.1.251
+
+- **hook event `PreModelSwitch` / `PostModelSwitch`** — ทำงานตอนกำลังจะเปลี่ยนโมเดลและหลังเปลี่ยนเสร็จ — hook `PreModelSwitch` ใช้ block, ขอ confirm หรือแนบหมายเหตุให้การสลับโมเดลได้
+- **hook `SessionStart` ตอน resume รู้ความเก่าของ session** — ได้รับข้อมูล staleness ของ session และค่าประเมิน cost ของการ re-cache แนบมาด้วย
+
 ---
 
 ## 11. Skills (คำสั่งที่สร้างเอง)
@@ -2625,6 +2649,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 ### 🆕 ใหม่ใน v2.1.248
 
 - **`experimental.cacheTtl` ใน frontmatter ของ agent** — ตั้ง TTL ของ prompt cache รายตัว agent ได้ (`"5m"` หรือ `"1h"`) ใช้เมื่อไม่ได้ตั้ง setting TTL ของ subagent (`subagentPromptCacheTtl`) ไว้
+
+### 🆕 ใหม่ใน v2.1.251
+
+- **subagent แบบ foreground stream ให้ Remote Control ดูสด** — tool call และผลลัพธ์ของ foreground subagent stream ไปที่ Remote Control client แบบสด ๆ แล้ว ส่วน background subagent (ค่าเริ่มต้น) ยังแสดงแค่สถานะเหมือนเดิม
+- **`CLAUDE_CODE_SUBAGENT_MODEL` เป็นแค่ค่า default ไม่ใช่ตัว override แล้ว** — `model:` ใน definition ของ agent และโมเดลที่ระบุตอน spawn มีลำดับเหนือกว่า
 
 ---
 
@@ -3574,6 +3603,10 @@ your-project/
 | `ANTHROPIC_DEFAULT_MODEL` | โมเดลที่ session ใหม่เริ่มต้นด้วย — ต่างจาก `ANTHROPIC_MODEL` ตรงที่การเลือกโมเดลด้วย `/model` ยังทับค่านี้ได้ และค่าที่เลือกอยู่ข้าม restart *(v2.1.236)* |
 | `CLAUDE_CODE_RESTRICTED` | โหมด restricted (= `--restricted`) — ถอด tool ในตัวที่รันคำสั่งหรือโค้ดและ `WebFetch` ออก (เว้นแต่ระบุชื่อไว้ใน `--tools`), จำกัด file tools ให้อยู่ใน working directory, ปฏิเสธ `bypassPermissions` และไม่อ่านไฟล์ settings ระดับ user, project, local *(v2.1.248)* |
 | `SELF_HOSTED_RUNNER_CLIENT_LABEL` | label ที่ `claude self-hosted-runner` ใช้ลงทะเบียน (= `--client-label`; ค่าเริ่มต้น: hostname ของเครื่อง) *(v2.1.248)* |
+| `CLAUDE_CODE_SUBAGENT_MODEL` | โมเดล default ของ subagent — เป็นแค่ค่า default ไม่ใช่ตัว override: `model:` ใน definition ของ agent และโมเดลที่ระบุตอน spawn มีลำดับเหนือกว่า *(v2.1.251)* |
+| `ANTHROPIC_CUSTOM_HEADERS` | header เพิ่มเติมของ API request — ถ้าตั้งจาก managed หรือ project settings จะต้องขออนุมัติก่อนเมื่อมันตั้ง header ด้าน credential, org/tenant, routing หรือ API behavior (เช่น `Authorization`, `Host`) *(v2.1.251)* |
+
+> `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
@@ -4888,7 +4921,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.250`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.251`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

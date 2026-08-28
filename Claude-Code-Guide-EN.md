@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.250         │
+│ Welcome to Claude Code v2.1.251         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.250
+- run: npm install -g @anthropic-ai/claude-code@2.1.251
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1030,6 +1030,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 - **`--restricted` flag** — removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`), keeps file tools inside the working directory, refuses `bypassPermissions`, and ignores user, project, and local settings files. Also available as `CLAUDE_CODE_RESTRICTED=1`.
 - **`claude self-hosted-runner --client-label <label>`** — override the label the runner registers with (default: the hostname); also settable via `SELF_HOSTED_RUNNER_CLIENT_LABEL`.
+
+### New in v2.1.251
+
+- **Background session commands in `claude --help`** — `attach`, `logs`, `stop`, `respawn`, and `rm` are now listed in the help text, and the `--resume` message for a running background session names the exact `claude attach <id>` command to use.
 
 ---
 
@@ -1241,6 +1245,12 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/usage-credits`** — for Enterprise organizations billed through AWS Marketplace, self-serve Enterprise, and Enterprise trials: members can request a higher usage limit from their admin.
 - **`/loop` self-paced mode is available everywhere** — the self-paced dynamic mode and the no-prompt autonomous default now also work on Bedrock, Vertex, and Foundry.
 - **`/doctor` and `/status` explain server-managed settings** — a startup warning appears when the settings fail to load, and a line explains the load failure or why they weren't fetched (Bedrock/Vertex/third-party provider, custom `ANTHROPIC_BASE_URL`).
+
+### New in v2.1.251
+- **`/usage` gains a Spend limit bar** — for developers behind a Claude apps gateway with spend limits; status line scripts get a matching `rate_limits.spend_limit` field.
+- **`/cost` shows per-session prompt-cache stats** — hit ratio, misses, tokens re-cached, and warm/cold status, with a matching `prompt_cache` object for status line scripts.
+- **`/effort` saves your default per model** — each model keeps its own effort setting when you switch models.
+- **`/radio` is available everywhere** — on Bedrock, Vertex AI, Foundry, and Claude Platform on AWS, and when telemetry is disabled.
 
 ---
 
@@ -1551,6 +1561,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.247
 - **Bash permission prompts point to auto mode** — a tip on the prompt explains auto mode, with a one-keystroke "Yes, and switch to auto mode" option.
 
+### New in v2.1.251
+- **Risky server-managed settings need your approval** — settings that terminate sandbox TLS, route sandbox traffic through your own proxy, inject credentials, or weaken sandbox isolation now require approval before they apply. `ANTHROPIC_CUSTOM_HEADERS` from managed or project settings also asks first when it sets a credential, org/tenant, routing, or API-behavior header (e.g. `Authorization`, `Host`).
+- **Browser actions always go through Claude Code's permission checks** — including in sessions with telemetry disabled, which previously used the Chrome extension's own prompts.
+
 ---
 
 ## 6. Configuration
@@ -1754,6 +1768,11 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.248
 
 - **`desktopSessionCleanupPeriodDays` setting** — transcript cleanup keeps desktop-written sessions while they are in the Claude Desktop app (unless org policy manages retention); this setting caps how long that exemption lasts.
+
+### New in v2.1.251
+
+- **Project `env` can no longer relocate config or temp dirs** — `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, and `TMPDIR`/`TMP`/`TEMP` set in a project-level `.claude/settings.json` `env` block are now ignored; set them in your shell, user, or managed settings instead.
+- **Seat-based Enterprise defaults to Opus 5** — the default model for seat-based Enterprise subscriptions is now Opus 5, matching other premium plans.
 
 ---
 
@@ -2234,6 +2253,11 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 
 - **Todo/task tools are gone on newer models** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` and `TodoWrite` (the tools behind the `TaskCreated` event) are no longer available on Opus 4.8, Sonnet 5, Fable 5, Mythos 5, and newer models; set `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` to bring them back.
 
+### New in v2.1.251
+
+- **`PreModelSwitch` / `PostModelSwitch` hook events** — run when the model is about to change and after it has changed; a `PreModelSwitch` hook can block, confirm, or annotate the switch.
+- **`SessionStart` resume hooks learn about staleness** — on resume they now receive the session's staleness and the estimated re-cache cost.
+
 ### Configuring Hooks
 
 **In `.claude/settings.json`:**
@@ -2632,6 +2656,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 ### New in v2.1.248
 
 - **`experimental.cacheTtl` in agent frontmatter** — set a per-agent prompt cache TTL (`"5m"` or `"1h"`), used when no subagent cache TTL setting (`subagentPromptCacheTtl`) is configured.
+
+### New in v2.1.251
+
+- **Foreground subagent activity streams to Remote Control** — a foreground subagent's tool calls and results now stream live to Remote Control clients; background subagents (the default) still show status only.
+- **`CLAUDE_CODE_SUBAGENT_MODEL` is a default, not an override** — an agent definition's `model:` and an explicit per-spawn model now take precedence over it.
 
 ---
 
@@ -3585,6 +3614,10 @@ your-project/
 | `ANTHROPIC_DEFAULT_MODEL` | The model new sessions start on. Unlike `ANTHROPIC_MODEL`, a `/model` pick still overrides it and that pick persists across restarts. *(v2.1.236)* |
 | `CLAUDE_CODE_RESTRICTED` | Restricted mode (= `--restricted`) — removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`), keeps file tools inside the working directory, refuses `bypassPermissions`, and ignores user, project, and local settings files. *(v2.1.248)* |
 | `SELF_HOSTED_RUNNER_CLIENT_LABEL` | The label `claude self-hosted-runner` registers with (= `--client-label`; default: the hostname). *(v2.1.248)* |
+| `CLAUDE_CODE_SUBAGENT_MODEL` | Default model for subagents. It is a default, not an override — an agent definition's `model:` and an explicit per-spawn model take precedence over it. *(v2.1.251)* |
+| `ANTHROPIC_CUSTOM_HEADERS` | Extra headers on API requests. When set from managed or project settings it now requires approval if it sets a credential, org/tenant, routing, or API-behavior header (e.g. `Authorization`, `Host`). *(v2.1.251)* |
+
+> Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
@@ -4902,7 +4935,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.250`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.251`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

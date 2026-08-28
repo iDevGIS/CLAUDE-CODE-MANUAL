@@ -195,6 +195,11 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **โมเดลรุ่นใหม่ไม่มี todo/task tools แล้ว** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` และ `TodoWrite` (กลุ่มเครื่องมือที่ทำให้เกิด event `TaskCreated`) ถูกถอดออกจาก Opus 4.8, Sonnet 5, Fable 5, Mythos 5 และรุ่นที่ใหม่กว่า; ตั้ง `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` เพื่อเอากลับมา
 
+#### 🆕 ใหม่ใน v2.1.251
+
+- **hook event `PreModelSwitch` / `PostModelSwitch`** — ทำงานตอนกำลังจะเปลี่ยนโมเดลและหลังเปลี่ยนเสร็จ — hook `PreModelSwitch` ใช้ block, ขอ confirm หรือแนบหมายเหตุให้การสลับโมเดลได้
+- **hook `SessionStart` ตอน resume รู้ความเก่าของ session** — ได้รับข้อมูล staleness ของ session และค่าประเมิน cost ของการ re-cache แนบมาด้วย
+
 ---
 
 ---

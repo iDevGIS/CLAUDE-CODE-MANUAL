@@ -224,6 +224,11 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **`desktopSessionCleanupPeriodDays` setting** — transcript cleanup keeps desktop-written sessions while they are in the Claude Desktop app (unless org policy manages retention); this setting caps how long that exemption lasts.
 
+### New in v2.1.251
+
+- **Project `env` can no longer relocate config or temp dirs** — `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, and `TMPDIR`/`TMP`/`TEMP` set in a project-level `.claude/settings.json` `env` block are now ignored; set them in your shell, user, or managed settings instead.
+- **Seat-based Enterprise defaults to Opus 5** — the default model for seat-based Enterprise subscriptions is now Opus 5, matching other premium plans.
+
 ---
 
 ---

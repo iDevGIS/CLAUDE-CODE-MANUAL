@@ -198,6 +198,12 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/loop` self-paced mode is available everywhere** — the self-paced dynamic mode and the no-prompt autonomous default now also work on Bedrock, Vertex, and Foundry.
 - **`/doctor` and `/status` explain server-managed settings** — a startup warning appears when the settings fail to load, and a line explains the load failure or why they weren't fetched (Bedrock/Vertex/third-party provider, custom `ANTHROPIC_BASE_URL`).
 
+### New in v2.1.251
+- **`/usage` gains a Spend limit bar** — for developers behind a Claude apps gateway with spend limits; status line scripts get a matching `rate_limits.spend_limit` field.
+- **`/cost` shows per-session prompt-cache stats** — hit ratio, misses, tokens re-cached, and warm/cold status, with a matching `prompt_cache` object for status line scripts. See [[31-cost-management]].
+- **`/effort` saves your default per model** — each model keeps its own effort setting when you switch models.
+- **`/radio` is available everywhere** — on Bedrock, Vertex AI, Foundry, and Claude Platform on AWS, and when telemetry is disabled.
+
 ---
 
 ---

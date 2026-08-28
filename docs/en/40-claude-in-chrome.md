@@ -111,6 +111,10 @@ Claude in Chrome connects Claude Code to **your real Google Chrome** via a Chrom
 
 - **`/clear` closes the session's Chrome tab group** — and empty tab groups are also closed on `/resume` and when Claude Code exits.
 
+### New in v2.1.251
+
+- **Browser actions always go through Claude Code's permission checks** — including in sessions with telemetry disabled, which previously used the Chrome extension's own prompts.
+
 For the full security playbook, see [[32-security-best-practices]].
 
 ---

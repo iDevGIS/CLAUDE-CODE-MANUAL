@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.250         │
+│ Welcome to Claude Code v2.1.251         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -581,6 +581,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`--restricted` flag** — removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`), keeps file tools inside the working directory, refuses `bypassPermissions`, and ignores user, project, and local settings files. Also available as `CLAUDE_CODE_RESTRICTED=1` — see [[23-environment-variables]].
 - **`claude self-hosted-runner --client-label <label>`** — override the label the runner registers with (default: the hostname); also settable via `SELF_HOSTED_RUNNER_CLIENT_LABEL`.
 
+### New in v2.1.251
+
+- **Background session commands in `claude --help`** — `attach`, `logs`, `stop`, `respawn`, and `rm` are now listed in the help text, and the `--resume` message for a running background session names the exact `claude attach <id>` command to use. See [[41-background-agents]].
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -952,7 +956,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.250
+- run: npm install -g @anthropic-ai/claude-code@2.1.251
 ```
 
 ---

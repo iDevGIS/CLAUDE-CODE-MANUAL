@@ -199,6 +199,12 @@ related:
 - **`/loop` โหมด self-paced ใช้ได้ทุกที่แล้ว** — dynamic mode แบบกำหนดจังหวะเองและโหมด autonomous แบบไม่ใส่ prompt ใช้ได้บน Bedrock, Vertex และ Foundry ด้วยแล้ว
 - **`/doctor` และ `/status` อธิบายเรื่อง server-managed settings** — มีคำเตือนตอนเปิดโปรแกรมเมื่อ settings โหลดไม่สำเร็จ และมีบรรทัดอธิบายสาเหตุที่โหลดพังหรือทำไมไม่ได้ fetch (Bedrock/Vertex/third-party provider, `ANTHROPIC_BASE_URL` แบบ custom)
 
+### 🆕 ใหม่ใน v2.1.251
+- **`/usage` มีแถบ Spend limit** — สำหรับ developer ที่ใช้งานผ่าน Claude apps gateway ที่ตั้ง spend limit ไว้ · status line script ได้ field `rate_limits.spend_limit` เพิ่มมาคู่กัน
+- **`/cost` แสดงสถิติ prompt-cache ราย session** — hit ratio, จำนวน miss, token ที่ re-cache และสถานะ warm/cold พร้อม object `prompt_cache` สำหรับ status line script ดู [[31-cost-management]]
+- **`/effort` จำค่า default แยกตามโมเดล** — สลับโมเดลไปมาแล้วแต่ละโมเดลเก็บ effort level ของตัวเองไว้
+- **`/radio` ใช้ได้ทุกที่แล้ว** — บน Bedrock, Vertex AI, Foundry และ Claude Platform on AWS รวมถึงตอนปิด telemetry
+
 ---
 
 ---

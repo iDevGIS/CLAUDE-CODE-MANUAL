@@ -176,6 +176,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **`experimental.cacheTtl` in agent frontmatter** — set a per-agent prompt cache TTL (`"5m"` or `"1h"`), used when no subagent cache TTL setting (`subagentPromptCacheTtl`) is configured. See [[06-configuration]].
 
+### New in v2.1.251
+
+- **Foreground subagent activity streams to Remote Control** — a foreground subagent's tool calls and results now stream live to Remote Control clients; background subagents (the default) still show status only.
+- **`CLAUDE_CODE_SUBAGENT_MODEL` is a default, not an override** — an agent definition's `model:` and an explicit per-spawn model now take precedence over it. See [[23-environment-variables]].
+
 ---
 
 ---

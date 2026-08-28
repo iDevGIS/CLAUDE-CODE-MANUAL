@@ -224,6 +224,11 @@ related:
 
 - **setting `desktopSessionCleanupPeriodDays`** — การเก็บกวาด transcript จะไม่ลบ session ที่เขียนโดย Claude Desktop ตราบที่ยังอยู่ในแอป (เว้นแต่ policy องค์กรคุม retention เอง); setting นี้กำหนดเพดานว่าข้อยกเว้นนั้นอยู่ได้นานกี่วัน
 
+### 🆕 ใหม่ใน v2.1.251
+
+- **`env` ระดับ project ตั้งที่อยู่ config/temp ไม่ได้แล้ว** — `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` และ `TMPDIR`/`TMP`/`TEMP` ที่ตั้งใน block `env` ของ `.claude/settings.json` ระดับ project จะถูกเมิน — ให้ไปตั้งใน shell, user settings หรือ managed settings แทน
+- **Enterprise แบบ seat-based ได้ Opus 5 เป็น default** — โมเดลเริ่มต้นของ Enterprise subscription แบบ seat-based เปลี่ยนเป็น Opus 5 เท่าเทียมกับแผนพรีเมียมอื่น
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

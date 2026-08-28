@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.250         │
+│ Welcome to Claude Code v2.1.251         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -581,6 +581,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **flag `--restricted`** — ถอด tool ในตัวที่รันคำสั่งหรือโค้ดและ `WebFetch` ออก (เว้นแต่ระบุชื่อไว้ใน `--tools`), จำกัด file tools ให้อยู่ใน working directory, ปฏิเสธ `bypassPermissions` และไม่อ่านไฟล์ settings ระดับ user, project, local ทั้งหมด · ตั้งผ่าน env var `CLAUDE_CODE_RESTRICTED=1` ก็ได้ — ดู [[23-environment-variables]]
 - **`claude self-hosted-runner --client-label <label>`** — กำหนด label ที่ runner ใช้ลงทะเบียนเอง (ค่าเริ่มต้น: hostname ของเครื่อง) · ตั้งผ่าน `SELF_HOSTED_RUNNER_CLIENT_LABEL` ก็ได้
 
+### 🆕 ใหม่ใน v2.1.251
+
+- **คำสั่ง background session โผล่ใน `claude --help` แล้ว** — `attach`, `logs`, `stop`, `respawn` และ `rm` แสดงใน help text แล้ว และข้อความของ `--resume` สำหรับ background session ที่กำลังรันอยู่จะบอกคำสั่ง `claude attach <id>` ที่ต้องใช้ให้เป๊ะ ๆ ดู [[41-background-agents]]
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -952,7 +956,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.250
+- run: npm install -g @anthropic-ai/claude-code@2.1.251
 ```
 
 ---

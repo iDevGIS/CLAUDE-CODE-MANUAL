@@ -219,6 +219,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.247
 - **prompt ขอสิทธิ์ Bash แนะนำ auto mode** — มี tip อธิบาย auto mode อยู่บน prompt พร้อมตัวเลือก "Yes, and switch to auto mode" กดปุ่มเดียวทั้งอนุมัติทั้งสลับโหมด
 
+### 🆕 ใหม่ใน v2.1.251
+- **server-managed settings ที่เสี่ยงต้องขออนุมัติก่อน** — settings จาก server ที่สั่ง terminate TLS ของ sandbox, เปลี่ยนเส้นทาง traffic ของ sandbox ผ่าน proxy ขององค์กร, inject credential หรือลดระดับ isolation ของ sandbox ต้องได้รับอนุมัติจากเราก่อนถึงจะมีผล · `ANTHROPIC_CUSTOM_HEADERS` จาก managed หรือ project settings ก็ต้องขออนุมัติเมื่อตั้ง header ด้าน credential, org/tenant, routing หรือ API behavior (เช่น `Authorization`, `Host`) ดู [[23-environment-variables]]
+- **การกระทำในเบราว์เซอร์ผ่าน permission check ของ Claude Code เสมอ** — รวมถึง session ที่ปิด telemetry ซึ่งเดิมใช้ prompt ของ Chrome extension เอง ดู [[40-claude-in-chrome]]
+
 ---
 
 ---

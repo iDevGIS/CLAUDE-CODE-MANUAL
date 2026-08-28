@@ -190,6 +190,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.247
 - **Bash permission prompts point to auto mode** — a tip on the prompt explains auto mode, with a one-keystroke "Yes, and switch to auto mode" option.
 
+### New in v2.1.251
+- **Risky server-managed settings need your approval** — settings that terminate sandbox TLS, route sandbox traffic through your own proxy, inject credentials, or weaken sandbox isolation now require approval before they apply. `ANTHROPIC_CUSTOM_HEADERS` from managed or project settings also asks first when it sets a credential, org/tenant, routing, or API-behavior header (e.g. `Authorization`, `Host`). See [[23-environment-variables]].
+- **Browser actions always go through Claude Code's permission checks** — including in sessions with telemetry disabled, which previously used the Chrome extension's own prompts. See [[40-claude-in-chrome]].
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

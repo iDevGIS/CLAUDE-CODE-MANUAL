@@ -25,6 +25,33 @@
 
 ---
 
+## [1.53.0] — 2026-08-29
+
+### Compatibility
+- **Claude Code:** `v2.1.251+`
+
+### Added
+- **`PreModelSwitch` / `PostModelSwitch` hook events** — block, confirm, or annotate a model switch; `SessionStart` resume hooks now receive session staleness and the estimated re-cache cost (`v2.1.251`) — chapter 10
+- **Spend limit bar in `/usage`** — for developers behind a Claude apps gateway with spend limits, plus a `rate_limits.spend_limit` status line field (`v2.1.251`) — chapter 03
+- **Per-session prompt-cache stats in `/cost`** — hit ratio, misses, tokens re-cached, warm/cold, with a matching `prompt_cache` object for status line scripts (`v2.1.251`) — chapter 03
+- **Background session commands in `claude --help`** — `attach`, `logs`, `stop`, `respawn`, and `rm` are now listed, and the `--resume` message for a running background session names the exact `claude attach <id>` command (`v2.1.251`) — chapter 02
+- **Foreground subagent streaming to Remote Control** — a foreground subagent's tool calls and results stream live to Remote Control clients; background subagents still show status only (`v2.1.251`) — chapter 12
+
+### Changed
+- **`CLAUDE_CODE_SUBAGENT_MODEL` is now a default, not an override** — an agent definition's `model:` and an explicit per-spawn model take precedence over it (`v2.1.251`) — chapters 12, 23
+- **Project-level `env` restrictions** — `.claude/settings.json` `env` in a project can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` (`v2.1.251`) — chapters 06, 23
+- **Risky server-managed settings require approval** — settings that terminate sandbox TLS, route sandbox traffic through a proxy, inject credentials, or weaken sandbox isolation now ask first; so does `ANTHROPIC_CUSTOM_HEADERS` from managed or project settings when it sets a sensitive header (`v2.1.251`) — chapters 05, 23
+- **Claude in Chrome always uses Claude Code's permission checks** — including in sessions with telemetry disabled, which previously used the Chrome extension's own prompts (`v2.1.251`) — chapters 05, 40
+- **`/effort` saves a default per model** — each model keeps its own effort setting when you switch (`v2.1.251`) — chapter 03
+- **`/radio` is available everywhere** — on Bedrock, Vertex AI, Foundry, and Claude Platform on AWS, and when telemetry is disabled (`v2.1.251`) — chapter 03
+- **Seat-based Enterprise defaults to Opus 5** — matching other premium plans (`v2.1.251`) — chapter 06
+- **Version strings** bumped `2.1.250` → `2.1.251` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.251` ships new model-switch hook events, richer `/usage`/`/cost` reporting, first-class background session commands in `--help`, and several security-relevant behavior changes (settings approval, project `env` restrictions, Chrome permission checks) — the manual now documents all of them across both languages
+
+---
+
 ## [1.52.0] — 2026-08-28
 
 ### Compatibility
@@ -1238,6 +1265,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.53.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.52.0...v1.53.0
 [1.52.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.51.0...v1.52.0
 [1.51.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.50.0...v1.51.0
 [1.50.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.49.0...v1.50.0
