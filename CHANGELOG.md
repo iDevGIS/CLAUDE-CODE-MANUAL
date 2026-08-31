@@ -25,6 +25,19 @@
 
 ---
 
+## [1.54.0] — 2026-09-01
+
+### Compatibility
+- **Claude Code:** `v2.1.252+`
+
+### Changed
+- **Version strings** bumped `2.1.251` → `2.1.252` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.252` is a bug-fix-only release (Bash task output on some Macs, "always allow" persistence, Remote Control stalls, oversized background task notifications) — nothing new to document, so this release only keeps the manual's compatibility reference current
+
+---
+
 ## [1.53.0] — 2026-08-29
 
 ### Compatibility
@@ -1265,6 +1278,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.54.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.53.0...v1.54.0
 [1.53.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.52.0...v1.53.0
 [1.52.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.51.0...v1.52.0
 [1.51.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.50.0...v1.51.0
