@@ -53,7 +53,8 @@ related:
 
 Set the `model` key to any of these (newest → cheapest):
 
-- **Fable 5** (`claude-fable-5`) — Anthropic's newest **Mythos-class** model and the most capable model generally available; introduced in Claude Code **2.1.170**. Ships with a **1M-token context window by default**. Best for the hardest reasoning, large-context, and agentic work.
+- **Fable 5.1** (`claude-fable-5-1`) — the **new default Fable model** (since Claude Code **2.1.257**): **1M context**, **$10/$50 per Mtok** with **$0.25/Mtok cache reads** — the most capable model generally available. Best for the hardest reasoning, large-context, and agentic work.
+- **Fable 5** (`claude-fable-5`) — the previous default **Mythos-class** Fable model; introduced in Claude Code **2.1.170**. Ships with a **1M-token context window by default**.
 - **Opus 5** (`claude-opus-5`) — the **new default Opus model** (since Claude Code 2.1.219); **1M context**; fast mode at **$10/$50 per Mtok**.
 - **Opus 4.8** (`claude-opus-4-8`) — previous **Opus** flagship; top-tier coding and complex-bug analysis; defaults to **high effort** on demanding tasks.
 - **Sonnet 5** (`claude-sonnet-5`) — the **new default in Claude Code** (since 2.1.197); balanced and fast, with a **native 1M-token context window** ($2/$10 per Mtok — its standard list price since 2.1.243).
@@ -228,6 +229,11 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **Project `env` can no longer relocate config or temp dirs** — `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, and `TMPDIR`/`TMP`/`TEMP` set in a project-level `.claude/settings.json` `env` block are now ignored; set them in your shell, user, or managed settings instead.
 - **Seat-based Enterprise defaults to Opus 5** — the default model for seat-based Enterprise subscriptions is now Opus 5, matching other premium plans.
+
+### New in v2.1.257
+
+- **Claude Fable 5.1** (`claude-fable-5-1`) — the new **default Fable model**: 1M context, **$10/$50 per Mtok** with **$0.25/Mtok cache reads**. Claude apps gateway sessions keep resolving the `fable`/`best` aliases to Fable 5 until gateways support 5.1 — pick Fable 5.1 in `/model` there.
+- **`timeFormat` + `timeZone` settings** — 12-hour, 24-hour, 24-hour UTC, or a strftime pattern for the turn-end clock and transcript-view timestamps.
 
 ---
 

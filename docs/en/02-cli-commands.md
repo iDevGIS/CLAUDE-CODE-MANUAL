@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.252         │
+│ Welcome to Claude Code v2.1.258         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -171,7 +171,7 @@ git checkout main
 
 **Example:**
 ```bash
-claude --model claude-fable-5    # Fable 5 — most capable, 1M context (newest)
+claude --model claude-fable-5-1  # Fable 5.1 — most capable, 1M context (new default Fable)
 claude --model opus              # Opus 5 (new default Opus, 1M context)
 claude --model sonnet            # Sonnet 5 (new default, native 1M context)
 claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
@@ -585,6 +585,12 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **Background session commands in `claude --help`** — `attach`, `logs`, `stop`, `respawn`, and `rm` are now listed in the help text, and the `--resume` message for a running background session names the exact `claude attach <id>` command to use. See [[41-background-agents]].
 
+### New in v2.1.257
+
+- **`--effort` no longer permanently lifts a default-effort hold** — using it on a model whose default effort is still held now applies for that session only; an effort picked on claude.ai for a Remote Control session also applies during the hold.
+- **`claude --resume <session-id> --bg` continues the session itself** — when nothing else is running it, the session resumes under its own ID instead of silently starting a copy; when a copy is made, it is announced. See [[41-background-agents]].
+- **Network paths are refused for extra directories** — `--add-dir`, `/add-dir`, and the `additionalDirectories` setting reject UNC shares and `/net/<host>` automounts with a message before touching them; on Windows, use a mapped drive letter instead.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -956,7 +962,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.252
+- run: npm install -g @anthropic-ai/claude-code@2.1.258
 ```
 
 ---

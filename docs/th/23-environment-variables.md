@@ -79,6 +79,7 @@ related:
 | `CLAUDE_CODE_RESTRICTED` | โหมด restricted (= `--restricted`) — ถอด tool ในตัวที่รันคำสั่งหรือโค้ดและ `WebFetch` ออก (เว้นแต่ระบุชื่อไว้ใน `--tools`), จำกัด file tools ให้อยู่ใน working directory, ปฏิเสธ `bypassPermissions` และไม่อ่านไฟล์ settings ระดับ user, project, local *(v2.1.248)* |
 | `SELF_HOSTED_RUNNER_CLIENT_LABEL` | label ที่ `claude self-hosted-runner` ใช้ลงทะเบียน (= `--client-label`; ค่าเริ่มต้น: hostname ของเครื่อง) *(v2.1.248)* |
 | `CLAUDE_CODE_SUBAGENT_MODEL` | โมเดล default ของ subagent — เป็นแค่ค่า default ไม่ใช่ตัว override: `model:` ใน definition ของ agent และโมเดลที่ระบุตอน spawn มีลำดับเหนือกว่า *(v2.1.251)* |
+| `CLAUDE_CODE_SUBAGENT_MODEL_FORCE` | ตั้ง `1` เพื่อบังคับใช้ `CLAUDE_CODE_SUBAGENT_MODEL` (หรือโมเดลหลัก) กับ subagent ทุกตัว โดยไม่สน model override ตอน spawn และใน agent definition *(v2.1.257)* |
 | `ANTHROPIC_CUSTOM_HEADERS` | header เพิ่มเติมของ API request — ถ้าตั้งจาก managed หรือ project settings จะต้องขออนุมัติก่อนเมื่อมันตั้ง header ด้าน credential, org/tenant, routing หรือ API behavior (เช่น `Authorization`, `Host`) *(v2.1.251)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*

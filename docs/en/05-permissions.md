@@ -194,6 +194,11 @@ Skill(commit)                    # Specific skill
 - **Risky server-managed settings need your approval** — settings that terminate sandbox TLS, route sandbox traffic through your own proxy, inject credentials, or weaken sandbox isolation now require approval before they apply. `ANTHROPIC_CUSTOM_HEADERS` from managed or project settings also asks first when it sets a credential, org/tenant, routing, or API-behavior header (e.g. `Authorization`, `Host`). See [[23-environment-variables]].
 - **Browser actions always go through Claude Code's permission checks** — including in sessions with telemetry disabled, which previously used the Chrome extension's own prompts. See [[40-claude-in-chrome]].
 
+### New in v2.1.257
+- **Containment Escape rule in auto mode** — cloud metadata-credential fetches, egress evasion, and cross-tenant reach are no longer auto-approved unless your environment marks them expected.
+- **One-time prompt before reading outside your working directories** — auto mode now asks once before the first file read outside the working directories, with an option to block such reads (`permissions.blockReadsOutsideWorkingDirectories`).
+- **Project-level `defaultMode: "bypassPermissions"` is ignored** — like `"auto"`, it no longer applies from `.claude/settings.json` or `.claude/settings.local.json`; set it in user or managed settings, or pass `--permission-mode`.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

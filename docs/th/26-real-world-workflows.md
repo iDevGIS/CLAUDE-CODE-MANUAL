@@ -1140,7 +1140,7 @@ Claude Code เป็นเครื่องมือ AI สำหรับน�
 ---
 
 > **เวอร์ชันเอกสาร:** ปรับปรุงล่าสุด 25 มิถุนายน 2026  
-> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5 / Opus 5 / Sonnet 5 / Haiku 4.5)
+> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5.1 / Opus 5 / Sonnet 5 / Haiku 4.5)
 
 ---
 

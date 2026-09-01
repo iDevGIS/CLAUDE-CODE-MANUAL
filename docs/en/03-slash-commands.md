@@ -204,6 +204,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/effort` saves your default per model** — each model keeps its own effort setting when you switch models.
 - **`/radio` is available everywhere** — on Bedrock, Vertex AI, Foundry, and Claude Platform on AWS, and when telemetry is disabled.
 
+### New in v2.1.257
+- **`s` in `/effort`** — change the effort level for the current session only, matching `/model`.
+- **`/btw` history keys changed** — browse your recent side questions with `Shift+←`/`Shift+→` (or `[`/`]`), stepping back to the live answer; plain `←`/`→` no longer browse history.
+
 ---
 
 ---

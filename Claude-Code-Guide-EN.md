@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.252         │
+│ Welcome to Claude Code v2.1.258         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -280,7 +280,7 @@ git checkout main
 
 **Example:**
 ```bash
-claude --model claude-fable-5    # Fable 5 — most capable, 1M context (newest)
+claude --model claude-fable-5-1  # Fable 5.1 — most capable, 1M context (new default Fable)
 claude --model opus              # Opus 5 (new default Opus, 1M context)
 claude --model sonnet            # Sonnet 5 (new default, native 1M context)
 claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.252
+- run: npm install -g @anthropic-ai/claude-code@2.1.258
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1034,6 +1034,12 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.251
 
 - **Background session commands in `claude --help`** — `attach`, `logs`, `stop`, `respawn`, and `rm` are now listed in the help text, and the `--resume` message for a running background session names the exact `claude attach <id>` command to use.
+
+### New in v2.1.257
+
+- **`--effort` no longer permanently lifts a default-effort hold** — using it on a model whose default effort is still held now applies for that session only; an effort picked on claude.ai for a Remote Control session also applies during the hold.
+- **`claude --resume <session-id> --bg` continues the session itself** — when nothing else is running it, the session resumes under its own ID instead of silently starting a copy; when a copy is made, it is announced.
+- **Network paths are refused for extra directories** — `--add-dir`, `/add-dir`, and the `additionalDirectories` setting reject UNC shares and `/net/<host>` automounts with a message before touching them; on Windows, use a mapped drive letter instead.
 
 ---
 
@@ -1251,6 +1257,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/cost` shows per-session prompt-cache stats** — hit ratio, misses, tokens re-cached, and warm/cold status, with a matching `prompt_cache` object for status line scripts.
 - **`/effort` saves your default per model** — each model keeps its own effort setting when you switch models.
 - **`/radio` is available everywhere** — on Bedrock, Vertex AI, Foundry, and Claude Platform on AWS, and when telemetry is disabled.
+
+### New in v2.1.257
+- **`s` in `/effort`** — change the effort level for the current session only, matching `/model`.
+- **`/btw` history keys changed** — browse your recent side questions with `Shift+←`/`Shift+→` (or `[`/`]`), stepping back to the live answer; plain `←`/`→` no longer browse history.
 
 ---
 
@@ -1565,6 +1575,11 @@ Skill(commit)                    # Specific skill
 - **Risky server-managed settings need your approval** — settings that terminate sandbox TLS, route sandbox traffic through your own proxy, inject credentials, or weaken sandbox isolation now require approval before they apply. `ANTHROPIC_CUSTOM_HEADERS` from managed or project settings also asks first when it sets a credential, org/tenant, routing, or API-behavior header (e.g. `Authorization`, `Host`).
 - **Browser actions always go through Claude Code's permission checks** — including in sessions with telemetry disabled, which previously used the Chrome extension's own prompts.
 
+### New in v2.1.257
+- **Containment Escape rule in auto mode** — cloud metadata-credential fetches, egress evasion, and cross-tenant reach are no longer auto-approved unless your environment marks them expected.
+- **One-time prompt before reading outside your working directories** — auto mode now asks once before the first file read outside the working directories, with an option to block such reads (`permissions.blockReadsOutsideWorkingDirectories`).
+- **Project-level `defaultMode: "bypassPermissions"` is ignored** — like `"auto"`, it no longer applies from `.claude/settings.json` or `.claude/settings.local.json`; set it in user or managed settings, or pass `--permission-mode`.
+
 ---
 
 ## 6. Configuration
@@ -1773,6 +1788,11 @@ Skill(commit)                    # Specific skill
 
 - **Project `env` can no longer relocate config or temp dirs** — `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, and `TMPDIR`/`TMP`/`TEMP` set in a project-level `.claude/settings.json` `env` block are now ignored; set them in your shell, user, or managed settings instead.
 - **Seat-based Enterprise defaults to Opus 5** — the default model for seat-based Enterprise subscriptions is now Opus 5, matching other premium plans.
+
+### New in v2.1.257
+
+- **Claude Fable 5.1** (`claude-fable-5-1`) — the new **default Fable model**: 1M context, **$10/$50 per Mtok** with **$0.25/Mtok cache reads**. Claude apps gateway sessions keep resolving the `fable`/`best` aliases to Fable 5 until gateways support 5.1 — pick Fable 5.1 in `/model` there.
+- **`timeFormat` + `timeZone` settings** — 12-hour, 24-hour, 24-hour UTC, or a strftime pattern for the turn-end clock and transcript-view timestamps.
 
 ---
 
@@ -2661,6 +2681,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Foreground subagent activity streams to Remote Control** — a foreground subagent's tool calls and results now stream live to Remote Control clients; background subagents (the default) still show status only.
 - **`CLAUDE_CODE_SUBAGENT_MODEL` is a default, not an override** — an agent definition's `model:` and an explicit per-spawn model now take precedence over it.
+
+### New in v2.1.257
+
+- **`CLAUDE_CODE_SUBAGENT_MODEL_FORCE`** — apply `CLAUDE_CODE_SUBAGENT_MODEL` (or the main model) to every subagent, ignoring per-spawn and agent-definition model overrides.
 
 ---
 
@@ -3615,6 +3639,7 @@ your-project/
 | `CLAUDE_CODE_RESTRICTED` | Restricted mode (= `--restricted`) — removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`), keeps file tools inside the working directory, refuses `bypassPermissions`, and ignores user, project, and local settings files. *(v2.1.248)* |
 | `SELF_HOSTED_RUNNER_CLIENT_LABEL` | The label `claude self-hosted-runner` registers with (= `--client-label`; default: the hostname). *(v2.1.248)* |
 | `CLAUDE_CODE_SUBAGENT_MODEL` | Default model for subagents. It is a default, not an override — an agent definition's `model:` and an explicit per-spawn model take precedence over it. *(v2.1.251)* |
+| `CLAUDE_CODE_SUBAGENT_MODEL_FORCE` | Set `1` to apply `CLAUDE_CODE_SUBAGENT_MODEL` (or the main model) to every subagent, ignoring per-spawn and agent-definition model overrides. *(v2.1.257)* |
 | `ANTHROPIC_CUSTOM_HEADERS` | Extra headers on API requests. When set from managed or project settings it now requires approval if it sets a credential, org/tenant, routing, or API-behavior header (e.g. `Authorization`, `Host`). *(v2.1.251)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
@@ -3766,7 +3791,7 @@ claude --version  # check the version
 
 | Task | Recommended Model | Why |
 |------|-------------------|-----|
-| Hardest reasoning, huge context | Fable 5 | Most capable model, 1M context by default |
+| Hardest reasoning, huge context | Fable 5.1 | Most capable model, 1M context by default |
 | Architecture, complex bugs | Opus 5 | Deep thought, strong analysis |
 | General coding, ordinary bugs | Sonnet 5 | Fast, economical — the default |
 | Boilerplate, data generation | Haiku 4.5 | Very fast and very cheap |
@@ -4935,7 +4960,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.252`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.258`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
@@ -7217,4 +7242,4 @@ Claude Code is a feature-complete AI tool for developers:
 ---
 
 > **Document version:** Last updated June 25, 2026
-> **Applies to:** Latest Claude Code version (Claude Fable 5 / Opus 5 / Sonnet 5 / Haiku 4.5)
+> **Applies to:** Latest Claude Code version (Claude Fable 5.1 / Opus 5 / Sonnet 5 / Haiku 4.5)

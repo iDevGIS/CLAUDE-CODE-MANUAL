@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.252         │
+│ Welcome to Claude Code v2.1.258         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -280,7 +280,7 @@ git checkout main
 
 **ตัวอย่าง:**
 ```bash
-claude --model claude-fable-5    # Fable 5 — เก่งสุด, context 1M (ใหม่ล่าสุด)
+claude --model claude-fable-5-1  # Fable 5.1 — เก่งสุด, context 1M (default Fable ตัวใหม่)
 claude --model opus              # ใช้ Opus 5 (default Opus ตัวใหม่, context 1M)
 claude --model sonnet            # ใช้ Sonnet 5 (default ใหม่, context 1M native)
 claude --model haiku             # ใช้ Haiku 4.5 (เร็ว, ถูก, สำหรับงานง่าย)
@@ -288,7 +288,7 @@ claude --model claude-opus-5     # ใช้ชื่อเต็ม (ระบ�
 ```
 
 > 💡 **เปรียบเทียบ:**
-> - **Fable 5** = อัจฉริยะรอบด้าน — เก่งสุดโดยรวม, context 1M, เหมาะงานคิดหนัก/agentic ที่สุด
+> - **Fable 5.1** = อัจฉริยะรอบด้าน — เก่งสุดโดยรวม, context 1M, เหมาะงานคิดหนัก/agentic ที่สุด
 > - **Opus** = ศาสตราจารย์ — Opus ตัวท็อป เก่งโค้ดสุด แต่คิดนาน + คิดเงินแพง
 > - **Sonnet** = นักวิจัย — เก่งพอใช้ ทำงานเร็ว ราคาพอควร
 > - **Haiku** = นักเรียนหัวไว — ตอบเร็วมาก ราคาถูก งานง่ายๆ พอ
@@ -689,6 +689,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **คำสั่ง background session โผล่ใน `claude --help` แล้ว** — `attach`, `logs`, `stop`, `respawn` และ `rm` แสดงใน help text แล้ว และข้อความของ `--resume` สำหรับ background session ที่กำลังรันอยู่จะบอกคำสั่ง `claude attach <id>` ที่ต้องใช้ให้เป๊ะ ๆ
 
+### 🆕 ใหม่ใน v2.1.257
+
+- **`--effort` ไม่ปลด default-effort hold ถาวรแล้ว** — ใช้กับโมเดลที่ยังติด default-effort hold จะมีผลเฉพาะ session นั้น · effort ที่เลือกบน claude.ai สำหรับ session Remote Control ก็มีผลระหว่าง hold ด้วย
+- **`claude --resume <session-id> --bg` ต่อ session เดิม** — ถ้าไม่มีอะไรรัน session นั้นอยู่ จะ resume ต่อภายใต้ ID เดิมแทนการแอบเปิดสำเนาใหม่ · ถ้าจำเป็นต้องเปิดสำเนา จะแจ้งให้รู้
+- **ไม่รับ network path เป็นไดเรกทอรีเพิ่ม** — `--add-dir`, `/add-dir` และ setting `additionalDirectories` ปฏิเสธ UNC share และ automount `/net/<host>` พร้อมข้อความแจ้งก่อนแตะ path นั้น — บน Windows ให้ map drive letter แทน
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1020,7 +1026,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.252
+- run: npm install -g @anthropic-ai/claude-code@2.1.258
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1245,6 +1251,10 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/cost` แสดงสถิติ prompt-cache ราย session** — hit ratio, จำนวน miss, token ที่ re-cache และสถานะ warm/cold พร้อม object `prompt_cache` สำหรับ status line script
 - **`/effort` จำค่า default แยกตามโมเดล** — สลับโมเดลไปมาแล้วแต่ละโมเดลเก็บ effort level ของตัวเองไว้
 - **`/radio` ใช้ได้ทุกที่แล้ว** — บน Bedrock, Vertex AI, Foundry และ Claude Platform on AWS รวมถึงตอนปิด telemetry
+
+### 🆕 ใหม่ใน v2.1.257
+- **`s` ใน `/effort`** — เปลี่ยน effort level เฉพาะ session ปัจจุบัน แบบเดียวกับ `/model`
+- **`/btw` เปลี่ยนปุ่มไล่ดูประวัติ** — ไล่ดูคำถามข้างเคียงล่าสุดด้วย `Shift+←`/`Shift+→` (หรือ `[`/`]`) แล้วก้าวกลับมาที่คำตอบสด — `←`/`→` เปล่า ๆ ไม่ใช้ไล่ประวัติแล้ว
 
 ---
 
@@ -1559,6 +1569,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **server-managed settings ที่เสี่ยงต้องขออนุมัติก่อน** — settings จาก server ที่สั่ง terminate TLS ของ sandbox, เปลี่ยนเส้นทาง traffic ของ sandbox ผ่าน proxy ขององค์กร, inject credential หรือลดระดับ isolation ของ sandbox ต้องได้รับอนุมัติจากเราก่อนถึงจะมีผล · `ANTHROPIC_CUSTOM_HEADERS` จาก managed หรือ project settings ก็ต้องขออนุมัติเมื่อตั้ง header ด้าน credential, org/tenant, routing หรือ API behavior (เช่น `Authorization`, `Host`)
 - **การกระทำในเบราว์เซอร์ผ่าน permission check ของ Claude Code เสมอ** — รวมถึง session ที่ปิด telemetry ซึ่งเดิมใช้ prompt ของ Chrome extension เอง
 
+### 🆕 ใหม่ใน v2.1.257
+- **กฎ Containment Escape ใน auto mode** — การดึง credential จาก cloud metadata, การหลบ egress control และการข้ามไปแตะ tenant อื่น ไม่ถูก auto-approve แล้ว เว้นแต่ environment ระบุว่าเป็นพฤติกรรมที่คาดหมาย
+- **ถามครั้งเดียวก่อนอ่านไฟล์นอก working directory** — auto mode จะถามก่อนการอ่านไฟล์นอก working directories ครั้งแรก พร้อมตัวเลือกบล็อกการอ่านแบบนี้ (`permissions.blockReadsOutsideWorkingDirectories`)
+- **`defaultMode: "bypassPermissions"` ระดับ project ถูกเมิน** — เหมือน `"auto"` คือใส่ใน `.claude/settings.json` หรือ `.claude/settings.local.json` ไม่มีผลแล้ว — ให้ตั้งใน user/managed settings หรือใช้ `--permission-mode` แทน
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1767,6 +1782,11 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **`env` ระดับ project ตั้งที่อยู่ config/temp ไม่ได้แล้ว** — `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` และ `TMPDIR`/`TMP`/`TEMP` ที่ตั้งใน block `env` ของ `.claude/settings.json` ระดับ project จะถูกเมิน — ให้ไปตั้งใน shell, user settings หรือ managed settings แทน
 - **Enterprise แบบ seat-based ได้ Opus 5 เป็น default** — โมเดลเริ่มต้นของ Enterprise subscription แบบ seat-based เปลี่ยนเป็น Opus 5 เท่าเทียมกับแผนพรีเมียมอื่น
+
+### 🆕 ใหม่ใน v2.1.257
+
+- **Claude Fable 5.1** (`claude-fable-5-1`) — **default Fable ตัวใหม่**: context 1M, ราคา **$10/$50 ต่อ Mtok** และ **cache read $0.25 ต่อ Mtok** · session ผ่าน Claude apps gateway ยัง resolve alias `fable`/`best` เป็น Fable 5 ไปก่อนจนกว่า gateway จะรองรับ 5.1 — เลือก Fable 5.1 ใน `/model` เองได้
+- **settings `timeFormat` + `timeZone`** — เลือก 12-hour, 24-hour, 24-hour UTC หรือ pattern แบบ strftime ให้นาฬิกาท้าย turn และ timestamp ใน transcript view
 
 ---
 
@@ -2654,6 +2674,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **subagent แบบ foreground stream ให้ Remote Control ดูสด** — tool call และผลลัพธ์ของ foreground subagent stream ไปที่ Remote Control client แบบสด ๆ แล้ว ส่วน background subagent (ค่าเริ่มต้น) ยังแสดงแค่สถานะเหมือนเดิม
 - **`CLAUDE_CODE_SUBAGENT_MODEL` เป็นแค่ค่า default ไม่ใช่ตัว override แล้ว** — `model:` ใน definition ของ agent และโมเดลที่ระบุตอน spawn มีลำดับเหนือกว่า
+
+### 🆕 ใหม่ใน v2.1.257
+
+- **`CLAUDE_CODE_SUBAGENT_MODEL_FORCE`** — บังคับใช้ `CLAUDE_CODE_SUBAGENT_MODEL` (หรือโมเดลหลัก) กับ subagent ทุกตัว โดยไม่สน model override ตอน spawn และใน agent definition
 
 ---
 
@@ -3604,6 +3628,7 @@ your-project/
 | `CLAUDE_CODE_RESTRICTED` | โหมด restricted (= `--restricted`) — ถอด tool ในตัวที่รันคำสั่งหรือโค้ดและ `WebFetch` ออก (เว้นแต่ระบุชื่อไว้ใน `--tools`), จำกัด file tools ให้อยู่ใน working directory, ปฏิเสธ `bypassPermissions` และไม่อ่านไฟล์ settings ระดับ user, project, local *(v2.1.248)* |
 | `SELF_HOSTED_RUNNER_CLIENT_LABEL` | label ที่ `claude self-hosted-runner` ใช้ลงทะเบียน (= `--client-label`; ค่าเริ่มต้น: hostname ของเครื่อง) *(v2.1.248)* |
 | `CLAUDE_CODE_SUBAGENT_MODEL` | โมเดล default ของ subagent — เป็นแค่ค่า default ไม่ใช่ตัว override: `model:` ใน definition ของ agent และโมเดลที่ระบุตอน spawn มีลำดับเหนือกว่า *(v2.1.251)* |
+| `CLAUDE_CODE_SUBAGENT_MODEL_FORCE` | ตั้ง `1` เพื่อบังคับใช้ `CLAUDE_CODE_SUBAGENT_MODEL` (หรือโมเดลหลัก) กับ subagent ทุกตัว โดยไม่สน model override ตอน spawn และใน agent definition *(v2.1.257)* |
 | `ANTHROPIC_CUSTOM_HEADERS` | header เพิ่มเติมของ API request — ถ้าตั้งจาก managed หรือ project settings จะต้องขออนุมัติก่อนเมื่อมันตั้ง header ด้าน credential, org/tenant, routing หรือ API behavior (เช่น `Authorization`, `Host`) *(v2.1.251)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
@@ -3755,7 +3780,7 @@ claude --version  # ตรวจสอบเวอร์ชัน
 
 | งาน | โมเดลที่แนะนำ | เหตุผล |
 |-----|--------------|--------|
-| งานคิดหนักสุด, context ใหญ่มาก | Fable 5 | โมเดลเก่งสุด, context 1M เป็นค่าเริ่มต้น |
+| งานคิดหนักสุด, context ใหญ่มาก | Fable 5.1 | โมเดลเก่งสุด, context 1M เป็นค่าเริ่มต้น |
 | วางสถาปัตยกรรม, แก้ Bug ซับซ้อน | Opus 5 | คิดลึก วิเคราะห์ดี |
 | เขียนโค้ดทั่วไป, แก้ Bug ธรรมดา | Sonnet 5 | เร็ว ประหยัด — เป็น default |
 | งาน Boilerplate, Generate Data | Haiku 4.5 | เร็วมาก ถูกมาก |
@@ -4921,7 +4946,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.252`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.258`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
@@ -7203,4 +7228,4 @@ Claude Code เป็นเครื่องมือ AI สำหรับน�
 ---
 
 > **เวอร์ชันเอกสาร:** ปรับปรุงล่าสุด 25 มิถุนายน 2026  
-> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5 / Opus 5 / Sonnet 5 / Haiku 4.5)
+> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5.1 / Opus 5 / Sonnet 5 / Haiku 4.5)

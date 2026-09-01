@@ -110,13 +110,14 @@ related:
 
 | โมเดล | id | จุดเด่น |
 |-------|-----|--------|
-| **Fable 5** | `claude-fable-5` | โมเดล **Mythos-class** ใหม่ล่าสุดของ Anthropic และเก่งที่สุดที่เปิดให้ใช้ทั่วไป (มาใน Claude Code **2.1.170**) มาพร้อม **context window 1M token เป็นค่าเริ่มต้น** เหมาะกับงานคิดหนักสุด, context ใหญ่ และงาน agentic |
+| **Fable 5.1** | `claude-fable-5-1` | **default Fable ตัวใหม่** (ตั้งแต่ Claude Code **2.1.257**); context **1M**; ราคา **$10/$50 ต่อ Mtok** + **cache read $0.25 ต่อ Mtok** — เก่งที่สุดที่เปิดให้ใช้ทั่วไป เหมาะกับงานคิดหนักสุด, context ใหญ่ และงาน agentic |
+| **Fable 5** | `claude-fable-5` | โมเดล **Mythos-class** default Fable ตัวก่อน (มาใน Claude Code **2.1.170**) มาพร้อม **context window 1M token เป็นค่าเริ่มต้น** |
 | **Opus 5** | `claude-opus-5` | **default Opus ตัวใหม่** (ตั้งแต่ Claude Code **2.1.219**); context **1M**; fast mode ราคา **$10/$50 ต่อ Mtok** |
 | **Opus 4.8** | `claude-opus-4-8` | เรือธง **Opus** ตัวก่อน; coding และวิเคราะห์บั๊กซับซ้อนเก่งสุด; default เป็น **high effort** กับงานหนัก |
 | **Sonnet 5** | `claude-sonnet-5` | **default ใหม่ของ Claude Code** (ตั้งแต่ 2.1.197); สมดุล เร็ว, context **1M native** ($2/$10 ต่อ Mtok — เป็นราคา standard ตั้งแต่ 2.1.243) |
 | **Haiku 4.5** | `claude-haiku-4-5` | เร็วสุด ถูกสุด; สำหรับงานง่าย/boilerplate |
 
-> หมายเหตุ: Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกจาก fast mode ใน 2.1.219) — Fable 5 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 5 คือ **default Opus** ตัวปัจจุบัน
+> หมายเหตุ: Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกจาก fast mode ใน 2.1.219) — Fable 5.1 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 5 คือ **default Opus** ตัวปัจจุบัน
 
 ### 🆕 Settings ใหม่ใน v2.1.191
 
@@ -228,6 +229,11 @@ related:
 
 - **`env` ระดับ project ตั้งที่อยู่ config/temp ไม่ได้แล้ว** — `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` และ `TMPDIR`/`TMP`/`TEMP` ที่ตั้งใน block `env` ของ `.claude/settings.json` ระดับ project จะถูกเมิน — ให้ไปตั้งใน shell, user settings หรือ managed settings แทน
 - **Enterprise แบบ seat-based ได้ Opus 5 เป็น default** — โมเดลเริ่มต้นของ Enterprise subscription แบบ seat-based เปลี่ยนเป็น Opus 5 เท่าเทียมกับแผนพรีเมียมอื่น
+
+### 🆕 ใหม่ใน v2.1.257
+
+- **Claude Fable 5.1** (`claude-fable-5-1`) — **default Fable ตัวใหม่**: context 1M, ราคา **$10/$50 ต่อ Mtok** และ **cache read $0.25 ต่อ Mtok** · session ผ่าน Claude apps gateway ยัง resolve alias `fable`/`best` เป็น Fable 5 ไปก่อนจนกว่า gateway จะรองรับ 5.1 — เลือก Fable 5.1 ใน `/model` เองได้
+- **settings `timeFormat` + `timeZone`** — เลือก 12-hour, 24-hour, 24-hour UTC หรือ pattern แบบ strftime ให้นาฬิกาท้าย turn และ timestamp ใน transcript view
 
 ### การ Persist ของ `/config` และ `/model`
 

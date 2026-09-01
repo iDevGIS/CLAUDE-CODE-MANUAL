@@ -25,6 +25,32 @@
 
 ---
 
+## [1.55.0] — 2026-09-02
+
+### Compatibility
+- **Claude Code:** `v2.1.258+`
+
+### Added
+- **Claude Fable 5.1** (`claude-fable-5-1`) — the new **default Fable model**: 1M context, **$10/$50 per Mtok** with **$0.25/Mtok cache reads**; Claude apps gateway sessions keep resolving the `fable`/`best` aliases to Fable 5 until gateways support 5.1 (`v2.1.257`) — chapters 02, 06, 25, 26 + READMEs
+- **`timeFormat` + `timeZone` settings** — 12-hour, 24-hour, 24-hour UTC, or a strftime pattern for the turn-end clock and transcript-view timestamps (`v2.1.257`) — chapter 06
+- **Containment Escape rule in auto mode** — cloud metadata-credential fetches, egress evasion, and cross-tenant reach are no longer auto-approved unless the environment marks them expected (`v2.1.257`) — chapter 05
+- **One-time prompt for reads outside the working directories** — auto mode asks before the first outside read, with a `permissions.blockReadsOutsideWorkingDirectories` setting to block such reads (`v2.1.257`) — chapter 05
+- **`CLAUDE_CODE_SUBAGENT_MODEL_FORCE`** — apply `CLAUDE_CODE_SUBAGENT_MODEL` (or the main model) to every subagent, ignoring per-spawn and agent-definition model overrides (`v2.1.257`) — chapters 12, 23
+- **`s` in `/effort`** — change the effort level for the current session only, matching `/model` (`v2.1.257`) — chapter 03
+
+### Changed
+- **`--effort` is session-scoped for default-effort holds** — it lifts a new model's default-effort hold for that session only rather than permanently (`v2.1.257`) — chapter 02
+- **`claude --resume <session-id> --bg` continues the session itself** — resumes under its own ID when nothing is running it, instead of silently starting a copy (`v2.1.257`) — chapter 02
+- **Network paths refused for extra directories** — `--add-dir`, `/add-dir`, and `additionalDirectories` reject UNC shares and `/net/<host>` automounts (`v2.1.257`) — chapter 02
+- **Project-level `defaultMode: "bypassPermissions"` is ignored** — like `"auto"`; set it in user or managed settings, or pass `--permission-mode` (`v2.1.257`) — chapter 05
+- **`/btw` history browsing moved to `Shift+←`/`Shift+→` (or `[`/`]`)** — plain `←`/`→` no longer browse side-question history (`v2.1.257`) — chapter 03
+- **Version strings** bumped `2.1.252` → `2.1.258` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.257` ships **Claude Fable 5.1** as the new default Fable model plus several documentable platform changes (time-format settings, auto-mode hardening, a subagent model force switch, session-scoped effort, and behavior changes around `--add-dir`, `--resume --bg`, and project permission modes); `2.1.258` is bug-fix-only — the manual now documents all of it across both languages
+
+---
+
 ## [1.54.0] — 2026-09-01
 
 ### Compatibility
@@ -1278,6 +1304,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.55.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.54.0...v1.55.0
 [1.54.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.53.0...v1.54.0
 [1.53.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.52.0...v1.53.0
 [1.52.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.51.0...v1.52.0

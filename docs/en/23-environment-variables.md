@@ -79,6 +79,7 @@ related:
 | `CLAUDE_CODE_RESTRICTED` | Restricted mode (= `--restricted`) — removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`), keeps file tools inside the working directory, refuses `bypassPermissions`, and ignores user, project, and local settings files. *(v2.1.248)* |
 | `SELF_HOSTED_RUNNER_CLIENT_LABEL` | The label `claude self-hosted-runner` registers with (= `--client-label`; default: the hostname). *(v2.1.248)* |
 | `CLAUDE_CODE_SUBAGENT_MODEL` | Default model for subagents. It is a default, not an override — an agent definition's `model:` and an explicit per-spawn model take precedence over it. *(v2.1.251)* |
+| `CLAUDE_CODE_SUBAGENT_MODEL_FORCE` | Set `1` to apply `CLAUDE_CODE_SUBAGENT_MODEL` (or the main model) to every subagent, ignoring per-spawn and agent-definition model overrides. *(v2.1.257)* |
 | `ANTHROPIC_CUSTOM_HEADERS` | Extra headers on API requests. When set from managed or project settings it now requires approval if it sets a credential, org/tenant, routing, or API-behavior header (e.g. `Authorization`, `Host`). *(v2.1.251)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*

@@ -181,6 +181,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Foreground subagent activity streams to Remote Control** — a foreground subagent's tool calls and results now stream live to Remote Control clients; background subagents (the default) still show status only.
 - **`CLAUDE_CODE_SUBAGENT_MODEL` is a default, not an override** — an agent definition's `model:` and an explicit per-spawn model now take precedence over it. See [[23-environment-variables]].
 
+### New in v2.1.257
+
+- **`CLAUDE_CODE_SUBAGENT_MODEL_FORCE`** — apply `CLAUDE_CODE_SUBAGENT_MODEL` (or the main model) to every subagent, ignoring per-spawn and agent-definition model overrides. See [[23-environment-variables]].
+
 ---
 
 ---

@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.252         │
+│ Welcome to Claude Code v2.1.258         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -171,7 +171,7 @@ git checkout main
 
 **ตัวอย่าง:**
 ```bash
-claude --model claude-fable-5    # Fable 5 — เก่งสุด, context 1M (ใหม่ล่าสุด)
+claude --model claude-fable-5-1  # Fable 5.1 — เก่งสุด, context 1M (default Fable ตัวใหม่)
 claude --model opus              # ใช้ Opus 5 (default Opus ตัวใหม่, context 1M)
 claude --model sonnet            # ใช้ Sonnet 5 (default ใหม่, context 1M native)
 claude --model haiku             # ใช้ Haiku 4.5 (เร็ว, ถูก, สำหรับงานง่าย)
@@ -585,6 +585,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **คำสั่ง background session โผล่ใน `claude --help` แล้ว** — `attach`, `logs`, `stop`, `respawn` และ `rm` แสดงใน help text แล้ว และข้อความของ `--resume` สำหรับ background session ที่กำลังรันอยู่จะบอกคำสั่ง `claude attach <id>` ที่ต้องใช้ให้เป๊ะ ๆ ดู [[41-background-agents]]
 
+### 🆕 ใหม่ใน v2.1.257
+
+- **`--effort` ไม่ปลด default-effort hold ถาวรแล้ว** — ใช้กับโมเดลที่ยังติด default-effort hold จะมีผลเฉพาะ session นั้น · effort ที่เลือกบน claude.ai สำหรับ session Remote Control ก็มีผลระหว่าง hold ด้วย
+- **`claude --resume <session-id> --bg` ต่อ session เดิม** — ถ้าไม่มีอะไรรัน session นั้นอยู่ จะ resume ต่อภายใต้ ID เดิมแทนการแอบเปิดสำเนาใหม่ · ถ้าจำเป็นต้องเปิดสำเนา จะแจ้งให้รู้ ดู [[41-background-agents]]
+- **ไม่รับ network path เป็นไดเรกทอรีเพิ่ม** — `--add-dir`, `/add-dir` และ setting `additionalDirectories` ปฏิเสธ UNC share และ automount `/net/<host>` พร้อมข้อความแจ้งก่อนแตะ path นั้น — บน Windows ให้ map drive letter แทน
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -956,7 +962,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.252
+- run: npm install -g @anthropic-ai/claude-code@2.1.258
 ```
 
 ---

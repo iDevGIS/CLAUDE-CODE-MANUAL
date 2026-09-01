@@ -181,6 +181,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **subagent แบบ foreground stream ให้ Remote Control ดูสด** — tool call และผลลัพธ์ของ foreground subagent stream ไปที่ Remote Control client แบบสด ๆ แล้ว ส่วน background subagent (ค่าเริ่มต้น) ยังแสดงแค่สถานะเหมือนเดิม
 - **`CLAUDE_CODE_SUBAGENT_MODEL` เป็นแค่ค่า default ไม่ใช่ตัว override แล้ว** — `model:` ใน definition ของ agent และโมเดลที่ระบุตอน spawn มีลำดับเหนือกว่า ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.257
+
+- **`CLAUDE_CODE_SUBAGENT_MODEL_FORCE`** — บังคับใช้ `CLAUDE_CODE_SUBAGENT_MODEL` (หรือโมเดลหลัก) กับ subagent ทุกตัว โดยไม่สน model override ตอน spawn และใน agent definition ดู [[23-environment-variables]]
+
 ---
 
 ---

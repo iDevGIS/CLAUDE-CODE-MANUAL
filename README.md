@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.252-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.54.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.258-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.55.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.252`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.258`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -41,7 +41,7 @@
 |---|---|
 | 🚀 **โมเดล Opus 5** | `claude-opus-5` — **default Opus ตัวใหม่** (v2.1.219), context 1M, fast mode $10/$50 ต่อ Mtok |
 | ✨ **โมเดล Sonnet 5** | `claude-sonnet-5` — **default ใหม่ของ Claude Code**, context 1M แบบ native, ราคา standard $2/$10 ต่อ Mtok |
-| 🧠 **โมเดล Fable 5** | `claude-fable-5` — Mythos-class, context **1M** เป็นค่าเริ่มต้น, เก่งสุดในไลน์อัป (เหนือ Opus 5 / Sonnet 5 / Haiku 4.5) |
+| 🧠 **โมเดล Fable 5** | `claude-fable-5` — Mythos-class, context **1M** เป็นค่าเริ่มต้น — Fable ตัวแรกของตระกูล (ดู Fable 5.1 ด้านล่าง) |
 | ⚡ **Dynamic Workflows** | orchestrate agent หลักสิบ–หลักร้อยตัวจากสคริปต์ ด้วย keyword **`ultracode`** |
 | ⌨️ **คำสั่งใหม่** | `/rewind` · `/cd` · `claude mcp login` · `claude plugin init` |
 | 🚩 **Flags ใหม่** | `--safe-mode` · `--agent` · `--bg` (background sessions) |
@@ -109,8 +109,15 @@
 | 🤖 **`CLAUDE_CODE_SUBAGENT_MODEL` เป็นแค่ default** | `model:` ใน agent definition และโมเดลที่ระบุตอน spawn มีลำดับเหนือกว่า · `env` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`/`CLAUDE_CODE_TMPDIR`/`TMPDIR` ไม่ได้แล้ว (v2.1.251) |
 | 🎚️ **`/effort` จำต่อโมเดล · `/radio` ทุกที่** | `/effort` เก็บค่า default แยกตามโมเดล · `/radio` ใช้ได้บน Bedrock/Vertex/Foundry/Claude Platform on AWS และตอนปิด telemetry (v2.1.251) |
 | 🔐 **ขออนุมัติ settings เสี่ยง** | server-managed settings ที่แตะ TLS/proxy/credential/isolation ของ sandbox ต้องขออนุมัติก่อน · `ANTHROPIC_CUSTOM_HEADERS` ที่ตั้ง header อ่อนไหวก็เช่นกัน · ทุก browser action ผ่าน permission check ของ Claude Code (v2.1.251) |
+| 🧠 **โมเดล Fable 5.1** | `claude-fable-5-1` — **default Fable ตัวใหม่**, context 1M, $10/$50 ต่อ Mtok + cache read $0.25/Mtok — เก่งสุดในไลน์อัป · gateway ที่ยังไม่รองรับยัง resolve `fable`/`best` เป็น Fable 5 (v2.1.257) |
+| 🕐 **settings `timeFormat` + `timeZone`** | เลือก 12-hour / 24-hour / 24-hour UTC / pattern แบบ strftime ให้นาฬิกาท้าย turn และ timestamp ใน transcript view (v2.1.257) |
+| 🛡️ **กฎ Containment Escape ใน auto mode** | ดึง credential จาก cloud metadata · หลบ egress control · ข้ามไปแตะ tenant อื่น — ไม่ถูก auto-approve แล้ว เว้นแต่ environment ระบุว่าคาดหมาย (v2.1.257) |
+| 📖 **คุมการอ่านไฟล์นอก working dir** | auto mode ถามครั้งแรกก่อนอ่านไฟล์นอก working directories + setting `permissions.blockReadsOutsideWorkingDirectories` (v2.1.257) |
+| 🤖 **`CLAUDE_CODE_SUBAGENT_MODEL_FORCE`** | บังคับทุก subagent ใช้ `CLAUDE_CODE_SUBAGENT_MODEL` (หรือโมเดลหลัก) ทับ model override ตอน spawn และใน agent definition (v2.1.257) |
+| 🎚️ **effort ราย session** | `s` ใน `/effort` ตั้งเฉพาะ session ปัจจุบันเหมือน `/model` · `--effort` ปลด default-effort hold ของโมเดลใหม่เฉพาะ session แล้ว (v2.1.257) |
+| ⚙️ **behavior เปลี่ยนหลายจุด** | `defaultMode: "bypassPermissions"` ระดับ project ถูกเมิน · `--add-dir`/`additionalDirectories` ไม่รับ network path · `claude --resume <id> --bg` ต่อ session เดิม · `/btw` ไล่ประวัติด้วย `Shift+←`/`Shift+→` (v2.1.257) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.252` (manual `v1.54.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.258` (manual `v1.55.0`)
 
 ---
 
@@ -133,7 +140,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.252** + โมเดล Fable 5 / Opus 5 / Sonnet 5
+ตรงกับ Claude Code **v2.1.258** + โมเดล Fable 5.1 / Opus 5 / Sonnet 5
 
 </td>
 </tr>
@@ -193,7 +200,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.252`
+> **Claude Code Version:** `2.1.258`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

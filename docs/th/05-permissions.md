@@ -223,6 +223,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **server-managed settings ที่เสี่ยงต้องขออนุมัติก่อน** — settings จาก server ที่สั่ง terminate TLS ของ sandbox, เปลี่ยนเส้นทาง traffic ของ sandbox ผ่าน proxy ขององค์กร, inject credential หรือลดระดับ isolation ของ sandbox ต้องได้รับอนุมัติจากเราก่อนถึงจะมีผล · `ANTHROPIC_CUSTOM_HEADERS` จาก managed หรือ project settings ก็ต้องขออนุมัติเมื่อตั้ง header ด้าน credential, org/tenant, routing หรือ API behavior (เช่น `Authorization`, `Host`) ดู [[23-environment-variables]]
 - **การกระทำในเบราว์เซอร์ผ่าน permission check ของ Claude Code เสมอ** — รวมถึง session ที่ปิด telemetry ซึ่งเดิมใช้ prompt ของ Chrome extension เอง ดู [[40-claude-in-chrome]]
 
+### 🆕 ใหม่ใน v2.1.257
+- **กฎ Containment Escape ใน auto mode** — การดึง credential จาก cloud metadata, การหลบ egress control และการข้ามไปแตะ tenant อื่น ไม่ถูก auto-approve แล้ว เว้นแต่ environment ระบุว่าเป็นพฤติกรรมที่คาดหมาย
+- **ถามครั้งเดียวก่อนอ่านไฟล์นอก working directory** — auto mode จะถามก่อนการอ่านไฟล์นอก working directories ครั้งแรก พร้อมตัวเลือกบล็อกการอ่านแบบนี้ (`permissions.blockReadsOutsideWorkingDirectories`)
+- **`defaultMode: "bypassPermissions"` ระดับ project ถูกเมิน** — เหมือน `"auto"` คือใส่ใน `.claude/settings.json` หรือ `.claude/settings.local.json` ไม่มีผลแล้ว — ให้ตั้งใน user/managed settings หรือใช้ `--permission-mode` แทน
+
 ---
 
 ---
