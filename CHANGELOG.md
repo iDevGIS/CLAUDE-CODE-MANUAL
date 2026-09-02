@@ -25,6 +25,25 @@
 
 ---
 
+## [1.56.0] — 2026-09-03
+
+### Compatibility
+- **Claude Code:** `v2.1.259+`
+
+### Added
+- **`managedMcpServers` managed setting** — organizations can provide HTTP/SSE MCP servers to every user, using the same entry shape as `.mcp.json`; entries that name a command to run are skipped (`v2.1.259`) — chapter 09
+- **`--permission-prompts none`** — for unattended headless hosts: anything that would show a permission prompt is denied automatically, while the active permission mode (including auto mode) keeps deciding everything else (`v2.1.259`) — chapter 02
+- **`--json` on `claude plugin validate`** — machine-readable validation report for scripts and CI (`v2.1.259`) — chapter 18
+
+### Changed
+- **`allowedMcpServers` governs only servers users add** — a managed server the allowlist used to filter out now loads on upgrade; use `deniedMcpServers` to keep it off (`v2.1.259`) — chapter 09
+- **Version strings** bumped `2.1.258` → `2.1.259` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.259` brings enterprise MCP provisioning (`managedMcpServers` plus the `allowedMcpServers` scope change), a prompt-denial flag for unattended headless hosts, and a machine-readable plugin validation report; the rest of the release is bug fixes and UI polish — the manual now documents all of it across both languages
+
+---
+
 ## [1.55.0] — 2026-09-02
 
 ### Compatibility
@@ -1304,6 +1323,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.56.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.55.0...v1.56.0
 [1.55.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.54.0...v1.55.0
 [1.54.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.53.0...v1.54.0
 [1.53.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.52.0...v1.53.0

@@ -122,6 +122,10 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 
 - **Plugins synced from claude.ai show as `name@synced`** — in cloud sessions they work with `claude plugin enable/disable <name>@synced`, and never override a same-named plugin you installed yourself.
 
+### New in v2.1.259
+
+- **`--json` on `claude plugin validate`** — prints a machine-readable validation report, handy for scripts and CI. See [[02-cli-commands]].
+
 ---
 
 ---

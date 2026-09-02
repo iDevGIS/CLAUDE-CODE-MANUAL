@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.258         │
+│ Welcome to Claude Code v2.1.259         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -591,6 +591,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **`claude --resume <session-id> --bg` ต่อ session เดิม** — ถ้าไม่มีอะไรรัน session นั้นอยู่ จะ resume ต่อภายใต้ ID เดิมแทนการแอบเปิดสำเนาใหม่ · ถ้าจำเป็นต้องเปิดสำเนา จะแจ้งให้รู้ ดู [[41-background-agents]]
 - **ไม่รับ network path เป็นไดเรกทอรีเพิ่ม** — `--add-dir`, `/add-dir` และ setting `additionalDirectories` ปฏิเสธ UNC share และ automount `/net/<host>` พร้อมข้อความแจ้งก่อนแตะ path นั้น — บน Windows ให้ map drive letter แทน
 
+### 🆕 ใหม่ใน v2.1.259
+
+- **`--permission-prompts none` สำหรับ headless host ที่ไม่มีคนเฝ้า** — อะไรก็ตามที่ปกติจะขึ้น permission prompt จะถูกปฏิเสธอัตโนมัติ ส่วน permission mode ที่ใช้อยู่ (รวมถึง auto mode) ยังเป็นคนตัดสินใจส่วนที่เหลือเหมือนเดิม ดู [[05-permissions]]
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -962,7 +966,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.258
+- run: npm install -g @anthropic-ai/claude-code@2.1.259
 ```
 
 ---

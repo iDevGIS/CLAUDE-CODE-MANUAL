@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.258         │
+│ Welcome to Claude Code v2.1.259         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -591,6 +591,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`claude --resume <session-id> --bg` continues the session itself** — when nothing else is running it, the session resumes under its own ID instead of silently starting a copy; when a copy is made, it is announced. See [[41-background-agents]].
 - **Network paths are refused for extra directories** — `--add-dir`, `/add-dir`, and the `additionalDirectories` setting reject UNC shares and `/net/<host>` automounts with a message before touching them; on Windows, use a mapped drive letter instead.
 
+### New in v2.1.259
+
+- **`--permission-prompts none` for unattended headless hosts** — anything that would show a permission prompt is denied automatically, while the active permission mode (including auto mode) keeps deciding everything else. See [[05-permissions]].
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -962,7 +966,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.258
+- run: npm install -g @anthropic-ai/claude-code@2.1.259
 ```
 
 ---

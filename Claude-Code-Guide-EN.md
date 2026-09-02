@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.258         │
+│ Welcome to Claude Code v2.1.259         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.258
+- run: npm install -g @anthropic-ai/claude-code@2.1.259
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1040,6 +1040,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **`--effort` no longer permanently lifts a default-effort hold** — using it on a model whose default effort is still held now applies for that session only; an effort picked on claude.ai for a Remote Control session also applies during the hold.
 - **`claude --resume <session-id> --bg` continues the session itself** — when nothing else is running it, the session resumes under its own ID instead of silently starting a copy; when a copy is made, it is announced.
 - **Network paths are refused for extra directories** — `--add-dir`, `/add-dir`, and the `additionalDirectories` setting reject UNC shares and `/net/<host>` automounts with a message before touching them; on Windows, use a mapped drive letter instead.
+
+### New in v2.1.259
+
+- **`--permission-prompts none` for unattended headless hosts** — anything that would show a permission prompt is denied automatically, while the active permission mode (including auto mode) keeps deciding everything else.
 
 ---
 
@@ -2156,6 +2160,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **Tool search works on Google Vertex AI again** — it is re-enabled for Claude 4.5-generation and newer models, so deferred MCP tool schemas load on demand there too.
 - **`--mcp-config` servers connect before the first turn in print mode** — in `claude -p`, MCP tools are ready up front instead of the model emitting tool calls as literal text.
 
+### New in v2.1.259
+
+- **`managedMcpServers` managed setting** — organizations can provide HTTP/SSE MCP servers to every user, using the same entry shape as `.mcp.json`; entries that name a command to run are skipped.
+- **`allowedMcpServers` now governs only servers users add** — a managed server your allowlist used to filter out loads on upgrade; use `deniedMcpServers` to keep it off.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -3247,6 +3256,10 @@ claude --plugin-dir ./my-plugin
 ### New in v2.1.239
 
 - **Plugins synced from claude.ai show as `name@synced`** — in cloud sessions they work with `claude plugin enable/disable <name>@synced`, and never override a same-named plugin you installed yourself.
+
+### New in v2.1.259
+
+- **`--json` on `claude plugin validate`** — prints a machine-readable validation report, handy for scripts and CI.
 
 ---
 
@@ -4960,7 +4973,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.258`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.259`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

@@ -122,6 +122,10 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 
 - **Plugin ที่ sync มาจาก claude.ai แสดงเป็น `name@synced`** — ใน cloud session ใช้กับ `claude plugin enable/disable <name>@synced` ได้ และจะไม่ทับ plugin ชื่อเดียวกันที่เราติดตั้งเองเด็ดขาด
 
+### 🆕 ใหม่ใน v2.1.259
+
+- **`--json` บน `claude plugin validate`** — พิมพ์รายงานผลตรวจแบบ machine-readable เอาไปใช้ต่อในสคริปต์/CI ได้สะดวก ดู [[02-cli-commands]]
+
 ---
 
 ---

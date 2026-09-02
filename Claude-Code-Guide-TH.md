@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.258         │
+│ Welcome to Claude Code v2.1.259         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -695,6 +695,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **`claude --resume <session-id> --bg` ต่อ session เดิม** — ถ้าไม่มีอะไรรัน session นั้นอยู่ จะ resume ต่อภายใต้ ID เดิมแทนการแอบเปิดสำเนาใหม่ · ถ้าจำเป็นต้องเปิดสำเนา จะแจ้งให้รู้
 - **ไม่รับ network path เป็นไดเรกทอรีเพิ่ม** — `--add-dir`, `/add-dir` และ setting `additionalDirectories` ปฏิเสธ UNC share และ automount `/net/<host>` พร้อมข้อความแจ้งก่อนแตะ path นั้น — บน Windows ให้ map drive letter แทน
 
+### 🆕 ใหม่ใน v2.1.259
+
+- **`--permission-prompts none` สำหรับ headless host ที่ไม่มีคนเฝ้า** — อะไรก็ตามที่ปกติจะขึ้น permission prompt จะถูกปฏิเสธอัตโนมัติ ส่วน permission mode ที่ใช้อยู่ (รวมถึง auto mode) ยังเป็นคนตัดสินใจส่วนที่เหลือเหมือนเดิม
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1026,7 +1030,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.258
+- run: npm install -g @anthropic-ai/claude-code@2.1.259
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -2149,6 +2153,11 @@ claude --mcp-config ./mcp.json
 - **tool search ใช้บน Google Vertex AI ได้อีกครั้ง** — เปิดใช้กลับมาสำหรับโมเดลรุ่น Claude 4.5 ขึ้นไป ทำให้ schema ของ MCP tool แบบ deferred โหลดตอนต้องใช้ได้บน Vertex ด้วย
 - **server จาก `--mcp-config` ต่อให้เสร็จก่อน turn แรกใน print mode** — บน `claude -p` เครื่องมือ MCP พร้อมใช้ตั้งแต่ต้น ไม่เกิดอาการโมเดลพิมพ์ tool call ออกมาเป็นข้อความธรรมดาอีก
 
+### 🆕 ใหม่ใน v2.1.259
+
+- **managed setting `managedMcpServers`** — องค์กรจัด MCP server แบบ HTTP/SSE ให้ผู้ใช้ทุกคนได้ โดยใช้รูปแบบ entry เดียวกับ `.mcp.json`; ส่วน entry ที่ระบุ command ให้รันจะถูกข้าม
+- **`allowedMcpServers` คุมเฉพาะ server ที่ผู้ใช้เพิ่มเองแล้ว** — server จาก managed ที่ allowlist เราเคยกรองออกจะกลับมาโหลดเมื่ออัปเกรด; ถ้าไม่อยากให้โหลดต้องใช้ `deniedMcpServers` กันไว้
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -3236,6 +3245,10 @@ claude --plugin-dir ./my-plugin
 ### 🆕 ใหม่ใน v2.1.239
 
 - **Plugin ที่ sync มาจาก claude.ai แสดงเป็น `name@synced`** — ใน cloud session ใช้กับ `claude plugin enable/disable <name>@synced` ได้ และจะไม่ทับ plugin ชื่อเดียวกันที่เราติดตั้งเองเด็ดขาด
+
+### 🆕 ใหม่ใน v2.1.259
+
+- **`--json` บน `claude plugin validate`** — พิมพ์รายงานผลตรวจแบบ machine-readable เอาไปใช้ต่อในสคริปต์/CI ได้สะดวก
 
 ---
 
@@ -4946,7 +4959,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.258`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.259`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

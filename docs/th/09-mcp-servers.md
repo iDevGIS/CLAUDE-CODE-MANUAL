@@ -151,6 +151,11 @@ claude --mcp-config ./mcp.json
 - **tool search ใช้บน Google Vertex AI ได้อีกครั้ง** — เปิดใช้กลับมาสำหรับโมเดลรุ่น Claude 4.5 ขึ้นไป ทำให้ schema ของ MCP tool แบบ deferred โหลดตอนต้องใช้ได้บน Vertex ด้วย
 - **server จาก `--mcp-config` ต่อให้เสร็จก่อน turn แรกใน print mode** — บน `claude -p` เครื่องมือ MCP พร้อมใช้ตั้งแต่ต้น ไม่เกิดอาการโมเดลพิมพ์ tool call ออกมาเป็นข้อความธรรมดาอีก
 
+### 🆕 ใหม่ใน v2.1.259
+
+- **managed setting `managedMcpServers`** — องค์กรจัด MCP server แบบ HTTP/SSE ให้ผู้ใช้ทุกคนได้ โดยใช้รูปแบบ entry เดียวกับ `.mcp.json`; ส่วน entry ที่ระบุ command ให้รันจะถูกข้าม
+- **`allowedMcpServers` คุมเฉพาะ server ที่ผู้ใช้เพิ่มเองแล้ว** — server จาก managed ที่ allowlist เราเคยกรองออกจะกลับมาโหลดเมื่ออัปเกรด; ถ้าไม่อยากให้โหลดต้องใช้ `deniedMcpServers` กันไว้
+
 ---
 
 ---

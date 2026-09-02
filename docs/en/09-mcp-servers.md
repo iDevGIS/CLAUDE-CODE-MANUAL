@@ -151,6 +151,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **Tool search works on Google Vertex AI again** — it is re-enabled for Claude 4.5-generation and newer models, so deferred MCP tool schemas load on demand there too.
 - **`--mcp-config` servers connect before the first turn in print mode** — in `claude -p`, MCP tools are ready up front instead of the model emitting tool calls as literal text.
 
+### New in v2.1.259
+
+- **`managedMcpServers` managed setting** — organizations can provide HTTP/SSE MCP servers to every user, using the same entry shape as `.mcp.json`; entries that name a command to run are skipped.
+- **`allowedMcpServers` now governs only servers users add** — a managed server your allowlist used to filter out loads on upgrade; use `deniedMcpServers` to keep it off.
+
 ---
 
 ---
