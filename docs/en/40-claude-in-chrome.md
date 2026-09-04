@@ -117,6 +117,10 @@ Claude in Chrome connects Claude Code to **your real Google Chrome** via a Chrom
 
 For the full security playbook, see [[32-security-best-practices]].
 
+### New in v2.1.260
+
+- **Organization admin setting is enforced** — Claude in Chrome follows your organization's Claude in Chrome admin setting; when an admin turns it off, `--chrome`, `/chrome`, and the browser tools are unavailable.
+
 ---
 
 ---

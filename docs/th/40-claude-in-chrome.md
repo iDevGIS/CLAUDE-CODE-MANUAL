@@ -115,6 +115,10 @@ Claude in Chrome คือการเชื่อม Claude Code เข้า�
 
 แนวปฏิบัติความปลอดภัยฉบับเต็ม อ่านต่อที่ [[32-security-best-practices]]
 
+### 🆕 ใหม่ใน v2.1.260
+
+- **บังคับตาม admin setting ขององค์กรแล้ว** — Claude in Chrome ทำตาม setting Claude in Chrome ที่ admin ขององค์กรตั้งไว้ — ถ้า admin ปิด `--chrome`, `/chrome` และ browser tools จะใช้ไม่ได้
+
 ---
 
 ---

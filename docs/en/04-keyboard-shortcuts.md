@@ -111,6 +111,10 @@ related:
 
 - **`keybindingFlavor: "readline"` now also matches Bash for word keys** — `Alt+F` and `Ctrl`/`Option+→` stop at the end of the word, `Alt+D` deletes to it (`Ctrl+Y` pastes it back), and punctuation separates words. See [[06-configuration]].
 
+### New in v2.1.260
+
+- **`Ctrl+L` / `Cmd+K` in fullscreen clear the transcript view** — like a terminal `clear`; scroll up to see earlier messages.
+
 ---
 
 ---

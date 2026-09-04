@@ -208,6 +208,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`s` in `/effort`** — change the effort level for the current session only, matching `/model`.
 - **`/btw` history keys changed** — browse your recent side questions with `Shift+←`/`Shift+→` (or `[`/`]`), stepping back to the live answer; plain `←`/`→` no longer browse history.
 
+### New in v2.1.260
+- **`/diff` panel** — in fullscreen mode, `/diff` toggles a diff panel beside the conversation that shows your uncommitted changes as Claude edits.
+- **`/advisor` text form** — `/advisor`, `/advisor <model>`, and `/advisor off` work as text commands in the desktop app, Remote Control, and other headless (`-p`/Agent SDK) sessions. See [[16-headless-mode]].
+- **`/cost` explains prompt-cache misses** — `/cost` and the status line's `prompt_cache` field now include a likely cause for cache misses (e.g. tool definitions or system prompt changed, idle past the TTL). See [[31-cost-management]].
+
 ---
 
 ---

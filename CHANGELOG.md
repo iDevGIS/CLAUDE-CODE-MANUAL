@@ -25,6 +25,31 @@
 
 ---
 
+## [1.57.0] — 2026-09-04
+
+### Compatibility
+- **Claude Code:** `v2.1.260+`
+
+### Added
+- **`/diff` panel** — in fullscreen mode, `/diff` toggles a diff panel beside the conversation that shows uncommitted changes as Claude edits (`v2.1.260`) — chapter 03
+- **`/advisor` text form** — `/advisor`, `/advisor <model>`, and `/advisor off` work as text commands in the desktop app, Remote Control, and other headless (`-p`/Agent SDK) sessions (`v2.1.260`) — chapter 03
+- **Cache-miss causes in `/cost`** — `/cost` and the status line's `prompt_cache` field include a likely cause for prompt-cache misses (`v2.1.260`) — chapter 03
+- **`/reload-plugins` in headless sessions** — now appears in the Claude Code Desktop and SDK command lists (`v2.1.260`) — chapter 18
+
+### Changed
+- **`Ctrl+L` / `Cmd+K` in fullscreen clear the transcript view** — like a terminal `clear`, instead of only repainting (`v2.1.260`) — chapter 04
+- **Permission rules with trailing text are reported invalid** — e.g. `Bash(ls) x`, previously silently ignored (`v2.1.260`) — chapter 05
+- **`!` bash-mode runs outside the sandbox** — even under strict sandbox mode (`sandbox.allowUnsandboxedCommands: false`) (`v2.1.260`) — chapter 05
+- **Managed CLAUDE.md skips the security approval dialog** — hooks, shell-command, sandbox, and unsafe `env` managed settings still require approval (`v2.1.260`) — chapter 06
+- **Claude in Chrome follows the organization admin setting** — when an admin turns it off, `--chrome`, `/chrome`, and the browser tools are unavailable (`v2.1.260`) — chapter 40
+- **Subagent background commands lose the one-hour limit** — they now run until they exit or are stopped, matching the main session (`v2.1.260`) — chapter 41
+- **Version strings** bumped `2.1.259` → `2.1.260` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.260` adds a fullscreen diff panel, text-form `/advisor`, cache-miss diagnostics in `/cost`, and headless `/reload-plugins`, plus behavior changes across keyboard shortcuts, permission-rule validation, the `!` bash-mode sandbox, managed settings, Claude in Chrome admin control, and subagent background commands; the rest of the release is bug fixes and UI polish — the manual now documents all of it across both languages
+
+---
+
 ## [1.56.0] — 2026-09-03
 
 ### Compatibility
@@ -1323,6 +1348,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.57.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.56.0...v1.57.0
 [1.56.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.55.0...v1.56.0
 [1.55.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.54.0...v1.55.0
 [1.54.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.53.0...v1.54.0

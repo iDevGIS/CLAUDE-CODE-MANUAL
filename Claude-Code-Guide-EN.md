@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.259         │
+│ Welcome to Claude Code v2.1.260         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.259
+- run: npm install -g @anthropic-ai/claude-code@2.1.260
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1266,6 +1266,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`s` in `/effort`** — change the effort level for the current session only, matching `/model`.
 - **`/btw` history keys changed** — browse your recent side questions with `Shift+←`/`Shift+→` (or `[`/`]`), stepping back to the live answer; plain `←`/`→` no longer browse history.
 
+### New in v2.1.260
+- **`/diff` panel** — in fullscreen mode, `/diff` toggles a diff panel beside the conversation that shows your uncommitted changes as Claude edits.
+- **`/advisor` text form** — `/advisor`, `/advisor <model>`, and `/advisor off` work as text commands in the desktop app, Remote Control, and other headless (`-p`/Agent SDK) sessions.
+- **`/cost` explains prompt-cache misses** — `/cost` and the status line's `prompt_cache` field now include a likely cause for cache misses (e.g. tool definitions or system prompt changed, idle past the TTL).
+
 ---
 
 ## 4. Keyboard Shortcuts
@@ -1365,6 +1370,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.239
 
 - **`keybindingFlavor: "readline"` now also matches Bash for word keys** — `Alt+F` and `Ctrl`/`Option+→` stop at the end of the word, `Alt+D` deletes to it (`Ctrl+Y` pastes it back), and punctuation separates words.
+
+### New in v2.1.260
+
+- **`Ctrl+L` / `Cmd+K` in fullscreen clear the transcript view** — like a terminal `clear`; scroll up to see earlier messages.
 
 ---
 
@@ -1584,6 +1593,10 @@ Skill(commit)                    # Specific skill
 - **One-time prompt before reading outside your working directories** — auto mode now asks once before the first file read outside the working directories, with an option to block such reads (`permissions.blockReadsOutsideWorkingDirectories`).
 - **Project-level `defaultMode: "bypassPermissions"` is ignored** — like `"auto"`, it no longer applies from `.claude/settings.json` or `.claude/settings.local.json`; set it in user or managed settings, or pass `--permission-mode`.
 
+### New in v2.1.260
+- **Trailing text invalidates a permission rule** — rules with text after the closing parenthesis (e.g. `Bash(ls) x`), which never matched anything, are now reported as invalid settings instead of being silently ignored.
+- **`!` bash-mode runs outside the sandbox** — commands typed at the `!` bash-mode prompt run unsandboxed even when strict sandbox mode (`sandbox.allowUnsandboxedCommands: false`) is on, like typing into your own terminal.
+
 ---
 
 ## 6. Configuration
@@ -1797,6 +1810,10 @@ Skill(commit)                    # Specific skill
 
 - **Claude Fable 5.1** (`claude-fable-5-1`) — the new **default Fable model**: 1M context, **$10/$50 per Mtok** with **$0.25/Mtok cache reads**. Claude apps gateway sessions keep resolving the `fable`/`best` aliases to Fable 5 until gateways support 5.1 — pick Fable 5.1 in `/model` there.
 - **`timeFormat` + `timeZone` settings** — 12-hour, 24-hour, 24-hour UTC, or a strftime pattern for the turn-end clock and transcript-view timestamps.
+
+### New in v2.1.260
+
+- **Managed CLAUDE.md skips the security approval dialog** — server-managed settings that provide a managed CLAUDE.md (`claudeMd`) apply without the dialog; hooks, shell-command, sandbox, and unsafe `env` settings still require approval.
 
 ---
 
@@ -3260,6 +3277,10 @@ claude --plugin-dir ./my-plugin
 ### New in v2.1.259
 
 - **`--json` on `claude plugin validate`** — prints a machine-readable validation report, handy for scripts and CI.
+
+### New in v2.1.260
+
+- **`/reload-plugins` works in headless sessions** — it now appears in the Claude Code Desktop and SDK command lists.
 
 ---
 
@@ -4973,7 +4994,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.259`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.260`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

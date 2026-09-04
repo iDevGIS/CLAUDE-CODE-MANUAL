@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.259         │
+│ Welcome to Claude Code v2.1.260         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1030,7 +1030,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.259
+- run: npm install -g @anthropic-ai/claude-code@2.1.260
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1260,6 +1260,11 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`s` ใน `/effort`** — เปลี่ยน effort level เฉพาะ session ปัจจุบัน แบบเดียวกับ `/model`
 - **`/btw` เปลี่ยนปุ่มไล่ดูประวัติ** — ไล่ดูคำถามข้างเคียงล่าสุดด้วย `Shift+←`/`Shift+→` (หรือ `[`/`]`) แล้วก้าวกลับมาที่คำตอบสด — `←`/`→` เปล่า ๆ ไม่ใช้ไล่ประวัติแล้ว
 
+### 🆕 ใหม่ใน v2.1.260
+- **panel `/diff`** — ในโหมด fullscreen ใช้ `/diff` เปิด/ปิด panel แสดง diff ข้างบทสนทนา เห็น uncommitted changes สด ๆ ระหว่างที่ Claude แก้ไฟล์
+- **`/advisor` แบบพิมพ์ข้อความ** — `/advisor`, `/advisor <model>` และ `/advisor off` ใช้เป็นคำสั่งข้อความได้ใน desktop app, Remote Control และ session แบบ headless (`-p`/Agent SDK)
+- **`/cost` บอกสาเหตุ prompt-cache miss** — `/cost` และ field `prompt_cache` ของ status line บอกสาเหตุที่น่าจะเป็นของ cache miss ให้ด้วย (เช่น tool definition หรือ system prompt เปลี่ยน, idle เกิน TTL)
+
 ---
 
 ## 4. คีย์ลัด (Keyboard Shortcuts)
@@ -1359,6 +1364,10 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.239
 
 - **`keybindingFlavor: "readline"` จับคู่ปุ่มระดับคำให้เหมือน Bash ด้วยแล้ว** — `Alt+F` และ `Ctrl`/`Option+→` หยุดที่ท้ายคำ, `Alt+D` ลบไปจนถึงท้ายคำ (กด `Ctrl+Y` วางกลับได้) และเครื่องหมายวรรคตอนถือเป็นตัวแบ่งคำ
+
+### 🆕 ใหม่ใน v2.1.260
+
+- **`Ctrl+L` / `Cmd+K` ในโหมด fullscreen เคลียร์ transcript view แล้ว** — เหมือนสั่ง `clear` ใน terminal — เลื่อนขึ้นไปดูข้อความก่อนหน้าได้ตามปกติ
 
 ---
 
@@ -1578,6 +1587,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **ถามครั้งเดียวก่อนอ่านไฟล์นอก working directory** — auto mode จะถามก่อนการอ่านไฟล์นอก working directories ครั้งแรก พร้อมตัวเลือกบล็อกการอ่านแบบนี้ (`permissions.blockReadsOutsideWorkingDirectories`)
 - **`defaultMode: "bypassPermissions"` ระดับ project ถูกเมิน** — เหมือน `"auto"` คือใส่ใน `.claude/settings.json` หรือ `.claude/settings.local.json` ไม่มีผลแล้ว — ให้ตั้งใน user/managed settings หรือใช้ `--permission-mode` แทน
 
+### 🆕 ใหม่ใน v2.1.260
+- **กฎ permission ที่มีข้อความห้อยท้ายถือว่า invalid** — กฎที่มีข้อความต่อจากวงเล็บปิด (เช่น `Bash(ls) x`) ซึ่งไม่เคย match อะไรเลย ตอนนี้ถูกรายงานเป็น setting ที่ invalid แทนการถูกเมินเงียบ ๆ
+- **คำสั่งใน `!` bash-mode รันนอก sandbox เสมอ** — แม้เปิด strict sandbox mode (`sandbox.allowUnsandboxedCommands: false`) อยู่ก็รันนอก sandbox เหมือนพิมพ์ใน terminal ของเราเอง
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1791,6 +1804,10 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **Claude Fable 5.1** (`claude-fable-5-1`) — **default Fable ตัวใหม่**: context 1M, ราคา **$10/$50 ต่อ Mtok** และ **cache read $0.25 ต่อ Mtok** · session ผ่าน Claude apps gateway ยัง resolve alias `fable`/`best` เป็น Fable 5 ไปก่อนจนกว่า gateway จะรองรับ 5.1 — เลือก Fable 5.1 ใน `/model` เองได้
 - **settings `timeFormat` + `timeZone`** — เลือก 12-hour, 24-hour, 24-hour UTC หรือ pattern แบบ strftime ให้นาฬิกาท้าย turn และ timestamp ใน transcript view
+
+### 🆕 ใหม่ใน v2.1.260
+
+- **CLAUDE.md แบบ managed ไม่ขึ้น dialog ขออนุมัติแล้ว** — server-managed settings ที่ส่ง managed CLAUDE.md (`claudeMd`) มีผลได้เลยโดยไม่ผ่าน security approval dialog ส่วน hooks, shell command, sandbox และ `env` ที่ไม่ปลอดภัยยังต้องขออนุมัติเหมือนเดิม
 
 ---
 
@@ -3249,6 +3266,10 @@ claude --plugin-dir ./my-plugin
 ### 🆕 ใหม่ใน v2.1.259
 
 - **`--json` บน `claude plugin validate`** — พิมพ์รายงานผลตรวจแบบ machine-readable เอาไปใช้ต่อในสคริปต์/CI ได้สะดวก
+
+### 🆕 ใหม่ใน v2.1.260
+
+- **`/reload-plugins` ใช้ใน session แบบ headless ได้แล้ว** — โผล่ในรายการคำสั่งของ Claude Code Desktop และ SDK แล้ว
 
 ---
 
@@ -4959,7 +4980,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.259`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.260`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

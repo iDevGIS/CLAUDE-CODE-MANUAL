@@ -228,6 +228,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **ถามครั้งเดียวก่อนอ่านไฟล์นอก working directory** — auto mode จะถามก่อนการอ่านไฟล์นอก working directories ครั้งแรก พร้อมตัวเลือกบล็อกการอ่านแบบนี้ (`permissions.blockReadsOutsideWorkingDirectories`)
 - **`defaultMode: "bypassPermissions"` ระดับ project ถูกเมิน** — เหมือน `"auto"` คือใส่ใน `.claude/settings.json` หรือ `.claude/settings.local.json` ไม่มีผลแล้ว — ให้ตั้งใน user/managed settings หรือใช้ `--permission-mode` แทน
 
+### 🆕 ใหม่ใน v2.1.260
+- **กฎ permission ที่มีข้อความห้อยท้ายถือว่า invalid** — กฎที่มีข้อความต่อจากวงเล็บปิด (เช่น `Bash(ls) x`) ซึ่งไม่เคย match อะไรเลย ตอนนี้ถูกรายงานเป็น setting ที่ invalid แทนการถูกเมินเงียบ ๆ
+- **คำสั่งใน `!` bash-mode รันนอก sandbox เสมอ** — แม้เปิด strict sandbox mode (`sandbox.allowUnsandboxedCommands: false`) อยู่ก็รันนอก sandbox เหมือนพิมพ์ใน terminal ของเราเอง
+
 ---
 
 ---

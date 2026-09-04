@@ -235,6 +235,10 @@ Set the `model` key to any of these (newest → cheapest):
 - **Claude Fable 5.1** (`claude-fable-5-1`) — the new **default Fable model**: 1M context, **$10/$50 per Mtok** with **$0.25/Mtok cache reads**. Claude apps gateway sessions keep resolving the `fable`/`best` aliases to Fable 5 until gateways support 5.1 — pick Fable 5.1 in `/model` there.
 - **`timeFormat` + `timeZone` settings** — 12-hour, 24-hour, 24-hour UTC, or a strftime pattern for the turn-end clock and transcript-view timestamps.
 
+### New in v2.1.260
+
+- **Managed CLAUDE.md skips the security approval dialog** — server-managed settings that provide a managed CLAUDE.md (`claudeMd`) apply without the dialog; hooks, shell-command, sandbox, and unsafe `env` settings still require approval.
+
 ---
 
 ---

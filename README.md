@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.259-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.56.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.260-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.57.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.259`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.260`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -119,8 +119,11 @@
 | 🏢 **`managedMcpServers`** | องค์กรจัด MCP server แบบ HTTP/SSE ให้ผู้ใช้ทุกคนผ่าน managed settings · `allowedMcpServers` คุมเฉพาะ server ที่ผู้ใช้เพิ่มเอง — ใช้ `deniedMcpServers` กัน managed server (v2.1.259) |
 | 🤖 **`--permission-prompts none`** | สำหรับ headless host ที่ไม่มีคนเฝ้า — อะไรที่จะขึ้น permission prompt ถูกปฏิเสธอัตโนมัติ ส่วน permission mode ที่ใช้อยู่ยังตัดสินใจส่วนอื่นตามปกติ (v2.1.259) |
 | 🧪 **`claude plugin validate --json`** | รายงานผลตรวจ plugin/skill แบบ machine-readable สำหรับสคริปต์และ CI (v2.1.259) |
+| 🪞 **panel `/diff`** | โหมด fullscreen ใช้ `/diff` เปิด panel แสดง diff ข้างบทสนทนา เห็น uncommitted changes สด ๆ ระหว่างที่ Claude แก้ไฟล์ (v2.1.260) |
+| 💬 **`/advisor` แบบข้อความ + `/reload-plugins` headless** | `/advisor <model>` / `/advisor off` ใช้ใน desktop app/Remote Control/headless ได้ · `/reload-plugins` โผล่ในรายการคำสั่งของ Desktop และ SDK (v2.1.260) |
+| 🧹 **behavior เปลี่ยนหลายจุด** | `/cost` บอกสาเหตุ prompt-cache miss · `Ctrl+L`/`Cmd+K` ใน fullscreen เคลียร์ transcript · กฎ permission ที่มีข้อความห้อยท้ายถูกรายงานว่า invalid · `!` bash-mode รันนอก sandbox เสมอ · Chrome ทำตาม admin setting ขององค์กร · ถอดเพดาน 1 ชม. ของ background command ที่ subagent สั่ง (v2.1.260) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.259` (manual `v1.56.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.260` (manual `v1.57.0`)
 
 ---
 
@@ -143,7 +146,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.259** + โมเดล Fable 5.1 / Opus 5 / Sonnet 5
+ตรงกับ Claude Code **v2.1.260** + โมเดล Fable 5.1 / Opus 5 / Sonnet 5
 
 </td>
 </tr>
@@ -203,7 +206,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.259`
+> **Claude Code Version:** `2.1.260`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

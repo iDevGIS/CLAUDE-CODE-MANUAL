@@ -199,6 +199,10 @@ Skill(commit)                    # Specific skill
 - **One-time prompt before reading outside your working directories** — auto mode now asks once before the first file read outside the working directories, with an option to block such reads (`permissions.blockReadsOutsideWorkingDirectories`).
 - **Project-level `defaultMode: "bypassPermissions"` is ignored** — like `"auto"`, it no longer applies from `.claude/settings.json` or `.claude/settings.local.json`; set it in user or managed settings, or pass `--permission-mode`.
 
+### New in v2.1.260
+- **Trailing text invalidates a permission rule** — rules with text after the closing parenthesis (e.g. `Bash(ls) x`), which never matched anything, are now reported as invalid settings instead of being silently ignored.
+- **`!` bash-mode runs outside the sandbox** — commands typed at the `!` bash-mode prompt run unsandboxed even when strict sandbox mode (`sandbox.allowUnsandboxedCommands: false`) is on, like typing into your own terminal.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

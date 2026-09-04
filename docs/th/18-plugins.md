@@ -126,6 +126,10 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 
 - **`--json` บน `claude plugin validate`** — พิมพ์รายงานผลตรวจแบบ machine-readable เอาไปใช้ต่อในสคริปต์/CI ได้สะดวก ดู [[02-cli-commands]]
 
+### 🆕 ใหม่ใน v2.1.260
+
+- **`/reload-plugins` ใช้ใน session แบบ headless ได้แล้ว** — โผล่ในรายการคำสั่งของ Claude Code Desktop และ SDK แล้ว ดู [[16-headless-mode]]
+
 ---
 
 ---

@@ -209,6 +209,11 @@ related:
 - **`s` ใน `/effort`** — เปลี่ยน effort level เฉพาะ session ปัจจุบัน แบบเดียวกับ `/model`
 - **`/btw` เปลี่ยนปุ่มไล่ดูประวัติ** — ไล่ดูคำถามข้างเคียงล่าสุดด้วย `Shift+←`/`Shift+→` (หรือ `[`/`]`) แล้วก้าวกลับมาที่คำตอบสด — `←`/`→` เปล่า ๆ ไม่ใช้ไล่ประวัติแล้ว
 
+### 🆕 ใหม่ใน v2.1.260
+- **panel `/diff`** — ในโหมด fullscreen ใช้ `/diff` เปิด/ปิด panel แสดง diff ข้างบทสนทนา เห็น uncommitted changes สด ๆ ระหว่างที่ Claude แก้ไฟล์
+- **`/advisor` แบบพิมพ์ข้อความ** — `/advisor`, `/advisor <model>` และ `/advisor off` ใช้เป็นคำสั่งข้อความได้ใน desktop app, Remote Control และ session แบบ headless (`-p`/Agent SDK) ดู [[16-headless-mode]]
+- **`/cost` บอกสาเหตุ prompt-cache miss** — `/cost` และ field `prompt_cache` ของ status line บอกสาเหตุที่น่าจะเป็นของ cache miss ให้ด้วย (เช่น tool definition หรือ system prompt เปลี่ยน, idle เกิน TTL) ดู [[31-cost-management]]
+
 ---
 
 ---

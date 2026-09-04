@@ -235,6 +235,10 @@ related:
 - **Claude Fable 5.1** (`claude-fable-5-1`) — **default Fable ตัวใหม่**: context 1M, ราคา **$10/$50 ต่อ Mtok** และ **cache read $0.25 ต่อ Mtok** · session ผ่าน Claude apps gateway ยัง resolve alias `fable`/`best` เป็น Fable 5 ไปก่อนจนกว่า gateway จะรองรับ 5.1 — เลือก Fable 5.1 ใน `/model` เองได้
 - **settings `timeFormat` + `timeZone`** — เลือก 12-hour, 24-hour, 24-hour UTC หรือ pattern แบบ strftime ให้นาฬิกาท้าย turn และ timestamp ใน transcript view
 
+### 🆕 ใหม่ใน v2.1.260
+
+- **CLAUDE.md แบบ managed ไม่ขึ้น dialog ขออนุมัติแล้ว** — server-managed settings ที่ส่ง managed CLAUDE.md (`claudeMd`) มีผลได้เลยโดยไม่ผ่าน security approval dialog ส่วน hooks, shell command, sandbox และ `env` ที่ไม่ปลอดภัยยังต้องขออนุมัติเหมือนเดิม
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

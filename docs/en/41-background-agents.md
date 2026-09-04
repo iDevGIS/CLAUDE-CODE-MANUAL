@@ -118,6 +118,10 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 - Overnight jobs — pair with [[20-scheduled-tasks]]
 - Review many PRs in parallel, then find each session again by its PR URL
 
+### New in v2.1.260
+
+- **No more one-hour limit on subagent background commands** — background commands started by subagents now run until they exit or are stopped, matching the main session. See [[12-subagents]].
+
 ---
 
 ---
