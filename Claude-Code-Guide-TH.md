@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.260         │
+│ Welcome to Claude Code v2.1.261         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -699,6 +699,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **`--permission-prompts none` สำหรับ headless host ที่ไม่มีคนเฝ้า** — อะไรก็ตามที่ปกติจะขึ้น permission prompt จะถูกปฏิเสธอัตโนมัติ ส่วน permission mode ที่ใช้อยู่ (รวมถึง auto mode) ยังเป็นคนตัดสินใจส่วนที่เหลือเหมือนเดิม
 
+### 🆕 ใหม่ใน v2.1.261
+
+- **`--append-subagent-system-prompt-file`** — อ่าน system prompt ของ subagent จากไฟล์ สำหรับ prompt ที่ยาวเกินกว่าจะส่งผ่าน command line
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1030,7 +1034,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.260
+- run: npm install -g @anthropic-ai/claude-code@2.1.261
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1265,6 +1269,11 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/advisor` แบบพิมพ์ข้อความ** — `/advisor`, `/advisor <model>` และ `/advisor off` ใช้เป็นคำสั่งข้อความได้ใน desktop app, Remote Control และ session แบบ headless (`-p`/Agent SDK)
 - **`/cost` บอกสาเหตุ prompt-cache miss** — `/cost` และ field `prompt_cache` ของ status line บอกสาเหตุที่น่าจะเป็นของ cache miss ให้ด้วย (เช่น tool definition หรือ system prompt เปลี่ยน, idle เกิน TTL)
 
+### 🆕 ใหม่ใน v2.1.261
+- **`/skill-doctor`** — แสดงว่า skill ที่โหลดอยู่ตัวไหนไม่ถูกเรียกใช้ และแต่ละตัวกิน context ไปเท่าไหร่ จะได้ตัด (prune) ได้ถูกตัว
+- **บรรทัด "Organization policy" ใน `/status` และ `claude doctor`** — บอกสาเหตุที่โหลด policy ขององค์กรไม่สำเร็จ เช่น proxy ไม่ยอมปล่อย endpoint ให้ผ่าน
+- **`/context` นับ token แบบ local เมื่อ token-counting API ใช้ไม่ได้** — ใช้การประมาณในเครื่องแทนการยิง request เพิ่มไปหาโมเดลเล็ก
+
 ---
 
 ## 4. คีย์ลัด (Keyboard Shortcuts)
@@ -1368,6 +1377,10 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.260
 
 - **`Ctrl+L` / `Cmd+K` ในโหมด fullscreen เคลียร์ transcript view แล้ว** — เหมือนสั่ง `clear` ใน terminal — เลื่อนขึ้นไปดูข้อความก่อนหน้าได้ตามปกติ
+
+### 🆕 ใหม่ใน v2.1.261
+
+- **ปุ่มแก้ไขระดับคำในช่อง prompt เป็นแบบ Bash เสมอแล้ว** — `Ctrl+W` ลบย้อนถึงช่องว่าง, `Alt+F` กับ `Alt+D` หยุดที่ท้ายคำ และเครื่องหมายวรรคตอนถือเป็นตัวแบ่งคำ; setting `keybindingFlavor` ไม่มีผลอีกต่อไป
 
 ---
 
@@ -1591,6 +1604,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **กฎ permission ที่มีข้อความห้อยท้ายถือว่า invalid** — กฎที่มีข้อความต่อจากวงเล็บปิด (เช่น `Bash(ls) x`) ซึ่งไม่เคย match อะไรเลย ตอนนี้ถูกรายงานเป็น setting ที่ invalid แทนการถูกเมินเงียบ ๆ
 - **คำสั่งใน `!` bash-mode รันนอก sandbox เสมอ** — แม้เปิด strict sandbox mode (`sandbox.allowUnsandboxedCommands: false`) อยู่ก็รันนอก sandbox เหมือนพิมพ์ใน terminal ของเราเอง
 
+### 🆕 ใหม่ใน v2.1.261
+- **auto mode ถือว่า link แบบ diagram renderer เป็นการ upload** — link ที่อัดเนื้อหาลงใน URL ของเว็บ render diagram สาธารณะ ถูกนับเป็นการ upload ขึ้นเว็บนั้น จึงไม่ถูก auto-approve แล้ว เว้นแต่เราขอเอง
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1808,6 +1824,11 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.260
 
 - **CLAUDE.md แบบ managed ไม่ขึ้น dialog ขออนุมัติแล้ว** — server-managed settings ที่ส่ง managed CLAUDE.md (`claudeMd`) มีผลได้เลยโดยไม่ผ่าน security approval dialog ส่วน hooks, shell command, sandbox และ `env` ที่ไม่ปลอดภัยยังต้องขออนุมัติเหมือนเดิม
+
+### 🆕 ใหม่ใน v2.1.261
+
+- **settings `bashOutputMaxChars` + `taskOutputMaxChars`** — ขยายปริมาณ output ของคำสั่งและ background task ที่ Claude ได้รับแบบ inline ก่อนถูกเซฟลงไฟล์ ได้สูงสุด 128K ตัวอักษร
+- **`keybindingFlavor` ไม่มีผลอีกต่อไป** — ปุ่มแก้ไขระดับคำในช่อง prompt เป็นแบบ Bash เสมอ (ดูบท 4. คีย์ลัด)
 
 ---
 
@@ -2530,6 +2551,10 @@ my-skill/
 ### 🆕 ใหม่ใน v2.1.233
 
 - **`claude plugin validate` ตรวจโฟลเดอร์ `.claude/skills` เปล่า ๆ ได้แล้ว** — ตรวจ skill ที่ไม่ได้ห่อเป็น plugin ด้วย และรายงานไฟล์ SKILL.md ที่ frontmatter parse ไม่ผ่าน
+
+### 🆕 ใหม่ใน v2.1.261
+
+- **`/skill-doctor`** — แสดงว่า skill ที่โหลดอยู่ตัวไหนไม่ถูกเรียกใช้ และแต่ละตัวกิน context ไปเท่าไหร่ จะได้ตัด (prune) ได้ถูกตัว
 
 ---
 
@@ -4980,7 +5005,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.260`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.261`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

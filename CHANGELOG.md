@@ -25,6 +25,28 @@
 
 ---
 
+## [1.58.0] — 2026-09-05
+
+### Compatibility
+- **Claude Code:** `v2.1.261+`
+
+### Added
+- **`/skill-doctor`** — shows which loaded skills go unused and what they cost in context, so you can prune them (`v2.1.261`) — chapters 03, 11
+- **"Organization policy" line in `/status` and `claude doctor`** — says why the organization's policy could not be loaded, such as a proxy not passing the endpoint through (`v2.1.261`) — chapter 03
+- **`bashOutputMaxChars` + `taskOutputMaxChars` settings** — raise how much command and background-task output Claude receives inline before it is saved to a file, up to 128K characters (`v2.1.261`) — chapter 06
+- **`--append-subagent-system-prompt-file`** — reads the subagent system prompt from a file, for prompts too large to pass on the command line (`v2.1.261`) — chapter 02
+
+### Changed
+- **The prompt's word-editing keys always match Bash** — `Ctrl+W` deletes back to whitespace, `Alt+F`/`Alt+D` stop at word end, punctuation separates words; the `keybindingFlavor` setting no longer has any effect (`v2.1.261`) — chapters 04, 06
+- **Auto mode treats diagram-renderer links as uploads** — a link that packs content into a public diagram renderer's URL counts as an upload to that site and is no longer auto-approved unless the user asked for it (`v2.1.261`) — chapter 05
+- **`/context` counts tokens locally when the token-counting API is unavailable** — a local estimate replaces the extra small-model requests (`v2.1.261`) — chapter 03
+- **Version strings** bumped `2.1.260` → `2.1.261` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.261` adds `/skill-doctor`, output-size settings, a file-based subagent system prompt flag, and an organization-policy diagnostic, plus behavior changes to the prompt's word-editing keys (retiring `keybindingFlavor`), auto mode's handling of diagram-renderer links, and `/context` token counting; the rest of the release is bug fixes and UI polish — the manual now documents all of it across both languages
+
+---
+
 ## [1.57.0] — 2026-09-04
 
 ### Compatibility
@@ -1348,6 +1370,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.58.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.57.0...v1.58.0
 [1.57.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.56.0...v1.57.0
 [1.56.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.55.0...v1.56.0
 [1.55.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.54.0...v1.55.0

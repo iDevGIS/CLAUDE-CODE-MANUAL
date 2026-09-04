@@ -183,6 +183,10 @@ my-skill/
 
 - **`claude plugin validate` ตรวจโฟลเดอร์ `.claude/skills` เปล่า ๆ ได้แล้ว** — ตรวจ skill ที่ไม่ได้ห่อเป็น plugin ด้วย และรายงานไฟล์ SKILL.md ที่ frontmatter parse ไม่ผ่าน
 
+### 🆕 ใหม่ใน v2.1.261
+
+- **`/skill-doctor`** — แสดงว่า skill ที่โหลดอยู่ตัวไหนไม่ถูกเรียกใช้ และแต่ละตัวกิน context ไปเท่าไหร่ จะได้ตัด (prune) ได้ถูกตัว ดู [[03-slash-commands]]
+
 ---
 
 ---

@@ -183,6 +183,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **`claude plugin validate` checks a bare `.claude/skills` directory** — validation now covers skills that aren't wrapped in a plugin, reporting SKILL.md files whose frontmatter fails to parse.
 
+### New in v2.1.261
+
+- **`/skill-doctor`** — shows which loaded skills go unused and what they cost in context, so you can prune them. See [[03-slash-commands]].
+
 ---
 
 ---

@@ -115,6 +115,10 @@ related:
 
 - **`Ctrl+L` / `Cmd+K` in fullscreen clear the transcript view** — like a terminal `clear`; scroll up to see earlier messages.
 
+### New in v2.1.261
+
+- **The prompt's word-editing keys now always match Bash** — `Ctrl+W` deletes back to whitespace, `Alt+F` and `Alt+D` stop at word end, and punctuation separates words; the `keybindingFlavor` setting no longer has any effect. See [[06-configuration]].
+
 ---
 
 ---

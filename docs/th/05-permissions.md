@@ -232,6 +232,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **กฎ permission ที่มีข้อความห้อยท้ายถือว่า invalid** — กฎที่มีข้อความต่อจากวงเล็บปิด (เช่น `Bash(ls) x`) ซึ่งไม่เคย match อะไรเลย ตอนนี้ถูกรายงานเป็น setting ที่ invalid แทนการถูกเมินเงียบ ๆ
 - **คำสั่งใน `!` bash-mode รันนอก sandbox เสมอ** — แม้เปิด strict sandbox mode (`sandbox.allowUnsandboxedCommands: false`) อยู่ก็รันนอก sandbox เหมือนพิมพ์ใน terminal ของเราเอง
 
+### 🆕 ใหม่ใน v2.1.261
+- **auto mode ถือว่า link แบบ diagram renderer เป็นการ upload** — link ที่อัดเนื้อหาลงใน URL ของเว็บ render diagram สาธารณะ ถูกนับเป็นการ upload ขึ้นเว็บนั้น จึงไม่ถูก auto-approve แล้ว เว้นแต่เราขอเอง
+
 ---
 
 ---

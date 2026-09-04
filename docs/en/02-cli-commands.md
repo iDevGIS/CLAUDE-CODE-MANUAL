@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.260         │
+│ Welcome to Claude Code v2.1.261         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -595,6 +595,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **`--permission-prompts none` for unattended headless hosts** — anything that would show a permission prompt is denied automatically, while the active permission mode (including auto mode) keeps deciding everything else. See [[05-permissions]].
 
+### New in v2.1.261
+
+- **`--append-subagent-system-prompt-file`** — reads the subagent system prompt from a file, for prompts too large to pass on the command line. See [[12-subagents]].
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -966,7 +970,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.260
+- run: npm install -g @anthropic-ai/claude-code@2.1.261
 ```
 
 ---

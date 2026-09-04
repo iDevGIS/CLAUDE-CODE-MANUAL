@@ -213,6 +213,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/advisor` text form** — `/advisor`, `/advisor <model>`, and `/advisor off` work as text commands in the desktop app, Remote Control, and other headless (`-p`/Agent SDK) sessions. See [[16-headless-mode]].
 - **`/cost` explains prompt-cache misses** — `/cost` and the status line's `prompt_cache` field now include a likely cause for cache misses (e.g. tool definitions or system prompt changed, idle past the TTL). See [[31-cost-management]].
 
+### New in v2.1.261
+- **`/skill-doctor`** — shows which loaded skills go unused and what they cost in context, so you can prune them. See [[11-skills]].
+- **"Organization policy" line in `/status` and `claude doctor`** — says why your organization's policy could not be loaded, such as a proxy not passing the endpoint through.
+- **`/context` counts tokens locally when the token-counting API is unavailable** — a local estimate replaces the extra small-model requests. See [[14-context-management]].
+
 ---
 
 ---

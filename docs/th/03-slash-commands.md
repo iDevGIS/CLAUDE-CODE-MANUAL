@@ -214,6 +214,11 @@ related:
 - **`/advisor` แบบพิมพ์ข้อความ** — `/advisor`, `/advisor <model>` และ `/advisor off` ใช้เป็นคำสั่งข้อความได้ใน desktop app, Remote Control และ session แบบ headless (`-p`/Agent SDK) ดู [[16-headless-mode]]
 - **`/cost` บอกสาเหตุ prompt-cache miss** — `/cost` และ field `prompt_cache` ของ status line บอกสาเหตุที่น่าจะเป็นของ cache miss ให้ด้วย (เช่น tool definition หรือ system prompt เปลี่ยน, idle เกิน TTL) ดู [[31-cost-management]]
 
+### 🆕 ใหม่ใน v2.1.261
+- **`/skill-doctor`** — แสดงว่า skill ที่โหลดอยู่ตัวไหนไม่ถูกเรียกใช้ และแต่ละตัวกิน context ไปเท่าไหร่ จะได้ตัด (prune) ได้ถูกตัว ดู [[11-skills]]
+- **บรรทัด "Organization policy" ใน `/status` และ `claude doctor`** — บอกสาเหตุที่โหลด policy ขององค์กรไม่สำเร็จ เช่น proxy ไม่ยอมปล่อย endpoint ให้ผ่าน
+- **`/context` นับ token แบบ local เมื่อ token-counting API ใช้ไม่ได้** — ใช้การประมาณในเครื่องแทนการยิง request เพิ่มไปหาโมเดลเล็ก ดู [[14-context-management]]
+
 ---
 
 ---

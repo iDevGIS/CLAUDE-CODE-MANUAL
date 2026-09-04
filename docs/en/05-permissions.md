@@ -203,6 +203,9 @@ Skill(commit)                    # Specific skill
 - **Trailing text invalidates a permission rule** — rules with text after the closing parenthesis (e.g. `Bash(ls) x`), which never matched anything, are now reported as invalid settings instead of being silently ignored.
 - **`!` bash-mode runs outside the sandbox** — commands typed at the `!` bash-mode prompt run unsandboxed even when strict sandbox mode (`sandbox.allowUnsandboxedCommands: false`) is on, like typing into your own terminal.
 
+### New in v2.1.261
+- **Auto mode treats diagram-renderer links as uploads** — a link that packs content into a public diagram renderer's URL now counts as an upload to that site: no longer auto-approved unless you asked for it.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

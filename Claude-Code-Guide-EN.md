@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.260         │
+│ Welcome to Claude Code v2.1.261         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.260
+- run: npm install -g @anthropic-ai/claude-code@2.1.261
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1044,6 +1044,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.259
 
 - **`--permission-prompts none` for unattended headless hosts** — anything that would show a permission prompt is denied automatically, while the active permission mode (including auto mode) keeps deciding everything else.
+
+### New in v2.1.261
+
+- **`--append-subagent-system-prompt-file`** — reads the subagent system prompt from a file, for prompts too large to pass on the command line.
 
 ---
 
@@ -1271,6 +1275,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/advisor` text form** — `/advisor`, `/advisor <model>`, and `/advisor off` work as text commands in the desktop app, Remote Control, and other headless (`-p`/Agent SDK) sessions.
 - **`/cost` explains prompt-cache misses** — `/cost` and the status line's `prompt_cache` field now include a likely cause for cache misses (e.g. tool definitions or system prompt changed, idle past the TTL).
 
+### New in v2.1.261
+- **`/skill-doctor`** — shows which loaded skills go unused and what they cost in context, so you can prune them.
+- **"Organization policy" line in `/status` and `claude doctor`** — says why your organization's policy could not be loaded, such as a proxy not passing the endpoint through.
+- **`/context` counts tokens locally when the token-counting API is unavailable** — a local estimate replaces the extra small-model requests.
+
 ---
 
 ## 4. Keyboard Shortcuts
@@ -1374,6 +1383,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.260
 
 - **`Ctrl+L` / `Cmd+K` in fullscreen clear the transcript view** — like a terminal `clear`; scroll up to see earlier messages.
+
+### New in v2.1.261
+
+- **The prompt's word-editing keys now always match Bash** — `Ctrl+W` deletes back to whitespace, `Alt+F` and `Alt+D` stop at word end, and punctuation separates words; the `keybindingFlavor` setting no longer has any effect.
 
 ---
 
@@ -1597,6 +1610,9 @@ Skill(commit)                    # Specific skill
 - **Trailing text invalidates a permission rule** — rules with text after the closing parenthesis (e.g. `Bash(ls) x`), which never matched anything, are now reported as invalid settings instead of being silently ignored.
 - **`!` bash-mode runs outside the sandbox** — commands typed at the `!` bash-mode prompt run unsandboxed even when strict sandbox mode (`sandbox.allowUnsandboxedCommands: false`) is on, like typing into your own terminal.
 
+### New in v2.1.261
+- **Auto mode treats diagram-renderer links as uploads** — a link that packs content into a public diagram renderer's URL now counts as an upload to that site: no longer auto-approved unless you asked for it.
+
 ---
 
 ## 6. Configuration
@@ -1814,6 +1830,11 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.260
 
 - **Managed CLAUDE.md skips the security approval dialog** — server-managed settings that provide a managed CLAUDE.md (`claudeMd`) apply without the dialog; hooks, shell-command, sandbox, and unsafe `env` settings still require approval.
+
+### New in v2.1.261
+
+- **`bashOutputMaxChars` + `taskOutputMaxChars` settings** — raise how much command and background-task output Claude receives inline before it is saved to a file, up to 128K characters.
+- **`keybindingFlavor` no longer has any effect** — the prompt's word-editing keys now always match Bash (see 4. Keyboard Shortcuts).
 
 ---
 
@@ -2537,6 +2558,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 ### New in v2.1.233
 
 - **`claude plugin validate` checks a bare `.claude/skills` directory** — validation now covers skills that aren't wrapped in a plugin, reporting SKILL.md files whose frontmatter fails to parse.
+
+### New in v2.1.261
+
+- **`/skill-doctor`** — shows which loaded skills go unused and what they cost in context, so you can prune them.
 
 ---
 
@@ -4994,7 +5019,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.260`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.261`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

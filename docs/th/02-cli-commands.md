@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.260         │
+│ Welcome to Claude Code v2.1.261         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -595,6 +595,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **`--permission-prompts none` สำหรับ headless host ที่ไม่มีคนเฝ้า** — อะไรก็ตามที่ปกติจะขึ้น permission prompt จะถูกปฏิเสธอัตโนมัติ ส่วน permission mode ที่ใช้อยู่ (รวมถึง auto mode) ยังเป็นคนตัดสินใจส่วนที่เหลือเหมือนเดิม ดู [[05-permissions]]
 
+### 🆕 ใหม่ใน v2.1.261
+
+- **`--append-subagent-system-prompt-file`** — อ่าน system prompt ของ subagent จากไฟล์ สำหรับ prompt ที่ยาวเกินกว่าจะส่งผ่าน command line ดู [[12-subagents]]
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -966,7 +970,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.260
+- run: npm install -g @anthropic-ai/claude-code@2.1.261
 ```
 
 ---

@@ -239,6 +239,11 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **Managed CLAUDE.md skips the security approval dialog** — server-managed settings that provide a managed CLAUDE.md (`claudeMd`) apply without the dialog; hooks, shell-command, sandbox, and unsafe `env` settings still require approval.
 
+### New in v2.1.261
+
+- **`bashOutputMaxChars` + `taskOutputMaxChars` settings** — raise how much command and background-task output Claude receives inline before it is saved to a file, up to 128K characters.
+- **`keybindingFlavor` no longer has any effect** — the prompt's word-editing keys now always match Bash. See [[04-keyboard-shortcuts]].
+
 ---
 
 ---

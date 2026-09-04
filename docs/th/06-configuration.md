@@ -239,6 +239,11 @@ related:
 
 - **CLAUDE.md แบบ managed ไม่ขึ้น dialog ขออนุมัติแล้ว** — server-managed settings ที่ส่ง managed CLAUDE.md (`claudeMd`) มีผลได้เลยโดยไม่ผ่าน security approval dialog ส่วน hooks, shell command, sandbox และ `env` ที่ไม่ปลอดภัยยังต้องขออนุมัติเหมือนเดิม
 
+### 🆕 ใหม่ใน v2.1.261
+
+- **settings `bashOutputMaxChars` + `taskOutputMaxChars`** — ขยายปริมาณ output ของคำสั่งและ background task ที่ Claude ได้รับแบบ inline ก่อนถูกเซฟลงไฟล์ ได้สูงสุด 128K ตัวอักษร
+- **`keybindingFlavor` ไม่มีผลอีกต่อไป** — ปุ่มแก้ไขระดับคำในช่อง prompt เป็นแบบ Bash เสมอ ดู [[04-keyboard-shortcuts]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.
