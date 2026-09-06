@@ -25,6 +25,19 @@
 
 ---
 
+## [1.59.0] — 2026-09-06
+
+### Compatibility
+- **Claude Code:** `v2.1.263+`
+
+### Changed
+- **Version strings** bumped `2.1.261` → `2.1.263` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.263` ships only bug fixes and reliability improvements (no `2.1.262` entry was published) — no new documentable features, so this release is a compatibility bump keeping the manual's version references current
+
+---
+
 ## [1.58.0] — 2026-09-05
 
 ### Compatibility
@@ -1370,6 +1383,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.59.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.58.0...v1.59.0
 [1.58.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.57.0...v1.58.0
 [1.57.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.56.0...v1.57.0
 [1.56.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.55.0...v1.56.0
