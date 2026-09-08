@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.263         │
+│ Welcome to Claude Code v2.1.265         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -703,6 +703,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **`--append-subagent-system-prompt-file`** — อ่าน system prompt ของ subagent จากไฟล์ สำหรับ prompt ที่ยาวเกินกว่าจะส่งผ่าน command line
 
+### 🆕 ใหม่ใน v2.1.265
+
+- **`--worktree` เริ่มงานเร็วขึ้นบน repo ใหญ่** — checkout worktree ใหม่แบบขนาน (ต้องใช้ git 2.32+)
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1034,7 +1038,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.263
+- run: npm install -g @anthropic-ai/claude-code@2.1.265
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1273,6 +1277,9 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/skill-doctor`** — แสดงว่า skill ที่โหลดอยู่ตัวไหนไม่ถูกเรียกใช้ และแต่ละตัวกิน context ไปเท่าไหร่ จะได้ตัด (prune) ได้ถูกตัว
 - **บรรทัด "Organization policy" ใน `/status` และ `claude doctor`** — บอกสาเหตุที่โหลด policy ขององค์กรไม่สำเร็จ เช่น proxy ไม่ยอมปล่อย endpoint ให้ผ่าน
 - **`/context` นับ token แบบ local เมื่อ token-counting API ใช้ไม่ได้** — ใช้การประมาณในเครื่องแทนการยิง request เพิ่มไปหาโมเดลเล็ก
+
+### 🆕 ใหม่ใน v2.1.265
+- **พิมพ์ slash command กลางประโยคแล้วขึ้นเป็นรายการที่ตรงกัน** — แสดงหลายตัวเลือกเป็นรายการแทนคำแนะนำอันเดียว (นอกโหมด fullscreen กด `Tab` เพื่อเปิดรายการ) และค้น skill ของ plugin ด้วยชื่อเปล่า ๆ ได้แล้ว (ดูบท 18. Plugins)
 
 ---
 
@@ -1830,6 +1837,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **settings `bashOutputMaxChars` + `taskOutputMaxChars`** — ขยายปริมาณ output ของคำสั่งและ background task ที่ Claude ได้รับแบบ inline ก่อนถูกเซฟลงไฟล์ ได้สูงสุด 128K ตัวอักษร
 - **`keybindingFlavor` ไม่มีผลอีกต่อไป** — ปุ่มแก้ไขระดับคำในช่อง prompt เป็นแบบ Bash เสมอ (ดูบท 4. คีย์ลัด)
 
+### 🆕 ใหม่ใน v2.1.265
+
+- **ไฟล์ผลลัพธ์ของ tool ที่เซฟลงดิสก์ถูกจำกัดไว้ที่ 1 GB** — เกินกว่านั้นจะถูกตัด และตัวอย่างผลลัพธ์ในบทสนทนาจะบอกด้วยว่าไฟล์ที่เซฟไว้โดนตัด (ส่วนขีดจำกัดแบบ inline ยังคุมด้วย `bashOutputMaxChars`/`taskOutputMaxChars` เหมือนเดิม)
+- **`forceLoginGatewayUrl` ทำให้เครื่องเป็น Claude apps gateway session ตั้งแต่เริ่ม** — พฤติกรรมเหมือน `forceLoginMethod: "gateway"` และจะไม่หยิบ login ของ claude.ai หรือ API key ที่ค้างอยู่ในเครื่องมาใช้
+
 ---
 
 ## 7. CLAUDE.md - คำสั่งถาวรสำหรับโปรเจกต์
@@ -2195,6 +2207,10 @@ claude --mcp-config ./mcp.json
 
 - **managed setting `managedMcpServers`** — องค์กรจัด MCP server แบบ HTTP/SSE ให้ผู้ใช้ทุกคนได้ โดยใช้รูปแบบ entry เดียวกับ `.mcp.json`; ส่วน entry ที่ระบุ command ให้รันจะถูกข้าม
 - **`allowedMcpServers` คุมเฉพาะ server ที่ผู้ใช้เพิ่มเองแล้ว** — server จาก managed ที่ allowlist เราเคยกรองออกจะกลับมาโหลดเมื่ออัปเกรด; ถ้าไม่อยากให้โหลดต้องใช้ `deniedMcpServers` กันไว้
+
+### 🆕 ใหม่ใน v2.1.265
+
+- **ยังไม่ลงทะเบียน OAuth client จนกว่าจะ sign in จริง** — สำหรับ remote MCP server ที่ต้อง authenticate ตัว Claude Code จะรอให้เรา authenticate ก่อน แล้วค่อยไปลงทะเบียน OAuth client กับ server นั้น
 
 ---
 
@@ -3162,6 +3178,10 @@ cat src/*.ts | claude -p "หา Bug"
 
 - **รองรับ screen reader ในหน้า transcript (VS Code)** — ประกาศสดเมื่อมีคำตอบใหม่ คำขอ permission ข้อผิดพลาด และการเปลี่ยนสถานะ · พร้อมเดินอ่านทีละ turn ด้วย heading navigation
 
+### 🆕 ใหม่ใน v2.1.265
+
+- **archive session ที่ทิ้งไว้นานให้อัตโนมัติ (VS Code)** — setting ใหม่ **"Archive inactive sessions"** จะ archive session ที่ไม่ถูกแตะเกินระยะที่ตั้งไว้ ค่าเริ่มต้น 14 วัน (ดูบท 19. Session Management)
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**
@@ -3295,6 +3315,10 @@ claude --plugin-dir ./my-plugin
 ### 🆕 ใหม่ใน v2.1.260
 
 - **`/reload-plugins` ใช้ใน session แบบ headless ได้แล้ว** — โผล่ในรายการคำสั่งของ Claude Code Desktop และ SDK แล้ว
+
+### 🆕 ใหม่ใน v2.1.265
+
+- **`--plugin-dir` ชี้ไปที่โฟลเดอร์รวม plugin ได้แล้ว** — ชี้ไปที่โฟลเดอร์แม่ แล้วโฟลเดอร์ลูกทุกตัวที่มี manifest จะถูกโหลด และถ้าเพิ่ม/ลบโฟลเดอร์ลูกระหว่างที่ Claude รันอยู่ก็จับได้ (ดูบท 2. คำสั่ง CLI และ Flags)
 
 ---
 
@@ -3695,6 +3719,8 @@ your-project/
 > env var ที่รับค่าตัวเลข (timeout, token budget, retry count) รองรับ scientific notation และตัวคั่นหลักด้วย เช่น `1e6` หรือ `64_000` *(v2.1.211)*
 
 > log event ของ OpenTelemetry มี attribute `message.uuid`, `client_request_id` และ `tool_source` เพิ่มเข้ามา สำหรับ correlate ระดับ message และบอกที่มาของ tool call *(v2.1.214)*
+
+> session แบบ Claude apps gateway ส่ง OpenTelemetry ตรงไปยัง collector ที่ managed settings ของ gateway ระบุไว้ใน `OTEL_EXPORTER_OTLP_ENDPOINT` แทนการส่งผ่าน relay ของ gateway — ถ้าไม่ได้ระบุ collector ไว้ก็ยังส่งผ่าน relay เหมือนเดิม *(v2.1.265)*
 
 ### ตั้งค่าใน settings.json
 
@@ -5005,7 +5031,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.263`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.265`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

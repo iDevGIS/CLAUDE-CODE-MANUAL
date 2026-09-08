@@ -25,6 +25,29 @@
 
 ---
 
+## [1.60.0] — 2026-09-09
+
+### Compatibility
+- **Claude Code:** `v2.1.265+`
+
+### Added
+- **`--plugin-dir` accepts a folder of plugins** — point it at a parent folder and every child folder with a manifest loads; children added or removed while Claude is running are picked up (`v2.1.265`) — chapters 18, 02
+- **1 GB cap on tool results saved to disk** — anything larger is truncated, and the in-conversation preview says when a saved file was truncated (`v2.1.265`) — chapter 06
+- **"Archive inactive sessions" setting (VS Code)** — archives sessions untouched for a set period, 14 days by default (`v2.1.265`) — chapter 17
+
+### Changed
+- **Slash commands typed mid-prompt show a match list** — matches appear as a list instead of a single suggestion (outside fullscreen, `Tab` opens the list), and a plugin skill is found by its bare name (`v2.1.265`) — chapter 03
+- **Remote MCP servers get no OAuth client registered until you sign in** — Claude Code waits for you to authenticate before registering an OAuth client with the server (`v2.1.265`) — chapter 09
+- **`forceLoginGatewayUrl` makes a machine a Claude apps gateway session from startup** — same as `forceLoginMethod: "gateway"`; a leftover claude.ai login or API key is not used (`v2.1.265`) — chapter 06
+- **Claude apps gateway sessions export OpenTelemetry directly** — straight to the collector named in `OTEL_EXPORTER_OTLP_ENDPOINT` by the gateway's managed settings instead of through the gateway's relay; sessions with no collector named still use the relay (`v2.1.265`) — chapter 23
+- **`--worktree` starts faster on large repositories** — the new worktree is checked out in parallel, needs git 2.32+ (`v2.1.265`) — chapter 02
+- **Version strings** bumped `2.1.263` → `2.1.265` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.265` adds real plugin-loading, output-limit and IDE-session behavior plus several sign-in/telemetry changes worth documenting (no `2.1.264` entry was published)
+
+---
+
 ## [1.59.0] — 2026-09-06
 
 ### Compatibility
@@ -1383,6 +1406,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.60.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.59.0...v1.60.0
 [1.59.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.58.0...v1.59.0
 [1.58.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.57.0...v1.58.0
 [1.57.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.56.0...v1.57.0

@@ -218,6 +218,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **"Organization policy" line in `/status` and `claude doctor`** — says why your organization's policy could not be loaded, such as a proxy not passing the endpoint through.
 - **`/context` counts tokens locally when the token-counting API is unavailable** — a local estimate replaces the extra small-model requests. See [[14-context-management]].
 
+### New in v2.1.265
+- **Slash commands typed mid-prompt show a match list** — matches appear as a list instead of a single suggestion (outside fullscreen, `Tab` opens the list), and a plugin skill is now found by its bare name. See [[18-plugins]].
+
 ---
 
 ---

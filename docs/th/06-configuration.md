@@ -244,6 +244,11 @@ related:
 - **settings `bashOutputMaxChars` + `taskOutputMaxChars`** — ขยายปริมาณ output ของคำสั่งและ background task ที่ Claude ได้รับแบบ inline ก่อนถูกเซฟลงไฟล์ ได้สูงสุด 128K ตัวอักษร
 - **`keybindingFlavor` ไม่มีผลอีกต่อไป** — ปุ่มแก้ไขระดับคำในช่อง prompt เป็นแบบ Bash เสมอ ดู [[04-keyboard-shortcuts]]
 
+### 🆕 ใหม่ใน v2.1.265
+
+- **ไฟล์ผลลัพธ์ของ tool ที่เซฟลงดิสก์ถูกจำกัดไว้ที่ 1 GB** — เกินกว่านั้นจะถูกตัด และตัวอย่างผลลัพธ์ในบทสนทนาจะบอกด้วยว่าไฟล์ที่เซฟไว้โดนตัด (ส่วนขีดจำกัดแบบ inline ยังคุมด้วย `bashOutputMaxChars`/`taskOutputMaxChars` เหมือนเดิม)
+- **`forceLoginGatewayUrl` ทำให้เครื่องเป็น Claude apps gateway session ตั้งแต่เริ่ม** — พฤติกรรมเหมือน `forceLoginMethod: "gateway"` และจะไม่หยิบ login ของ claude.ai หรือ API key ที่ค้างอยู่ในเครื่องมาใช้
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

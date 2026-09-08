@@ -219,6 +219,9 @@ related:
 - **บรรทัด "Organization policy" ใน `/status` และ `claude doctor`** — บอกสาเหตุที่โหลด policy ขององค์กรไม่สำเร็จ เช่น proxy ไม่ยอมปล่อย endpoint ให้ผ่าน
 - **`/context` นับ token แบบ local เมื่อ token-counting API ใช้ไม่ได้** — ใช้การประมาณในเครื่องแทนการยิง request เพิ่มไปหาโมเดลเล็ก ดู [[14-context-management]]
 
+### 🆕 ใหม่ใน v2.1.265
+- **พิมพ์ slash command กลางประโยคแล้วขึ้นเป็นรายการที่ตรงกัน** — แสดงหลายตัวเลือกเป็นรายการแทนคำแนะนำอันเดียว (นอกโหมด fullscreen กด `Tab` เพื่อเปิดรายการ) และค้น skill ของ plugin ด้วยชื่อเปล่า ๆ ได้แล้ว ดู [[18-plugins]]
+
 ---
 
 ---

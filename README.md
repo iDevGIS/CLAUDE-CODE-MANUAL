@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.263-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.59.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.265-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.60.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.263`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.265`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -125,8 +125,10 @@
 | 🩺 **`/skill-doctor`** | เช็กว่า skill ที่โหลดอยู่ตัวไหนไม่ถูกเรียกใช้ และแต่ละตัวกิน context เท่าไหร่ จะได้ตัดออกได้ถูกตัว (v2.1.261) |
 | 📏 **คุมปริมาณ output + prompt ไฟล์ใหญ่** | settings `bashOutputMaxChars` + `taskOutputMaxChars` ขยาย output ที่ Claude รับแบบ inline ได้ถึง 128K ตัวอักษร · `--append-subagent-system-prompt-file` อ่าน system prompt ของ subagent จากไฟล์ (v2.1.261) |
 | ⌨️ **behavior เปลี่ยนหลายจุด** | ปุ่มแก้ไขระดับคำเป็นแบบ Bash เสมอ (`keybindingFlavor` ไม่มีผลแล้ว) · auto mode ถือว่า link แบบ diagram renderer เป็นการ upload · `/status`/`claude doctor` มีบรรทัด "Organization policy" · `/context` ประมาณ token แบบ local เมื่อ API ใช้ไม่ได้ (v2.1.261) |
+| 📦 **`--plugin-dir` รับโฟลเดอร์รวม plugin + จำกัดไฟล์ผลลัพธ์ 1 GB** | ชี้ `--plugin-dir` ไปที่โฟลเดอร์แม่ แล้วโฟลเดอร์ลูกทุกตัวที่มี manifest จะถูกโหลด — เพิ่ม/ลบระหว่างที่รันอยู่ก็จับได้ · ไฟล์ผลลัพธ์ของ tool ที่เซฟลงดิสก์ถูกจำกัดไว้ที่ 1 GB และตัวอย่างในบทสนทนาจะบอกเมื่อไฟล์โดนตัด (v2.1.265) |
+| 🗂️ **behavior เปลี่ยนหลายจุด** | พิมพ์ slash command กลางประโยคขึ้นเป็นรายการที่ตรงกัน และค้น skill ของ plugin ด้วยชื่อเปล่า ๆ ได้ · remote MCP server ยังไม่ลงทะเบียน OAuth client จนกว่าจะ sign in · `forceLoginGatewayUrl` ทำให้เครื่องเป็น gateway session ตั้งแต่เริ่ม · VS Code archive session ที่ทิ้งไว้นานให้ (ค่าเริ่มต้น 14 วัน) · `--worktree` checkout แบบขนาน (v2.1.265) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.263` (manual `v1.59.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.265` (manual `v1.60.0`)
 
 ---
 
@@ -149,7 +151,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.263** + โมเดล Fable 5.1 / Opus 5 / Sonnet 5
+ตรงกับ Claude Code **v2.1.265** + โมเดล Fable 5.1 / Opus 5 / Sonnet 5
 
 </td>
 </tr>
@@ -209,7 +211,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.263`
+> **Claude Code Version:** `2.1.265`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

@@ -130,6 +130,10 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 
 - **`/reload-plugins` ใช้ใน session แบบ headless ได้แล้ว** — โผล่ในรายการคำสั่งของ Claude Code Desktop และ SDK แล้ว ดู [[16-headless-mode]]
 
+### 🆕 ใหม่ใน v2.1.265
+
+- **`--plugin-dir` ชี้ไปที่โฟลเดอร์รวม plugin ได้แล้ว** — ชี้ไปที่โฟลเดอร์แม่ แล้วโฟลเดอร์ลูกทุกตัวที่มี manifest จะถูกโหลด และถ้าเพิ่ม/ลบโฟลเดอร์ลูกระหว่างที่ Claude รันอยู่ก็จับได้ ดู [[02-cli-commands]]
+
 ---
 
 ---

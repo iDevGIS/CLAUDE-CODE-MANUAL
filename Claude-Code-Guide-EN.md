@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.263         │
+│ Welcome to Claude Code v2.1.265         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.263
+- run: npm install -g @anthropic-ai/claude-code@2.1.265
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1048,6 +1048,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.261
 
 - **`--append-subagent-system-prompt-file`** — reads the subagent system prompt from a file, for prompts too large to pass on the command line.
+
+### New in v2.1.265
+
+- **`--worktree` starts faster on large repositories** — the new worktree is checked out in parallel (needs git 2.32+).
 
 ---
 
@@ -1279,6 +1283,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/skill-doctor`** — shows which loaded skills go unused and what they cost in context, so you can prune them.
 - **"Organization policy" line in `/status` and `claude doctor`** — says why your organization's policy could not be loaded, such as a proxy not passing the endpoint through.
 - **`/context` counts tokens locally when the token-counting API is unavailable** — a local estimate replaces the extra small-model requests.
+
+### New in v2.1.265
+- **Slash commands typed mid-prompt show a match list** — matches appear as a list instead of a single suggestion (outside fullscreen, `Tab` opens the list), and a plugin skill is now found by its bare name (see 18. Plugins).
 
 ---
 
@@ -1836,6 +1843,11 @@ Skill(commit)                    # Specific skill
 - **`bashOutputMaxChars` + `taskOutputMaxChars` settings** — raise how much command and background-task output Claude receives inline before it is saved to a file, up to 128K characters.
 - **`keybindingFlavor` no longer has any effect** — the prompt's word-editing keys now always match Bash (see 4. Keyboard Shortcuts).
 
+### New in v2.1.265
+
+- **Tool results saved to disk are capped at 1 GB** — anything larger is truncated, and the in-conversation preview says when a saved file was truncated (`bashOutputMaxChars`/`taskOutputMaxChars` still govern the inline limit).
+- **`forceLoginGatewayUrl` makes a machine a Claude apps gateway session from startup** — same as `forceLoginMethod: "gateway"`; a leftover claude.ai login or API key on the machine is not used.
+
 ---
 
 ## 7. CLAUDE.md - Persistent Project Instructions
@@ -2202,6 +2214,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **`managedMcpServers` managed setting** — organizations can provide HTTP/SSE MCP servers to every user, using the same entry shape as `.mcp.json`; entries that name a command to run are skipped.
 - **`allowedMcpServers` now governs only servers users add** — a managed server your allowlist used to filter out loads on upgrade; use `deniedMcpServers` to keep it off.
+
+### New in v2.1.265
+
+- **No OAuth client is registered until you actually sign in** — for remote MCP servers that need authentication, Claude Code waits for you to authenticate before registering an OAuth client with the server.
 
 ---
 
@@ -3173,6 +3189,10 @@ cat src/*.ts | claude -p "find bugs"
 
 - **Screen reader support for the transcript (VS Code)** — live announcements for replies, permission requests, errors and status changes, plus per-turn heading navigation.
 
+### New in v2.1.265
+
+- **Inactive sessions are archived automatically (VS Code)** — the new **"Archive inactive sessions"** setting archives sessions untouched for a set period, 14 days by default (see 19. Session Management).
+
 ### JetBrains IDEs
 
 **Install:**
@@ -3306,6 +3326,10 @@ claude --plugin-dir ./my-plugin
 ### New in v2.1.260
 
 - **`/reload-plugins` works in headless sessions** — it now appears in the Claude Code Desktop and SDK command lists.
+
+### New in v2.1.265
+
+- **`--plugin-dir` accepts a folder of plugins** — point it at a parent folder and every child folder with a manifest loads; children added or removed while Claude is running are picked up (see 2. CLI Commands and Flags).
 
 ---
 
@@ -3706,6 +3730,8 @@ your-project/
 > Integer-valued env vars (timeouts, token budgets, retry counts) also accept scientific notation and digit separators, e.g. `1e6` or `64_000`. *(v2.1.211)*
 
 > OpenTelemetry log events now carry `message.uuid`, `client_request_id`, and `tool_source` attributes for message-level correlation and tool provenance. *(v2.1.214)*
+
+> Claude apps gateway sessions export OpenTelemetry straight to the collector their gateway's managed settings name in `OTEL_EXPORTER_OTLP_ENDPOINT`, instead of through the gateway's relay; sessions with no collector named still go through the relay. *(v2.1.265)*
 
 ### Configure in settings.json
 
@@ -5019,7 +5045,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.263`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.265`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

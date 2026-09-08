@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.263         │
+│ Welcome to Claude Code v2.1.265         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -599,6 +599,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **`--append-subagent-system-prompt-file`** — อ่าน system prompt ของ subagent จากไฟล์ สำหรับ prompt ที่ยาวเกินกว่าจะส่งผ่าน command line ดู [[12-subagents]]
 
+### 🆕 ใหม่ใน v2.1.265
+
+- **`--worktree` เริ่มงานเร็วขึ้นบน repo ใหญ่** — checkout worktree ใหม่แบบขนาน (ต้องใช้ git 2.32+)
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -970,7 +974,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.263
+- run: npm install -g @anthropic-ai/claude-code@2.1.265
 ```
 
 ---

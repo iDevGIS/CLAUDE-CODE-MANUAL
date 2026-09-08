@@ -156,6 +156,10 @@ claude --mcp-config ./mcp.json
 - **managed setting `managedMcpServers`** — องค์กรจัด MCP server แบบ HTTP/SSE ให้ผู้ใช้ทุกคนได้ โดยใช้รูปแบบ entry เดียวกับ `.mcp.json`; ส่วน entry ที่ระบุ command ให้รันจะถูกข้าม
 - **`allowedMcpServers` คุมเฉพาะ server ที่ผู้ใช้เพิ่มเองแล้ว** — server จาก managed ที่ allowlist เราเคยกรองออกจะกลับมาโหลดเมื่ออัปเกรด; ถ้าไม่อยากให้โหลดต้องใช้ `deniedMcpServers` กันไว้
 
+### 🆕 ใหม่ใน v2.1.265
+
+- **ยังไม่ลงทะเบียน OAuth client จนกว่าจะ sign in จริง** — สำหรับ remote MCP server ที่ต้อง authenticate ตัว Claude Code จะรอให้เรา authenticate ก่อน แล้วค่อยไปลงทะเบียน OAuth client กับ server นั้น
+
 ---
 
 ---

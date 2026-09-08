@@ -63,6 +63,10 @@ related:
 
 - **Screen reader support for the transcript (VS Code)** — live announcements for replies, permission requests, errors and status changes, plus per-turn heading navigation.
 
+### New in v2.1.265
+
+- **Inactive sessions are archived automatically (VS Code)** — the new **"Archive inactive sessions"** setting archives sessions untouched for a set period, 14 days by default. See [[19-session-management]].
+
 ### JetBrains IDEs
 
 **Install:**

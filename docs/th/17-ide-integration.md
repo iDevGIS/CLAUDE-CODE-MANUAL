@@ -63,6 +63,10 @@ related:
 
 - **รองรับ screen reader ในหน้า transcript (VS Code)** — ประกาศสดเมื่อมีคำตอบใหม่ คำขอ permission ข้อผิดพลาด และการเปลี่ยนสถานะ · พร้อมเดินอ่านทีละ turn ด้วย heading navigation
 
+### 🆕 ใหม่ใน v2.1.265
+
+- **archive session ที่ทิ้งไว้นานให้อัตโนมัติ (VS Code)** — setting ใหม่ **"Archive inactive sessions"** จะ archive session ที่ไม่ถูกแตะเกินระยะที่ตั้งไว้ ค่าเริ่มต้น 14 วัน ดู [[19-session-management]]
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**

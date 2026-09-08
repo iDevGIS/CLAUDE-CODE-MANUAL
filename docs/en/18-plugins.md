@@ -130,6 +130,10 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 
 - **`/reload-plugins` works in headless sessions** — it now appears in the Claude Code Desktop and SDK command lists. See [[16-headless-mode]].
 
+### New in v2.1.265
+
+- **`--plugin-dir` accepts a folder of plugins** — point it at a parent folder and every child folder with a manifest loads; children added or removed while Claude is running are picked up. See [[02-cli-commands]].
+
 ---
 
 ---

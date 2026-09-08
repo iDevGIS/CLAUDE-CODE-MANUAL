@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.263         │
+│ Welcome to Claude Code v2.1.265         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -599,6 +599,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **`--append-subagent-system-prompt-file`** — reads the subagent system prompt from a file, for prompts too large to pass on the command line. See [[12-subagents]].
 
+### New in v2.1.265
+
+- **`--worktree` starts faster on large repositories** — the new worktree is checked out in parallel (needs git 2.32+).
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -970,7 +974,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.263
+- run: npm install -g @anthropic-ai/claude-code@2.1.265
 ```
 
 ---
