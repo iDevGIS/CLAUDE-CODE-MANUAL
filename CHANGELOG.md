@@ -25,6 +25,19 @@
 
 ---
 
+## [1.61.0] — 2026-09-09
+
+### Compatibility
+- **Claude Code:** `v2.1.266+`
+
+### Changed
+- **Version strings** bumped `2.1.265` → `2.1.266` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.266` ships a single regression fix — the undocumented `CLAUDE_CODE_USE_GATEWAY` environment variable is ignored on its own again, as it was before `2.1.265`, so LLM-gateway and proxy setups that pair it with an API key, `apiKeyHelper` or custom auth headers work without any configuration change. No new documentable features, so this release is a compatibility bump keeping the manual's version references current
+
+---
+
 ## [1.60.0] — 2026-09-09
 
 ### Compatibility
@@ -1406,6 +1419,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.61.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.60.0...v1.61.0
 [1.60.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.59.0...v1.60.0
 [1.59.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.58.0...v1.59.0
 [1.58.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.57.0...v1.58.0
