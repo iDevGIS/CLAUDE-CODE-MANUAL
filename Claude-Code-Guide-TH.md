@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.266         │
+│ Welcome to Claude Code v2.1.267         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -707,6 +707,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **`--worktree` เริ่มงานเร็วขึ้นบน repo ใหญ่** — checkout worktree ใหม่แบบขนาน (ต้องใช้ git 2.32+)
 
+### 🆕 ใหม่ใน v2.1.267
+
+- **`--system-prompt-snapshot off`** — สร้าง system prompt ขึ้นใหม่ทุก request แทนการใช้ prompt ที่บันทึกไว้กับบทสนทนา เหมาะกับตอนไล่ปรับข้อความ prompt
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1038,7 +1042,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.266
+- run: npm install -g @anthropic-ai/claude-code@2.1.267
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1841,6 +1845,10 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **ไฟล์ผลลัพธ์ของ tool ที่เซฟลงดิสก์ถูกจำกัดไว้ที่ 1 GB** — เกินกว่านั้นจะถูกตัด และตัวอย่างผลลัพธ์ในบทสนทนาจะบอกด้วยว่าไฟล์ที่เซฟไว้โดนตัด (ส่วนขีดจำกัดแบบ inline ยังคุมด้วย `bashOutputMaxChars`/`taskOutputMaxChars` เหมือนเดิม)
 - **`forceLoginGatewayUrl` ทำให้เครื่องเป็น Claude apps gateway session ตั้งแต่เริ่ม** — พฤติกรรมเหมือน `forceLoginMethod: "gateway"` และจะไม่หยิบ login ของ claude.ai หรือ API key ที่ค้างอยู่ในเครื่องมาใช้
+
+### 🆕 ใหม่ใน v2.1.267
+
+- **setting `maxEffortLevel`** — จำกัดเพดาน effort level กับทุก provider รวมถึง Bedrock, Vertex และ Foundry ตั้งได้ทั้งระดับบนสุดหรือแยกรายโมเดลใต้ `modelSettings` ผู้ใช้ยังเลือกระดับที่ต่ำกว่าเพดานได้อยู่
 
 ---
 
@@ -5031,7 +5039,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.266`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.267`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

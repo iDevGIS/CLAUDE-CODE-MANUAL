@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.266         │
+│ Welcome to Claude Code v2.1.267         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -603,6 +603,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **`--worktree` starts faster on large repositories** — the new worktree is checked out in parallel (needs git 2.32+).
 
+### New in v2.1.267
+
+- **`--system-prompt-snapshot off`** — renders the system prompt fresh on every request instead of reusing the prompt recorded with the conversation. Useful while iterating on prompt text.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -974,7 +978,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.266
+- run: npm install -g @anthropic-ai/claude-code@2.1.267
 ```
 
 ---

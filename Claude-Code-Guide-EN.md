@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.266         │
+│ Welcome to Claude Code v2.1.267         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.266
+- run: npm install -g @anthropic-ai/claude-code@2.1.267
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1052,6 +1052,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.265
 
 - **`--worktree` starts faster on large repositories** — the new worktree is checked out in parallel (needs git 2.32+).
+
+### New in v2.1.267
+
+- **`--system-prompt-snapshot off`** — renders the system prompt fresh on every request instead of reusing the prompt recorded with the conversation. Useful while iterating on prompt text.
 
 ---
 
@@ -1847,6 +1851,10 @@ Skill(commit)                    # Specific skill
 
 - **Tool results saved to disk are capped at 1 GB** — anything larger is truncated, and the in-conversation preview says when a saved file was truncated (`bashOutputMaxChars`/`taskOutputMaxChars` still govern the inline limit).
 - **`forceLoginGatewayUrl` makes a machine a Claude apps gateway session from startup** — same as `forceLoginMethod: "gateway"`; a leftover claude.ai login or API key on the machine is not used.
+
+### New in v2.1.267
+
+- **`maxEffortLevel` setting** — caps the effort level on every provider, including Bedrock, Vertex and Foundry. Set it at the top level or per model under `modelSettings`; users can still pick a lower level.
 
 ---
 
@@ -5045,7 +5053,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.266`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.267`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

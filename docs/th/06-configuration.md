@@ -249,6 +249,10 @@ related:
 - **ไฟล์ผลลัพธ์ของ tool ที่เซฟลงดิสก์ถูกจำกัดไว้ที่ 1 GB** — เกินกว่านั้นจะถูกตัด และตัวอย่างผลลัพธ์ในบทสนทนาจะบอกด้วยว่าไฟล์ที่เซฟไว้โดนตัด (ส่วนขีดจำกัดแบบ inline ยังคุมด้วย `bashOutputMaxChars`/`taskOutputMaxChars` เหมือนเดิม)
 - **`forceLoginGatewayUrl` ทำให้เครื่องเป็น Claude apps gateway session ตั้งแต่เริ่ม** — พฤติกรรมเหมือน `forceLoginMethod: "gateway"` และจะไม่หยิบ login ของ claude.ai หรือ API key ที่ค้างอยู่ในเครื่องมาใช้
 
+### 🆕 ใหม่ใน v2.1.267
+
+- **setting `maxEffortLevel`** — จำกัดเพดาน effort level กับทุก provider รวมถึง Bedrock, Vertex และ Foundry ตั้งได้ทั้งระดับบนสุดหรือแยกรายโมเดลใต้ `modelSettings` ผู้ใช้ยังเลือกระดับที่ต่ำกว่าเพดานได้อยู่
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

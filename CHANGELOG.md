@@ -25,6 +25,24 @@
 
 ---
 
+## [1.62.0] — 2026-09-10
+
+### Compatibility
+- **Claude Code:** `v2.1.267+`
+
+### Added
+- **บท 06 (Configuration)** — setting `maxEffortLevel` จำกัดเพดาน effort level กับทุก provider รวมถึง Bedrock, Vertex และ Foundry ตั้งได้ทั้งระดับบนสุดของ settings หรือแยกรายโมเดลใต้ `modelSettings` ผู้ใช้ยังเลือกระดับที่ต่ำกว่าเพดานได้อยู่
+- **บท 02 (CLI Commands and Flags)** — flag `--system-prompt-snapshot off` สร้าง system prompt ขึ้นใหม่ทุก request แทนการใช้ prompt ที่บันทึกไว้กับบทสนทนา เหมาะกับตอนไล่ปรับข้อความ prompt
+
+### Changed
+- **Version strings** bumped `2.1.266` → `2.1.267` (current-version references only; historical sections kept)
+- **README.md / README.EN.md** — เพิ่มแถว What's-new สำหรับ `maxEffortLevel` + `--system-prompt-snapshot off`
+
+### Why
+- Upstream `2.1.267` เพิ่มของ documentable สองอย่าง: `maxEffortLevel` ให้องค์กรและผู้ใช้กำหนดเพดาน effort ได้ในที่เดียวข้ามทุก provider และ `--system-prompt-snapshot off` สำหรับคนที่กำลังแก้ข้อความ system prompt แล้วอยากให้ผลมีผลทันทีทุก request ส่วนที่เหลือของรอบนี้เป็น bug fix (prompt-cache/resume, Remote Control, artifact publish) และงาน polish ซึ่งไม่กระทบเนื้อหาคู่มือ
+
+---
+
 ## [1.61.0] — 2026-09-09
 
 ### Compatibility
@@ -1419,6 +1437,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.62.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.61.0...v1.62.0
 [1.61.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.60.0...v1.61.0
 [1.60.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.59.0...v1.60.0
 [1.59.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.58.0...v1.59.0

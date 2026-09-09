@@ -143,7 +143,7 @@ Recommendation:
 
 ## Compatibility
 
-- **Claude Code:** `v2.1.266+`
+- **Claude Code:** `v2.1.267+`
 - **Node.js:** `>= 20`
 - **Shell:** Bash
 - **OS:** macOS / Linux (Windows via WSL)

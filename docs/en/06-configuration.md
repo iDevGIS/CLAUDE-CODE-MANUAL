@@ -249,6 +249,10 @@ Set the `model` key to any of these (newest → cheapest):
 - **Tool results saved to disk are capped at 1 GB** — anything larger is truncated, and the in-conversation preview says when a saved file was truncated (`bashOutputMaxChars`/`taskOutputMaxChars` still govern the inline limit).
 - **`forceLoginGatewayUrl` makes a machine a Claude apps gateway session from startup** — same as `forceLoginMethod: "gateway"`; a leftover claude.ai login or API key on the machine is not used.
 
+### New in v2.1.267
+
+- **`maxEffortLevel` setting** — caps the effort level on every provider, including Bedrock, Vertex and Foundry. Set it at the top level or per model under `modelSettings`; users can still pick a lower level.
+
 ---
 
 ---
