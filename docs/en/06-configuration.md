@@ -253,6 +253,12 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **`maxEffortLevel` setting** — caps the effort level on every provider, including Bedrock, Vertex and Foundry. Set it at the top level or per model under `modelSettings`; users can still pick a lower level.
 
+### New in v2.1.268
+
+- **`gatewayInternalNetworks` managed setting** — lets administrators allow `/login` to a Claude apps gateway on the organization's own public IPv4 block.
+- **Gateway `pricing:` reaches signed-in clients** — with `pricing:` set in `gateway.yaml`, Claude Code clients receive the same rates through managed settings, so `/cost` and telemetry match the spend meter.
+- **Gateways warn about open access control** — a startup warning appears when `access_control.allow_cidrs` is empty, plus a one-time warning the first time a request arrives from a public address.
+
 ---
 
 ---

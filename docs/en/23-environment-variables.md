@@ -72,7 +72,7 @@ related:
 | `CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS` | Stagger between sibling workflow agents that share a prompt prefix, so later agents hit the cached prefix; set `0` to disable. *(v2.1.229)* |
 | `CLAUDE_CODE_TOOL_MEMORY_LIMIT` | Opt-in memory cgroup for Bash tool commands on Linux, so a runaway build can't stall the session. *(v2.1.233)* |
 | `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` | TTL of the WebFetch session URL cache (default unchanged: 15 minutes). *(v2.1.233)* |
-| `CLAUDE_CODE_ENABLE_TODO_TOOLS` | Set `1` to restore the todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`), which are no longer available on Opus 4.8, Sonnet 5, Fable 5, Mythos 5, and newer models. *(v2.1.233)* |
+| `CLAUDE_CODE_ENABLE_TODO_TOOLS` | Set `1` to restore the todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`). They are offered only on Claude 3.x, Opus 4.0–4.7, Sonnet 4.0–4.6 and Haiku 4.5 — set this var on any other model. *(v2.1.233, changed v2.1.268)* |
 | `CLAUDE_CODE_PROJECT_DIR_NAME` | Optional short name for the per-project transcript directory — for hosts that give each session its own config directory. *(v2.1.234)* |
 | `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` | How long background tasks may keep a `/goal` waiting (30 minutes by default) before Claude checks in on them; set `0` to opt out. *(v2.1.234)* |
 | `ANTHROPIC_DEFAULT_MODEL` | The model new sessions start on. Unlike `ANTHROPIC_MODEL`, a `/model` pick still overrides it and that pick persists across restarts. *(v2.1.236)* |
@@ -81,6 +81,7 @@ related:
 | `CLAUDE_CODE_SUBAGENT_MODEL` | Default model for subagents. It is a default, not an override — an agent definition's `model:` and an explicit per-spawn model take precedence over it. *(v2.1.251)* |
 | `CLAUDE_CODE_SUBAGENT_MODEL_FORCE` | Set `1` to apply `CLAUDE_CODE_SUBAGENT_MODEL` (or the main model) to every subagent, ignoring per-spawn and agent-definition model overrides. *(v2.1.257)* |
 | `ANTHROPIC_CUSTOM_HEADERS` | Extra headers on API requests. When set from managed or project settings it now requires approval if it sets a credential, org/tenant, routing, or API-behavior header (e.g. `Authorization`, `Host`). *(v2.1.251)* |
+| `CLAUDE_CODE_WEBFETCH_DEADLINE_MS` | Deadline for a single WebFetch (default 300 seconds), so a server that keeps the response open without finishing can't hang the fetch; `0` turns the deadline off. *(v2.1.268)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

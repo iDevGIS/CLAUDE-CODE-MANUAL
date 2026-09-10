@@ -253,6 +253,12 @@ related:
 
 - **setting `maxEffortLevel`** — จำกัดเพดาน effort level กับทุก provider รวมถึง Bedrock, Vertex และ Foundry ตั้งได้ทั้งระดับบนสุดหรือแยกรายโมเดลใต้ `modelSettings` ผู้ใช้ยังเลือกระดับที่ต่ำกว่าเพดานได้อยู่
 
+### 🆕 ใหม่ใน v2.1.268
+
+- **managed setting `gatewayInternalNetworks`** — ให้ผู้ดูแลระบบอนุญาตการ `/login` เข้า Claude apps gateway จากบล็อก public IPv4 ขององค์กรเองได้
+- **`pricing:` ของ gateway ส่งถึง client ที่ล็อกอินแล้ว** — ถ้าตั้ง `pricing:` ใน `gateway.yaml` client ของ Claude Code จะได้เรตเดียวกันผ่าน managed settings ทำให้ `/cost` และ telemetry ตรงกับมิเตอร์ค่าใช้จ่าย
+- **gateway เตือนเมื่อ access control เปิดโล่ง** — มีคำเตือนตอน start ถ้า `access_control.allow_cidrs` ว่าง และเตือนอีกครั้งเดียวเมื่อมี request จาก public address เข้ามาเป็นครั้งแรก
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

@@ -235,6 +235,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.261
 - **auto mode ถือว่า link แบบ diagram renderer เป็นการ upload** — link ที่อัดเนื้อหาลงใน URL ของเว็บ render diagram สาธารณะ ถูกนับเป็นการ upload ขึ้นเว็บนั้น จึงไม่ถูก auto-approve แล้ว เว้นแต่เราขอเอง
 
+### 🆕 ใหม่ใน v2.1.268
+- **กฎ `WebFetch` เปล่า ๆ ไม่ครอบ Artifact tool อีกแล้ว** — deny/ask rule ของ `WebFetch` ไม่มีผลกับการอ่านและการอัปเดตผ่าน Artifact tool — ถ้าจะบล็อกหรือขอสิทธิ์ก่อน ให้เขียนเป็นกฎ `Artifact` (หรือ `WebFetch(domain:claude.ai)`) แทน
+- **artifact อยู่ในโฟลเดอร์ของ session เท่านั้นเมื่อข้ามการอนุมัติ** — ใน local Cowork session ที่ตั้งให้ข้ามการอนุมัติทั้งหมด Artifact tool จะปฏิเสธไฟล์ในเครื่องที่อยู่นอกโฟลเดอร์ของ session หรืออยู่หลัง symlink แทนที่จะอ่านโดยไม่ถาม
+
 ---
 
 ---

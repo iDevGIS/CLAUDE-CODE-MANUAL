@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.267         │
+│ Welcome to Claude Code v2.1.268         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -711,6 +711,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **`--system-prompt-snapshot off`** — สร้าง system prompt ขึ้นใหม่ทุก request แทนการใช้ prompt ที่บันทึกไว้กับบทสนทนา เหมาะกับตอนไล่ปรับข้อความ prompt
 
+### 🆕 ใหม่ใน v2.1.268
+
+- **`--json` บนคำสั่งกลุ่ม `claude plugin`** — `install`, `uninstall`, `update`, `enable` และ `disable` รับ `--json` ได้แล้ว ส่วน `claude plugin list --json` เพิ่มฟิลด์ `errorDetails` และ `noteDetails` ในทุกแถว
+- **`claude self-hosted-runner --remove-session-state`** — ปิดเป็นค่าเริ่มต้น; ถ้าเปิด จะลบไดเรกทอรีของแต่ละ session ใต้ `<base-dir>/_sessions/` เมื่อ session นั้นจบ
+- **`configDirectory` ใน `claude auth status --json`** — output แบบ JSON บอก config directory ที่ session ใช้อยู่ด้วยแล้ว
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1042,7 +1048,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.267
+- run: npm install -g @anthropic-ai/claude-code@2.1.268
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1618,6 +1624,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.261
 - **auto mode ถือว่า link แบบ diagram renderer เป็นการ upload** — link ที่อัดเนื้อหาลงใน URL ของเว็บ render diagram สาธารณะ ถูกนับเป็นการ upload ขึ้นเว็บนั้น จึงไม่ถูก auto-approve แล้ว เว้นแต่เราขอเอง
 
+### 🆕 ใหม่ใน v2.1.268
+- **กฎ `WebFetch` เปล่า ๆ ไม่ครอบ Artifact tool อีกแล้ว** — deny/ask rule ของ `WebFetch` ไม่มีผลกับการอ่านและการอัปเดตผ่าน Artifact tool — ถ้าจะบล็อกหรือขอสิทธิ์ก่อน ให้เขียนเป็นกฎ `Artifact` (หรือ `WebFetch(domain:claude.ai)`) แทน
+- **artifact อยู่ในโฟลเดอร์ของ session เท่านั้นเมื่อข้ามการอนุมัติ** — ใน local Cowork session ที่ตั้งให้ข้ามการอนุมัติทั้งหมด Artifact tool จะปฏิเสธไฟล์ในเครื่องที่อยู่นอกโฟลเดอร์ของ session หรืออยู่หลัง symlink แทนที่จะอ่านโดยไม่ถาม
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1849,6 +1859,12 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.267
 
 - **setting `maxEffortLevel`** — จำกัดเพดาน effort level กับทุก provider รวมถึง Bedrock, Vertex และ Foundry ตั้งได้ทั้งระดับบนสุดหรือแยกรายโมเดลใต้ `modelSettings` ผู้ใช้ยังเลือกระดับที่ต่ำกว่าเพดานได้อยู่
+
+### 🆕 ใหม่ใน v2.1.268
+
+- **managed setting `gatewayInternalNetworks`** — ให้ผู้ดูแลระบบอนุญาตการ `/login` เข้า Claude apps gateway จากบล็อก public IPv4 ขององค์กรเองได้
+- **`pricing:` ของ gateway ส่งถึง client ที่ล็อกอินแล้ว** — ถ้าตั้ง `pricing:` ใน `gateway.yaml` client ของ Claude Code จะได้เรตเดียวกันผ่าน managed settings ทำให้ `/cost` และ telemetry ตรงกับมิเตอร์ค่าใช้จ่าย
+- **gateway เตือนเมื่อ access control เปิดโล่ง** — มีคำเตือนตอน start ถ้า `access_control.allow_cidrs` ว่าง และเตือนอีกครั้งเดียวเมื่อมี request จาก public address เข้ามาเป็นครั้งแรก
 
 ---
 
@@ -2398,7 +2414,7 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 ### 🆕 ใหม่ใน v2.1.233
 
-- **โมเดลรุ่นใหม่ไม่มี todo/task tools แล้ว** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` และ `TodoWrite` (กลุ่มเครื่องมือที่ทำให้เกิด event `TaskCreated`) ถูกถอดออกจาก Opus 4.8, Sonnet 5, Fable 5, Mythos 5 และรุ่นที่ใหม่กว่า; ตั้ง `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` เพื่อเอากลับมา
+- **โมเดลรุ่นใหม่ไม่มี todo/task tools แล้ว** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` และ `TodoWrite` (กลุ่มเครื่องมือที่ทำให้เกิด event `TaskCreated`) ให้เฉพาะ Claude 3.x, Opus 4.0–4.7, Sonnet 4.0–4.6 และ Haiku 4.5; โมเดลอื่นตั้ง `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` เพื่อเอากลับมา *(ระบุชัดใน v2.1.268)*
 
 ### 🆕 ใหม่ใน v2.1.251
 
@@ -3712,7 +3728,7 @@ your-project/
 | `CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS` | ระยะหน่วงระหว่าง agent พี่น้องใน workflow ที่ใช้ prompt prefix เดียวกัน เพื่อให้ตัวหลังอ่าน prefix จาก cache; ตั้ง `0` เพื่อปิด *(v2.1.229)* |
 | `CLAUDE_CODE_TOOL_MEMORY_LIMIT` | จำกัด memory ของคำสั่ง Bash tool ด้วย cgroup บน Linux (ต้องเปิดเอง) กัน build ที่หลุดควบคุมทำ session ค้าง *(v2.1.233)* |
 | `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` | TTL ของ URL cache ที่ WebFetch ใช้ในแต่ละ session (ค่าเริ่มต้นเท่าเดิม: 15 นาที) *(v2.1.233)* |
-| `CLAUDE_CODE_ENABLE_TODO_TOOLS` | ตั้ง `1` เพื่อเอา todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`) กลับมา — โมเดล Opus 4.8, Sonnet 5, Fable 5, Mythos 5 และรุ่นที่ใหม่กว่าไม่มีเครื่องมือกลุ่มนี้แล้ว *(v2.1.233)* |
+| `CLAUDE_CODE_ENABLE_TODO_TOOLS` | ตั้ง `1` เพื่อเอา todo/task tools (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`, `TodoWrite`) กลับมา — เครื่องมือกลุ่มนี้ให้เฉพาะ Claude 3.x, Opus 4.0–4.7, Sonnet 4.0–4.6 และ Haiku 4.5 เท่านั้น โมเดลอื่นต้องตั้ง env var ตัวนี้เอง *(v2.1.233, เปลี่ยน v2.1.268)* |
 | `CLAUDE_CODE_PROJECT_DIR_NAME` | ตั้งชื่อสั้น ๆ ให้ไดเรกทอรี transcript ของแต่ละโปรเจกต์ (ไม่บังคับ) — สำหรับ host ที่ให้แต่ละ session มี config directory ของตัวเอง *(v2.1.234)* |
 | `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` | งาน background ทำให้ `/goal` รอได้นานแค่ไหน (ค่าเริ่มต้น 30 นาที) ก่อนที่ Claude จะเข้าไปเช็กงานนั้น; ตั้ง `0` เพื่อปิด *(v2.1.234)* |
 | `ANTHROPIC_DEFAULT_MODEL` | โมเดลที่ session ใหม่เริ่มต้นด้วย — ต่างจาก `ANTHROPIC_MODEL` ตรงที่การเลือกโมเดลด้วย `/model` ยังทับค่านี้ได้ และค่าที่เลือกอยู่ข้าม restart *(v2.1.236)* |
@@ -3721,6 +3737,7 @@ your-project/
 | `CLAUDE_CODE_SUBAGENT_MODEL` | โมเดล default ของ subagent — เป็นแค่ค่า default ไม่ใช่ตัว override: `model:` ใน definition ของ agent และโมเดลที่ระบุตอน spawn มีลำดับเหนือกว่า *(v2.1.251)* |
 | `CLAUDE_CODE_SUBAGENT_MODEL_FORCE` | ตั้ง `1` เพื่อบังคับใช้ `CLAUDE_CODE_SUBAGENT_MODEL` (หรือโมเดลหลัก) กับ subagent ทุกตัว โดยไม่สน model override ตอน spawn และใน agent definition *(v2.1.257)* |
 | `ANTHROPIC_CUSTOM_HEADERS` | header เพิ่มเติมของ API request — ถ้าตั้งจาก managed หรือ project settings จะต้องขออนุมัติก่อนเมื่อมันตั้ง header ด้าน credential, org/tenant, routing หรือ API behavior (เช่น `Authorization`, `Host`) *(v2.1.251)* |
+| `CLAUDE_CODE_WEBFETCH_DEADLINE_MS` | เพดานเวลาของ WebFetch หนึ่งครั้ง (ค่าเริ่มต้น 300 วินาที) กัน server ที่ค้าง response ไว้โดยไม่จบทำให้ fetch ค้างตลอด; ตั้ง `0` เพื่อปิดเพดานนี้ *(v2.1.268)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5039,7 +5056,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.267`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.268`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

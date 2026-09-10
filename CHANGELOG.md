@@ -25,6 +25,27 @@
 
 ---
 
+## [1.63.0] — 2026-09-11
+
+### Compatibility
+- **Claude Code:** `v2.1.268+`
+
+### Added
+- **บท 02 (CLI Commands and Flags)** — `--json` ใช้ได้กับ `claude plugin install`/`uninstall`/`update`/`enable`/`disable` และทุกแถวของ `claude plugin list --json` มี `errorDetails`/`noteDetails` · flag `claude self-hosted-runner --remove-session-state` (ปิดเป็นค่าเริ่มต้น) ลบไดเรกทอรีของแต่ละ session ใต้ `<base-dir>/_sessions/` เมื่อ session จบ · `claude auth status --json` เพิ่มฟิลด์ `configDirectory`
+- **บท 05 (Permissions)** — กฎ `WebFetch` เปล่า ๆ ไม่ครอบการอ่าน/อัปเดตผ่าน Artifact tool อีกแล้ว ต้องใช้กฎ `Artifact` (หรือ `WebFetch(domain:claude.ai)`) แทน · local Cowork session ที่ตั้งให้ข้ามการอนุมัติทั้งหมด Artifact tool จะปฏิเสธไฟล์นอกโฟลเดอร์ของ session หรือไฟล์หลัง symlink
+- **บท 06 (Configuration)** — managed setting `gatewayInternalNetworks` อนุญาต `/login` เข้า Claude apps gateway จากบล็อก public IPv4 ขององค์กร · `pricing:` ใน `gateway.yaml` ส่งเรตเดียวกันถึง client ผ่าน managed settings ทำให้ `/cost` และ telemetry ตรงกับมิเตอร์ · gateway เตือนเมื่อ `access_control.allow_cidrs` ว่าง
+- **บท 23 (Environment Variables)** — env var `CLAUDE_CODE_WEBFETCH_DEADLINE_MS` ตั้งเพดานเวลาของ WebFetch หนึ่งครั้ง (ค่าเริ่มต้น 300 วินาที, `0` = ปิด)
+
+### Changed
+- **บท 10 + บท 23** — ปรับรายชื่อโมเดลที่มี todo/task tools ให้ตรงกับ v2.1.268: ให้เฉพาะ Claude 3.x, Opus 4.0–4.7, Sonnet 4.0–4.6 และ Haiku 4.5 โมเดลอื่นต้องตั้ง `CLAUDE_CODE_ENABLE_TODO_TOOLS=1`
+- **Version strings** bumped `2.1.267` → `2.1.268` (current-version references only; historical sections kept)
+- **README.md / README.EN.md** — เพิ่มแถว What's-new สำหรับ `--json` ของ `claude plugin` + `CLAUDE_CODE_WEBFETCH_DEADLINE_MS` และกฎ `Artifact` + `gatewayInternalNetworks`
+
+### Why
+- Upstream `2.1.268` มีของ documentable หลายอย่างที่กระทบวิธีใช้จริง: กฎ permission ของ artifact แยกออกจาก `WebFetch` แล้ว (คนที่เคยบล็อกด้วย `WebFetch` ต้องเขียนกฎใหม่), WebFetch มี deadline กัน hang พร้อม env var ให้ปรับ, ชุดคำสั่ง `claude plugin` ใช้ในสคริปต์ได้ด้วย `--json` และเพดานโมเดลของ todo/task tools ถูกระบุชัดเป็นรายชื่อรุ่นที่ "มี" แทนรายชื่อรุ่นที่ "ไม่มี" ส่วนที่เหลือของรอบนี้เป็น bug fix (CPU busy loop, MCP secrets, compact/resume) และงาน polish ของ VS Code/Slack ซึ่งไม่กระทบเนื้อหาคู่มือ
+
+---
+
 ## [1.62.0] — 2026-09-10
 
 ### Compatibility
@@ -1437,6 +1458,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.63.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.62.0...v1.63.0
 [1.62.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.61.0...v1.62.0
 [1.61.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.60.0...v1.61.0
 [1.60.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.59.0...v1.60.0

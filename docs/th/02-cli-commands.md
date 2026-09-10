@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.267         │
+│ Welcome to Claude Code v2.1.268         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -607,6 +607,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **`--system-prompt-snapshot off`** — สร้าง system prompt ขึ้นใหม่ทุก request แทนการใช้ prompt ที่บันทึกไว้กับบทสนทนา เหมาะกับตอนไล่ปรับข้อความ prompt
 
+### 🆕 ใหม่ใน v2.1.268
+
+- **`--json` บนคำสั่งกลุ่ม `claude plugin`** — `install`, `uninstall`, `update`, `enable` และ `disable` รับ `--json` ได้แล้ว ส่วน `claude plugin list --json` เพิ่มฟิลด์ `errorDetails` และ `noteDetails` ในทุกแถว ดู [[18-plugins]]
+- **`claude self-hosted-runner --remove-session-state`** — ปิดเป็นค่าเริ่มต้น; ถ้าเปิด จะลบไดเรกทอรีของแต่ละ session ใต้ `<base-dir>/_sessions/` เมื่อ session นั้นจบ
+- **`configDirectory` ใน `claude auth status --json`** — output แบบ JSON บอก config directory ที่ session ใช้อยู่ด้วยแล้ว
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -978,7 +984,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.267
+- run: npm install -g @anthropic-ai/claude-code@2.1.268
 ```
 
 ---

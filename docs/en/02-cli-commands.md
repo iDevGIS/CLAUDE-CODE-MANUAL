@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.267         │
+│ Welcome to Claude Code v2.1.268         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -607,6 +607,12 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **`--system-prompt-snapshot off`** — renders the system prompt fresh on every request instead of reusing the prompt recorded with the conversation. Useful while iterating on prompt text.
 
+### New in v2.1.268
+
+- **`--json` on the `claude plugin` commands** — `install`, `uninstall`, `update`, `enable` and `disable` all accept `--json`, and every row of `claude plugin list --json` now carries `errorDetails` and `noteDetails`. See [[18-plugins]].
+- **`claude self-hosted-runner --remove-session-state`** — off by default; when on, each session's per-session directories under `<base-dir>/_sessions/` are deleted when the session ends.
+- **`configDirectory` in `claude auth status --json`** — the JSON output now names the config directory the session is using.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -978,7 +984,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.267
+- run: npm install -g @anthropic-ai/claude-code@2.1.268
 ```
 
 ---

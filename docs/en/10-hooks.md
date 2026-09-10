@@ -189,7 +189,7 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 ### New in v2.1.233
 
-- **Todo/task tools are gone on newer models** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` and `TodoWrite` (the tools behind the `TaskCreated` event) are no longer available on Opus 4.8, Sonnet 5, Fable 5, Mythos 5, and newer models; set `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` to bring them back.
+- **Todo/task tools are gone on newer models** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` and `TodoWrite` (the tools behind the `TaskCreated` event) are offered only on Claude 3.x, Opus 4.0–4.7, Sonnet 4.0–4.6 and Haiku 4.5; set `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` to bring them back elsewhere. *(clarified in v2.1.268)*
 
 ### New in v2.1.251
 

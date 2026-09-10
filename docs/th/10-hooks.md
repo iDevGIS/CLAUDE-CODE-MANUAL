@@ -193,7 +193,7 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 #### 🆕 ใหม่ใน v2.1.233
 
-- **โมเดลรุ่นใหม่ไม่มี todo/task tools แล้ว** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` และ `TodoWrite` (กลุ่มเครื่องมือที่ทำให้เกิด event `TaskCreated`) ถูกถอดออกจาก Opus 4.8, Sonnet 5, Fable 5, Mythos 5 และรุ่นที่ใหม่กว่า; ตั้ง `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` เพื่อเอากลับมา
+- **โมเดลรุ่นใหม่ไม่มี todo/task tools แล้ว** — `TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList` และ `TodoWrite` (กลุ่มเครื่องมือที่ทำให้เกิด event `TaskCreated`) ให้เฉพาะ Claude 3.x, Opus 4.0–4.7, Sonnet 4.0–4.6 และ Haiku 4.5; โมเดลอื่นตั้ง `CLAUDE_CODE_ENABLE_TODO_TOOLS=1` เพื่อเอากลับมา *(ระบุชัดใน v2.1.268)*
 
 #### 🆕 ใหม่ใน v2.1.251
 

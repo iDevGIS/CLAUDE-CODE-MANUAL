@@ -206,6 +206,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.261
 - **Auto mode treats diagram-renderer links as uploads** — a link that packs content into a public diagram renderer's URL now counts as an upload to that site: no longer auto-approved unless you asked for it.
 
+### New in v2.1.268
+- **Plain `WebFetch` rules no longer cover the Artifact tool** — `WebFetch` deny and ask rules stop applying to Artifact tool reads and updates; use an `Artifact` rule (or `WebFetch(domain:claude.ai)`) to block or gate them.
+- **Artifacts stay inside the session's folders when approvals are skipped** — in local Cowork sessions set to skip all approvals, the Artifact tool now refuses a local file outside the session's folders, or behind a symlink, instead of reading it without asking.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block
