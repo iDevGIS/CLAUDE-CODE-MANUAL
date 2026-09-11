@@ -221,6 +221,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.265
 - **Slash commands typed mid-prompt show a match list** — matches appear as a list instead of a single suggestion (outside fullscreen, `Tab` opens the list), and a plugin skill is now found by its bare name. See [[18-plugins]].
 
+### New in v2.1.269
+- **`/output-style [name]`** — lists the available output styles and switches to one. It works over Remote Control and in cloud and other headless sessions, not only interactive ones. See [[16-headless-mode]].
+- **`/ultrareview --post` posts the PR comment itself** — the findings go to the PR as soon as they arrive and the comment link is printed, instead of a second cloud session being started to post them.
+
 ---
 
 ---

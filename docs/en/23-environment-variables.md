@@ -82,6 +82,11 @@ related:
 | `CLAUDE_CODE_SUBAGENT_MODEL_FORCE` | Set `1` to apply `CLAUDE_CODE_SUBAGENT_MODEL` (or the main model) to every subagent, ignoring per-spawn and agent-definition model overrides. *(v2.1.257)* |
 | `ANTHROPIC_CUSTOM_HEADERS` | Extra headers on API requests. When set from managed or project settings it now requires approval if it sets a credential, org/tenant, routing, or API-behavior header (e.g. `Authorization`, `Host`). *(v2.1.251)* |
 | `CLAUDE_CODE_WEBFETCH_DEADLINE_MS` | Deadline for a single WebFetch (default 300 seconds), so a server that keeps the response open without finishing can't hang the fetch; `0` turns the deadline off. *(v2.1.268)* |
+| `OTEL_METRICS_INCLUDE_REPOSITORY` | Tags OpenTelemetry metrics and events with `vcs.*` repository attributes; commit events also carry `vcs.ref.head.*` when `OTEL_LOG_TOOL_DETAILS` is on. *(v2.1.269)* |
+| `CLAUDE_CODE_GATEWAY_MODEL_DISCOVERY_TIMEOUT_MS` | Extends the LLM gateway `/v1/models` discovery timeout (default 3 seconds). *(v2.1.269)* |
+| `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` | Raises the Workflow tool's per-run concurrent agent limit (1–256), for fan-outs that are inference-bound rather than CPU-bound. See [[39-dynamic-workflows]]. *(v2.1.269)* |
+| `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | Set `0` to go back to remote and headless sessions reporting "waiting for your input" while background agents are still running. See [[41-background-agents]]. *(v2.1.269)* |
+| `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | Maximum age of an interrupted turn that `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` will still re-run; 6 hours by default. *(v2.1.269)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

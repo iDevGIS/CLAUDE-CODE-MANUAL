@@ -144,6 +144,10 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 
 - **Workflow tool กิน prompt น้อยลง** — คำอธิบายของ tool เหลือราว 1K token จากเดิม 5.7K โดยย้าย reference สำหรับเขียนสคริปต์ไปไว้ใน skill `workflow-authoring` ที่มากับตัว ให้ Claude โหลดก่อนลงมือเขียนสคริปต์ workflow
 
+### 🆕 ใหม่ใน v2.1.269
+
+- **`CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS`** — ดันเพดานจำนวน agent ที่รันพร้อมกันต่อหนึ่ง run ขึ้นได้ (1–256) เหมาะกับงาน fan-out ที่คอขวดอยู่ที่ inference ไม่ใช่ CPU ดู [[23-environment-variables]]
+
 ---
 
 ---

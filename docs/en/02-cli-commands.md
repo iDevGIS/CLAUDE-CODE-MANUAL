@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.268         │
+│ Welcome to Claude Code v2.1.269         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -613,6 +613,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`claude self-hosted-runner --remove-session-state`** — off by default; when on, each session's per-session directories under `<base-dir>/_sessions/` are deleted when the session ends.
 - **`configDirectory` in `claude auth status --json`** — the JSON output now names the config directory the session is using.
 
+### New in v2.1.269
+
+- **`claude plugin eval`** — runs a plugin's eval suite against Claude Code and returns scored, reproducible results as JSON plus an HTML report. See `claude plugin eval --help` and [[18-plugins]].
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -984,7 +988,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.268
+- run: npm install -g @anthropic-ai/claude-code@2.1.269
 ```
 
 ---

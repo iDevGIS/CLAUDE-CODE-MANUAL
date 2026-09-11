@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.268         │
+│ Welcome to Claude Code v2.1.269         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -613,6 +613,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **`claude self-hosted-runner --remove-session-state`** — ปิดเป็นค่าเริ่มต้น; ถ้าเปิด จะลบไดเรกทอรีของแต่ละ session ใต้ `<base-dir>/_sessions/` เมื่อ session นั้นจบ
 - **`configDirectory` ใน `claude auth status --json`** — output แบบ JSON บอก config directory ที่ session ใช้อยู่ด้วยแล้ว
 
+### 🆕 ใหม่ใน v2.1.269
+
+- **`claude plugin eval`** — รัน eval suite ของ plugin กับ Claude Code แล้วได้ผลแบบให้คะแนนและทำซ้ำได้ ออกมาเป็น JSON พร้อมรายงาน HTML ดูรายละเอียดที่ `claude plugin eval --help` และ [[18-plugins]]
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -984,7 +988,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.268
+- run: npm install -g @anthropic-ai/claude-code@2.1.269
 ```
 
 ---

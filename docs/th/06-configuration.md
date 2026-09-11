@@ -259,6 +259,10 @@ related:
 - **`pricing:` ของ gateway ส่งถึง client ที่ล็อกอินแล้ว** — ถ้าตั้ง `pricing:` ใน `gateway.yaml` client ของ Claude Code จะได้เรตเดียวกันผ่าน managed settings ทำให้ `/cost` และ telemetry ตรงกับมิเตอร์ค่าใช้จ่าย
 - **gateway เตือนเมื่อ access control เปิดโล่ง** — มีคำเตือนตอน start ถ้า `access_control.allow_cidrs` ว่าง และเตือนอีกครั้งเดียวเมื่อมี request จาก public address เข้ามาเป็นครั้งแรก
 
+### 🆕 ใหม่ใน v2.1.269
+
+- **setting `bashEditDiffEnabled`** — เมื่อ Bash tool เป็นตัวจัดการการแก้ไฟล์ ผลลัพธ์ของ tool จะแนบ diff ของไฟล์ที่คำสั่งนั้นเปลี่ยนมาให้ด้วย
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

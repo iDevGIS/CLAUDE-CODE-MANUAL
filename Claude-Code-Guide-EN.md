@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.268         │
+│ Welcome to Claude Code v2.1.269         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.268
+- run: npm install -g @anthropic-ai/claude-code@2.1.269
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1062,6 +1062,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **`--json` on the `claude plugin` commands** — `install`, `uninstall`, `update`, `enable` and `disable` all accept `--json`, and every row of `claude plugin list --json` now carries `errorDetails` and `noteDetails`.
 - **`claude self-hosted-runner --remove-session-state`** — off by default; when on, each session's per-session directories under `<base-dir>/_sessions/` are deleted when the session ends.
 - **`configDirectory` in `claude auth status --json`** — the JSON output now names the config directory the session is using.
+
+### New in v2.1.269
+
+- **`claude plugin eval`** — runs a plugin's eval suite against Claude Code and returns scored, reproducible results as JSON plus an HTML report. See `claude plugin eval --help`.
 
 ---
 
@@ -1296,6 +1300,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 
 ### New in v2.1.265
 - **Slash commands typed mid-prompt show a match list** — matches appear as a list instead of a single suggestion (outside fullscreen, `Tab` opens the list), and a plugin skill is now found by its bare name (see 18. Plugins).
+
+### New in v2.1.269
+- **`/output-style [name]`** — lists the available output styles and switches to one. It works over Remote Control and in cloud and other headless sessions, not only interactive ones.
+- **`/ultrareview --post` posts the PR comment itself** — the findings go to the PR as soon as they arrive and the comment link is printed, instead of a second cloud session being started to post them.
 
 ---
 
@@ -1634,6 +1642,10 @@ Skill(commit)                    # Specific skill
 - **Plain `WebFetch` rules no longer cover the Artifact tool** — `WebFetch` deny and ask rules stop applying to Artifact tool reads and updates; use an `Artifact` rule (or `WebFetch(domain:claude.ai)`) to block or gate them.
 - **Artifacts stay inside the session's folders when approvals are skipped** — in local Cowork sessions set to skip all approvals, the Artifact tool now refuses a local file outside the session's folders, or behind a symlink, instead of reading it without asking.
 
+### New in v2.1.269
+- **A `!` deny or ask rule stays inside its own settings source** — such a rule no longer applies beyond the settings file that wrote it, and a bare `!` negation is ignored.
+- **Write rules follow a Bash `tee`** — `Edit()` deny rules and the write-path check now apply to the file a `tee` command writes, so a `Bash(tee:*)` allow rule no longer covers destinations outside the working directories.
+
 ---
 
 ## 6. Configuration
@@ -1871,6 +1883,10 @@ Skill(commit)                    # Specific skill
 - **`gatewayInternalNetworks` managed setting** — lets administrators allow `/login` to a Claude apps gateway on the organization's own public IPv4 block.
 - **Gateway `pricing:` reaches signed-in clients** — with `pricing:` set in `gateway.yaml`, Claude Code clients receive the same rates through managed settings, so `/cost` and telemetry match the spend meter.
 - **Gateways warn about open access control** — a startup warning appears when `access_control.allow_cidrs` is empty, plus a one-time warning the first time a request arrives from a public address.
+
+### New in v2.1.269
+
+- **`bashEditDiffEnabled` setting** — when the Bash tool handles a file edit, the tool result carries a diff of the files that command changed.
 
 ---
 
@@ -3463,6 +3479,10 @@ Shows an interactive picker to choose a session.
 
 - **Cross-session messaging works everywhere** — `SendMessage` / `ListAgents` between sessions on the same machine now also work on Bedrock, Vertex, and Foundry, and when telemetry is disabled.
 
+### New in v2.1.269
+
+- **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS`** — caps how old an interrupted turn may be and still be re-run on resume. Without it, a turn that failed with an API error more than 6 hours ago is no longer re-run.
+
 ### Session File Locations
 
 ```
@@ -3749,6 +3769,11 @@ your-project/
 | `CLAUDE_CODE_SUBAGENT_MODEL_FORCE` | Set `1` to apply `CLAUDE_CODE_SUBAGENT_MODEL` (or the main model) to every subagent, ignoring per-spawn and agent-definition model overrides. *(v2.1.257)* |
 | `ANTHROPIC_CUSTOM_HEADERS` | Extra headers on API requests. When set from managed or project settings it now requires approval if it sets a credential, org/tenant, routing, or API-behavior header (e.g. `Authorization`, `Host`). *(v2.1.251)* |
 | `CLAUDE_CODE_WEBFETCH_DEADLINE_MS` | Deadline for a single WebFetch (default 300 seconds), so a server that keeps the response open without finishing can't hang the fetch; `0` turns the deadline off. *(v2.1.268)* |
+| `OTEL_METRICS_INCLUDE_REPOSITORY` | Tags OpenTelemetry metrics and events with `vcs.*` repository attributes; commit events also carry `vcs.ref.head.*` when `OTEL_LOG_TOOL_DETAILS` is on. *(v2.1.269)* |
+| `CLAUDE_CODE_GATEWAY_MODEL_DISCOVERY_TIMEOUT_MS` | Extends the LLM gateway `/v1/models` discovery timeout (default 3 seconds). *(v2.1.269)* |
+| `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` | Raises the Workflow tool's per-run concurrent agent limit (1–256), for fan-outs that are inference-bound rather than CPU-bound. *(v2.1.269)* |
+| `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | Set `0` to go back to remote and headless sessions reporting "waiting for your input" while background agents are still running. *(v2.1.269)* |
+| `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | Maximum age of an interrupted turn that `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` will still re-run; 6 hours by default. *(v2.1.269)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5070,7 +5095,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.268`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.269`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

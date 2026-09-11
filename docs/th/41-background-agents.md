@@ -122,6 +122,11 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 
 - **ถอดเพดาน 1 ชั่วโมงของ background command ที่ subagent สั่ง** — ตอนนี้รันไปจนจบหรือจนถูกสั่งหยุด เท่าเทียมกับ session หลัก ดู [[12-subagents]]
 
+### 🆕 ใหม่ใน v2.1.269
+
+- **session แบบ remote และ headless ไม่บอกว่าว่างทั้งที่ background agent ยังทำงานอยู่** — เลิกรายงาน "waiting for your input" เมื่องาน background ยังไม่จบ; ตั้ง `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING=0` ถ้าอยากได้พฤติกรรมเดิม
+- **task notification สะอาดขึ้นตอน resume** — escape code ของ terminal, การขึ้นบรรทัดใหม่ และข้อความยาวเกินจากไฟล์บันทึกของ background task ไม่หลุดเข้ามาใน task list และ task notification อีกแล้ว
+
 ---
 
 ---

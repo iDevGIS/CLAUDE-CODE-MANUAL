@@ -127,6 +127,10 @@ Shows an interactive picker to choose a session.
 
 - **Cross-session messaging works everywhere** — `SendMessage` / `ListAgents` between sessions on the same machine now also work on Bedrock, Vertex, and Foundry, and when telemetry is disabled.
 
+### New in v2.1.269
+
+- **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS`** — caps how old an interrupted turn may be and still be re-run on resume. Without it, a turn that failed with an API error more than 6 hours ago is no longer re-run. See [[23-environment-variables]].
+
 ---
 
 ---

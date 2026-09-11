@@ -127,6 +127,10 @@ claude --fork-session                # แยก Branch ใหม่
 
 - **cross-session messaging ใช้ได้ทุกที่แล้ว** — `SendMessage` / `ListAgents` ระหว่าง session บนเครื่องเดียวกันใช้ได้บน Bedrock, Vertex และ Foundry รวมถึงตอนที่ปิด telemetry ด้วย
 
+### 🆕 ใหม่ใน v2.1.269
+
+- **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS`** — จำกัดว่า turn ที่ถูกขัดจังหวะเก่าได้แค่ไหนถึงจะยังถูกรันซ้ำตอน resume; ถ้าไม่ตั้ง turn ที่ล้มด้วย API error เกิน 6 ชั่วโมงจะไม่ถูกรันซ้ำอีก ดู [[23-environment-variables]]
+
 ---
 
 ---

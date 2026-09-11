@@ -144,6 +144,10 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 
 - **Leaner Workflow tool prompt** — the tool's description now costs about 1K tokens instead of 5.7K; the script-writing reference moved into a bundled `workflow-authoring` skill that Claude loads before authoring a workflow script.
 
+### New in v2.1.269
+
+- **`CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS`** — raises the per-run concurrent agent limit (1–256) for fan-outs that are inference-bound rather than CPU-bound. See [[23-environment-variables]].
+
 ---
 
 ---

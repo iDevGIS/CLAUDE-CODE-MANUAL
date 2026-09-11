@@ -82,6 +82,11 @@ related:
 | `CLAUDE_CODE_SUBAGENT_MODEL_FORCE` | ตั้ง `1` เพื่อบังคับใช้ `CLAUDE_CODE_SUBAGENT_MODEL` (หรือโมเดลหลัก) กับ subagent ทุกตัว โดยไม่สน model override ตอน spawn และใน agent definition *(v2.1.257)* |
 | `ANTHROPIC_CUSTOM_HEADERS` | header เพิ่มเติมของ API request — ถ้าตั้งจาก managed หรือ project settings จะต้องขออนุมัติก่อนเมื่อมันตั้ง header ด้าน credential, org/tenant, routing หรือ API behavior (เช่น `Authorization`, `Host`) *(v2.1.251)* |
 | `CLAUDE_CODE_WEBFETCH_DEADLINE_MS` | เพดานเวลาของ WebFetch หนึ่งครั้ง (ค่าเริ่มต้น 300 วินาที) กัน server ที่ค้าง response ไว้โดยไม่จบทำให้ fetch ค้างตลอด; ตั้ง `0` เพื่อปิดเพดานนี้ *(v2.1.268)* |
+| `OTEL_METRICS_INCLUDE_REPOSITORY` | ติด attribute `vcs.*` ของ repository ให้ metric และ event ของ OpenTelemetry; event ของ commit ได้ `vcs.ref.head.*` เพิ่มด้วยเมื่อเปิด `OTEL_LOG_TOOL_DETAILS` *(v2.1.269)* |
+| `CLAUDE_CODE_GATEWAY_MODEL_DISCOVERY_TIMEOUT_MS` | ขยาย timeout ของการ discovery `/v1/models` บน LLM gateway (ค่าเริ่มต้น 3 วินาที) *(v2.1.269)* |
+| `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` | ดันเพดานจำนวน agent ที่รันพร้อมกันต่อหนึ่ง run ของ Workflow tool (1–256) สำหรับงาน fan-out ที่คอขวดอยู่ที่ inference ไม่ใช่ CPU ดู [[39-dynamic-workflows]] *(v2.1.269)* |
+| `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | ตั้ง `0` เพื่อกลับไปให้ session แบบ remote และ headless รายงาน "waiting for your input" ทั้งที่ background agent ยังทำงานอยู่ แบบเดิม ดู [[41-background-agents]] *(v2.1.269)* |
+| `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | อายุสูงสุดของ turn ที่ถูกขัดจังหวะซึ่ง `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` จะยังยอมรันซ้ำ ค่าเริ่มต้น 6 ชั่วโมง *(v2.1.269)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

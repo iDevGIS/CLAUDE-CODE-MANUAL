@@ -25,6 +25,31 @@
 
 ---
 
+## [1.64.0] — 2026-09-12
+
+### Compatibility
+- **Claude Code:** `v2.1.269+`
+
+### Added
+- **บท 02 (CLI Commands and Flags)** — คำสั่ง `claude plugin eval` รัน eval suite ของ plugin กับ Claude Code แล้วคืนผลแบบให้คะแนนและทำซ้ำได้เป็น JSON พร้อมรายงาน HTML (ดู `claude plugin eval --help`)
+- **บท 03 (Slash Commands)** — `/output-style [name]` แสดงรายการ output style และสลับไปใช้ตัวที่ระบุ ใช้ได้ผ่าน Remote Control และใน session แบบ cloud/headless ด้วย
+- **บท 05 (Permissions)** — กฎ deny/ask ที่ขึ้นต้นด้วย `!` มีผลเฉพาะใน settings source ที่เขียนมัน และการ negate ด้วย `!` เปล่า ๆ ถูกเมิน · deny rule ของ `Edit()` และการตรวจ write path ตามไปถึงไฟล์ปลายทางที่ `tee` เขียน ทำให้ allow rule `Bash(tee:*)` ไม่ครอบปลายทางนอก working directory
+- **บท 06 (Configuration)** — setting `bashEditDiffEnabled` แนบ diff ของไฟล์ที่คำสั่งเปลี่ยนมากับผลลัพธ์ของ Bash tool เมื่อ Bash tool เป็นตัวจัดการการแก้ไฟล์
+- **บท 19 (Session Management)** — env var `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` จำกัดอายุของ turn ที่ถูกขัดจังหวะซึ่งจะถูกรันซ้ำตอน resume (ค่าเริ่มต้น 6 ชั่วโมง)
+- **บท 23 (Environment Variables)** — เพิ่ม 5 ตัว: `OTEL_METRICS_INCLUDE_REPOSITORY`, `CLAUDE_CODE_GATEWAY_MODEL_DISCOVERY_TIMEOUT_MS`, `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS`, `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING`, `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS`
+- **บท 39 (Dynamic Workflows)** — `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` ดันเพดาน agent ที่รันพร้อมกันต่อหนึ่ง run ได้ถึง 1–256 สำหรับ fan-out ที่คอขวดอยู่ที่ inference
+- **บท 41 (Background Agents)** — session แบบ remote/headless เลิกรายงาน "waiting for your input" ขณะ background agent ยังทำงาน (`CLAUDE_CODE_BG_TASKS_REPORT_RUNNING=0` เพื่อกลับพฤติกรรมเดิม) · task notification ไม่ปนเปื้อน escape code/ข้อความยาวเกินจากไฟล์บันทึกของ task อีกแล้ว
+
+### Changed
+- **บท 03 (Slash Commands)** — `/ultrareview --post` โพสต์คอมเมนต์ลง PR เองทันทีที่ผลรีวิวมาถึงแล้วพิมพ์ลิงก์ให้ แทนการเปิด cloud session อีกตัวมาโพสต์
+- **Version strings** bumped `2.1.268` → `2.1.269` (current-version references only; historical sections kept)
+- **README.md / README.EN.md** — เพิ่มแถว What's-new สำหรับ `claude plugin eval` + `/output-style` และกฎ `!`/`tee` + `bashEditDiffEnabled`
+
+### Why
+- Upstream `2.1.269` มีของที่กระทบวิธีใช้จริงหลายจุด: กฎ permission ที่ขึ้นต้นด้วย `!` เคยรั่วข้าม settings source และ `Bash(tee:*)` เคยเป็นช่องเขียนไฟล์นอก working directory — ทั้งสองอย่างนี้คนที่วางกฎไว้ต้องรู้ว่าพฤติกรรมเปลี่ยนแล้ว · `/output-style` ใช้ได้ในโหมด headless/cloud ทำให้สคริปต์สลับสไตล์ได้ · `claude plugin eval` เป็นคำสั่งใหม่สำหรับคนทำ plugin · env var ใหม่ 5 ตัวคุม OTel, gateway discovery, เพดาน concurrency ของ workflow, การรายงานสถานะ background และอายุ turn ที่ resume ซ้ำ ส่วนที่เหลือของรอบนี้เป็น bug fix ด้าน terminal/prompt-cache และงาน polish ซึ่งไม่กระทบเนื้อหาคู่มือ
+
+---
+
 ## [1.63.0] — 2026-09-11
 
 ### Compatibility
@@ -1458,6 +1483,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.64.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.63.0...v1.64.0
 [1.63.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.62.0...v1.63.0
 [1.62.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.61.0...v1.62.0
 [1.61.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.60.0...v1.61.0

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.268         │
+│ Welcome to Claude Code v2.1.269         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -717,6 +717,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **`claude self-hosted-runner --remove-session-state`** — ปิดเป็นค่าเริ่มต้น; ถ้าเปิด จะลบไดเรกทอรีของแต่ละ session ใต้ `<base-dir>/_sessions/` เมื่อ session นั้นจบ
 - **`configDirectory` ใน `claude auth status --json`** — output แบบ JSON บอก config directory ที่ session ใช้อยู่ด้วยแล้ว
 
+### 🆕 ใหม่ใน v2.1.269
+
+- **`claude plugin eval`** — รัน eval suite ของ plugin กับ Claude Code แล้วได้ผลแบบให้คะแนนและทำซ้ำได้ ออกมาเป็น JSON พร้อมรายงาน HTML ดูรายละเอียดที่ `claude plugin eval --help`
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1048,7 +1052,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.268
+- run: npm install -g @anthropic-ai/claude-code@2.1.269
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1290,6 +1294,10 @@ claude -p "..."              # ถามเร็ว ๆ
 
 ### 🆕 ใหม่ใน v2.1.265
 - **พิมพ์ slash command กลางประโยคแล้วขึ้นเป็นรายการที่ตรงกัน** — แสดงหลายตัวเลือกเป็นรายการแทนคำแนะนำอันเดียว (นอกโหมด fullscreen กด `Tab` เพื่อเปิดรายการ) และค้น skill ของ plugin ด้วยชื่อเปล่า ๆ ได้แล้ว (ดูบท 18. Plugins)
+
+### 🆕 ใหม่ใน v2.1.269
+- **`/output-style [name]`** — แสดงรายการ output style ที่มีและสลับไปใช้ตัวที่ระบุ ใช้ได้ทั้งผ่าน Remote Control, session บน cloud และ session headless อื่น ๆ ไม่ใช่เฉพาะโหมด interactive
+- **`/ultrareview --post` โพสต์คอมเมนต์ลง PR เอง** — พอผลรีวิวมาถึงก็โพสต์ลง PR แล้วพิมพ์ลิงก์คอมเมนต์ให้เลย แทนการเปิด cloud session อีกตัวมาโพสต์
 
 ---
 
@@ -1628,6 +1636,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **กฎ `WebFetch` เปล่า ๆ ไม่ครอบ Artifact tool อีกแล้ว** — deny/ask rule ของ `WebFetch` ไม่มีผลกับการอ่านและการอัปเดตผ่าน Artifact tool — ถ้าจะบล็อกหรือขอสิทธิ์ก่อน ให้เขียนเป็นกฎ `Artifact` (หรือ `WebFetch(domain:claude.ai)`) แทน
 - **artifact อยู่ในโฟลเดอร์ของ session เท่านั้นเมื่อข้ามการอนุมัติ** — ใน local Cowork session ที่ตั้งให้ข้ามการอนุมัติทั้งหมด Artifact tool จะปฏิเสธไฟล์ในเครื่องที่อยู่นอกโฟลเดอร์ของ session หรืออยู่หลัง symlink แทนที่จะอ่านโดยไม่ถาม
 
+### 🆕 ใหม่ใน v2.1.269
+- **กฎ deny/ask ที่ขึ้นต้นด้วย `!` มีผลเฉพาะใน settings source ของตัวเอง** — กฎแบบนี้ไม่ข้ามไปมีผลนอกไฟล์ settings ที่เขียนมันอีกแล้ว และการ negate ด้วย `!` เปล่า ๆ จะถูกเมิน
+- **กฎฝั่งเขียนไฟล์ตามไปถึงปลายทางของ `tee`** — deny rule ของ `Edit()` และการตรวจ write path มีผลกับไฟล์ที่คำสั่ง `tee` เขียนด้วยแล้ว ดังนั้น allow rule `Bash(tee:*)` ไม่ครอบปลายทางที่อยู่นอก working directory อีกต่อไป
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1865,6 +1877,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **managed setting `gatewayInternalNetworks`** — ให้ผู้ดูแลระบบอนุญาตการ `/login` เข้า Claude apps gateway จากบล็อก public IPv4 ขององค์กรเองได้
 - **`pricing:` ของ gateway ส่งถึง client ที่ล็อกอินแล้ว** — ถ้าตั้ง `pricing:` ใน `gateway.yaml` client ของ Claude Code จะได้เรตเดียวกันผ่าน managed settings ทำให้ `/cost` และ telemetry ตรงกับมิเตอร์ค่าใช้จ่าย
 - **gateway เตือนเมื่อ access control เปิดโล่ง** — มีคำเตือนตอน start ถ้า `access_control.allow_cidrs` ว่าง และเตือนอีกครั้งเดียวเมื่อมี request จาก public address เข้ามาเป็นครั้งแรก
+
+### 🆕 ใหม่ใน v2.1.269
+
+- **setting `bashEditDiffEnabled`** — เมื่อ Bash tool เป็นตัวจัดการการแก้ไฟล์ ผลลัพธ์ของ tool จะแนบ diff ของไฟล์ที่คำสั่งนั้นเปลี่ยนมาให้ด้วย
 
 ---
 
@@ -3458,6 +3474,10 @@ claude --fork-session                # แยก Branch ใหม่
 
 - **cross-session messaging ใช้ได้ทุกที่แล้ว** — `SendMessage` / `ListAgents` ระหว่าง session บนเครื่องเดียวกันใช้ได้บน Bedrock, Vertex และ Foundry รวมถึงตอนที่ปิด telemetry ด้วย
 
+### 🆕 ใหม่ใน v2.1.269
+
+- **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS`** — จำกัดว่า turn ที่ถูกขัดจังหวะเก่าได้แค่ไหนถึงจะยังถูกรันซ้ำตอน resume; ถ้าไม่ตั้ง turn ที่ล้มด้วย API error เกิน 6 ชั่วโมงจะไม่ถูกรันซ้ำอีก
+
 ---
 
 ## 20. Scheduled Tasks (งานตั้งเวลา)
@@ -3738,6 +3758,11 @@ your-project/
 | `CLAUDE_CODE_SUBAGENT_MODEL_FORCE` | ตั้ง `1` เพื่อบังคับใช้ `CLAUDE_CODE_SUBAGENT_MODEL` (หรือโมเดลหลัก) กับ subagent ทุกตัว โดยไม่สน model override ตอน spawn และใน agent definition *(v2.1.257)* |
 | `ANTHROPIC_CUSTOM_HEADERS` | header เพิ่มเติมของ API request — ถ้าตั้งจาก managed หรือ project settings จะต้องขออนุมัติก่อนเมื่อมันตั้ง header ด้าน credential, org/tenant, routing หรือ API behavior (เช่น `Authorization`, `Host`) *(v2.1.251)* |
 | `CLAUDE_CODE_WEBFETCH_DEADLINE_MS` | เพดานเวลาของ WebFetch หนึ่งครั้ง (ค่าเริ่มต้น 300 วินาที) กัน server ที่ค้าง response ไว้โดยไม่จบทำให้ fetch ค้างตลอด; ตั้ง `0` เพื่อปิดเพดานนี้ *(v2.1.268)* |
+| `OTEL_METRICS_INCLUDE_REPOSITORY` | ติด attribute `vcs.*` ของ repository ให้ metric และ event ของ OpenTelemetry; event ของ commit ได้ `vcs.ref.head.*` เพิ่มด้วยเมื่อเปิด `OTEL_LOG_TOOL_DETAILS` *(v2.1.269)* |
+| `CLAUDE_CODE_GATEWAY_MODEL_DISCOVERY_TIMEOUT_MS` | ขยาย timeout ของการ discovery `/v1/models` บน LLM gateway (ค่าเริ่มต้น 3 วินาที) *(v2.1.269)* |
+| `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` | ดันเพดานจำนวน agent ที่รันพร้อมกันต่อหนึ่ง run ของ Workflow tool (1–256) สำหรับงาน fan-out ที่คอขวดอยู่ที่ inference ไม่ใช่ CPU *(v2.1.269)* |
+| `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | ตั้ง `0` เพื่อกลับไปให้ session แบบ remote และ headless รายงาน "waiting for your input" ทั้งที่ background agent ยังทำงานอยู่ แบบเดิม *(v2.1.269)* |
+| `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | อายุสูงสุดของ turn ที่ถูกขัดจังหวะซึ่ง `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` จะยังยอมรันซ้ำ ค่าเริ่มต้น 6 ชั่วโมง *(v2.1.269)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5056,7 +5081,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.268`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.269`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

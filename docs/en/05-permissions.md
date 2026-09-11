@@ -210,6 +210,10 @@ Skill(commit)                    # Specific skill
 - **Plain `WebFetch` rules no longer cover the Artifact tool** — `WebFetch` deny and ask rules stop applying to Artifact tool reads and updates; use an `Artifact` rule (or `WebFetch(domain:claude.ai)`) to block or gate them.
 - **Artifacts stay inside the session's folders when approvals are skipped** — in local Cowork sessions set to skip all approvals, the Artifact tool now refuses a local file outside the session's folders, or behind a symlink, instead of reading it without asking.
 
+### New in v2.1.269
+- **A `!` deny or ask rule stays inside its own settings source** — such a rule no longer applies beyond the settings file that wrote it, and a bare `!` negation is ignored.
+- **Write rules follow a Bash `tee`** — `Edit()` deny rules and the write-path check now apply to the file a `tee` command writes, so a `Bash(tee:*)` allow rule no longer covers destinations outside the working directories.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

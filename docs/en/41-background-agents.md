@@ -122,6 +122,11 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 
 - **No more one-hour limit on subagent background commands** — background commands started by subagents now run until they exit or are stopped, matching the main session. See [[12-subagents]].
 
+### New in v2.1.269
+
+- **Remote and headless sessions no longer claim to be idle while background agents run** — they stop reporting "waiting for your input" when background work is still going; set `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING=0` to restore the old behavior.
+- **Cleaner task notifications on resume** — terminal escape codes, line breaks and oversized text from a background task's on-disk record no longer reach the task list or task notifications.
+
 ---
 
 ---

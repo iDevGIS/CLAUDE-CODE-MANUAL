@@ -259,6 +259,10 @@ Set the `model` key to any of these (newest → cheapest):
 - **Gateway `pricing:` reaches signed-in clients** — with `pricing:` set in `gateway.yaml`, Claude Code clients receive the same rates through managed settings, so `/cost` and telemetry match the spend meter.
 - **Gateways warn about open access control** — a startup warning appears when `access_control.allow_cidrs` is empty, plus a one-time warning the first time a request arrives from a public address.
 
+### New in v2.1.269
+
+- **`bashEditDiffEnabled` setting** — when the Bash tool handles a file edit, the tool result carries a diff of the files that command changed.
+
 ---
 
 ---
