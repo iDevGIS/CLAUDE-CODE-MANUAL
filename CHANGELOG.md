@@ -25,6 +25,19 @@
 
 ---
 
+## [1.65.0] — 2026-09-13
+
+### Compatibility
+- **Claude Code:** `v2.1.270+`
+
+### Changed
+- **Version strings** bumped `2.1.269` → `2.1.270` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.270` ออกมาเป็น hotfix ตัวเดียว: แก้อาการที่คำสั่ง git แบบ read-only ใน Bash tool กลับมาถาม permission หลัง session รันไปสักพัก (regression จาก `2.1.269`) — เป็น bug fix ล้วน ไม่มีคำสั่ง/flag/setting/env var/behavior ใหม่ที่ต้องเขียนถึง คู่มือรอบนี้จึงขยับเฉพาะเลขเวอร์ชันอ้างอิงให้ตรงกับ upstream
+
+---
+
 ## [1.64.0] — 2026-09-12
 
 ### Compatibility
@@ -1483,6 +1496,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.65.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.64.0...v1.65.0
 [1.64.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.63.0...v1.64.0
 [1.63.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.62.0...v1.63.0
 [1.62.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.61.0...v1.62.0
