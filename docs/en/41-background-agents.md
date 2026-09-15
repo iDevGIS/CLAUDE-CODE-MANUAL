@@ -127,6 +127,12 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 - **Remote and headless sessions no longer claim to be idle while background agents run** — they stop reporting "waiting for your input" when background work is still going; set `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING=0` to restore the old behavior.
 - **Cleaner task notifications on resume** — terminal escape codes, line breaks and oversized text from a background task's on-disk record no longer reach the task list or task notifications.
 
+### New in v2.1.271
+
+- **Monitor watches always have a deadline** — a watch now runs at most 30 minutes (10 in a single-prompt `-p` run) and notifies Claude to re-arm it; the no-timeout `persistent` option is gone.
+- **Up to 10 watched artifacts per session** — a session can watch 10 published artifacts at once for republishes made elsewhere, up from 5, and background sessions (`claude --bg`, `claude agents`) watch the artifacts they publish too.
+- **Fast mode in Claude Code Remote sessions** — cloud and self-hosted runner sessions honour the host's fast-mode setting or `/fast` typed in the session, where the organization allows it. See [[03-slash-commands]].
+
 ---
 
 ---

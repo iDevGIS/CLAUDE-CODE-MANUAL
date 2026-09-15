@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.270         │
+│ Welcome to Claude Code v2.1.272         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -721,6 +721,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **`claude plugin eval`** — รัน eval suite ของ plugin กับ Claude Code แล้วได้ผลแบบให้คะแนนและทำซ้ำได้ ออกมาเป็น JSON พร้อมรายงาน HTML ดูรายละเอียดที่ `claude plugin eval --help`
 
+### 🆕 ใหม่ใน v2.1.271
+
+- **`--accept-command <sha256>` บน `claude plugin install` / `claude plugin update`** — ยอมรับเฉพาะคำสั่งที่ `--json` รอบก่อนแสดงไว้เป๊ะ ๆ แทนการอนุมัติเหมารวมด้วย `-y`
+- **`claude self-hosted-runner --drain-marker-file <path>`** — ถ้ามีไฟล์นั้นอยู่ตอน drain ด้วย SIGTERM ตัว runner จะรายงาน exit กลับไปที่ server ว่าเป็น host drain (มีผลกับ telemetry เท่านั้น)
+- **`claude self-hosted-runner --host-config-snapshot disk|memory`** — สำหรับ host ที่ config directory ใหญ่เกิน 64 MiB ซึ่งแต่เดิมทำให้ session ของ runner สูญ config ของ host ทั้งหมดแบบเงียบ ๆ (settings, skills, plugins, MCP server)
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1052,7 +1058,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.270
+- run: npm install -g @anthropic-ai/claude-code@2.1.272
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1298,6 +1304,10 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.269
 - **`/output-style [name]`** — แสดงรายการ output style ที่มีและสลับไปใช้ตัวที่ระบุ ใช้ได้ทั้งผ่าน Remote Control, session บน cloud และ session headless อื่น ๆ ไม่ใช่เฉพาะโหมด interactive
 - **`/ultrareview --post` โพสต์คอมเมนต์ลง PR เอง** — พอผลรีวิวมาถึงก็โพสต์ลง PR แล้วพิมพ์ลิงก์คอมเมนต์ให้เลย แทนการเปิด cloud session อีกตัวมาโพสต์
+
+### 🆕 ใหม่ใน v2.1.271
+- **`/desktop`** — เสนอให้ดาวน์โหลด Claude desktop app โดย tip ใน spinner ของผู้ใช้ claude.ai desktop จะแนะนำคำสั่งนี้ และผู้ใช้ Bedrock, Vertex AI, Foundry และ LLM gateway ก็ได้ tip ชี้ไปที่ desktop app เช่นกัน
+- **`/fast` ใช้ได้ใน session แบบ Claude Code Remote** — fast mode มีผลใน session บน cloud และ self-hosted runner แล้ว ไม่ว่าจะมาจากค่า fast-mode ของ host หรือพิมพ์ `/fast` ใน session เอง เท่าที่องค์กรอนุญาต
 
 ---
 
@@ -1640,6 +1650,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **กฎ deny/ask ที่ขึ้นต้นด้วย `!` มีผลเฉพาะใน settings source ของตัวเอง** — กฎแบบนี้ไม่ข้ามไปมีผลนอกไฟล์ settings ที่เขียนมันอีกแล้ว และการ negate ด้วย `!` เปล่า ๆ จะถูกเมิน
 - **กฎฝั่งเขียนไฟล์ตามไปถึงปลายทางของ `tee`** — deny rule ของ `Edit()` และการตรวจ write path มีผลกับไฟล์ที่คำสั่ง `tee` เขียนด้วยแล้ว ดังนั้น allow rule `Bash(tee:*)` ไม่ครอบปลายทางที่อยู่นอก working directory อีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.271
+- **`allowed_domains` ระดับคำสั่งสำหรับ Bash, PowerShell และ Monitor** — ใน auto mode ที่เปิด sandbox คำสั่งจะประกาศ host ที่ตัวเองต้องใช้ แล้ว host เหล่านั้นถูกตรวจไปพร้อมกับคำสั่งและเปิดให้เฉพาะคำสั่งนั้น ส่วน host อื่นถูกปฏิเสธ
+- **คำสั่ง shell แบบ inline `!` ใน skill/slash command ใช้กฎแบบ default mode** — ใน auto mode คำสั่งพวกนี้ผ่านกฎ permission ปกติแทนการให้ classifier ตัดสิน และคำสั่งที่ไม่มีกฎไหนตัดสินจะถูกรันเป็น tool call ที่ผ่านการรีวิว
+- **subagent ส่งผลกลับผ่าน call ที่ถูกรีวิว** — ใน auto mode subagent รายงานกลับหาผู้เรียกผ่าน hand-back call เฉพาะที่ safety classifier ตรวจ แทนการเอาข้อความสุดท้ายของมันมาตรวจย้อนหลัง
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1881,6 +1896,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.269
 
 - **setting `bashEditDiffEnabled`** — เมื่อ Bash tool เป็นตัวจัดการการแก้ไฟล์ ผลลัพธ์ของ tool จะแนบ diff ของไฟล์ที่คำสั่งนั้นเปลี่ยนมาให้ด้วย
+
+### 🆕 ใหม่ใน v2.1.271
+
+- **`multiplier` ใน `modelPricing` และบล็อก `pricing` ของ gateway** — managed setting `modelPricing` และบล็อก `pricing` ของ Claude apps gateway รับค่า multiplier ที่มากกว่า 1 ได้ถึง 10 สำหรับเรตคิดเงินภายในองค์กรที่บวกเพิ่ม
 
 ---
 
@@ -2785,6 +2804,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 ### 🆕 ใหม่ใน v2.1.257
 
 - **`CLAUDE_CODE_SUBAGENT_MODEL_FORCE`** — บังคับใช้ `CLAUDE_CODE_SUBAGENT_MODEL` (หรือโมเดลหลัก) กับ subagent ทุกตัว โดยไม่สน model override ตอน spawn และใน agent definition
+
+### 🆕 ใหม่ใน v2.1.271
+
+- **`omitClaudeMd` ใน frontmatter ของ agent และใน JSON ของ `--agents`** — ให้ subagent แบบ custom และของ plugin รันโดยไม่โหลดไฟล์ CLAUDE.md ระดับ user, project และ local ส่วนไฟล์ managed policy ยังโหลดตามปกติ
+- **subagent ส่งผลกลับผ่าน call ที่ถูกรีวิว** — ใน auto mode subagent รายงานกลับหาผู้เรียกผ่าน hand-back call เฉพาะที่ safety classifier ตรวจ แทนการเอาข้อความสุดท้ายของมันมาตรวจย้อนหลัง
 
 ---
 
@@ -5081,7 +5105,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.270`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.272`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

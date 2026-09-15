@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.270         │
+│ Welcome to Claude Code v2.1.272         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -617,6 +617,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **`claude plugin eval`** — รัน eval suite ของ plugin กับ Claude Code แล้วได้ผลแบบให้คะแนนและทำซ้ำได้ ออกมาเป็น JSON พร้อมรายงาน HTML ดูรายละเอียดที่ `claude plugin eval --help` และ [[18-plugins]]
 
+### 🆕 ใหม่ใน v2.1.271
+
+- **`--accept-command <sha256>` บน `claude plugin install` / `claude plugin update`** — ยอมรับเฉพาะคำสั่งที่ `--json` รอบก่อนแสดงไว้เป๊ะ ๆ แทนการอนุมัติเหมารวมด้วย `-y` ดู [[18-plugins]]
+- **`claude self-hosted-runner --drain-marker-file <path>`** — ถ้ามีไฟล์นั้นอยู่ตอน drain ด้วย SIGTERM ตัว runner จะรายงาน exit กลับไปที่ server ว่าเป็น host drain (มีผลกับ telemetry เท่านั้น)
+- **`claude self-hosted-runner --host-config-snapshot disk|memory`** — สำหรับ host ที่ config directory ใหญ่เกิน 64 MiB ซึ่งแต่เดิมทำให้ session ของ runner สูญ config ของ host ทั้งหมดแบบเงียบ ๆ (settings, skills, plugins, MCP server)
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -988,7 +994,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.270
+- run: npm install -g @anthropic-ai/claude-code@2.1.272
 ```
 
 ---

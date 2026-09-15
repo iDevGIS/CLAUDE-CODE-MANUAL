@@ -214,6 +214,11 @@ Skill(commit)                    # Specific skill
 - **A `!` deny or ask rule stays inside its own settings source** — such a rule no longer applies beyond the settings file that wrote it, and a bare `!` negation is ignored.
 - **Write rules follow a Bash `tee`** — `Edit()` deny rules and the write-path check now apply to the file a `tee` command writes, so a `Bash(tee:*)` allow rule no longer covers destinations outside the working directories.
 
+### New in v2.1.271
+- **Per-command `allowed_domains` for Bash, PowerShell and Monitor** — in auto mode with sandboxing, a command declares the hosts it needs; those hosts are reviewed together with the command and opened for that command alone, while every other host is refused.
+- **A skill's or slash command's inline `!` shell commands follow default-mode rules** — in auto mode they now go through the normal permission rules instead of the classifier, and a command that no rule decides runs as a reviewed tool call. See [[11-skills]].
+- **A subagent hands its result back through a reviewed call** — in auto mode the subagent reports to its caller through a dedicated hand-back call that the safety classifier reviews, instead of its last message being reviewed after the fact. See [[12-subagents]].
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

@@ -243,6 +243,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **กฎ deny/ask ที่ขึ้นต้นด้วย `!` มีผลเฉพาะใน settings source ของตัวเอง** — กฎแบบนี้ไม่ข้ามไปมีผลนอกไฟล์ settings ที่เขียนมันอีกแล้ว และการ negate ด้วย `!` เปล่า ๆ จะถูกเมิน
 - **กฎฝั่งเขียนไฟล์ตามไปถึงปลายทางของ `tee`** — deny rule ของ `Edit()` และการตรวจ write path มีผลกับไฟล์ที่คำสั่ง `tee` เขียนด้วยแล้ว ดังนั้น allow rule `Bash(tee:*)` ไม่ครอบปลายทางที่อยู่นอก working directory อีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.271
+- **`allowed_domains` ระดับคำสั่งสำหรับ Bash, PowerShell และ Monitor** — ใน auto mode ที่เปิด sandbox คำสั่งจะประกาศ host ที่ตัวเองต้องใช้ แล้ว host เหล่านั้นถูกตรวจไปพร้อมกับคำสั่งและเปิดให้เฉพาะคำสั่งนั้น ส่วน host อื่นถูกปฏิเสธ
+- **คำสั่ง shell แบบ inline `!` ใน skill/slash command ใช้กฎแบบ default mode** — ใน auto mode คำสั่งพวกนี้ผ่านกฎ permission ปกติแทนการให้ classifier ตัดสิน และคำสั่งที่ไม่มีกฎไหนตัดสินจะถูกรันเป็น tool call ที่ผ่านการรีวิว ดู [[11-skills]]
+- **subagent ส่งผลกลับผ่าน call ที่ถูกรีวิว** — ใน auto mode subagent รายงานกลับหาผู้เรียกผ่าน hand-back call เฉพาะที่ safety classifier ตรวจ แทนการเอาข้อความสุดท้ายของมันมาตรวจย้อนหลัง ดู [[12-subagents]]
+
 ---
 
 ---

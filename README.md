@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.270-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.65.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.272-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.66.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.270`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.272`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -132,8 +132,14 @@
 | 🛡️ **กฎ `WebFetch` ไม่ครอบ Artifact tool + managed setting `gatewayInternalNetworks`** | ต้องเขียนกฎ `Artifact` (หรือ `WebFetch(domain:claude.ai)`) ถ้าจะบล็อก/ขอสิทธิ์การอ่าน-อัปเดต artifact · `gatewayInternalNetworks` อนุญาต `/login` เข้า gateway จากบล็อก public IPv4 ขององค์กร · todo/task tools ให้เฉพาะ Claude 3.x, Opus 4.0–4.7, Sonnet 4.0–4.6, Haiku 4.5 (v2.1.268) |
 | 🧪 **`claude plugin eval` + `/output-style` ใช้ได้นอกโหมด interactive** | `claude plugin eval` รัน eval suite ของ plugin แล้วคืนผลแบบให้คะแนน (JSON + รายงาน HTML) · `/output-style [name]` แสดงรายการและสลับ output style ได้ผ่าน Remote Control และ session แบบ cloud/headless · `/ultrareview --post` โพสต์คอมเมนต์ลง PR เองทันที (v2.1.269) |
 | 🔐 **กฎ `!` ไม่รั่วข้าม settings source + `tee` โดนตรวจ write path** | กฎ deny/ask ที่ขึ้นต้นด้วย `!` มีผลเฉพาะในไฟล์ settings ที่เขียนมัน (`!` เปล่า ๆ ถูกเมิน) · deny rule ของ `Edit()` ตามไปถึงไฟล์ที่ `tee` เขียน ทำให้ `Bash(tee:*)` ไม่ครอบปลายทางนอก working directory · setting `bashEditDiffEnabled` แนบ diff ของไฟล์ที่คำสั่งเปลี่ยนมากับผลลัพธ์ Bash tool (v2.1.269) |
+| 🌐 **`allowed_domains` รายคำสั่ง + subagent แบบ `omitClaudeMd`** | ใน auto mode ที่เปิด sandbox — Bash/PowerShell/Monitor ระบุ host ที่คำสั่งนั้นต้องใช้ แล้วเปิดให้เฉพาะคำสั่งนั้น host อื่นถูกปฏิเสธ · `omitClaudeMd` ใน frontmatter ของ agent และ JSON ของ `--agents` ให้ subagent รันโดยไม่โหลด CLAUDE.md ระดับ user/project/local (ไฟล์ managed policy ยังโหลดอยู่) (v2.1.271) |
+| ⚡ **Fast mode ใน Remote session + `/desktop`** | `/fast` และค่า fast mode ของเครื่อง host ใช้ได้ใน Claude Code Remote session แล้ว (ทั้ง cloud และ self-hosted runner) เท่าที่องค์กรอนุญาต · `/desktop` เสนอให้ดาวน์โหลดแอป Claude desktop (v2.1.271) |
+| 🚩 **Flags ใหม่** | `claude self-hosted-runner --drain-marker-file <path>` — ถ้ามีไฟล์นั้นตอนโดน SIGTERM จะรายงาน exit เป็น host drain · `--host-config-snapshot disk\|memory` สำหรับ host ที่ config directory เกิน 64 MiB · `--accept-command <sha256>` บน `claude plugin install`/`update` ยอมรับเฉพาะคำสั่งที่ `--json` รอบก่อนแสดงไว้ แทนการใช้ `-y` (v2.1.271) |
+| ⏱️ **Monitor watch มี deadline เสมอ** | ถอดตัวเลือก `persistent` แบบไม่มี timeout ออก — watch หนึ่งรอบอยู่ได้ไม่เกิน 30 นาที (10 นาทีในโหมด `-p` prompt เดียว) แล้วแจ้ง Claude ให้ตั้งใหม่ · session หนึ่งเฝ้า artifact ที่ publish ไว้ได้พร้อมกัน 10 ตัว (เดิม 5) (v2.1.271) |
+| 🧮 **ขนาด workflow + multiplier ของ `modelPricing`** | dynamic workflow หยุดรอเมื่อชน usage limit แล้วไปต่อเองตอน limit reset แทนที่จะทิ้ง agent · ค่าเริ่มต้นขนาด workflow เป็น small บนแพลน Pro และเกณฑ์ medium ลดจาก 15 เหลือ 10 agent · `modelPricing` รับ `multiplier` มากกว่า 1 ได้ถึง 10 สำหรับอัตราคิดเงินภายในแบบบวกเพิ่ม (v2.1.271) |
+| 🛡️ **Auto mode รัดกุมขึ้นทั้งฝั่ง shell และ subagent** | คำสั่ง shell แบบ `!` ที่ฝังใน skill หรือ slash command ใช้กฎ permission ของ default mode แทน classifier — ตัวที่ไม่มีกฎไหนตัดสินจะรันเป็น tool call ที่ผ่านการตรวจ · subagent รายงานกลับผ่าน hand-back call เฉพาะทางที่ safety classifier ตรวจ แทนการเอาข้อความสุดท้ายมาตรวจย้อนหลัง (v2.1.271) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.270` (manual `v1.65.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.272` (manual `v1.66.0`)
 
 ---
 
@@ -156,7 +162,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.270** + โมเดล Fable 5.1 / Opus 5 / Sonnet 5
+ตรงกับ Claude Code **v2.1.272** + โมเดล Fable 5.1 / Opus 5 / Sonnet 5
 
 </td>
 </tr>
@@ -216,7 +222,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.270`
+> **Claude Code Version:** `2.1.272`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

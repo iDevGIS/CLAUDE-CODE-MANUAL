@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.270         │
+│ Welcome to Claude Code v2.1.272         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.270
+- run: npm install -g @anthropic-ai/claude-code@2.1.272
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1066,6 +1066,12 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.269
 
 - **`claude plugin eval`** — runs a plugin's eval suite against Claude Code and returns scored, reproducible results as JSON plus an HTML report. See `claude plugin eval --help`.
+
+### New in v2.1.271
+
+- **`--accept-command <sha256>` on `claude plugin install` / `claude plugin update`** — accepts exactly the command a previous `--json` run displayed, instead of blanket-approving with `-y`.
+- **`claude self-hosted-runner --drain-marker-file <path>`** — when that file exists at a SIGTERM drain, the runner reports its exit to the server as a host drain (telemetry only).
+- **`claude self-hosted-runner --host-config-snapshot disk|memory`** — for hosts whose config directory exceeds 64 MiB, which previously made runner sessions silently lose all host config (settings, skills, plugins, MCP servers).
 
 ---
 
@@ -1304,6 +1310,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.269
 - **`/output-style [name]`** — lists the available output styles and switches to one. It works over Remote Control and in cloud and other headless sessions, not only interactive ones.
 - **`/ultrareview --post` posts the PR comment itself** — the findings go to the PR as soon as they arrive and the comment link is printed, instead of a second cloud session being started to post them.
+
+### New in v2.1.271
+- **`/desktop`** — offers to download the Claude desktop app. The claude.ai desktop tip in the spinner now suggests it, and Bedrock, Vertex AI, Foundry and LLM gateway users get a tip pointing at the app too.
+- **`/fast` works in Claude Code Remote sessions** — fast mode now applies in cloud and self-hosted runner sessions, either from the host's fast-mode setting or from `/fast` typed in the session, where your organization allows it.
 
 ---
 
@@ -1646,6 +1656,11 @@ Skill(commit)                    # Specific skill
 - **A `!` deny or ask rule stays inside its own settings source** — such a rule no longer applies beyond the settings file that wrote it, and a bare `!` negation is ignored.
 - **Write rules follow a Bash `tee`** — `Edit()` deny rules and the write-path check now apply to the file a `tee` command writes, so a `Bash(tee:*)` allow rule no longer covers destinations outside the working directories.
 
+### New in v2.1.271
+- **Per-command `allowed_domains` for Bash, PowerShell and Monitor** — in auto mode with sandboxing, a command declares the hosts it needs; those hosts are reviewed together with the command and opened for that command alone, while every other host is refused.
+- **A skill's or slash command's inline `!` shell commands follow default-mode rules** — in auto mode they now go through the normal permission rules instead of the classifier, and a command that no rule decides runs as a reviewed tool call.
+- **A subagent hands its result back through a reviewed call** — in auto mode the subagent reports to its caller through a dedicated hand-back call that the safety classifier reviews, instead of its last message being reviewed after the fact.
+
 ---
 
 ## 6. Configuration
@@ -1887,6 +1902,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.269
 
 - **`bashEditDiffEnabled` setting** — when the Bash tool handles a file edit, the tool result carries a diff of the files that command changed.
+
+### New in v2.1.271
+
+- **`multiplier` in `modelPricing` and the gateway `pricing` block** — the managed `modelPricing` setting and the Claude apps gateway `pricing` block accept a multiplier above 1, up to 10, for marked-up internal chargeback rates.
 
 ---
 
@@ -2792,6 +2811,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 ### New in v2.1.257
 
 - **`CLAUDE_CODE_SUBAGENT_MODEL_FORCE`** — apply `CLAUDE_CODE_SUBAGENT_MODEL` (or the main model) to every subagent, ignoring per-spawn and agent-definition model overrides.
+
+### New in v2.1.271
+
+- **`omitClaudeMd` in agent frontmatter and `--agents` JSON** — a custom or plugin subagent runs without the user, project and local CLAUDE.md files; managed policy files still load.
+- **A subagent hands its result back through a reviewed call** — in auto mode the subagent reports to its caller through a dedicated hand-back call that the safety classifier reviews, instead of its last message being reviewed after the fact.
 
 ---
 
@@ -5095,7 +5119,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.270`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.272`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

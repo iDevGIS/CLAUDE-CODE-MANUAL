@@ -263,6 +263,10 @@ related:
 
 - **setting `bashEditDiffEnabled`** — เมื่อ Bash tool เป็นตัวจัดการการแก้ไฟล์ ผลลัพธ์ของ tool จะแนบ diff ของไฟล์ที่คำสั่งนั้นเปลี่ยนมาให้ด้วย
 
+### 🆕 ใหม่ใน v2.1.271
+
+- **`multiplier` ใน `modelPricing` และบล็อก `pricing` ของ gateway** — managed setting `modelPricing` และบล็อก `pricing` ของ Claude apps gateway รับค่า multiplier ที่มากกว่า 1 ได้ถึง 10 สำหรับเรตคิดเงินภายในองค์กรที่บวกเพิ่ม
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

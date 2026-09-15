@@ -263,6 +263,10 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **`bashEditDiffEnabled` setting** — when the Bash tool handles a file edit, the tool result carries a diff of the files that command changed.
 
+### New in v2.1.271
+
+- **`multiplier` in `modelPricing` and the gateway `pricing` block** — the managed `modelPricing` setting and the Claude apps gateway `pricing` block accept a multiplier above 1, up to 10, for marked-up internal chargeback rates.
+
 ---
 
 ---

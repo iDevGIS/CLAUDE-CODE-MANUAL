@@ -127,6 +127,12 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 - **session แบบ remote และ headless ไม่บอกว่าว่างทั้งที่ background agent ยังทำงานอยู่** — เลิกรายงาน "waiting for your input" เมื่องาน background ยังไม่จบ; ตั้ง `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING=0` ถ้าอยากได้พฤติกรรมเดิม
 - **task notification สะอาดขึ้นตอน resume** — escape code ของ terminal, การขึ้นบรรทัดใหม่ และข้อความยาวเกินจากไฟล์บันทึกของ background task ไม่หลุดเข้ามาใน task list และ task notification อีกแล้ว
 
+### 🆕 ใหม่ใน v2.1.271
+
+- **Monitor watch มีเส้นตายเสมอ** — หนึ่ง watch รันได้ไม่เกิน 30 นาที (10 นาทีใน run แบบ single-prompt `-p`) แล้วแจ้ง Claude ให้ตั้งใหม่ ส่วนตัวเลือก `persistent` ที่ไม่มี timeout ถูกถอดออก
+- **watch artifact ได้ถึง 10 ชิ้นต่อ session** — จากเดิม 5 ชิ้น สำหรับคอยดูการ republish ที่เกิดจากที่อื่น และ session แบบ background (`claude --bg`, `claude agents`) ก็ watch artifact ที่ตัวเองเผยแพร่ด้วยแล้ว
+- **fast mode ใน session แบบ Claude Code Remote** — session บน cloud และ self-hosted runner ใช้ค่า fast-mode ของ host หรือ `/fast` ที่พิมพ์ใน session ได้แล้ว เท่าที่องค์กรอนุญาต ดู [[03-slash-commands]]
+
 ---
 
 ---

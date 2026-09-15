@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.270-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.65.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.272-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.66.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.270`
+## 🆕 What's new — synced to Claude Code `v2.1.272`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -132,8 +132,14 @@ Never used a command line? You can still follow along 👇
 | 🛡️ **`WebFetch` rules no longer cover the Artifact tool + `gatewayInternalNetworks`** | use an `Artifact` rule (or `WebFetch(domain:claude.ai)`) to block or gate artifact reads and updates · the `gatewayInternalNetworks` managed setting allows `/login` to a gateway on the organization's own public IPv4 block · todo/task tools are offered only on Claude 3.x, Opus 4.0–4.7, Sonnet 4.0–4.6, Haiku 4.5 (v2.1.268) |
 | 🧪 **`claude plugin eval` + `/output-style` outside interactive mode** | `claude plugin eval` runs a plugin's eval suite and returns scored, reproducible results (JSON + HTML report) · `/output-style [name]` lists and switches output styles over Remote Control and in cloud/headless sessions · `/ultrareview --post` posts the PR comment itself as soon as the findings arrive (v2.1.269) |
 | 🔐 **`!` rules stay in their own settings source + `tee` hits the write-path check** | a deny or ask rule starting with `!` applies only within the settings file that wrote it (a bare `!` negation is ignored) · `Edit()` deny rules follow the file a `tee` writes, so `Bash(tee:*)` no longer covers destinations outside the working directories · the `bashEditDiffEnabled` setting adds a diff of the changed files to the Bash tool result (v2.1.269) |
+| 🌐 **Per-command `allowed_domains` + `omitClaudeMd` subagents** | in auto mode with sandboxing, Bash/PowerShell/Monitor declare the hosts a command needs and get them opened for that command alone · `omitClaudeMd` in agent frontmatter and `--agents` JSON runs a subagent without user/project/local CLAUDE.md (managed policy files still load) (v2.1.271) |
+| ⚡ **Fast mode in Remote sessions + `/desktop`** | `/fast` and the host's fast-mode setting now apply in Claude Code Remote sessions (cloud and self-hosted runners) where the organization allows it · `/desktop` offers to download the Claude desktop app (v2.1.271) |
+| 🚩 **New flags** | `claude self-hosted-runner --drain-marker-file <path>` reports a SIGTERM exit as a host drain · `--host-config-snapshot disk\|memory` for hosts whose config directory exceeds 64 MiB · `--accept-command <sha256>` on `claude plugin install`/`update` accepts exactly the command a prior `--json` run showed, instead of `-y` (v2.1.271) |
+| ⏱️ **Monitor watches always have a deadline** | the no-timeout `persistent` option is gone — a watch runs at most 30 minutes (10 in single-prompt `-p` runs) and notifies Claude to re-arm · sessions can watch up to 10 published artifacts at once, up from 5 (v2.1.271) |
+| 🧮 **Workflow sizing + `modelPricing` multiplier** | dynamic workflows pause at a usage limit and continue when it resets instead of dropping agents · default workflow size is small on Pro plans and the medium guideline drops from 15 to 10 agents · `modelPricing` accepts a `multiplier` above 1 (up to 10) for marked-up internal chargeback rates (v2.1.271) |
+| 🛡️ **Auto mode tightens shell and subagent review** | inline `!` shell commands in a skill or slash command follow default-mode permission rules instead of the classifier — one no rule decides runs as a reviewed tool call · a subagent reports back through a dedicated hand-back call the safety classifier reviews, instead of its last message being reviewed after the fact (v2.1.271) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.270` (manual `v1.65.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.272` (manual `v1.66.0`)
 
 ---
 
@@ -156,7 +162,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.270** + the Fable 5.1 / Opus 5 / Sonnet 5 lineup
+Tracks Claude Code **v2.1.272** + the Fable 5.1 / Opus 5 / Sonnet 5 lineup
 
 </td>
 </tr>
@@ -216,7 +222,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.270`
+> **Claude Code Version:** `2.1.272`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

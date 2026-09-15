@@ -226,6 +226,10 @@ related:
 - **`/output-style [name]`** — แสดงรายการ output style ที่มีและสลับไปใช้ตัวที่ระบุ ใช้ได้ทั้งผ่าน Remote Control, session บน cloud และ session headless อื่น ๆ ไม่ใช่เฉพาะโหมด interactive ดู [[16-headless-mode]]
 - **`/ultrareview --post` โพสต์คอมเมนต์ลง PR เอง** — พอผลรีวิวมาถึงก็โพสต์ลง PR แล้วพิมพ์ลิงก์คอมเมนต์ให้เลย แทนการเปิด cloud session อีกตัวมาโพสต์
 
+### 🆕 ใหม่ใน v2.1.271
+- **`/desktop`** — เสนอให้ดาวน์โหลด Claude desktop app โดย tip ใน spinner ของผู้ใช้ claude.ai desktop จะแนะนำคำสั่งนี้ และผู้ใช้ Bedrock, Vertex AI, Foundry และ LLM gateway ก็ได้ tip ชี้ไปที่ desktop app เช่นกัน
+- **`/fast` ใช้ได้ใน session แบบ Claude Code Remote** — fast mode มีผลใน session บน cloud และ self-hosted runner แล้ว ไม่ว่าจะมาจากค่า fast-mode ของ host หรือพิมพ์ `/fast` ใน session เอง เท่าที่องค์กรอนุญาต ดู [[41-background-agents]]
+
 ---
 
 ---

@@ -148,6 +148,11 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 
 - **`CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS`** — raises the per-run concurrent agent limit (1–256) for fan-outs that are inference-bound rather than CPU-bound. See [[23-environment-variables]].
 
+### New in v2.1.271
+
+- **A usage limit pauses the workflow instead of dropping agents** — a dynamic workflow that hits your usage limit now waits and continues automatically when the limit resets.
+- **Smaller default workflow size** — the default is small on Pro plans, and the medium size guideline drops from 15 agents to 10.
+
 ---
 
 ---

@@ -25,6 +25,29 @@
 
 ---
 
+## [1.66.0] — 2026-09-15
+
+### Compatibility
+- **Claude Code:** `v2.1.272+`
+
+### Added
+- **02. CLI Commands** — `--accept-command <sha256>` บน `claude plugin install` / `claude plugin update` (ยอมรับเฉพาะคำสั่งที่ `--json` รอบก่อนแสดงไว้ แทน `-y`), `claude self-hosted-runner --drain-marker-file <path>` (รายงาน exit ตอน SIGTERM ว่าเป็น host drain — telemetry เท่านั้น), `claude self-hosted-runner --host-config-snapshot disk|memory` (สำหรับ host ที่ config directory เกิน 64 MiB)
+- **03. Slash Commands** — `/desktop` เสนอดาวน์โหลด Claude desktop app, `/fast` ใช้ได้ใน session แบบ Claude Code Remote (cloud + self-hosted runner)
+- **05. Permissions** — `allowed_domains` ระดับคำสั่งสำหรับ Bash / PowerShell / Monitor ใน auto mode ที่เปิด sandbox
+- **06. Configuration** — `multiplier` (มากกว่า 1 ได้ถึง 10) ใน managed setting `modelPricing` และบล็อก `pricing` ของ Claude apps gateway
+- **12. Subagents** — `omitClaudeMd` ใน agent frontmatter และ JSON ของ `--agents`
+
+### Changed
+- **05. Permissions / 12. Subagents** — auto mode: คำสั่ง shell แบบ inline `!` ใน skill/slash command ใช้กฎ permission แบบ default mode แทน classifier · subagent ส่งผลกลับผ่าน hand-back call ที่ safety classifier ตรวจ แทนการรีวิวข้อความสุดท้ายย้อนหลัง
+- **39. Dynamic Workflows** — ชน usage limit แล้วพักและไปต่อเองเมื่อรีเซ็ต แทนการทิ้ง agent · default size เป็น small บนแพลน Pro และไกด์ไลน์ medium ลดจาก 15 เหลือ 10 agent
+- **41. Background Agents** — Monitor watch มีเส้นตายเสมอ (ไม่เกิน 30 นาที / 10 นาทีใน `-p`) แทนตัวเลือก `persistent` ที่ถูกถอด · watch artifact ได้ 10 ชิ้นต่อ session จากเดิม 5
+- **Version strings** bumped `2.1.270` → `2.1.272` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.271` เป็นตัวที่มีของจริง: flag ใหม่ 3 ตัว, slash command `/desktop`, `omitClaudeMd`, `allowed_domains` ระดับคำสั่ง, `modelPricing` multiplier พร้อมการเปลี่ยนพฤติกรรมฝั่ง auto mode / Monitor / dynamic workflows ส่วน `2.1.272` เป็น "Bug fixes and reliability improvements" ล้วน ไม่มีของที่ต้องเขียนถึง — รอบนี้จึงเขียนเนื้อหาของ `2.1.271` ให้ครบทุกบทที่เกี่ยวข้อง แล้วขยับเลขเวอร์ชันอ้างอิงไปที่ `2.1.272` ตาม upstream
+
+---
+
 ## [1.65.0] — 2026-09-13
 
 ### Compatibility
@@ -1496,6 +1519,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.66.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.65.0...v1.66.0
 [1.65.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.64.0...v1.65.0
 [1.64.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.63.0...v1.64.0
 [1.63.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.62.0...v1.63.0

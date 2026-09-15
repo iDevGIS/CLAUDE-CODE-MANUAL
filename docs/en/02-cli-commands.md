@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.270         │
+│ Welcome to Claude Code v2.1.272         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -617,6 +617,12 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **`claude plugin eval`** — runs a plugin's eval suite against Claude Code and returns scored, reproducible results as JSON plus an HTML report. See `claude plugin eval --help` and [[18-plugins]].
 
+### New in v2.1.271
+
+- **`--accept-command <sha256>` on `claude plugin install` / `claude plugin update`** — accepts exactly the command a previous `--json` run displayed, instead of blanket-approving with `-y`. See [[18-plugins]].
+- **`claude self-hosted-runner --drain-marker-file <path>`** — when that file exists at a SIGTERM drain, the runner reports its exit to the server as a host drain (telemetry only).
+- **`claude self-hosted-runner --host-config-snapshot disk|memory`** — for hosts whose config directory exceeds 64 MiB, which previously made runner sessions silently lose all host config (settings, skills, plugins, MCP servers).
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -988,7 +994,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.270
+- run: npm install -g @anthropic-ai/claude-code@2.1.272
 ```
 
 ---

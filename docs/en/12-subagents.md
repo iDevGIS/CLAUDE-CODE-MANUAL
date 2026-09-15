@@ -185,6 +185,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **`CLAUDE_CODE_SUBAGENT_MODEL_FORCE`** — apply `CLAUDE_CODE_SUBAGENT_MODEL` (or the main model) to every subagent, ignoring per-spawn and agent-definition model overrides. See [[23-environment-variables]].
 
+### New in v2.1.271
+
+- **`omitClaudeMd` in agent frontmatter and `--agents` JSON** — a custom or plugin subagent runs without the user, project and local CLAUDE.md files; managed policy files still load. See [[07-claude-md]].
+- **A subagent hands its result back through a reviewed call** — in auto mode the subagent reports to its caller through a dedicated hand-back call that the safety classifier reviews, instead of its last message being reviewed after the fact. See [[05-permissions]].
+
 ---
 
 ---

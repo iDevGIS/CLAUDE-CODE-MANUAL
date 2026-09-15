@@ -225,6 +225,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/output-style [name]`** — lists the available output styles and switches to one. It works over Remote Control and in cloud and other headless sessions, not only interactive ones. See [[16-headless-mode]].
 - **`/ultrareview --post` posts the PR comment itself** — the findings go to the PR as soon as they arrive and the comment link is printed, instead of a second cloud session being started to post them.
 
+### New in v2.1.271
+- **`/desktop`** — offers to download the Claude desktop app. The claude.ai desktop tip in the spinner now suggests it, and Bedrock, Vertex AI, Foundry and LLM gateway users get a tip pointing at the app too.
+- **`/fast` works in Claude Code Remote sessions** — fast mode now applies in cloud and self-hosted runner sessions, either from the host's fast-mode setting or from `/fast` typed in the session, where your organization allows it. See [[41-background-agents]].
+
 ---
 
 ---

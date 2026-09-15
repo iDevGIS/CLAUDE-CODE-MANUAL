@@ -185,6 +185,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **`CLAUDE_CODE_SUBAGENT_MODEL_FORCE`** — บังคับใช้ `CLAUDE_CODE_SUBAGENT_MODEL` (หรือโมเดลหลัก) กับ subagent ทุกตัว โดยไม่สน model override ตอน spawn และใน agent definition ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.271
+
+- **`omitClaudeMd` ใน frontmatter ของ agent และใน JSON ของ `--agents`** — ให้ subagent แบบ custom และของ plugin รันโดยไม่โหลดไฟล์ CLAUDE.md ระดับ user, project และ local ส่วนไฟล์ managed policy ยังโหลดตามปกติ ดู [[07-claude-md]]
+- **subagent ส่งผลกลับผ่าน call ที่ถูกรีวิว** — ใน auto mode subagent รายงานกลับหาผู้เรียกผ่าน hand-back call เฉพาะที่ safety classifier ตรวจ แทนการเอาข้อความสุดท้ายของมันมาตรวจย้อนหลัง ดู [[05-permissions]]
+
 ---
 
 ---

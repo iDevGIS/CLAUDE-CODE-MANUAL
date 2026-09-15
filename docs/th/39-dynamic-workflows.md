@@ -148,6 +148,11 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 
 - **`CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS`** — ดันเพดานจำนวน agent ที่รันพร้อมกันต่อหนึ่ง run ขึ้นได้ (1–256) เหมาะกับงาน fan-out ที่คอขวดอยู่ที่ inference ไม่ใช่ CPU ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.271
+
+- **ชน usage limit แล้ว workflow พักแทนที่จะทิ้ง agent** — dynamic workflow ที่ชนเพดานการใช้งานจะรอ แล้วทำงานต่อเองเมื่อเพดานรีเซ็ต
+- **ขนาด workflow default เล็กลง** — แพลน Pro ใช้ค่า default เป็น small และไกด์ไลน์ขนาด medium ลดจาก 15 agent เหลือ 10
+
 ---
 
 ---
