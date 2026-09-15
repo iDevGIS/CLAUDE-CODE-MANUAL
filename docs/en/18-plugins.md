@@ -134,6 +134,10 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 
 - **`--plugin-dir` accepts a folder of plugins** — point it at a parent folder and every child folder with a manifest loads; children added or removed while Claude is running are picked up. See [[02-cli-commands]].
 
+### New in v2.1.273
+
+- **Signing in asks for your claude.ai plugins too** — signing in with a Claude account now also requests access to the plugins on your claude.ai account.
+
 ---
 
 ---

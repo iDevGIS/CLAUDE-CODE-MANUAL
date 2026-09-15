@@ -160,6 +160,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **No OAuth client is registered until you actually sign in** — for remote MCP servers that need authentication, Claude Code waits for you to authenticate before registering an OAuth client with the server.
 
+### New in v2.1.273
+
+- **You're told when a server drops for good** — when an MCP server disconnects mid-session and automatic reconnection gives up, a notification says so and points you at `/mcp`.
+- **An expired server sign-in says how to fix it** — when a server's authentication expires mid-session, the message now tells you to re-authenticate with `/mcp`.
+
 ---
 
 ---

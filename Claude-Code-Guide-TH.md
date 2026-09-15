@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.272         │
+│ Welcome to Claude Code v2.1.273         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1058,7 +1058,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.272
+- run: npm install -g @anthropic-ai/claude-code@2.1.273
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1308,6 +1308,9 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.271
 - **`/desktop`** — เสนอให้ดาวน์โหลด Claude desktop app โดย tip ใน spinner ของผู้ใช้ claude.ai desktop จะแนะนำคำสั่งนี้ และผู้ใช้ Bedrock, Vertex AI, Foundry และ LLM gateway ก็ได้ tip ชี้ไปที่ desktop app เช่นกัน
 - **`/fast` ใช้ได้ใน session แบบ Claude Code Remote** — fast mode มีผลใน session บน cloud และ self-hosted runner แล้ว ไม่ว่าจะมาจากค่า fast-mode ของ host หรือพิมพ์ `/fast` ใน session เอง เท่าที่องค์กรอนุญาต
+
+### 🆕 ใหม่ใน v2.1.273
+- **`/bug` กับ `/feedback` ส่งเฉพาะพารามิเตอร์ที่มีผลต่อพฤติกรรมโมเดล** — รายงานแนบแค่ model, system prompt และ tools จาก API request ล่าสุด ส่วน metadata ของ request และฟิลด์จาก `CLAUDE_CODE_EXTRA_BODY` ไม่ถูกส่งไปด้วยแล้ว
 
 ---
 
@@ -1654,6 +1657,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **`allowed_domains` ระดับคำสั่งสำหรับ Bash, PowerShell และ Monitor** — ใน auto mode ที่เปิด sandbox คำสั่งจะประกาศ host ที่ตัวเองต้องใช้ แล้ว host เหล่านั้นถูกตรวจไปพร้อมกับคำสั่งและเปิดให้เฉพาะคำสั่งนั้น ส่วน host อื่นถูกปฏิเสธ
 - **คำสั่ง shell แบบ inline `!` ใน skill/slash command ใช้กฎแบบ default mode** — ใน auto mode คำสั่งพวกนี้ผ่านกฎ permission ปกติแทนการให้ classifier ตัดสิน และคำสั่งที่ไม่มีกฎไหนตัดสินจะถูกรันเป็น tool call ที่ผ่านการรีวิว
 - **subagent ส่งผลกลับผ่าน call ที่ถูกรีวิว** — ใน auto mode subagent รายงานกลับหาผู้เรียกผ่าน hand-back call เฉพาะที่ safety classifier ตรวจ แทนการเอาข้อความสุดท้ายของมันมาตรวจย้อนหลัง
+
+### 🆕 ใหม่ใน v2.1.273
+- **auto mode บน Bedrock, Vertex และ Foundry ตัดสินด้วย classifier ในเครื่อง** — แพลตฟอร์มกลุ่มนี้ใช้ local classifier เป็นค่าเริ่มต้นแล้ว ถ้าอยากใช้ server-side classifier ของแพลตฟอร์มให้ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=1` (ดูบท 23 Environment Variables)
+- **บรรทัด Bash ที่ตัวตรวจ permission อ่านไม่ออกกลับมาถามก่อน** — การเปลี่ยนใน v2.1.268 ที่เอา deny rule ของ Read/Edit ไปตรวจบรรทัดแบบนั้น (`eval`, `env -C`) ถูกย้อนกลับ คำสั่งอย่าง `time -p make build` จึงถามขออนุมัติแทนที่จะถูกปฏิเสธ
 
 ---
 
@@ -2270,6 +2277,11 @@ claude --mcp-config ./mcp.json
 ### 🆕 ใหม่ใน v2.1.265
 
 - **ยังไม่ลงทะเบียน OAuth client จนกว่าจะ sign in จริง** — สำหรับ remote MCP server ที่ต้อง authenticate ตัว Claude Code จะรอให้เรา authenticate ก่อน แล้วค่อยไปลงทะเบียน OAuth client กับ server นั้น
+
+### 🆕 ใหม่ใน v2.1.273
+
+- **รู้ทันทีเมื่อ server หลุดถาวร** — ถ้า MCP server หลุดกลาง session แล้วการ reconnect อัตโนมัติยอมแพ้ จะมี notification บอกพร้อมชี้ให้ไปดูที่ `/mcp`
+- **sign-in ของ server หมดอายุแล้วบอกวิธีแก้** — เมื่อการ authenticate ของ server หมดอายุกลาง session ข้อความจะบอกให้ไป re-authenticate ด้วย `/mcp`
 
 ---
 
@@ -3384,6 +3396,10 @@ claude --plugin-dir ./my-plugin
 
 - **`--plugin-dir` ชี้ไปที่โฟลเดอร์รวม plugin ได้แล้ว** — ชี้ไปที่โฟลเดอร์แม่ แล้วโฟลเดอร์ลูกทุกตัวที่มี manifest จะถูกโหลด และถ้าเพิ่ม/ลบโฟลเดอร์ลูกระหว่างที่ Claude รันอยู่ก็จับได้ (ดูบท 2. คำสั่ง CLI และ Flags)
 
+### 🆕 ใหม่ใน v2.1.273
+
+- **sign in แล้วขอสิทธิ์เข้าถึง plugin บน claude.ai ด้วย** — การ sign in ด้วยบัญชี Claude ขอสิทธิ์เข้าถึง plugin ในบัญชี claude.ai ของเราเพิ่มเข้ามาแล้ว
+
 ---
 
 ## 19. Session Management
@@ -3501,6 +3517,10 @@ claude --fork-session                # แยก Branch ใหม่
 ### 🆕 ใหม่ใน v2.1.269
 
 - **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS`** — จำกัดว่า turn ที่ถูกขัดจังหวะเก่าได้แค่ไหนถึงจะยังถูกรันซ้ำตอน resume; ถ้าไม่ตั้ง turn ที่ล้มด้วย API error เกิน 6 ชั่วโมงจะไม่ถูกรันซ้ำอีก
+
+### 🆕 ใหม่ใน v2.1.273
+
+- **fork session แบบ Remote Control จาก Claude app ได้** — session ที่เปิดด้วย `claude --remote-control` หรือ `/remote-control` สั่ง fork จาก Claude app ได้แล้ว โดยตัวที่ fork ออกมาจะรันเป็น background session บนเครื่องเรา
 
 ---
 
@@ -3787,6 +3807,8 @@ your-project/
 | `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` | ดันเพดานจำนวน agent ที่รันพร้อมกันต่อหนึ่ง run ของ Workflow tool (1–256) สำหรับงาน fan-out ที่คอขวดอยู่ที่ inference ไม่ใช่ CPU *(v2.1.269)* |
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | ตั้ง `0` เพื่อกลับไปให้ session แบบ remote และ headless รายงาน "waiting for your input" ทั้งที่ background agent ยังทำงานอยู่ แบบเดิม *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | อายุสูงสุดของ turn ที่ถูกขัดจังหวะซึ่ง `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` จะยังยอมรันซ้ำ ค่าเริ่มต้น 6 ชั่วโมง *(v2.1.269)* |
+| `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | ตั้ง `1` เพื่อส่ง header ใบ้เส้นทางไปให้ LLM gateway ได้แก่ `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` และ `x-claude-code-context-compacted` *(v2.1.273)* |
+| `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `1` ให้ auto mode บน Bedrock, Vertex และ Foundry ใช้ server-side classifier ของแพลตฟอร์ม — ปกติแพลตฟอร์มกลุ่มนี้ใช้ classifier ในเครื่อง *(v2.1.273)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -3795,6 +3817,8 @@ your-project/
 > log event ของ OpenTelemetry มี attribute `message.uuid`, `client_request_id` และ `tool_source` เพิ่มเข้ามา สำหรับ correlate ระดับ message และบอกที่มาของ tool call *(v2.1.214)*
 
 > session แบบ Claude apps gateway ส่ง OpenTelemetry ตรงไปยัง collector ที่ managed settings ของ gateway ระบุไว้ใน `OTEL_EXPORTER_OTLP_ENDPOINT` แทนการส่งผ่าน relay ของ gateway — ถ้าไม่ได้ระบุ collector ไว้ก็ยังส่งผ่าน relay เหมือนเดิม *(v2.1.265)*
+
+> `OTEL_LOG_TOOL_DETAILS=1` ใส่ชื่อจริงของ agent, skill, plugin และ MCP server ลงใน metric ด้าน cost และ token ด้วยแล้ว *(v2.1.273)*
 
 ### ตั้งค่าใน settings.json
 
@@ -5105,7 +5129,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.272`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.273`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

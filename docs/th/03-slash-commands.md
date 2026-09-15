@@ -230,6 +230,9 @@ related:
 - **`/desktop`** — เสนอให้ดาวน์โหลด Claude desktop app โดย tip ใน spinner ของผู้ใช้ claude.ai desktop จะแนะนำคำสั่งนี้ และผู้ใช้ Bedrock, Vertex AI, Foundry และ LLM gateway ก็ได้ tip ชี้ไปที่ desktop app เช่นกัน
 - **`/fast` ใช้ได้ใน session แบบ Claude Code Remote** — fast mode มีผลใน session บน cloud และ self-hosted runner แล้ว ไม่ว่าจะมาจากค่า fast-mode ของ host หรือพิมพ์ `/fast` ใน session เอง เท่าที่องค์กรอนุญาต ดู [[41-background-agents]]
 
+### 🆕 ใหม่ใน v2.1.273
+- **`/bug` กับ `/feedback` ส่งเฉพาะพารามิเตอร์ที่มีผลต่อพฤติกรรมโมเดล** — รายงานแนบแค่ model, system prompt และ tools จาก API request ล่าสุด ส่วน metadata ของ request และฟิลด์จาก `CLAUDE_CODE_EXTRA_BODY` ไม่ถูกส่งไปด้วยแล้ว
+
 ---
 
 ---

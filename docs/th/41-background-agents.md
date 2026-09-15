@@ -133,6 +133,10 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 - **watch artifact ได้ถึง 10 ชิ้นต่อ session** — จากเดิม 5 ชิ้น สำหรับคอยดูการ republish ที่เกิดจากที่อื่น และ session แบบ background (`claude --bg`, `claude agents`) ก็ watch artifact ที่ตัวเองเผยแพร่ด้วยแล้ว
 - **fast mode ใน session แบบ Claude Code Remote** — session บน cloud และ self-hosted runner ใช้ค่า fast-mode ของ host หรือ `/fast` ที่พิมพ์ใน session ได้แล้ว เท่าที่องค์กรอนุญาต ดู [[03-slash-commands]]
 
+### 🆕 ใหม่ใน v2.1.273
+
+- **fork session แบบ Remote Control จาก Claude app ได้** — session ที่เปิดด้วย `claude --remote-control` หรือ `/remote-control` สั่ง fork จาก Claude app ได้แล้ว โดยตัวที่ fork ออกมาจะรันเป็น background session บนเครื่องเรา ดู [[19-session-management]]
+
 ---
 
 ---

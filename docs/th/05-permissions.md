@@ -248,6 +248,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **คำสั่ง shell แบบ inline `!` ใน skill/slash command ใช้กฎแบบ default mode** — ใน auto mode คำสั่งพวกนี้ผ่านกฎ permission ปกติแทนการให้ classifier ตัดสิน และคำสั่งที่ไม่มีกฎไหนตัดสินจะถูกรันเป็น tool call ที่ผ่านการรีวิว ดู [[11-skills]]
 - **subagent ส่งผลกลับผ่าน call ที่ถูกรีวิว** — ใน auto mode subagent รายงานกลับหาผู้เรียกผ่าน hand-back call เฉพาะที่ safety classifier ตรวจ แทนการเอาข้อความสุดท้ายของมันมาตรวจย้อนหลัง ดู [[12-subagents]]
 
+### 🆕 ใหม่ใน v2.1.273
+- **auto mode บน Bedrock, Vertex และ Foundry ตัดสินด้วย classifier ในเครื่อง** — แพลตฟอร์มกลุ่มนี้ใช้ local classifier เป็นค่าเริ่มต้นแล้ว ถ้าอยากใช้ server-side classifier ของแพลตฟอร์มให้ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=1` ดู [[23-environment-variables]]
+- **บรรทัด Bash ที่ตัวตรวจ permission อ่านไม่ออกกลับมาถามก่อน** — การเปลี่ยนใน v2.1.268 ที่เอา deny rule ของ Read/Edit ไปตรวจบรรทัดแบบนั้น (`eval`, `env -C`) ถูกย้อนกลับ คำสั่งอย่าง `time -p make build` จึงถามขออนุมัติแทนที่จะถูกปฏิเสธ
+
 ---
 
 ---

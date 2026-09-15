@@ -160,6 +160,11 @@ claude --mcp-config ./mcp.json
 
 - **ยังไม่ลงทะเบียน OAuth client จนกว่าจะ sign in จริง** — สำหรับ remote MCP server ที่ต้อง authenticate ตัว Claude Code จะรอให้เรา authenticate ก่อน แล้วค่อยไปลงทะเบียน OAuth client กับ server นั้น
 
+### 🆕 ใหม่ใน v2.1.273
+
+- **รู้ทันทีเมื่อ server หลุดถาวร** — ถ้า MCP server หลุดกลาง session แล้วการ reconnect อัตโนมัติยอมแพ้ จะมี notification บอกพร้อมชี้ให้ไปดูที่ `/mcp`
+- **sign-in ของ server หมดอายุแล้วบอกวิธีแก้** — เมื่อการ authenticate ของ server หมดอายุกลาง session ข้อความจะบอกให้ไป re-authenticate ด้วย `/mcp`
+
 ---
 
 ---

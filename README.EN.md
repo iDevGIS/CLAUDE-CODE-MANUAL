@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.272-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.66.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.273-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.67.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.272`
+## 🆕 What's new — synced to Claude Code `v2.1.273`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -138,8 +138,10 @@ Never used a command line? You can still follow along 👇
 | ⏱️ **Monitor watches always have a deadline** | the no-timeout `persistent` option is gone — a watch runs at most 30 minutes (10 in single-prompt `-p` runs) and notifies Claude to re-arm · sessions can watch up to 10 published artifacts at once, up from 5 (v2.1.271) |
 | 🧮 **Workflow sizing + `modelPricing` multiplier** | dynamic workflows pause at a usage limit and continue when it resets instead of dropping agents · default workflow size is small on Pro plans and the medium guideline drops from 15 to 10 agents · `modelPricing` accepts a `multiplier` above 1 (up to 10) for marked-up internal chargeback rates (v2.1.271) |
 | 🛡️ **Auto mode tightens shell and subagent review** | inline `!` shell commands in a skill or slash command follow default-mode permission rules instead of the classifier — one no rule decides runs as a reviewed tool call · a subagent reports back through a dedicated hand-back call the safety classifier reviews, instead of its last message being reviewed after the fact (v2.1.271) |
+| 🌉 **Gateway hint headers + an auto-mode classifier switch** | `CLAUDE_CODE_GATEWAY_HINT_HEADERS=1` sends `x-claude-code-request-class`, `-agent-type`, `-prev-tool-durations`, `-compaction` and `-context-compacted` to an LLM gateway · auto mode on Bedrock/Vertex/Foundry now uses the local classifier by default, with `CLAUDE_CODE_AUTO_MODE_SERVER=1` for the platform's server-side one · `OTEL_LOG_TOOL_DETAILS=1` adds real agent/skill/plugin/MCP names to cost and token metrics (v2.1.273) |
+| 🔌 **An MCP drop notice + forking a Remote Control session** | a server that disconnects mid-session and gives up reconnecting now says so and points at `/mcp` · a Remote Control session can be forked from the Claude app, and the fork runs as a background session on your computer · `/bug` and `/feedback` send only model-behavior params · signing in also requests access to your claude.ai plugins (v2.1.273) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.272` (manual `v1.66.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.273` (manual `v1.67.0`)
 
 ---
 
@@ -162,7 +164,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.272** + the Fable 5.1 / Opus 5 / Sonnet 5 lineup
+Tracks Claude Code **v2.1.273** + the Fable 5.1 / Opus 5 / Sonnet 5 lineup
 
 </td>
 </tr>
@@ -222,7 +224,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.272`
+> **Claude Code Version:** `2.1.273`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

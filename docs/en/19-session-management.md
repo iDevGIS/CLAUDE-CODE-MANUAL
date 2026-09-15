@@ -131,6 +131,10 @@ Shows an interactive picker to choose a session.
 
 - **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS`** — caps how old an interrupted turn may be and still be re-run on resume. Without it, a turn that failed with an API error more than 6 hours ago is no longer re-run. See [[23-environment-variables]].
 
+### New in v2.1.273
+
+- **Fork a Remote Control session from the Claude app** — a session started with `claude --remote-control` or `/remote-control` can be forked from the Claude app; the fork runs as a background session on your computer. See [[41-background-agents]].
+
 ---
 
 ---

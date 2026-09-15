@@ -87,6 +87,8 @@ related:
 | `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` | ดันเพดานจำนวน agent ที่รันพร้อมกันต่อหนึ่ง run ของ Workflow tool (1–256) สำหรับงาน fan-out ที่คอขวดอยู่ที่ inference ไม่ใช่ CPU ดู [[39-dynamic-workflows]] *(v2.1.269)* |
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | ตั้ง `0` เพื่อกลับไปให้ session แบบ remote และ headless รายงาน "waiting for your input" ทั้งที่ background agent ยังทำงานอยู่ แบบเดิม ดู [[41-background-agents]] *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | อายุสูงสุดของ turn ที่ถูกขัดจังหวะซึ่ง `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` จะยังยอมรันซ้ำ ค่าเริ่มต้น 6 ชั่วโมง *(v2.1.269)* |
+| `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | ตั้ง `1` เพื่อส่ง header ใบ้เส้นทางไปให้ LLM gateway ได้แก่ `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` และ `x-claude-code-context-compacted` *(v2.1.273)* |
+| `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `1` ให้ auto mode บน Bedrock, Vertex และ Foundry ใช้ server-side classifier ของแพลตฟอร์ม — ปกติแพลตฟอร์มกลุ่มนี้ใช้ classifier ในเครื่อง ดู [[05-permissions]] *(v2.1.273)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -95,6 +97,8 @@ related:
 > log event ของ OpenTelemetry มี attribute `message.uuid`, `client_request_id` และ `tool_source` เพิ่มเข้ามา สำหรับ correlate ระดับ message และบอกที่มาของ tool call *(v2.1.214)*
 
 > session แบบ Claude apps gateway ส่ง OpenTelemetry ตรงไปยัง collector ที่ managed settings ของ gateway ระบุไว้ใน `OTEL_EXPORTER_OTLP_ENDPOINT` แทนการส่งผ่าน relay ของ gateway — ถ้าไม่ได้ระบุ collector ไว้ก็ยังส่งผ่าน relay เหมือนเดิม *(v2.1.265)*
+
+> `OTEL_LOG_TOOL_DETAILS=1` ใส่ชื่อจริงของ agent, skill, plugin และ MCP server ลงใน metric ด้าน cost และ token ด้วยแล้ว *(v2.1.273)*
 
 ### ตั้งค่าใน settings.json
 

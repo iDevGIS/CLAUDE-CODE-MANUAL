@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.272         │
+│ Welcome to Claude Code v2.1.273         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.272
+- run: npm install -g @anthropic-ai/claude-code@2.1.273
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1315,6 +1315,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/desktop`** — offers to download the Claude desktop app. The claude.ai desktop tip in the spinner now suggests it, and Bedrock, Vertex AI, Foundry and LLM gateway users get a tip pointing at the app too.
 - **`/fast` works in Claude Code Remote sessions** — fast mode now applies in cloud and self-hosted runner sessions, either from the host's fast-mode setting or from `/fast` typed in the session, where your organization allows it.
 
+### New in v2.1.273
+- **`/bug` and `/feedback` send only model-behavior params** — a report now carries just the model, system prompt and tools from the last API request; request metadata and `CLAUDE_CODE_EXTRA_BODY` fields are left out.
+
 ---
 
 ## 4. Keyboard Shortcuts
@@ -1660,6 +1663,10 @@ Skill(commit)                    # Specific skill
 - **Per-command `allowed_domains` for Bash, PowerShell and Monitor** — in auto mode with sandboxing, a command declares the hosts it needs; those hosts are reviewed together with the command and opened for that command alone, while every other host is refused.
 - **A skill's or slash command's inline `!` shell commands follow default-mode rules** — in auto mode they now go through the normal permission rules instead of the classifier, and a command that no rule decides runs as a reviewed tool call.
 - **A subagent hands its result back through a reviewed call** — in auto mode the subagent reports to its caller through a dedicated hand-back call that the safety classifier reviews, instead of its last message being reviewed after the fact.
+
+### New in v2.1.273
+- **Auto mode judges locally on Bedrock, Vertex and Foundry** — these platforms now use the local classifier by default; set `CLAUDE_CODE_AUTO_MODE_SERVER=1` to use the platform's server-side classifier instead (see 23. Environment Variables).
+- **Bash lines the permission checker can't analyze prompt again** — the v2.1.268 change that checked Read and Edit deny rules on such lines (`eval`, `env -C`) is reverted, so a command like `time -p make build` asks for approval instead of being denied.
 
 ---
 
@@ -2277,6 +2284,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 ### New in v2.1.265
 
 - **No OAuth client is registered until you actually sign in** — for remote MCP servers that need authentication, Claude Code waits for you to authenticate before registering an OAuth client with the server.
+
+### New in v2.1.273
+
+- **You're told when a server drops for good** — when an MCP server disconnects mid-session and automatic reconnection gives up, a notification says so and points you at `/mcp`.
+- **An expired server sign-in says how to fix it** — when a server's authentication expires mid-session, the message now tells you to re-authenticate with `/mcp`.
 
 ---
 
@@ -3395,6 +3407,10 @@ claude --plugin-dir ./my-plugin
 
 - **`--plugin-dir` accepts a folder of plugins** — point it at a parent folder and every child folder with a manifest loads; children added or removed while Claude is running are picked up (see 2. CLI Commands and Flags).
 
+### New in v2.1.273
+
+- **Signing in asks for your claude.ai plugins too** — signing in with a Claude account now also requests access to the plugins on your claude.ai account.
+
 ---
 
 ## 19. Session Management
@@ -3506,6 +3522,10 @@ Shows an interactive picker to choose a session.
 ### New in v2.1.269
 
 - **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS`** — caps how old an interrupted turn may be and still be re-run on resume. Without it, a turn that failed with an API error more than 6 hours ago is no longer re-run.
+
+### New in v2.1.273
+
+- **Fork a Remote Control session from the Claude app** — a session started with `claude --remote-control` or `/remote-control` can be forked from the Claude app; the fork runs as a background session on your computer.
 
 ### Session File Locations
 
@@ -3798,6 +3818,8 @@ your-project/
 | `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` | Raises the Workflow tool's per-run concurrent agent limit (1–256), for fan-outs that are inference-bound rather than CPU-bound. *(v2.1.269)* |
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | Set `0` to go back to remote and headless sessions reporting "waiting for your input" while background agents are still running. *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | Maximum age of an interrupted turn that `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` will still re-run; 6 hours by default. *(v2.1.269)* |
+| `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | Set `1` to send routing-hint headers to an LLM gateway: `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` and `x-claude-code-context-compacted`. *(v2.1.273)* |
+| `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `1` to make auto mode on Bedrock, Vertex and Foundry use the platform's server-side classifier; those platforms use the local classifier by default. *(v2.1.273)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -3806,6 +3828,8 @@ your-project/
 > OpenTelemetry log events now carry `message.uuid`, `client_request_id`, and `tool_source` attributes for message-level correlation and tool provenance. *(v2.1.214)*
 
 > Claude apps gateway sessions export OpenTelemetry straight to the collector their gateway's managed settings name in `OTEL_EXPORTER_OTLP_ENDPOINT`, instead of through the gateway's relay; sessions with no collector named still go through the relay. *(v2.1.265)*
+
+> `OTEL_LOG_TOOL_DETAILS=1` also puts the real agent, skill, plugin and MCP server names on cost and token metrics. *(v2.1.273)*
 
 ### Configure in settings.json
 
@@ -5119,7 +5143,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.272`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.273`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

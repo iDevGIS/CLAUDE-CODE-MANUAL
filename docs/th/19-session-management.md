@@ -131,6 +131,10 @@ claude --fork-session                # แยก Branch ใหม่
 
 - **`CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS`** — จำกัดว่า turn ที่ถูกขัดจังหวะเก่าได้แค่ไหนถึงจะยังถูกรันซ้ำตอน resume; ถ้าไม่ตั้ง turn ที่ล้มด้วย API error เกิน 6 ชั่วโมงจะไม่ถูกรันซ้ำอีก ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.273
+
+- **fork session แบบ Remote Control จาก Claude app ได้** — session ที่เปิดด้วย `claude --remote-control` หรือ `/remote-control` สั่ง fork จาก Claude app ได้แล้ว โดยตัวที่ fork ออกมาจะรันเป็น background session บนเครื่องเรา ดู [[41-background-agents]]
+
 ---
 
 ---

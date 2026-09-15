@@ -133,6 +133,10 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 - **Up to 10 watched artifacts per session** — a session can watch 10 published artifacts at once for republishes made elsewhere, up from 5, and background sessions (`claude --bg`, `claude agents`) watch the artifacts they publish too.
 - **Fast mode in Claude Code Remote sessions** — cloud and self-hosted runner sessions honour the host's fast-mode setting or `/fast` typed in the session, where the organization allows it. See [[03-slash-commands]].
 
+### New in v2.1.273
+
+- **Fork a Remote Control session from the Claude app** — a session started with `claude --remote-control` or `/remote-control` can be forked from the Claude app; the fork runs as a background session on your computer. See [[19-session-management]].
+
 ---
 
 ---

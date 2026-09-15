@@ -25,6 +25,29 @@
 
 ---
 
+## [1.67.0] — 2026-09-16
+
+### Compatibility
+- **Claude Code:** `v2.1.273+`
+
+### Added
+- **05. Permissions / 23. Environment Variables** — `CLAUDE_CODE_AUTO_MODE_SERVER=1` ให้ auto mode บน Bedrock / Vertex / Foundry ใช้ server-side classifier ของแพลตฟอร์ม
+- **23. Environment Variables** — `CLAUDE_CODE_GATEWAY_HINT_HEADERS=1` ส่ง header ใบ้เส้นทางให้ LLM gateway: `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction`, `x-claude-code-context-compacted`
+- **09. MCP Servers** — notification เมื่อ MCP server หลุดกลาง session แล้ว reconnect อัตโนมัติยอมแพ้ (ชี้ไปที่ `/mcp`) และข้อความบอกวิธี re-authenticate เมื่อ sign-in ของ server หมดอายุ
+- **19. Session Management / 41. Background Agents** — fork session ที่เปิดด้วย `claude --remote-control` หรือ `/remote-control` จาก Claude app ได้ โดยตัวที่ fork รันเป็น background session บนเครื่องผู้ใช้
+
+### Changed
+- **03. Slash Commands** — `/bug` และ `/feedback` ส่งเฉพาะพารามิเตอร์ที่มีผลต่อพฤติกรรมโมเดล (model, system prompt, tools) จาก API request ล่าสุด ตัด metadata ของ request และฟิลด์จาก `CLAUDE_CODE_EXTRA_BODY` ออก
+- **05. Permissions** — auto mode บน Bedrock / Vertex / Foundry ใช้ local classifier เป็นค่าเริ่มต้น · ย้อนการเปลี่ยนของ `2.1.268` ที่เอา deny rule ของ Read/Edit ไปตรวจบรรทัด Bash ที่ตัวตรวจอ่านไม่ออก (`eval`, `env -C`) — คำสั่งอย่าง `time -p make build` กลับมาถามก่อนแทนการถูกปฏิเสธ
+- **18. Plugins** — การ sign in ด้วยบัญชี Claude ขอสิทธิ์เข้าถึง plugin บน claude.ai เพิ่มด้วย
+- **23. Environment Variables** — `OTEL_LOG_TOOL_DETAILS=1` ใส่ชื่อจริงของ agent, skill, plugin และ MCP server ลงใน metric ด้าน cost และ token
+- **Version strings** bumped `2.1.272` → `2.1.273` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.273` มีของที่ต้องเขียนถึงชัดเจน: env var ใหม่ 2 ตัวฝั่ง gateway/auto mode, การแจ้งเตือนเมื่อ MCP หลุดถาวร, การ fork session แบบ Remote Control จาก Claude app และการเปลี่ยนพฤติกรรมของ `/bug` / `/feedback`, OTEL tool details กับ scope ตอน sign in ส่วน entry ที่เหลือเป็น bug fix และงานขัดผิว UI จึงไม่ถูกนำมาเขียน
+
+---
+
 ## [1.66.0] — 2026-09-15
 
 ### Compatibility
@@ -1519,6 +1542,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.67.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.66.0...v1.67.0
 [1.66.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.65.0...v1.66.0
 [1.65.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.64.0...v1.65.0
 [1.64.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.63.0...v1.64.0

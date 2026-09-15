@@ -219,6 +219,10 @@ Skill(commit)                    # Specific skill
 - **A skill's or slash command's inline `!` shell commands follow default-mode rules** — in auto mode they now go through the normal permission rules instead of the classifier, and a command that no rule decides runs as a reviewed tool call. See [[11-skills]].
 - **A subagent hands its result back through a reviewed call** — in auto mode the subagent reports to its caller through a dedicated hand-back call that the safety classifier reviews, instead of its last message being reviewed after the fact. See [[12-subagents]].
 
+### New in v2.1.273
+- **Auto mode judges locally on Bedrock, Vertex and Foundry** — these platforms now use the local classifier by default; set `CLAUDE_CODE_AUTO_MODE_SERVER=1` to use the platform's server-side classifier instead. See [[23-environment-variables]].
+- **Bash lines the permission checker can't analyze prompt again** — the v2.1.268 change that checked Read and Edit deny rules on such lines (`eval`, `env -C`) is reverted, so a command like `time -p make build` asks for approval instead of being denied.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

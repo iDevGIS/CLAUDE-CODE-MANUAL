@@ -87,6 +87,8 @@ related:
 | `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` | Raises the Workflow tool's per-run concurrent agent limit (1–256), for fan-outs that are inference-bound rather than CPU-bound. See [[39-dynamic-workflows]]. *(v2.1.269)* |
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | Set `0` to go back to remote and headless sessions reporting "waiting for your input" while background agents are still running. See [[41-background-agents]]. *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | Maximum age of an interrupted turn that `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` will still re-run; 6 hours by default. *(v2.1.269)* |
+| `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | Set `1` to send routing-hint headers to an LLM gateway: `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` and `x-claude-code-context-compacted`. *(v2.1.273)* |
+| `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `1` to make auto mode on Bedrock, Vertex and Foundry use the platform's server-side classifier; those platforms use the local classifier by default. See [[05-permissions]]. *(v2.1.273)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -95,6 +97,8 @@ related:
 > OpenTelemetry log events now carry `message.uuid`, `client_request_id`, and `tool_source` attributes for message-level correlation and tool provenance. *(v2.1.214)*
 
 > Claude apps gateway sessions export OpenTelemetry straight to the collector their gateway's managed settings name in `OTEL_EXPORTER_OTLP_ENDPOINT`, instead of through the gateway's relay; sessions with no collector named still go through the relay. *(v2.1.265)*
+
+> `OTEL_LOG_TOOL_DETAILS=1` also puts the real agent, skill, plugin and MCP server names on cost and token metrics. *(v2.1.273)*
 
 ### Configure in settings.json
 

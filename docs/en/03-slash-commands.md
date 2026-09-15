@@ -229,6 +229,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/desktop`** — offers to download the Claude desktop app. The claude.ai desktop tip in the spinner now suggests it, and Bedrock, Vertex AI, Foundry and LLM gateway users get a tip pointing at the app too.
 - **`/fast` works in Claude Code Remote sessions** — fast mode now applies in cloud and self-hosted runner sessions, either from the host's fast-mode setting or from `/fast` typed in the session, where your organization allows it. See [[41-background-agents]].
 
+### New in v2.1.273
+- **`/bug` and `/feedback` send only model-behavior params** — a report now carries just the model, system prompt and tools from the last API request; request metadata and `CLAUDE_CODE_EXTRA_BODY` fields are left out.
+
 ---
 
 ---
