@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.274         │
+│ Welcome to Claude Code v2.1.275         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1058,7 +1058,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.274
+- run: npm install -g @anthropic-ai/claude-code@2.1.275
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1312,6 +1312,10 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.273
 - **`/bug` กับ `/feedback` ส่งเฉพาะพารามิเตอร์ที่มีผลต่อพฤติกรรมโมเดล** — รายงานแนบแค่ model, system prompt และ tools จาก API request ล่าสุด ส่วน metadata ของ request และฟิลด์จาก `CLAUDE_CODE_EXTRA_BODY` ไม่ถูกส่งไปด้วยแล้ว
 
+### 🆕 ใหม่ใน v2.1.275
+- **`/status` บอกบัญชีที่ sign in ผ่าน gateway** — เมื่อ Claude apps gateway ระบุบัญชีที่ sign in อยู่มาให้ตอน sign in เราต้องยืนยันบัญชีนั้นก่อน credential จะถูกบันทึก แล้ว `/status` จะแสดงบัญชีนั้นให้เห็น
+- **`/plugin install <plugin> --marketplace <source>`** — ติดตั้ง plugin จาก marketplace ที่ระบุ ถ้ายังไม่ได้เพิ่ม marketplace นั้นไว้ Claude Code จะเสนอให้เพิ่มก่อน (ดูบท 18 Plugins)
+
 ---
 
 ## 4. คีย์ลัด (Keyboard Shortcuts)
@@ -1419,6 +1423,10 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.261
 
 - **ปุ่มแก้ไขระดับคำในช่อง prompt เป็นแบบ Bash เสมอแล้ว** — `Ctrl+W` ลบย้อนถึงช่องว่าง, `Alt+F` กับ `Alt+D` หยุดที่ท้ายคำ และเครื่องหมายวรรคตอนถือเป็นตัวแบ่งคำ; setting `keybindingFlavor` ไม่มีผลอีกต่อไป
+
+### 🆕 ใหม่ใน v2.1.275
+
+- **`Ctrl+Enter` (หรือ `Ctrl+X Ctrl+S`) ส่งข้อความที่ต่อคิวไว้ทันที** — ปุ่ม send-now จะขัดจังหวะเทิร์นที่กำลังทำงานอยู่แล้วส่งข้อความที่ต่อคิวไว้ทั้งหมดพร้อมกัน ไม่ต้องรอให้เทิร์นจบ; ข้อความที่ส่งแล้วและที่ยังรอคิวจะแสดงเป็นสีเทาจนกว่าโมเดลจะได้รับจริง
 
 ---
 
@@ -1907,6 +1915,11 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.271
 
 - **`multiplier` ใน `modelPricing` และบล็อก `pricing` ของ gateway** — managed setting `modelPricing` และบล็อก `pricing` ของ Claude apps gateway รับค่า multiplier ที่มากกว่า 1 ได้ถึง 10 สำหรับเรตคิดเงินภายในองค์กรที่บวกเพิ่ม
+
+### 🆕 ใหม่ใน v2.1.275
+
+- **`syncClaudeAiSkills` / `syncClaudeAiPlugins`** — session ในเทอร์มินัลที่ sign in ด้วยบัญชี Claude จะ sync skill และ plugin ที่เปิดใช้อยู่ในบัญชี claude.ai นั้นมาให้ ถ้าไม่ต้องการให้ตั้งค่าใดค่าหนึ่งเป็น `false`
+- **`otelHeadersHelper` ที่พังจะเตือนตอนเริ่ม session** — ถ้า helper ที่ตั้งไว้ทำงานล้มเหลว session จะแจ้งตั้งแต่ตอนเปิด แทนที่จะเงียบแล้วไม่ export telemetry เลย
 
 ---
 
@@ -2646,6 +2659,10 @@ my-skill/
 ### 🆕 ใหม่ใน v2.1.261
 
 - **`/skill-doctor`** — แสดงว่า skill ที่โหลดอยู่ตัวไหนไม่ถูกเรียกใช้ และแต่ละตัวกิน context ไปเท่าไหร่ จะได้ตัด (prune) ได้ถูกตัว
+
+### 🆕 ใหม่ใน v2.1.275
+
+- **skill ที่เปิดใช้บน claude.ai sync ลงเทอร์มินัล** — session ที่ sign in ด้วยบัญชี Claude นั้นจะดึง skill ที่เปิดไว้ในบัญชี claude.ai มาใช้ ถ้าไม่ต้องการให้ตั้ง `syncClaudeAiSkills: false` (ดูบท 6 Configuration)
 
 ---
 
@@ -3403,6 +3420,11 @@ claude --plugin-dir ./my-plugin
 ### 🆕 ใหม่ใน v2.1.273
 
 - **sign in แล้วขอสิทธิ์เข้าถึง plugin บน claude.ai ด้วย** — การ sign in ด้วยบัญชี Claude ขอสิทธิ์เข้าถึง plugin ในบัญชี claude.ai ของเราเพิ่มเข้ามาแล้ว
+
+### 🆕 ใหม่ใน v2.1.275
+
+- **plugin ที่เปิดใช้บน claude.ai sync ลงเทอร์มินัล** — session ที่ sign in ด้วยบัญชี Claude นั้นจะดึง plugin ที่เปิดไว้ในบัญชี claude.ai มาใช้ ถ้าไม่ต้องการให้ตั้ง `syncClaudeAiPlugins: false` (ดูบท 6 Configuration)
+- **`/plugin install <plugin> --marketplace <source>`** — ติดตั้ง plugin จาก marketplace ที่ระบุ ถ้ายังไม่ได้เพิ่ม marketplace นั้นไว้จะเสนอให้เพิ่มก่อน
 
 ---
 
@@ -5140,7 +5162,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.274`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.275`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

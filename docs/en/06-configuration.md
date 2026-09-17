@@ -267,6 +267,11 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **`multiplier` in `modelPricing` and the gateway `pricing` block** — the managed `modelPricing` setting and the Claude apps gateway `pricing` block accept a multiplier above 1, up to 10, for marked-up internal chargeback rates.
 
+### New in v2.1.275
+
+- **`syncClaudeAiSkills` / `syncClaudeAiPlugins`** — a terminal session signed in with a Claude account now syncs the skills and plugins enabled on that claude.ai account. Set either setting to `false` to opt out. See [[11-skills]] and [[18-plugins]].
+- **A failing `otelHeadersHelper` warns at startup** — when the configured helper fails, the session says so on launch instead of silently exporting no telemetry. See [[23-environment-variables]].
+
 ---
 
 ---

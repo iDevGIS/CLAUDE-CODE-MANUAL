@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.274-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.68.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.275-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.69.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.274`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.275`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -141,8 +141,9 @@
 | 🌉 **header ใบ้เส้นทางให้ gateway + สลับ classifier ของ auto mode** | `CLAUDE_CODE_GATEWAY_HINT_HEADERS=1` ส่ง `x-claude-code-request-class`, `-agent-type`, `-prev-tool-durations`, `-compaction` และ `-context-compacted` ไปให้ LLM gateway · auto mode บน Bedrock/Vertex/Foundry ใช้ classifier ในเครื่องเป็นค่าเริ่มต้น ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=1` ถ้าอยากใช้ตัวฝั่ง server ของแพลตฟอร์ม · `OTEL_LOG_TOOL_DETAILS=1` ใส่ชื่อจริงของ agent/skill/plugin/MCP ลง metric ด้าน cost และ token (v2.1.273) |
 | 🔌 **แจ้งเตือนเมื่อ MCP หลุดถาวร + fork session แบบ Remote Control** | server ที่หลุดกลาง session แล้ว reconnect ไม่ไหวจะมี notification บอกพร้อมชี้ไปที่ `/mcp` · session แบบ Remote Control สั่ง fork จาก Claude app ได้ โดยตัวที่ fork รันเป็น background session บนเครื่องเรา · `/bug` กับ `/feedback` ส่งเฉพาะพารามิเตอร์ที่มีผลต่อพฤติกรรมโมเดล · การ sign in ขอสิทธิ์เข้าถึง plugin บน claude.ai ด้วย (v2.1.273) |
 | ⏳ **คุมเวลารอ MCP ตอนเปิดเครื่อง + telemetry ละเอียดขึ้น** | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังต่อไม่เสร็จ (`0` = ไม่รอ) · trace span `claude_code.llm_request` มี attribute `effort` · event ใหม่ `claude_code.managed_settings_resolved` บอกแหล่งของ managed settings และสถานะ policy helper โดยตั้ง `OTEL_LOG_MANAGED_SETTINGS=1` จะใส่ค่าแบบ redact พร้อม digest ให้ · มีคำเตือนตอนหน่วยความจำเหลือน้อยขั้นวิกฤตพร้อมวิธีคืนหน่วยความจำหรือ restart อย่างปลอดภัย (v2.1.274) |
+| ⌨️ **ปุ่มส่งทันที + sync skill/plugin จาก claude.ai** | `Ctrl+Enter` (หรือ `Ctrl+X Ctrl+S`) ขัดจังหวะเทิร์นที่รันอยู่แล้วส่งข้อความที่ต่อคิวไว้ทั้งหมดพร้อมกัน · session ที่ sign in ด้วยบัญชี Claude ดึง skill/plugin ที่เปิดใช้บน claude.ai มาให้ ปิดได้ด้วย `syncClaudeAiSkills` / `syncClaudeAiPlugins: false` · `/plugin install <plugin> --marketplace <source>` เสนอเพิ่ม marketplace ให้ก่อนติดตั้ง · sign in ผ่าน gateway ต้องยืนยันบัญชีก่อนบันทึก credential แล้ว `/status` แสดงบัญชีนั้น (v2.1.275) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.274` (manual `v1.68.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.275` (manual `v1.69.0`)
 
 ---
 
@@ -165,7 +166,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.274** + โมเดล Fable 5.1 / Opus 5 / Sonnet 5
+ตรงกับ Claude Code **v2.1.275** + โมเดล Fable 5.1 / Opus 5 / Sonnet 5
 
 </td>
 </tr>
@@ -225,7 +226,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.274`
+> **Claude Code Version:** `2.1.275`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

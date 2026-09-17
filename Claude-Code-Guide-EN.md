@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.274         │
+│ Welcome to Claude Code v2.1.275         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.274
+- run: npm install -g @anthropic-ai/claude-code@2.1.275
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1318,6 +1318,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.273
 - **`/bug` and `/feedback` send only model-behavior params** — a report now carries just the model, system prompt and tools from the last API request; request metadata and `CLAUDE_CODE_EXTRA_BODY` fields are left out.
 
+### New in v2.1.275
+- **`/status` shows the account you signed in as through a gateway** — when a Claude apps gateway names the signed-in account during sign-in, you confirm that account before the credential is saved, and `/status` then reports it.
+- **`/plugin install <plugin> --marketplace <source>`** — installs a plugin from a named marketplace; if that marketplace isn't added yet, Claude Code offers to add it first (see 18. Plugins).
+
 ---
 
 ## 4. Keyboard Shortcuts
@@ -1425,6 +1429,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.261
 
 - **The prompt's word-editing keys now always match Bash** — `Ctrl+W` deletes back to whitespace, `Alt+F` and `Alt+D` stop at word end, and punctuation separates words; the `keybindingFlavor` setting no longer has any effect.
+
+### New in v2.1.275
+
+- **`Ctrl+Enter` (or `Ctrl+X Ctrl+S`) sends queued messages now** — the send-now key interrupts the current turn and sends every queued message at once, instead of waiting for the turn to finish. Sent and queued messages stay gray until the model actually receives them.
 
 ---
 
@@ -1913,6 +1921,11 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.271
 
 - **`multiplier` in `modelPricing` and the gateway `pricing` block** — the managed `modelPricing` setting and the Claude apps gateway `pricing` block accept a multiplier above 1, up to 10, for marked-up internal chargeback rates.
+
+### New in v2.1.275
+
+- **`syncClaudeAiSkills` / `syncClaudeAiPlugins`** — a terminal session signed in with a Claude account now syncs the skills and plugins enabled on that claude.ai account. Set either setting to `false` to opt out.
+- **A failing `otelHeadersHelper` warns at startup** — when the configured helper fails, the session says so on launch instead of silently exporting no telemetry.
 
 ---
 
@@ -2653,6 +2666,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 ### New in v2.1.261
 
 - **`/skill-doctor`** — shows which loaded skills go unused and what they cost in context, so you can prune them.
+
+### New in v2.1.275
+
+- **Skills enabled on claude.ai sync to the terminal** — a session signed in with that Claude account picks up the skills turned on in your claude.ai account; opt out with `syncClaudeAiSkills: false` (see 6. Configuration).
 
 ---
 
@@ -3414,6 +3431,11 @@ claude --plugin-dir ./my-plugin
 ### New in v2.1.273
 
 - **Signing in asks for your claude.ai plugins too** — signing in with a Claude account now also requests access to the plugins on your claude.ai account.
+
+### New in v2.1.275
+
+- **Plugins enabled on claude.ai sync to the terminal** — a session signed in with that Claude account picks up the plugins turned on in your claude.ai account; opt out with `syncClaudeAiPlugins: false` (see 6. Configuration).
+- **`/plugin install <plugin> --marketplace <source>`** — installs a plugin from a named marketplace, offering to add that marketplace first when it isn't added yet.
 
 ---
 
@@ -5154,7 +5176,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.274`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.275`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

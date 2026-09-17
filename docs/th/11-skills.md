@@ -187,6 +187,10 @@ my-skill/
 
 - **`/skill-doctor`** — แสดงว่า skill ที่โหลดอยู่ตัวไหนไม่ถูกเรียกใช้ และแต่ละตัวกิน context ไปเท่าไหร่ จะได้ตัด (prune) ได้ถูกตัว ดู [[03-slash-commands]]
 
+### 🆕 ใหม่ใน v2.1.275
+
+- **skill ที่เปิดใช้บน claude.ai sync ลงเทอร์มินัล** — session ที่ sign in ด้วยบัญชี Claude นั้นจะดึง skill ที่เปิดไว้ในบัญชี claude.ai มาใช้ ถ้าไม่ต้องการให้ตั้ง `syncClaudeAiSkills: false` ดู [[06-configuration]]
+
 ---
 
 ---

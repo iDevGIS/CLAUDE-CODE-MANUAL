@@ -233,6 +233,10 @@ related:
 ### 🆕 ใหม่ใน v2.1.273
 - **`/bug` กับ `/feedback` ส่งเฉพาะพารามิเตอร์ที่มีผลต่อพฤติกรรมโมเดล** — รายงานแนบแค่ model, system prompt และ tools จาก API request ล่าสุด ส่วน metadata ของ request และฟิลด์จาก `CLAUDE_CODE_EXTRA_BODY` ไม่ถูกส่งไปด้วยแล้ว
 
+### 🆕 ใหม่ใน v2.1.275
+- **`/status` บอกบัญชีที่ sign in ผ่าน gateway** — เมื่อ Claude apps gateway ระบุบัญชีที่ sign in อยู่มาให้ตอน sign in เราต้องยืนยันบัญชีนั้นก่อน credential จะถูกบันทึก แล้ว `/status` จะแสดงบัญชีนั้นให้เห็น
+- **`/plugin install <plugin> --marketplace <source>`** — ติดตั้ง plugin จาก marketplace ที่ระบุ ถ้ายังไม่ได้เพิ่ม marketplace นั้นไว้ Claude Code จะเสนอให้เพิ่มก่อน ดู [[18-plugins]]
+
 ---
 
 ---

@@ -232,6 +232,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.273
 - **`/bug` and `/feedback` send only model-behavior params** — a report now carries just the model, system prompt and tools from the last API request; request metadata and `CLAUDE_CODE_EXTRA_BODY` fields are left out.
 
+### New in v2.1.275
+- **`/status` shows the account you signed in as through a gateway** — when a Claude apps gateway names the signed-in account during sign-in, you confirm that account before the credential is saved, and `/status` then reports it.
+- **`/plugin install <plugin> --marketplace <source>`** — installs a plugin from a named marketplace; if that marketplace isn't added yet, Claude Code offers to add it first. See [[18-plugins]].
+
 ---
 
 ---

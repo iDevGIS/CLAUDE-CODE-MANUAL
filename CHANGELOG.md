@@ -25,6 +25,26 @@
 
 ---
 
+## [1.69.0] — 2026-09-18
+
+### Compatibility
+- **Claude Code:** `v2.1.275+`
+
+### Added
+- **04. Keyboard Shortcuts** — ปุ่ม send-now `Ctrl+Enter` (หรือ `Ctrl+X Ctrl+S`) ขัดจังหวะเทิร์นที่กำลังรันแล้วส่งข้อความที่ต่อคิวไว้ทั้งหมดพร้อมกัน; ข้อความที่ส่งแล้วและที่รอคิวแสดงเป็นสีเทาจนกว่าโมเดลจะได้รับ
+- **06. Configuration / 11. Skills / 18. Plugins** — `syncClaudeAiSkills` / `syncClaudeAiPlugins` — session ในเทอร์มินัลที่ sign in ด้วยบัญชี Claude จะ sync skill และ plugin ที่เปิดใช้อยู่บน claude.ai มาให้ ตั้งเป็น `false` เพื่อปิด
+- **03. Slash Commands / 18. Plugins** — `/plugin install <plugin> --marketplace <source>` ติดตั้ง plugin จาก marketplace ที่ระบุ และเสนอให้เพิ่ม marketplace นั้นก่อนถ้ายังไม่ได้เพิ่มไว้
+- **03. Slash Commands** — การ sign in ผ่าน Claude apps gateway ที่ระบุบัญชีมาให้ ต้องยืนยันบัญชีนั้นก่อน credential จะถูกบันทึก แล้ว `/status` จะแสดงบัญชีที่ใช้อยู่
+- **06. Configuration** — คำเตือนตอนเริ่ม session เมื่อ `otelHeadersHelper` ที่ตั้งไว้ทำงานล้มเหลว จะได้ไม่เงียบแล้วไม่ export telemetry เลย
+
+### Changed
+- **Version strings** bumped `2.1.274` → `2.1.275` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.275` มีของใหม่ฝั่ง UX และการเชื่อมบัญชีเป็นหลัก จึงคัดมา 5 ชิ้นที่ documentable: ปุ่ม send-now, การ sync skill/plugin จาก claude.ai พร้อม setting ปิด, `--marketplace` ของ `/plugin install`, การยืนยันบัญชีตอน sign in ผ่าน gateway (+ `/status`) และคำเตือน `otelHeadersHelper` ที่พัง · ส่วนที่เหลือของ release เป็น bug fix ล้วน (transcript/session ที่พังแล้วกู้ได้, fullscreen scroll, vim mode, `/rewind` backup, plugin marketplace update, การ redact token ใน URL ฯลฯ) จึงไม่นำมาเขียนตามกติกา
+
+---
+
 ## [1.68.0] — 2026-09-17
 
 ### Compatibility
@@ -1561,6 +1581,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.69.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.68.0...v1.69.0
 [1.68.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.67.0...v1.68.0
 [1.67.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.66.0...v1.67.0
 [1.66.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.65.0...v1.66.0

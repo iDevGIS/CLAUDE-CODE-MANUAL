@@ -187,6 +187,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **`/skill-doctor`** — shows which loaded skills go unused and what they cost in context, so you can prune them. See [[03-slash-commands]].
 
+### New in v2.1.275
+
+- **Skills enabled on claude.ai sync to the terminal** — a session signed in with that Claude account picks up the skills turned on in your claude.ai account; opt out with `syncClaudeAiSkills: false`. See [[06-configuration]].
+
 ---
 
 ---

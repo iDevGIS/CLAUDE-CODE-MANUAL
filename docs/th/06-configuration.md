@@ -267,6 +267,11 @@ related:
 
 - **`multiplier` ใน `modelPricing` และบล็อก `pricing` ของ gateway** — managed setting `modelPricing` และบล็อก `pricing` ของ Claude apps gateway รับค่า multiplier ที่มากกว่า 1 ได้ถึง 10 สำหรับเรตคิดเงินภายในองค์กรที่บวกเพิ่ม
 
+### 🆕 ใหม่ใน v2.1.275
+
+- **`syncClaudeAiSkills` / `syncClaudeAiPlugins`** — session ในเทอร์มินัลที่ sign in ด้วยบัญชี Claude จะ sync skill และ plugin ที่เปิดใช้อยู่ในบัญชี claude.ai นั้นมาให้ ถ้าไม่ต้องการให้ตั้งค่าใดค่าหนึ่งเป็น `false` ดู [[11-skills]] และ [[18-plugins]]
+- **`otelHeadersHelper` ที่พังจะเตือนตอนเริ่ม session** — ถ้า helper ที่ตั้งไว้ทำงานล้มเหลว session จะแจ้งตั้งแต่ตอนเปิด แทนที่จะเงียบแล้วไม่ export telemetry เลย ดู [[23-environment-variables]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

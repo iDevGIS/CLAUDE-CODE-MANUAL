@@ -119,6 +119,10 @@ related:
 
 - **The prompt's word-editing keys now always match Bash** — `Ctrl+W` deletes back to whitespace, `Alt+F` and `Alt+D` stop at word end, and punctuation separates words; the `keybindingFlavor` setting no longer has any effect. See [[06-configuration]].
 
+### New in v2.1.275
+
+- **`Ctrl+Enter` (or `Ctrl+X Ctrl+S`) sends queued messages now** — the send-now key interrupts the current turn and sends every queued message at once, instead of waiting for the turn to finish. Sent and queued messages stay gray until the model actually receives them.
+
 ---
 
 ---

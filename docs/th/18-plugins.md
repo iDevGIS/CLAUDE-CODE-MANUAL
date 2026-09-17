@@ -138,6 +138,11 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 
 - **sign in แล้วขอสิทธิ์เข้าถึง plugin บน claude.ai ด้วย** — การ sign in ด้วยบัญชี Claude ขอสิทธิ์เข้าถึง plugin ในบัญชี claude.ai ของเราเพิ่มเข้ามาแล้ว
 
+### 🆕 ใหม่ใน v2.1.275
+
+- **plugin ที่เปิดใช้บน claude.ai sync ลงเทอร์มินัล** — session ที่ sign in ด้วยบัญชี Claude นั้นจะดึง plugin ที่เปิดไว้ในบัญชี claude.ai มาใช้ ถ้าไม่ต้องการให้ตั้ง `syncClaudeAiPlugins: false` ดู [[06-configuration]]
+- **`/plugin install <plugin> --marketplace <source>`** — ติดตั้ง plugin จาก marketplace ที่ระบุ ถ้ายังไม่ได้เพิ่ม marketplace นั้นไว้จะเสนอให้เพิ่มก่อน ดู [[03-slash-commands]]
+
 ---
 
 ---
