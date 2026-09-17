@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.273         │
+│ Welcome to Claude Code v2.1.274         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.273
+- run: npm install -g @anthropic-ai/claude-code@2.1.274
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -2289,6 +2289,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **You're told when a server drops for good** — when an MCP server disconnects mid-session and automatic reconnection gives up, a notification says so and points you at `/mcp`.
 - **An expired server sign-in says how to fix it** — when a server's authentication expires mid-session, the message now tells you to re-authenticate with `/mcp`.
+
+### New in v2.1.274
+
+- **Bound the first-turn wait for servers that are still connecting** — `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` caps how long the first non-interactive turn waits for MCP servers that haven't finished connecting; `0` means don't wait at all (see 23. Environment Variables).
 
 ---
 
@@ -3820,6 +3824,8 @@ your-project/
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | Maximum age of an interrupted turn that `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` will still re-run; 6 hours by default. *(v2.1.269)* |
 | `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | Set `1` to send routing-hint headers to an LLM gateway: `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` and `x-claude-code-context-compacted`. *(v2.1.273)* |
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `1` to make auto mode on Bedrock, Vertex and Foundry use the platform's server-side classifier; those platforms use the local classifier by default. *(v2.1.273)* |
+| `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | Bounds how long the first non-interactive turn waits for MCP servers that are still connecting; `0` = don't wait. *(v2.1.274)* |
+| `OTEL_LOG_MANAGED_SETTINGS` | Set `1` to include redacted managed-settings values and their digests in the `claude_code.managed_settings_resolved` OpenTelemetry event. *(v2.1.274)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -3830,6 +3836,10 @@ your-project/
 > Claude apps gateway sessions export OpenTelemetry straight to the collector their gateway's managed settings name in `OTEL_EXPORTER_OTLP_ENDPOINT`, instead of through the gateway's relay; sessions with no collector named still go through the relay. *(v2.1.265)*
 
 > `OTEL_LOG_TOOL_DETAILS=1` also puts the real agent, skill, plugin and MCP server names on cost and token metrics. *(v2.1.273)*
+
+> The `claude_code.llm_request` OpenTelemetry trace span carries an `effort` attribute, matching the `api_request` event; a new `claude_code.managed_settings_resolved` event reports which managed-settings sources were used and the policy helper's state. *(v2.1.274)*
+
+> Telemetry that Claude Desktop and Cowork send through a Claude apps gateway includes `enduser.sub`, the IdP subject. *(v2.1.274)*
 
 ### Configure in settings.json
 
@@ -3895,6 +3905,7 @@ claude --debug-file /tmp/claude-debug.log
 | Hooks don't run | Check syntax in settings.json |
 | Cannot log in | `claude auth login` again |
 | MCP server doesn't work | `/mcp` to see status, check command and args |
+| A memory-usage warning appears | Memory is critically low — follow the steps in the warning to free memory or restart the session safely. *(v2.1.274)* |
 
 ### Inspect a Session
 
@@ -5143,7 +5154,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.273`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.274`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

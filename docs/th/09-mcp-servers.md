@@ -165,6 +165,10 @@ claude --mcp-config ./mcp.json
 - **รู้ทันทีเมื่อ server หลุดถาวร** — ถ้า MCP server หลุดกลาง session แล้วการ reconnect อัตโนมัติยอมแพ้ จะมี notification บอกพร้อมชี้ให้ไปดูที่ `/mcp`
 - **sign-in ของ server หมดอายุแล้วบอกวิธีแก้** — เมื่อการ authenticate ของ server หมดอายุกลาง session ข้อความจะบอกให้ไป re-authenticate ด้วย `/mcp`
 
+### 🆕 ใหม่ใน v2.1.274
+
+- **จำกัดเวลารอ server ที่ยังต่อไม่เสร็จในเทิร์นแรก** — `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` กำหนดเพดานว่าเทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จได้นานแค่ไหน ตั้ง `0` = ไม่รอเลย ดู [[23-environment-variables]]
+
 ---
 
 ---

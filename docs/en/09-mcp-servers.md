@@ -165,6 +165,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **You're told when a server drops for good** — when an MCP server disconnects mid-session and automatic reconnection gives up, a notification says so and points you at `/mcp`.
 - **An expired server sign-in says how to fix it** — when a server's authentication expires mid-session, the message now tells you to re-authenticate with `/mcp`.
 
+### New in v2.1.274
+
+- **Bound the first-turn wait for servers that are still connecting** — `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` caps how long the first non-interactive turn waits for MCP servers that haven't finished connecting; `0` means don't wait at all. See [[23-environment-variables]].
+
 ---
 
 ---

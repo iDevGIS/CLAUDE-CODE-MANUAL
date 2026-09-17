@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.273         │
+│ Welcome to Claude Code v2.1.274         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1058,7 +1058,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.273
+- run: npm install -g @anthropic-ai/claude-code@2.1.274
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -2282,6 +2282,10 @@ claude --mcp-config ./mcp.json
 
 - **รู้ทันทีเมื่อ server หลุดถาวร** — ถ้า MCP server หลุดกลาง session แล้วการ reconnect อัตโนมัติยอมแพ้ จะมี notification บอกพร้อมชี้ให้ไปดูที่ `/mcp`
 - **sign-in ของ server หมดอายุแล้วบอกวิธีแก้** — เมื่อการ authenticate ของ server หมดอายุกลาง session ข้อความจะบอกให้ไป re-authenticate ด้วย `/mcp`
+
+### 🆕 ใหม่ใน v2.1.274
+
+- **จำกัดเวลารอ server ที่ยังต่อไม่เสร็จในเทิร์นแรก** — `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` กำหนดเพดานว่าเทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จได้นานแค่ไหน ตั้ง `0` = ไม่รอเลย (ดูบท 23 Environment Variables)
 
 ---
 
@@ -3809,6 +3813,8 @@ your-project/
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | อายุสูงสุดของ turn ที่ถูกขัดจังหวะซึ่ง `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` จะยังยอมรันซ้ำ ค่าเริ่มต้น 6 ชั่วโมง *(v2.1.269)* |
 | `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | ตั้ง `1` เพื่อส่ง header ใบ้เส้นทางไปให้ LLM gateway ได้แก่ `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` และ `x-claude-code-context-compacted` *(v2.1.273)* |
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `1` ให้ auto mode บน Bedrock, Vertex และ Foundry ใช้ server-side classifier ของแพลตฟอร์ม — ปกติแพลตฟอร์มกลุ่มนี้ใช้ classifier ในเครื่อง *(v2.1.273)* |
+| `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จ ตั้ง `0` = ไม่รอเลย *(v2.1.274)* |
+| `OTEL_LOG_MANAGED_SETTINGS` | ตั้ง `1` เพื่อใส่ค่าของ managed settings แบบ redact แล้วพร้อม digest ลงใน OpenTelemetry event `claude_code.managed_settings_resolved` *(v2.1.274)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -3819,6 +3825,10 @@ your-project/
 > session แบบ Claude apps gateway ส่ง OpenTelemetry ตรงไปยัง collector ที่ managed settings ของ gateway ระบุไว้ใน `OTEL_EXPORTER_OTLP_ENDPOINT` แทนการส่งผ่าน relay ของ gateway — ถ้าไม่ได้ระบุ collector ไว้ก็ยังส่งผ่าน relay เหมือนเดิม *(v2.1.265)*
 
 > `OTEL_LOG_TOOL_DETAILS=1` ใส่ชื่อจริงของ agent, skill, plugin และ MCP server ลงใน metric ด้าน cost และ token ด้วยแล้ว *(v2.1.273)*
+
+> trace span `claude_code.llm_request` ของ OpenTelemetry มี attribute `effort` แล้ว ตรงกับ event `api_request` · และมี event ใหม่ `claude_code.managed_settings_resolved` ที่รายงานว่าใช้ managed-settings จากแหล่งใดและสถานะของ policy helper *(v2.1.274)*
+
+> telemetry ที่ Claude Desktop และ Cowork ส่งผ่าน Claude apps gateway มี `enduser.sub` ซึ่งเป็น subject จาก IdP ติดไปด้วย *(v2.1.274)*
 
 ### ตั้งค่าใน settings.json
 
@@ -3884,6 +3894,7 @@ claude --debug-file /tmp/claude-debug.log
 | Hooks ไม่รัน | ตรวจสอบ Syntax ใน settings.json |
 | Login ไม่ได้ | `claude auth login` ใหม่ |
 | MCP Server ไม่ทำงาน | `/mcp` เพื่อดูสถานะ, ตรวจสอบ Command และ Args |
+| ขึ้นคำเตือนเรื่องการใช้หน่วยความจำ | หน่วยความจำเหลือน้อยขั้นวิกฤต — ทำตามขั้นตอนในคำเตือนเพื่อคืนหน่วยความจำหรือ restart session อย่างปลอดภัย *(v2.1.274)* |
 
 ### ตรวจสอบ Session
 
@@ -5129,7 +5140,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.273`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.274`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

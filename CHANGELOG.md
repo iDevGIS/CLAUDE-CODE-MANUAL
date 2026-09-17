@@ -25,6 +25,25 @@
 
 ---
 
+## [1.68.0] — 2026-09-17
+
+### Compatibility
+- **Claude Code:** `v2.1.274+`
+
+### Added
+- **09. MCP Servers / 23. Environment Variables** — `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จ (ตั้ง `0` = ไม่รอเลย)
+- **23. Environment Variables** — `OTEL_LOG_MANAGED_SETTINGS=1` ใส่ค่าของ managed settings แบบ redact แล้วพร้อม digest ลงใน OpenTelemetry event ใหม่ `claude_code.managed_settings_resolved` (ซึ่งรายงานแหล่งของ managed settings และสถานะของ policy helper)
+- **23. Environment Variables** — trace span `claude_code.llm_request` มี attribute `effort` ตรงกับ event `api_request` · telemetry ที่ Claude Desktop และ Cowork ส่งผ่าน Claude apps gateway มี `enduser.sub` (subject จาก IdP) ติดไปด้วย
+- **24. Troubleshooting** — คำเตือนตอนหน่วยความจำเหลือน้อยขั้นวิกฤต พร้อมขั้นตอนคืนหน่วยความจำหรือ restart session อย่างปลอดภัย
+
+### Changed
+- **Version strings** bumped `2.1.273` → `2.1.274` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.274` เป็น release ที่เนื้อหาส่วนใหญ่เป็น bug fix (transcript ที่พังซ่อมตัวเอง, MCP over legacy HTTP+SSE, timeout ของ Streamable HTTP, `/goal` ตอน resume, flag ของ `claude agents` หลัง auto-update ฯลฯ) จึงคัดเฉพาะของที่ documentable จริง: env var ใหม่ 2 ตัว (`CLAUDE_CODE_MCP_STARTUP_WAIT_MS`, `OTEL_LOG_MANAGED_SETTINGS`), attribute/event ฝั่ง OpenTelemetry ที่เพิ่มเข้ามา และคำเตือนเรื่องหน่วยความจำ · ส่วน config ของ Claude apps gateway (`store.connect_timeout_seconds`, เพดาน 256 request ต่อ replica) เป็นการตั้งค่าฝั่ง server ที่อยู่นอกขอบเขตคู่มือ จึงไม่นำมาเขียน
+
+---
+
 ## [1.67.0] — 2026-09-16
 
 ### Compatibility
@@ -1542,6 +1561,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.68.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.67.0...v1.68.0
 [1.67.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.66.0...v1.67.0
 [1.66.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.65.0...v1.66.0
 [1.65.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.64.0...v1.65.0

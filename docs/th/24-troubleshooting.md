@@ -63,6 +63,7 @@ claude --debug-file /tmp/claude-debug.log
 | Hooks ไม่รัน | ตรวจสอบ Syntax ใน settings.json |
 | Login ไม่ได้ | `claude auth login` ใหม่ |
 | MCP Server ไม่ทำงาน | `/mcp` เพื่อดูสถานะ, ตรวจสอบ Command และ Args |
+| ขึ้นคำเตือนเรื่องการใช้หน่วยความจำ | หน่วยความจำเหลือน้อยขั้นวิกฤต — ทำตามขั้นตอนในคำเตือนเพื่อคืนหน่วยความจำหรือ restart session อย่างปลอดภัย *(v2.1.274)* |
 
 ### ตรวจสอบ Session
 

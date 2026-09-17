@@ -63,6 +63,7 @@ claude --debug-file /tmp/claude-debug.log
 | Hooks don't run | Check syntax in settings.json |
 | Cannot log in | `claude auth login` again |
 | MCP server doesn't work | `/mcp` to see status, check command and args |
+| A memory-usage warning appears | Memory is critically low — follow the steps in the warning to free memory or restart the session safely. *(v2.1.274)* |
 
 ### Inspect a Session
 
