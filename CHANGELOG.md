@@ -25,6 +25,19 @@
 
 ---
 
+## [1.70.0] — 2026-09-18
+
+### Compatibility
+- **Claude Code:** `v2.1.276+`
+
+### Changed
+- **Version strings** bumped `2.1.275` → `2.1.276` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.276` เป็น hotfix เดี่ยว — แก้อาการทุก request พังด้วย `400 … Input tag 'advisor_20260301'` เมื่อ `ANTHROPIC_BASE_URL` ชี้ไปที่ proxy หรือ gateway (regression จาก `2.1.275`) · ไม่มี model, flag, slash command, setting, env var หรือการเปลี่ยนพฤติกรรมที่ต้องเขียนถึงตามกติกา รอบนี้จึงขยับเลขเวอร์ชันอ้างอิงตาม upstream อย่างเดียว เนื้อหาทุกบทยังตรงกับ `2.1.276` ครบ
+
+---
+
 ## [1.69.0] — 2026-09-18
 
 ### Compatibility
@@ -1581,6 +1594,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.70.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.69.0...v1.70.0
 [1.69.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.68.0...v1.69.0
 [1.68.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.67.0...v1.68.0
 [1.67.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.66.0...v1.67.0
