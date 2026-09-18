@@ -272,6 +272,11 @@ Set the `model` key to any of these (newest → cheapest):
 - **`syncClaudeAiSkills` / `syncClaudeAiPlugins`** — a terminal session signed in with a Claude account now syncs the skills and plugins enabled on that claude.ai account. Set either setting to `false` to opt out. See [[11-skills]] and [[18-plugins]].
 - **A failing `otelHeadersHelper` warns at startup** — when the configured helper fails, the session says so on launch instead of silently exporting no telemetry. See [[23-environment-variables]].
 
+### New in v2.1.277
+
+- **`headers:` on a Claude apps gateway upstream** — an optional map of static headers sent with every request to that upstream, for a proxy you run in front of a provider.
+- **"Project instructions" in `/config`** — picks the file a project's instructions come from. A project with no CLAUDE.md now reads `AGENTS.md` instead. Not available on Bedrock, Vertex or Foundry yet. See [[07-claude-md]].
+
 ---
 
 ---

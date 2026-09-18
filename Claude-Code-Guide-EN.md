@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.276         │
+│ Welcome to Claude Code v2.1.277         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.276
+- run: npm install -g @anthropic-ai/claude-code@2.1.277
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1321,6 +1321,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.275
 - **`/status` shows the account you signed in as through a gateway** — when a Claude apps gateway names the signed-in account during sign-in, you confirm that account before the credential is saved, and `/status` then reports it.
 - **`/plugin install <plugin> --marketplace <source>`** — installs a plugin from a named marketplace; if that marketplace isn't added yet, Claude Code offers to add it first (see 18. Plugins).
+
+### New in v2.1.277
+- **`/config` → "Project instructions"** — picks which instruction file the project uses. A project with no CLAUDE.md now reads `AGENTS.md` instead; this setting is where you change that. Not available on Bedrock, Vertex or Foundry yet (see 7. CLAUDE.md).
 
 ---
 
@@ -1927,6 +1930,11 @@ Skill(commit)                    # Specific skill
 - **`syncClaudeAiSkills` / `syncClaudeAiPlugins`** — a terminal session signed in with a Claude account now syncs the skills and plugins enabled on that claude.ai account. Set either setting to `false` to opt out.
 - **A failing `otelHeadersHelper` warns at startup** — when the configured helper fails, the session says so on launch instead of silently exporting no telemetry.
 
+### New in v2.1.277
+
+- **`headers:` on a Claude apps gateway upstream** — an optional map of static headers sent with every request to that upstream, for a proxy you run in front of a provider.
+- **"Project instructions" in `/config`** — picks the file a project's instructions come from. A project with no CLAUDE.md now reads `AGENTS.md` instead. Not available on Bedrock, Vertex or Foundry yet (see 7. CLAUDE.md).
+
 ---
 
 ## 7. CLAUDE.md - Persistent Project Instructions
@@ -2051,6 +2059,10 @@ paths:
 # Use /init to have Claude analyze the project and generate it
 /init
 ```
+
+### New in v2.1.277
+
+**`AGENTS.md` fallback** — in a project with **no** CLAUDE.md, Claude Code reads `AGENTS.md` instead, so a repo that already ships the cross-tool `AGENTS.md` convention works without adding a second file. `AGENTS.md` is only read when the project has no CLAUDE.md. Choose which one a project uses under **"Project instructions"** in `/config`. Not available on Bedrock, Vertex or Foundry yet.
 
 ---
 
@@ -3848,6 +3860,7 @@ your-project/
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `1` to make auto mode on Bedrock, Vertex and Foundry use the platform's server-side classifier; those platforms use the local classifier by default. *(v2.1.273)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | Bounds how long the first non-interactive turn waits for MCP servers that are still connecting; `0` = don't wait. *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | Set `1` to include redacted managed-settings values and their digests in the `claude_code.managed_settings_resolved` OpenTelemetry event. *(v2.1.274)* |
+| `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | Set `1` on a Claude apps gateway whose only egress is a forward proxy: every outbound request hands the proxy the hostname instead of resolving it locally. *(v2.1.277)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5176,7 +5189,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.276`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.277`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

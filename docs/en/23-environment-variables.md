@@ -91,6 +91,7 @@ related:
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `1` to make auto mode on Bedrock, Vertex and Foundry use the platform's server-side classifier; those platforms use the local classifier by default. See [[05-permissions]]. *(v2.1.273)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | Bounds how long the first non-interactive turn waits for MCP servers that are still connecting; `0` = don't wait. See [[09-mcp-servers]]. *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | Set `1` to include redacted managed-settings values and their digests in the `claude_code.managed_settings_resolved` OpenTelemetry event. *(v2.1.274)* |
+| `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | Set `1` on a Claude apps gateway whose only egress is a forward proxy: every outbound request hands the proxy the hostname instead of resolving it locally. *(v2.1.277)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

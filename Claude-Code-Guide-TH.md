@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.276         │
+│ Welcome to Claude Code v2.1.277         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1058,7 +1058,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.276
+- run: npm install -g @anthropic-ai/claude-code@2.1.277
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1315,6 +1315,9 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.275
 - **`/status` บอกบัญชีที่ sign in ผ่าน gateway** — เมื่อ Claude apps gateway ระบุบัญชีที่ sign in อยู่มาให้ตอน sign in เราต้องยืนยันบัญชีนั้นก่อน credential จะถูกบันทึก แล้ว `/status` จะแสดงบัญชีนั้นให้เห็น
 - **`/plugin install <plugin> --marketplace <source>`** — ติดตั้ง plugin จาก marketplace ที่ระบุ ถ้ายังไม่ได้เพิ่ม marketplace นั้นไว้ Claude Code จะเสนอให้เพิ่มก่อน (ดูบท 18 Plugins)
+
+### 🆕 ใหม่ใน v2.1.277
+- **`/config` → "Project instructions"** — เลือกว่าโปรเจกต์นี้ใช้ไฟล์คำสั่งตัวไหน · โปรเจกต์ที่ไม่มี CLAUDE.md จะอ่าน `AGENTS.md` แทนแล้ว และตั้งค่านี้คือจุดที่เปลี่ยนได้ · ยังไม่รองรับบน Bedrock, Vertex และ Foundry (ดูบท 7 CLAUDE.md)
 
 ---
 
@@ -1921,6 +1924,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **`syncClaudeAiSkills` / `syncClaudeAiPlugins`** — session ในเทอร์มินัลที่ sign in ด้วยบัญชี Claude จะ sync skill และ plugin ที่เปิดใช้อยู่ในบัญชี claude.ai นั้นมาให้ ถ้าไม่ต้องการให้ตั้งค่าใดค่าหนึ่งเป็น `false`
 - **`otelHeadersHelper` ที่พังจะเตือนตอนเริ่ม session** — ถ้า helper ที่ตั้งไว้ทำงานล้มเหลว session จะแจ้งตั้งแต่ตอนเปิด แทนที่จะเงียบแล้วไม่ export telemetry เลย
 
+### 🆕 ใหม่ใน v2.1.277
+
+- **`headers:` ใน upstream ของ Claude apps gateway** — map ของ static header (ไม่บังคับ) ที่จะแนบไปกับทุก request ที่ส่งไปยัง upstream นั้น สำหรับกรณีที่เราวาง proxy ของตัวเองคั่นหน้า provider
+- **"Project instructions" ใน `/config`** — เลือกว่าคำสั่งของโปรเจกต์มาจากไฟล์ไหน · โปรเจกต์ที่ไม่มี CLAUDE.md จะอ่าน `AGENTS.md` แทนแล้ว · ยังไม่รองรับบน Bedrock, Vertex และ Foundry (ดูบท 7 CLAUDE.md)
+
 ---
 
 ## 7. CLAUDE.md - คำสั่งถาวรสำหรับโปรเจกต์
@@ -2045,6 +2053,10 @@ paths:
 # ใช้คำสั่ง /init ให้ Claude วิเคราะห์โปรเจกต์แล้วสร้างให้
 /init
 ```
+
+### 🆕 ใหม่ใน v2.1.277
+
+**`AGENTS.md` fallback** — ในโปรเจกต์ที่**ไม่มี** CLAUDE.md, Claude Code จะอ่าน `AGENTS.md` แทน — repo ที่ใช้ convention `AGENTS.md` (มาตรฐานกลางที่เครื่องมือ AI หลายตัวใช้ร่วมกัน) อยู่แล้วจึงไม่ต้องสร้างไฟล์ที่สองเพิ่ม · `AGENTS.md` จะถูกอ่านเฉพาะเมื่อโปรเจกต์ไม่มี CLAUDE.md เท่านั้น · เลือกได้ว่าโปรเจกต์นี้ใช้ไฟล์ไหนที่หัวข้อ **"Project instructions"** ใน `/config` · ยังไม่รองรับบน Bedrock, Vertex และ Foundry
 
 ---
 
@@ -3837,6 +3849,7 @@ your-project/
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `1` ให้ auto mode บน Bedrock, Vertex และ Foundry ใช้ server-side classifier ของแพลตฟอร์ม — ปกติแพลตฟอร์มกลุ่มนี้ใช้ classifier ในเครื่อง *(v2.1.273)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จ ตั้ง `0` = ไม่รอเลย *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | ตั้ง `1` เพื่อใส่ค่าของ managed settings แบบ redact แล้วพร้อม digest ลงใน OpenTelemetry event `claude_code.managed_settings_resolved` *(v2.1.274)* |
+| `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | ตั้ง `1` บน Claude apps gateway ที่ออกเน็ตได้ทางเดียวคือผ่าน forward proxy — ทุก request ขาออกจะส่งชื่อ host ให้ proxy จัดการแทนการ resolve เองในเครื่อง *(v2.1.277)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5162,7 +5175,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.276`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.277`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

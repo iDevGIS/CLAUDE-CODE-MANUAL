@@ -136,6 +136,10 @@ paths:
 /init
 ```
 
+### 🆕 ใหม่ใน v2.1.277
+
+**`AGENTS.md` fallback** — ในโปรเจกต์ที่**ไม่มี** CLAUDE.md, Claude Code จะอ่าน `AGENTS.md` แทน — repo ที่ใช้ convention `AGENTS.md` (มาตรฐานกลางที่เครื่องมือ AI หลายตัวใช้ร่วมกัน) อยู่แล้วจึงไม่ต้องสร้างไฟล์ที่สองเพิ่ม · `AGENTS.md` จะถูกอ่านเฉพาะเมื่อโปรเจกต์ไม่มี CLAUDE.md เท่านั้น · เลือกได้ว่าโปรเจกต์นี้ใช้ไฟล์ไหนที่หัวข้อ **"Project instructions"** ใน `/config` · ยังไม่รองรับบน Bedrock, Vertex และ Foundry
+
 ---
 
 ---

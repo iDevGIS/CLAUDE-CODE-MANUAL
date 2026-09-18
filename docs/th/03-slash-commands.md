@@ -237,6 +237,9 @@ related:
 - **`/status` บอกบัญชีที่ sign in ผ่าน gateway** — เมื่อ Claude apps gateway ระบุบัญชีที่ sign in อยู่มาให้ตอน sign in เราต้องยืนยันบัญชีนั้นก่อน credential จะถูกบันทึก แล้ว `/status` จะแสดงบัญชีนั้นให้เห็น
 - **`/plugin install <plugin> --marketplace <source>`** — ติดตั้ง plugin จาก marketplace ที่ระบุ ถ้ายังไม่ได้เพิ่ม marketplace นั้นไว้ Claude Code จะเสนอให้เพิ่มก่อน ดู [[18-plugins]]
 
+### 🆕 ใหม่ใน v2.1.277
+- **`/config` → "Project instructions"** — เลือกว่าโปรเจกต์นี้ใช้ไฟล์คำสั่งตัวไหน · โปรเจกต์ที่ไม่มี CLAUDE.md จะอ่าน `AGENTS.md` แทนแล้ว และตั้งค่านี้คือจุดที่เปลี่ยนได้ · ยังไม่รองรับบน Bedrock, Vertex และ Foundry ดู [[07-claude-md]]
+
 ---
 
 ---

@@ -136,6 +136,10 @@ paths:
 /init
 ```
 
+### New in v2.1.277
+
+**`AGENTS.md` fallback** — in a project with **no** CLAUDE.md, Claude Code reads `AGENTS.md` instead, so a repo that already ships the cross-tool `AGENTS.md` convention works without adding a second file. `AGENTS.md` is only read when the project has no CLAUDE.md. Choose which one a project uses under **"Project instructions"** in `/config`. Not available on Bedrock, Vertex or Foundry yet.
+
 ---
 
 ---

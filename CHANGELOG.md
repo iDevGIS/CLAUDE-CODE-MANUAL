@@ -25,6 +25,26 @@
 
 ---
 
+## [1.71.0] — 2026-09-19
+
+### Compatibility
+- **Claude Code:** `v2.1.277+`
+
+### Added
+- **`AGENTS.md` fallback** — บท 07 (CLAUDE.md) EN+TH: โปรเจกต์ที่ไม่มี CLAUDE.md จะถูกอ่านจาก `AGENTS.md` แทน · `AGENTS.md` ถูกอ่านเฉพาะเมื่อไม่มี CLAUDE.md · ยังไม่รองรับบน Bedrock, Vertex, Foundry
+- **`/config` → "Project instructions"** — บท 03 (Slash Commands) EN+TH: ตั้งค่าที่เลือกว่าโปรเจกต์ใช้ไฟล์คำสั่งตัวไหน
+- **`headers:` ใน upstream ของ Claude apps gateway** — บท 06 (Configuration) EN+TH: map ของ static header ที่ส่งไปกับทุก request ของ upstream นั้น สำหรับ proxy ที่เราวางคั่นหน้า provider พร้อมสรุป "Project instructions" ในบทเดียวกัน
+- **`CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY`** — บท 23 (Environment Variables) EN+TH: ตั้ง `1` บน gateway ที่ออกเน็ตผ่าน forward proxy อย่างเดียว ทุก request ขาออกจะส่งชื่อ host ให้ proxy แทนการ resolve เอง
+- **แถว What's-new ของ `v2.1.277`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.276` → `2.1.277` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.277` มีของใหม่ที่ต้องเขียนถึง 3 ชิ้น — ตัวเด่นคือ `AGENTS.md` support ซึ่งกระทบวิธีที่ Claude Code หาคำสั่งของโปรเจกต์โดยตรง จึงลงบท 07 เป็นหลักแล้วโยงจากบท 03/06 · อีก 2 ชิ้นเป็นของฝั่ง Claude apps gateway (setting `headers:` และ env var ขา egress) · นอกนั้นใน `2.1.277` เป็น bug fix และ UI polish ล้วน จึงไม่ถูกนำมาเขียน
+
+---
+
 ## [1.70.0] — 2026-09-18
 
 ### Compatibility
@@ -1594,6 +1614,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.71.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.70.0...v1.71.0
 [1.70.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.69.0...v1.70.0
 [1.69.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.68.0...v1.69.0
 [1.68.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.67.0...v1.68.0

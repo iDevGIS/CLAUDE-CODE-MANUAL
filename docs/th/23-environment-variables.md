@@ -91,6 +91,7 @@ related:
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `1` ให้ auto mode บน Bedrock, Vertex และ Foundry ใช้ server-side classifier ของแพลตฟอร์ม — ปกติแพลตฟอร์มกลุ่มนี้ใช้ classifier ในเครื่อง ดู [[05-permissions]] *(v2.1.273)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จ ตั้ง `0` = ไม่รอเลย ดู [[09-mcp-servers]] *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | ตั้ง `1` เพื่อใส่ค่าของ managed settings แบบ redact แล้วพร้อม digest ลงใน OpenTelemetry event `claude_code.managed_settings_resolved` *(v2.1.274)* |
+| `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | ตั้ง `1` บน Claude apps gateway ที่ออกเน็ตได้ทางเดียวคือผ่าน forward proxy — ทุก request ขาออกจะส่งชื่อ host ให้ proxy จัดการแทนการ resolve เองในเครื่อง *(v2.1.277)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

@@ -272,6 +272,11 @@ related:
 - **`syncClaudeAiSkills` / `syncClaudeAiPlugins`** — session ในเทอร์มินัลที่ sign in ด้วยบัญชี Claude จะ sync skill และ plugin ที่เปิดใช้อยู่ในบัญชี claude.ai นั้นมาให้ ถ้าไม่ต้องการให้ตั้งค่าใดค่าหนึ่งเป็น `false` ดู [[11-skills]] และ [[18-plugins]]
 - **`otelHeadersHelper` ที่พังจะเตือนตอนเริ่ม session** — ถ้า helper ที่ตั้งไว้ทำงานล้มเหลว session จะแจ้งตั้งแต่ตอนเปิด แทนที่จะเงียบแล้วไม่ export telemetry เลย ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.277
+
+- **`headers:` ใน upstream ของ Claude apps gateway** — map ของ static header (ไม่บังคับ) ที่จะแนบไปกับทุก request ที่ส่งไปยัง upstream นั้น สำหรับกรณีที่เราวาง proxy ของตัวเองคั่นหน้า provider
+- **"Project instructions" ใน `/config`** — เลือกว่าคำสั่งของโปรเจกต์มาจากไฟล์ไหน · โปรเจกต์ที่ไม่มี CLAUDE.md จะอ่าน `AGENTS.md` แทนแล้ว · ยังไม่รองรับบน Bedrock, Vertex และ Foundry ดู [[07-claude-md]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.
