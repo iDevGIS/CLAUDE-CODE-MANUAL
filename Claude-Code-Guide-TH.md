@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.277         │
+│ Welcome to Claude Code v2.1.278         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1058,7 +1058,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.277
+- run: npm install -g @anthropic-ai/claude-code@2.1.278
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1318,6 +1318,9 @@ claude -p "..."              # ถามเร็ว ๆ
 
 ### 🆕 ใหม่ใน v2.1.277
 - **`/config` → "Project instructions"** — เลือกว่าโปรเจกต์นี้ใช้ไฟล์คำสั่งตัวไหน · โปรเจกต์ที่ไม่มี CLAUDE.md จะอ่าน `AGENTS.md` แทนแล้ว และตั้งค่านี้คือจุดที่เปลี่ยนได้ · ยังไม่รองรับบน Bedrock, Vertex และ Foundry (ดูบท 7 CLAUDE.md)
+
+### 🆕 ใหม่ใน v2.1.278
+- **`/status` มีแถว "Auto mode server"** — บอกว่า classifier ของ auto mode ใน session นี้ทำงานฝั่ง server หรือทำงานในเครื่อง (ดูบท 5 ระบบ Permission)
 
 ---
 
@@ -1672,6 +1675,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.273
 - **auto mode บน Bedrock, Vertex และ Foundry ตัดสินด้วย classifier ในเครื่อง** — แพลตฟอร์มกลุ่มนี้ใช้ local classifier เป็นค่าเริ่มต้นแล้ว ถ้าอยากใช้ server-side classifier ของแพลตฟอร์มให้ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=1` (ดูบท 23 Environment Variables)
 - **บรรทัด Bash ที่ตัวตรวจ permission อ่านไม่ออกกลับมาถามก่อน** — การเปลี่ยนใน v2.1.268 ที่เอา deny rule ของ Read/Edit ไปตรวจบรรทัดแบบนั้น (`eval`, `env -C`) ถูกย้อนกลับ คำสั่งอย่าง `time -p make build` จึงถามขออนุมัติแทนที่จะถูกปฏิเสธ
+
+### 🆕 ใหม่ใน v2.1.278
+- **auto mode ใช้ server-side classifier เป็นค่าเริ่มต้น** — ผู้ใช้ Claude API และ Enterprise รวมถึง session บน Bedrock, Vertex, Foundry และ gateway ให้ server-side classifier ตัดสิน auto mode แล้ว ซึ่งไม่คิดเงินค่า overhead ของตัว classifier เอง · อันนี้กลับทางจากค่าเริ่มต้นของ v2.1.273 บน Bedrock/Vertex/Foundry ถ้าไม่อยากใช้ให้ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=0` เพื่อกลับไปตัดสินในเครื่อง (ดูบท 23 Environment Variables)
+- **เตือนเมื่อ auto mode ต้องถอยไปใช้ classifier ที่คิดเงิน** — ถ้า session ใช้ตัวฝั่ง server ไม่ได้แล้วต้องถอยไปใช้ตัวที่คิดเงิน Claude Code จะเตือนให้รู้ ไม่ใช่เงียบๆ แล้วคิดเงิน · ดูได้จากแถว "Auto mode server" ใน `/status` ว่า session นี้ใช้ตัวไหน
 
 ---
 
@@ -3846,7 +3853,7 @@ your-project/
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | ตั้ง `0` เพื่อกลับไปให้ session แบบ remote และ headless รายงาน "waiting for your input" ทั้งที่ background agent ยังทำงานอยู่ แบบเดิม *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | อายุสูงสุดของ turn ที่ถูกขัดจังหวะซึ่ง `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` จะยังยอมรันซ้ำ ค่าเริ่มต้น 6 ชั่วโมง *(v2.1.269)* |
 | `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | ตั้ง `1` เพื่อส่ง header ใบ้เส้นทางไปให้ LLM gateway ได้แก่ `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` และ `x-claude-code-context-compacted` *(v2.1.273)* |
-| `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `1` ให้ auto mode บน Bedrock, Vertex และ Foundry ใช้ server-side classifier ของแพลตฟอร์ม — ปกติแพลตฟอร์มกลุ่มนี้ใช้ classifier ในเครื่อง *(v2.1.273)* |
+| `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `0` เพื่อไม่ใช้ server-side classifier ของ auto mode บน Bedrock, Vertex, Foundry และ gateway แล้วกลับไปตัดสินด้วย classifier ในเครื่องแทน — ตั้งแต่ v2.1.278 แพลตฟอร์มกลุ่มนี้ (รวมผู้ใช้ Claude API และ Enterprise) ใช้ server-side classifier เป็นค่าเริ่มต้น ซึ่งไม่คิดเงินค่า overhead ของ classifier *(v2.1.273, เปลี่ยน v2.1.278)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จ ตั้ง `0` = ไม่รอเลย *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | ตั้ง `1` เพื่อใส่ค่าของ managed settings แบบ redact แล้วพร้อม digest ลงใน OpenTelemetry event `claude_code.managed_settings_resolved` *(v2.1.274)* |
 | `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | ตั้ง `1` บน Claude apps gateway ที่ออกเน็ตได้ทางเดียวคือผ่าน forward proxy — ทุก request ขาออกจะส่งชื่อ host ให้ proxy จัดการแทนการ resolve เองในเครื่อง *(v2.1.277)* |
@@ -5175,7 +5182,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.277`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.278`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

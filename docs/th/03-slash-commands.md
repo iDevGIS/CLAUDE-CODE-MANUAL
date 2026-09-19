@@ -240,6 +240,9 @@ related:
 ### 🆕 ใหม่ใน v2.1.277
 - **`/config` → "Project instructions"** — เลือกว่าโปรเจกต์นี้ใช้ไฟล์คำสั่งตัวไหน · โปรเจกต์ที่ไม่มี CLAUDE.md จะอ่าน `AGENTS.md` แทนแล้ว และตั้งค่านี้คือจุดที่เปลี่ยนได้ · ยังไม่รองรับบน Bedrock, Vertex และ Foundry ดู [[07-claude-md]]
 
+### 🆕 ใหม่ใน v2.1.278
+- **`/status` มีแถว "Auto mode server"** — บอกว่า classifier ของ auto mode ใน session นี้ทำงานฝั่ง server หรือทำงานในเครื่อง ดู [[05-permissions]]
+
 ---
 
 ---

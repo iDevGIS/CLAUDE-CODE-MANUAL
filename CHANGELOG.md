@@ -25,6 +25,25 @@
 
 ---
 
+## [1.72.0] — 2026-09-19
+
+### Compatibility
+- **Claude Code:** `v2.1.278+`
+
+### Added
+- **auto mode ใช้ server-side classifier เป็นค่าเริ่มต้น** — บท 05 (Permissions) EN+TH: ผู้ใช้ Claude API และ Enterprise รวมถึงบน Bedrock, Vertex, Foundry และ gateway ให้ server-side classifier ตัดสิน auto mode แล้ว ซึ่งไม่คิดเงินค่า overhead ของตัว classifier เอง · กลับทางจากค่าเริ่มต้นของ `v2.1.273` บน Bedrock/Vertex/Foundry · ถ้าถอยไปใช้ classifier ที่คิดเงินจะมีคำเตือน
+- **แถว "Auto mode server" ใน `/status`** — บท 03 (Slash Commands) EN+TH: บอกว่า classifier ของ auto mode ใน session นี้ทำงานฝั่ง server หรือในเครื่อง
+- **แถว What's-new ของ `v2.1.278`** ใน README.md + README.EN.md
+
+### Changed
+- **`CLAUDE_CODE_AUTO_MODE_SERVER`** — บท 23 (Environment Variables) EN+TH: เดิมตั้ง `1` เพื่อเปิด server-side classifier บน Bedrock/Vertex/Foundry · ตอนนี้ค่าเริ่มต้นคือ server-side แล้ว จึงเปลี่ยนคำอธิบายเป็นตั้ง `0` เพื่อ opt out (ครอบคลุม gateway ด้วย) พร้อม stamp `(v2.1.273, changed v2.1.278)`
+- **Version strings** bumped `2.1.277` → `2.1.278` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.278` มีของใหม่แค่ 2 ชิ้นและเกี่ยวกันทั้งคู่ — การเปลี่ยนค่าเริ่มต้นของ classifier ใน auto mode (มีผลกับบิล) และแถวใหม่ใน `/status` ที่ไว้ดูว่า session นี้ใช้ตัวไหน · ชิ้นแรกทำให้บรรทัด env var ของ `v2.1.273` ล้าสมัย จึงต้องแก้คำอธิบายในตารางบท 23 ให้ตรงแทนที่จะเติมอย่างเดียว โดยคง section ประวัติของ `v2.1.273` ไว้เหมือนเดิม · นอกนั้นใน `2.1.278` ไม่มีอย่างอื่น
+
+---
+
 ## [1.71.0] — 2026-09-19
 
 ### Compatibility
@@ -1614,6 +1633,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.72.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.71.0...v1.72.0
 [1.71.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.70.0...v1.71.0
 [1.70.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.69.0...v1.70.0
 [1.69.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.68.0...v1.69.0

@@ -252,6 +252,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **auto mode บน Bedrock, Vertex และ Foundry ตัดสินด้วย classifier ในเครื่อง** — แพลตฟอร์มกลุ่มนี้ใช้ local classifier เป็นค่าเริ่มต้นแล้ว ถ้าอยากใช้ server-side classifier ของแพลตฟอร์มให้ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=1` ดู [[23-environment-variables]]
 - **บรรทัด Bash ที่ตัวตรวจ permission อ่านไม่ออกกลับมาถามก่อน** — การเปลี่ยนใน v2.1.268 ที่เอา deny rule ของ Read/Edit ไปตรวจบรรทัดแบบนั้น (`eval`, `env -C`) ถูกย้อนกลับ คำสั่งอย่าง `time -p make build` จึงถามขออนุมัติแทนที่จะถูกปฏิเสธ
 
+### 🆕 ใหม่ใน v2.1.278
+- **auto mode ใช้ server-side classifier เป็นค่าเริ่มต้น** — ผู้ใช้ Claude API และ Enterprise รวมถึง session บน Bedrock, Vertex, Foundry และ gateway ให้ server-side classifier ตัดสิน auto mode แล้ว ซึ่งไม่คิดเงินค่า overhead ของตัว classifier เอง · อันนี้กลับทางจากค่าเริ่มต้นของ v2.1.273 บน Bedrock/Vertex/Foundry ถ้าไม่อยากใช้ให้ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=0` เพื่อกลับไปตัดสินในเครื่อง ดู [[23-environment-variables]]
+- **เตือนเมื่อ auto mode ต้องถอยไปใช้ classifier ที่คิดเงิน** — ถ้า session ใช้ตัวฝั่ง server ไม่ได้แล้วต้องถอยไปใช้ตัวที่คิดเงิน Claude Code จะเตือนให้รู้ ไม่ใช่เงียบๆ แล้วคิดเงิน · ดูได้จากแถว "Auto mode server" ใน `/status` ว่า session นี้ใช้ตัวไหน ดู [[03-slash-commands]]
+
 ---
 
 ---

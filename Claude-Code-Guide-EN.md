@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.277         │
+│ Welcome to Claude Code v2.1.278         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.277
+- run: npm install -g @anthropic-ai/claude-code@2.1.278
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1325,6 +1325,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.277
 - **`/config` → "Project instructions"** — picks which instruction file the project uses. A project with no CLAUDE.md now reads `AGENTS.md` instead; this setting is where you change that. Not available on Bedrock, Vertex or Foundry yet (see 7. CLAUDE.md).
 
+### New in v2.1.278
+- **`/status` shows an "Auto mode server" row** — it tells you whether this session's auto mode classifier runs on the server or locally in the CLI (see 5. Permission System).
+
 ---
 
 ## 4. Keyboard Shortcuts
@@ -1678,6 +1681,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.273
 - **Auto mode judges locally on Bedrock, Vertex and Foundry** — these platforms now use the local classifier by default; set `CLAUDE_CODE_AUTO_MODE_SERVER=1` to use the platform's server-side classifier instead (see 23. Environment Variables).
 - **Bash lines the permission checker can't analyze prompt again** — the v2.1.268 change that checked Read and Edit deny rules on such lines (`eval`, `env -C`) is reverted, so a command like `time -p make build` asks for approval instead of being denied.
+
+### New in v2.1.278
+- **Auto mode defaults to the server-side classifier** — for Claude API and Enterprise users, and on Bedrock, Vertex, Foundry and gateways, auto mode is now judged by the server-side classifier, which does not charge for the classifier's own overhead. This reverses the v2.1.273 default on Bedrock, Vertex and Foundry; set `CLAUDE_CODE_AUTO_MODE_SERVER=0` there (and on gateways) to opt out and judge locally instead (see 23. Environment Variables).
+- **You get a warning when auto mode falls back to a billed classifier** — if the session can't use the server-side classifier and falls back to the billed one, Claude Code says so instead of quietly charging you; `/status` has an "Auto mode server" row showing which one this session uses.
 
 ---
 
@@ -3857,7 +3864,7 @@ your-project/
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | Set `0` to go back to remote and headless sessions reporting "waiting for your input" while background agents are still running. *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | Maximum age of an interrupted turn that `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` will still re-run; 6 hours by default. *(v2.1.269)* |
 | `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | Set `1` to send routing-hint headers to an LLM gateway: `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` and `x-claude-code-context-compacted`. *(v2.1.273)* |
-| `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `1` to make auto mode on Bedrock, Vertex and Foundry use the platform's server-side classifier; those platforms use the local classifier by default. *(v2.1.273)* |
+| `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `0` to opt out of the server-side auto mode classifier on Bedrock, Vertex, Foundry and gateways and judge locally instead. Since v2.1.278 these platforms — plus Claude API and Enterprise users — default to the server-side classifier, which doesn't charge for classifier overhead. *(v2.1.273, changed v2.1.278)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | Bounds how long the first non-interactive turn waits for MCP servers that are still connecting; `0` = don't wait. *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | Set `1` to include redacted managed-settings values and their digests in the `claude_code.managed_settings_resolved` OpenTelemetry event. *(v2.1.274)* |
 | `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | Set `1` on a Claude apps gateway whose only egress is a forward proxy: every outbound request hands the proxy the hostname instead of resolving it locally. *(v2.1.277)* |
@@ -5189,7 +5196,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.277`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.278`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

@@ -239,6 +239,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.277
 - **`/config` → "Project instructions"** — picks which instruction file the project uses. A project with no CLAUDE.md now reads `AGENTS.md` instead; this setting is where you change that. Not available on Bedrock, Vertex or Foundry yet. See [[07-claude-md]].
 
+### New in v2.1.278
+- **`/status` shows an "Auto mode server" row** — it tells you whether this session's auto mode classifier runs on the server or locally in the CLI. See [[05-permissions]].
+
 ---
 
 ---

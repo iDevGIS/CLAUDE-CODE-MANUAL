@@ -223,6 +223,10 @@ Skill(commit)                    # Specific skill
 - **Auto mode judges locally on Bedrock, Vertex and Foundry** — these platforms now use the local classifier by default; set `CLAUDE_CODE_AUTO_MODE_SERVER=1` to use the platform's server-side classifier instead. See [[23-environment-variables]].
 - **Bash lines the permission checker can't analyze prompt again** — the v2.1.268 change that checked Read and Edit deny rules on such lines (`eval`, `env -C`) is reverted, so a command like `time -p make build` asks for approval instead of being denied.
 
+### New in v2.1.278
+- **Auto mode defaults to the server-side classifier** — for Claude API and Enterprise users, and on Bedrock, Vertex, Foundry and gateways, auto mode is now judged by the server-side classifier, which does not charge for the classifier's own overhead. This reverses the v2.1.273 default on Bedrock, Vertex and Foundry; set `CLAUDE_CODE_AUTO_MODE_SERVER=0` there (and on gateways) to opt out and judge locally instead. See [[23-environment-variables]].
+- **You get a warning when auto mode falls back to a billed classifier** — if the session can't use the server-side classifier and falls back to the billed one, Claude Code says so instead of quietly charging you; `/status` has an "Auto mode server" row showing which one this session uses. See [[03-slash-commands]].
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block
