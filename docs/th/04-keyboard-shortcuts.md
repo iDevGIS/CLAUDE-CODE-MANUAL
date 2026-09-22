@@ -123,6 +123,14 @@ related:
 
 - **`Ctrl+Enter` (หรือ `Ctrl+X Ctrl+S`) ส่งข้อความที่ต่อคิวไว้ทันที** — ปุ่ม send-now จะขัดจังหวะเทิร์นที่กำลังทำงานอยู่แล้วส่งข้อความที่ต่อคิวไว้ทั้งหมดพร้อมกัน ไม่ต้องรอให้เทิร์นจบ; ข้อความที่ส่งแล้วและที่ยังรอคิวจะแสดงเป็นสีเทาจนกว่าโมเดลจะได้รับจริง
 
+### 🆕 ใหม่ใน v2.1.280
+
+- **ปุ่ม `y` และ `n` ไม่ตอบ dialog แล้ว** — ใช้ Enter เพื่อยืนยันและ Esc เพื่อยกเลิก · กด `y` หลุดมือจะไม่ยืนยัน dialog และกด `n` หลุดมือจะไม่ปิด dialog อีกต่อไป · ถ้าอยากได้พฤติกรรมเดิมคืน ให้ bind `y`/`n` เป็น `confirm:yes` / `confirm:no` ใน `keybindings.json`
+- **`Ctrl+L` / `Cmd+K` ในโหมด fullscreen กลับไปวาดหน้าจอใหม่เหมือนเดิม** — ยกเลิกพฤติกรรมเคลียร์ transcript ที่เพิ่มมาใน v2.1.260 แล้ว
+- **ปุ่ม Home และ End ใช้ได้ใน `/config` และ selection list** — รวมถึง `/model`, `/memory` และ permission prompt · ส่วนปุ่ม `Tab` ในลิสต์ของ `/config` จะไม่เปลี่ยนค่าของ setting ที่เลือกอยู่อีกต่อไป
+- **ล้อเมาส์เลื่อนลิสต์ได้มากขึ้นในโหมด fullscreen** — เลื่อนลิสต์ `/skills` และ selection list ที่มีตัวเลือกซ่อนอยู่อย่าง `/model` กับ `/permissions` ได้ · ตัวเลือกสถานะของ skill ใน `/plugin` คลิกได้แล้ว
+- **กด Ctrl+C / Ctrl+D สองครั้งปิด dialog ไม่ใช่ปิด Claude Code** — ใช้กับ `/model`, `/effort`, `/config`, `/status`, `/usage`, `/plugin`, `/sandbox`, `/permissions`, `/artifacts`, `/mobile`, `/login` และ dialog ชุด setup
+
 ---
 
 ---

@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.278         │
+│ Welcome to Claude Code v2.1.280         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -172,7 +172,7 @@ git checkout main
 **Example:**
 ```bash
 claude --model claude-fable-5-1  # Fable 5.1 — most capable, 1M context (new default Fable)
-claude --model opus              # Opus 5 (new default Opus, 1M context)
+claude --model opus              # Opus 5.5 (new default Opus, 1M context)
 claude --model sonnet            # Sonnet 5 (new default, native 1M context)
 claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
 claude --model claude-opus-5     # Full name (specify exact version)
@@ -994,7 +994,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.278
+- run: npm install -g @anthropic-ai/claude-code@2.1.280
 ```
 
 ---

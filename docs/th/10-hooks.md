@@ -200,6 +200,12 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **hook event `PreModelSwitch` / `PostModelSwitch`** — ทำงานตอนกำลังจะเปลี่ยนโมเดลและหลังเปลี่ยนเสร็จ — hook `PreModelSwitch` ใช้ block, ขอ confirm หรือแนบหมายเหตุให้การสลับโมเดลได้
 - **hook `SessionStart` ตอน resume รู้ความเก่าของ session** — ได้รับข้อมูล staleness ของ session และค่าประเมิน cost ของการ re-cache แนบมาด้วย
 
+#### 🆕 ใหม่ใน v2.1.280
+
+- **`PermissionRequest` ไม่รับ hook ชนิด agent แล้ว** — คำตอบจาก agent hook ไม่มีทางอนุญาตหรือปฏิเสธ request ได้อยู่ดี ถ้าตั้งไว้จะขึ้น error พร้อมชี้ให้ไปใช้ hook ชนิด `command` หรือ `http` แทน
+- **telemetry ของ `hook_execution_complete` ละเอียดขึ้น** — OpenTelemetry event นี้แนบขนาด output ของ hook และจำนวน output ที่ใหญ่เกินจนต้องเซฟลงไฟล์มาให้ด้วยแล้ว ดู [[23-environment-variables]]
+- **hook `UserPromptSubmit` ที่ timeout จะบอกชื่อ** — ทั้งข้อความแจ้ง timeout และ debug log ระบุแล้วว่าคำสั่ง hook ตัวไหนที่ timeout
+
 ---
 
 ---

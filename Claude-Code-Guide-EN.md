@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.278         │
+│ Welcome to Claude Code v2.1.280         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -281,7 +281,7 @@ git checkout main
 **Example:**
 ```bash
 claude --model claude-fable-5-1  # Fable 5.1 — most capable, 1M context (new default Fable)
-claude --model opus              # Opus 5 (new default Opus, 1M context)
+claude --model opus              # Opus 5.5 (new default Opus, 1M context)
 claude --model sonnet            # Sonnet 5 (new default, native 1M context)
 claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
 claude --model claude-opus-5     # Full name (specify exact version)
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.278
+- run: npm install -g @anthropic-ai/claude-code@2.1.280
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1328,6 +1328,12 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.278
 - **`/status` shows an "Auto mode server" row** — it tells you whether this session's auto mode classifier runs on the server or locally in the CLI (see 5. Permission System).
 
+### New in v2.1.280
+- **`/effort` no longer carries an old saved level onto new models** — a level saved before `/effort` became per-model no longer applies to newly released models such as Opus 5.5; each starts at its own default until you pick a level there.
+- **Opus 4.7, Opus 4.8 and Fable 5 respect the level you set** — they no longer hold their launch-default effort over `/effort` in `-p` or the Agent SDK, over a project, managed or `--settings` `effortLevel`, or over a per-model level (see 6. Configuration).
+- **`/autocompact` and `/fast` name their keys** — `/autocompact`'s footer hint now names ←/→, the keys that adjust other ordered values, and `/fast`'s footer names Space as the toggle key.
+- **`/cost` explains more cache misses** — its cache-miss causes now name thinking mode and thinking display changes.
+
 ---
 
 ## 4. Keyboard Shortcuts
@@ -1439,6 +1445,14 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.275
 
 - **`Ctrl+Enter` (or `Ctrl+X Ctrl+S`) sends queued messages now** — the send-now key interrupts the current turn and sends every queued message at once, instead of waiting for the turn to finish. Sent and queued messages stay gray until the model actually receives them.
+
+### New in v2.1.280
+
+- **`y` and `n` no longer answer dialogs** — Enter accepts and Esc cancels; a stray `y` no longer confirms a dialog and a stray `n` no longer closes one. Bind `y`/`n` to `confirm:yes` / `confirm:no` in `keybindings.json` to bring the old behavior back.
+- **`Ctrl+L` / `Cmd+K` in fullscreen redraw the screen again** — the transcript-clearing behavior added in v2.1.260 was reverted.
+- **Home and End work in `/config` and selection lists** — including `/model`, `/memory` and permission prompts; `Tab` in the `/config` list no longer changes the selected setting's value.
+- **The mouse wheel reaches more lists in fullscreen** — it scrolls the `/skills` list and selection lists with hidden options such as `/model` and `/permissions`; a skill's state options in `/plugin` can be clicked.
+- **Ctrl+C / Ctrl+D pressed twice closes a dialog, not Claude Code** — in `/model`, `/effort`, `/config`, `/status`, `/usage`, `/plugin`, `/sandbox`, `/permissions`, `/artifacts`, `/mobile`, `/login` and the setup dialogs.
 
 ---
 
@@ -1942,6 +1956,13 @@ Skill(commit)                    # Specific skill
 - **`headers:` on a Claude apps gateway upstream** — an optional map of static headers sent with every request to that upstream, for a proxy you run in front of a provider.
 - **"Project instructions" in `/config`** — picks the file a project's instructions come from. A project with no CLAUDE.md now reads `AGENTS.md` instead. Not available on Bedrock, Vertex or Foundry yet (see 7. CLAUDE.md).
 
+### New in v2.1.280
+
+- **Claude Opus 5.5** (`claude-opus-5-5`) — the new **default Opus model**: 1M context, **$4/$20 per Mtok** with **$0.20/Mtok cache reads**.
+- **Pro and Team Standard default to Opus** — the default model on those plans changed from Sonnet to Opus, matching Max, Team Premium and Enterprise.
+- **A saved effort level no longer follows new models** — an effort level saved before `/effort` became per-model no longer applies to newly released models such as Opus 5.5; they start at their own default until you pick a level (see 3. Slash Commands).
+- **Opus 4.7, Opus 4.8 and Fable 5 stop overriding your effort setting** — they no longer hold their launch-default effort over `/effort` in `-p` or the Agent SDK, over a project, managed or `--settings` `effortLevel`, or over a per-model level.
+
 ---
 
 ## 7. CLAUDE.md - Persistent Project Instructions
@@ -2326,6 +2347,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Bound the first-turn wait for servers that are still connecting** — `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` caps how long the first non-interactive turn waits for MCP servers that haven't finished connecting; `0` means don't wait at all (see 23. Environment Variables).
 
+### New in v2.1.280
+
+- **Raise or lower the description cap** — `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` changes the 2,048-character cap on MCP tool descriptions and server instructions for every MCP server in the session (see 23. Environment Variables).
+- **A server re-added under the same name reconnects** — one added again after `claude mcp remove` no longer shows as needing authentication.
+- **`/mcp` shows one warning icon** — the server list, the detail views and `/plugin` all use ⚠ for the same server.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -2447,6 +2474,12 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 
 - **`PreModelSwitch` / `PostModelSwitch` hook events** — run when the model is about to change and after it has changed; a `PreModelSwitch` hook can block, confirm, or annotate the switch.
 - **`SessionStart` resume hooks learn about staleness** — on resume they now receive the session's staleness and the estimated re-cache cost.
+
+### New in v2.1.280
+
+- **`PermissionRequest` no longer accepts an agent-type hook** — an agent hook's answer could never allow or deny the request, so one configured there now shows an error pointing you at a `command` or `http` hook instead.
+- **Richer `hook_execution_complete` telemetry** — the OpenTelemetry event now carries hook output sizes and the number of oversized outputs that were saved to a file (see 23. Environment Variables).
+- **A timed-out `UserPromptSubmit` hook is named** — both the timeout notice and the debug log now say which hook command timed out.
 
 ### Configuring Hooks
 
@@ -3309,6 +3342,14 @@ cat src/*.ts | claude -p "find bugs"
 
 - **Inactive sessions are archived automatically (VS Code)** — the new **"Archive inactive sessions"** setting archives sessions untouched for a set period, 14 days by default (see 19. Session Management).
 
+### New in v2.1.280
+
+- **Typed slash commands reach more dialogs (VS Code)** — `/status`, `/sandbox`, `/chrome`, `/export`, `/skills` and `/plan` now work in the chat box. `/status` opens a Status dialog with the session's version, account, model and server details; `/sandbox` opens a Sandbox dialog for the sandbox mode, the unsandboxed fallback and excluded commands; `/chrome` opens a Claude in Chrome dialog; `/export` copies or saves the conversation as plain text; `/plan` switches to plan mode, sends a first planning prompt, or shows the session's plan.
+- **The Slash commands dialog shows skill details (VS Code)** — each skill's source, token estimate and on/off state, with a click to change the state.
+- **Pasted text is marked and cleaned (VS Code)** — a paste over 800 characters or over 2 line breaks is marked so Claude can tell it from what you typed, and invisible Unicode formatting and tag characters are removed from pasted text with a notice, and from anything else before it is sent.
+- **The plan approval card offers auto mode (VS Code)** — when auto mode is available, its first option is now "Yes, and use auto mode", as in the terminal.
+- **"Open in New Tab" opens beside your editor group (VS Code)** — rather than after the last group.
+
 ### JetBrains IDEs
 
 **Install:**
@@ -3455,6 +3496,12 @@ claude --plugin-dir ./my-plugin
 
 - **Plugins enabled on claude.ai sync to the terminal** — a session signed in with that Claude account picks up the plugins turned on in your claude.ai account; opt out with `syncClaudeAiPlugins: false` (see 6. Configuration).
 - **`/plugin install <plugin> --marketplace <source>`** — installs a plugin from a named marketplace, offering to add that marketplace first when it isn't added yet.
+
+### New in v2.1.280
+
+- **Marketplace names that imitate a reserved one are refused** — a marketplace whose name imitates a reserved marketplace name is rejected when added, and stops loading if it was already added.
+- **A plugin's recorded commit survives an update** — updating a plugin from a GitHub repository or git URL that tracks a branch or tag no longer leaves `installed_plugins.json` pinned to the install-time commit, and `claude plugin update` no longer moves a plugin to version "unknown" when the official marketplace's snapshot file is a link or too large.
+- **An off skill is no longer shown as broken** — a skill you switched off shows a dim ◯ in `/plugin` and `/skills`, instead of the red ✘ used for a plugin that failed to load (see 11. Skills).
 
 ---
 
@@ -3868,6 +3915,7 @@ your-project/
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | Bounds how long the first non-interactive turn waits for MCP servers that are still connecting; `0` = don't wait. *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | Set `1` to include redacted managed-settings values and their digests in the `claude_code.managed_settings_resolved` OpenTelemetry event. *(v2.1.274)* |
 | `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | Set `1` on a Claude apps gateway whose only egress is a forward proxy: every outbound request hands the proxy the hostname instead of resolving it locally. *(v2.1.277)* |
+| `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` | Changes the 2,048-character cap on MCP tool descriptions and server instructions, for every MCP server in the session. *(v2.1.280)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -3878,6 +3926,8 @@ your-project/
 > Claude apps gateway sessions export OpenTelemetry straight to the collector their gateway's managed settings name in `OTEL_EXPORTER_OTLP_ENDPOINT`, instead of through the gateway's relay; sessions with no collector named still go through the relay. *(v2.1.265)*
 
 > `OTEL_LOG_TOOL_DETAILS=1` also puts the real agent, skill, plugin and MCP server names on cost and token metrics. *(v2.1.273)*
+
+> The `hook_execution_complete` OpenTelemetry event now carries hook output sizes and the number of oversized outputs saved to a file. *(v2.1.280)*
 
 > The `claude_code.llm_request` OpenTelemetry trace span carries an `effort` attribute, matching the `api_request` event; a new `claude_code.managed_settings_resolved` event reports which managed-settings sources were used and the policy helper's state. *(v2.1.274)*
 
@@ -4028,7 +4078,7 @@ claude --version  # check the version
 | Task | Recommended Model | Why |
 |------|-------------------|-----|
 | Hardest reasoning, huge context | Fable 5.1 | Most capable model, 1M context by default |
-| Architecture, complex bugs | Opus 5 | Deep thought, strong analysis |
+| Architecture, complex bugs | Opus 5.5 | Deep thought, strong analysis |
 | General coding, ordinary bugs | Sonnet 5 | Fast, economical — the default |
 | Boilerplate, data generation | Haiku 4.5 | Very fast and very cheap |
 
@@ -5196,7 +5246,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.278`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.280`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
@@ -7478,4 +7528,4 @@ Claude Code is a feature-complete AI tool for developers:
 ---
 
 > **Document version:** Last updated June 25, 2026
-> **Applies to:** Latest Claude Code version (Claude Fable 5.1 / Opus 5 / Sonnet 5 / Haiku 4.5)
+> **Applies to:** Latest Claude Code version (Claude Fable 5.1 / Opus 5.5 / Sonnet 5 / Haiku 4.5)

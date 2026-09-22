@@ -112,12 +112,13 @@ related:
 |-------|-----|--------|
 | **Fable 5.1** | `claude-fable-5-1` | **default Fable ตัวใหม่** (ตั้งแต่ Claude Code **2.1.257**); context **1M**; ราคา **$10/$50 ต่อ Mtok** + **cache read $0.25 ต่อ Mtok** — เก่งที่สุดที่เปิดให้ใช้ทั่วไป เหมาะกับงานคิดหนักสุด, context ใหญ่ และงาน agentic |
 | **Fable 5** | `claude-fable-5` | โมเดล **Mythos-class** default Fable ตัวก่อน (มาใน Claude Code **2.1.170**) มาพร้อม **context window 1M token เป็นค่าเริ่มต้น** |
-| **Opus 5** | `claude-opus-5` | **default Opus ตัวใหม่** (ตั้งแต่ Claude Code **2.1.219**); context **1M**; fast mode ราคา **$10/$50 ต่อ Mtok** |
+| **Opus 5.5** | `claude-opus-5-5` | **default Opus ตัวใหม่** (ตั้งแต่ Claude Code **2.1.280**); context **1M**; ราคา **$4/$20 ต่อ Mtok** + **cache read $0.20 ต่อ Mtok** |
+| **Opus 5** | `claude-opus-5` | default Opus ตัวก่อน (Claude Code **2.1.219–2.1.278**); context **1M**; fast mode ราคา **$10/$50 ต่อ Mtok** |
 | **Opus 4.8** | `claude-opus-4-8` | เรือธง **Opus** ตัวก่อน; coding และวิเคราะห์บั๊กซับซ้อนเก่งสุด; default เป็น **high effort** กับงานหนัก |
 | **Sonnet 5** | `claude-sonnet-5` | **default ใหม่ของ Claude Code** (ตั้งแต่ 2.1.197); สมดุล เร็ว, context **1M native** ($2/$10 ต่อ Mtok — เป็นราคา standard ตั้งแต่ 2.1.243) |
 | **Haiku 4.5** | `claude-haiku-4-5` | เร็วสุด ถูกสุด; สำหรับงานง่าย/boilerplate |
 
-> หมายเหตุ: Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกจาก fast mode ใน 2.1.219) — Fable 5.1 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 5 คือ **default Opus** ตัวปัจจุบัน
+> หมายเหตุ: Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกจาก fast mode ใน 2.1.219) — Fable 5.1 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 5.5 คือ **default Opus** ตัวปัจจุบัน
 
 ### 🆕 Settings ใหม่ใน v2.1.191
 
@@ -276,6 +277,13 @@ related:
 
 - **`headers:` ใน upstream ของ Claude apps gateway** — map ของ static header (ไม่บังคับ) ที่จะแนบไปกับทุก request ที่ส่งไปยัง upstream นั้น สำหรับกรณีที่เราวาง proxy ของตัวเองคั่นหน้า provider
 - **"Project instructions" ใน `/config`** — เลือกว่าคำสั่งของโปรเจกต์มาจากไฟล์ไหน · โปรเจกต์ที่ไม่มี CLAUDE.md จะอ่าน `AGENTS.md` แทนแล้ว · ยังไม่รองรับบน Bedrock, Vertex และ Foundry ดู [[07-claude-md]]
+
+### 🆕 ใหม่ใน v2.1.280
+
+- **Claude Opus 5.5** (`claude-opus-5-5`) — **default Opus ตัวใหม่**: context 1M, ราคา **$4/$20 ต่อ Mtok** พร้อม **cache read $0.20 ต่อ Mtok**
+- **แผน Pro และ Team Standard ใช้ Opus เป็น default** — เปลี่ยนจาก Sonnet มาเป็น Opus เท่าเทียมกับ Max, Team Premium และ Enterprise
+- **ระดับ effort ที่เคยบันทึกไว้จะไม่ตามไปใช้กับโมเดลใหม่** — ค่า effort ที่บันทึกไว้ก่อนที่ `/effort` จะแยกตามโมเดล จะไม่ถูกนำไปใช้กับโมเดลที่เพิ่งออกอย่าง Opus 5.5 อีกต่อไป โมเดลใหม่จะเริ่มที่ค่า default ของตัวเองจนกว่าเราจะเลือกระดับเอง ดู [[03-slash-commands]]
+- **Opus 4.7, Opus 4.8 และ Fable 5 เลิก override ค่า effort ที่เราตั้ง** — ไม่ยึดค่า effort default ตอนเปิดตัวมาทับ `/effort` ใน `-p` หรือ Agent SDK, ทับ `effortLevel` จาก project/managed/`--settings` และทับค่าที่ตั้งแยกรายโมเดลอีกต่อไป
 
 ### การ Persist ของ `/config` และ `/model`
 

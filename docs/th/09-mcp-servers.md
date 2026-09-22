@@ -169,6 +169,12 @@ claude --mcp-config ./mcp.json
 
 - **จำกัดเวลารอ server ที่ยังต่อไม่เสร็จในเทิร์นแรก** — `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` กำหนดเพดานว่าเทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จได้นานแค่ไหน ตั้ง `0` = ไม่รอเลย ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.280
+
+- **ปรับเพดานความยาวของ description ได้แล้ว** — `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` ใช้เปลี่ยนเพดาน 2,048 ตัวอักษรของ description ของ MCP tool และ instructions ของ server โดยมีผลกับทุก MCP server ใน session ดู [[23-environment-variables]]
+- **server ที่เพิ่มกลับด้วยชื่อเดิมจะ reconnect ให้** — หลังสั่ง `claude mcp remove` แล้วเพิ่มกลับด้วยชื่อเดิม จะไม่ขึ้นว่าต้อง authenticate ใหม่อีกต่อไป
+- **`/mcp` ใช้ไอคอนเตือนแบบเดียวกันแล้ว** — ทั้งลิสต์ server, หน้ารายละเอียด และ `/plugin` ใช้ ⚠ เหมือนกันสำหรับ server ตัวเดียวกัน
+
 ---
 
 ---

@@ -67,6 +67,14 @@ related:
 
 - **archive session ที่ทิ้งไว้นานให้อัตโนมัติ (VS Code)** — setting ใหม่ **"Archive inactive sessions"** จะ archive session ที่ไม่ถูกแตะเกินระยะที่ตั้งไว้ ค่าเริ่มต้น 14 วัน ดู [[19-session-management]]
 
+### 🆕 ใหม่ใน v2.1.280
+
+- **พิมพ์ slash command เรียก dialog ได้มากขึ้น (VS Code)** — พิมพ์ `/status`, `/sandbox`, `/chrome`, `/export`, `/skills` และ `/plan` ในช่องแชทได้แล้ว · `/status` เปิด dialog แสดง version, บัญชี, โมเดล และรายละเอียด server ของ session · `/sandbox` เปิด dialog ของโหมด sandbox, fallback แบบไม่ sandbox และคำสั่งที่ยกเว้น · `/chrome` เปิด dialog ของ Claude in Chrome · `/export` คัดลอกหรือบันทึกบทสนทนาเป็น plain text · `/plan` สลับไปโหมด plan, ส่ง prompt วางแผนตัวแรก หรือแสดงแผนของ session ดู [[03-slash-commands]]
+- **dialog Slash commands แสดงรายละเอียดของ skill (VS Code)** — บอกที่มา, ค่าประเมิน token และสถานะเปิด/ปิดของแต่ละ skill และคลิกเปลี่ยนสถานะได้เลย ดู [[11-skills]]
+- **ข้อความที่ paste จะถูกทำเครื่องหมายและทำความสะอาด (VS Code)** — การ paste ที่ยาวเกิน 800 ตัวอักษร หรือมีการขึ้นบรรทัดใหม่เกิน 2 ครั้ง จะถูกทำเครื่องหมายไว้ให้ Claude แยกออกจากข้อความที่เราพิมพ์เอง · อักขระ Unicode ที่มองไม่เห็นและ tag character จะถูกลบออกจากข้อความที่ paste พร้อมแจ้งเตือน และลบออกจากข้อความอื่นก่อนส่งด้วย
+- **การ์ดอนุมัติแผนมีตัวเลือก auto mode (VS Code)** — ถ้า auto mode ใช้ได้ ตัวเลือกแรกจะเป็น "Yes, and use auto mode" เหมือนในเทอร์มินัล ดู [[05-permissions]]
+- **"Open in New Tab" เปิดข้าง editor group ที่เราทำงานอยู่ (VS Code)** — แทนที่จะไปต่อท้าย group สุดท้าย
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**

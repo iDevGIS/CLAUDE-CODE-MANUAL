@@ -25,6 +25,32 @@
 
 ---
 
+## [1.73.0] — 2026-09-23
+
+### Compatibility
+- **Claude Code:** `v2.1.280+`
+
+### Added
+- **Claude Opus 5.5 (`claude-opus-5-5`)** — บท 06 (Configuration) EN+TH: default Opus ตัวใหม่ · context 1M · ราคา `$4/$20` ต่อ Mtok พร้อม cache read `$0.20`/Mtok · เพิ่มเข้า model lineup ทั้งลิสต์ EN และตาราง TH
+- **แผน Pro และ Team Standard ใช้ Opus เป็น default** — บท 06 (Configuration) EN+TH: เปลี่ยนจาก Sonnet เท่าเทียมกับ Max, Team Premium และ Enterprise
+- **`CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH`** — บท 23 (Environment Variables) + บท 09 (MCP) EN+TH: ปรับเพดาน 2,048 ตัวอักษรของ description ของ MCP tool และ instructions ของ server ทั้ง session
+- **`PermissionRequest` ไม่รับ hook ชนิด agent** — บท 10 (Hooks) EN+TH: ขึ้น error พร้อมชี้ไป hook ชนิด `command` / `http` แทน · พร้อม telemetry `hook_execution_complete` ที่แนบขนาด output และจำนวน output ที่ล้นจนต้องเซฟลงไฟล์
+- **พฤติกรรม `/effort` แบบ per-model** — บท 03 (Slash Commands) EN+TH: ค่าที่บันทึกไว้ก่อนแยกตามโมเดลไม่ตามไปใช้กับโมเดลใหม่อย่าง Opus 5.5 · Opus 4.7/4.8 และ Fable 5 เลิก override ค่า effort ที่ตั้งผ่าน `-p`, Agent SDK, `effortLevel` และค่าแยกรายโมเดล
+- **ปุ่ม `y`/`n` ไม่ตอบ dialog แล้ว** — บท 04 (Keyboard Shortcuts) EN+TH: ใช้ Enter/Esc แทน · bind `confirm:yes` / `confirm:no` ใน `keybindings.json` ได้ถ้าอยากได้ของเดิมคืน · พร้อม Home/End ใน `/config`, ล้อเมาส์ใน `/skills`, Ctrl+C/Ctrl+D สองครั้งปิด dialog
+- **marketplace ชื่อเลียนแบบชื่อสงวนถูกปฏิเสธ** — บท 18 (Plugins) EN+TH: พร้อม commit ของ plugin ที่ไม่หายตอนอัปเดต และ skill ที่ปิดไว้แสดง ◯ แทน ✘
+- **ชุด dialog และ slash command ใหม่ของ VS Code** — บท 17 (IDE Integration) EN+TH: `/status`, `/sandbox`, `/chrome`, `/export`, `/skills`, `/plan` พิมพ์ในช่องแชทได้ · dialog Slash commands แสดงที่มา/token/สถานะของ skill · paste ยาวถูกทำเครื่องหมายและล้างอักขระที่มองไม่เห็น
+- **แถว What's-new ของ `v2.1.280`** ใน README.md + README.EN.md
+
+### Changed
+- **`Ctrl+L` / `Cmd+K` ในโหมด fullscreen** — บท 04 (Keyboard Shortcuts) EN+TH: upstream revert พฤติกรรมเคลียร์ transcript ที่เพิ่มใน `v2.1.260` กลับไปเป็นวาดหน้าจอใหม่ · คง section ประวัติของ `v2.1.260` ไว้และบันทึกการ revert ไว้ใน section ใหม่
+- **Model lineup** — บท 02/06/25/26 EN+TH + README ทั้งสองภาษา: Opus 5.5 ขึ้นเป็น default Opus แทน Opus 5 (Opus 5 ถูกเลื่อนเป็น "default ตัวก่อน `2.1.219–2.1.278`") · คอมเมนต์ `--model opus`, ตารางเลือกโมเดล และบรรทัด "Applies to / ใช้กับ" อัปเดตตาม
+- **Version strings** bumped `2.1.278` → `2.1.280` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.280` เป็น delta ใหญ่ที่สุดในรอบนี้ — มี model lineup เปลี่ยนจริง (Opus 5.5 ขึ้นเป็น default Opus) ซึ่งกระทบทุกจุดที่คู่มือเขียนว่า "Opus 5 คือ default Opus" จึงต้อง grep แก้ให้ตรงทั้งชุดแทนที่จะเติม section อย่างเดียว · ไม่มี `2.1.279` บน upstream changelog — `2.1.280` ต่อจาก `2.1.278` ตรงๆ · ของที่เหลือคัดเฉพาะ documentable: env var ใหม่ 1 ตัว, ข้อจำกัดใหม่ของ `PermissionRequest` hook, พฤติกรรม `/effort` per-model, การเปลี่ยนปุ่มยืนยัน dialog ที่มี knob ใน `keybindings.json`, กติกาชื่อ marketplace และชุด dialog/slash command ใหม่ของ VS Code · bug fix และ UI polish ที่เหลือ (ยาวเป็นร้อยบรรทัด) ข้ามทั้งหมดตามกติกา
+
+---
+
 ## [1.72.0] — 2026-09-19
 
 ### Compatibility
@@ -1633,6 +1659,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.73.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.72.0...v1.73.0
 [1.72.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.71.0...v1.72.0
 [1.71.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.70.0...v1.71.0
 [1.70.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.69.0...v1.70.0

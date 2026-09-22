@@ -92,6 +92,7 @@ related:
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | Bounds how long the first non-interactive turn waits for MCP servers that are still connecting; `0` = don't wait. See [[09-mcp-servers]]. *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | Set `1` to include redacted managed-settings values and their digests in the `claude_code.managed_settings_resolved` OpenTelemetry event. *(v2.1.274)* |
 | `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | Set `1` on a Claude apps gateway whose only egress is a forward proxy: every outbound request hands the proxy the hostname instead of resolving it locally. *(v2.1.277)* |
+| `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` | Changes the 2,048-character cap on MCP tool descriptions and server instructions, for every MCP server in the session. See [[09-mcp-servers]]. *(v2.1.280)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -102,6 +103,8 @@ related:
 > Claude apps gateway sessions export OpenTelemetry straight to the collector their gateway's managed settings name in `OTEL_EXPORTER_OTLP_ENDPOINT`, instead of through the gateway's relay; sessions with no collector named still go through the relay. *(v2.1.265)*
 
 > `OTEL_LOG_TOOL_DETAILS=1` also puts the real agent, skill, plugin and MCP server names on cost and token metrics. *(v2.1.273)*
+
+> The `hook_execution_complete` OpenTelemetry event now carries hook output sizes and the number of oversized outputs saved to a file. See [[10-hooks]]. *(v2.1.280)*
 
 > The `claude_code.llm_request` OpenTelemetry trace span carries an `effort` attribute, matching the `api_request` event; a new `claude_code.managed_settings_resolved` event reports which managed-settings sources were used and the policy helper's state. *(v2.1.274)*
 

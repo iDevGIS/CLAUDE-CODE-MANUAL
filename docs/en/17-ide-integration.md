@@ -67,6 +67,14 @@ related:
 
 - **Inactive sessions are archived automatically (VS Code)** — the new **"Archive inactive sessions"** setting archives sessions untouched for a set period, 14 days by default. See [[19-session-management]].
 
+### New in v2.1.280
+
+- **Typed slash commands reach more dialogs (VS Code)** — `/status`, `/sandbox`, `/chrome`, `/export`, `/skills` and `/plan` now work in the chat box. `/status` opens a Status dialog with the session's version, account, model and server details; `/sandbox` opens a Sandbox dialog for the sandbox mode, the unsandboxed fallback and excluded commands; `/chrome` opens a Claude in Chrome dialog; `/export` copies or saves the conversation as plain text; `/plan` switches to plan mode, sends a first planning prompt, or shows the session's plan. See [[03-slash-commands]].
+- **The Slash commands dialog shows skill details (VS Code)** — each skill's source, token estimate and on/off state, with a click to change the state. See [[11-skills]].
+- **Pasted text is marked and cleaned (VS Code)** — a paste over 800 characters or over 2 line breaks is marked so Claude can tell it from what you typed, and invisible Unicode formatting and tag characters are removed from pasted text with a notice, and from anything else before it is sent.
+- **The plan approval card offers auto mode (VS Code)** — when auto mode is available, its first option is now "Yes, and use auto mode", as in the terminal. See [[05-permissions]].
+- **"Open in New Tab" opens beside your editor group (VS Code)** — rather than after the last group.
+
 ### JetBrains IDEs
 
 **Install:**

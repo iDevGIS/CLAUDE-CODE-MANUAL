@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.278-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.72.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.280-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.73.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,13 +33,13 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.278`
+## 🆕 What's new — synced to Claude Code `v2.1.280`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
 | 🔥 New | Details |
 |---|---|
-| 🚀 **Opus 5 model** | `claude-opus-5` — the **new default Opus** (v2.1.219), 1M context, fast mode $10/$50 per Mtok |
+| 🚀 **Opus 5.5 model** | `claude-opus-5-5` — the **new default Opus** (v2.1.280), 1M context, $4/$20 per Mtok with $0.20/Mtok cache reads (previously `claude-opus-5` since v2.1.219) |
 | ✨ **Sonnet 5 model** | `claude-sonnet-5` — the **new default in Claude Code**, native 1M context, standard pricing $2/$10 per Mtok |
 | 🧠 **Fable 5 model** | `claude-fable-5` — Mythos-class, **1M** context by default — the first Fable of the family (see Fable 5.1 below) |
 | ⚡ **Dynamic Workflows** | orchestrate tens–hundreds of agents from a script via the **`ultracode`** keyword |
@@ -144,8 +144,9 @@ Never used a command line? You can still follow along 👇
 | ⌨️ **A send-now key + claude.ai skill/plugin sync** | `Ctrl+Enter` (or `Ctrl+X Ctrl+S`) interrupts the current turn and sends every queued message at once · a session signed in with a Claude account picks up the skills and plugins enabled on claude.ai, opt out with `syncClaudeAiSkills` / `syncClaudeAiPlugins: false` · `/plugin install <plugin> --marketplace <source>` offers to add the marketplace before installing · gateway sign-in confirms the account it names before saving the credential, and `/status` shows it (v2.1.275) |
 | 📄 **`AGENTS.md` support + gateway upstream headers** | a project with no CLAUDE.md now reads `AGENTS.md` instead, switchable under "Project instructions" in `/config` (not yet on Bedrock/Vertex/Foundry) · a Claude apps gateway upstream accepts a `headers:` map of static headers · `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY=1` makes a gateway whose only egress is a forward proxy hand the proxy each hostname instead of resolving it locally (v2.1.277) |
 | 🧮 **Auto mode stops billing you for its own classifier** | auto mode now defaults to the server-side classifier for Claude API and Enterprise users and on Bedrock, Vertex, Foundry and gateways, which doesn't charge for classifier overhead · `CLAUDE_CODE_AUTO_MODE_SERVER=0` opts out on Bedrock/Vertex/Foundry/gateways · a fallback to the billed classifier now warns you, and `/status` has an "Auto mode server" row showing which one this session uses (v2.1.278) |
+| 🚀 **Opus 5.5 becomes the default Opus, and Pro/Team Standard get Opus** | `claude-opus-5-5` is the **new default Opus** — 1M context, $4/$20 per Mtok with $0.20/Mtok cache reads · Pro and Team Standard plans switch their default model from Sonnet to Opus, matching Max, Team Premium and Enterprise · `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` changes the 2,048-character cap on MCP tool descriptions and server instructions · `PermissionRequest` hooks no longer accept an agent-type hook (v2.1.280) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.278` (manual `v1.72.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.280` (manual `v1.73.0`)
 
 ---
 
@@ -168,7 +169,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.278** + the Fable 5.1 / Opus 5 / Sonnet 5 lineup
+Tracks Claude Code **v2.1.280** + the Fable 5.1 / Opus 5.5 / Sonnet 5 lineup
 
 </td>
 </tr>
@@ -228,7 +229,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.278`
+> **Claude Code Version:** `2.1.280`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

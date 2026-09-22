@@ -196,6 +196,12 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **`PreModelSwitch` / `PostModelSwitch` hook events** — run when the model is about to change and after it has changed; a `PreModelSwitch` hook can block, confirm, or annotate the switch.
 - **`SessionStart` resume hooks learn about staleness** — on resume they now receive the session's staleness and the estimated re-cache cost.
 
+### New in v2.1.280
+
+- **`PermissionRequest` no longer accepts an agent-type hook** — an agent hook's answer could never allow or deny the request, so one configured there now shows an error pointing you at a `command` or `http` hook instead.
+- **Richer `hook_execution_complete` telemetry** — the OpenTelemetry event now carries hook output sizes and the number of oversized outputs that were saved to a file. See [[23-environment-variables]].
+- **A timed-out `UserPromptSubmit` hook is named** — both the timeout notice and the debug log now say which hook command timed out.
+
 ---
 
 ---

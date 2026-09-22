@@ -169,6 +169,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Bound the first-turn wait for servers that are still connecting** — `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` caps how long the first non-interactive turn waits for MCP servers that haven't finished connecting; `0` means don't wait at all. See [[23-environment-variables]].
 
+### New in v2.1.280
+
+- **Raise or lower the description cap** — `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` changes the 2,048-character cap on MCP tool descriptions and server instructions for every MCP server in the session. See [[23-environment-variables]].
+- **A server re-added under the same name reconnects** — one added again after `claude mcp remove` no longer shows as needing authentication.
+- **`/mcp` shows one warning icon** — the server list, the detail views and `/plugin` all use ⚠ for the same server.
+
 ---
 
 ---

@@ -143,6 +143,12 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **Plugins enabled on claude.ai sync to the terminal** — a session signed in with that Claude account picks up the plugins turned on in your claude.ai account; opt out with `syncClaudeAiPlugins: false`. See [[06-configuration]].
 - **`/plugin install <plugin> --marketplace <source>`** — installs a plugin from a named marketplace, offering to add that marketplace first when it isn't added yet. See [[03-slash-commands]].
 
+### New in v2.1.280
+
+- **Marketplace names that imitate a reserved one are refused** — a marketplace whose name imitates a reserved marketplace name is rejected when added, and stops loading if it was already added.
+- **A plugin's recorded commit survives an update** — updating a plugin from a GitHub repository or git URL that tracks a branch or tag no longer leaves `installed_plugins.json` pinned to the install-time commit, and `claude plugin update` no longer moves a plugin to version "unknown" when the official marketplace's snapshot file is a link or too large.
+- **An off skill is no longer shown as broken** — a skill you switched off shows a dim ◯ in `/plugin` and `/skills`, instead of the red ✘ used for a plugin that failed to load. See [[11-skills]].
+
 ---
 
 ---

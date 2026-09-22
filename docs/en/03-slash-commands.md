@@ -242,6 +242,12 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.278
 - **`/status` shows an "Auto mode server" row** — it tells you whether this session's auto mode classifier runs on the server or locally in the CLI. See [[05-permissions]].
 
+### New in v2.1.280
+- **`/effort` no longer carries an old saved level onto new models** — a level saved before `/effort` became per-model no longer applies to newly released models such as Opus 5.5; each starts at its own default until you pick a level there.
+- **Opus 4.7, Opus 4.8 and Fable 5 respect the level you set** — they no longer hold their launch-default effort over `/effort` in `-p` or the Agent SDK, over a project, managed or `--settings` `effortLevel`, or over a per-model level. See [[06-configuration]].
+- **`/autocompact` and `/fast` name their keys** — `/autocompact`'s footer hint now names ←/→, the keys that adjust other ordered values, and `/fast`'s footer names Space as the toggle key.
+- **`/cost` explains more cache misses** — its cache-miss causes now name thinking mode and thinking display changes.
+
 ---
 
 ---

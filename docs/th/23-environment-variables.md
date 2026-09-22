@@ -92,6 +92,7 @@ related:
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จ ตั้ง `0` = ไม่รอเลย ดู [[09-mcp-servers]] *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | ตั้ง `1` เพื่อใส่ค่าของ managed settings แบบ redact แล้วพร้อม digest ลงใน OpenTelemetry event `claude_code.managed_settings_resolved` *(v2.1.274)* |
 | `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | ตั้ง `1` บน Claude apps gateway ที่ออกเน็ตได้ทางเดียวคือผ่าน forward proxy — ทุก request ขาออกจะส่งชื่อ host ให้ proxy จัดการแทนการ resolve เองในเครื่อง *(v2.1.277)* |
+| `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` | เปลี่ยนเพดาน 2,048 ตัวอักษรของ description ของ MCP tool และ instructions ของ server โดยมีผลกับทุก MCP server ใน session ดู [[09-mcp-servers]] *(v2.1.280)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -102,6 +103,8 @@ related:
 > session แบบ Claude apps gateway ส่ง OpenTelemetry ตรงไปยัง collector ที่ managed settings ของ gateway ระบุไว้ใน `OTEL_EXPORTER_OTLP_ENDPOINT` แทนการส่งผ่าน relay ของ gateway — ถ้าไม่ได้ระบุ collector ไว้ก็ยังส่งผ่าน relay เหมือนเดิม *(v2.1.265)*
 
 > `OTEL_LOG_TOOL_DETAILS=1` ใส่ชื่อจริงของ agent, skill, plugin และ MCP server ลงใน metric ด้าน cost และ token ด้วยแล้ว *(v2.1.273)*
+
+> event `hook_execution_complete` ของ OpenTelemetry แนบขนาด output ของ hook และจำนวน output ที่ใหญ่เกินจนต้องเซฟลงไฟล์มาให้ด้วยแล้ว ดู [[10-hooks]] *(v2.1.280)*
 
 > trace span `claude_code.llm_request` ของ OpenTelemetry มี attribute `effort` แล้ว ตรงกับ event `api_request` · และมี event ใหม่ `claude_code.managed_settings_resolved` ที่รายงานว่าใช้ managed-settings จากแหล่งใดและสถานะของ policy helper *(v2.1.274)*
 

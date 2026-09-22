@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.278         │
+│ Welcome to Claude Code v2.1.280         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -172,7 +172,7 @@ git checkout main
 **ตัวอย่าง:**
 ```bash
 claude --model claude-fable-5-1  # Fable 5.1 — เก่งสุด, context 1M (default Fable ตัวใหม่)
-claude --model opus              # ใช้ Opus 5 (default Opus ตัวใหม่, context 1M)
+claude --model opus              # ใช้ Opus 5.5 (default Opus ตัวใหม่, context 1M)
 claude --model sonnet            # ใช้ Sonnet 5 (default ใหม่, context 1M native)
 claude --model haiku             # ใช้ Haiku 4.5 (เร็ว, ถูก, สำหรับงานง่าย)
 claude --model claude-opus-5     # ใช้ชื่อเต็ม (ระบุ version ตรงๆ)
@@ -994,7 +994,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.278
+- run: npm install -g @anthropic-ai/claude-code@2.1.280
 ```
 
 ---

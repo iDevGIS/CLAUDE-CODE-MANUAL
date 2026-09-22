@@ -55,7 +55,8 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **Fable 5.1** (`claude-fable-5-1`) — the **new default Fable model** (since Claude Code **2.1.257**): **1M context**, **$10/$50 per Mtok** with **$0.25/Mtok cache reads** — the most capable model generally available. Best for the hardest reasoning, large-context, and agentic work.
 - **Fable 5** (`claude-fable-5`) — the previous default **Mythos-class** Fable model; introduced in Claude Code **2.1.170**. Ships with a **1M-token context window by default**.
-- **Opus 5** (`claude-opus-5`) — the **new default Opus model** (since Claude Code 2.1.219); **1M context**; fast mode at **$10/$50 per Mtok**.
+- **Opus 5.5** (`claude-opus-5-5`) — the **new default Opus model** (since Claude Code 2.1.280); **1M context**; **$4/$20 per Mtok** with **$0.20/Mtok cache reads**.
+- **Opus 5** (`claude-opus-5`) — the previous default Opus model (Claude Code 2.1.219–2.1.278); **1M context**; fast mode at **$10/$50 per Mtok**.
 - **Opus 4.8** (`claude-opus-4-8`) — previous **Opus** flagship; top-tier coding and complex-bug analysis; defaults to **high effort** on demanding tasks.
 - **Sonnet 5** (`claude-sonnet-5`) — the **new default in Claude Code** (since 2.1.197); balanced and fast, with a **native 1M-token context window** ($2/$10 per Mtok — its standard list price since 2.1.243).
 - **Haiku 4.5** (`claude-haiku-4-5`) — fastest, cheapest; for easy/boilerplate tasks.
@@ -276,6 +277,13 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **`headers:` on a Claude apps gateway upstream** — an optional map of static headers sent with every request to that upstream, for a proxy you run in front of a provider.
 - **"Project instructions" in `/config`** — picks the file a project's instructions come from. A project with no CLAUDE.md now reads `AGENTS.md` instead. Not available on Bedrock, Vertex or Foundry yet. See [[07-claude-md]].
+
+### New in v2.1.280
+
+- **Claude Opus 5.5** (`claude-opus-5-5`) — the new **default Opus model**: 1M context, **$4/$20 per Mtok** with **$0.20/Mtok cache reads**.
+- **Pro and Team Standard default to Opus** — the default model on those plans changed from Sonnet to Opus, matching Max, Team Premium and Enterprise.
+- **A saved effort level no longer follows new models** — an effort level saved before `/effort` became per-model no longer applies to newly released models such as Opus 5.5; they start at their own default until you pick a level. See [[03-slash-commands]].
+- **Opus 4.7, Opus 4.8 and Fable 5 stop overriding your effort setting** — they no longer hold their launch-default effort over `/effort` in `-p` or the Agent SDK, over a project, managed or `--settings` `effortLevel`, or over a per-model level.
 
 ---
 

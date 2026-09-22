@@ -143,6 +143,12 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **plugin ที่เปิดใช้บน claude.ai sync ลงเทอร์มินัล** — session ที่ sign in ด้วยบัญชี Claude นั้นจะดึง plugin ที่เปิดไว้ในบัญชี claude.ai มาใช้ ถ้าไม่ต้องการให้ตั้ง `syncClaudeAiPlugins: false` ดู [[06-configuration]]
 - **`/plugin install <plugin> --marketplace <source>`** — ติดตั้ง plugin จาก marketplace ที่ระบุ ถ้ายังไม่ได้เพิ่ม marketplace นั้นไว้จะเสนอให้เพิ่มก่อน ดู [[03-slash-commands]]
 
+### 🆕 ใหม่ใน v2.1.280
+
+- **marketplace ที่ตั้งชื่อเลียนแบบชื่อสงวนจะถูกปฏิเสธ** — ถ้าชื่อ marketplace เลียนแบบชื่อ marketplace ที่สงวนไว้ จะเพิ่มไม่ได้ และถ้าเคยเพิ่มไว้แล้วก็จะหยุดโหลด
+- **commit ที่บันทึกไว้ของ plugin ไม่หายตอนอัปเดต** — การอัปเดต plugin จาก GitHub repo หรือ git URL ที่ track branch/tag ไว้ จะไม่ทิ้ง `installed_plugins.json` ค้างที่ commit ตอนติดตั้งอีกต่อไป และ `claude plugin update` จะไม่ย้าย plugin ไปเป็น version "unknown" เมื่อไฟล์ snapshot ของ marketplace ทางการเป็น link หรือใหญ่เกินไป
+- **skill ที่ปิดไว้ไม่ถูกแสดงว่าพัง** — skill ที่เราปิดเองจะขึ้น ◯ สีจาง ใน `/plugin` และ `/skills` แทนที่จะเป็น ✘ สีแดงซึ่งใช้กับ plugin ที่โหลดไม่สำเร็จ ดู [[11-skills]]
+
 ---
 
 ---

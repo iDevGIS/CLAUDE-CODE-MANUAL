@@ -123,6 +123,14 @@ related:
 
 - **`Ctrl+Enter` (or `Ctrl+X Ctrl+S`) sends queued messages now** — the send-now key interrupts the current turn and sends every queued message at once, instead of waiting for the turn to finish. Sent and queued messages stay gray until the model actually receives them.
 
+### New in v2.1.280
+
+- **`y` and `n` no longer answer dialogs** — Enter accepts and Esc cancels; a stray `y` no longer confirms a dialog and a stray `n` no longer closes one. Bind `y`/`n` to `confirm:yes` / `confirm:no` in `keybindings.json` to bring the old behavior back.
+- **`Ctrl+L` / `Cmd+K` in fullscreen redraw the screen again** — the transcript-clearing behavior added in v2.1.260 was reverted.
+- **Home and End work in `/config` and selection lists** — including `/model`, `/memory` and permission prompts; `Tab` in the `/config` list no longer changes the selected setting's value.
+- **The mouse wheel reaches more lists in fullscreen** — it scrolls the `/skills` list and selection lists with hidden options such as `/model` and `/permissions`; a skill's state options in `/plugin` can be clicked.
+- **Ctrl+C / Ctrl+D pressed twice closes a dialog, not Claude Code** — in `/model`, `/effort`, `/config`, `/status`, `/usage`, `/plugin`, `/sandbox`, `/permissions`, `/artifacts`, `/mobile`, `/login` and the setup dialogs.
+
 ---
 
 ---

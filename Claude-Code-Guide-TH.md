@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.278         │
+│ Welcome to Claude Code v2.1.280         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -281,7 +281,7 @@ git checkout main
 **ตัวอย่าง:**
 ```bash
 claude --model claude-fable-5-1  # Fable 5.1 — เก่งสุด, context 1M (default Fable ตัวใหม่)
-claude --model opus              # ใช้ Opus 5 (default Opus ตัวใหม่, context 1M)
+claude --model opus              # ใช้ Opus 5.5 (default Opus ตัวใหม่, context 1M)
 claude --model sonnet            # ใช้ Sonnet 5 (default ใหม่, context 1M native)
 claude --model haiku             # ใช้ Haiku 4.5 (เร็ว, ถูก, สำหรับงานง่าย)
 claude --model claude-opus-5     # ใช้ชื่อเต็ม (ระบุ version ตรงๆ)
@@ -1058,7 +1058,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.278
+- run: npm install -g @anthropic-ai/claude-code@2.1.280
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1322,6 +1322,12 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.278
 - **`/status` มีแถว "Auto mode server"** — บอกว่า classifier ของ auto mode ใน session นี้ทำงานฝั่ง server หรือทำงานในเครื่อง (ดูบท 5 ระบบ Permission)
 
+### 🆕 ใหม่ใน v2.1.280
+- **`/effort` ไม่ลากค่าเก่าที่บันทึกไว้ไปใช้กับโมเดลใหม่แล้ว** — ระดับที่บันทึกไว้ก่อนที่ `/effort` จะแยกตามโมเดล จะไม่ถูกใช้กับโมเดลที่เพิ่งออกอย่าง Opus 5.5 โมเดลใหม่แต่ละตัวเริ่มที่ค่า default ของตัวเองจนกว่าเราจะเลือกระดับให้
+- **Opus 4.7, Opus 4.8 และ Fable 5 เคารพระดับที่เราตั้ง** — เลิกยึดค่า effort default ตอนเปิดตัวมาทับ `/effort` ใน `-p` หรือ Agent SDK, ทับ `effortLevel` จาก project/managed/`--settings` และทับค่าที่ตั้งแยกรายโมเดล (ดูบท 6 การตั้งค่า)
+- **`/autocompact` กับ `/fast` บอกปุ่มที่ใช้ชัดขึ้น** — footer ของ `/autocompact` ระบุปุ่ม ←/→ ซึ่งเป็นปุ่มปรับค่าที่เรียงลำดับตัวอื่นๆ ส่วน footer ของ `/fast` ระบุว่า Space คือปุ่มสลับ
+- **`/cost` อธิบายสาเหตุ cache miss ได้ครอบคลุมขึ้น** — รวมกรณีที่เกิดจากการเปลี่ยน thinking mode และการเปลี่ยนการแสดงผล thinking ด้วยแล้ว
+
 ---
 
 ## 4. คีย์ลัด (Keyboard Shortcuts)
@@ -1433,6 +1439,14 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.275
 
 - **`Ctrl+Enter` (หรือ `Ctrl+X Ctrl+S`) ส่งข้อความที่ต่อคิวไว้ทันที** — ปุ่ม send-now จะขัดจังหวะเทิร์นที่กำลังทำงานอยู่แล้วส่งข้อความที่ต่อคิวไว้ทั้งหมดพร้อมกัน ไม่ต้องรอให้เทิร์นจบ; ข้อความที่ส่งแล้วและที่ยังรอคิวจะแสดงเป็นสีเทาจนกว่าโมเดลจะได้รับจริง
+
+### 🆕 ใหม่ใน v2.1.280
+
+- **ปุ่ม `y` และ `n` ไม่ตอบ dialog แล้ว** — ใช้ Enter เพื่อยืนยันและ Esc เพื่อยกเลิก · กด `y` หลุดมือจะไม่ยืนยัน dialog และกด `n` หลุดมือจะไม่ปิด dialog อีกต่อไป · ถ้าอยากได้พฤติกรรมเดิมคืน ให้ bind `y`/`n` เป็น `confirm:yes` / `confirm:no` ใน `keybindings.json`
+- **`Ctrl+L` / `Cmd+K` ในโหมด fullscreen กลับไปวาดหน้าจอใหม่เหมือนเดิม** — ยกเลิกพฤติกรรมเคลียร์ transcript ที่เพิ่มมาใน v2.1.260 แล้ว
+- **ปุ่ม Home และ End ใช้ได้ใน `/config` และ selection list** — รวมถึง `/model`, `/memory` และ permission prompt · ส่วนปุ่ม `Tab` ในลิสต์ของ `/config` จะไม่เปลี่ยนค่าของ setting ที่เลือกอยู่อีกต่อไป
+- **ล้อเมาส์เลื่อนลิสต์ได้มากขึ้นในโหมด fullscreen** — เลื่อนลิสต์ `/skills` และ selection list ที่มีตัวเลือกซ่อนอยู่อย่าง `/model` กับ `/permissions` ได้ · ตัวเลือกสถานะของ skill ใน `/plugin` คลิกได้แล้ว
+- **กด Ctrl+C / Ctrl+D สองครั้งปิด dialog ไม่ใช่ปิด Claude Code** — ใช้กับ `/model`, `/effort`, `/config`, `/status`, `/usage`, `/plugin`, `/sandbox`, `/permissions`, `/artifacts`, `/mobile`, `/login` และ dialog ชุด setup
 
 ---
 
@@ -1936,6 +1950,13 @@ Skill(commit)                    # Skill เฉพาะ
 - **`headers:` ใน upstream ของ Claude apps gateway** — map ของ static header (ไม่บังคับ) ที่จะแนบไปกับทุก request ที่ส่งไปยัง upstream นั้น สำหรับกรณีที่เราวาง proxy ของตัวเองคั่นหน้า provider
 - **"Project instructions" ใน `/config`** — เลือกว่าคำสั่งของโปรเจกต์มาจากไฟล์ไหน · โปรเจกต์ที่ไม่มี CLAUDE.md จะอ่าน `AGENTS.md` แทนแล้ว · ยังไม่รองรับบน Bedrock, Vertex และ Foundry (ดูบท 7 CLAUDE.md)
 
+### 🆕 ใหม่ใน v2.1.280
+
+- **Claude Opus 5.5** (`claude-opus-5-5`) — **default Opus ตัวใหม่**: context 1M, ราคา **$4/$20 ต่อ Mtok** พร้อม **cache read $0.20 ต่อ Mtok**
+- **แผน Pro และ Team Standard ใช้ Opus เป็น default** — เปลี่ยนจาก Sonnet มาเป็น Opus เท่าเทียมกับ Max, Team Premium และ Enterprise
+- **ระดับ effort ที่เคยบันทึกไว้จะไม่ตามไปใช้กับโมเดลใหม่** — ค่า effort ที่บันทึกไว้ก่อนที่ `/effort` จะแยกตามโมเดล จะไม่ถูกนำไปใช้กับโมเดลที่เพิ่งออกอย่าง Opus 5.5 อีกต่อไป โมเดลใหม่จะเริ่มที่ค่า default ของตัวเองจนกว่าเราจะเลือกระดับเอง (ดูบท 3 Slash Commands)
+- **Opus 4.7, Opus 4.8 และ Fable 5 เลิก override ค่า effort ที่เราตั้ง** — ไม่ยึดค่า effort default ตอนเปิดตัวมาทับ `/effort` ใน `-p` หรือ Agent SDK, ทับ `effortLevel` จาก project/managed/`--settings` และทับค่าที่ตั้งแยกรายโมเดลอีกต่อไป
+
 ---
 
 ## 7. CLAUDE.md - คำสั่งถาวรสำหรับโปรเจกต์
@@ -2319,6 +2340,12 @@ claude --mcp-config ./mcp.json
 
 - **จำกัดเวลารอ server ที่ยังต่อไม่เสร็จในเทิร์นแรก** — `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` กำหนดเพดานว่าเทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จได้นานแค่ไหน ตั้ง `0` = ไม่รอเลย (ดูบท 23 Environment Variables)
 
+### 🆕 ใหม่ใน v2.1.280
+
+- **ปรับเพดานความยาวของ description ได้แล้ว** — `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` ใช้เปลี่ยนเพดาน 2,048 ตัวอักษรของ description ของ MCP tool และ instructions ของ server โดยมีผลกับทุก MCP server ใน session (ดูบท 23 Environment Variables)
+- **server ที่เพิ่มกลับด้วยชื่อเดิมจะ reconnect ให้** — หลังสั่ง `claude mcp remove` แล้วเพิ่มกลับด้วยชื่อเดิม จะไม่ขึ้นว่าต้อง authenticate ใหม่อีกต่อไป
+- **`/mcp` ใช้ไอคอนเตือนแบบเดียวกันแล้ว** — ทั้งลิสต์ server, หน้ารายละเอียด และ `/plugin` ใช้ ⚠ เหมือนกันสำหรับ server ตัวเดียวกัน
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -2503,6 +2530,12 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **hook event `PreModelSwitch` / `PostModelSwitch`** — ทำงานตอนกำลังจะเปลี่ยนโมเดลและหลังเปลี่ยนเสร็จ — hook `PreModelSwitch` ใช้ block, ขอ confirm หรือแนบหมายเหตุให้การสลับโมเดลได้
 - **hook `SessionStart` ตอน resume รู้ความเก่าของ session** — ได้รับข้อมูล staleness ของ session และค่าประเมิน cost ของการ re-cache แนบมาด้วย
+
+### 🆕 ใหม่ใน v2.1.280
+
+- **`PermissionRequest` ไม่รับ hook ชนิด agent แล้ว** — คำตอบจาก agent hook ไม่มีทางอนุญาตหรือปฏิเสธ request ได้อยู่ดี ถ้าตั้งไว้จะขึ้น error พร้อมชี้ให้ไปใช้ hook ชนิด `command` หรือ `http` แทน
+- **telemetry ของ `hook_execution_complete` ละเอียดขึ้น** — OpenTelemetry event นี้แนบขนาด output ของ hook และจำนวน output ที่ใหญ่เกินจนต้องเซฟลงไฟล์มาให้ด้วยแล้ว (ดูบท 23 Environment Variables)
+- **hook `UserPromptSubmit` ที่ timeout จะบอกชื่อ** — ทั้งข้อความแจ้ง timeout และ debug log ระบุแล้วว่าคำสั่ง hook ตัวไหนที่ timeout
 
 ---
 
@@ -3298,6 +3331,14 @@ cat src/*.ts | claude -p "หา Bug"
 
 - **archive session ที่ทิ้งไว้นานให้อัตโนมัติ (VS Code)** — setting ใหม่ **"Archive inactive sessions"** จะ archive session ที่ไม่ถูกแตะเกินระยะที่ตั้งไว้ ค่าเริ่มต้น 14 วัน (ดูบท 19. Session Management)
 
+### 🆕 ใหม่ใน v2.1.280
+
+- **พิมพ์ slash command เรียก dialog ได้มากขึ้น (VS Code)** — พิมพ์ `/status`, `/sandbox`, `/chrome`, `/export`, `/skills` และ `/plan` ในช่องแชทได้แล้ว · `/status` เปิด dialog แสดง version, บัญชี, โมเดล และรายละเอียด server ของ session · `/sandbox` เปิด dialog ของโหมด sandbox, fallback แบบไม่ sandbox และคำสั่งที่ยกเว้น · `/chrome` เปิด dialog ของ Claude in Chrome · `/export` คัดลอกหรือบันทึกบทสนทนาเป็น plain text · `/plan` สลับไปโหมด plan, ส่ง prompt วางแผนตัวแรก หรือแสดงแผนของ session
+- **dialog Slash commands แสดงรายละเอียดของ skill (VS Code)** — บอกที่มา, ค่าประเมิน token และสถานะเปิด/ปิดของแต่ละ skill และคลิกเปลี่ยนสถานะได้เลย
+- **ข้อความที่ paste จะถูกทำเครื่องหมายและทำความสะอาด (VS Code)** — การ paste ที่ยาวเกิน 800 ตัวอักษร หรือมีการขึ้นบรรทัดใหม่เกิน 2 ครั้ง จะถูกทำเครื่องหมายไว้ให้ Claude แยกออกจากข้อความที่เราพิมพ์เอง · อักขระ Unicode ที่มองไม่เห็นและ tag character จะถูกลบออกจากข้อความที่ paste พร้อมแจ้งเตือน และลบออกจากข้อความอื่นก่อนส่งด้วย
+- **การ์ดอนุมัติแผนมีตัวเลือก auto mode (VS Code)** — ถ้า auto mode ใช้ได้ ตัวเลือกแรกจะเป็น "Yes, and use auto mode" เหมือนในเทอร์มินัล
+- **"Open in New Tab" เปิดข้าง editor group ที่เราทำงานอยู่ (VS Code)** — แทนที่จะไปต่อท้าย group สุดท้าย
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**
@@ -3444,6 +3485,12 @@ claude --plugin-dir ./my-plugin
 
 - **plugin ที่เปิดใช้บน claude.ai sync ลงเทอร์มินัล** — session ที่ sign in ด้วยบัญชี Claude นั้นจะดึง plugin ที่เปิดไว้ในบัญชี claude.ai มาใช้ ถ้าไม่ต้องการให้ตั้ง `syncClaudeAiPlugins: false` (ดูบท 6 Configuration)
 - **`/plugin install <plugin> --marketplace <source>`** — ติดตั้ง plugin จาก marketplace ที่ระบุ ถ้ายังไม่ได้เพิ่ม marketplace นั้นไว้จะเสนอให้เพิ่มก่อน
+
+### 🆕 ใหม่ใน v2.1.280
+
+- **marketplace ที่ตั้งชื่อเลียนแบบชื่อสงวนจะถูกปฏิเสธ** — ถ้าชื่อ marketplace เลียนแบบชื่อ marketplace ที่สงวนไว้ จะเพิ่มไม่ได้ และถ้าเคยเพิ่มไว้แล้วก็จะหยุดโหลด
+- **commit ที่บันทึกไว้ของ plugin ไม่หายตอนอัปเดต** — การอัปเดต plugin จาก GitHub repo หรือ git URL ที่ track branch/tag ไว้ จะไม่ทิ้ง `installed_plugins.json` ค้างที่ commit ตอนติดตั้งอีกต่อไป และ `claude plugin update` จะไม่ย้าย plugin ไปเป็น version "unknown" เมื่อไฟล์ snapshot ของ marketplace ทางการเป็น link หรือใหญ่เกินไป
+- **skill ที่ปิดไว้ไม่ถูกแสดงว่าพัง** — skill ที่เราปิดเองจะขึ้น ◯ สีจาง ใน `/plugin` และ `/skills` แทนที่จะเป็น ✘ สีแดงซึ่งใช้กับ plugin ที่โหลดไม่สำเร็จ (ดูบท 11 Skills)
 
 ---
 
@@ -3857,6 +3904,7 @@ your-project/
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จ ตั้ง `0` = ไม่รอเลย *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | ตั้ง `1` เพื่อใส่ค่าของ managed settings แบบ redact แล้วพร้อม digest ลงใน OpenTelemetry event `claude_code.managed_settings_resolved` *(v2.1.274)* |
 | `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | ตั้ง `1` บน Claude apps gateway ที่ออกเน็ตได้ทางเดียวคือผ่าน forward proxy — ทุก request ขาออกจะส่งชื่อ host ให้ proxy จัดการแทนการ resolve เองในเครื่อง *(v2.1.277)* |
+| `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` | เปลี่ยนเพดาน 2,048 ตัวอักษรของ description ของ MCP tool และ instructions ของ server โดยมีผลกับทุก MCP server ใน session *(v2.1.280)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -3867,6 +3915,8 @@ your-project/
 > session แบบ Claude apps gateway ส่ง OpenTelemetry ตรงไปยัง collector ที่ managed settings ของ gateway ระบุไว้ใน `OTEL_EXPORTER_OTLP_ENDPOINT` แทนการส่งผ่าน relay ของ gateway — ถ้าไม่ได้ระบุ collector ไว้ก็ยังส่งผ่าน relay เหมือนเดิม *(v2.1.265)*
 
 > `OTEL_LOG_TOOL_DETAILS=1` ใส่ชื่อจริงของ agent, skill, plugin และ MCP server ลงใน metric ด้าน cost และ token ด้วยแล้ว *(v2.1.273)*
+
+> event `hook_execution_complete` ของ OpenTelemetry แนบขนาด output ของ hook และจำนวน output ที่ใหญ่เกินจนต้องเซฟลงไฟล์มาให้ด้วยแล้ว *(v2.1.280)*
 
 > trace span `claude_code.llm_request` ของ OpenTelemetry มี attribute `effort` แล้ว ตรงกับ event `api_request` · และมี event ใหม่ `claude_code.managed_settings_resolved` ที่รายงานว่าใช้ managed-settings จากแหล่งใดและสถานะของ policy helper *(v2.1.274)*
 
@@ -4017,7 +4067,7 @@ claude --version  # ตรวจสอบเวอร์ชัน
 | งาน | โมเดลที่แนะนำ | เหตุผล |
 |-----|--------------|--------|
 | งานคิดหนักสุด, context ใหญ่มาก | Fable 5.1 | โมเดลเก่งสุด, context 1M เป็นค่าเริ่มต้น |
-| วางสถาปัตยกรรม, แก้ Bug ซับซ้อน | Opus 5 | คิดลึก วิเคราะห์ดี |
+| วางสถาปัตยกรรม, แก้ Bug ซับซ้อน | Opus 5.5 | คิดลึก วิเคราะห์ดี |
 | เขียนโค้ดทั่วไป, แก้ Bug ธรรมดา | Sonnet 5 | เร็ว ประหยัด — เป็น default |
 | งาน Boilerplate, Generate Data | Haiku 4.5 | เร็วมาก ถูกมาก |
 
@@ -5182,7 +5232,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.278`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.280`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
@@ -7464,4 +7514,4 @@ Claude Code เป็นเครื่องมือ AI สำหรับน�
 ---
 
 > **เวอร์ชันเอกสาร:** ปรับปรุงล่าสุด 25 มิถุนายน 2026  
-> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5.1 / Opus 5 / Sonnet 5 / Haiku 4.5)
+> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5.1 / Opus 5.5 / Sonnet 5 / Haiku 4.5)

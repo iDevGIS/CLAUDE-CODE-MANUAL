@@ -75,7 +75,7 @@ related:
 | Task | Recommended Model | Why |
 |------|-------------------|-----|
 | Hardest reasoning, huge context | Fable 5.1 | Most capable model, 1M context by default |
-| Architecture, complex bugs | Opus 5 | Deep thought, strong analysis |
+| Architecture, complex bugs | Opus 5.5 | Deep thought, strong analysis |
 | General coding, ordinary bugs | Sonnet 5 | Fast, economical — the default |
 | Boilerplate, data generation | Haiku 4.5 | Very fast and very cheap |
 

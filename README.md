@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.278-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.72.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.280-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.73.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,13 +33,13 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.278`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.280`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
 | 🔥 ของใหม่ | รายละเอียด |
 |---|---|
-| 🚀 **โมเดล Opus 5** | `claude-opus-5` — **default Opus ตัวใหม่** (v2.1.219), context 1M, fast mode $10/$50 ต่อ Mtok |
+| 🚀 **โมเดล Opus 5.5** | `claude-opus-5-5` — **default Opus ตัวใหม่** (v2.1.280), context 1M, ราคา $4/$20 ต่อ Mtok, cache read $0.20/Mtok (ก่อนหน้านี้คือ `claude-opus-5` ตั้งแต่ v2.1.219) |
 | ✨ **โมเดล Sonnet 5** | `claude-sonnet-5` — **default ใหม่ของ Claude Code**, context 1M แบบ native, ราคา standard $2/$10 ต่อ Mtok |
 | 🧠 **โมเดล Fable 5** | `claude-fable-5` — Mythos-class, context **1M** เป็นค่าเริ่มต้น — Fable ตัวแรกของตระกูล (ดู Fable 5.1 ด้านล่าง) |
 | ⚡ **Dynamic Workflows** | orchestrate agent หลักสิบ–หลักร้อยตัวจากสคริปต์ ด้วย keyword **`ultracode`** |
@@ -144,8 +144,9 @@
 | ⌨️ **ปุ่มส่งทันที + sync skill/plugin จาก claude.ai** | `Ctrl+Enter` (หรือ `Ctrl+X Ctrl+S`) ขัดจังหวะเทิร์นที่รันอยู่แล้วส่งข้อความที่ต่อคิวไว้ทั้งหมดพร้อมกัน · session ที่ sign in ด้วยบัญชี Claude ดึง skill/plugin ที่เปิดใช้บน claude.ai มาให้ ปิดได้ด้วย `syncClaudeAiSkills` / `syncClaudeAiPlugins: false` · `/plugin install <plugin> --marketplace <source>` เสนอเพิ่ม marketplace ให้ก่อนติดตั้ง · sign in ผ่าน gateway ต้องยืนยันบัญชีก่อนบันทึก credential แล้ว `/status` แสดงบัญชีนั้น (v2.1.275) |
 | 📄 **รองรับ `AGENTS.md` + header ของ gateway upstream** | โปรเจกต์ที่ไม่มี CLAUDE.md จะอ่าน `AGENTS.md` แทน เปลี่ยนได้ที่ "Project instructions" ใน `/config` (ยังไม่มีบน Bedrock/Vertex/Foundry) · upstream ของ Claude apps gateway ตั้ง `headers:` เป็น static header ได้ · `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY=1` ให้ gateway ที่ออกเน็ตผ่าน forward proxy อย่างเดียวส่งชื่อ host ให้ proxy resolve แทน (v2.1.277) |
 | 🧮 **auto mode เลิกคิดเงินค่า classifier ของตัวเอง** | auto mode ใช้ server-side classifier เป็นค่าเริ่มต้นแล้วสำหรับผู้ใช้ Claude API/Enterprise และบน Bedrock, Vertex, Foundry, gateway ซึ่งไม่คิดเงินค่า overhead ของ classifier · ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=0` ถ้าไม่อยากใช้บน Bedrock/Vertex/Foundry/gateway · ถ้าต้องถอยไปใช้ตัวที่คิดเงินจะมีคำเตือน และดูได้จากแถว "Auto mode server" ใน `/status` (v2.1.278) |
+| 🚀 **Opus 5.5 ขึ้นเป็น default Opus + Pro/Team Standard ได้ Opus** | `claude-opus-5-5` เป็น **default Opus ตัวใหม่** — context 1M, ราคา $4/$20 ต่อ Mtok, cache read $0.20/Mtok · แผน Pro และ Team Standard เปลี่ยน default จาก Sonnet เป็น Opus เท่าเทียมกับ Max/Team Premium/Enterprise · `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` ปรับเพดาน 2,048 ตัวอักษรของ description/instructions ฝั่ง MCP ได้ · `PermissionRequest` hook ไม่รับ hook ชนิด agent อีกต่อไป (v2.1.280) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.278` (manual `v1.72.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.280` (manual `v1.73.0`)
 
 ---
 
@@ -168,7 +169,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.278** + โมเดล Fable 5.1 / Opus 5 / Sonnet 5
+ตรงกับ Claude Code **v2.1.280** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5
 
 </td>
 </tr>
@@ -228,7 +229,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.278`
+> **Claude Code Version:** `2.1.280`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**
