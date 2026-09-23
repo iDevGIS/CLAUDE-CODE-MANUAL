@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.280         │
+│ Welcome to Claude Code v2.1.281         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.280
+- run: npm install -g @anthropic-ai/claude-code@2.1.281
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1072,6 +1072,12 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **`--accept-command <sha256>` on `claude plugin install` / `claude plugin update`** — accepts exactly the command a previous `--json` run displayed, instead of blanket-approving with `-y`.
 - **`claude self-hosted-runner --drain-marker-file <path>`** — when that file exists at a SIGTERM drain, the runner reports its exit to the server as a host drain (telemetry only).
 - **`claude self-hosted-runner --host-config-snapshot disk|memory`** — for hosts whose config directory exceeds 64 MiB, which previously made runner sessions silently lose all host config (settings, skills, plugins, MCP servers).
+
+### New in v2.1.281
+
+- **`--agents` takes a JSON file path** — with `-p`, `--agents` accepts the path to a JSON file as well as inline JSON, and an agent's `prompt` may be empty (see 12. Subagents).
+- **`claude --bg` asks for workspace trust first** — a background session, and its project hooks, no longer starts in a directory that hasn't passed the workspace trust prompt; when not run interactively it exits instead.
+- **Self-hosted runners pass system prompts as files** — `claude self-hosted-runner` now hands system prompts to Claude Code as private files instead of command-line text, so large prompts no longer fail the launch. A wrapper or `command` hook that appends `--system-prompt` or `--append-system-prompt` must switch to `--system-prompt-file` or `--append-system-prompt-file`.
 
 ---
 
@@ -1333,6 +1339,14 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **Opus 4.7, Opus 4.8 and Fable 5 respect the level you set** — they no longer hold their launch-default effort over `/effort` in `-p` or the Agent SDK, over a project, managed or `--settings` `effortLevel`, or over a per-model level (see 6. Configuration).
 - **`/autocompact` and `/fast` name their keys** — `/autocompact`'s footer hint now names ←/→, the keys that adjust other ordered values, and `/fast`'s footer names Space as the toggle key.
 - **`/cost` explains more cache misses** — its cache-miss causes now name thinking mode and thinking display changes.
+
+### New in v2.1.281
+- **`/insights` recommends auto mode** — it estimates how many permission prompts auto mode could have handled in your recent sessions (see 5. Permission System).
+- **Artifact links become one footer pill** — the session's artifact links under the prompt are now a single pill (`⧉ name` or `⧉ N`) that opens `/artifacts`, which lists this session's artifacts first.
+- **`/batch` works with a WorktreeCreate hook** — it runs wherever a WorktreeCreate hook provides the agent worktrees, not only inside a git repository (see 10. Hooks).
+- **Send now keeps running tools** — send now (`Ctrl+Enter` or `Ctrl+X Ctrl+S`) moves running tools to the background instead of cancelling the turn.
+- **Leftover `/agents` entry removed** — the "(removed)" `/agents` entry is gone from the command menu and `/help`; typing `/agents` still explains where the wizard went.
+- **`/tasks` confirms before stopping `/ultrareview`** — pressing `x` on a running `/ultrareview` now asks for confirmation first.
 
 ---
 
@@ -1700,6 +1714,14 @@ Skill(commit)                    # Specific skill
 - **Auto mode defaults to the server-side classifier** — for Claude API and Enterprise users, and on Bedrock, Vertex, Foundry and gateways, auto mode is now judged by the server-side classifier, which does not charge for the classifier's own overhead. This reverses the v2.1.273 default on Bedrock, Vertex and Foundry; set `CLAUDE_CODE_AUTO_MODE_SERVER=0` there (and on gateways) to opt out and judge locally instead (see 23. Environment Variables).
 - **You get a warning when auto mode falls back to a billed classifier** — if the session can't use the server-side classifier and falls back to the billed one, Claude Code says so instead of quietly charging you; `/status` has an "Auto mode server" row showing which one this session uses.
 
+### New in v2.1.281
+- **Recursive `rm` on command-substitution output asks first** — a recursive `rm` whose only target is command-substitution output, such as `rm -rf "$(pwd)"`, no longer runs unprompted in auto mode or with `--dangerously-skip-permissions`; it asks even under a Bash allow rule, unless `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT=1` is set (see 23. Environment Variables).
+- **The dangerous `rm` prompt times out in unattended modes** — in `--dangerously-skip-permissions` and auto mode it waits 2 minutes for an answer, then denies the command with a rewrite hint so unattended sessions keep going; `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT=1` turns this off.
+- **Wider dangerous-`rm` check** — it also flags a removal at a shell variable followed by a top-level directory name, at a variable derived from the working directory, or at a backslash-only target.
+- **Server-side auto mode reviews read-only and sandboxed commands too** — where the classifier review runs server-side, read-only and sandboxed shell commands also wait for it and are blocked when it flags them.
+- **`CLAUDE_CODE_AUTO_MODE_SERVER` on the direct Anthropic API** — it now applies there too: `0` opts out of the server-side classifier (the local classifier then counts toward usage), `1` opts in.
+- **A permission rule containing a NUL byte matches nothing** — it is no longer expanded into a wildcard match.
+
 ---
 
 ## 6. Configuration
@@ -1962,6 +1984,11 @@ Skill(commit)                    # Specific skill
 - **Pro and Team Standard default to Opus** — the default model on those plans changed from Sonnet to Opus, matching Max, Team Premium and Enterprise.
 - **A saved effort level no longer follows new models** — an effort level saved before `/effort` became per-model no longer applies to newly released models such as Opus 5.5; they start at their own default until you pick a level (see 3. Slash Commands).
 - **Opus 4.7, Opus 4.8 and Fable 5 stop overriding your effort setting** — they no longer hold their launch-default effort over `/effort` in `-p` or the Agent SDK, over a project, managed or `--settings` `effortLevel`, or over a per-model level.
+
+### New in v2.1.281
+
+- **`"attribution": false`** in `settings.json` hides all commit and PR attribution. Older CLI versions skip a settings file that holds it, so keep the object form in files shared across versions.
+- **Claude apps gateway additions** — `desktop` policy blocks accept newer Claude Desktop keys such as `blockReadsOutsideWorkingDirectories` and `disableBypassPermissionsMode`; Bedrock upstreams take `assume_role` (call Bedrock as an IAM role assumed through STS, in another AWS account if needed, optionally one session per developer) and `guardrail: {id, version}` (apply an Amazon Bedrock guardrail to every request — set it on all Bedrock upstreams or none); `telemetry.resource_attributes` puts fixed labels on the telemetry of Claude Desktop and `/login` sessions.
 
 ---
 
@@ -2352,6 +2379,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **Raise or lower the description cap** — `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` changes the 2,048-character cap on MCP tool descriptions and server instructions for every MCP server in the session (see 23. Environment Variables).
 - **A server re-added under the same name reconnects** — one added again after `claude mcp remove` no longer shows as needing authentication.
 - **`/mcp` shows one warning icon** — the server list, the detail views and `/plugin` all use ⚠ for the same server.
+
+### New in v2.1.281
+
+- **URL-mode elicitation** — on 2026-07-28 protocol connections, servers can ask Claude Code to open a browser-based flow; no waiting dialog is left on screen when the server has no way to confirm completion.
+- **MCP Apps UI resources are left out of resource lists** — the resource list tool and @-mention suggestions skip them; reading one by URI still works.
+- **`claude plugin validate` checks plugin MCP servers** — it reports `.mcp.json` entries that would be silently dropped at load, undeclared `${user_config.*}` references, and insecure URLs (see 18. Plugins).
 
 ---
 
@@ -3503,6 +3536,11 @@ claude --plugin-dir ./my-plugin
 - **A plugin's recorded commit survives an update** — updating a plugin from a GitHub repository or git URL that tracks a branch or tag no longer leaves `installed_plugins.json` pinned to the install-time commit, and `claude plugin update` no longer moves a plugin to version "unknown" when the official marketplace's snapshot file is a link or too large.
 - **An off skill is no longer shown as broken** — a skill you switched off shows a dim ◯ in `/plugin` and `/skills`, instead of the red ✘ used for a plugin that failed to load (see 11. Skills).
 
+### New in v2.1.281
+
+- **`claude plugin validate` checks MCP servers** — it reports `.mcp.json` entries that would be silently dropped at load, undeclared `${user_config.*}` references, and insecure URLs (see 9. MCP Servers).
+- **Unquoted `${CLAUDE_PLUGIN_ROOT}` warning** — `claude plugin validate` warns when a shell-form hook leaves `${CLAUDE_PLUGIN_ROOT}` unquoted (it breaks on plugin paths with spaces), and plugin hook-failure errors now name the offending plugin.
+
 ---
 
 ## 19. Session Management
@@ -3911,11 +3949,13 @@ your-project/
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | Set `0` to go back to remote and headless sessions reporting "waiting for your input" while background agents are still running. *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | Maximum age of an interrupted turn that `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` will still re-run; 6 hours by default. *(v2.1.269)* |
 | `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | Set `1` to send routing-hint headers to an LLM gateway: `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` and `x-claude-code-context-compacted`. *(v2.1.273)* |
-| `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `0` to opt out of the server-side auto mode classifier on Bedrock, Vertex, Foundry and gateways and judge locally instead. Since v2.1.278 these platforms — plus Claude API and Enterprise users — default to the server-side classifier, which doesn't charge for classifier overhead. *(v2.1.273, changed v2.1.278)* |
+| `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `0` to opt out of the server-side auto mode classifier on Bedrock, Vertex, Foundry and gateways and judge locally instead. Since v2.1.278 these platforms — plus Claude API and Enterprise users — default to the server-side classifier, which doesn't charge for classifier overhead. Since v2.1.281 it also applies on a direct Anthropic API connection: `0` opts out (the local classifier then counts toward usage), `1` opts in. *(v2.1.273, changed v2.1.278, v2.1.281)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | Bounds how long the first non-interactive turn waits for MCP servers that are still connecting; `0` = don't wait. *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | Set `1` to include redacted managed-settings values and their digests in the `claude_code.managed_settings_resolved` OpenTelemetry event. *(v2.1.274)* |
 | `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | Set `1` on a Claude apps gateway whose only egress is a forward proxy: every outbound request hands the proxy the hostname instead of resolving it locally. *(v2.1.277)* |
 | `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` | Changes the 2,048-character cap on MCP tool descriptions and server instructions, for every MCP server in the session. *(v2.1.280)* |
+| `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT` | Set `1` to let a recursive `rm` whose only target is command-substitution output (e.g. `"$(pwd)"`) run without the prompt it now gets in auto mode and `--dangerously-skip-permissions`. *(v2.1.281)* |
+| `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT` | Set `1` to turn off the 2-minute timeout on the dangerous `rm` prompt in `--dangerously-skip-permissions` and auto mode (by default it then denies the command with a rewrite hint). *(v2.1.281)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5246,7 +5286,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.280`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.281`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

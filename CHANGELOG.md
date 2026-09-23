@@ -25,6 +25,32 @@
 
 ---
 
+## [1.74.0] — 2026-09-24
+
+### Compatibility
+- **Claude Code:** `v2.1.281+`
+
+### Added
+- **กัน `rm` อันตรายแน่นขึ้น** — บท 05 (Permissions) EN+TH: `rm` แบบ recursive ที่เป้าหมายมีแค่ผลของ command substitution (เช่น `"$(pwd)"`) ต้องถามก่อนแม้ใน auto mode, `--dangerously-skip-permissions` และใต้ Bash allow rule · prompt `rm` อันตรายในโหมดไม่มีคนเฝ้ารอ 2 นาทีแล้วปฏิเสธพร้อมคำแนะนำให้เขียนใหม่ · ตัวตรวจจับเป้าหมายแบบตัวแปร shell + ไดเรกทอรีบนสุด, ตัวแปรจาก working directory และเป้าหมายที่มีแต่ backslash · permission rule ที่มี NUL byte ไม่ match อะไรเลย
+- **auto mode ฝั่ง server ตรวจคำสั่ง read-only และคำสั่งใน sandbox** — บท 05 EN+TH
+- **`CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT` + `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT`** — บท 23 (Environment Variables) EN+TH
+- **`"attribution": false`** + **ของใหม่ของ Claude apps gateway** (`desktop` policy key ใหม่, `assume_role` และ `guardrail` บน Bedrock upstream, `telemetry.resource_attributes`) — บท 06 (Configuration) EN+TH
+- **`--agents` รับ path ไฟล์ JSON, `claude --bg` ถาม workspace trust ก่อน, self-hosted runner ส่ง system prompt เป็นไฟล์** (wrapper/hook ต้องย้ายไป `--system-prompt-file` / `--append-system-prompt-file`) — บท 02 (CLI) EN+TH
+- **`/insights` แนะนำ auto mode, ปุ่ม artifact ที่ footer เปิด `/artifacts`, `/batch` ใช้กับ WorktreeCreate hook, send now ย้ายเครื่องมือที่รันอยู่ไปเบื้องหลัง, `/tasks` ถามก่อนหยุด `/ultrareview`** — บท 03 (Slash Commands) EN+TH
+- **MCP URL-mode elicitation และการข้าม resource ของ MCP Apps UI** — บท 09 (MCP) EN+TH
+- **`claude plugin validate` ตรวจ MCP server และเตือน `${CLAUDE_PLUGIN_ROOT}` ที่ไม่ครอบ quote** — บท 18 (Plugins) + บท 09 EN+TH
+- **แถว What's-new ของ `v2.1.281`** ใน README.md + README.EN.md
+
+### Changed
+- **`CLAUDE_CODE_AUTO_MODE_SERVER`** — บท 23 + บท 05 EN+TH: ใช้กับการต่อ Anthropic API ตรงได้แล้ว (`0` = ไม่ใช้ server-side classifier ซึ่งทำให้ classifier ในเครื่องนับเป็น usage, `1` = ใช้) · stamp ในตารางเป็น *(v2.1.273, changed v2.1.278, v2.1.281)*
+- **Removed (upstream):** รายการ "(removed)" ของ `/agents` ที่ค้างในเมนูคำสั่งและ `/help` — บันทึกไว้ในบท 03
+- **Version strings** bumped `2.1.280` → `2.1.281` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.281` ยาวมากแต่เกือบทั้งหมดเป็น bug fix และ UI polish (resume/prompt cache, proxy stream, vim mode, list/dialog ต่าง ๆ, Claude Tag, VS Code) ซึ่งข้ามตามกติกา · ไม่มี model lineup เปลี่ยน · ของที่คัดมาคือ setting ใหม่ (`attribution: false`), env var ใหม่ 2 ตัว, พฤติกรรม permission/auto mode ที่เปลี่ยน, CLI behavior ที่อาจกระทบ wrapper ของ self-hosted runner และ capability ใหม่ฝั่ง MCP/plugin/gateway
+
+---
+
 ## [1.73.0] — 2026-09-23
 
 ### Compatibility
@@ -1659,6 +1685,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.74.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.73.0...v1.74.0
 [1.73.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.72.0...v1.73.0
 [1.72.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.71.0...v1.72.0
 [1.71.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.70.0...v1.71.0

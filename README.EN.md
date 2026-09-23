@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.280-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.73.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.281-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.74.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.280`
+## 🆕 What's new — synced to Claude Code `v2.1.281`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -145,8 +145,9 @@ Never used a command line? You can still follow along 👇
 | 📄 **`AGENTS.md` support + gateway upstream headers** | a project with no CLAUDE.md now reads `AGENTS.md` instead, switchable under "Project instructions" in `/config` (not yet on Bedrock/Vertex/Foundry) · a Claude apps gateway upstream accepts a `headers:` map of static headers · `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY=1` makes a gateway whose only egress is a forward proxy hand the proxy each hostname instead of resolving it locally (v2.1.277) |
 | 🧮 **Auto mode stops billing you for its own classifier** | auto mode now defaults to the server-side classifier for Claude API and Enterprise users and on Bedrock, Vertex, Foundry and gateways, which doesn't charge for classifier overhead · `CLAUDE_CODE_AUTO_MODE_SERVER=0` opts out on Bedrock/Vertex/Foundry/gateways · a fallback to the billed classifier now warns you, and `/status` has an "Auto mode server" row showing which one this session uses (v2.1.278) |
 | 🚀 **Opus 5.5 becomes the default Opus, and Pro/Team Standard get Opus** | `claude-opus-5-5` is the **new default Opus** — 1M context, $4/$20 per Mtok with $0.20/Mtok cache reads · Pro and Team Standard plans switch their default model from Sonnet to Opus, matching Max, Team Premium and Enterprise · `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` changes the 2,048-character cap on MCP tool descriptions and server instructions · `PermissionRequest` hooks no longer accept an agent-type hook (v2.1.280) |
+| 🛡️ **Tighter dangerous-`rm` guard + `"attribution": false`** | a recursive `rm` targeting only command-substitution output asks first even in auto mode / `--dangerously-skip-permissions` (`CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT=1` opts out) · the dangerous `rm` prompt denies after 2 minutes unanswered (`CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT=1`) · `"attribution": false` in settings hides all attribution · MCP URL-mode elicitation · `claude plugin validate` checks MCP servers · `--agents` takes a JSON file path · self-hosted runners need `--system-prompt-file` (v2.1.281) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.280` (manual `v1.73.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.281` (manual `v1.74.0`)
 
 ---
 
@@ -169,7 +170,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.280** + the Fable 5.1 / Opus 5.5 / Sonnet 5 lineup
+Tracks Claude Code **v2.1.281** + the Fable 5.1 / Opus 5.5 / Sonnet 5 lineup
 
 </td>
 </tr>
@@ -229,7 +230,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.280`
+> **Claude Code Version:** `2.1.281`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

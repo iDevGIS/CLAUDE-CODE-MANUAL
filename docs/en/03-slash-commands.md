@@ -248,6 +248,14 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/autocompact` and `/fast` name their keys** — `/autocompact`'s footer hint now names ←/→, the keys that adjust other ordered values, and `/fast`'s footer names Space as the toggle key.
 - **`/cost` explains more cache misses** — its cache-miss causes now name thinking mode and thinking display changes.
 
+### New in v2.1.281
+- **`/insights` recommends auto mode** — it estimates how many permission prompts auto mode could have handled in your recent sessions. See [[05-permissions]].
+- **Artifact links become one footer pill** — the session's artifact links under the prompt are now a single pill (`⧉ name` or `⧉ N`) that opens `/artifacts`, which lists this session's artifacts first.
+- **`/batch` works with a WorktreeCreate hook** — it runs wherever a WorktreeCreate hook provides the agent worktrees, not only inside a git repository. See [[10-hooks]].
+- **Send now keeps running tools** — send now (`Ctrl+Enter` or `Ctrl+X Ctrl+S`) moves running tools to the background instead of cancelling the turn.
+- **Leftover `/agents` entry removed** — the "(removed)" `/agents` entry is gone from the command menu and `/help`; typing `/agents` still explains where the wizard went.
+- **`/tasks` confirms before stopping `/ultrareview`** — pressing `x` on a running `/ultrareview` now asks for confirmation first.
+
 ---
 
 ---

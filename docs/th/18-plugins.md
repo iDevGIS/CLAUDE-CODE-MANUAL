@@ -149,6 +149,11 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **commit ที่บันทึกไว้ของ plugin ไม่หายตอนอัปเดต** — การอัปเดต plugin จาก GitHub repo หรือ git URL ที่ track branch/tag ไว้ จะไม่ทิ้ง `installed_plugins.json` ค้างที่ commit ตอนติดตั้งอีกต่อไป และ `claude plugin update` จะไม่ย้าย plugin ไปเป็น version "unknown" เมื่อไฟล์ snapshot ของ marketplace ทางการเป็น link หรือใหญ่เกินไป
 - **skill ที่ปิดไว้ไม่ถูกแสดงว่าพัง** — skill ที่เราปิดเองจะขึ้น ◯ สีจาง ใน `/plugin` และ `/skills` แทนที่จะเป็น ✘ สีแดงซึ่งใช้กับ plugin ที่โหลดไม่สำเร็จ ดู [[11-skills]]
 
+### 🆕 ใหม่ใน v2.1.281
+
+- **`claude plugin validate` ตรวจ MCP server ด้วย** — รายงาน entry ใน `.mcp.json` ที่จะถูกทิ้งเงียบ ๆ ตอนโหลด, การอ้าง `${user_config.*}` ที่ไม่ได้ประกาศ และ URL ที่ไม่ปลอดภัย ดู [[09-mcp-servers]]
+- **เตือนเมื่อ `${CLAUDE_PLUGIN_ROOT}` ไม่ได้ครอบ quote** — `claude plugin validate` เตือนเมื่อ hook แบบ shell-form ใช้ `${CLAUDE_PLUGIN_ROOT}` โดยไม่ครอบ quote (พังเมื่อ path ของ plugin มีช่องว่าง) และ error ตอน hook ของ plugin ล้มจะบอกชื่อ plugin ตัวต้นเหตุแล้ว
+
 ---
 
 ---

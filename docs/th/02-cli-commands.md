@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.280         │
+│ Welcome to Claude Code v2.1.281         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -623,6 +623,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **`claude self-hosted-runner --drain-marker-file <path>`** — ถ้ามีไฟล์นั้นอยู่ตอน drain ด้วย SIGTERM ตัว runner จะรายงาน exit กลับไปที่ server ว่าเป็น host drain (มีผลกับ telemetry เท่านั้น)
 - **`claude self-hosted-runner --host-config-snapshot disk|memory`** — สำหรับ host ที่ config directory ใหญ่เกิน 64 MiB ซึ่งแต่เดิมทำให้ session ของ runner สูญ config ของ host ทั้งหมดแบบเงียบ ๆ (settings, skills, plugins, MCP server)
 
+### 🆕 ใหม่ใน v2.1.281
+
+- **`--agents` รับ path ของไฟล์ JSON ได้แล้ว** — เมื่อใช้คู่กับ `-p` ตัว `--agents` รับได้ทั้ง path ของไฟล์ JSON และ JSON แบบ inline และ `prompt` ของ agent เว้นว่างได้ ดู [[12-subagents]]
+- **`claude --bg` ถามเรื่อง workspace trust ก่อน** — background session (รวมถึง project hook ของมัน) จะไม่เริ่มในโฟลเดอร์ที่ยังไม่ผ่านหน้าถาม workspace trust อีกต่อไป ถ้าไม่ได้รันแบบ interactive จะ exit แทน ดู [[41-background-agents]]
+- **self-hosted runner ส่ง system prompt เป็นไฟล์** — `claude self-hosted-runner` ส่ง system prompt ให้ Claude Code เป็นไฟล์ส่วนตัวแทนข้อความบน command line ทำให้ prompt ใหญ่ ๆ ไม่ทำให้การเปิด session ล้มอีก · wrapper หรือ hook ชนิด `command` ที่ต่อท้าย `--system-prompt` หรือ `--append-system-prompt` ต้องเปลี่ยนไปใช้ `--system-prompt-file` หรือ `--append-system-prompt-file`
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -994,7 +1000,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.280
+- run: npm install -g @anthropic-ai/claude-code@2.1.281
 ```
 
 ---

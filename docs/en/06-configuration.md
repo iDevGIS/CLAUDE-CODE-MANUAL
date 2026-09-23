@@ -285,6 +285,11 @@ Set the `model` key to any of these (newest → cheapest):
 - **A saved effort level no longer follows new models** — an effort level saved before `/effort` became per-model no longer applies to newly released models such as Opus 5.5; they start at their own default until you pick a level. See [[03-slash-commands]].
 - **Opus 4.7, Opus 4.8 and Fable 5 stop overriding your effort setting** — they no longer hold their launch-default effort over `/effort` in `-p` or the Agent SDK, over a project, managed or `--settings` `effortLevel`, or over a per-model level.
 
+### New in v2.1.281
+
+- **`"attribution": false`** in `settings.json` hides all commit and PR attribution. Older CLI versions skip a settings file that holds it, so keep the object form in files shared across versions.
+- **Claude apps gateway additions** — `desktop` policy blocks accept newer Claude Desktop keys such as `blockReadsOutsideWorkingDirectories` and `disableBypassPermissionsMode`; Bedrock upstreams take `assume_role` (call Bedrock as an IAM role assumed through STS, in another AWS account if needed, optionally one session per developer) and `guardrail: {id, version}` (apply an Amazon Bedrock guardrail to every request — set it on all Bedrock upstreams or none); `telemetry.resource_attributes` puts fixed labels on the telemetry of Claude Desktop and `/login` sessions.
+
 ---
 
 ---

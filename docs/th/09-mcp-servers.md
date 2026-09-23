@@ -175,6 +175,12 @@ claude --mcp-config ./mcp.json
 - **server ที่เพิ่มกลับด้วยชื่อเดิมจะ reconnect ให้** — หลังสั่ง `claude mcp remove` แล้วเพิ่มกลับด้วยชื่อเดิม จะไม่ขึ้นว่าต้อง authenticate ใหม่อีกต่อไป
 - **`/mcp` ใช้ไอคอนเตือนแบบเดียวกันแล้ว** — ทั้งลิสต์ server, หน้ารายละเอียด และ `/plugin` ใช้ ⚠ เหมือนกันสำหรับ server ตัวเดียวกัน
 
+### 🆕 ใหม่ใน v2.1.281
+
+- **URL-mode elicitation** — บน connection ที่ใช้ protocol 2026-07-28 server ขอให้ Claude Code เปิด flow ผ่านเบราว์เซอร์ได้ และถ้า server ไม่มีทางยืนยันว่าเสร็จแล้ว จะไม่มี dialog รอค้างบนจอ
+- **resource ของ MCP Apps UI ไม่โผล่ในลิสต์ resource** — tool ลิสต์ resource และคำแนะนำตอน @-mention จะข้ามมันไป แต่อ่านด้วย URI ตรง ๆ ยังได้
+- **`claude plugin validate` ตรวจ MCP server ของ plugin** — รายงาน entry ใน `.mcp.json` ที่จะถูกทิ้งเงียบ ๆ ตอนโหลด, การอ้าง `${user_config.*}` ที่ไม่ได้ประกาศ และ URL ที่ไม่ปลอดภัย ดู [[18-plugins]]
+
 ---
 
 ---

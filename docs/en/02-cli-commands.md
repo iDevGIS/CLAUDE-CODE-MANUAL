@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.280         │
+│ Welcome to Claude Code v2.1.281         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -623,6 +623,12 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`claude self-hosted-runner --drain-marker-file <path>`** — when that file exists at a SIGTERM drain, the runner reports its exit to the server as a host drain (telemetry only).
 - **`claude self-hosted-runner --host-config-snapshot disk|memory`** — for hosts whose config directory exceeds 64 MiB, which previously made runner sessions silently lose all host config (settings, skills, plugins, MCP servers).
 
+### New in v2.1.281
+
+- **`--agents` takes a JSON file path** — with `-p`, `--agents` accepts the path to a JSON file as well as inline JSON, and an agent's `prompt` may be empty. See [[12-subagents]].
+- **`claude --bg` asks for workspace trust first** — a background session, and its project hooks, no longer starts in a directory that hasn't passed the workspace trust prompt; when not run interactively it exits instead. See [[41-background-agents]].
+- **Self-hosted runners pass system prompts as files** — `claude self-hosted-runner` now hands system prompts to Claude Code as private files instead of command-line text, so large prompts no longer fail the launch. A wrapper or `command` hook that appends `--system-prompt` or `--append-system-prompt` must switch to `--system-prompt-file` or `--append-system-prompt-file`.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -994,7 +1000,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.280
+- run: npm install -g @anthropic-ai/claude-code@2.1.281
 ```
 
 ---

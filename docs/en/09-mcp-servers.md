@@ -175,6 +175,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **A server re-added under the same name reconnects** — one added again after `claude mcp remove` no longer shows as needing authentication.
 - **`/mcp` shows one warning icon** — the server list, the detail views and `/plugin` all use ⚠ for the same server.
 
+### New in v2.1.281
+
+- **URL-mode elicitation** — on 2026-07-28 protocol connections, servers can ask Claude Code to open a browser-based flow; no waiting dialog is left on screen when the server has no way to confirm completion.
+- **MCP Apps UI resources are left out of resource lists** — the resource list tool and @-mention suggestions skip them; reading one by URI still works.
+- **`claude plugin validate` checks plugin MCP servers** — it reports `.mcp.json` entries that would be silently dropped at load, undeclared `${user_config.*}` references, and insecure URLs. See [[18-plugins]].
+
 ---
 
 ---

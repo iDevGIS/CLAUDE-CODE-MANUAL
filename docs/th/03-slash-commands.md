@@ -249,6 +249,14 @@ related:
 - **`/autocompact` กับ `/fast` บอกปุ่มที่ใช้ชัดขึ้น** — footer ของ `/autocompact` ระบุปุ่ม ←/→ ซึ่งเป็นปุ่มปรับค่าที่เรียงลำดับตัวอื่นๆ ส่วน footer ของ `/fast` ระบุว่า Space คือปุ่มสลับ
 - **`/cost` อธิบายสาเหตุ cache miss ได้ครอบคลุมขึ้น** — รวมกรณีที่เกิดจากการเปลี่ยน thinking mode และการเปลี่ยนการแสดงผล thinking ด้วยแล้ว
 
+### 🆕 ใหม่ใน v2.1.281
+- **`/insights` แนะนำ auto mode** — ประเมินให้ว่าใน session ช่วงหลังของเรา auto mode น่าจะรับมือ permission prompt แทนเราได้กี่ครั้ง ดู [[05-permissions]]
+- **ลิงก์ artifact รวมเป็นปุ่มเดียวที่ footer** — ลิงก์ artifact ของ session ใต้ช่อง prompt ถูกรวมเป็นปุ่มเดียว (`⧉ name` หรือ `⧉ N`) กดแล้วเปิด `/artifacts` ซึ่งตอนนี้แสดง artifact ของ session นี้ขึ้นก่อน
+- **`/batch` ใช้กับ WorktreeCreate hook ได้** — รันได้ทุกที่ที่มี WorktreeCreate hook สร้าง worktree ให้ agent ไม่ต้องอยู่ใน git repo อย่างเดียวแล้ว ดู [[10-hooks]]
+- **ส่งทันทีไม่ตัดเครื่องมือที่รันอยู่** — send now (`Ctrl+Enter` หรือ `Ctrl+X Ctrl+S`) ย้ายเครื่องมือที่กำลังรันไปทำงานเบื้องหลัง แทนที่จะยกเลิกเทิร์น
+- **ลบรายการ `/agents` ที่ค้างอยู่** — รายการ "(removed)" ของ `/agents` หายไปจากเมนูคำสั่งและ `/help` แล้ว แต่พิมพ์ `/agents` ก็ยังบอกว่า wizard ย้ายไปไหน
+- **`/tasks` ถามก่อนหยุด `/ultrareview`** — กด `x` บน `/ultrareview` ที่กำลังรันจะขึ้นยืนยันก่อนหยุดรีวิว
+
 ---
 
 ---

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.280         │
+│ Welcome to Claude Code v2.1.281         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -727,6 +727,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **`claude self-hosted-runner --drain-marker-file <path>`** — ถ้ามีไฟล์นั้นอยู่ตอน drain ด้วย SIGTERM ตัว runner จะรายงาน exit กลับไปที่ server ว่าเป็น host drain (มีผลกับ telemetry เท่านั้น)
 - **`claude self-hosted-runner --host-config-snapshot disk|memory`** — สำหรับ host ที่ config directory ใหญ่เกิน 64 MiB ซึ่งแต่เดิมทำให้ session ของ runner สูญ config ของ host ทั้งหมดแบบเงียบ ๆ (settings, skills, plugins, MCP server)
 
+### 🆕 ใหม่ใน v2.1.281
+
+- **`--agents` รับ path ของไฟล์ JSON ได้แล้ว** — เมื่อใช้คู่กับ `-p` ตัว `--agents` รับได้ทั้ง path ของไฟล์ JSON และ JSON แบบ inline และ `prompt` ของ agent เว้นว่างได้ (ดูบท 12 Subagents)
+- **`claude --bg` ถามเรื่อง workspace trust ก่อน** — background session (รวมถึง project hook ของมัน) จะไม่เริ่มในโฟลเดอร์ที่ยังไม่ผ่านหน้าถาม workspace trust อีกต่อไป ถ้าไม่ได้รันแบบ interactive จะ exit แทน
+- **self-hosted runner ส่ง system prompt เป็นไฟล์** — `claude self-hosted-runner` ส่ง system prompt ให้ Claude Code เป็นไฟล์ส่วนตัวแทนข้อความบน command line ทำให้ prompt ใหญ่ ๆ ไม่ทำให้การเปิด session ล้มอีก · wrapper หรือ hook ชนิด `command` ที่ต่อท้าย `--system-prompt` หรือ `--append-system-prompt` ต้องเปลี่ยนไปใช้ `--system-prompt-file` หรือ `--append-system-prompt-file`
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1058,7 +1064,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.280
+- run: npm install -g @anthropic-ai/claude-code@2.1.281
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1327,6 +1333,14 @@ claude -p "..."              # ถามเร็ว ๆ
 - **Opus 4.7, Opus 4.8 และ Fable 5 เคารพระดับที่เราตั้ง** — เลิกยึดค่า effort default ตอนเปิดตัวมาทับ `/effort` ใน `-p` หรือ Agent SDK, ทับ `effortLevel` จาก project/managed/`--settings` และทับค่าที่ตั้งแยกรายโมเดล (ดูบท 6 การตั้งค่า)
 - **`/autocompact` กับ `/fast` บอกปุ่มที่ใช้ชัดขึ้น** — footer ของ `/autocompact` ระบุปุ่ม ←/→ ซึ่งเป็นปุ่มปรับค่าที่เรียงลำดับตัวอื่นๆ ส่วน footer ของ `/fast` ระบุว่า Space คือปุ่มสลับ
 - **`/cost` อธิบายสาเหตุ cache miss ได้ครอบคลุมขึ้น** — รวมกรณีที่เกิดจากการเปลี่ยน thinking mode และการเปลี่ยนการแสดงผล thinking ด้วยแล้ว
+
+### 🆕 ใหม่ใน v2.1.281
+- **`/insights` แนะนำ auto mode** — ประเมินให้ว่าใน session ช่วงหลังของเรา auto mode น่าจะรับมือ permission prompt แทนเราได้กี่ครั้ง (ดูบท 5 ระบบ Permission)
+- **ลิงก์ artifact รวมเป็นปุ่มเดียวที่ footer** — ลิงก์ artifact ของ session ใต้ช่อง prompt ถูกรวมเป็นปุ่มเดียว (`⧉ name` หรือ `⧉ N`) กดแล้วเปิด `/artifacts` ซึ่งตอนนี้แสดง artifact ของ session นี้ขึ้นก่อน
+- **`/batch` ใช้กับ WorktreeCreate hook ได้** — รันได้ทุกที่ที่มี WorktreeCreate hook สร้าง worktree ให้ agent ไม่ต้องอยู่ใน git repo อย่างเดียวแล้ว (ดูบท 10 Hooks)
+- **ส่งทันทีไม่ตัดเครื่องมือที่รันอยู่** — send now (`Ctrl+Enter` หรือ `Ctrl+X Ctrl+S`) ย้ายเครื่องมือที่กำลังรันไปทำงานเบื้องหลัง แทนที่จะยกเลิกเทิร์น
+- **ลบรายการ `/agents` ที่ค้างอยู่** — รายการ "(removed)" ของ `/agents` หายไปจากเมนูคำสั่งและ `/help` แล้ว แต่พิมพ์ `/agents` ก็ยังบอกว่า wizard ย้ายไปไหน
+- **`/tasks` ถามก่อนหยุด `/ultrareview`** — กด `x` บน `/ultrareview` ที่กำลังรันจะขึ้นยืนยันก่อนหยุดรีวิว
 
 ---
 
@@ -1694,6 +1708,14 @@ Skill(commit)                    # Skill เฉพาะ
 - **auto mode ใช้ server-side classifier เป็นค่าเริ่มต้น** — ผู้ใช้ Claude API และ Enterprise รวมถึง session บน Bedrock, Vertex, Foundry และ gateway ให้ server-side classifier ตัดสิน auto mode แล้ว ซึ่งไม่คิดเงินค่า overhead ของตัว classifier เอง · อันนี้กลับทางจากค่าเริ่มต้นของ v2.1.273 บน Bedrock/Vertex/Foundry ถ้าไม่อยากใช้ให้ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=0` เพื่อกลับไปตัดสินในเครื่อง (ดูบท 23 Environment Variables)
 - **เตือนเมื่อ auto mode ต้องถอยไปใช้ classifier ที่คิดเงิน** — ถ้า session ใช้ตัวฝั่ง server ไม่ได้แล้วต้องถอยไปใช้ตัวที่คิดเงิน Claude Code จะเตือนให้รู้ ไม่ใช่เงียบๆ แล้วคิดเงิน · ดูได้จากแถว "Auto mode server" ใน `/status` ว่า session นี้ใช้ตัวไหน
 
+### 🆕 ใหม่ใน v2.1.281
+- **`rm` แบบ recursive ที่เป้าหมายมาจาก command substitution ต้องถามก่อน** — `rm` แบบ recursive ที่เป้าหมายมีแค่ผลของ command substitution เช่น `rm -rf "$(pwd)"` จะไม่รันเองเงียบ ๆ ใน auto mode หรือ `--dangerously-skip-permissions` อีกต่อไป · ถามแม้จะมี Bash allow rule ครอบอยู่ เว้นแต่ตั้ง `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT=1` (ดูบท 23 Environment Variables)
+- **prompt ของ `rm` อันตรายมี timeout ในโหมดที่ไม่มีคนเฝ้า** — ใน `--dangerously-skip-permissions` และ auto mode จะรอคำตอบ 2 นาที แล้วปฏิเสธคำสั่งพร้อมคำแนะนำให้เขียนใหม่ เพื่อให้ session ที่ไม่มีคนเฝ้าเดินต่อได้ · ปิดได้ด้วย `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT=1`
+- **ตรวจ `rm` อันตรายกว้างขึ้น** — จับการลบที่เป้าหมายเป็นตัวแปร shell ตามด้วยชื่อไดเรกทอรีระดับบนสุด, ตัวแปรที่ได้มาจาก working directory หรือเป้าหมายที่มีแต่ backslash ด้วย
+- **auto mode ฝั่ง server ตรวจคำสั่ง read-only และคำสั่งใน sandbox ด้วย** — ถ้า classifier review รันฝั่ง server คำสั่ง shell แบบ read-only และแบบ sandbox ก็ต้องรอผล review และจะถูกบล็อกถ้าโดน flag
+- **`CLAUDE_CODE_AUTO_MODE_SERVER` ใช้กับการต่อ Anthropic API ตรงได้แล้ว** — `0` = ไม่ใช้ server-side classifier (classifier ในเครื่องจะถูกนับเป็น usage) · `1` = ใช้
+- **permission rule ที่มี NUL byte จะไม่ match อะไรเลย** — เลิกถูกขยายกลายเป็น wildcard แล้ว
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1956,6 +1978,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **แผน Pro และ Team Standard ใช้ Opus เป็น default** — เปลี่ยนจาก Sonnet มาเป็น Opus เท่าเทียมกับ Max, Team Premium และ Enterprise
 - **ระดับ effort ที่เคยบันทึกไว้จะไม่ตามไปใช้กับโมเดลใหม่** — ค่า effort ที่บันทึกไว้ก่อนที่ `/effort` จะแยกตามโมเดล จะไม่ถูกนำไปใช้กับโมเดลที่เพิ่งออกอย่าง Opus 5.5 อีกต่อไป โมเดลใหม่จะเริ่มที่ค่า default ของตัวเองจนกว่าเราจะเลือกระดับเอง (ดูบท 3 Slash Commands)
 - **Opus 4.7, Opus 4.8 และ Fable 5 เลิก override ค่า effort ที่เราตั้ง** — ไม่ยึดค่า effort default ตอนเปิดตัวมาทับ `/effort` ใน `-p` หรือ Agent SDK, ทับ `effortLevel` จาก project/managed/`--settings` และทับค่าที่ตั้งแยกรายโมเดลอีกต่อไป
+
+### 🆕 ใหม่ใน v2.1.281
+
+- **`"attribution": false`** ใน `settings.json` ซ่อน attribution ทั้งหมดใน commit และ PR · CLI เวอร์ชันเก่าจะข้ามไฟล์ settings ที่มีค่านี้ทั้งไฟล์ ดังนั้นไฟล์ที่ใช้ร่วมกันหลายเวอร์ชันให้คงรูปแบบ object ไว้
+- **ของใหม่ของ Claude apps gateway** — block `desktop` ของ policy รับ key ใหม่ของ Claude Desktop เช่น `blockReadsOutsideWorkingDirectories` และ `disableBypassPermissionsMode` · upstream ที่เป็น Bedrock รับ `assume_role` (เรียก Bedrock ในนาม IAM role ที่ assume ผ่าน STS ข้ามบัญชี AWS ได้ถ้าจำเป็น และแยก session ต่อ developer ได้) และ `guardrail: {id, version}` (ใส่ Amazon Bedrock guardrail ให้ทุก request — ต้องตั้งกับ Bedrock upstream ทุกตัวหรือไม่ตั้งเลย) · `telemetry.resource_attributes` ติด label คงที่ให้ telemetry ของ Claude Desktop และ session ที่ `/login`
 
 ---
 
@@ -2345,6 +2372,12 @@ claude --mcp-config ./mcp.json
 - **ปรับเพดานความยาวของ description ได้แล้ว** — `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` ใช้เปลี่ยนเพดาน 2,048 ตัวอักษรของ description ของ MCP tool และ instructions ของ server โดยมีผลกับทุก MCP server ใน session (ดูบท 23 Environment Variables)
 - **server ที่เพิ่มกลับด้วยชื่อเดิมจะ reconnect ให้** — หลังสั่ง `claude mcp remove` แล้วเพิ่มกลับด้วยชื่อเดิม จะไม่ขึ้นว่าต้อง authenticate ใหม่อีกต่อไป
 - **`/mcp` ใช้ไอคอนเตือนแบบเดียวกันแล้ว** — ทั้งลิสต์ server, หน้ารายละเอียด และ `/plugin` ใช้ ⚠ เหมือนกันสำหรับ server ตัวเดียวกัน
+
+### 🆕 ใหม่ใน v2.1.281
+
+- **URL-mode elicitation** — บน connection ที่ใช้ protocol 2026-07-28 server ขอให้ Claude Code เปิด flow ผ่านเบราว์เซอร์ได้ และถ้า server ไม่มีทางยืนยันว่าเสร็จแล้ว จะไม่มี dialog รอค้างบนจอ
+- **resource ของ MCP Apps UI ไม่โผล่ในลิสต์ resource** — tool ลิสต์ resource และคำแนะนำตอน @-mention จะข้ามมันไป แต่อ่านด้วย URI ตรง ๆ ยังได้
+- **`claude plugin validate` ตรวจ MCP server ของ plugin** — รายงาน entry ใน `.mcp.json` ที่จะถูกทิ้งเงียบ ๆ ตอนโหลด, การอ้าง `${user_config.*}` ที่ไม่ได้ประกาศ และ URL ที่ไม่ปลอดภัย (ดูบท 18 Plugins)
 
 ---
 
@@ -3492,6 +3525,11 @@ claude --plugin-dir ./my-plugin
 - **commit ที่บันทึกไว้ของ plugin ไม่หายตอนอัปเดต** — การอัปเดต plugin จาก GitHub repo หรือ git URL ที่ track branch/tag ไว้ จะไม่ทิ้ง `installed_plugins.json` ค้างที่ commit ตอนติดตั้งอีกต่อไป และ `claude plugin update` จะไม่ย้าย plugin ไปเป็น version "unknown" เมื่อไฟล์ snapshot ของ marketplace ทางการเป็น link หรือใหญ่เกินไป
 - **skill ที่ปิดไว้ไม่ถูกแสดงว่าพัง** — skill ที่เราปิดเองจะขึ้น ◯ สีจาง ใน `/plugin` และ `/skills` แทนที่จะเป็น ✘ สีแดงซึ่งใช้กับ plugin ที่โหลดไม่สำเร็จ (ดูบท 11 Skills)
 
+### 🆕 ใหม่ใน v2.1.281
+
+- **`claude plugin validate` ตรวจ MCP server ด้วย** — รายงาน entry ใน `.mcp.json` ที่จะถูกทิ้งเงียบ ๆ ตอนโหลด, การอ้าง `${user_config.*}` ที่ไม่ได้ประกาศ และ URL ที่ไม่ปลอดภัย (ดูบท 9 MCP Servers)
+- **เตือนเมื่อ `${CLAUDE_PLUGIN_ROOT}` ไม่ได้ครอบ quote** — `claude plugin validate` เตือนเมื่อ hook แบบ shell-form ใช้ `${CLAUDE_PLUGIN_ROOT}` โดยไม่ครอบ quote (พังเมื่อ path ของ plugin มีช่องว่าง) และ error ตอน hook ของ plugin ล้มจะบอกชื่อ plugin ตัวต้นเหตุแล้ว
+
 ---
 
 ## 19. Session Management
@@ -3900,11 +3938,13 @@ your-project/
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | ตั้ง `0` เพื่อกลับไปให้ session แบบ remote และ headless รายงาน "waiting for your input" ทั้งที่ background agent ยังทำงานอยู่ แบบเดิม *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | อายุสูงสุดของ turn ที่ถูกขัดจังหวะซึ่ง `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` จะยังยอมรันซ้ำ ค่าเริ่มต้น 6 ชั่วโมง *(v2.1.269)* |
 | `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | ตั้ง `1` เพื่อส่ง header ใบ้เส้นทางไปให้ LLM gateway ได้แก่ `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` และ `x-claude-code-context-compacted` *(v2.1.273)* |
-| `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `0` เพื่อไม่ใช้ server-side classifier ของ auto mode บน Bedrock, Vertex, Foundry และ gateway แล้วกลับไปตัดสินด้วย classifier ในเครื่องแทน — ตั้งแต่ v2.1.278 แพลตฟอร์มกลุ่มนี้ (รวมผู้ใช้ Claude API และ Enterprise) ใช้ server-side classifier เป็นค่าเริ่มต้น ซึ่งไม่คิดเงินค่า overhead ของ classifier *(v2.1.273, เปลี่ยน v2.1.278)* |
+| `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `0` เพื่อไม่ใช้ server-side classifier ของ auto mode บน Bedrock, Vertex, Foundry และ gateway แล้วกลับไปตัดสินด้วย classifier ในเครื่องแทน — ตั้งแต่ v2.1.278 แพลตฟอร์มกลุ่มนี้ (รวมผู้ใช้ Claude API และ Enterprise) ใช้ server-side classifier เป็นค่าเริ่มต้น ซึ่งไม่คิดเงินค่า overhead ของ classifier · ตั้งแต่ v2.1.281 ใช้กับการต่อ Anthropic API ตรงได้ด้วย: `0` = ไม่ใช้ (classifier ในเครื่องจะถูกนับเป็น usage), `1` = ใช้ *(v2.1.273, เปลี่ยน v2.1.278, v2.1.281)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จ ตั้ง `0` = ไม่รอเลย *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | ตั้ง `1` เพื่อใส่ค่าของ managed settings แบบ redact แล้วพร้อม digest ลงใน OpenTelemetry event `claude_code.managed_settings_resolved` *(v2.1.274)* |
 | `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | ตั้ง `1` บน Claude apps gateway ที่ออกเน็ตได้ทางเดียวคือผ่าน forward proxy — ทุก request ขาออกจะส่งชื่อ host ให้ proxy จัดการแทนการ resolve เองในเครื่อง *(v2.1.277)* |
 | `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` | เปลี่ยนเพดาน 2,048 ตัวอักษรของ description ของ MCP tool และ instructions ของ server โดยมีผลกับทุก MCP server ใน session *(v2.1.280)* |
+| `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT` | ตั้ง `1` เพื่อให้ `rm` แบบ recursive ที่เป้าหมายมีแค่ผลของ command substitution (เช่น `"$(pwd)"`) รันได้โดยไม่ต้องถาม ซึ่งปกติตอนนี้จะถามใน auto mode และ `--dangerously-skip-permissions` *(v2.1.281)* |
+| `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT` | ตั้ง `1` เพื่อปิด timeout 2 นาทีของ prompt `rm` อันตรายใน `--dangerously-skip-permissions` และ auto mode (ค่าเริ่มต้นคือหมดเวลาแล้วปฏิเสธคำสั่งพร้อมคำแนะนำให้เขียนใหม่) *(v2.1.281)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5232,7 +5272,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.280`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.281`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

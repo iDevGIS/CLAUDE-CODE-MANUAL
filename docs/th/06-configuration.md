@@ -285,6 +285,11 @@ related:
 - **ระดับ effort ที่เคยบันทึกไว้จะไม่ตามไปใช้กับโมเดลใหม่** — ค่า effort ที่บันทึกไว้ก่อนที่ `/effort` จะแยกตามโมเดล จะไม่ถูกนำไปใช้กับโมเดลที่เพิ่งออกอย่าง Opus 5.5 อีกต่อไป โมเดลใหม่จะเริ่มที่ค่า default ของตัวเองจนกว่าเราจะเลือกระดับเอง ดู [[03-slash-commands]]
 - **Opus 4.7, Opus 4.8 และ Fable 5 เลิก override ค่า effort ที่เราตั้ง** — ไม่ยึดค่า effort default ตอนเปิดตัวมาทับ `/effort` ใน `-p` หรือ Agent SDK, ทับ `effortLevel` จาก project/managed/`--settings` และทับค่าที่ตั้งแยกรายโมเดลอีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.281
+
+- **`"attribution": false`** ใน `settings.json` ซ่อน attribution ทั้งหมดใน commit และ PR · CLI เวอร์ชันเก่าจะข้ามไฟล์ settings ที่มีค่านี้ทั้งไฟล์ ดังนั้นไฟล์ที่ใช้ร่วมกันหลายเวอร์ชันให้คงรูปแบบ object ไว้
+- **ของใหม่ของ Claude apps gateway** — block `desktop` ของ policy รับ key ใหม่ของ Claude Desktop เช่น `blockReadsOutsideWorkingDirectories` และ `disableBypassPermissionsMode` · upstream ที่เป็น Bedrock รับ `assume_role` (เรียก Bedrock ในนาม IAM role ที่ assume ผ่าน STS ข้ามบัญชี AWS ได้ถ้าจำเป็น และแยก session ต่อ developer ได้) และ `guardrail: {id, version}` (ใส่ Amazon Bedrock guardrail ให้ทุก request — ต้องตั้งกับ Bedrock upstream ทุกตัวหรือไม่ตั้งเลย) · `telemetry.resource_attributes` ติด label คงที่ให้ telemetry ของ Claude Desktop และ session ที่ `/login`
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

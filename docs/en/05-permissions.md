@@ -227,6 +227,14 @@ Skill(commit)                    # Specific skill
 - **Auto mode defaults to the server-side classifier** — for Claude API and Enterprise users, and on Bedrock, Vertex, Foundry and gateways, auto mode is now judged by the server-side classifier, which does not charge for the classifier's own overhead. This reverses the v2.1.273 default on Bedrock, Vertex and Foundry; set `CLAUDE_CODE_AUTO_MODE_SERVER=0` there (and on gateways) to opt out and judge locally instead. See [[23-environment-variables]].
 - **You get a warning when auto mode falls back to a billed classifier** — if the session can't use the server-side classifier and falls back to the billed one, Claude Code says so instead of quietly charging you; `/status` has an "Auto mode server" row showing which one this session uses. See [[03-slash-commands]].
 
+### New in v2.1.281
+- **Recursive `rm` on command-substitution output asks first** — a recursive `rm` whose only target is command-substitution output, such as `rm -rf "$(pwd)"`, no longer runs unprompted in auto mode or with `--dangerously-skip-permissions`; it asks even under a Bash allow rule, unless `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT=1` is set. See [[23-environment-variables]].
+- **The dangerous `rm` prompt times out in unattended modes** — in `--dangerously-skip-permissions` and auto mode it waits 2 minutes for an answer, then denies the command with a rewrite hint so unattended sessions keep going; `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT=1` turns this off.
+- **Wider dangerous-`rm` check** — it also flags a removal at a shell variable followed by a top-level directory name, at a variable derived from the working directory, or at a backslash-only target.
+- **Server-side auto mode reviews read-only and sandboxed commands too** — where the classifier review runs server-side, read-only and sandboxed shell commands also wait for it and are blocked when it flags them.
+- **`CLAUDE_CODE_AUTO_MODE_SERVER` on the direct Anthropic API** — it now applies there too: `0` opts out of the server-side classifier (the local classifier then counts toward usage), `1` opts in.
+- **A permission rule containing a NUL byte matches nothing** — it is no longer expanded into a wildcard match.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

@@ -256,6 +256,14 @@ Skill(commit)                    # Skill เฉพาะ
 - **auto mode ใช้ server-side classifier เป็นค่าเริ่มต้น** — ผู้ใช้ Claude API และ Enterprise รวมถึง session บน Bedrock, Vertex, Foundry และ gateway ให้ server-side classifier ตัดสิน auto mode แล้ว ซึ่งไม่คิดเงินค่า overhead ของตัว classifier เอง · อันนี้กลับทางจากค่าเริ่มต้นของ v2.1.273 บน Bedrock/Vertex/Foundry ถ้าไม่อยากใช้ให้ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=0` เพื่อกลับไปตัดสินในเครื่อง ดู [[23-environment-variables]]
 - **เตือนเมื่อ auto mode ต้องถอยไปใช้ classifier ที่คิดเงิน** — ถ้า session ใช้ตัวฝั่ง server ไม่ได้แล้วต้องถอยไปใช้ตัวที่คิดเงิน Claude Code จะเตือนให้รู้ ไม่ใช่เงียบๆ แล้วคิดเงิน · ดูได้จากแถว "Auto mode server" ใน `/status` ว่า session นี้ใช้ตัวไหน ดู [[03-slash-commands]]
 
+### 🆕 ใหม่ใน v2.1.281
+- **`rm` แบบ recursive ที่เป้าหมายมาจาก command substitution ต้องถามก่อน** — `rm` แบบ recursive ที่เป้าหมายมีแค่ผลของ command substitution เช่น `rm -rf "$(pwd)"` จะไม่รันเองเงียบ ๆ ใน auto mode หรือ `--dangerously-skip-permissions` อีกต่อไป · ถามแม้จะมี Bash allow rule ครอบอยู่ เว้นแต่ตั้ง `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT=1` ดู [[23-environment-variables]]
+- **prompt ของ `rm` อันตรายมี timeout ในโหมดที่ไม่มีคนเฝ้า** — ใน `--dangerously-skip-permissions` และ auto mode จะรอคำตอบ 2 นาที แล้วปฏิเสธคำสั่งพร้อมคำแนะนำให้เขียนใหม่ เพื่อให้ session ที่ไม่มีคนเฝ้าเดินต่อได้ · ปิดได้ด้วย `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT=1`
+- **ตรวจ `rm` อันตรายกว้างขึ้น** — จับการลบที่เป้าหมายเป็นตัวแปร shell ตามด้วยชื่อไดเรกทอรีระดับบนสุด, ตัวแปรที่ได้มาจาก working directory หรือเป้าหมายที่มีแต่ backslash ด้วย
+- **auto mode ฝั่ง server ตรวจคำสั่ง read-only และคำสั่งใน sandbox ด้วย** — ถ้า classifier review รันฝั่ง server คำสั่ง shell แบบ read-only และแบบ sandbox ก็ต้องรอผล review และจะถูกบล็อกถ้าโดน flag
+- **`CLAUDE_CODE_AUTO_MODE_SERVER` ใช้กับการต่อ Anthropic API ตรงได้แล้ว** — `0` = ไม่ใช้ server-side classifier (classifier ในเครื่องจะถูกนับเป็น usage) · `1` = ใช้
+- **permission rule ที่มี NUL byte จะไม่ match อะไรเลย** — เลิกถูกขยายกลายเป็น wildcard แล้ว
+
 ---
 
 ---

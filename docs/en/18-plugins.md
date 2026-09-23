@@ -149,6 +149,11 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **A plugin's recorded commit survives an update** — updating a plugin from a GitHub repository or git URL that tracks a branch or tag no longer leaves `installed_plugins.json` pinned to the install-time commit, and `claude plugin update` no longer moves a plugin to version "unknown" when the official marketplace's snapshot file is a link or too large.
 - **An off skill is no longer shown as broken** — a skill you switched off shows a dim ◯ in `/plugin` and `/skills`, instead of the red ✘ used for a plugin that failed to load. See [[11-skills]].
 
+### New in v2.1.281
+
+- **`claude plugin validate` checks MCP servers** — it reports `.mcp.json` entries that would be silently dropped at load, undeclared `${user_config.*}` references, and insecure URLs. See [[09-mcp-servers]].
+- **Unquoted `${CLAUDE_PLUGIN_ROOT}` warning** — `claude plugin validate` warns when a shell-form hook leaves `${CLAUDE_PLUGIN_ROOT}` unquoted (it breaks on plugin paths with spaces), and plugin hook-failure errors now name the offending plugin.
+
 ---
 
 ---
