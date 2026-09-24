@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.281         │
+│ Welcome to Claude Code v2.1.282         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.281
+- run: npm install -g @anthropic-ai/claude-code@2.1.282
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1722,6 +1722,12 @@ Skill(commit)                    # Specific skill
 - **`CLAUDE_CODE_AUTO_MODE_SERVER` on the direct Anthropic API** — it now applies there too: `0` opts out of the server-side classifier (the local classifier then counts toward usage), `1` opts in.
 - **A permission rule containing a NUL byte matches nothing** — it is no longer expanded into a wildcard match.
 
+### New in v2.1.282
+- **Server-side auto mode is the default with telemetry off** — on a direct Anthropic API connection with telemetry turned off, auto mode now uses the server-side classifier by default; `CLAUDE_CODE_AUTO_MODE_SERVER=0` opts out (see 23. Environment Variables).
+- **`sandbox.excludedCommands` from project/local settings can be ignored** — when managed settings or `--settings` set `allowUnsandboxedCommands: false`, or managed settings set `allowManagedDomainsOnly: true`, project and local `excludedCommands` entries no longer apply.
+- **Bash rules with a mid-pattern `:*` work from every source** — they were skipped in settings files while `--allowedTools` honored them; startup now warns how such a rule matches.
+- **`Skill(anthropic-skills:*)` / `Skill(claude-ai:*)` cover only claude.ai-synced skills** — plugins or other skills that merely use those names are no longer covered (see 11. Skills).
+
 ---
 
 ## 6. Configuration
@@ -1989,6 +1995,14 @@ Skill(commit)                    # Specific skill
 
 - **`"attribution": false`** in `settings.json` hides all commit and PR attribution. Older CLI versions skip a settings file that holds it, so keep the object form in files shared across versions.
 - **Claude apps gateway additions** — `desktop` policy blocks accept newer Claude Desktop keys such as `blockReadsOutsideWorkingDirectories` and `disableBypassPermissionsMode`; Bedrock upstreams take `assume_role` (call Bedrock as an IAM role assumed through STS, in another AWS account if needed, optionally one session per developer) and `guardrail: {id, version}` (apply an Amazon Bedrock guardrail to every request — set it on all Bedrock upstreams or none); `telemetry.resource_attributes` puts fixed labels on the telemetry of Claude Desktop and `/login` sessions.
+
+### New in v2.1.282
+
+- **`maxProseWidth`** caps the width of Claude's prose in wide terminals; tables and code blocks keep the full width.
+- **Project and local settings ignore telemetry-enabling OpenTelemetry variables** — variables that turn on export, set its endpoint or capture content (such as `CLAUDE_CODE_ENABLE_TELEMETRY` and `OTEL_LOG_*`) are ignored there. A startup notice, plus entries in `/status` and `claude doctor`, list telemetry variables in a project's settings files that were ignored or that turned telemetry off.
+- **`allowClaudeInChromeWithManagedMcp`** (managed) lets `claude --chrome` run alongside an exclusive `managed-mcp.json`; the error shown when Chrome is blocked now names it.
+- **Windows/WSL managed policy fails closed** — an admin policy (HKLM, `managed-settings.json`) that is present but invalid or unreadable now keeps user-writable HKCU and WSL `/etc/claude-code` from applying.
+- **Claude apps gateway: `store.readiness_grace_seconds`** keeps `/readyz` ready through a short Postgres outage such as a database failover.
 
 ---
 
@@ -2386,6 +2400,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **MCP Apps UI resources are left out of resource lists** — the resource list tool and @-mention suggestions skip them; reading one by URI still works.
 - **`claude plugin validate` checks plugin MCP servers** — it reports `.mcp.json` entries that would be silently dropped at load, undeclared `${user_config.*}` references, and insecure URLs (see 18. Plugins).
 
+### New in v2.1.282
+
+- **Servers named `anthropic-skills` or `claude-ai` list no skills or prompts** — their tools still work; rename the server in your MCP configuration to list them again. These namespaces are reserved for skills synced from claude.ai (see 11. Skills).
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -2755,6 +2773,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 ### New in v2.1.275
 
 - **Skills enabled on claude.ai sync to the terminal** — a session signed in with that Claude account picks up the skills turned on in your claude.ai account; opt out with `syncClaudeAiSkills: false` (see 6. Configuration).
+
+### New in v2.1.282
+
+- **`anthropic-skills` and `claude-ai` namespaces are reserved for synced skills** — skill folders, command files and workflow commands in either namespace no longer load; a plugin with such a name still loads but yields name ties to the synced skills. MCP servers configured under these names list no skills or prompts (see 9. MCP Servers).
+- **`Skill(anthropic-skills:*)` and `Skill(claude-ai:*)` allow rules are narrower** — they now cover only skills synced from claude.ai, not plugins or other skills that merely use such a name (see 5. Permission System).
 
 ---
 
@@ -3949,7 +3972,7 @@ your-project/
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | Set `0` to go back to remote and headless sessions reporting "waiting for your input" while background agents are still running. *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | Maximum age of an interrupted turn that `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` will still re-run; 6 hours by default. *(v2.1.269)* |
 | `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | Set `1` to send routing-hint headers to an LLM gateway: `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` and `x-claude-code-context-compacted`. *(v2.1.273)* |
-| `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `0` to opt out of the server-side auto mode classifier on Bedrock, Vertex, Foundry and gateways and judge locally instead. Since v2.1.278 these platforms — plus Claude API and Enterprise users — default to the server-side classifier, which doesn't charge for classifier overhead. Since v2.1.281 it also applies on a direct Anthropic API connection: `0` opts out (the local classifier then counts toward usage), `1` opts in. *(v2.1.273, changed v2.1.278, v2.1.281)* |
+| `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `0` to opt out of the server-side auto mode classifier on Bedrock, Vertex, Foundry and gateways and judge locally instead. Since v2.1.278 these platforms — plus Claude API and Enterprise users — default to the server-side classifier, which doesn't charge for classifier overhead. Since v2.1.281 it also applies on a direct Anthropic API connection: `0` opts out (the local classifier then counts toward usage), `1` opts in. Since v2.1.282 the server-side classifier is the default there when telemetry is off. *(v2.1.273, changed v2.1.278, v2.1.281, v2.1.282)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | Bounds how long the first non-interactive turn waits for MCP servers that are still connecting; `0` = don't wait. *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | Set `1` to include redacted managed-settings values and their digests in the `claude_code.managed_settings_resolved` OpenTelemetry event. *(v2.1.274)* |
 | `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | Set `1` on a Claude apps gateway whose only egress is a forward proxy: every outbound request hands the proxy the hostname instead of resolving it locally. *(v2.1.277)* |
@@ -5286,7 +5309,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.281`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.282`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

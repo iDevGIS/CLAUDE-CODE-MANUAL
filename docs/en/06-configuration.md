@@ -290,6 +290,14 @@ Set the `model` key to any of these (newest → cheapest):
 - **`"attribution": false`** in `settings.json` hides all commit and PR attribution. Older CLI versions skip a settings file that holds it, so keep the object form in files shared across versions.
 - **Claude apps gateway additions** — `desktop` policy blocks accept newer Claude Desktop keys such as `blockReadsOutsideWorkingDirectories` and `disableBypassPermissionsMode`; Bedrock upstreams take `assume_role` (call Bedrock as an IAM role assumed through STS, in another AWS account if needed, optionally one session per developer) and `guardrail: {id, version}` (apply an Amazon Bedrock guardrail to every request — set it on all Bedrock upstreams or none); `telemetry.resource_attributes` puts fixed labels on the telemetry of Claude Desktop and `/login` sessions.
 
+### New in v2.1.282
+
+- **`maxProseWidth`** caps the width of Claude's prose in wide terminals; tables and code blocks keep the full width.
+- **Project and local settings ignore telemetry-enabling OpenTelemetry variables** — variables that turn on export, set its endpoint or capture content (such as `CLAUDE_CODE_ENABLE_TELEMETRY` and `OTEL_LOG_*`) are ignored there. A startup notice, plus entries in `/status` and `claude doctor`, list telemetry variables in a project's settings files that were ignored or that turned telemetry off.
+- **`allowClaudeInChromeWithManagedMcp`** (managed) lets `claude --chrome` run alongside an exclusive `managed-mcp.json`. See [[40-claude-in-chrome]].
+- **Windows/WSL managed policy fails closed** — an admin policy (HKLM, `managed-settings.json`) that is present but invalid or unreadable now keeps user-writable HKCU and WSL `/etc/claude-code` from applying.
+- **Claude apps gateway: `store.readiness_grace_seconds`** keeps `/readyz` ready through a short Postgres outage such as a database failover.
+
 ---
 
 ---

@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.281-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.74.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.282-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.75.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.281`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.282`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -146,8 +146,9 @@
 | 🧮 **auto mode เลิกคิดเงินค่า classifier ของตัวเอง** | auto mode ใช้ server-side classifier เป็นค่าเริ่มต้นแล้วสำหรับผู้ใช้ Claude API/Enterprise และบน Bedrock, Vertex, Foundry, gateway ซึ่งไม่คิดเงินค่า overhead ของ classifier · ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=0` ถ้าไม่อยากใช้บน Bedrock/Vertex/Foundry/gateway · ถ้าต้องถอยไปใช้ตัวที่คิดเงินจะมีคำเตือน และดูได้จากแถว "Auto mode server" ใน `/status` (v2.1.278) |
 | 🚀 **Opus 5.5 ขึ้นเป็น default Opus + Pro/Team Standard ได้ Opus** | `claude-opus-5-5` เป็น **default Opus ตัวใหม่** — context 1M, ราคา $4/$20 ต่อ Mtok, cache read $0.20/Mtok · แผน Pro และ Team Standard เปลี่ยน default จาก Sonnet เป็น Opus เท่าเทียมกับ Max/Team Premium/Enterprise · `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` ปรับเพดาน 2,048 ตัวอักษรของ description/instructions ฝั่ง MCP ได้ · `PermissionRequest` hook ไม่รับ hook ชนิด agent อีกต่อไป (v2.1.280) |
 | 🛡️ **กัน `rm` อันตรายแน่นขึ้น + `"attribution": false`** | `rm` แบบ recursive ที่เป้าหมายมาจาก command substitution ต้องถามก่อนแม้ใน auto mode/`--dangerously-skip-permissions` (ปิดด้วย `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT=1`) · prompt `rm` อันตรายหมดเวลาใน 2 นาทีแล้วปฏิเสธให้ (`CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT=1`) · `"attribution": false` ใน settings ซ่อน attribution ทั้งหมด · MCP URL-mode elicitation · `claude plugin validate` ตรวจ MCP server · `--agents` รับ path ไฟล์ JSON · self-hosted runner ต้องใช้ `--system-prompt-file` (v2.1.281) |
+| 📐 **`maxProseWidth` + สงวน namespace `anthropic-skills`/`claude-ai`** | setting `maxProseWidth` จำกัดความกว้าง prose ในจอกว้าง (ตาราง/code block ยังเต็มจอ) · project/local settings เมินตัวแปร OTel ที่เปิด telemetry พร้อม notice ใน `/status` และ `claude doctor` · managed `allowClaudeInChromeWithManagedMcp` ให้ `--chrome` คู่กับ `managed-mcp.json` แบบ exclusive · skill/command ใน namespace `anthropic-skills`/`claude-ai` ไม่โหลดแล้ว และ `Skill(anthropic-skills:*)` ครอบแค่ skill ที่ sync จาก claude.ai · ปิด telemetry แล้ว auto mode ใช้ server-side classifier เป็นค่าเริ่มต้น (v2.1.282) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.281` (manual `v1.74.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.282` (manual `v1.75.0`)
 
 ---
 
@@ -170,7 +171,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.281** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5
+ตรงกับ Claude Code **v2.1.282** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5
 
 </td>
 </tr>
@@ -230,7 +231,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.281`
+> **Claude Code Version:** `2.1.282`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

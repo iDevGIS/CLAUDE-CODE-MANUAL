@@ -121,6 +121,10 @@ For the full security playbook, see [[32-security-best-practices]].
 
 - **Organization admin setting is enforced** — Claude in Chrome follows your organization's Claude in Chrome admin setting; when an admin turns it off, `--chrome`, `/chrome`, and the browser tools are unavailable.
 
+### New in v2.1.282
+
+- **`allowClaudeInChromeWithManagedMcp` managed setting** — lets `claude --chrome` run alongside an exclusive `managed-mcp.json`; the error shown when Chrome is blocked now names this setting. See [[06-configuration]].
+
 ---
 
 ---

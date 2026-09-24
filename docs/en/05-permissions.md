@@ -235,6 +235,12 @@ Skill(commit)                    # Specific skill
 - **`CLAUDE_CODE_AUTO_MODE_SERVER` on the direct Anthropic API** — it now applies there too: `0` opts out of the server-side classifier (the local classifier then counts toward usage), `1` opts in.
 - **A permission rule containing a NUL byte matches nothing** — it is no longer expanded into a wildcard match.
 
+### New in v2.1.282
+- **Server-side auto mode is the default with telemetry off** — on a direct Anthropic API connection with telemetry turned off, auto mode now uses the server-side classifier by default; `CLAUDE_CODE_AUTO_MODE_SERVER=0` opts out. See [[23-environment-variables]].
+- **`sandbox.excludedCommands` from project/local settings can be ignored** — when managed settings or `--settings` set `allowUnsandboxedCommands: false`, or managed settings set `allowManagedDomainsOnly: true`, project and local `excludedCommands` entries no longer apply.
+- **Bash rules with a mid-pattern `:*` work from every source** — they were skipped in settings files while `--allowedTools` honored them; startup now warns how such a rule matches.
+- **`Skill(anthropic-skills:*)` / `Skill(claude-ai:*)` cover only claude.ai-synced skills** — plugins or other skills that merely use those names are no longer covered. See [[11-skills]].
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

@@ -191,6 +191,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **Skills enabled on claude.ai sync to the terminal** — a session signed in with that Claude account picks up the skills turned on in your claude.ai account; opt out with `syncClaudeAiSkills: false`. See [[06-configuration]].
 
+### New in v2.1.282
+
+- **`anthropic-skills` and `claude-ai` namespaces are reserved for synced skills** — skill folders, command files and workflow commands in either namespace no longer load; a plugin with such a name still loads but yields name ties to the synced skills. MCP servers configured under these names list no skills or prompts (see [[09-mcp-servers]]).
+- **`Skill(anthropic-skills:*)` and `Skill(claude-ai:*)` allow rules are narrower** — they now cover only skills synced from claude.ai, not plugins or other skills that merely use such a name. See [[05-permissions]].
+
 ---
 
 ---

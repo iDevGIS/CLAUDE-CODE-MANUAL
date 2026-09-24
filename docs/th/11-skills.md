@@ -191,6 +191,11 @@ my-skill/
 
 - **skill ที่เปิดใช้บน claude.ai sync ลงเทอร์มินัล** — session ที่ sign in ด้วยบัญชี Claude นั้นจะดึง skill ที่เปิดไว้ในบัญชี claude.ai มาใช้ ถ้าไม่ต้องการให้ตั้ง `syncClaudeAiSkills: false` ดู [[06-configuration]]
 
+### 🆕 ใหม่ใน v2.1.282
+
+- **namespace `anthropic-skills` และ `claude-ai` สงวนไว้ให้ skill ที่ sync มา** — โฟลเดอร์ skill, ไฟล์ command และ workflow command ที่อยู่ใน namespace สองชื่อนี้จะไม่ถูกโหลดอีกต่อไป · plugin ที่ตั้งชื่อแบบนี้ยังโหลดได้ แต่ถ้าชื่อชนกันจะยอมให้ skill ที่ sync มาก่อน · MCP server ที่ตั้งชื่อแบบนี้จะไม่ลิสต์ skill หรือ prompt (ดู [[09-mcp-servers]])
+- **allow rule `Skill(anthropic-skills:*)` และ `Skill(claude-ai:*)` แคบลง** — ครอบเฉพาะ skill ที่ sync มาจาก claude.ai เท่านั้น ไม่รวม plugin หรือ skill อื่นที่แค่ใช้ชื่อแบบนี้ ดู [[05-permissions]]
+
 ---
 
 ---

@@ -181,6 +181,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **MCP Apps UI resources are left out of resource lists** — the resource list tool and @-mention suggestions skip them; reading one by URI still works.
 - **`claude plugin validate` checks plugin MCP servers** — it reports `.mcp.json` entries that would be silently dropped at load, undeclared `${user_config.*}` references, and insecure URLs. See [[18-plugins]].
 
+### New in v2.1.282
+
+- **Servers named `anthropic-skills` or `claude-ai` list no skills or prompts** — their tools still work; rename the server in your MCP configuration to list them again. These namespaces are reserved for skills synced from claude.ai. See [[11-skills]].
+
 ---
 
 ---

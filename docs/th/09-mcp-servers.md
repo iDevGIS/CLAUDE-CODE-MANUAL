@@ -181,6 +181,10 @@ claude --mcp-config ./mcp.json
 - **resource ของ MCP Apps UI ไม่โผล่ในลิสต์ resource** — tool ลิสต์ resource และคำแนะนำตอน @-mention จะข้ามมันไป แต่อ่านด้วย URI ตรง ๆ ยังได้
 - **`claude plugin validate` ตรวจ MCP server ของ plugin** — รายงาน entry ใน `.mcp.json` ที่จะถูกทิ้งเงียบ ๆ ตอนโหลด, การอ้าง `${user_config.*}` ที่ไม่ได้ประกาศ และ URL ที่ไม่ปลอดภัย ดู [[18-plugins]]
 
+### 🆕 ใหม่ใน v2.1.282
+
+- **server ที่ตั้งชื่อ `anthropic-skills` หรือ `claude-ai` จะไม่ลิสต์ skill หรือ prompt** — tool ของมันยังใช้ได้ตามปกติ · ถ้าอยากให้ลิสต์กลับมาให้เปลี่ยนชื่อ server ใน MCP config · namespace สองชื่อนี้สงวนไว้ให้ skill ที่ sync มาจาก claude.ai ดู [[11-skills]]
+
 ---
 
 ---

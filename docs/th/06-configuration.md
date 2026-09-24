@@ -290,6 +290,14 @@ related:
 - **`"attribution": false`** ใน `settings.json` ซ่อน attribution ทั้งหมดใน commit และ PR · CLI เวอร์ชันเก่าจะข้ามไฟล์ settings ที่มีค่านี้ทั้งไฟล์ ดังนั้นไฟล์ที่ใช้ร่วมกันหลายเวอร์ชันให้คงรูปแบบ object ไว้
 - **ของใหม่ของ Claude apps gateway** — block `desktop` ของ policy รับ key ใหม่ของ Claude Desktop เช่น `blockReadsOutsideWorkingDirectories` และ `disableBypassPermissionsMode` · upstream ที่เป็น Bedrock รับ `assume_role` (เรียก Bedrock ในนาม IAM role ที่ assume ผ่าน STS ข้ามบัญชี AWS ได้ถ้าจำเป็น และแยก session ต่อ developer ได้) และ `guardrail: {id, version}` (ใส่ Amazon Bedrock guardrail ให้ทุก request — ต้องตั้งกับ Bedrock upstream ทุกตัวหรือไม่ตั้งเลย) · `telemetry.resource_attributes` ติด label คงที่ให้ telemetry ของ Claude Desktop และ session ที่ `/login`
 
+### 🆕 ใหม่ใน v2.1.282
+
+- **`maxProseWidth`** จำกัดความกว้างของข้อความ prose ที่ Claude ตอบในเทอร์มินัลจอกว้าง · ตารางและ code block ยังกว้างเต็มจอเหมือนเดิม
+- **project และ local settings เมินตัวแปร OpenTelemetry ที่เปิด telemetry** — ตัวแปรที่เปิด export, ตั้ง endpoint หรือเก็บ content (เช่น `CLAUDE_CODE_ENABLE_TELEMETRY` และ `OTEL_LOG_*`) จะไม่มีผลเมื่อตั้งในระดับนี้ · มี notice ตอนเริ่ม session และรายการใน `/status` กับ `claude doctor` บอกว่าตัวแปร telemetry ตัวไหนในไฟล์ settings ของ project ถูกเมินหรือเป็นตัวที่ปิด telemetry
+- **`allowClaudeInChromeWithManagedMcp`** (managed) ให้ `claude --chrome` รันคู่กับ `managed-mcp.json` แบบ exclusive ได้ ดู [[40-claude-in-chrome]]
+- **managed policy บน Windows/WSL ปิดทางเมื่อพัง** — ถ้ามี admin policy (HKLM, `managed-settings.json`) อยู่แต่ไม่ถูกต้องหรืออ่านไม่ได้ จะกัน HKCU ที่ผู้ใช้เขียนได้และ `/etc/claude-code` ของ WSL ไม่ให้มีผล
+- **Claude apps gateway: `store.readiness_grace_seconds`** ให้ `/readyz` ยังตอบ ready ได้ช่วง Postgres ล่มสั้น ๆ เช่นตอน failover ฐานข้อมูล
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

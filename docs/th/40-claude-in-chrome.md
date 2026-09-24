@@ -119,6 +119,10 @@ Claude in Chrome คือการเชื่อม Claude Code เข้า�
 
 - **บังคับตาม admin setting ขององค์กรแล้ว** — Claude in Chrome ทำตาม setting Claude in Chrome ที่ admin ขององค์กรตั้งไว้ — ถ้า admin ปิด `--chrome`, `/chrome` และ browser tools จะใช้ไม่ได้
 
+### 🆕 ใหม่ใน v2.1.282
+
+- **managed setting `allowClaudeInChromeWithManagedMcp`** — ให้ `claude --chrome` รันคู่กับ `managed-mcp.json` แบบ exclusive ได้ · ข้อความ error ตอน Chrome ถูกบล็อกจะบอกชื่อ setting นี้ให้ด้วย ดู [[06-configuration]]
+
 ---
 
 ---

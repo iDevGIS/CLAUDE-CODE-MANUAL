@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.281         │
+│ Welcome to Claude Code v2.1.282         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1064,7 +1064,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.281
+- run: npm install -g @anthropic-ai/claude-code@2.1.282
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1716,6 +1716,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **`CLAUDE_CODE_AUTO_MODE_SERVER` ใช้กับการต่อ Anthropic API ตรงได้แล้ว** — `0` = ไม่ใช้ server-side classifier (classifier ในเครื่องจะถูกนับเป็น usage) · `1` = ใช้
 - **permission rule ที่มี NUL byte จะไม่ match อะไรเลย** — เลิกถูกขยายกลายเป็น wildcard แล้ว
 
+### 🆕 ใหม่ใน v2.1.282
+- **ปิด telemetry แล้ว auto mode ใช้ server-side classifier เป็นค่าเริ่มต้น** — บนการต่อ Anthropic API ตรงที่ปิด telemetry ไว้ auto mode จะใช้ classifier ฝั่ง server เป็นค่าเริ่มต้นแล้ว · ไม่เอาให้ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=0` (ดูบท 23 Environment Variables)
+- **`sandbox.excludedCommands` จาก project/local settings อาจถูกเมิน** — ถ้า managed settings หรือ `--settings` ตั้ง `allowUnsandboxedCommands: false` หรือ managed settings ตั้ง `allowManagedDomainsOnly: true` รายการ `excludedCommands` จาก project และ local settings จะไม่มีผล
+- **Bash rule ที่มี `:*` กลาง pattern ใช้ได้จากทุกแหล่งแล้ว** — เดิมถูกข้ามเมื่ออยู่ในไฟล์ settings ขณะที่ `--allowedTools` ยอมรับ · ตอนเริ่ม session จะมีคำเตือนบอกว่า rule แบบนี้ match อย่างไร
+- **`Skill(anthropic-skills:*)` / `Skill(claude-ai:*)` ครอบเฉพาะ skill ที่ sync จาก claude.ai** — plugin หรือ skill อื่นที่แค่ใช้ชื่อเดียวกันจะไม่ถูกครอบอีกต่อไป (ดูบท 11 Skills)
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1983,6 +1989,14 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **`"attribution": false`** ใน `settings.json` ซ่อน attribution ทั้งหมดใน commit และ PR · CLI เวอร์ชันเก่าจะข้ามไฟล์ settings ที่มีค่านี้ทั้งไฟล์ ดังนั้นไฟล์ที่ใช้ร่วมกันหลายเวอร์ชันให้คงรูปแบบ object ไว้
 - **ของใหม่ของ Claude apps gateway** — block `desktop` ของ policy รับ key ใหม่ของ Claude Desktop เช่น `blockReadsOutsideWorkingDirectories` และ `disableBypassPermissionsMode` · upstream ที่เป็น Bedrock รับ `assume_role` (เรียก Bedrock ในนาม IAM role ที่ assume ผ่าน STS ข้ามบัญชี AWS ได้ถ้าจำเป็น และแยก session ต่อ developer ได้) และ `guardrail: {id, version}` (ใส่ Amazon Bedrock guardrail ให้ทุก request — ต้องตั้งกับ Bedrock upstream ทุกตัวหรือไม่ตั้งเลย) · `telemetry.resource_attributes` ติด label คงที่ให้ telemetry ของ Claude Desktop และ session ที่ `/login`
+
+### 🆕 ใหม่ใน v2.1.282
+
+- **`maxProseWidth`** จำกัดความกว้างของข้อความ prose ที่ Claude ตอบในเทอร์มินัลจอกว้าง · ตารางและ code block ยังกว้างเต็มจอเหมือนเดิม
+- **project และ local settings เมินตัวแปร OpenTelemetry ที่เปิด telemetry** — ตัวแปรที่เปิด export, ตั้ง endpoint หรือเก็บ content (เช่น `CLAUDE_CODE_ENABLE_TELEMETRY` และ `OTEL_LOG_*`) จะไม่มีผลเมื่อตั้งในระดับนี้ · มี notice ตอนเริ่ม session และรายการใน `/status` กับ `claude doctor` บอกว่าตัวแปร telemetry ตัวไหนในไฟล์ settings ของ project ถูกเมินหรือเป็นตัวที่ปิด telemetry
+- **`allowClaudeInChromeWithManagedMcp`** (managed) ให้ `claude --chrome` รันคู่กับ `managed-mcp.json` แบบ exclusive ได้ · ข้อความ error ตอน Chrome ถูกบล็อกจะบอกชื่อ setting นี้ให้ด้วย
+- **managed policy บน Windows/WSL ปิดทางเมื่อพัง** — ถ้ามี admin policy (HKLM, `managed-settings.json`) อยู่แต่ไม่ถูกต้องหรืออ่านไม่ได้ จะกัน HKCU ที่ผู้ใช้เขียนได้และ `/etc/claude-code` ของ WSL ไม่ให้มีผล
+- **Claude apps gateway: `store.readiness_grace_seconds`** ให้ `/readyz` ยังตอบ ready ได้ช่วง Postgres ล่มสั้น ๆ เช่นตอน failover ฐานข้อมูล
 
 ---
 
@@ -2379,6 +2393,10 @@ claude --mcp-config ./mcp.json
 - **resource ของ MCP Apps UI ไม่โผล่ในลิสต์ resource** — tool ลิสต์ resource และคำแนะนำตอน @-mention จะข้ามมันไป แต่อ่านด้วย URI ตรง ๆ ยังได้
 - **`claude plugin validate` ตรวจ MCP server ของ plugin** — รายงาน entry ใน `.mcp.json` ที่จะถูกทิ้งเงียบ ๆ ตอนโหลด, การอ้าง `${user_config.*}` ที่ไม่ได้ประกาศ และ URL ที่ไม่ปลอดภัย (ดูบท 18 Plugins)
 
+### 🆕 ใหม่ใน v2.1.282
+
+- **server ที่ตั้งชื่อ `anthropic-skills` หรือ `claude-ai` จะไม่ลิสต์ skill หรือ prompt** — tool ของมันยังใช้ได้ตามปกติ · ถ้าอยากให้ลิสต์กลับมาให้เปลี่ยนชื่อ server ใน MCP config · namespace สองชื่อนี้สงวนไว้ให้ skill ที่ sync มาจาก claude.ai (ดูบท 11 Skills)
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -2748,6 +2766,11 @@ my-skill/
 ### 🆕 ใหม่ใน v2.1.275
 
 - **skill ที่เปิดใช้บน claude.ai sync ลงเทอร์มินัล** — session ที่ sign in ด้วยบัญชี Claude นั้นจะดึง skill ที่เปิดไว้ในบัญชี claude.ai มาใช้ ถ้าไม่ต้องการให้ตั้ง `syncClaudeAiSkills: false` (ดูบท 6 Configuration)
+
+### 🆕 ใหม่ใน v2.1.282
+
+- **namespace `anthropic-skills` และ `claude-ai` สงวนไว้ให้ skill ที่ sync มา** — โฟลเดอร์ skill, ไฟล์ command และ workflow command ที่อยู่ใน namespace สองชื่อนี้จะไม่ถูกโหลดอีกต่อไป · plugin ที่ตั้งชื่อแบบนี้ยังโหลดได้ แต่ถ้าชื่อชนกันจะยอมให้ skill ที่ sync มาก่อน · MCP server ที่ตั้งชื่อแบบนี้จะไม่ลิสต์ skill หรือ prompt (ดูบท 9 MCP Servers)
+- **allow rule `Skill(anthropic-skills:*)` และ `Skill(claude-ai:*)` แคบลง** — ครอบเฉพาะ skill ที่ sync มาจาก claude.ai เท่านั้น ไม่รวม plugin หรือ skill อื่นที่แค่ใช้ชื่อแบบนี้ (ดูบท 5 Permission System)
 
 ---
 
@@ -3938,7 +3961,7 @@ your-project/
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | ตั้ง `0` เพื่อกลับไปให้ session แบบ remote และ headless รายงาน "waiting for your input" ทั้งที่ background agent ยังทำงานอยู่ แบบเดิม *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | อายุสูงสุดของ turn ที่ถูกขัดจังหวะซึ่ง `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` จะยังยอมรันซ้ำ ค่าเริ่มต้น 6 ชั่วโมง *(v2.1.269)* |
 | `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | ตั้ง `1` เพื่อส่ง header ใบ้เส้นทางไปให้ LLM gateway ได้แก่ `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` และ `x-claude-code-context-compacted` *(v2.1.273)* |
-| `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `0` เพื่อไม่ใช้ server-side classifier ของ auto mode บน Bedrock, Vertex, Foundry และ gateway แล้วกลับไปตัดสินด้วย classifier ในเครื่องแทน — ตั้งแต่ v2.1.278 แพลตฟอร์มกลุ่มนี้ (รวมผู้ใช้ Claude API และ Enterprise) ใช้ server-side classifier เป็นค่าเริ่มต้น ซึ่งไม่คิดเงินค่า overhead ของ classifier · ตั้งแต่ v2.1.281 ใช้กับการต่อ Anthropic API ตรงได้ด้วย: `0` = ไม่ใช้ (classifier ในเครื่องจะถูกนับเป็น usage), `1` = ใช้ *(v2.1.273, เปลี่ยน v2.1.278, v2.1.281)* |
+| `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `0` เพื่อไม่ใช้ server-side classifier ของ auto mode บน Bedrock, Vertex, Foundry และ gateway แล้วกลับไปตัดสินด้วย classifier ในเครื่องแทน — ตั้งแต่ v2.1.278 แพลตฟอร์มกลุ่มนี้ (รวมผู้ใช้ Claude API และ Enterprise) ใช้ server-side classifier เป็นค่าเริ่มต้น ซึ่งไม่คิดเงินค่า overhead ของ classifier · ตั้งแต่ v2.1.281 ใช้กับการต่อ Anthropic API ตรงได้ด้วย: `0` = ไม่ใช้ (classifier ในเครื่องจะถูกนับเป็น usage), `1` = ใช้ · ตั้งแต่ v2.1.282 ถ้าปิด telemetry จะใช้ server-side classifier เป็นค่าเริ่มต้นบนการต่อแบบนี้ *(v2.1.273, เปลี่ยน v2.1.278, v2.1.281, v2.1.282)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จ ตั้ง `0` = ไม่รอเลย *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | ตั้ง `1` เพื่อใส่ค่าของ managed settings แบบ redact แล้วพร้อม digest ลงใน OpenTelemetry event `claude_code.managed_settings_resolved` *(v2.1.274)* |
 | `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY` | ตั้ง `1` บน Claude apps gateway ที่ออกเน็ตได้ทางเดียวคือผ่าน forward proxy — ทุก request ขาออกจะส่งชื่อ host ให้ proxy จัดการแทนการ resolve เองในเครื่อง *(v2.1.277)* |
@@ -5272,7 +5295,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.281`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.282`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

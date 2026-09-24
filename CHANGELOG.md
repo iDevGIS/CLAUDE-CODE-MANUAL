@@ -25,6 +25,28 @@
 
 ---
 
+## [1.75.0] — 2026-09-25
+
+### Compatibility
+- **Claude Code:** `v2.1.282+`
+
+### Added
+- **`maxProseWidth`** + **project/local settings เมินตัวแปร OTel ที่เปิด telemetry** (มี notice ตอนเริ่ม + รายการใน `/status` และ `claude doctor`) + **managed `allowClaudeInChromeWithManagedMcp`** + **managed policy บน Windows/WSL ที่พังกัน HKCU/WSL ไม่ให้มีผล** + **Claude apps gateway `store.readiness_grace_seconds`** — บท 06 (Configuration) EN+TH
+- **`allowClaudeInChromeWithManagedMcp`** — บท 40 (Claude in Chrome) EN+TH
+- **namespace `anthropic-skills` / `claude-ai` สงวนไว้ให้ skill ที่ sync จาก claude.ai** (skill folder/command/workflow command ในชื่อนี้ไม่โหลด, plugin ชื่อชนยอมให้ skill ที่ sync) — บท 11 (Skills) EN+TH
+- **MCP server ชื่อ `anthropic-skills` / `claude-ai` ไม่ลิสต์ skill หรือ prompt** (tool ยังใช้ได้) — บท 09 (MCP) EN+TH
+- **auto mode ใช้ server-side classifier เป็นค่าเริ่มต้นเมื่อปิด telemetry, `sandbox.excludedCommands` จาก project/local ถูกเมินใต้ managed lockdown, Bash rule ที่มี `:*` กลาง pattern ใช้ได้จากทุกแหล่ง, `Skill(anthropic-skills:*)` / `Skill(claude-ai:*)` แคบลง** — บท 05 (Permissions) EN+TH
+- **แถว What's-new ของ `v2.1.282`** ใน README.md + README.EN.md
+
+### Changed
+- **`CLAUDE_CODE_AUTO_MODE_SERVER`** — บท 23 EN+TH: บน Anthropic API ตรงที่ปิด telemetry ใช้ server-side classifier เป็นค่าเริ่มต้น · stamp เป็น *(v2.1.273, changed v2.1.278, v2.1.281, v2.1.282)*
+- **Version strings** bumped `2.1.281` → `2.1.282` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.282` ส่วนใหญ่เป็น bug fix (thinking/resume, managed settings validation, vim mode, plugin uninstall, Claude Tag, VS Code, cloud sessions) และ UI polish (ultracode visuals, Clawd) ซึ่งข้ามตามกติกา · ไม่มี model lineup เปลี่ยน · ของที่คัดมาคือ setting ใหม่ (`maxProseWidth`, `allowClaudeInChromeWithManagedMcp`, gateway `store.readiness_grace_seconds`) และพฤติกรรมที่เปลี่ยนด้าน telemetry, permission/sandbox, managed policy และ namespace ของ skill ที่อาจทำให้ของเดิมเลิกโหลดหรือเลิกถูก allow
+
+---
+
 ## [1.74.0] — 2026-09-24
 
 ### Compatibility
@@ -1685,6 +1707,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.75.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.74.0...v1.75.0
 [1.74.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.73.0...v1.74.0
 [1.73.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.72.0...v1.73.0
 [1.72.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.71.0...v1.72.0

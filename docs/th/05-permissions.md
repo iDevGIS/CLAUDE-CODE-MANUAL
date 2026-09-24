@@ -264,6 +264,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **`CLAUDE_CODE_AUTO_MODE_SERVER` ใช้กับการต่อ Anthropic API ตรงได้แล้ว** — `0` = ไม่ใช้ server-side classifier (classifier ในเครื่องจะถูกนับเป็น usage) · `1` = ใช้
 - **permission rule ที่มี NUL byte จะไม่ match อะไรเลย** — เลิกถูกขยายกลายเป็น wildcard แล้ว
 
+### 🆕 ใหม่ใน v2.1.282
+- **ปิด telemetry แล้ว auto mode ใช้ server-side classifier เป็นค่าเริ่มต้น** — บนการต่อ Anthropic API ตรงที่ปิด telemetry ไว้ auto mode จะใช้ classifier ฝั่ง server เป็นค่าเริ่มต้นแล้ว · ไม่เอาให้ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=0` ดู [[23-environment-variables]]
+- **`sandbox.excludedCommands` จาก project/local settings อาจถูกเมิน** — ถ้า managed settings หรือ `--settings` ตั้ง `allowUnsandboxedCommands: false` หรือ managed settings ตั้ง `allowManagedDomainsOnly: true` รายการ `excludedCommands` จาก project และ local settings จะไม่มีผล
+- **Bash rule ที่มี `:*` กลาง pattern ใช้ได้จากทุกแหล่งแล้ว** — เดิมถูกข้ามเมื่ออยู่ในไฟล์ settings ขณะที่ `--allowedTools` ยอมรับ · ตอนเริ่ม session จะมีคำเตือนบอกว่า rule แบบนี้ match อย่างไร
+- **`Skill(anthropic-skills:*)` / `Skill(claude-ai:*)` ครอบเฉพาะ skill ที่ sync จาก claude.ai** — plugin หรือ skill อื่นที่แค่ใช้ชื่อเดียวกันจะไม่ถูกครอบอีกต่อไป ดู [[11-skills]]
+
 ---
 
 ---
