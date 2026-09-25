@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.282         │
+│ Welcome to Claude Code v2.1.283         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.282
+- run: npm install -g @anthropic-ai/claude-code@2.1.283
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1078,6 +1078,12 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **`--agents` takes a JSON file path** — with `-p`, `--agents` accepts the path to a JSON file as well as inline JSON, and an agent's `prompt` may be empty (see 12. Subagents).
 - **`claude --bg` asks for workspace trust first** — a background session, and its project hooks, no longer starts in a directory that hasn't passed the workspace trust prompt; when not run interactively it exits instead.
 - **Self-hosted runners pass system prompts as files** — `claude self-hosted-runner` now hands system prompts to Claude Code as private files instead of command-line text, so large prompts no longer fail the launch. A wrapper or `command` hook that appends `--system-prompt` or `--append-system-prompt` must switch to `--system-prompt-file` or `--append-system-prompt-file`.
+
+### New in v2.1.283
+
+- **`--system-prompt` / `--append-system-prompt` combine with their `-file` forms** — you can pass the text flag and its `-file` flag together; the file's text comes first.
+- **`--plugin-dir` load failures name the directory** — `plugin_errors` entries in the stream-json `system/init` message now carry a `path` for the directory that did not load (see 18. Plugins).
+- **`claude -p` starts faster** — it no longer loads the interactive UI.
 
 ---
 
@@ -1347,6 +1353,13 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **Send now keeps running tools** — send now (`Ctrl+Enter` or `Ctrl+X Ctrl+S`) moves running tools to the background instead of cancelling the turn.
 - **Leftover `/agents` entry removed** — the "(removed)" `/agents` entry is gone from the command menu and `/help`; typing `/agents` still explains where the wizard went.
 - **`/tasks` confirms before stopping `/ultrareview`** — pressing `x` on a running `/ultrareview` now asks for confirmation first.
+
+### New in v2.1.283
+- **`/doctor prompt-audit`** (also `/checkup prompt-audit`) — audits your CLAUDE.md files, skills, agents and commands for prompting patterns written for older models; stale paths, stale commands and contradicting instruction files lead the report (see 7. CLAUDE.md).
+- **`/context` counts MCP server instructions** — they appear as their own row and count toward the total (see 9. MCP Servers).
+- **`/ultrareview` warns about uploads** — its launch dialog says that reviewing a local branch may upload uncommitted changes to tracked files.
+- **`/model` drops "(1M context)"** — the Opus row and the Default model's name no longer show it where Opus already has a 1M context window; the window is unchanged.
+- **`/rewind` and `/diff` use the shared list keybindings** — they move on the same `select:*` actions as every other list; `messageSelector:*`/`diff:*` rebinds still work (see 4. Keyboard Shortcuts).
 
 ---
 
@@ -1728,6 +1741,12 @@ Skill(commit)                    # Specific skill
 - **Bash rules with a mid-pattern `:*` work from every source** — they were skipped in settings files while `--allowedTools` honored them; startup now warns how such a rule matches.
 - **`Skill(anthropic-skills:*)` / `Skill(claude-ai:*)` cover only claude.ai-synced skills** — plugins or other skills that merely use those names are no longer covered (see 11. Skills).
 
+### New in v2.1.283
+- **Auto mode is the starting mode on third-party providers or with telemetry off** — interactive sessions there start in auto mode when no permission mode is configured; `permissions.defaultMode` still overrides it.
+- **`Skill(...)` deny rules reach further** — `Skill(anthropic-skills:<name>)` denies also block that skill when Claude Desktop delivers it as a plugin, and `Skill(skill:<name>)` denies match the skill's alias and display name (see 11. Skills).
+- **`claude-ai` reservation reverted** — `Skill(claude-ai:*)` rules are ordinary prefix rules again.
+- **Managed `sandbox` block fails closed per value** — one invalid nested value no longer makes Claude Code ignore the whole managed `sandbox` block; the invalid value fails closed and the rest still applies.
+
 ---
 
 ## 6. Configuration
@@ -2003,6 +2022,13 @@ Skill(commit)                    # Specific skill
 - **`allowClaudeInChromeWithManagedMcp`** (managed) lets `claude --chrome` run alongside an exclusive `managed-mcp.json`; the error shown when Chrome is blocked now names it.
 - **Windows/WSL managed policy fails closed** — an admin policy (HKLM, `managed-settings.json`) that is present but invalid or unreadable now keeps user-writable HKCU and WSL `/etc/claude-code` from applying.
 - **Claude apps gateway: `store.readiness_grace_seconds`** keeps `/readyz` ready through a short Postgres outage such as a database failover.
+
+### New in v2.1.283
+
+- **`availableModelsMatch`** (managed) — with `"exact"`, an `availableModels` entry allows only the model version it names, so new releases stay blocked until listed.
+- **`deniedModels`** (managed) — blocks specific models, even when `availableModels` allows them.
+- **Claude apps gateway additions** — an opt-in `load_test_mode` block builds and signs requests but doesn't send them upstream, returning a canned reply so a deployment can be load tested; a `mantle` upstream provider targets Amazon Bedrock's Mantle endpoint.
+- **Default permission mode on third-party providers / telemetry off** — interactive sessions start in auto mode when no permission mode is configured; set `permissions.defaultMode` to override (see 5. Permission System).
 
 ---
 
@@ -2404,6 +2430,14 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Servers named `anthropic-skills` or `claude-ai` list no skills or prompts** — their tools still work; rename the server in your MCP configuration to list them again. These namespaces are reserved for skills synced from claude.ai (see 11. Skills).
 
+### New in v2.1.283
+
+- **`claude-ai` reservation reverted** — MCP servers named `claude-ai` list their skills and prompts again (see 11. Skills).
+- **Images from MCP tools are also saved to a file** — so Bash, Read and other tools can open them.
+- **`/context` counts MCP server instructions** as their own row, included in the total.
+- **`/mcp` tool list** shows more tools at once, scrolls with page keys and the mouse, and marks tools your organization blocked with a warning icon.
+- **OpenTelemetry `tool.output` covers MCP tools** — with `OTEL_LOG_TOOL_CONTENT=1`, MCP tool, WebFetch and WebSearch outputs are included in the `tool.output` span event (see 23. Environment Variables).
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -2778,6 +2812,13 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **`anthropic-skills` and `claude-ai` namespaces are reserved for synced skills** — skill folders, command files and workflow commands in either namespace no longer load; a plugin with such a name still loads but yields name ties to the synced skills. MCP servers configured under these names list no skills or prompts (see 9. MCP Servers).
 - **`Skill(anthropic-skills:*)` and `Skill(claude-ai:*)` allow rules are narrower** — they now cover only skills synced from claude.ai, not plugins or other skills that merely use such a name (see 5. Permission System).
+
+### New in v2.1.283
+
+- **The `claude-ai` reservation from v2.1.282 is reverted** — skills, commands, workflows and MCP servers' skills and prompts named `claude-ai` load again, and `Skill(claude-ai:*)` rules are ordinary prefix rules. The `anthropic-skills` reservation is unchanged.
+- **Skill deny rules match more** — `Skill(anthropic-skills:<name>)` denies also block that skill when Claude Desktop delivers it as a plugin, and `Skill(skill:<name>)` denies match the skill's alias and display name (see 5. Permission System).
+- **`/doctor prompt-audit`** audits skills (plus CLAUDE.md files, agents and commands) for prompting patterns written for older models (see 3. Slash Commands).
+- **Skills from a plugin that failed to load** — Claude now tells you the plugin could not be loaded instead of calling the skill uninstalled.
 
 ---
 
@@ -3971,7 +4012,7 @@ your-project/
 | `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` | Raises the Workflow tool's per-run concurrent agent limit (1–256), for fan-outs that are inference-bound rather than CPU-bound. *(v2.1.269)* |
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | Set `0` to go back to remote and headless sessions reporting "waiting for your input" while background agents are still running. *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | Maximum age of an interrupted turn that `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` will still re-run; 6 hours by default. *(v2.1.269)* |
-| `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | Set `1` to send routing-hint headers to an LLM gateway: `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` and `x-claude-code-context-compacted`. *(v2.1.273)* |
+| `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | Set `1` to send routing-hint headers to an LLM gateway: `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` and `x-claude-code-context-compacted`. Since v2.1.283 it also sends `x-claude-code-prompt-id`, so gateways can group the requests that serve one user prompt. *(v2.1.273, changed v2.1.283)* |
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `0` to opt out of the server-side auto mode classifier on Bedrock, Vertex, Foundry and gateways and judge locally instead. Since v2.1.278 these platforms — plus Claude API and Enterprise users — default to the server-side classifier, which doesn't charge for classifier overhead. Since v2.1.281 it also applies on a direct Anthropic API connection: `0` opts out (the local classifier then counts toward usage), `1` opts in. Since v2.1.282 the server-side classifier is the default there when telemetry is off. *(v2.1.273, changed v2.1.278, v2.1.281, v2.1.282)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | Bounds how long the first non-interactive turn waits for MCP servers that are still connecting; `0` = don't wait. *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | Set `1` to include redacted managed-settings values and their digests in the `claude_code.managed_settings_resolved` OpenTelemetry event. *(v2.1.274)* |
@@ -3979,6 +4020,7 @@ your-project/
 | `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` | Changes the 2,048-character cap on MCP tool descriptions and server instructions, for every MCP server in the session. *(v2.1.280)* |
 | `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT` | Set `1` to let a recursive `rm` whose only target is command-substitution output (e.g. `"$(pwd)"`) run without the prompt it now gets in auto mode and `--dangerously-skip-permissions`. *(v2.1.281)* |
 | `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT` | Set `1` to turn off the 2-minute timeout on the dangerous `rm` prompt in `--dangerously-skip-permissions` and auto mode (by default it then denies the command with a rewrite hint). *(v2.1.281)* |
+| `OTEL_LOG_TOOL_CONTENT` | Set `1` to include tool content in the `tool.output` OpenTelemetry span event; since v2.1.283 this also covers MCP tool, WebFetch and WebSearch outputs. *(changed v2.1.283)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5309,7 +5351,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.282`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.283`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

@@ -196,6 +196,13 @@ my-skill/
 - **namespace `anthropic-skills` และ `claude-ai` สงวนไว้ให้ skill ที่ sync มา** — โฟลเดอร์ skill, ไฟล์ command และ workflow command ที่อยู่ใน namespace สองชื่อนี้จะไม่ถูกโหลดอีกต่อไป · plugin ที่ตั้งชื่อแบบนี้ยังโหลดได้ แต่ถ้าชื่อชนกันจะยอมให้ skill ที่ sync มาก่อน · MCP server ที่ตั้งชื่อแบบนี้จะไม่ลิสต์ skill หรือ prompt (ดู [[09-mcp-servers]])
 - **allow rule `Skill(anthropic-skills:*)` และ `Skill(claude-ai:*)` แคบลง** — ครอบเฉพาะ skill ที่ sync มาจาก claude.ai เท่านั้น ไม่รวม plugin หรือ skill อื่นที่แค่ใช้ชื่อแบบนี้ ดู [[05-permissions]]
 
+### 🆕 ใหม่ใน v2.1.283
+
+- **ยกเลิกการสงวนชื่อ `claude-ai` ที่เพิ่มใน v2.1.282** — skill, command, workflow และ skill/prompt ของ MCP server ที่ชื่อ `claude-ai` กลับมาโหลดได้ และ rule `Skill(claude-ai:*)` กลับเป็น prefix rule ธรรมดา · การสงวน `anthropic-skills` ยังอยู่เหมือนเดิม
+- **deny rule ของ skill match กว้างขึ้น** — deny `Skill(anthropic-skills:<name>)` กัน skill นั้นด้วยแม้ Claude Desktop ส่งมาในรูป plugin และ deny `Skill(skill:<name>)` match ทั้ง alias และ display name ของ skill ดู [[05-permissions]]
+- **`/doctor prompt-audit`** ตรวจ skill (รวมถึงไฟล์ CLAUDE.md, agent และ command) ว่ามีแพทเทิร์น prompt ที่เขียนไว้สำหรับโมเดลรุ่นเก่าหรือเปล่า ดู [[03-slash-commands]]
+- **skill ของ plugin ที่โหลดไม่ขึ้น** — Claude จะบอกว่า plugin โหลดไม่ได้ แทนที่จะบอกว่า skill ไม่ได้ติดตั้ง
+
 ---
 
 ---

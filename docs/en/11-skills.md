@@ -196,6 +196,13 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **`anthropic-skills` and `claude-ai` namespaces are reserved for synced skills** — skill folders, command files and workflow commands in either namespace no longer load; a plugin with such a name still loads but yields name ties to the synced skills. MCP servers configured under these names list no skills or prompts (see [[09-mcp-servers]]).
 - **`Skill(anthropic-skills:*)` and `Skill(claude-ai:*)` allow rules are narrower** — they now cover only skills synced from claude.ai, not plugins or other skills that merely use such a name. See [[05-permissions]].
 
+### New in v2.1.283
+
+- **The `claude-ai` reservation from v2.1.282 is reverted** — skills, commands, workflows and MCP servers' skills and prompts named `claude-ai` load again, and `Skill(claude-ai:*)` rules are ordinary prefix rules. The `anthropic-skills` reservation is unchanged.
+- **Skill deny rules match more** — `Skill(anthropic-skills:<name>)` denies also block that skill when Claude Desktop delivers it as a plugin, and `Skill(skill:<name>)` denies match the skill's alias and display name. See [[05-permissions]].
+- **`/doctor prompt-audit`** audits skills (plus CLAUDE.md files, agents and commands) for prompting patterns written for older models. See [[03-slash-commands]].
+- **Skills from a plugin that failed to load** — Claude now tells you the plugin could not be loaded instead of calling the skill uninstalled.
+
 ---
 
 ---

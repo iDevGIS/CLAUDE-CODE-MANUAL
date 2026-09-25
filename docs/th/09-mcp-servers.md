@@ -185,6 +185,14 @@ claude --mcp-config ./mcp.json
 
 - **server ที่ตั้งชื่อ `anthropic-skills` หรือ `claude-ai` จะไม่ลิสต์ skill หรือ prompt** — tool ของมันยังใช้ได้ตามปกติ · ถ้าอยากให้ลิสต์กลับมาให้เปลี่ยนชื่อ server ใน MCP config · namespace สองชื่อนี้สงวนไว้ให้ skill ที่ sync มาจาก claude.ai ดู [[11-skills]]
 
+### 🆕 ใหม่ใน v2.1.283
+
+- **ยกเลิกการสงวนชื่อ `claude-ai`** — MCP server ที่ชื่อ `claude-ai` กลับมาลิสต์ skill และ prompt ได้แล้ว ดู [[11-skills]]
+- **รูปที่ MCP tool ส่งกลับมาถูกเซฟเป็นไฟล์ด้วย** — เพื่อให้ Bash, Read และเครื่องมืออื่นเปิดอ่านได้
+- **`/context` นับ instructions ของ MCP server** เป็นแถวของตัวเองและรวมใน total
+- **รายการ tool ใน `/mcp`** แสดงได้มากขึ้นในหน้าเดียว เลื่อนด้วยปุ่ม page และเมาส์ได้ และติดไอคอนเตือนให้ tool ที่องค์กรบล็อกไว้
+- **OpenTelemetry `tool.output` ครอบ MCP tool แล้ว** — เมื่อตั้ง `OTEL_LOG_TOOL_CONTENT=1` ผลลัพธ์ของ MCP tool, WebFetch และ WebSearch จะอยู่ใน span event `tool.output` ด้วย ดู [[23-environment-variables]]
+
 ---
 
 ---

@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.282         │
+│ Welcome to Claude Code v2.1.283         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -629,6 +629,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **`claude --bg` ถามเรื่อง workspace trust ก่อน** — background session (รวมถึง project hook ของมัน) จะไม่เริ่มในโฟลเดอร์ที่ยังไม่ผ่านหน้าถาม workspace trust อีกต่อไป ถ้าไม่ได้รันแบบ interactive จะ exit แทน ดู [[41-background-agents]]
 - **self-hosted runner ส่ง system prompt เป็นไฟล์** — `claude self-hosted-runner` ส่ง system prompt ให้ Claude Code เป็นไฟล์ส่วนตัวแทนข้อความบน command line ทำให้ prompt ใหญ่ ๆ ไม่ทำให้การเปิด session ล้มอีก · wrapper หรือ hook ชนิด `command` ที่ต่อท้าย `--system-prompt` หรือ `--append-system-prompt` ต้องเปลี่ยนไปใช้ `--system-prompt-file` หรือ `--append-system-prompt-file`
 
+### 🆕 ใหม่ใน v2.1.283
+
+- **`--system-prompt` / `--append-system-prompt` ใช้คู่กับแบบ `-file` ได้** — ส่ง flag แบบข้อความพร้อม flag `-file` ของมันได้ในคราวเดียว โดยข้อความจากไฟล์จะมาก่อน
+- **`--plugin-dir` ที่โหลดไม่ขึ้นบอกชื่อโฟลเดอร์** — รายการ `plugin_errors` ใน message `system/init` ของ stream-json มีช่อง `path` บอกโฟลเดอร์ที่โหลดไม่ขึ้นแล้ว ดู [[18-plugins]]
+- **`claude -p` เริ่มเร็วขึ้น** — ไม่โหลด UI แบบ interactive อีกต่อไป
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1000,7 +1006,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.282
+- run: npm install -g @anthropic-ai/claude-code@2.1.283
 ```
 
 ---

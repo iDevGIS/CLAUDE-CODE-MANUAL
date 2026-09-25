@@ -270,6 +270,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **Bash rule ที่มี `:*` กลาง pattern ใช้ได้จากทุกแหล่งแล้ว** — เดิมถูกข้ามเมื่ออยู่ในไฟล์ settings ขณะที่ `--allowedTools` ยอมรับ · ตอนเริ่ม session จะมีคำเตือนบอกว่า rule แบบนี้ match อย่างไร
 - **`Skill(anthropic-skills:*)` / `Skill(claude-ai:*)` ครอบเฉพาะ skill ที่ sync จาก claude.ai** — plugin หรือ skill อื่นที่แค่ใช้ชื่อเดียวกันจะไม่ถูกครอบอีกต่อไป ดู [[11-skills]]
 
+### 🆕 ใหม่ใน v2.1.283
+- **บน third-party provider หรือเมื่อปิด telemetry จะเริ่มด้วย auto mode** — session แบบ interactive ในกรณีนี้เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ · `permissions.defaultMode` ยัง override ได้เหมือนเดิม
+- **deny rule ของ `Skill(...)` ครอบกว้างขึ้น** — deny `Skill(anthropic-skills:<name>)` กัน skill นั้นด้วยแม้ Claude Desktop ส่งมาในรูป plugin และ deny `Skill(skill:<name>)` match ทั้ง alias และ display name ของ skill ดู [[11-skills]]
+- **ยกเลิกการสงวนชื่อ `claude-ai`** — rule `Skill(claude-ai:*)` กลับเป็น prefix rule ธรรมดาแล้ว
+- **managed `sandbox` ที่มีค่าผิดปิดทางเฉพาะจุด** — ค่าที่ไม่ถูกต้องตัวเดียวไม่ทำให้ทั้งบล็อก managed `sandbox` ถูกเมินอีกต่อไป · ค่าที่ผิดจะปิดทาง (fail closed) ส่วนค่าที่เหลือยังมีผล
+
 ---
 
 ---

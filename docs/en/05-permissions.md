@@ -241,6 +241,12 @@ Skill(commit)                    # Specific skill
 - **Bash rules with a mid-pattern `:*` work from every source** — they were skipped in settings files while `--allowedTools` honored them; startup now warns how such a rule matches.
 - **`Skill(anthropic-skills:*)` / `Skill(claude-ai:*)` cover only claude.ai-synced skills** — plugins or other skills that merely use those names are no longer covered. See [[11-skills]].
 
+### New in v2.1.283
+- **Auto mode is the starting mode on third-party providers or with telemetry off** — interactive sessions there start in auto mode when no permission mode is configured; `permissions.defaultMode` still overrides it.
+- **`Skill(...)` deny rules reach further** — `Skill(anthropic-skills:<name>)` denies also block that skill when Claude Desktop delivers it as a plugin, and `Skill(skill:<name>)` denies match the skill's alias and display name. See [[11-skills]].
+- **`claude-ai` reservation reverted** — `Skill(claude-ai:*)` rules are ordinary prefix rules again.
+- **Managed `sandbox` block fails closed per value** — one invalid nested value no longer makes Claude Code ignore the whole managed `sandbox` block; the invalid value fails closed and the rest still applies.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

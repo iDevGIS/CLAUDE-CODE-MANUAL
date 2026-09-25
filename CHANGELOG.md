@@ -25,6 +25,30 @@
 
 ---
 
+## [1.76.0] — 2026-09-26
+
+### Compatibility
+- **Claude Code:** `v2.1.283+`
+
+### Added
+- **managed `availableModelsMatch` (`"exact"`) + `deniedModels`** + **Claude apps gateway `load_test_mode` และ upstream provider `mantle`** + **third-party provider / ปิด telemetry เริ่มด้วย auto mode ถ้าไม่ได้ตั้ง permission mode** — บท 06 (Configuration) EN+TH
+- **`/doctor prompt-audit`** (หรือ `/checkup prompt-audit`) + **`/context` นับ MCP server instructions** + **`/ultrareview` เตือนเรื่องอัปโหลด** + **`/model` ตัด "(1M context)"** + **`/rewind`/`/diff` ใช้ `select:*`** — บท 03 (Slash Commands) EN+TH
+- **`--system-prompt`/`--append-system-prompt` ใช้คู่แบบ `-file` ได้ (ไฟล์มาก่อน)** + **`path` ใน `plugin_errors` ของ `--plugin-dir`** + **`claude -p` ไม่โหลด UI interactive** — บท 02 (CLI) EN+TH
+- **auto mode เป็นโหมดเริ่มต้นบน third-party provider / ปิด telemetry, deny rule ของ `Skill(...)` ครอบกว้างขึ้น, ยกเลิกสงวน `claude-ai` สำหรับ `Skill(claude-ai:*)`, managed `sandbox` ที่มีค่าผิด fail closed เฉพาะค่านั้น** — บท 05 (Permissions) EN+TH
+- **ยกเลิกสงวน `claude-ai` ฝั่ง MCP server, รูปจาก MCP tool ถูกเซฟเป็นไฟล์, `/mcp` tool list, `OTEL_LOG_TOOL_CONTENT` ครอบ MCP/WebFetch/WebSearch** — บท 09 (MCP) EN+TH
+- **ยกเลิกการสงวนชื่อ `claude-ai` (ย้อน v2.1.282; `anthropic-skills` ยังสงวน), skill deny rule match alias/display name, `/doctor prompt-audit`, ข้อความเมื่อ plugin ของ skill โหลดไม่ขึ้น** — บท 11 (Skills) EN+TH
+- **`OTEL_LOG_TOOL_CONTENT`** แถวใหม่ในตาราง — บท 23 EN+TH
+- **แถว What's-new ของ `v2.1.283`** ใน README.md + README.EN.md
+
+### Changed
+- **`CLAUDE_CODE_GATEWAY_HINT_HEADERS`** — บท 23 EN+TH: ส่ง `x-claude-code-prompt-id` เพิ่ม · stamp เป็น *(v2.1.273, changed v2.1.283)*
+- **Version strings** bumped `2.1.282` → `2.1.283` (current-version references only; historical sections kept — section "New in v2.1.282" เรื่องสงวน `claude-ai` คงไว้เป็นประวัติ และมี section v2.1.283 บอกว่ายกเลิกแล้ว)
+
+### Why
+- Upstream `2.1.283` ส่วนใหญ่เป็น bug fix (SDK sessions, MCP, plugin validate/uninstall, vim mode, keybindings, VS Code, Claude Tag, Code Review) และ UI polish (list paging/mouse, compaction spinner, MCP sign-in page) ซึ่งข้ามตามกติกา · ไม่มี model lineup เปลี่ยน · ของที่คัดมาคือ managed setting ใหม่ด้านการคุมโมเดล (`availableModelsMatch`, `deniedModels`), คำสั่ง `/doctor prompt-audit`, การเปลี่ยนพฤติกรรม permission/auto mode/Skill deny, และการย้อนการสงวนชื่อ `claude-ai` ที่คู่มือบันทึกไว้ใน v1.75.0
+
+---
+
 ## [1.75.0] — 2026-09-25
 
 ### Compatibility
@@ -1707,6 +1731,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.76.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.75.0...v1.76.0
 [1.75.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.74.0...v1.75.0
 [1.74.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.73.0...v1.74.0
 [1.73.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.72.0...v1.73.0

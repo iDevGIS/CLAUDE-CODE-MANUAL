@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.282         │
+│ Welcome to Claude Code v2.1.283         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -733,6 +733,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **`claude --bg` ถามเรื่อง workspace trust ก่อน** — background session (รวมถึง project hook ของมัน) จะไม่เริ่มในโฟลเดอร์ที่ยังไม่ผ่านหน้าถาม workspace trust อีกต่อไป ถ้าไม่ได้รันแบบ interactive จะ exit แทน
 - **self-hosted runner ส่ง system prompt เป็นไฟล์** — `claude self-hosted-runner` ส่ง system prompt ให้ Claude Code เป็นไฟล์ส่วนตัวแทนข้อความบน command line ทำให้ prompt ใหญ่ ๆ ไม่ทำให้การเปิด session ล้มอีก · wrapper หรือ hook ชนิด `command` ที่ต่อท้าย `--system-prompt` หรือ `--append-system-prompt` ต้องเปลี่ยนไปใช้ `--system-prompt-file` หรือ `--append-system-prompt-file`
 
+### 🆕 ใหม่ใน v2.1.283
+
+- **`--system-prompt` / `--append-system-prompt` ใช้คู่กับแบบ `-file` ได้** — ส่ง flag แบบข้อความพร้อม flag `-file` ของมันได้ในคราวเดียว โดยข้อความจากไฟล์จะมาก่อน
+- **`--plugin-dir` ที่โหลดไม่ขึ้นบอกชื่อโฟลเดอร์** — รายการ `plugin_errors` ใน message `system/init` ของ stream-json มีช่อง `path` บอกโฟลเดอร์ที่โหลดไม่ขึ้นแล้ว (ดูบท 18 Plugins)
+- **`claude -p` เริ่มเร็วขึ้น** — ไม่โหลด UI แบบ interactive อีกต่อไป
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1064,7 +1070,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.282
+- run: npm install -g @anthropic-ai/claude-code@2.1.283
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1341,6 +1347,13 @@ claude -p "..."              # ถามเร็ว ๆ
 - **ส่งทันทีไม่ตัดเครื่องมือที่รันอยู่** — send now (`Ctrl+Enter` หรือ `Ctrl+X Ctrl+S`) ย้ายเครื่องมือที่กำลังรันไปทำงานเบื้องหลัง แทนที่จะยกเลิกเทิร์น
 - **ลบรายการ `/agents` ที่ค้างอยู่** — รายการ "(removed)" ของ `/agents` หายไปจากเมนูคำสั่งและ `/help` แล้ว แต่พิมพ์ `/agents` ก็ยังบอกว่า wizard ย้ายไปไหน
 - **`/tasks` ถามก่อนหยุด `/ultrareview`** — กด `x` บน `/ultrareview` ที่กำลังรันจะขึ้นยืนยันก่อนหยุดรีวิว
+
+### 🆕 ใหม่ใน v2.1.283
+- **`/doctor prompt-audit`** (หรือ `/checkup prompt-audit`) — ตรวจไฟล์ CLAUDE.md, skill, agent และ command ของเราว่ามีแพทเทิร์นการเขียน prompt ที่เขียนไว้สำหรับโมเดลรุ่นเก่าหรือเปล่า · path ที่เลิกใช้, คำสั่งที่เลิกใช้ และไฟล์คำสั่งที่ขัดกันเองจะขึ้นก่อนในรายงาน (ดูบท 7 CLAUDE.md)
+- **`/context` นับ instructions ของ MCP server แล้ว** — แสดงเป็นแถวของตัวเองและนับรวมใน total (ดูบท 9 MCP Servers)
+- **`/ultrareview` เตือนเรื่องการอัปโหลด** — หน้าเปิดรีวิวบอกว่าการรีวิว branch ในเครื่องอาจอัปโหลดการแก้ที่ยังไม่ commit ในไฟล์ที่ track อยู่ขึ้นไปด้วย
+- **`/model` ตัดคำว่า "(1M context)" ออก** — แถว Opus และชื่อของ Default model ไม่แสดงคำนี้แล้วในกรณีที่ Opus มี context 1M อยู่แล้ว · ขนาด context ไม่เปลี่ยน
+- **`/rewind` และ `/diff` ใช้ keybinding ของ list ร่วมกับที่อื่น** — เลื่อนด้วย action `select:*` เหมือนทุก list · rebind แบบ `messageSelector:*`/`diff:*` เดิมยังใช้ได้ (ดูบท 4 Keyboard Shortcuts)
 
 ---
 
@@ -1722,6 +1735,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **Bash rule ที่มี `:*` กลาง pattern ใช้ได้จากทุกแหล่งแล้ว** — เดิมถูกข้ามเมื่ออยู่ในไฟล์ settings ขณะที่ `--allowedTools` ยอมรับ · ตอนเริ่ม session จะมีคำเตือนบอกว่า rule แบบนี้ match อย่างไร
 - **`Skill(anthropic-skills:*)` / `Skill(claude-ai:*)` ครอบเฉพาะ skill ที่ sync จาก claude.ai** — plugin หรือ skill อื่นที่แค่ใช้ชื่อเดียวกันจะไม่ถูกครอบอีกต่อไป (ดูบท 11 Skills)
 
+### 🆕 ใหม่ใน v2.1.283
+- **บน third-party provider หรือเมื่อปิด telemetry จะเริ่มด้วย auto mode** — session แบบ interactive ในกรณีนี้เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ · `permissions.defaultMode` ยัง override ได้เหมือนเดิม
+- **deny rule ของ `Skill(...)` ครอบกว้างขึ้น** — deny `Skill(anthropic-skills:<name>)` กัน skill นั้นด้วยแม้ Claude Desktop ส่งมาในรูป plugin และ deny `Skill(skill:<name>)` match ทั้ง alias และ display name ของ skill (ดูบท 11 Skills)
+- **ยกเลิกการสงวนชื่อ `claude-ai`** — rule `Skill(claude-ai:*)` กลับเป็น prefix rule ธรรมดาแล้ว
+- **managed `sandbox` ที่มีค่าผิดปิดทางเฉพาะจุด** — ค่าที่ไม่ถูกต้องตัวเดียวไม่ทำให้ทั้งบล็อก managed `sandbox` ถูกเมินอีกต่อไป · ค่าที่ผิดจะปิดทาง (fail closed) ส่วนค่าที่เหลือยังมีผล
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -1997,6 +2016,13 @@ Skill(commit)                    # Skill เฉพาะ
 - **`allowClaudeInChromeWithManagedMcp`** (managed) ให้ `claude --chrome` รันคู่กับ `managed-mcp.json` แบบ exclusive ได้ · ข้อความ error ตอน Chrome ถูกบล็อกจะบอกชื่อ setting นี้ให้ด้วย
 - **managed policy บน Windows/WSL ปิดทางเมื่อพัง** — ถ้ามี admin policy (HKLM, `managed-settings.json`) อยู่แต่ไม่ถูกต้องหรืออ่านไม่ได้ จะกัน HKCU ที่ผู้ใช้เขียนได้และ `/etc/claude-code` ของ WSL ไม่ให้มีผล
 - **Claude apps gateway: `store.readiness_grace_seconds`** ให้ `/readyz` ยังตอบ ready ได้ช่วง Postgres ล่มสั้น ๆ เช่นตอน failover ฐานข้อมูล
+
+### 🆕 ใหม่ใน v2.1.283
+
+- **`availableModelsMatch`** (managed) — ตั้งเป็น `"exact"` แล้วรายการใน `availableModels` จะอนุญาตเฉพาะเวอร์ชันโมเดลที่ระบุชื่อไว้เท่านั้น โมเดลที่ออกใหม่จะยังถูกบล็อกจนกว่าจะใส่ในรายการ
+- **`deniedModels`** (managed) — บล็อกโมเดลที่ระบุ แม้ `availableModels` จะอนุญาตไว้ก็ตาม
+- **ของใหม่ใน Claude apps gateway** — บล็อก `load_test_mode` (ต้องเปิดเอง) สร้างและเซ็น request แต่ไม่ส่งขึ้น upstream แล้วตอบกลับเป็นข้อความสำเร็จรูป เอาไว้ load test deployment · upstream provider `mantle` สำหรับ endpoint Mantle ของ Amazon Bedrock
+- **permission mode เริ่มต้นบน third-party provider / ตอนปิด telemetry** — session แบบ interactive เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ · ตั้ง `permissions.defaultMode` เพื่อ override (ดูบท 5 ระบบ Permission)
 
 ---
 
@@ -2397,6 +2423,14 @@ claude --mcp-config ./mcp.json
 
 - **server ที่ตั้งชื่อ `anthropic-skills` หรือ `claude-ai` จะไม่ลิสต์ skill หรือ prompt** — tool ของมันยังใช้ได้ตามปกติ · ถ้าอยากให้ลิสต์กลับมาให้เปลี่ยนชื่อ server ใน MCP config · namespace สองชื่อนี้สงวนไว้ให้ skill ที่ sync มาจาก claude.ai (ดูบท 11 Skills)
 
+### 🆕 ใหม่ใน v2.1.283
+
+- **ยกเลิกการสงวนชื่อ `claude-ai`** — MCP server ที่ชื่อ `claude-ai` กลับมาลิสต์ skill และ prompt ได้แล้ว (ดูบท 11 Skills)
+- **รูปที่ MCP tool ส่งกลับมาถูกเซฟเป็นไฟล์ด้วย** — เพื่อให้ Bash, Read และเครื่องมืออื่นเปิดอ่านได้
+- **`/context` นับ instructions ของ MCP server** เป็นแถวของตัวเองและรวมใน total
+- **รายการ tool ใน `/mcp`** แสดงได้มากขึ้นในหน้าเดียว เลื่อนด้วยปุ่ม page และเมาส์ได้ และติดไอคอนเตือนให้ tool ที่องค์กรบล็อกไว้
+- **OpenTelemetry `tool.output` ครอบ MCP tool แล้ว** — เมื่อตั้ง `OTEL_LOG_TOOL_CONTENT=1` ผลลัพธ์ของ MCP tool, WebFetch และ WebSearch จะอยู่ใน span event `tool.output` ด้วย (ดูบท 23 Environment Variables)
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -2771,6 +2805,13 @@ my-skill/
 
 - **namespace `anthropic-skills` และ `claude-ai` สงวนไว้ให้ skill ที่ sync มา** — โฟลเดอร์ skill, ไฟล์ command และ workflow command ที่อยู่ใน namespace สองชื่อนี้จะไม่ถูกโหลดอีกต่อไป · plugin ที่ตั้งชื่อแบบนี้ยังโหลดได้ แต่ถ้าชื่อชนกันจะยอมให้ skill ที่ sync มาก่อน · MCP server ที่ตั้งชื่อแบบนี้จะไม่ลิสต์ skill หรือ prompt (ดูบท 9 MCP Servers)
 - **allow rule `Skill(anthropic-skills:*)` และ `Skill(claude-ai:*)` แคบลง** — ครอบเฉพาะ skill ที่ sync มาจาก claude.ai เท่านั้น ไม่รวม plugin หรือ skill อื่นที่แค่ใช้ชื่อแบบนี้ (ดูบท 5 Permission System)
+
+### 🆕 ใหม่ใน v2.1.283
+
+- **ยกเลิกการสงวนชื่อ `claude-ai` ที่เพิ่มใน v2.1.282** — skill, command, workflow และ skill/prompt ของ MCP server ที่ชื่อ `claude-ai` กลับมาโหลดได้ และ rule `Skill(claude-ai:*)` กลับเป็น prefix rule ธรรมดา · การสงวน `anthropic-skills` ยังอยู่เหมือนเดิม
+- **deny rule ของ skill match กว้างขึ้น** — deny `Skill(anthropic-skills:<name>)` กัน skill นั้นด้วยแม้ Claude Desktop ส่งมาในรูป plugin และ deny `Skill(skill:<name>)` match ทั้ง alias และ display name ของ skill (ดูบท 5 Permission System)
+- **`/doctor prompt-audit`** ตรวจ skill (รวมถึงไฟล์ CLAUDE.md, agent และ command) ว่ามีแพทเทิร์น prompt ที่เขียนไว้สำหรับโมเดลรุ่นเก่าหรือเปล่า (ดูบท 3 Slash Commands)
+- **skill ของ plugin ที่โหลดไม่ขึ้น** — Claude จะบอกว่า plugin โหลดไม่ได้ แทนที่จะบอกว่า skill ไม่ได้ติดตั้ง
 
 ---
 
@@ -3960,7 +4001,7 @@ your-project/
 | `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` | ดันเพดานจำนวน agent ที่รันพร้อมกันต่อหนึ่ง run ของ Workflow tool (1–256) สำหรับงาน fan-out ที่คอขวดอยู่ที่ inference ไม่ใช่ CPU *(v2.1.269)* |
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | ตั้ง `0` เพื่อกลับไปให้ session แบบ remote และ headless รายงาน "waiting for your input" ทั้งที่ background agent ยังทำงานอยู่ แบบเดิม *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | อายุสูงสุดของ turn ที่ถูกขัดจังหวะซึ่ง `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` จะยังยอมรันซ้ำ ค่าเริ่มต้น 6 ชั่วโมง *(v2.1.269)* |
-| `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | ตั้ง `1` เพื่อส่ง header ใบ้เส้นทางไปให้ LLM gateway ได้แก่ `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` และ `x-claude-code-context-compacted` *(v2.1.273)* |
+| `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | ตั้ง `1` เพื่อส่ง header ใบ้เส้นทางไปให้ LLM gateway ได้แก่ `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` และ `x-claude-code-context-compacted` · ตั้งแต่ v2.1.283 ส่ง `x-claude-code-prompt-id` ด้วย ให้ gateway จัดกลุ่ม request ที่มาจาก prompt เดียวกันของผู้ใช้ได้ *(v2.1.273, เปลี่ยน v2.1.283)* |
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `0` เพื่อไม่ใช้ server-side classifier ของ auto mode บน Bedrock, Vertex, Foundry และ gateway แล้วกลับไปตัดสินด้วย classifier ในเครื่องแทน — ตั้งแต่ v2.1.278 แพลตฟอร์มกลุ่มนี้ (รวมผู้ใช้ Claude API และ Enterprise) ใช้ server-side classifier เป็นค่าเริ่มต้น ซึ่งไม่คิดเงินค่า overhead ของ classifier · ตั้งแต่ v2.1.281 ใช้กับการต่อ Anthropic API ตรงได้ด้วย: `0` = ไม่ใช้ (classifier ในเครื่องจะถูกนับเป็น usage), `1` = ใช้ · ตั้งแต่ v2.1.282 ถ้าปิด telemetry จะใช้ server-side classifier เป็นค่าเริ่มต้นบนการต่อแบบนี้ *(v2.1.273, เปลี่ยน v2.1.278, v2.1.281, v2.1.282)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จ ตั้ง `0` = ไม่รอเลย *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | ตั้ง `1` เพื่อใส่ค่าของ managed settings แบบ redact แล้วพร้อม digest ลงใน OpenTelemetry event `claude_code.managed_settings_resolved` *(v2.1.274)* |
@@ -3968,6 +4009,7 @@ your-project/
 | `CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH` | เปลี่ยนเพดาน 2,048 ตัวอักษรของ description ของ MCP tool และ instructions ของ server โดยมีผลกับทุก MCP server ใน session *(v2.1.280)* |
 | `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT` | ตั้ง `1` เพื่อให้ `rm` แบบ recursive ที่เป้าหมายมีแค่ผลของ command substitution (เช่น `"$(pwd)"`) รันได้โดยไม่ต้องถาม ซึ่งปกติตอนนี้จะถามใน auto mode และ `--dangerously-skip-permissions` *(v2.1.281)* |
 | `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT` | ตั้ง `1` เพื่อปิด timeout 2 นาทีของ prompt `rm` อันตรายใน `--dangerously-skip-permissions` และ auto mode (ค่าเริ่มต้นคือหมดเวลาแล้วปฏิเสธคำสั่งพร้อมคำแนะนำให้เขียนใหม่) *(v2.1.281)* |
+| `OTEL_LOG_TOOL_CONTENT` | ตั้ง `1` เพื่อใส่เนื้อหาของ tool ลงใน span event `tool.output` ของ OpenTelemetry · ตั้งแต่ v2.1.283 ครอบผลลัพธ์ของ MCP tool, WebFetch และ WebSearch ด้วย *(เปลี่ยน v2.1.283)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5295,7 +5337,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.282`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.283`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

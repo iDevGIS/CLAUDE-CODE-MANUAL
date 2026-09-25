@@ -185,6 +185,14 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Servers named `anthropic-skills` or `claude-ai` list no skills or prompts** — their tools still work; rename the server in your MCP configuration to list them again. These namespaces are reserved for skills synced from claude.ai. See [[11-skills]].
 
+### New in v2.1.283
+
+- **`claude-ai` reservation reverted** — MCP servers named `claude-ai` list their skills and prompts again. See [[11-skills]].
+- **Images from MCP tools are also saved to a file** — so Bash, Read and other tools can open them.
+- **`/context` counts MCP server instructions** as their own row, included in the total.
+- **`/mcp` tool list** shows more tools at once, scrolls with page keys and the mouse, and marks tools your organization blocked with a warning icon.
+- **OpenTelemetry `tool.output` covers MCP tools** — with `OTEL_LOG_TOOL_CONTENT=1`, MCP tool, WebFetch and WebSearch outputs are included in the `tool.output` span event. See [[23-environment-variables]].
+
 ---
 
 ---

@@ -256,6 +256,13 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **Leftover `/agents` entry removed** — the "(removed)" `/agents` entry is gone from the command menu and `/help`; typing `/agents` still explains where the wizard went.
 - **`/tasks` confirms before stopping `/ultrareview`** — pressing `x` on a running `/ultrareview` now asks for confirmation first.
 
+### New in v2.1.283
+- **`/doctor prompt-audit`** (also `/checkup prompt-audit`) — audits your CLAUDE.md files, skills, agents and commands for prompting patterns written for older models; stale paths, stale commands and contradicting instruction files lead the report. See [[07-claude-md]].
+- **`/context` counts MCP server instructions** — they appear as their own row and count toward the total. See [[09-mcp-servers]].
+- **`/ultrareview` warns about uploads** — its launch dialog says that reviewing a local branch may upload uncommitted changes to tracked files.
+- **`/model` drops "(1M context)"** — the Opus row and the Default model's name no longer show it where Opus already has a 1M context window; the window is unchanged.
+- **`/rewind` and `/diff` use the shared list keybindings** — they move on the same `select:*` actions as every other list; `messageSelector:*`/`diff:*` rebinds still work. See [[04-keyboard-shortcuts]].
+
 ---
 
 ---

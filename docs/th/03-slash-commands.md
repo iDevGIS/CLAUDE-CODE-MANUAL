@@ -257,6 +257,13 @@ related:
 - **ลบรายการ `/agents` ที่ค้างอยู่** — รายการ "(removed)" ของ `/agents` หายไปจากเมนูคำสั่งและ `/help` แล้ว แต่พิมพ์ `/agents` ก็ยังบอกว่า wizard ย้ายไปไหน
 - **`/tasks` ถามก่อนหยุด `/ultrareview`** — กด `x` บน `/ultrareview` ที่กำลังรันจะขึ้นยืนยันก่อนหยุดรีวิว
 
+### 🆕 ใหม่ใน v2.1.283
+- **`/doctor prompt-audit`** (หรือ `/checkup prompt-audit`) — ตรวจไฟล์ CLAUDE.md, skill, agent และ command ของเราว่ามีแพทเทิร์นการเขียน prompt ที่เขียนไว้สำหรับโมเดลรุ่นเก่าหรือเปล่า · path ที่เลิกใช้, คำสั่งที่เลิกใช้ และไฟล์คำสั่งที่ขัดกันเองจะขึ้นก่อนในรายงาน ดู [[07-claude-md]]
+- **`/context` นับ instructions ของ MCP server แล้ว** — แสดงเป็นแถวของตัวเองและนับรวมใน total ดู [[09-mcp-servers]]
+- **`/ultrareview` เตือนเรื่องการอัปโหลด** — หน้าเปิดรีวิวบอกว่าการรีวิว branch ในเครื่องอาจอัปโหลดการแก้ที่ยังไม่ commit ในไฟล์ที่ track อยู่ขึ้นไปด้วย
+- **`/model` ตัดคำว่า "(1M context)" ออก** — แถว Opus และชื่อของ Default model ไม่แสดงคำนี้แล้วในกรณีที่ Opus มี context 1M อยู่แล้ว · ขนาด context ไม่เปลี่ยน
+- **`/rewind` และ `/diff` ใช้ keybinding ของ list ร่วมกับที่อื่น** — เลื่อนด้วย action `select:*` เหมือนทุก list · rebind แบบ `messageSelector:*`/`diff:*` เดิมยังใช้ได้ ดู [[04-keyboard-shortcuts]]
+
 ---
 
 ---

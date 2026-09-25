@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.282         │
+│ Welcome to Claude Code v2.1.283         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -629,6 +629,12 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`claude --bg` asks for workspace trust first** — a background session, and its project hooks, no longer starts in a directory that hasn't passed the workspace trust prompt; when not run interactively it exits instead. See [[41-background-agents]].
 - **Self-hosted runners pass system prompts as files** — `claude self-hosted-runner` now hands system prompts to Claude Code as private files instead of command-line text, so large prompts no longer fail the launch. A wrapper or `command` hook that appends `--system-prompt` or `--append-system-prompt` must switch to `--system-prompt-file` or `--append-system-prompt-file`.
 
+### New in v2.1.283
+
+- **`--system-prompt` / `--append-system-prompt` combine with their `-file` forms** — you can pass the text flag and its `-file` flag together; the file's text comes first.
+- **`--plugin-dir` load failures name the directory** — `plugin_errors` entries in the stream-json `system/init` message now carry a `path` for the directory that did not load. See [[18-plugins]].
+- **`claude -p` starts faster** — it no longer loads the interactive UI.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1000,7 +1006,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.282
+- run: npm install -g @anthropic-ai/claude-code@2.1.283
 ```
 
 ---

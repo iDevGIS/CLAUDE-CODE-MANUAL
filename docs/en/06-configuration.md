@@ -298,6 +298,13 @@ Set the `model` key to any of these (newest → cheapest):
 - **Windows/WSL managed policy fails closed** — an admin policy (HKLM, `managed-settings.json`) that is present but invalid or unreadable now keeps user-writable HKCU and WSL `/etc/claude-code` from applying.
 - **Claude apps gateway: `store.readiness_grace_seconds`** keeps `/readyz` ready through a short Postgres outage such as a database failover.
 
+### New in v2.1.283
+
+- **`availableModelsMatch`** (managed) — with `"exact"`, an `availableModels` entry allows only the model version it names, so new releases stay blocked until listed.
+- **`deniedModels`** (managed) — blocks specific models, even when `availableModels` allows them.
+- **Claude apps gateway additions** — an opt-in `load_test_mode` block builds and signs requests but doesn't send them upstream, returning a canned reply so a deployment can be load tested; a `mantle` upstream provider targets Amazon Bedrock's Mantle endpoint.
+- **Default permission mode on third-party providers / telemetry off** — interactive sessions start in auto mode when no permission mode is configured; set `permissions.defaultMode` to override. See [[05-permissions]].
+
 ---
 
 ---

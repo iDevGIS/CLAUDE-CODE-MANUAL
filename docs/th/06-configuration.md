@@ -298,6 +298,13 @@ related:
 - **managed policy บน Windows/WSL ปิดทางเมื่อพัง** — ถ้ามี admin policy (HKLM, `managed-settings.json`) อยู่แต่ไม่ถูกต้องหรืออ่านไม่ได้ จะกัน HKCU ที่ผู้ใช้เขียนได้และ `/etc/claude-code` ของ WSL ไม่ให้มีผล
 - **Claude apps gateway: `store.readiness_grace_seconds`** ให้ `/readyz` ยังตอบ ready ได้ช่วง Postgres ล่มสั้น ๆ เช่นตอน failover ฐานข้อมูล
 
+### 🆕 ใหม่ใน v2.1.283
+
+- **`availableModelsMatch`** (managed) — ตั้งเป็น `"exact"` แล้วรายการใน `availableModels` จะอนุญาตเฉพาะเวอร์ชันโมเดลที่ระบุชื่อไว้เท่านั้น โมเดลที่ออกใหม่จะยังถูกบล็อกจนกว่าจะใส่ในรายการ
+- **`deniedModels`** (managed) — บล็อกโมเดลที่ระบุ แม้ `availableModels` จะอนุญาตไว้ก็ตาม
+- **ของใหม่ใน Claude apps gateway** — บล็อก `load_test_mode` (ต้องเปิดเอง) สร้างและเซ็น request แต่ไม่ส่งขึ้น upstream แล้วตอบกลับเป็นข้อความสำเร็จรูป เอาไว้ load test deployment · upstream provider `mantle` สำหรับ endpoint Mantle ของ Amazon Bedrock
+- **permission mode เริ่มต้นบน third-party provider / ตอนปิด telemetry** — session แบบ interactive เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ · ตั้ง `permissions.defaultMode` เพื่อ override ดู [[05-permissions]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.
