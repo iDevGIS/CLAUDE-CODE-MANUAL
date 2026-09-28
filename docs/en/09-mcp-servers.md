@@ -193,6 +193,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **`/mcp` tool list** shows more tools at once, scrolls with page keys and the mouse, and marks tools your organization blocked with a warning icon.
 - **OpenTelemetry `tool.output` covers MCP tools** — with `OTEL_LOG_TOOL_CONTENT=1`, MCP tool, WebFetch and WebSearch outputs are included in the `tool.output` span event. See [[23-environment-variables]].
 
+### New in v2.1.284
+
+- **`/mcp reconnect all`** — in the interactive terminal, retries every MCP server that failed to connect or needs authentication at once. See [[03-slash-commands]].
+- **The non-interactive first turn still waits for servers you named** — MCP servers named by `--allowedTools` or an `mcp_tool` hook get up to 2s to connect even when `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` is `0`. See [[23-environment-variables]].
+
 ---
 
 ---

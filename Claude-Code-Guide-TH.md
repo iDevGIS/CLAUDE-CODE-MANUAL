@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.283         │
+│ Welcome to Claude Code v2.1.284         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -282,7 +282,7 @@ git checkout main
 ```bash
 claude --model claude-fable-5-1  # Fable 5.1 — เก่งสุด, context 1M (default Fable ตัวใหม่)
 claude --model opus              # ใช้ Opus 5.5 (default Opus ตัวใหม่, context 1M)
-claude --model sonnet            # ใช้ Sonnet 5 (default ใหม่, context 1M native)
+claude --model sonnet            # ใช้ Sonnet 5.5 (default Sonnet ใหม่, context 1M)
 claude --model haiku             # ใช้ Haiku 4.5 (เร็ว, ถูก, สำหรับงานง่าย)
 claude --model claude-opus-5     # ใช้ชื่อเต็ม (ระบุ version ตรงๆ)
 ```
@@ -1070,7 +1070,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.283
+- run: npm install -g @anthropic-ai/claude-code@2.1.284
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1354,6 +1354,14 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/ultrareview` เตือนเรื่องการอัปโหลด** — หน้าเปิดรีวิวบอกว่าการรีวิว branch ในเครื่องอาจอัปโหลดการแก้ที่ยังไม่ commit ในไฟล์ที่ track อยู่ขึ้นไปด้วย
 - **`/model` ตัดคำว่า "(1M context)" ออก** — แถว Opus และชื่อของ Default model ไม่แสดงคำนี้แล้วในกรณีที่ Opus มี context 1M อยู่แล้ว · ขนาด context ไม่เปลี่ยน
 - **`/rewind` และ `/diff` ใช้ keybinding ของ list ร่วมกับที่อื่น** — เลื่อนด้วย action `select:*` เหมือนทุก list · rebind แบบ `messageSelector:*`/`diff:*` เดิมยังใช้ได้ (ดูบท 4 Keyboard Shortcuts)
+
+### 🆕 ใหม่ใน v2.1.284
+- **Ultracode แยกเป็น toggle ของตัวเองใน `/effort`** — กด Tab ใน slider หรือพิมพ์ `/effort ultracode [on|off]` · ไม่บังคับ effort เป็น xhigh อีกต่อไป และเปิดค้างได้ที่ effort ทุกระดับ
+- **rebind ปุ่มของ slider `/effort` ได้** — มี keybinding action ใหม่ `effortSlider:decreaseEffort`, `increaseEffort` และ `toggleUltracode` ให้ rebind ปุ่มลูกศรและ Tab ของ slider ใน `keybindings.json` ได้ (ดูบท 4 Keyboard Shortcuts)
+- **`/mcp reconnect all`** — ใน terminal แบบ interactive สั่งลองต่อใหม่ทุก MCP server ที่ต่อไม่ติดหรือรอ authentication ในทีเดียว (ดูบท 9 MCP Servers)
+- **`/rate-limit-options` โผล่ในรายการแล้ว** — สมาชิก claude.ai หาเจอได้ใน `/help` และเมนูคำสั่ง ข้อความแจ้งเตือน usage limit ที่อ้างถึงคำสั่งนี้จึงชี้ไปที่คำสั่งที่หาเจอจริง
+- **`/usage` แสดงยอดใช้จ่ายของ gateway เป็นดอลลาร์** — spend limit ของ Claude apps gateway ขึ้นแบบ "$271.40 / $500.00 spent this month" เมื่อ gateway รันเวอร์ชันนี้ขึ้นไป (ดูบท 6 Configuration)
+- **`/recap` ปฏิเสธคำขอที่ถูกส่งต่อมา** — ถ้ามาจาก chat thread (รวมของเราเอง), routine หรือ webhook จะตอบกลับด้วยข้อความสั้น ๆ · ถ้าพิมพ์ใน terminal, Claude apps, Remote Control, `-p` หรือ SDK host ยังทำงานเหมือนเดิม
 
 ---
 
@@ -1741,6 +1749,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **ยกเลิกการสงวนชื่อ `claude-ai`** — rule `Skill(claude-ai:*)` กลับเป็น prefix rule ธรรมดาแล้ว
 - **managed `sandbox` ที่มีค่าผิดปิดทางเฉพาะจุด** — ค่าที่ไม่ถูกต้องตัวเดียวไม่ทำให้ทั้งบล็อก managed `sandbox` ถูกเมินอีกต่อไป · ค่าที่ผิดจะปิดทาง (fail closed) ส่วนค่าที่เหลือยังมีผล
 
+### 🆕 ใหม่ใน v2.1.284
+- **auto mode เป็นโหมดเริ่มต้นทุกที่แล้ว** — session แบบ interactive ใน terminal และ VS Code เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ ครอบทุก plan และทุก provider (v2.1.283 ทำแค่บน third-party provider หรือตอนปิด telemetry) · `permissions.defaultMode` ยัง override ได้เหมือนเดิม
+- **"Yes, but ask again next time"** — ตัวเลือกใหม่ใน prompt ของ auto mode ก่อนอ่านไฟล์นอก working directory: อนุญาตการอ่านครั้งนั้นครั้งเดียว แล้วครั้งต่อ ๆ ไปยังถามอีก
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2023,6 +2035,14 @@ Skill(commit)                    # Skill เฉพาะ
 - **`deniedModels`** (managed) — บล็อกโมเดลที่ระบุ แม้ `availableModels` จะอนุญาตไว้ก็ตาม
 - **ของใหม่ใน Claude apps gateway** — บล็อก `load_test_mode` (ต้องเปิดเอง) สร้างและเซ็น request แต่ไม่ส่งขึ้น upstream แล้วตอบกลับเป็นข้อความสำเร็จรูป เอาไว้ load test deployment · upstream provider `mantle` สำหรับ endpoint Mantle ของ Amazon Bedrock
 - **permission mode เริ่มต้นบน third-party provider / ตอนปิด telemetry** — session แบบ interactive เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ · ตั้ง `permissions.defaultMode` เพื่อ override (ดูบท 5 ระบบ Permission)
+
+### 🆕 ใหม่ใน v2.1.284
+
+- **Claude Sonnet 5.5** (`claude-sonnet-5-5`) — **โมเดล Sonnet เริ่มต้นตัวใหม่**บน Anthropic API: context 1M, **$2/$10 ต่อ Mtok** และ cache read **$0.20/Mtok**
+- **`rate_limits.spend_limit` ของ status line ได้ฟิลด์ `used_usd`, `limit_usd` และ `period`** — และ `/usage` กับ status line แสดง spend limit ของ Claude apps gateway เป็นดอลลาร์ (เช่น "$271.40 / $500.00 spent this month") เมื่อ gateway รันเวอร์ชันนี้ขึ้นไป
+- **ของใหม่ใน Claude apps gateway** — เตือนตอนสตาร์ตเมื่อ `availableModels` ของ managed policy ว่างเปล่า หรือไม่มีโมเดลที่ Claude Code ใช้เริ่มต้นโดยไม่ได้ตั้ง `model` หรือ `enforceAvailableModels` · `auth: { google: {} }` บนปลายทาง `telemetry.forward_to` ส่ง telemetry ตรงเข้า OTLP endpoint ของ Google Cloud ด้วย credential Google Cloud ของ gateway · รองรับ certificate client authentication (`private_key_jwt`) ระหว่าง gateway กับ identity provider
+- **การสลับโมเดลด้วยเหตุผลด้านความปลอดภัยไม่ยึด Opus ที่ pin ไว้** — ใน session ที่ pin โมเดล Opus ด้วย `ANTHROPIC_DEFAULT_OPUS_MODEL` หรือ `modelOverrides` บน Anthropic API ตัว API จะเลือกโมเดลที่จะสลับไปเองตามประเภทของ flag แทนโมเดลที่ pin ไว้
+- **permission mode เริ่มต้นเป็น auto ทุกที่** — session แบบ interactive ใน terminal และ VS Code เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ ครอบทุก plan และทุก provider · ตั้ง `permissions.defaultMode` เพื่อ override (ดูบท 5 ระบบ Permission)
 
 ---
 
@@ -2430,6 +2450,11 @@ claude --mcp-config ./mcp.json
 - **`/context` นับ instructions ของ MCP server** เป็นแถวของตัวเองและรวมใน total
 - **รายการ tool ใน `/mcp`** แสดงได้มากขึ้นในหน้าเดียว เลื่อนด้วยปุ่ม page และเมาส์ได้ และติดไอคอนเตือนให้ tool ที่องค์กรบล็อกไว้
 - **OpenTelemetry `tool.output` ครอบ MCP tool แล้ว** — เมื่อตั้ง `OTEL_LOG_TOOL_CONTENT=1` ผลลัพธ์ของ MCP tool, WebFetch และ WebSearch จะอยู่ใน span event `tool.output` ด้วย (ดูบท 23 Environment Variables)
+
+### 🆕 ใหม่ใน v2.1.284
+
+- **`/mcp reconnect all`** — ใน terminal แบบ interactive สั่งลองต่อใหม่ทุก MCP server ที่ต่อไม่ติดหรือรอ authentication ในทีเดียว
+- **turn แรกแบบ non-interactive ยังรอ server ที่ระบุชื่อไว้** — MCP server ที่ถูกอ้างใน `--allowedTools` หรือใน hook แบบ `mcp_tool` ได้เวลาต่อสูงสุด 2 วินาที แม้ตั้ง `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` เป็น `0` (ดูบท 23 Environment Variables)
 
 ---
 
@@ -4173,7 +4198,7 @@ claude --version  # ตรวจสอบเวอร์ชัน
 |-----|--------------|--------|
 | งานคิดหนักสุด, context ใหญ่มาก | Fable 5.1 | โมเดลเก่งสุด, context 1M เป็นค่าเริ่มต้น |
 | วางสถาปัตยกรรม, แก้ Bug ซับซ้อน | Opus 5.5 | คิดลึก วิเคราะห์ดี |
-| เขียนโค้ดทั่วไป, แก้ Bug ธรรมดา | Sonnet 5 | เร็ว ประหยัด — เป็น default |
+| เขียนโค้ดทั่วไป, แก้ Bug ธรรมดา | Sonnet 5.5 | เร็ว ประหยัด — เป็น default |
 | งาน Boilerplate, Generate Data | Haiku 4.5 | เร็วมาก ถูกมาก |
 
 ### ประหยัดค่าใช้จ่าย
@@ -5337,7 +5362,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.283`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.284`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
@@ -7619,4 +7644,4 @@ Claude Code เป็นเครื่องมือ AI สำหรับน�
 ---
 
 > **เวอร์ชันเอกสาร:** ปรับปรุงล่าสุด 25 มิถุนายน 2026  
-> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5.1 / Opus 5.5 / Sonnet 5 / Haiku 4.5)
+> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 4.5)

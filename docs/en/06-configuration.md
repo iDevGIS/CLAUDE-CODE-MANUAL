@@ -58,7 +58,8 @@ Set the `model` key to any of these (newest → cheapest):
 - **Opus 5.5** (`claude-opus-5-5`) — the **new default Opus model** (since Claude Code 2.1.280); **1M context**; **$4/$20 per Mtok** with **$0.20/Mtok cache reads**.
 - **Opus 5** (`claude-opus-5`) — the previous default Opus model (Claude Code 2.1.219–2.1.278); **1M context**; fast mode at **$10/$50 per Mtok**.
 - **Opus 4.8** (`claude-opus-4-8`) — previous **Opus** flagship; top-tier coding and complex-bug analysis; defaults to **high effort** on demanding tasks.
-- **Sonnet 5** (`claude-sonnet-5`) — the **new default in Claude Code** (since 2.1.197); balanced and fast, with a **native 1M-token context window** ($2/$10 per Mtok — its standard list price since 2.1.243).
+- **Sonnet 5.5** (`claude-sonnet-5-5`) — the **new default Sonnet model** on the Anthropic API (since Claude Code 2.1.284); **1M context**; **$2/$10 per Mtok** with **$0.20/Mtok cache reads**.
+- **Sonnet 5** (`claude-sonnet-5`) — the previous default Sonnet model (Claude Code 2.1.197–2.1.283); balanced and fast, with a **native 1M-token context window** ($2/$10 per Mtok — its standard list price since 2.1.243).
 - **Haiku 4.5** (`claude-haiku-4-5`) — fastest, cheapest; for easy/boilerplate tasks.
 - Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed from fast mode in 2.1.219).
 
@@ -304,6 +305,14 @@ Set the `model` key to any of these (newest → cheapest):
 - **`deniedModels`** (managed) — blocks specific models, even when `availableModels` allows them.
 - **Claude apps gateway additions** — an opt-in `load_test_mode` block builds and signs requests but doesn't send them upstream, returning a canned reply so a deployment can be load tested; a `mantle` upstream provider targets Amazon Bedrock's Mantle endpoint.
 - **Default permission mode on third-party providers / telemetry off** — interactive sessions start in auto mode when no permission mode is configured; set `permissions.defaultMode` to override. See [[05-permissions]].
+
+### New in v2.1.284
+
+- **Claude Sonnet 5.5** (`claude-sonnet-5-5`) — the new **default Sonnet model** on the Anthropic API: 1M context, **$2/$10 per Mtok** with **$0.20/Mtok cache reads**.
+- **Status line `rate_limits.spend_limit` gains `used_usd`, `limit_usd` and `period`** — and `/usage` plus the status line show the Claude apps gateway spend limit in dollars (for example "$271.40 / $500.00 spent this month") when the gateway runs this version or later.
+- **Claude apps gateway additions** — startup warnings when a managed policy's `availableModels` is empty, or leaves out the model Claude Code starts on without setting `model` or `enforceAvailableModels`; `auth: { google: {} }` on `telemetry.forward_to` destinations exports telemetry straight to Google Cloud's OTLP endpoint using the gateway's Google Cloud credentials; certificate client authentication (`private_key_jwt`) between the gateway and its identity provider.
+- **Safety model switches ignore a pinned Opus** — in sessions that pin an Opus model with `ANTHROPIC_DEFAULT_OPUS_MODEL` or `modelOverrides`, on the Anthropic API the API now picks the model to switch to for each kind of flag, not the pinned model.
+- **Default permission mode is auto everywhere** — interactive terminal and VS Code sessions start in auto mode when no permission mode is configured, on every plan and provider; set `permissions.defaultMode` to override. See [[05-permissions]].
 
 ---
 

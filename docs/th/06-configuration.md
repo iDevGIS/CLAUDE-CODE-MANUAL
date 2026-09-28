@@ -115,7 +115,8 @@ related:
 | **Opus 5.5** | `claude-opus-5-5` | **default Opus ตัวใหม่** (ตั้งแต่ Claude Code **2.1.280**); context **1M**; ราคา **$4/$20 ต่อ Mtok** + **cache read $0.20 ต่อ Mtok** |
 | **Opus 5** | `claude-opus-5` | default Opus ตัวก่อน (Claude Code **2.1.219–2.1.278**); context **1M**; fast mode ราคา **$10/$50 ต่อ Mtok** |
 | **Opus 4.8** | `claude-opus-4-8` | เรือธง **Opus** ตัวก่อน; coding และวิเคราะห์บั๊กซับซ้อนเก่งสุด; default เป็น **high effort** กับงานหนัก |
-| **Sonnet 5** | `claude-sonnet-5` | **default ใหม่ของ Claude Code** (ตั้งแต่ 2.1.197); สมดุล เร็ว, context **1M native** ($2/$10 ต่อ Mtok — เป็นราคา standard ตั้งแต่ 2.1.243) |
+| **Sonnet 5.5** | `claude-sonnet-5-5` | **default Sonnet ตัวใหม่**บน Anthropic API (ตั้งแต่ Claude Code **2.1.284**); context **1M**; ราคา **$2/$10 ต่อ Mtok** + **cache read $0.20 ต่อ Mtok** |
+| **Sonnet 5** | `claude-sonnet-5` | default Sonnet ตัวก่อน (Claude Code **2.1.197–2.1.283**); สมดุล เร็ว, context **1M native** ($2/$10 ต่อ Mtok — เป็นราคา standard ตั้งแต่ 2.1.243) |
 | **Haiku 4.5** | `claude-haiku-4-5` | เร็วสุด ถูกสุด; สำหรับงานง่าย/boilerplate |
 
 > หมายเหตุ: Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกจาก fast mode ใน 2.1.219) — Fable 5.1 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 5.5 คือ **default Opus** ตัวปัจจุบัน
@@ -304,6 +305,14 @@ related:
 - **`deniedModels`** (managed) — บล็อกโมเดลที่ระบุ แม้ `availableModels` จะอนุญาตไว้ก็ตาม
 - **ของใหม่ใน Claude apps gateway** — บล็อก `load_test_mode` (ต้องเปิดเอง) สร้างและเซ็น request แต่ไม่ส่งขึ้น upstream แล้วตอบกลับเป็นข้อความสำเร็จรูป เอาไว้ load test deployment · upstream provider `mantle` สำหรับ endpoint Mantle ของ Amazon Bedrock
 - **permission mode เริ่มต้นบน third-party provider / ตอนปิด telemetry** — session แบบ interactive เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ · ตั้ง `permissions.defaultMode` เพื่อ override ดู [[05-permissions]]
+
+### 🆕 ใหม่ใน v2.1.284
+
+- **Claude Sonnet 5.5** (`claude-sonnet-5-5`) — **โมเดล Sonnet เริ่มต้นตัวใหม่**บน Anthropic API: context 1M, **$2/$10 ต่อ Mtok** และ cache read **$0.20/Mtok**
+- **`rate_limits.spend_limit` ของ status line ได้ฟิลด์ `used_usd`, `limit_usd` และ `period`** — และ `/usage` กับ status line แสดง spend limit ของ Claude apps gateway เป็นดอลลาร์ (เช่น "$271.40 / $500.00 spent this month") เมื่อ gateway รันเวอร์ชันนี้ขึ้นไป
+- **ของใหม่ใน Claude apps gateway** — เตือนตอนสตาร์ตเมื่อ `availableModels` ของ managed policy ว่างเปล่า หรือไม่มีโมเดลที่ Claude Code ใช้เริ่มต้นโดยไม่ได้ตั้ง `model` หรือ `enforceAvailableModels` · `auth: { google: {} }` บนปลายทาง `telemetry.forward_to` ส่ง telemetry ตรงเข้า OTLP endpoint ของ Google Cloud ด้วย credential Google Cloud ของ gateway · รองรับ certificate client authentication (`private_key_jwt`) ระหว่าง gateway กับ identity provider
+- **การสลับโมเดลด้วยเหตุผลด้านความปลอดภัยไม่ยึด Opus ที่ pin ไว้** — ใน session ที่ pin โมเดล Opus ด้วย `ANTHROPIC_DEFAULT_OPUS_MODEL` หรือ `modelOverrides` บน Anthropic API ตัว API จะเลือกโมเดลที่จะสลับไปเองตามประเภทของ flag แทนโมเดลที่ pin ไว้
+- **permission mode เริ่มต้นเป็น auto ทุกที่** — session แบบ interactive ใน terminal และ VS Code เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ ครอบทุก plan และทุก provider · ตั้ง `permissions.defaultMode` เพื่อ override ดู [[05-permissions]]
 
 ### การ Persist ของ `/config` และ `/model`
 

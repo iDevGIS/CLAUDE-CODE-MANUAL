@@ -25,6 +25,28 @@
 
 ---
 
+## [1.77.0] — 2026-09-29
+
+### Compatibility
+- **Claude Code:** `v2.1.284+`
+
+### Added
+- **Claude Sonnet 5.5 (`claude-sonnet-5-5`) เป็น default Sonnet ตัวใหม่บน Anthropic API** (1M context, $2/$10 ต่อ Mtok + cache read $0.20/Mtok) + **`rate_limits.spend_limit` ได้ `used_usd`/`limit_usd`/`period`** + **Claude apps gateway: เตือนเรื่อง `availableModels`, `auth: { google: {} }` ใน `telemetry.forward_to`, `private_key_jwt`** + **safety model switch ไม่ยึด Opus ที่ pin ไว้** + **auto mode เป็นโหมดเริ่มต้นทุก plan/provider** — บท 06 (Configuration) EN+TH
+- **Ultracode แยกเป็น toggle ใน `/effort` (`/effort ultracode [on|off]`)** + **keybinding action `effortSlider:decreaseEffort`/`increaseEffort`/`toggleUltracode`** + **`/mcp reconnect all`** + **`/rate-limit-options` ใน `/help`** + **`/usage` แสดง spend ของ gateway เป็นดอลลาร์** + **`/recap` ปฏิเสธคำขอที่ relay มา** — บท 03 (Slash Commands) EN+TH
+- **auto mode เป็นโหมดเริ่มต้นใน terminal และ VS Code ทุก plan/provider** + **ตัวเลือก "Yes, but ask again next time" ก่อนอ่านนอก working directory** — บท 05 (Permissions) EN+TH
+- **`/mcp reconnect all`** + **turn แรกแบบ non-interactive รอ server ที่ระบุใน `--allowedTools`/`mcp_tool` hook สูงสุด 2 วินาทีแม้ `CLAUDE_CODE_MCP_STARTUP_WAIT_MS=0`** — บท 09 (MCP) EN+TH
+- **แถว What's-new ของ `v2.1.284`** ใน README.md + README.EN.md
+
+### Changed
+- **Model lineup:** Sonnet 5.5 แทน Sonnet 5 ในฐานะ default Sonnet — Sonnet 5 ลดเป็น "default Sonnet ตัวก่อน (2.1.197–2.1.283)" ในบท 06 · อัปเดต `claude --model sonnet` (บท 02 + guide), ตารางเลือกโมเดล (บท 25), บรรทัด "Applies to" (บท 26), แถว Sonnet และบรรทัด lineup ใน README ทั้ง 2 ภาษา · section ประวัติที่อ้าง Sonnet 5 คงไว้
+- **`/effort ultracode`** — บท 39 EN+TH: ไม่ใช่ "effort tier สูงสุด" อีกต่อไป เป็น toggle แยกที่ไม่บังคับ xhigh
+- **Version strings** bumped `2.1.283` → `2.1.284` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.284` เปลี่ยน model lineup (Sonnet 5.5 เป็น default Sonnet) และพฤติกรรมหลักสองจุด (auto mode เป็นค่าเริ่มต้นทุกที่, Ultracode แยกออกจาก effort) จึงต้องแก้จุดเดิมในคู่มือด้วย · ส่วนที่เหลือเป็น bug fix (response stream, compaction, MCP resume, plugin, vim mode, fullscreen, gateway 431) และ UI polish ซึ่งข้ามตามกติกา · ข้าม VS Code-only items และ fix ด้านความปลอดภัยของ plugin `allowed-tools` เพราะเป็น bug fix
+
+---
+
 ## [1.76.0] — 2026-09-26
 
 ### Compatibility
@@ -1731,6 +1753,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.77.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.76.0...v1.77.0
 [1.76.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.75.0...v1.76.0
 [1.75.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.74.0...v1.75.0
 [1.74.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.73.0...v1.74.0

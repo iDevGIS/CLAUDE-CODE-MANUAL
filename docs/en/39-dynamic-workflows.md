@@ -41,7 +41,7 @@ related:
 - Or ask in your own words, e.g. "run a workflow"
 - Pressing **Backspace** right after the keyword dismisses it
 - Toggle the keyword in `/config` → **"Workflow keyword trigger"**
-- `/effort ultracode` enables the highest effort tier on models that support it
+- `/effort ultracode [on|off]` (or **Tab** in the `/effort` slider) toggles Ultracode — since v2.1.284 it is its own toggle: it no longer forces xhigh effort and stays on at any effort level
 
 ## Script anatomy
 

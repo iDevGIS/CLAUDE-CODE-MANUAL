@@ -276,6 +276,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **ยกเลิกการสงวนชื่อ `claude-ai`** — rule `Skill(claude-ai:*)` กลับเป็น prefix rule ธรรมดาแล้ว
 - **managed `sandbox` ที่มีค่าผิดปิดทางเฉพาะจุด** — ค่าที่ไม่ถูกต้องตัวเดียวไม่ทำให้ทั้งบล็อก managed `sandbox` ถูกเมินอีกต่อไป · ค่าที่ผิดจะปิดทาง (fail closed) ส่วนค่าที่เหลือยังมีผล
 
+### 🆕 ใหม่ใน v2.1.284
+- **auto mode เป็นโหมดเริ่มต้นทุกที่แล้ว** — session แบบ interactive ใน terminal และ VS Code เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ ครอบทุก plan และทุก provider (v2.1.283 ทำแค่บน third-party provider หรือตอนปิด telemetry) · `permissions.defaultMode` ยัง override ได้เหมือนเดิม
+- **"Yes, but ask again next time"** — ตัวเลือกใหม่ใน prompt ของ auto mode ก่อนอ่านไฟล์นอก working directory: อนุญาตการอ่านครั้งนั้นครั้งเดียว แล้วครั้งต่อ ๆ ไปยังถามอีก
+
 ---
 
 ---

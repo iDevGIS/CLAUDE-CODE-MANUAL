@@ -264,6 +264,14 @@ related:
 - **`/model` ตัดคำว่า "(1M context)" ออก** — แถว Opus และชื่อของ Default model ไม่แสดงคำนี้แล้วในกรณีที่ Opus มี context 1M อยู่แล้ว · ขนาด context ไม่เปลี่ยน
 - **`/rewind` และ `/diff` ใช้ keybinding ของ list ร่วมกับที่อื่น** — เลื่อนด้วย action `select:*` เหมือนทุก list · rebind แบบ `messageSelector:*`/`diff:*` เดิมยังใช้ได้ ดู [[04-keyboard-shortcuts]]
 
+### 🆕 ใหม่ใน v2.1.284
+- **Ultracode แยกเป็น toggle ของตัวเองใน `/effort`** — กด Tab ใน slider หรือพิมพ์ `/effort ultracode [on|off]` · ไม่บังคับ effort เป็น xhigh อีกต่อไป และเปิดค้างได้ที่ effort ทุกระดับ ดู [[39-dynamic-workflows]]
+- **rebind ปุ่มของ slider `/effort` ได้** — มี keybinding action ใหม่ `effortSlider:decreaseEffort`, `increaseEffort` และ `toggleUltracode` ให้ rebind ปุ่มลูกศรและ Tab ของ slider ใน `keybindings.json` ได้ ดู [[04-keyboard-shortcuts]]
+- **`/mcp reconnect all`** — ใน terminal แบบ interactive สั่งลองต่อใหม่ทุก MCP server ที่ต่อไม่ติดหรือรอ authentication ในทีเดียว ดู [[09-mcp-servers]]
+- **`/rate-limit-options` โผล่ในรายการแล้ว** — สมาชิก claude.ai หาเจอได้ใน `/help` และเมนูคำสั่ง ข้อความแจ้งเตือน usage limit ที่อ้างถึงคำสั่งนี้จึงชี้ไปที่คำสั่งที่หาเจอจริง
+- **`/usage` แสดงยอดใช้จ่ายของ gateway เป็นดอลลาร์** — spend limit ของ Claude apps gateway ขึ้นแบบ "$271.40 / $500.00 spent this month" เมื่อ gateway รันเวอร์ชันนี้ขึ้นไป ดู [[06-configuration]]
+- **`/recap` ปฏิเสธคำขอที่ถูกส่งต่อมา** — ถ้ามาจาก chat thread (รวมของเราเอง), routine หรือ webhook จะตอบกลับด้วยข้อความสั้น ๆ · ถ้าพิมพ์ใน terminal, Claude apps, Remote Control, `-p` หรือ SDK host ยังทำงานเหมือนเดิม
+
 ---
 
 ---

@@ -193,6 +193,11 @@ claude --mcp-config ./mcp.json
 - **รายการ tool ใน `/mcp`** แสดงได้มากขึ้นในหน้าเดียว เลื่อนด้วยปุ่ม page และเมาส์ได้ และติดไอคอนเตือนให้ tool ที่องค์กรบล็อกไว้
 - **OpenTelemetry `tool.output` ครอบ MCP tool แล้ว** — เมื่อตั้ง `OTEL_LOG_TOOL_CONTENT=1` ผลลัพธ์ของ MCP tool, WebFetch และ WebSearch จะอยู่ใน span event `tool.output` ด้วย ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.284
+
+- **`/mcp reconnect all`** — ใน terminal แบบ interactive สั่งลองต่อใหม่ทุก MCP server ที่ต่อไม่ติดหรือรอ authentication ในทีเดียว ดู [[03-slash-commands]]
+- **turn แรกแบบ non-interactive ยังรอ server ที่ระบุชื่อไว้** — MCP server ที่ถูกอ้างใน `--allowedTools` หรือใน hook แบบ `mcp_tool` ได้เวลาต่อสูงสุด 2 วินาที แม้ตั้ง `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` เป็น `0` ดู [[23-environment-variables]]
+
 ---
 
 ---

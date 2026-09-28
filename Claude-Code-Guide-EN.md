@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.283         │
+│ Welcome to Claude Code v2.1.284         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -282,7 +282,7 @@ git checkout main
 ```bash
 claude --model claude-fable-5-1  # Fable 5.1 — most capable, 1M context (new default Fable)
 claude --model opus              # Opus 5.5 (new default Opus, 1M context)
-claude --model sonnet            # Sonnet 5 (new default, native 1M context)
+claude --model sonnet            # Sonnet 5.5 (new default Sonnet, 1M context)
 claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
 claude --model claude-opus-5     # Full name (specify exact version)
 ```
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.283
+- run: npm install -g @anthropic-ai/claude-code@2.1.284
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1361,6 +1361,14 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/model` drops "(1M context)"** — the Opus row and the Default model's name no longer show it where Opus already has a 1M context window; the window is unchanged.
 - **`/rewind` and `/diff` use the shared list keybindings** — they move on the same `select:*` actions as every other list; `messageSelector:*`/`diff:*` rebinds still work (see 4. Keyboard Shortcuts).
 
+### New in v2.1.284
+- **Ultracode is its own toggle in `/effort`** — press Tab in the slider or run `/effort ultracode [on|off]`; it no longer forces xhigh effort and stays on at any effort level.
+- **Rebindable `/effort` slider keys** — new `effortSlider:decreaseEffort`, `increaseEffort` and `toggleUltracode` keybinding actions let you rebind the slider's arrow and Tab keys in `keybindings.json` (see 4. Keyboard Shortcuts).
+- **`/mcp reconnect all`** — in the interactive terminal, retries every MCP server that failed to connect or needs authentication at once (see 9. MCP Servers).
+- **`/rate-limit-options` is listed** — claude.ai subscribers now find it in `/help` and the command menu, so the usage-limit notices that mention it point to a command you can find.
+- **`/usage` shows gateway spend in dollars** — the Claude apps gateway spend limit reads like "$271.40 / $500.00 spent this month" when the gateway runs this version or later (see 6. Configuration).
+- **`/recap` declines relayed requests** — arriving from a chat thread (your own included), a routine or a webhook it answers with a short notice; typed in the terminal, the Claude apps, Remote Control, `-p` or an SDK host it runs as before.
+
 ---
 
 ## 4. Keyboard Shortcuts
@@ -1747,6 +1755,10 @@ Skill(commit)                    # Specific skill
 - **`claude-ai` reservation reverted** — `Skill(claude-ai:*)` rules are ordinary prefix rules again.
 - **Managed `sandbox` block fails closed per value** — one invalid nested value no longer makes Claude Code ignore the whole managed `sandbox` block; the invalid value fails closed and the rest still applies.
 
+### New in v2.1.284
+- **Auto mode is the starting mode everywhere** — interactive terminal and VS Code sessions now start in auto mode when no permission mode is configured, on every plan and provider (v2.1.283 did this only on third-party providers or with telemetry off); `permissions.defaultMode` still overrides it.
+- **"Yes, but ask again next time"** — a new answer in auto mode's prompt before a read outside the working directories: it allows that one read and still asks about later ones.
+
 ---
 
 ## 6. Configuration
@@ -2029,6 +2041,14 @@ Skill(commit)                    # Specific skill
 - **`deniedModels`** (managed) — blocks specific models, even when `availableModels` allows them.
 - **Claude apps gateway additions** — an opt-in `load_test_mode` block builds and signs requests but doesn't send them upstream, returning a canned reply so a deployment can be load tested; a `mantle` upstream provider targets Amazon Bedrock's Mantle endpoint.
 - **Default permission mode on third-party providers / telemetry off** — interactive sessions start in auto mode when no permission mode is configured; set `permissions.defaultMode` to override (see 5. Permission System).
+
+### New in v2.1.284
+
+- **Claude Sonnet 5.5** (`claude-sonnet-5-5`) — the new **default Sonnet model** on the Anthropic API: 1M context, **$2/$10 per Mtok** with **$0.20/Mtok cache reads**.
+- **Status line `rate_limits.spend_limit` gains `used_usd`, `limit_usd` and `period`** — and `/usage` plus the status line show the Claude apps gateway spend limit in dollars (for example "$271.40 / $500.00 spent this month") when the gateway runs this version or later.
+- **Claude apps gateway additions** — startup warnings when a managed policy's `availableModels` is empty, or leaves out the model Claude Code starts on without setting `model` or `enforceAvailableModels`; `auth: { google: {} }` on `telemetry.forward_to` destinations exports telemetry straight to Google Cloud's OTLP endpoint using the gateway's Google Cloud credentials; certificate client authentication (`private_key_jwt`) between the gateway and its identity provider.
+- **Safety model switches ignore a pinned Opus** — in sessions that pin an Opus model with `ANTHROPIC_DEFAULT_OPUS_MODEL` or `modelOverrides`, on the Anthropic API the API now picks the model to switch to for each kind of flag, not the pinned model.
+- **Default permission mode is auto everywhere** — interactive terminal and VS Code sessions start in auto mode when no permission mode is configured, on every plan and provider; set `permissions.defaultMode` to override (see 5. Permission System).
 
 ---
 
@@ -2437,6 +2457,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **`/context` counts MCP server instructions** as their own row, included in the total.
 - **`/mcp` tool list** shows more tools at once, scrolls with page keys and the mouse, and marks tools your organization blocked with a warning icon.
 - **OpenTelemetry `tool.output` covers MCP tools** — with `OTEL_LOG_TOOL_CONTENT=1`, MCP tool, WebFetch and WebSearch outputs are included in the `tool.output` span event (see 23. Environment Variables).
+
+### New in v2.1.284
+
+- **`/mcp reconnect all`** — in the interactive terminal, retries every MCP server that failed to connect or needs authentication at once.
+- **The non-interactive first turn still waits for servers you named** — MCP servers named by `--allowedTools` or an `mcp_tool` hook get up to 2s to connect even when `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` is `0` (see 23. Environment Variables).
 
 ---
 
@@ -4184,7 +4209,7 @@ claude --version  # check the version
 |------|-------------------|-----|
 | Hardest reasoning, huge context | Fable 5.1 | Most capable model, 1M context by default |
 | Architecture, complex bugs | Opus 5.5 | Deep thought, strong analysis |
-| General coding, ordinary bugs | Sonnet 5 | Fast, economical — the default |
+| General coding, ordinary bugs | Sonnet 5.5 | Fast, economical — the default |
 | Boilerplate, data generation | Haiku 4.5 | Very fast and very cheap |
 
 ### Save Money
@@ -5351,7 +5376,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.283`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.284`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
@@ -7633,4 +7658,4 @@ Claude Code is a feature-complete AI tool for developers:
 ---
 
 > **Document version:** Last updated June 25, 2026
-> **Applies to:** Latest Claude Code version (Claude Fable 5.1 / Opus 5.5 / Sonnet 5 / Haiku 4.5)
+> **Applies to:** Latest Claude Code version (Claude Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 4.5)

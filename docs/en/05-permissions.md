@@ -247,6 +247,10 @@ Skill(commit)                    # Specific skill
 - **`claude-ai` reservation reverted** — `Skill(claude-ai:*)` rules are ordinary prefix rules again.
 - **Managed `sandbox` block fails closed per value** — one invalid nested value no longer makes Claude Code ignore the whole managed `sandbox` block; the invalid value fails closed and the rest still applies.
 
+### New in v2.1.284
+- **Auto mode is the starting mode everywhere** — interactive terminal and VS Code sessions now start in auto mode when no permission mode is configured, on every plan and provider (v2.1.283 did this only on third-party providers or with telemetry off); `permissions.defaultMode` still overrides it.
+- **"Yes, but ask again next time"** — a new answer in auto mode's prompt before a read outside the working directories: it allows that one read and still asks about later ones.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

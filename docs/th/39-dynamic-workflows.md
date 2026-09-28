@@ -41,7 +41,7 @@ related:
 - หรือพิมพ์เป็นภาษาคนก็ได้ เช่น "run a workflow"
 - กด **Backspace** ทันทีหลังพิมพ์ keyword = ยกเลิกการ trigger
 - ปิด/เปิด keyword ได้ที่ `/config` → สวิตช์ **"Workflow keyword trigger"**
-- `/effort ultracode` = เปิด effort tier สูงสุดบนรุ่นโมเดลที่รองรับ
+- `/effort ultracode [on|off]` (หรือกด **Tab** ใน slider ของ `/effort`) = เปิด/ปิด Ultracode — ตั้งแต่ v2.1.284 เป็น toggle แยกของตัวเอง ไม่บังคับ effort เป็น xhigh แล้ว และเปิดค้างได้ที่ effort ทุกระดับ
 
 ## โครงสคริปต์
 

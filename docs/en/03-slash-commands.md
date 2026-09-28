@@ -263,6 +263,14 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/model` drops "(1M context)"** — the Opus row and the Default model's name no longer show it where Opus already has a 1M context window; the window is unchanged.
 - **`/rewind` and `/diff` use the shared list keybindings** — they move on the same `select:*` actions as every other list; `messageSelector:*`/`diff:*` rebinds still work. See [[04-keyboard-shortcuts]].
 
+### New in v2.1.284
+- **Ultracode is its own toggle in `/effort`** — press Tab in the slider or run `/effort ultracode [on|off]`; it no longer forces xhigh effort and stays on at any effort level. See [[39-dynamic-workflows]].
+- **Rebindable `/effort` slider keys** — new `effortSlider:decreaseEffort`, `increaseEffort` and `toggleUltracode` keybinding actions let you rebind the slider's arrow and Tab keys in `keybindings.json`. See [[04-keyboard-shortcuts]].
+- **`/mcp reconnect all`** — in the interactive terminal, retries every MCP server that failed to connect or needs authentication at once. See [[09-mcp-servers]].
+- **`/rate-limit-options` is listed** — claude.ai subscribers now find it in `/help` and the command menu, so the usage-limit notices that mention it point to a command you can find.
+- **`/usage` shows gateway spend in dollars** — the Claude apps gateway spend limit reads like "$271.40 / $500.00 spent this month" when the gateway runs this version or later. See [[06-configuration]].
+- **`/recap` declines relayed requests** — arriving from a chat thread (your own included), a routine or a webhook it answers with a short notice; typed in the terminal, the Claude apps, Remote Control, `-p` or an SDK host it runs as before.
+
 ---
 
 ---
