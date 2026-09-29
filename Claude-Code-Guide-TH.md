@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.284         │
+│ Welcome to Claude Code v2.1.285         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -739,6 +739,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **`--plugin-dir` ที่โหลดไม่ขึ้นบอกชื่อโฟลเดอร์** — รายการ `plugin_errors` ใน message `system/init` ของ stream-json มีช่อง `path` บอกโฟลเดอร์ที่โหลดไม่ขึ้นแล้ว (ดูบท 18 Plugins)
 - **`claude -p` เริ่มเร็วขึ้น** — ไม่โหลด UI แบบ interactive อีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.285
+
+- **`claude --desktop`** — เปิดแอป Claude desktop ที่โฟลเดอร์ปัจจุบัน หรือเปิด session เดิมด้วย `--continue` / `--resume <id>`
+- **`claude plugin configure <plugin>`** — แสดง option ของ plugin และบอกว่าตัวไหนยังไม่ได้ตั้ง หรือบันทึกค่าใหม่ที่อ่านจาก stdin ด้วย `--values-stdin` (ดูบท 18 Plugins)
+- **`claude plugin install --config <server>.<key>=<value>`** — ตั้งค่าของ MCP server แบบ `.mcpb` ที่มากับ plugin ได้ตั้งแต่ตอนติดตั้ง ทำให้ server เริ่มทำงานได้เลยโดยไม่ต้องเข้า `/plugin` → Configure
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1070,7 +1076,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.284
+- run: npm install -g @anthropic-ai/claude-code@2.1.285
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -2043,6 +2049,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **ของใหม่ใน Claude apps gateway** — เตือนตอนสตาร์ตเมื่อ `availableModels` ของ managed policy ว่างเปล่า หรือไม่มีโมเดลที่ Claude Code ใช้เริ่มต้นโดยไม่ได้ตั้ง `model` หรือ `enforceAvailableModels` · `auth: { google: {} }` บนปลายทาง `telemetry.forward_to` ส่ง telemetry ตรงเข้า OTLP endpoint ของ Google Cloud ด้วย credential Google Cloud ของ gateway · รองรับ certificate client authentication (`private_key_jwt`) ระหว่าง gateway กับ identity provider
 - **การสลับโมเดลด้วยเหตุผลด้านความปลอดภัยไม่ยึด Opus ที่ pin ไว้** — ใน session ที่ pin โมเดล Opus ด้วย `ANTHROPIC_DEFAULT_OPUS_MODEL` หรือ `modelOverrides` บน Anthropic API ตัว API จะเลือกโมเดลที่จะสลับไปเองตามประเภทของ flag แทนโมเดลที่ pin ไว้
 - **permission mode เริ่มต้นเป็น auto ทุกที่** — session แบบ interactive ใน terminal และ VS Code เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ ครอบทุก plan และทุก provider · ตั้ง `permissions.defaultMode` เพื่อ override (ดูบท 5 ระบบ Permission)
+
+### 🆕 ใหม่ใน v2.1.285
+
+- **`allowedProviders`** (managed) — จำกัดว่าเครื่องนี้ใช้ API provider ไหนได้บ้าง: Anthropic API, custom endpoint, Bedrock, Mantle, Vertex AI, Foundry, Claude Platform on AWS หรือ Cloud gateway
+- **Bedrock และ Vertex AI ถอยไปโมเดลรุ่นเก่าใน tier เดียวกัน** — เมื่อ admin ถอดสิทธิ์โมเดลเริ่มต้นออก session จะสลับไปใช้โมเดลรุ่นเก่ากว่าที่ยังใช้ได้ใน tier เดียวกันแทนที่จะล้ม · ชื่อ session และสรุป session ก็ถอยตามไปด้วย
+- **`CLAUDE_CODE_DISABLE_WEB_FETCH`** และ **`CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES`** — environment variable ใหม่ (ดูบท 23 Environment Variables)
 
 ---
 
@@ -3017,6 +3029,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **`omitClaudeMd` ใน frontmatter ของ agent และใน JSON ของ `--agents`** — ให้ subagent แบบ custom และของ plugin รันโดยไม่โหลดไฟล์ CLAUDE.md ระดับ user, project และ local ส่วนไฟล์ managed policy ยังโหลดตามปกติ
 - **subagent ส่งผลกลับผ่าน call ที่ถูกรีวิว** — ใน auto mode subagent รายงานกลับหาผู้เรียกผ่าน hand-back call เฉพาะที่ safety classifier ตรวจ แทนการเอาข้อความสุดท้ายของมันมาตรวจย้อนหลัง
 
+### 🆕 ใหม่ใน v2.1.285
+
+- **fork subagent ใช้ permission mode ของตัวแม่** — fork รันภายใต้ permission mode ของ parent (รวม plan mode และ `dontAsk`) และออกจาก plan mode เองไม่ได้
+- **subagent ใน auto mode จบทันทีหลังรายงาน** — run ของ subagent จบทันทีที่ส่งรายงานกลับให้ผู้เรียก แทนที่จะเดิน turn เพิ่มที่ไม่มีใครได้รับ
+
 ---
 
 ## 13. Agent Teams (ทีม AI)
@@ -3619,6 +3636,12 @@ claude --plugin-dir ./my-plugin
 - **`claude plugin validate` ตรวจ MCP server ด้วย** — รายงาน entry ใน `.mcp.json` ที่จะถูกทิ้งเงียบ ๆ ตอนโหลด, การอ้าง `${user_config.*}` ที่ไม่ได้ประกาศ และ URL ที่ไม่ปลอดภัย (ดูบท 9 MCP Servers)
 - **เตือนเมื่อ `${CLAUDE_PLUGIN_ROOT}` ไม่ได้ครอบ quote** — `claude plugin validate` เตือนเมื่อ hook แบบ shell-form ใช้ `${CLAUDE_PLUGIN_ROOT}` โดยไม่ครอบ quote (พังเมื่อ path ของ plugin มีช่องว่าง) และ error ตอน hook ของ plugin ล้มจะบอกชื่อ plugin ตัวต้นเหตุแล้ว
 
+### 🆕 ใหม่ใน v2.1.285
+
+- **`claude plugin configure <plugin>`** — แสดง option ของ plugin และบอกว่าตัวไหนยังไม่ได้ตั้ง หรือบันทึกค่าใหม่ที่อ่านจาก stdin ด้วย `--values-stdin`
+- **`claude plugin install --config <server>.<key>=<value>`** — ตั้งค่าของ MCP server แบบ `.mcpb` ที่มากับ plugin ได้ตั้งแต่ตอนติดตั้ง ทำให้ server เริ่มทำงานได้เลยโดยไม่ต้องเข้า `/plugin` → Configure
+- **server `.mcpb` ที่ยังไม่ได้ตั้งค่าไม่ถูกข้ามเงียบ ๆ อีก** — `/plugin`, ข้อความตอนติดตั้ง และ `claude plugin install` จะบอกเมื่อ MCP server แบบ `.mcpb` ที่มากับ plugin ยังต้องตั้งค่า พร้อมชี้ไปที่ Configure
+
 ---
 
 ## 19. Session Management
@@ -4035,6 +4058,8 @@ your-project/
 | `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT` | ตั้ง `1` เพื่อให้ `rm` แบบ recursive ที่เป้าหมายมีแค่ผลของ command substitution (เช่น `"$(pwd)"`) รันได้โดยไม่ต้องถาม ซึ่งปกติตอนนี้จะถามใน auto mode และ `--dangerously-skip-permissions` *(v2.1.281)* |
 | `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT` | ตั้ง `1` เพื่อปิด timeout 2 นาทีของ prompt `rm` อันตรายใน `--dangerously-skip-permissions` และ auto mode (ค่าเริ่มต้นคือหมดเวลาแล้วปฏิเสธคำสั่งพร้อมคำแนะนำให้เขียนใหม่) *(v2.1.281)* |
 | `OTEL_LOG_TOOL_CONTENT` | ตั้ง `1` เพื่อใส่เนื้อหาของ tool ลงใน span event `tool.output` ของ OpenTelemetry · ตั้งแต่ v2.1.283 ครอบผลลัพธ์ของ MCP tool, WebFetch และ WebSearch ด้วย *(เปลี่ยน v2.1.283)* |
+| `CLAUDE_CODE_DISABLE_WEB_FETCH` | ตั้ง `1` เพื่อปิด tool WebFetch *(v2.1.285)* |
+| `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | จำกัดจำนวนครั้งที่ส่ง request แบบ non-streaming fallback ซ้ำเมื่อหมดเวลา *(v2.1.285)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5362,7 +5387,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.284`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.285`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

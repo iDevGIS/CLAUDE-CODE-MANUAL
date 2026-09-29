@@ -154,6 +154,12 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **`claude plugin validate` ตรวจ MCP server ด้วย** — รายงาน entry ใน `.mcp.json` ที่จะถูกทิ้งเงียบ ๆ ตอนโหลด, การอ้าง `${user_config.*}` ที่ไม่ได้ประกาศ และ URL ที่ไม่ปลอดภัย ดู [[09-mcp-servers]]
 - **เตือนเมื่อ `${CLAUDE_PLUGIN_ROOT}` ไม่ได้ครอบ quote** — `claude plugin validate` เตือนเมื่อ hook แบบ shell-form ใช้ `${CLAUDE_PLUGIN_ROOT}` โดยไม่ครอบ quote (พังเมื่อ path ของ plugin มีช่องว่าง) และ error ตอน hook ของ plugin ล้มจะบอกชื่อ plugin ตัวต้นเหตุแล้ว
 
+### 🆕 ใหม่ใน v2.1.285
+
+- **`claude plugin configure <plugin>`** — แสดง option ของ plugin และบอกว่าตัวไหนยังไม่ได้ตั้ง หรือบันทึกค่าใหม่ที่อ่านจาก stdin ด้วย `--values-stdin` ดู [[02-cli-commands]]
+- **`claude plugin install --config <server>.<key>=<value>`** — ตั้งค่าของ MCP server แบบ `.mcpb` ที่มากับ plugin ได้ตั้งแต่ตอนติดตั้ง ทำให้ server เริ่มทำงานได้เลยโดยไม่ต้องเข้า `/plugin` → Configure ดู [[09-mcp-servers]]
+- **server `.mcpb` ที่ยังไม่ได้ตั้งค่าไม่ถูกข้ามเงียบ ๆ อีก** — `/plugin`, ข้อความตอนติดตั้ง และ `claude plugin install` จะบอกเมื่อ MCP server แบบ `.mcpb` ที่มากับ plugin ยังต้องตั้งค่า พร้อมชี้ไปที่ Configure
+
 ---
 
 ---

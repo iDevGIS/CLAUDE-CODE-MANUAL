@@ -96,6 +96,8 @@ related:
 | `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT` | ตั้ง `1` เพื่อให้ `rm` แบบ recursive ที่เป้าหมายมีแค่ผลของ command substitution (เช่น `"$(pwd)"`) รันได้โดยไม่ต้องถาม ซึ่งปกติตอนนี้จะถามใน auto mode และ `--dangerously-skip-permissions` ดู [[05-permissions]] *(v2.1.281)* |
 | `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT` | ตั้ง `1` เพื่อปิด timeout 2 นาทีของ prompt `rm` อันตรายใน `--dangerously-skip-permissions` และ auto mode (ค่าเริ่มต้นคือหมดเวลาแล้วปฏิเสธคำสั่งพร้อมคำแนะนำให้เขียนใหม่) *(v2.1.281)* |
 | `OTEL_LOG_TOOL_CONTENT` | ตั้ง `1` เพื่อใส่เนื้อหาของ tool ลงใน span event `tool.output` ของ OpenTelemetry · ตั้งแต่ v2.1.283 ครอบผลลัพธ์ของ MCP tool, WebFetch และ WebSearch ด้วย ดู [[09-mcp-servers]] *(เปลี่ยน v2.1.283)* |
+| `CLAUDE_CODE_DISABLE_WEB_FETCH` | ตั้ง `1` เพื่อปิด tool WebFetch *(v2.1.285)* |
+| `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | จำกัดจำนวนครั้งที่ส่ง request แบบ non-streaming fallback ซ้ำเมื่อหมดเวลา *(v2.1.285)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

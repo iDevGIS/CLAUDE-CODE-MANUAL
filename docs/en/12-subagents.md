@@ -190,6 +190,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **`omitClaudeMd` in agent frontmatter and `--agents` JSON** — a custom or plugin subagent runs without the user, project and local CLAUDE.md files; managed policy files still load. See [[07-claude-md]].
 - **A subagent hands its result back through a reviewed call** — in auto mode the subagent reports to its caller through a dedicated hand-back call that the safety classifier reviews, instead of its last message being reviewed after the fact. See [[05-permissions]].
 
+### New in v2.1.285
+
+- **Fork subagents keep the parent's permission mode** — a fork now runs under its parent's permission mode (including plan mode and `dontAsk`) and cannot exit plan mode. See [[05-permissions]].
+- **Auto-mode subagents stop after reporting** — a subagent's run ends as soon as it hands its report back to its caller, instead of taking extra turns that reach no one.
+
 ---
 
 ---

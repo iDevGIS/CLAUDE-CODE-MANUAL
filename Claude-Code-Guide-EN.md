@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.284         │
+│ Welcome to Claude Code v2.1.285         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.284
+- run: npm install -g @anthropic-ai/claude-code@2.1.285
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1084,6 +1084,12 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **`--system-prompt` / `--append-system-prompt` combine with their `-file` forms** — you can pass the text flag and its `-file` flag together; the file's text comes first.
 - **`--plugin-dir` load failures name the directory** — `plugin_errors` entries in the stream-json `system/init` message now carry a `path` for the directory that did not load (see 18. Plugins).
 - **`claude -p` starts faster** — it no longer loads the interactive UI.
+
+### New in v2.1.285
+
+- **`claude --desktop`** — opens the Claude desktop app on the current directory, or on a session with `--continue` / `--resume <id>`.
+- **`claude plugin configure <plugin>`** — shows a plugin's options and which are unset, or saves new values read from stdin with `--values-stdin` (see 18. Plugins).
+- **`claude plugin install --config <server>.<key>=<value>`** — sets a bundled `.mcpb` MCP server's own settings at install time, so it starts without visiting `/plugin` → Configure.
 
 ---
 
@@ -2049,6 +2055,12 @@ Skill(commit)                    # Specific skill
 - **Claude apps gateway additions** — startup warnings when a managed policy's `availableModels` is empty, or leaves out the model Claude Code starts on without setting `model` or `enforceAvailableModels`; `auth: { google: {} }` on `telemetry.forward_to` destinations exports telemetry straight to Google Cloud's OTLP endpoint using the gateway's Google Cloud credentials; certificate client authentication (`private_key_jwt`) between the gateway and its identity provider.
 - **Safety model switches ignore a pinned Opus** — in sessions that pin an Opus model with `ANTHROPIC_DEFAULT_OPUS_MODEL` or `modelOverrides`, on the Anthropic API the API now picks the model to switch to for each kind of flag, not the pinned model.
 - **Default permission mode is auto everywhere** — interactive terminal and VS Code sessions start in auto mode when no permission mode is configured, on every plan and provider; set `permissions.defaultMode` to override (see 5. Permission System).
+
+### New in v2.1.285
+
+- **`allowedProviders`** (managed) — limits which API providers a machine may use: the Anthropic API, a custom endpoint, Bedrock, Mantle, Vertex AI, Foundry, Claude Platform on AWS, or a Cloud gateway.
+- **Bedrock and Vertex AI fall back within the tier** — when an admin removes access to the default model, sessions switch to an older available model of the same tier instead of failing; session titles and summaries fall back with it.
+- **`CLAUDE_CODE_DISABLE_WEB_FETCH`** and **`CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES`** — new environment variables (see 23. Environment Variables).
 
 ---
 
@@ -3024,6 +3036,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **`omitClaudeMd` in agent frontmatter and `--agents` JSON** — a custom or plugin subagent runs without the user, project and local CLAUDE.md files; managed policy files still load.
 - **A subagent hands its result back through a reviewed call** — in auto mode the subagent reports to its caller through a dedicated hand-back call that the safety classifier reviews, instead of its last message being reviewed after the fact.
 
+### New in v2.1.285
+
+- **Fork subagents keep the parent's permission mode** — a fork now runs under its parent's permission mode (including plan mode and `dontAsk`) and cannot exit plan mode.
+- **Auto-mode subagents stop after reporting** — a subagent's run ends as soon as it hands its report back to its caller, instead of taking extra turns that reach no one.
+
 ---
 
 ## 13. Agent Teams
@@ -3630,6 +3647,12 @@ claude --plugin-dir ./my-plugin
 - **`claude plugin validate` checks MCP servers** — it reports `.mcp.json` entries that would be silently dropped at load, undeclared `${user_config.*}` references, and insecure URLs (see 9. MCP Servers).
 - **Unquoted `${CLAUDE_PLUGIN_ROOT}` warning** — `claude plugin validate` warns when a shell-form hook leaves `${CLAUDE_PLUGIN_ROOT}` unquoted (it breaks on plugin paths with spaces), and plugin hook-failure errors now name the offending plugin.
 
+### New in v2.1.285
+
+- **`claude plugin configure <plugin>`** — shows a plugin's options and which are unset, or saves new values read from stdin with `--values-stdin`.
+- **`claude plugin install --config <server>.<key>=<value>`** — sets a bundled `.mcpb` MCP server's own settings at install time, so it starts without visiting `/plugin` → Configure.
+- **Unconfigured `.mcpb` servers are no longer skipped silently** — `/plugin`, the install message and `claude plugin install` say when a bundled `.mcpb` MCP server still needs configuration and point to Configure.
+
 ---
 
 ## 19. Session Management
@@ -4046,6 +4069,8 @@ your-project/
 | `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT` | Set `1` to let a recursive `rm` whose only target is command-substitution output (e.g. `"$(pwd)"`) run without the prompt it now gets in auto mode and `--dangerously-skip-permissions`. *(v2.1.281)* |
 | `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT` | Set `1` to turn off the 2-minute timeout on the dangerous `rm` prompt in `--dangerously-skip-permissions` and auto mode (by default it then denies the command with a rewrite hint). *(v2.1.281)* |
 | `OTEL_LOG_TOOL_CONTENT` | Set `1` to include tool content in the `tool.output` OpenTelemetry span event; since v2.1.283 this also covers MCP tool, WebFetch and WebSearch outputs. *(changed v2.1.283)* |
+| `CLAUDE_CODE_DISABLE_WEB_FETCH` | Set `1` to turn off the WebFetch tool. *(v2.1.285)* |
+| `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | Caps how many times a non-streaming fallback request that timed out is re-sent. *(v2.1.285)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5376,7 +5401,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.284`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.285`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

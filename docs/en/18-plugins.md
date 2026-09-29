@@ -154,6 +154,12 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **`claude plugin validate` checks MCP servers** — it reports `.mcp.json` entries that would be silently dropped at load, undeclared `${user_config.*}` references, and insecure URLs. See [[09-mcp-servers]].
 - **Unquoted `${CLAUDE_PLUGIN_ROOT}` warning** — `claude plugin validate` warns when a shell-form hook leaves `${CLAUDE_PLUGIN_ROOT}` unquoted (it breaks on plugin paths with spaces), and plugin hook-failure errors now name the offending plugin.
 
+### New in v2.1.285
+
+- **`claude plugin configure <plugin>`** — shows a plugin's options and which are unset, or saves new values read from stdin with `--values-stdin`. See [[02-cli-commands]].
+- **`claude plugin install --config <server>.<key>=<value>`** — sets a bundled `.mcpb` MCP server's own settings at install time, so it starts without visiting `/plugin` → Configure. See [[09-mcp-servers]].
+- **Unconfigured `.mcpb` servers are no longer skipped silently** — `/plugin`, the install message and `claude plugin install` say when a bundled `.mcpb` MCP server still needs configuration and point to Configure.
+
 ---
 
 ---

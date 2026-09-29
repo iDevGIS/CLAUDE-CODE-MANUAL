@@ -314,6 +314,12 @@ Set the `model` key to any of these (newest → cheapest):
 - **Safety model switches ignore a pinned Opus** — in sessions that pin an Opus model with `ANTHROPIC_DEFAULT_OPUS_MODEL` or `modelOverrides`, on the Anthropic API the API now picks the model to switch to for each kind of flag, not the pinned model.
 - **Default permission mode is auto everywhere** — interactive terminal and VS Code sessions start in auto mode when no permission mode is configured, on every plan and provider; set `permissions.defaultMode` to override. See [[05-permissions]].
 
+### New in v2.1.285
+
+- **`allowedProviders`** (managed) — limits which API providers a machine may use: the Anthropic API, a custom endpoint, Bedrock, Mantle, Vertex AI, Foundry, Claude Platform on AWS, or a Cloud gateway.
+- **Bedrock and Vertex AI fall back within the tier** — when an admin removes access to the default model, sessions switch to an older available model of the same tier instead of failing; session titles and summaries fall back with it.
+- **`CLAUDE_CODE_DISABLE_WEB_FETCH`** and **`CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES`** — new environment variables. See [[23-environment-variables]].
+
 ---
 
 ---

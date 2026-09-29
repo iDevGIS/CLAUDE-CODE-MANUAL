@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.284         │
+│ Welcome to Claude Code v2.1.285         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -635,6 +635,12 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`--plugin-dir` load failures name the directory** — `plugin_errors` entries in the stream-json `system/init` message now carry a `path` for the directory that did not load. See [[18-plugins]].
 - **`claude -p` starts faster** — it no longer loads the interactive UI.
 
+### New in v2.1.285
+
+- **`claude --desktop`** — opens the Claude desktop app on the current directory, or on a session with `--continue` / `--resume <id>`.
+- **`claude plugin configure <plugin>`** — shows a plugin's options and which are unset, or saves new values read from stdin with `--values-stdin`. See [[18-plugins]].
+- **`claude plugin install --config <server>.<key>=<value>`** — sets a bundled `.mcpb` MCP server's own settings at install time, so it starts without visiting `/plugin` → Configure.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1006,7 +1012,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.284
+- run: npm install -g @anthropic-ai/claude-code@2.1.285
 ```
 
 ---

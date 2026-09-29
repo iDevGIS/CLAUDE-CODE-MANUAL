@@ -96,6 +96,8 @@ related:
 | `CLAUDE_CODE_DISABLE_SUBSTITUTION_RM_PROMPT` | Set `1` to let a recursive `rm` whose only target is command-substitution output (e.g. `"$(pwd)"`) run without the prompt it now gets in auto mode and `--dangerously-skip-permissions`. See [[05-permissions]]. *(v2.1.281)* |
 | `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT` | Set `1` to turn off the 2-minute timeout on the dangerous `rm` prompt in `--dangerously-skip-permissions` and auto mode (by default it then denies the command with a rewrite hint). *(v2.1.281)* |
 | `OTEL_LOG_TOOL_CONTENT` | Set `1` to include tool content in the `tool.output` OpenTelemetry span event; since v2.1.283 this also covers MCP tool, WebFetch and WebSearch outputs. See [[09-mcp-servers]]. *(changed v2.1.283)* |
+| `CLAUDE_CODE_DISABLE_WEB_FETCH` | Set `1` to turn off the WebFetch tool. *(v2.1.285)* |
+| `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | Caps how many times a non-streaming fallback request that timed out is re-sent. *(v2.1.285)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

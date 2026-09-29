@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.284         │
+│ Welcome to Claude Code v2.1.285         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -635,6 +635,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **`--plugin-dir` ที่โหลดไม่ขึ้นบอกชื่อโฟลเดอร์** — รายการ `plugin_errors` ใน message `system/init` ของ stream-json มีช่อง `path` บอกโฟลเดอร์ที่โหลดไม่ขึ้นแล้ว ดู [[18-plugins]]
 - **`claude -p` เริ่มเร็วขึ้น** — ไม่โหลด UI แบบ interactive อีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.285
+
+- **`claude --desktop`** — เปิดแอป Claude desktop ที่โฟลเดอร์ปัจจุบัน หรือเปิด session เดิมด้วย `--continue` / `--resume <id>`
+- **`claude plugin configure <plugin>`** — แสดง option ของ plugin และบอกว่าตัวไหนยังไม่ได้ตั้ง หรือบันทึกค่าใหม่ที่อ่านจาก stdin ด้วย `--values-stdin` ดู [[18-plugins]]
+- **`claude plugin install --config <server>.<key>=<value>`** — ตั้งค่าของ MCP server แบบ `.mcpb` ที่มากับ plugin ได้ตั้งแต่ตอนติดตั้ง ทำให้ server เริ่มทำงานได้เลยโดยไม่ต้องเข้า `/plugin` → Configure
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1006,7 +1012,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.284
+- run: npm install -g @anthropic-ai/claude-code@2.1.285
 ```
 
 ---

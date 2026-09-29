@@ -314,6 +314,12 @@ related:
 - **การสลับโมเดลด้วยเหตุผลด้านความปลอดภัยไม่ยึด Opus ที่ pin ไว้** — ใน session ที่ pin โมเดล Opus ด้วย `ANTHROPIC_DEFAULT_OPUS_MODEL` หรือ `modelOverrides` บน Anthropic API ตัว API จะเลือกโมเดลที่จะสลับไปเองตามประเภทของ flag แทนโมเดลที่ pin ไว้
 - **permission mode เริ่มต้นเป็น auto ทุกที่** — session แบบ interactive ใน terminal และ VS Code เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ ครอบทุก plan และทุก provider · ตั้ง `permissions.defaultMode` เพื่อ override ดู [[05-permissions]]
 
+### 🆕 ใหม่ใน v2.1.285
+
+- **`allowedProviders`** (managed) — จำกัดว่าเครื่องนี้ใช้ API provider ไหนได้บ้าง: Anthropic API, custom endpoint, Bedrock, Mantle, Vertex AI, Foundry, Claude Platform on AWS หรือ Cloud gateway
+- **Bedrock และ Vertex AI ถอยไปโมเดลรุ่นเก่าใน tier เดียวกัน** — เมื่อ admin ถอดสิทธิ์โมเดลเริ่มต้นออก session จะสลับไปใช้โมเดลรุ่นเก่ากว่าที่ยังใช้ได้ใน tier เดียวกันแทนที่จะล้ม · ชื่อ session และสรุป session ก็ถอยตามไปด้วย
+- **`CLAUDE_CODE_DISABLE_WEB_FETCH`** และ **`CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES`** — environment variable ใหม่ ดู [[23-environment-variables]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

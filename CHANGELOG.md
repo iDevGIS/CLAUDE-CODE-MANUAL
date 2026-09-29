@@ -25,6 +25,27 @@
 
 ---
 
+## [1.78.0] — 2026-09-30
+
+### Compatibility
+- **Claude Code:** `v2.1.285+`
+
+### Added
+- **`claude --desktop`** (เปิดแอป Claude desktop ที่โฟลเดอร์ปัจจุบันหรือ session เดิมด้วย `--continue`/`--resume <id>`) + **`claude plugin configure <plugin>`** (`--values-stdin`) + **`claude plugin install --config <server>.<key>=<value>`** — บท 02 (CLI) EN+TH
+- **managed `allowedProviders`** จำกัด API provider ต่อเครื่อง + **Bedrock/Vertex AI ถอยไปโมเดลรุ่นเก่าใน tier เดียวกันเมื่อ admin ถอดสิทธิ์โมเดลเริ่มต้น** + ชี้ไป env var ใหม่ — บท 06 (Configuration) EN+TH
+- **fork subagent ใช้ permission mode ของตัวแม่ (รวม plan/`dontAsk`) และออกจาก plan mode ไม่ได้** + **subagent ใน auto mode จบทันทีหลังส่งรายงาน** — บท 12 (Subagents) EN+TH
+- **`claude plugin configure`** + **`--config <server>.<key>=<value>`** + **แจ้งเมื่อ MCP server แบบ `.mcpb` ยังไม่ได้ตั้งค่า** — บท 18 (Plugins) EN+TH
+- **`CLAUDE_CODE_DISABLE_WEB_FETCH`** + **`CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES`** แถวใหม่ในตาราง — บท 23 EN+TH
+- **แถว What's-new ของ `v2.1.285`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.284` → `2.1.285` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.285` ส่วนใหญ่เป็น bug fix (Artifact tool, `/ultrareview` upload, Remote Control, plugin install/SSH, MCP list/get, hooks ค้าง, retry budget) และ improvement เล็ก ๆ ซึ่งข้ามตามกติกา · ไม่มี model lineup เปลี่ยน · ของที่คัดมาคือ flag/คำสั่งใหม่ (`--desktop`, `plugin configure`, `--config <server>.<key>`), managed setting `allowedProviders`, env var ใหม่ 2 ตัว และการเปลี่ยนพฤติกรรมของ subagent/fork กับ fallback โมเดลบน Bedrock/Vertex
+
+---
+
 ## [1.77.0] — 2026-09-29
 
 ### Compatibility
@@ -1753,6 +1774,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.78.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.77.0...v1.78.0
 [1.77.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.76.0...v1.77.0
 [1.76.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.75.0...v1.76.0
 [1.75.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.74.0...v1.75.0
