@@ -202,6 +202,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **Richer `hook_execution_complete` telemetry** — the OpenTelemetry event now carries hook output sizes and the number of oversized outputs that were saved to a file. See [[23-environment-variables]].
 - **A timed-out `UserPromptSubmit` hook is named** — both the timeout notice and the debug log now say which hook command timed out.
 
+### New in v2.1.286
+
+- **`/hooks` opens on one grouped list** — it now opens on a single list of your configured hooks grouped by event, so viewing a hook takes one Enter instead of three. See [[03-slash-commands]].
+
 ---
 
 ---

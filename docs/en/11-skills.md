@@ -203,6 +203,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **`/doctor prompt-audit`** audits skills (plus CLAUDE.md files, agents and commands) for prompting patterns written for older models. See [[03-slash-commands]].
 - **Skills from a plugin that failed to load** — Claude now tells you the plugin could not be loaded instead of calling the skill uninstalled.
 
+### New in v2.1.286
+
+- **A `verify` skill runs before commits** — when your project or user skills include one named `verify`, Claude is told to run it right before committing, except for docs-only and tests-only commits. See [[15-git-integration]].
+- **Slash command suggestions match by word prefix** — suggestions stay responsive with many skills or plugin commands installed, and command descriptions now match by word prefix.
+
 ---
 
 ---

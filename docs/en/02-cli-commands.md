@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.285         │
+│ Welcome to Claude Code v2.1.286         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -641,6 +641,12 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`claude plugin configure <plugin>`** — shows a plugin's options and which are unset, or saves new values read from stdin with `--values-stdin`. See [[18-plugins]].
 - **`claude plugin install --config <server>.<key>=<value>`** — sets a bundled `.mcpb` MCP server's own settings at install time, so it starts without visiting `/plugin` → Configure.
 
+### New in v2.1.286
+
+- **`--bare` is leaner** — it now connects only the MCP servers named on the command line, sends the model no system reminders and starts no background tasks; under `--bare`, a shell command that reaches its timeout stops instead of moving to the background.
+- **`claude auth status` reports `api_key` for a Console sign-in** — a Console sign-in's stored API key was reported as `claude.ai`; it now reports `api_key`.
+- **`claude ultrareview` no longer prints a browser link** — the same goes for `/ultrareview`.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1012,7 +1018,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.285
+- run: npm install -g @anthropic-ai/claude-code@2.1.286
 ```
 
 ---

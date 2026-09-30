@@ -320,6 +320,12 @@ Set the `model` key to any of these (newest → cheapest):
 - **Bedrock and Vertex AI fall back within the tier** — when an admin removes access to the default model, sessions switch to an older available model of the same tier instead of failing; session titles and summaries fall back with it.
 - **`CLAUDE_CODE_DISABLE_WEB_FETCH`** and **`CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES`** — new environment variables. See [[23-environment-variables]].
 
+### New in v2.1.286
+
+- **One retry budget per model call** — one limit now covers a whole model call, so with the default retry settings a failing call sends at most 14 requests.
+- **A refused model falls back once** — when the Anthropic API refuses the model your default or a model alias resolves to, Claude Code retries once on the previous model of the same tier instead of failing every turn.
+- **Fallback notices mention the context window** — the model fallback notice and the autocompact-thrashing error say when a fallback dropped the context window from 1M to 200K tokens.
+
 ---
 
 ---

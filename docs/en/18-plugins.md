@@ -160,6 +160,11 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **`claude plugin install --config <server>.<key>=<value>`** — sets a bundled `.mcpb` MCP server's own settings at install time, so it starts without visiting `/plugin` → Configure. See [[09-mcp-servers]].
 - **Unconfigured `.mcpb` servers are no longer skipped silently** — `/plugin`, the install message and `claude plugin install` say when a bundled `.mcpb` MCP server still needs configuration and point to Configure.
 
+### New in v2.1.286
+
+- **Stricter npm plugin sources** — plugin installs refuse npm sources that are git repositories or folders, and install plugin dependencies only from registry packages.
+- **Clearer errors for a refused marketplace** — plugin errors for a marketplace Claude Code refuses to load now say why and how to fix it instead of "not found".
+
 ---
 
 ---

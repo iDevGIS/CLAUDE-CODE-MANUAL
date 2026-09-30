@@ -320,6 +320,12 @@ related:
 - **Bedrock และ Vertex AI ถอยไปโมเดลรุ่นเก่าใน tier เดียวกัน** — เมื่อ admin ถอดสิทธิ์โมเดลเริ่มต้นออก session จะสลับไปใช้โมเดลรุ่นเก่ากว่าที่ยังใช้ได้ใน tier เดียวกันแทนที่จะล้ม · ชื่อ session และสรุป session ก็ถอยตามไปด้วย
 - **`CLAUDE_CODE_DISABLE_WEB_FETCH`** และ **`CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES`** — environment variable ใหม่ ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.286
+
+- **retry มีโควตาเดียวต่อการเรียกโมเดลหนึ่งครั้ง** — ลิมิตเดียวครอบทั้งการเรียกโมเดลครั้งนั้น ถ้าใช้ค่า retry เริ่มต้น การเรียกที่ล้มจะส่ง request ได้มากสุด 14 ครั้ง
+- **โมเดลที่ถูกปฏิเสธจะถอยหนึ่งครั้ง** — เมื่อ Anthropic API ปฏิเสธโมเดลที่ค่า default หรือ model alias ชี้ไป Claude Code จะลองใหม่หนึ่งครั้งด้วยโมเดลรุ่นก่อนหน้าใน tier เดียวกัน แทนที่จะล้มทุก turn
+- **ข้อความแจ้ง fallback บอกเรื่อง context window** — ข้อความแจ้ง model fallback และ error autocompact-thrashing จะบอกเมื่อการ fallback ทำให้ context window ลดจาก 1M เหลือ 200K token
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

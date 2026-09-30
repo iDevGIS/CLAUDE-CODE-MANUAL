@@ -251,6 +251,10 @@ Skill(commit)                    # Specific skill
 - **Auto mode is the starting mode everywhere** — interactive terminal and VS Code sessions now start in auto mode when no permission mode is configured, on every plan and provider (v2.1.283 did this only on third-party providers or with telemetry off); `permissions.defaultMode` still overrides it.
 - **"Yes, but ask again next time"** — a new answer in auto mode's prompt before a read outside the working directories: it allows that one read and still asks about later ones.
 
+### New in v2.1.286
+- **Stacked permission prompts show a count** — when several permission requests stack up, the prompt shows a count such as "2 of 5".
+- **claude.ai artifact links in WebFetch ask like the Artifact tool** — no prompt while the session's network access is on, one per artifact while it is off; an auto-mode approval no longer counts where only you can answer.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

@@ -137,6 +137,12 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 
 - **fork session แบบ Remote Control จาก Claude app ได้** — session ที่เปิดด้วย `claude --remote-control` หรือ `/remote-control` สั่ง fork จาก Claude app ได้แล้ว โดยตัวที่ fork ออกมาจะรันเป็น background session บนเครื่องเรา ดู [[19-session-management]]
 
+### 🆕 ใหม่ใน v2.1.286
+
+- **send now (ctrl+enter) ย้ายคำสั่งที่รันอยู่ไปเบื้องหลัง** — ในหน้าจอของ subagent จะย้ายคำสั่งที่ subagent รันอยู่ไปเบื้องหลัง เพื่อให้ข้อความของเราถูกอ่านทันที · ส่วนคำสั่ง shell ของ skill เองก็ถูกย้ายไปเบื้องหลังแทนที่จะถูกหยุด ดู [[12-subagents]]
+- **`/compact`, `/clear` และ `/rewind` ถามก่อนเมื่ออยู่ในหน้าจอของ agent** — ถ้าพิมพ์ตอนกำลังดู transcript ของ background agent หรือ teammate จะขึ้น dialog บอกเป้าหมายและถามก่อน แทนที่จะไปทำกับบทสนทนาหลักเงียบ ๆ
+- **ไม่มีสรุปซ้ำในคำตอบ** — คำตอบของ background agent ต่อข้อความของเราไม่ขึ้นต้นด้วยการสรุปสิ่งที่เราพูดแยกอีกต่อไป
+
 ---
 
 ---

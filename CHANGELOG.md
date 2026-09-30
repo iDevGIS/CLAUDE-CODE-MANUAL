@@ -25,6 +25,30 @@
 
 ---
 
+## [1.79.0] — 2026-10-01
+
+### Compatibility
+- **Claude Code:** `v2.1.286+`
+
+### Added
+- **`--bare` เชื่อมเฉพาะ MCP server ที่ระบุใน command line / ไม่ส่ง system reminder / ไม่เริ่ม background task** + **`claude auth status` รายงาน `api_key` สำหรับ Console sign-in** + **`/ultrareview` ไม่แสดงลิงก์เบราว์เซอร์** — บท 02 (CLI) EN+TH
+- **prompt permission ที่ซ้อนกันมีตัวนับ "2 of 5"** + **ลิงก์ artifact ของ claude.ai ใน WebFetch ถามแบบ Artifact tool** — บท 05 (Permissions) EN+TH
+- **retry โควตาเดียวต่อการเรียกโมเดล (มากสุด 14 request)** + **โมเดลที่ API ปฏิเสธถอยไปรุ่นก่อนใน tier เดียวกันหนึ่งครั้ง** + **ข้อความ fallback บอกเมื่อ context ลดจาก 1M เหลือ 200K** — บท 06 (Configuration) EN+TH
+- **`/hooks` เปิดเป็นรายการเดียวจัดกลุ่มตาม event** — บท 10 (Hooks) EN+TH
+- **skill ชื่อ `verify` ถูกรันก่อน commit** + **slash command suggestion match ด้วย prefix ของคำ** — บท 11 (Skills) EN+TH
+- **send now (ctrl+enter) ย้ายคำสั่งที่รันอยู่ไปเบื้องหลัง** + **`/compact`/`/clear`/`/rewind` ถามก่อนในหน้าจอของ agent** + **คำตอบ background agent ไม่มี recap** — บท 41 (Background agents) + บท 12 ใน guide EN+TH
+- **VS Code: Bookmarks, Stop/Escape หยุดแค่ turn ปัจจุบัน, แถว Questions, status bar ทุกหน้าต่าง** — บท 17 (IDE) EN+TH
+- **npm plugin source ห้ามเป็น git repo/โฟลเดอร์ + dependency จาก registry เท่านั้น** + **error marketplace ที่ถูกปฏิเสธบอกเหตุผล** — บท 18 (Plugins) EN+TH
+- **แถว What's-new ของ `v2.1.286`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.285` → `2.1.286` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.286` ส่วนใหญ่เป็น bug fix (resume หลัง crash, redaction ของ secret, MCP handshake, Remote Control, Claude Tag, cloud sessions) และ UI polish (permission prompt, list screen, theme/output-style picker) ซึ่งข้ามตามกติกา · ไม่มี model lineup เปลี่ยน · ของที่คัดมาคือการเปลี่ยนพฤติกรรมของ `--bare`, retry/fallback ของโมเดล, `verify` skill, `/hooks`, send-now, ความปลอดภัยของ npm plugin source และฟีเจอร์ใหม่ของ VS Code
+
+---
+
 ## [1.78.0] — 2026-09-30
 
 ### Compatibility
@@ -1774,6 +1798,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.79.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.78.0...v1.79.0
 [1.78.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.77.0...v1.78.0
 [1.77.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.76.0...v1.77.0
 [1.76.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.75.0...v1.76.0

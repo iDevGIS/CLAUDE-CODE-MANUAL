@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.285         │
+│ Welcome to Claude Code v2.1.286         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.285
+- run: npm install -g @anthropic-ai/claude-code@2.1.286
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1090,6 +1090,12 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **`claude --desktop`** — opens the Claude desktop app on the current directory, or on a session with `--continue` / `--resume <id>`.
 - **`claude plugin configure <plugin>`** — shows a plugin's options and which are unset, or saves new values read from stdin with `--values-stdin` (see 18. Plugins).
 - **`claude plugin install --config <server>.<key>=<value>`** — sets a bundled `.mcpb` MCP server's own settings at install time, so it starts without visiting `/plugin` → Configure.
+
+### New in v2.1.286
+
+- **`--bare` is leaner** — it now connects only the MCP servers named on the command line, sends the model no system reminders and starts no background tasks; under `--bare`, a shell command that reaches its timeout stops instead of moving to the background.
+- **`claude auth status` reports `api_key` for a Console sign-in** — a Console sign-in's stored API key was reported as `claude.ai`; it now reports `api_key`.
+- **`claude ultrareview` no longer prints a browser link** — the same goes for `/ultrareview`.
 
 ---
 
@@ -1765,6 +1771,10 @@ Skill(commit)                    # Specific skill
 - **Auto mode is the starting mode everywhere** — interactive terminal and VS Code sessions now start in auto mode when no permission mode is configured, on every plan and provider (v2.1.283 did this only on third-party providers or with telemetry off); `permissions.defaultMode` still overrides it.
 - **"Yes, but ask again next time"** — a new answer in auto mode's prompt before a read outside the working directories: it allows that one read and still asks about later ones.
 
+### New in v2.1.286
+- **Stacked permission prompts show a count** — when several permission requests stack up, the prompt shows a count such as "2 of 5".
+- **claude.ai artifact links in WebFetch ask like the Artifact tool** — no prompt while the session's network access is on, one per artifact while it is off; an auto-mode approval no longer counts where only you can answer.
+
 ---
 
 ## 6. Configuration
@@ -2061,6 +2071,12 @@ Skill(commit)                    # Specific skill
 - **`allowedProviders`** (managed) — limits which API providers a machine may use: the Anthropic API, a custom endpoint, Bedrock, Mantle, Vertex AI, Foundry, Claude Platform on AWS, or a Cloud gateway.
 - **Bedrock and Vertex AI fall back within the tier** — when an admin removes access to the default model, sessions switch to an older available model of the same tier instead of failing; session titles and summaries fall back with it.
 - **`CLAUDE_CODE_DISABLE_WEB_FETCH`** and **`CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES`** — new environment variables (see 23. Environment Variables).
+
+### New in v2.1.286
+
+- **One retry budget per model call** — one limit now covers a whole model call, so with the default retry settings a failing call sends at most 14 requests.
+- **A refused model falls back once** — when the Anthropic API refuses the model your default or a model alias resolves to, Claude Code retries once on the previous model of the same tier instead of failing every turn.
+- **Fallback notices mention the context window** — the model fallback notice and the autocompact-thrashing error say when a fallback dropped the context window from 1M to 200K tokens.
 
 ---
 
@@ -2603,6 +2619,10 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 - **Richer `hook_execution_complete` telemetry** — the OpenTelemetry event now carries hook output sizes and the number of oversized outputs that were saved to a file (see 23. Environment Variables).
 - **A timed-out `UserPromptSubmit` hook is named** — both the timeout notice and the debug log now say which hook command timed out.
 
+### New in v2.1.286
+
+- **`/hooks` opens on one grouped list** — it now opens on a single list of your configured hooks grouped by event, so viewing a hook takes one Enter instead of three (see 3. Slash Commands).
+
 ### Configuring Hooks
 
 **In `.claude/settings.json`:**
@@ -2857,6 +2877,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **`/doctor prompt-audit`** audits skills (plus CLAUDE.md files, agents and commands) for prompting patterns written for older models (see 3. Slash Commands).
 - **Skills from a plugin that failed to load** — Claude now tells you the plugin could not be loaded instead of calling the skill uninstalled.
 
+### New in v2.1.286
+
+- **A `verify` skill runs before commits** — when your project or user skills include one named `verify`, Claude is told to run it right before committing, except for docs-only and tests-only commits (see 15. Git Integration).
+- **Slash command suggestions match by word prefix** — suggestions stay responsive with many skills or plugin commands installed, and command descriptions now match by word prefix.
+
 ---
 
 ## 12. Subagents (Specialized Helpers)
@@ -3040,6 +3065,12 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Fork subagents keep the parent's permission mode** — a fork now runs under its parent's permission mode (including plan mode and `dontAsk`) and cannot exit plan mode.
 - **Auto-mode subagents stop after reporting** — a subagent's run ends as soon as it hands its report back to its caller, instead of taking extra turns that reach no one.
+
+### New in v2.1.286
+
+- **Send now (ctrl+enter) backgrounds the running command** — in a subagent's view it moves the subagent's running command to the background so your message is read right away; for a skill's own shell command it now moves it to the background instead of ending it.
+- **`/compact`, `/clear` and `/rewind` ask first in an agent's view** — typed while viewing a background agent's or teammate's transcript, they open a dialog naming the target instead of silently acting on the main conversation.
+- **No recap in replies** — background agents' replies to your messages no longer open with a separate recap of what you said.
 
 ---
 
@@ -3489,6 +3520,13 @@ cat src/*.ts | claude -p "find bugs"
 - **The plan approval card offers auto mode (VS Code)** — when auto mode is available, its first option is now "Yes, and use auto mode", as in the terminal.
 - **"Open in New Tab" opens beside your editor group (VS Code)** — rather than after the last group.
 
+### New in v2.1.286
+
+- **Bookmarks (VS Code)** — save Claude's responses and keep them in view in a Bookmarks side panel.
+- **Stop and Escape end only the current turn (VS Code)** — background agents keep running and can be stopped one by one from the agent map.
+- **Answered questions stay in the conversation (VS Code)** — after you answer a question card, a Questions row shows each question with your picks; question cards also preview the highlighted option's mockup or snippet.
+- **The "✻ Claude Code" status bar item shows in every window (VS Code)** — so you can open Claude when no file is open.
+
 ### JetBrains IDEs
 
 **Install:**
@@ -3652,6 +3690,11 @@ claude --plugin-dir ./my-plugin
 - **`claude plugin configure <plugin>`** — shows a plugin's options and which are unset, or saves new values read from stdin with `--values-stdin`.
 - **`claude plugin install --config <server>.<key>=<value>`** — sets a bundled `.mcpb` MCP server's own settings at install time, so it starts without visiting `/plugin` → Configure.
 - **Unconfigured `.mcpb` servers are no longer skipped silently** — `/plugin`, the install message and `claude plugin install` say when a bundled `.mcpb` MCP server still needs configuration and point to Configure.
+
+### New in v2.1.286
+
+- **Stricter npm plugin sources** — plugin installs refuse npm sources that are git repositories or folders, and install plugin dependencies only from registry packages.
+- **Clearer errors for a refused marketplace** — plugin errors for a marketplace Claude Code refuses to load now say why and how to fix it instead of "not found".
 
 ---
 
@@ -5401,7 +5444,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.285`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.286`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

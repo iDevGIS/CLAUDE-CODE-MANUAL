@@ -137,6 +137,12 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 
 - **Fork a Remote Control session from the Claude app** — a session started with `claude --remote-control` or `/remote-control` can be forked from the Claude app; the fork runs as a background session on your computer. See [[19-session-management]].
 
+### New in v2.1.286
+
+- **Send now (ctrl+enter) backgrounds the running command** — in a subagent's view it moves the subagent's running command to the background so your message is read right away; for a skill's own shell command it now moves it to the background instead of ending it. See [[12-subagents]].
+- **`/compact`, `/clear` and `/rewind` ask first in an agent's view** — typed while viewing a background agent's or teammate's transcript, they open a dialog naming the target instead of silently acting on the main conversation.
+- **No recap in replies** — background agents' replies to your messages no longer open with a separate recap of what you said.
+
 ---
 
 ---

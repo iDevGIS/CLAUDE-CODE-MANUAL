@@ -280,6 +280,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **auto mode เป็นโหมดเริ่มต้นทุกที่แล้ว** — session แบบ interactive ใน terminal และ VS Code เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ ครอบทุก plan และทุก provider (v2.1.283 ทำแค่บน third-party provider หรือตอนปิด telemetry) · `permissions.defaultMode` ยัง override ได้เหมือนเดิม
 - **"Yes, but ask again next time"** — ตัวเลือกใหม่ใน prompt ของ auto mode ก่อนอ่านไฟล์นอก working directory: อนุญาตการอ่านครั้งนั้นครั้งเดียว แล้วครั้งต่อ ๆ ไปยังถามอีก
 
+### 🆕 ใหม่ใน v2.1.286
+- **prompt ขอ permission ที่ซ้อนกันมีตัวนับ** — เมื่อมี permission request ค้างซ้อนกันหลายอัน prompt จะแสดงตัวนับอย่าง "2 of 5"
+- **ลิงก์ artifact ของ claude.ai ใน WebFetch ถามแบบเดียวกับ Artifact tool** — ไม่ถามเลยถ้า session เปิด network access อยู่ และถามหนึ่งครั้งต่อ artifact ถ้าปิดอยู่ · การกด yes ของ auto mode ไม่นับแล้วในจุดที่มีแต่เราเท่านั้นที่ตอบได้
+
 ---
 
 ---

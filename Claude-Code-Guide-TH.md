@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.285         │
+│ Welcome to Claude Code v2.1.286         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -745,6 +745,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **`claude plugin configure <plugin>`** — แสดง option ของ plugin และบอกว่าตัวไหนยังไม่ได้ตั้ง หรือบันทึกค่าใหม่ที่อ่านจาก stdin ด้วย `--values-stdin` (ดูบท 18 Plugins)
 - **`claude plugin install --config <server>.<key>=<value>`** — ตั้งค่าของ MCP server แบบ `.mcpb` ที่มากับ plugin ได้ตั้งแต่ตอนติดตั้ง ทำให้ server เริ่มทำงานได้เลยโดยไม่ต้องเข้า `/plugin` → Configure
 
+### 🆕 ใหม่ใน v2.1.286
+
+- **`--bare` เบาลงอีก** — เชื่อมต่อเฉพาะ MCP server ที่ระบุใน command line, ไม่ส่ง system reminder ให้โมเดล และไม่เริ่ม background task ใด ๆ · ภายใต้ `--bare` คำสั่ง shell ที่ถึง timeout จะหยุดทันทีแทนที่จะย้ายไปรันเบื้องหลัง
+- **`claude auth status` รายงาน `api_key` สำหรับการ sign-in ผ่าน Console** — เดิม API key ที่เก็บไว้จากการ sign-in ผ่าน Console ถูกรายงานเป็น `claude.ai` ตอนนี้รายงานเป็น `api_key` แล้ว
+- **`claude ultrareview` ไม่แสดงลิงก์เบราว์เซอร์แล้ว** — `/ultrareview` ก็เช่นกัน
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1076,7 +1082,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.285
+- run: npm install -g @anthropic-ai/claude-code@2.1.286
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1759,6 +1765,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **auto mode เป็นโหมดเริ่มต้นทุกที่แล้ว** — session แบบ interactive ใน terminal และ VS Code เริ่มใน auto mode ถ้าไม่ได้ตั้ง permission mode ไว้ ครอบทุก plan และทุก provider (v2.1.283 ทำแค่บน third-party provider หรือตอนปิด telemetry) · `permissions.defaultMode` ยัง override ได้เหมือนเดิม
 - **"Yes, but ask again next time"** — ตัวเลือกใหม่ใน prompt ของ auto mode ก่อนอ่านไฟล์นอก working directory: อนุญาตการอ่านครั้งนั้นครั้งเดียว แล้วครั้งต่อ ๆ ไปยังถามอีก
 
+### 🆕 ใหม่ใน v2.1.286
+- **prompt ขอ permission ที่ซ้อนกันมีตัวนับ** — เมื่อมี permission request ค้างซ้อนกันหลายอัน prompt จะแสดงตัวนับอย่าง "2 of 5"
+- **ลิงก์ artifact ของ claude.ai ใน WebFetch ถามแบบเดียวกับ Artifact tool** — ไม่ถามเลยถ้า session เปิด network access อยู่ และถามหนึ่งครั้งต่อ artifact ถ้าปิดอยู่ · การกด yes ของ auto mode ไม่นับแล้วในจุดที่มีแต่เราเท่านั้นที่ตอบได้
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2055,6 +2065,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **`allowedProviders`** (managed) — จำกัดว่าเครื่องนี้ใช้ API provider ไหนได้บ้าง: Anthropic API, custom endpoint, Bedrock, Mantle, Vertex AI, Foundry, Claude Platform on AWS หรือ Cloud gateway
 - **Bedrock และ Vertex AI ถอยไปโมเดลรุ่นเก่าใน tier เดียวกัน** — เมื่อ admin ถอดสิทธิ์โมเดลเริ่มต้นออก session จะสลับไปใช้โมเดลรุ่นเก่ากว่าที่ยังใช้ได้ใน tier เดียวกันแทนที่จะล้ม · ชื่อ session และสรุป session ก็ถอยตามไปด้วย
 - **`CLAUDE_CODE_DISABLE_WEB_FETCH`** และ **`CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES`** — environment variable ใหม่ (ดูบท 23 Environment Variables)
+
+### 🆕 ใหม่ใน v2.1.286
+
+- **retry มีโควตาเดียวต่อการเรียกโมเดลหนึ่งครั้ง** — ลิมิตเดียวครอบทั้งการเรียกโมเดลครั้งนั้น ถ้าใช้ค่า retry เริ่มต้น การเรียกที่ล้มจะส่ง request ได้มากสุด 14 ครั้ง
+- **โมเดลที่ถูกปฏิเสธจะถอยหนึ่งครั้ง** — เมื่อ Anthropic API ปฏิเสธโมเดลที่ค่า default หรือ model alias ชี้ไป Claude Code จะลองใหม่หนึ่งครั้งด้วยโมเดลรุ่นก่อนหน้าใน tier เดียวกัน แทนที่จะล้มทุก turn
+- **ข้อความแจ้ง fallback บอกเรื่อง context window** — ข้อความแจ้ง model fallback และ error autocompact-thrashing จะบอกเมื่อการ fallback ทำให้ context window ลดจาก 1M เหลือ 200K token
 
 ---
 
@@ -2659,6 +2675,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **telemetry ของ `hook_execution_complete` ละเอียดขึ้น** — OpenTelemetry event นี้แนบขนาด output ของ hook และจำนวน output ที่ใหญ่เกินจนต้องเซฟลงไฟล์มาให้ด้วยแล้ว (ดูบท 23 Environment Variables)
 - **hook `UserPromptSubmit` ที่ timeout จะบอกชื่อ** — ทั้งข้อความแจ้ง timeout และ debug log ระบุแล้วว่าคำสั่ง hook ตัวไหนที่ timeout
 
+### 🆕 ใหม่ใน v2.1.286
+
+- **`/hooks` เปิดมาเป็นรายการเดียวจัดกลุ่มตาม event** — เปิดมาเจอรายการ hook ที่ตั้งไว้ทั้งหมดจัดกลุ่มตาม event เลย ดู hook หนึ่งตัวกด Enter ครั้งเดียวแทนสามครั้ง (ดูบท 3 Slash Commands)
+
 ---
 
 ## 11. Skills (คำสั่งที่สร้างเอง)
@@ -2850,6 +2870,11 @@ my-skill/
 - **`/doctor prompt-audit`** ตรวจ skill (รวมถึงไฟล์ CLAUDE.md, agent และ command) ว่ามีแพทเทิร์น prompt ที่เขียนไว้สำหรับโมเดลรุ่นเก่าหรือเปล่า (ดูบท 3 Slash Commands)
 - **skill ของ plugin ที่โหลดไม่ขึ้น** — Claude จะบอกว่า plugin โหลดไม่ได้ แทนที่จะบอกว่า skill ไม่ได้ติดตั้ง
 
+### 🆕 ใหม่ใน v2.1.286
+
+- **skill ชื่อ `verify` จะถูกรันก่อน commit** — ถ้าใน skill ระดับ project หรือ user มีตัวที่ชื่อ `verify` Claude จะถูกบอกให้รันมันก่อน commit ทุกครั้ง ยกเว้น commit ที่แก้แค่ docs หรือแค่ tests (ดูบท 15 Git Integration)
+- **คำแนะนำ slash command match ด้วย prefix ของคำ** — รายการแนะนำยังลื่นแม้ติดตั้ง skill หรือ plugin command ไว้เยอะ และคำอธิบายของ command match ด้วย prefix ของคำแล้ว
+
 ---
 
 ## 12. Subagents (ตัวช่วยเฉพาะทาง)
@@ -3033,6 +3058,12 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **fork subagent ใช้ permission mode ของตัวแม่** — fork รันภายใต้ permission mode ของ parent (รวม plan mode และ `dontAsk`) และออกจาก plan mode เองไม่ได้
 - **subagent ใน auto mode จบทันทีหลังรายงาน** — run ของ subagent จบทันทีที่ส่งรายงานกลับให้ผู้เรียก แทนที่จะเดิน turn เพิ่มที่ไม่มีใครได้รับ
+
+### 🆕 ใหม่ใน v2.1.286
+
+- **send now (ctrl+enter) ย้ายคำสั่งที่รันอยู่ไปเบื้องหลัง** — ในหน้าจอของ subagent จะย้ายคำสั่งที่ subagent รันอยู่ไปเบื้องหลัง เพื่อให้ข้อความของเราถูกอ่านทันที · ส่วนคำสั่ง shell ของ skill เองก็ถูกย้ายไปเบื้องหลังแทนที่จะถูกหยุด
+- **`/compact`, `/clear` และ `/rewind` ถามก่อนเมื่ออยู่ในหน้าจอของ agent** — ถ้าพิมพ์ตอนกำลังดู transcript ของ background agent หรือ teammate จะขึ้น dialog บอกเป้าหมายและถามก่อน แทนที่จะไปทำกับบทสนทนาหลักเงียบ ๆ
+- **ไม่มีสรุปซ้ำในคำตอบ** — คำตอบของ background agent ต่อข้อความของเราไม่ขึ้นต้นด้วยการสรุปสิ่งที่เราพูดแยกอีกต่อไป
 
 ---
 
@@ -3478,6 +3509,13 @@ cat src/*.ts | claude -p "หา Bug"
 - **การ์ดอนุมัติแผนมีตัวเลือก auto mode (VS Code)** — ถ้า auto mode ใช้ได้ ตัวเลือกแรกจะเป็น "Yes, and use auto mode" เหมือนในเทอร์มินัล
 - **"Open in New Tab" เปิดข้าง editor group ที่เราทำงานอยู่ (VS Code)** — แทนที่จะไปต่อท้าย group สุดท้าย
 
+### 🆕 ใหม่ใน v2.1.286
+
+- **Bookmarks (VS Code)** — บันทึกคำตอบของ Claude ไว้แล้วเปิดดูได้ตลอดใน side panel ชื่อ Bookmarks
+- **Stop และ Escape หยุดแค่ turn ปัจจุบัน (VS Code)** — background agent ยังรันต่อ และสั่งหยุดทีละตัวได้จาก agent map
+- **คำถามที่ตอบแล้วอยู่ในบทสนทนา (VS Code)** — หลังตอบการ์ดคำถาม จะมีแถว Questions แสดงแต่ละคำถามพร้อมตัวเลือกที่เราเลือก · การ์ดคำถามยังแสดง preview mockup หรือ snippet ของตัวเลือกที่ไฮไลต์อยู่ด้วย
+- **ปุ่ม "✻ Claude Code" บน status bar แสดงทุกหน้าต่าง (VS Code)** — เปิด Claude ได้แม้ไม่ได้เปิดไฟล์ไหนอยู่
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**
@@ -3641,6 +3679,11 @@ claude --plugin-dir ./my-plugin
 - **`claude plugin configure <plugin>`** — แสดง option ของ plugin และบอกว่าตัวไหนยังไม่ได้ตั้ง หรือบันทึกค่าใหม่ที่อ่านจาก stdin ด้วย `--values-stdin`
 - **`claude plugin install --config <server>.<key>=<value>`** — ตั้งค่าของ MCP server แบบ `.mcpb` ที่มากับ plugin ได้ตั้งแต่ตอนติดตั้ง ทำให้ server เริ่มทำงานได้เลยโดยไม่ต้องเข้า `/plugin` → Configure
 - **server `.mcpb` ที่ยังไม่ได้ตั้งค่าไม่ถูกข้ามเงียบ ๆ อีก** — `/plugin`, ข้อความตอนติดตั้ง และ `claude plugin install` จะบอกเมื่อ MCP server แบบ `.mcpb` ที่มากับ plugin ยังต้องตั้งค่า พร้อมชี้ไปที่ Configure
+
+### 🆕 ใหม่ใน v2.1.286
+
+- **source แบบ npm ของ plugin เข้มขึ้น** — การติดตั้ง plugin ปฏิเสธ npm source ที่เป็น git repository หรือโฟลเดอร์ และติดตั้ง dependency ของ plugin จาก package บน registry เท่านั้น
+- **error ของ marketplace ที่ถูกปฏิเสธชัดขึ้น** — error ของ plugin จาก marketplace ที่ Claude Code ไม่ยอมโหลด จะบอกเหตุผลและวิธีแก้ แทนที่จะขึ้นแค่ "not found"
 
 ---
 
@@ -5387,7 +5430,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.285`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.286`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

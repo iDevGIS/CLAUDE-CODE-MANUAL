@@ -160,6 +160,11 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **`claude plugin install --config <server>.<key>=<value>`** — ตั้งค่าของ MCP server แบบ `.mcpb` ที่มากับ plugin ได้ตั้งแต่ตอนติดตั้ง ทำให้ server เริ่มทำงานได้เลยโดยไม่ต้องเข้า `/plugin` → Configure ดู [[09-mcp-servers]]
 - **server `.mcpb` ที่ยังไม่ได้ตั้งค่าไม่ถูกข้ามเงียบ ๆ อีก** — `/plugin`, ข้อความตอนติดตั้ง และ `claude plugin install` จะบอกเมื่อ MCP server แบบ `.mcpb` ที่มากับ plugin ยังต้องตั้งค่า พร้อมชี้ไปที่ Configure
 
+### 🆕 ใหม่ใน v2.1.286
+
+- **source แบบ npm ของ plugin เข้มขึ้น** — การติดตั้ง plugin ปฏิเสธ npm source ที่เป็น git repository หรือโฟลเดอร์ และติดตั้ง dependency ของ plugin จาก package บน registry เท่านั้น
+- **error ของ marketplace ที่ถูกปฏิเสธชัดขึ้น** — error ของ plugin จาก marketplace ที่ Claude Code ไม่ยอมโหลด จะบอกเหตุผลและวิธีแก้ แทนที่จะขึ้นแค่ "not found"
+
 ---
 
 ---

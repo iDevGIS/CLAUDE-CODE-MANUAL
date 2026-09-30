@@ -206,6 +206,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **telemetry ของ `hook_execution_complete` ละเอียดขึ้น** — OpenTelemetry event นี้แนบขนาด output ของ hook และจำนวน output ที่ใหญ่เกินจนต้องเซฟลงไฟล์มาให้ด้วยแล้ว ดู [[23-environment-variables]]
 - **hook `UserPromptSubmit` ที่ timeout จะบอกชื่อ** — ทั้งข้อความแจ้ง timeout และ debug log ระบุแล้วว่าคำสั่ง hook ตัวไหนที่ timeout
 
+#### 🆕 ใหม่ใน v2.1.286
+
+- **`/hooks` เปิดมาเป็นรายการเดียวจัดกลุ่มตาม event** — เปิดมาเจอรายการ hook ที่ตั้งไว้ทั้งหมดจัดกลุ่มตาม event เลย ดู hook หนึ่งตัวกด Enter ครั้งเดียวแทนสามครั้ง ดู [[03-slash-commands]]
+
 ---
 
 ---

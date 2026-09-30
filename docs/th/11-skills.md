@@ -203,6 +203,11 @@ my-skill/
 - **`/doctor prompt-audit`** ตรวจ skill (รวมถึงไฟล์ CLAUDE.md, agent และ command) ว่ามีแพทเทิร์น prompt ที่เขียนไว้สำหรับโมเดลรุ่นเก่าหรือเปล่า ดู [[03-slash-commands]]
 - **skill ของ plugin ที่โหลดไม่ขึ้น** — Claude จะบอกว่า plugin โหลดไม่ได้ แทนที่จะบอกว่า skill ไม่ได้ติดตั้ง
 
+### 🆕 ใหม่ใน v2.1.286
+
+- **skill ชื่อ `verify` จะถูกรันก่อน commit** — ถ้าใน skill ระดับ project หรือ user มีตัวที่ชื่อ `verify` Claude จะถูกบอกให้รันมันก่อน commit ทุกครั้ง ยกเว้น commit ที่แก้แค่ docs หรือแค่ tests ดู [[15-git-integration]]
+- **คำแนะนำ slash command match ด้วย prefix ของคำ** — รายการแนะนำยังลื่นแม้ติดตั้ง skill หรือ plugin command ไว้เยอะ และคำอธิบายของ command match ด้วย prefix ของคำแล้ว
+
 ---
 
 ---

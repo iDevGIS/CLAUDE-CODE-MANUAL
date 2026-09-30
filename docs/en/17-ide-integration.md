@@ -75,6 +75,13 @@ related:
 - **The plan approval card offers auto mode (VS Code)** — when auto mode is available, its first option is now "Yes, and use auto mode", as in the terminal. See [[05-permissions]].
 - **"Open in New Tab" opens beside your editor group (VS Code)** — rather than after the last group.
 
+### New in v2.1.286
+
+- **Bookmarks (VS Code)** — save Claude's responses and keep them in view in a Bookmarks side panel.
+- **Stop and Escape end only the current turn (VS Code)** — background agents keep running and can be stopped one by one from the agent map. See [[41-background-agents]].
+- **Answered questions stay in the conversation (VS Code)** — after you answer a question card, a Questions row shows each question with your picks; question cards also preview the highlighted option's mockup or snippet.
+- **The "✻ Claude Code" status bar item shows in every window (VS Code)** — so you can open Claude when no file is open.
+
 ### JetBrains IDEs
 
 **Install:**

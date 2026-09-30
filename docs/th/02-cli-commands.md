@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.285         │
+│ Welcome to Claude Code v2.1.286         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -641,6 +641,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **`claude plugin configure <plugin>`** — แสดง option ของ plugin และบอกว่าตัวไหนยังไม่ได้ตั้ง หรือบันทึกค่าใหม่ที่อ่านจาก stdin ด้วย `--values-stdin` ดู [[18-plugins]]
 - **`claude plugin install --config <server>.<key>=<value>`** — ตั้งค่าของ MCP server แบบ `.mcpb` ที่มากับ plugin ได้ตั้งแต่ตอนติดตั้ง ทำให้ server เริ่มทำงานได้เลยโดยไม่ต้องเข้า `/plugin` → Configure
 
+### 🆕 ใหม่ใน v2.1.286
+
+- **`--bare` เบาลงอีก** — เชื่อมต่อเฉพาะ MCP server ที่ระบุใน command line, ไม่ส่ง system reminder ให้โมเดล และไม่เริ่ม background task ใด ๆ · ภายใต้ `--bare` คำสั่ง shell ที่ถึง timeout จะหยุดทันทีแทนที่จะย้ายไปรันเบื้องหลัง
+- **`claude auth status` รายงาน `api_key` สำหรับการ sign-in ผ่าน Console** — เดิม API key ที่เก็บไว้จากการ sign-in ผ่าน Console ถูกรายงานเป็น `claude.ai` ตอนนี้รายงานเป็น `api_key` แล้ว
+- **`claude ultrareview` ไม่แสดงลิงก์เบราว์เซอร์แล้ว** — `/ultrareview` ก็เช่นกัน
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1012,7 +1018,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.285
+- run: npm install -g @anthropic-ai/claude-code@2.1.286
 ```
 
 ---
