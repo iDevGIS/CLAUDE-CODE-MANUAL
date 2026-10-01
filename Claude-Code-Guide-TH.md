@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.286         │
+│ Welcome to Claude Code v2.1.287         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1082,7 +1082,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.286
+- run: npm install -g @anthropic-ai/claude-code@2.1.287
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1769,6 +1769,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **prompt ขอ permission ที่ซ้อนกันมีตัวนับ** — เมื่อมี permission request ค้างซ้อนกันหลายอัน prompt จะแสดงตัวนับอย่าง "2 of 5"
 - **ลิงก์ artifact ของ claude.ai ใน WebFetch ถามแบบเดียวกับ Artifact tool** — ไม่ถามเลยถ้า session เปิด network access อยู่ และถามหนึ่งครั้งต่อ artifact ถ้าปิดอยู่ · การกด yes ของ auto mode ไม่นับแล้วในจุดที่มีแต่เราเท่านั้นที่ตอบได้
 
+### 🆕 ใหม่ใน v2.1.287
+- **allow rule แบบทั้ง tool ของ `Bash` ไม่ครอบการเขียนไฟล์ต้องห้ามแล้ว** — allow rule ที่อนุญาต `Bash` ทั้ง tool หรือ hook ที่ตอบอนุญาต จะถามก่อนแทนที่จะรันเลย เมื่อคำสั่ง shell จะเขียนลงไฟล์ที่ file tool ของ Claude Code ปฏิเสธเด็ดขาด (เช่น profile store ของ Anthropic หรือไฟล์ credential ของเครื่อง)
+- **การเขียนผ่าน symlink บอกปลายทาง** — คำสั่ง shell ที่เขียนผ่าน symlink ที่ commit ไว้ใน repo ไปลงไฟล์สำคัญหรือออกนอก working tree จะบอกว่าไปลงที่ไหนแล้วรอคนตัดสิน รวมถึงบรรทัดที่มีปลายทางเป็น `~` ด้วย
+- **prompt ที่รออยู่เรียงจากเก่าสุดก่อน** — prompt ใหม่ไม่บังอันที่เรากำลังอ่านอยู่อีก · prompt ที่มีนับถอยหลังยังเด้งขึ้นบนสุดเหมือนเดิม
+- **Windows: เตือนเมื่อ deny Bash แล้ว PowerShell ปิดตามไปด้วย** — ตอนเปิดโปรแกรม Claude Code จะเตือนถ้าการ deny tool Bash ทำให้ tool PowerShell ถูกปิดไปด้วย จน Claude ไม่เหลือ shell tool ให้ใช้
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2071,6 +2077,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **retry มีโควตาเดียวต่อการเรียกโมเดลหนึ่งครั้ง** — ลิมิตเดียวครอบทั้งการเรียกโมเดลครั้งนั้น ถ้าใช้ค่า retry เริ่มต้น การเรียกที่ล้มจะส่ง request ได้มากสุด 14 ครั้ง
 - **โมเดลที่ถูกปฏิเสธจะถอยหนึ่งครั้ง** — เมื่อ Anthropic API ปฏิเสธโมเดลที่ค่า default หรือ model alias ชี้ไป Claude Code จะลองใหม่หนึ่งครั้งด้วยโมเดลรุ่นก่อนหน้าใน tier เดียวกัน แทนที่จะล้มทุก turn
 - **ข้อความแจ้ง fallback บอกเรื่อง context window** — ข้อความแจ้ง model fallback และ error autocompact-thrashing จะบอกเมื่อการ fallback ทำให้ context window ลดจาก 1M เหลือ 200K token
+
+### 🆕 ใหม่ใน v2.1.287
+
+- **context 1M เป็นค่าเริ่มต้นบน Bedrock, Vertex, Foundry และ Claude apps gateway** — Opus 4.7 ขึ้นไปและ Fable ใช้ context window 1M เป็นค่าเริ่มต้นบน provider เหล่านี้แล้ว โดยไม่ต้องเติม `[1m]` · ตั้ง `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` ถ้าต้องการคงไว้ที่ 200K (ดูบท 23 Environment Variables)
+- **การสลับโมเดลอัตโนมัติคง effort level เดิม** — หลังข้อความถูก flag การสลับโมเดลอัตโนมัติจะคง effort level ปัจจุบันไว้ แทนที่จะใช้ค่าเริ่มต้นของโมเดลใหม่
+- **event `user_prompt` ของ OpenTelemetry มี `prompt_text`** — เป็นสำเนาของ `prompt` สำหรับ backend ที่แตก key ที่มีจุดเป็นชั้นซ้อน · ถ้าเคย drop หรือ mask `prompt` ไว้ที่ไหน ให้ทำกับ `prompt_text` ด้วย
 
 ---
 
@@ -2484,6 +2496,11 @@ claude --mcp-config ./mcp.json
 - **`/mcp reconnect all`** — ใน terminal แบบ interactive สั่งลองต่อใหม่ทุก MCP server ที่ต่อไม่ติดหรือรอ authentication ในทีเดียว
 - **turn แรกแบบ non-interactive ยังรอ server ที่ระบุชื่อไว้** — MCP server ที่ถูกอ้างใน `--allowedTools` หรือใน hook แบบ `mcp_tool` ได้เวลาต่อสูงสุด 2 วินาที แม้ตั้ง `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` เป็น `0` (ดูบท 23 Environment Variables)
 
+### 🆕 ใหม่ใน v2.1.287
+
+- **URL prompt บน protocol 2025-11-25** — MCP server ที่ใช้ protocol 2025-11-25 แสดง URL prompt ได้แล้ว เช่น ให้ไป sign in · ถ้า server ต่อไม่ติดหลังอัปเดตนี้ ให้เพิ่ม `"bareElicitationCapability": true` ใน entry ของ server นั้นใน MCP config
+- **`alwaysLoad: false` defer ทั้ง server** — ตั้งค่านี้ที่ MCP server แล้ว tool ทุกตัวของ server นั้นจะถูก defer ไว้หลัง tool search
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -2875,6 +2892,10 @@ my-skill/
 - **skill ชื่อ `verify` จะถูกรันก่อน commit** — ถ้าใน skill ระดับ project หรือ user มีตัวที่ชื่อ `verify` Claude จะถูกบอกให้รันมันก่อน commit ทุกครั้ง ยกเว้น commit ที่แก้แค่ docs หรือแค่ tests (ดูบท 15 Git Integration)
 - **คำแนะนำ slash command match ด้วย prefix ของคำ** — รายการแนะนำยังลื่นแม้ติดตั้ง skill หรือ plugin command ไว้เยอะ และคำอธิบายของ command match ด้วย prefix ของคำแล้ว
 
+### 🆕 ใหม่ใน v2.1.287
+
+- **ชื่อ `/skill` ที่พิมพ์กลางข้อความถูกรู้จักว่าเป็น skill** — Claude จะถูกบอกว่าชื่อ `/skill` ที่พิมพ์ไว้กลางข้อความคือ skill รวมถึง skill ที่ตั้ง `disable-model-invocation` ด้วย
+
 ---
 
 ## 12. Subagents (ตัวช่วยเฉพาะทาง)
@@ -3064,6 +3085,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **send now (ctrl+enter) ย้ายคำสั่งที่รันอยู่ไปเบื้องหลัง** — ในหน้าจอของ subagent จะย้ายคำสั่งที่ subagent รันอยู่ไปเบื้องหลัง เพื่อให้ข้อความของเราถูกอ่านทันที · ส่วนคำสั่ง shell ของ skill เองก็ถูกย้ายไปเบื้องหลังแทนที่จะถูกหยุด
 - **`/compact`, `/clear` และ `/rewind` ถามก่อนเมื่ออยู่ในหน้าจอของ agent** — ถ้าพิมพ์ตอนกำลังดู transcript ของ background agent หรือ teammate จะขึ้น dialog บอกเป้าหมายและถามก่อน แทนที่จะไปทำกับบทสนทนาหลักเงียบ ๆ
 - **ไม่มีสรุปซ้ำในคำตอบ** — คำตอบของ background agent ต่อข้อความของเราไม่ขึ้นต้นด้วยการสรุปสิ่งที่เราพูดแยกอีกต่อไป
+
+### 🆕 ใหม่ใน v2.1.287
+
+- **filter `n:<text>` ในหน้า agents** — match ทั้งชื่อ session และ task · เวลาใช้ filter จะแสดงผลที่ match ใน section ที่ยุบอยู่ด้วย และกด Enter เปิดตัวแรกที่ match ได้เลย
+- **คำตอบจาก `claude agents` มาเป็น queued message** — และ slash command อื่นที่ไม่ใช่ `/stop` ที่ส่งระหว่าง turn กำลังรัน จะรันเมื่อ turn นั้นจบ
 
 ---
 
@@ -3516,6 +3542,12 @@ cat src/*.ts | claude -p "หา Bug"
 - **คำถามที่ตอบแล้วอยู่ในบทสนทนา (VS Code)** — หลังตอบการ์ดคำถาม จะมีแถว Questions แสดงแต่ละคำถามพร้อมตัวเลือกที่เราเลือก · การ์ดคำถามยังแสดง preview mockup หรือ snippet ของตัวเลือกที่ไฮไลต์อยู่ด้วย
 - **ปุ่ม "✻ Claude Code" บน status bar แสดงทุกหน้าต่าง (VS Code)** — เปิด Claude ได้แม้ไม่ได้เปิดไฟล์ไหนอยู่
 
+### 🆕 ใหม่ใน v2.1.287
+
+- **"Run in background" (VS Code)** — ย้ายคำสั่งหรือ subagent ที่กำลังรันไปเบื้องหลังแล้วทำงานต่อได้เลย
+- **background shell และ Monitor ใน agent map (VS Code)** — output ของมันแสดงบนการ์ดใน agent map แล้ว
+- **สวิตช์ "Enabled by default" ของ Claude in Chrome ครอบ session ของ editor ด้วย (VS Code)** — สวิตช์นี้เชื่อม session ของ editor เองด้วยแล้ว แต่ยังถามก่อนทำ action บนเบราว์เซอร์
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**
@@ -3684,6 +3716,12 @@ claude --plugin-dir ./my-plugin
 
 - **source แบบ npm ของ plugin เข้มขึ้น** — การติดตั้ง plugin ปฏิเสธ npm source ที่เป็น git repository หรือโฟลเดอร์ และติดตั้ง dependency ของ plugin จาก package บน registry เท่านั้น
 - **error ของ marketplace ที่ถูกปฏิเสธชัดขึ้น** — error ของ plugin จาก marketplace ที่ Claude Code ไม่ยอมโหลด จะบอกเหตุผลและวิธีแก้ แทนที่จะขึ้นแค่ "not found"
+
+### 🆕 ใหม่ใน v2.1.287
+
+- **Claude Mods** — plugin ปรับพฤติกรรมเชิงลึกของ Claude Code ได้แล้ว
+- **mod ในตัว "You should know"** — มี side agent คอยระวังหลังให้ และ flag สิ่งที่เราหรือ Claude อาจมองข้าม · เปิดด้วย `/plugin enable cc-plugin-you-should-know@builtin` (สำหรับ session first-party ที่เปิด telemetry)
+- **รายการ plugin บอกเมื่อ dependency ยังไม่ได้ติดตั้ง** — และการอัปเดต plugin จะลองติดตั้งที่ค้างไม่เสร็จใหม่ให้ · error ของ marketplace บอกเป็นภาษาคนว่าทำไม marketplace ถูกข้ามหรือถูกปฏิเสธ และต้องทำอะไรต่อ
 
 ---
 
@@ -4103,6 +4141,7 @@ your-project/
 | `OTEL_LOG_TOOL_CONTENT` | ตั้ง `1` เพื่อใส่เนื้อหาของ tool ลงใน span event `tool.output` ของ OpenTelemetry · ตั้งแต่ v2.1.283 ครอบผลลัพธ์ของ MCP tool, WebFetch และ WebSearch ด้วย *(เปลี่ยน v2.1.283)* |
 | `CLAUDE_CODE_DISABLE_WEB_FETCH` | ตั้ง `1` เพื่อปิด tool WebFetch *(v2.1.285)* |
 | `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | จำกัดจำนวนครั้งที่ส่ง request แบบ non-streaming fallback ซ้ำเมื่อหมดเวลา *(v2.1.285)* |
+| `CLAUDE_AX_PREPARK_MS` | screen reader mode เขียนบรรทัดใหม่หรือบรรทัดที่เปลี่ยนโดยไม่หยุดพักให้ cursor ไปรอที่ต้นบรรทัดก่อนแล้ว · ตั้ง `50` เพื่อให้กลับมาหยุดพักเหมือนเดิม *(v2.1.287)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5430,7 +5469,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.286`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.287`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

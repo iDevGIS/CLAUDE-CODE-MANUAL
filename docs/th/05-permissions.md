@@ -284,6 +284,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **prompt ขอ permission ที่ซ้อนกันมีตัวนับ** — เมื่อมี permission request ค้างซ้อนกันหลายอัน prompt จะแสดงตัวนับอย่าง "2 of 5"
 - **ลิงก์ artifact ของ claude.ai ใน WebFetch ถามแบบเดียวกับ Artifact tool** — ไม่ถามเลยถ้า session เปิด network access อยู่ และถามหนึ่งครั้งต่อ artifact ถ้าปิดอยู่ · การกด yes ของ auto mode ไม่นับแล้วในจุดที่มีแต่เราเท่านั้นที่ตอบได้
 
+### 🆕 ใหม่ใน v2.1.287
+- **allow rule แบบทั้ง tool ของ `Bash` ไม่ครอบการเขียนไฟล์ต้องห้ามแล้ว** — allow rule ที่อนุญาต `Bash` ทั้ง tool หรือ hook ที่ตอบอนุญาต จะถามก่อนแทนที่จะรันเลย เมื่อคำสั่ง shell จะเขียนลงไฟล์ที่ file tool ของ Claude Code ปฏิเสธเด็ดขาด (เช่น profile store ของ Anthropic หรือไฟล์ credential ของเครื่อง)
+- **การเขียนผ่าน symlink บอกปลายทาง** — คำสั่ง shell ที่เขียนผ่าน symlink ที่ commit ไว้ใน repo ไปลงไฟล์สำคัญหรือออกนอก working tree จะบอกว่าไปลงที่ไหนแล้วรอคนตัดสิน รวมถึงบรรทัดที่มีปลายทางเป็น `~` ด้วย
+- **prompt ที่รออยู่เรียงจากเก่าสุดก่อน** — prompt ใหม่ไม่บังอันที่เรากำลังอ่านอยู่อีก · prompt ที่มีนับถอยหลังยังเด้งขึ้นบนสุดเหมือนเดิม
+- **Windows: เตือนเมื่อ deny Bash แล้ว PowerShell ปิดตามไปด้วย** — ตอนเปิดโปรแกรม Claude Code จะเตือนถ้าการ deny tool Bash ทำให้ tool PowerShell ถูกปิดไปด้วย จน Claude ไม่เหลือ shell tool ให้ใช้
+
 ---
 
 ---

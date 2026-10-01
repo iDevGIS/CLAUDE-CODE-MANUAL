@@ -198,6 +198,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **`/mcp reconnect all`** — in the interactive terminal, retries every MCP server that failed to connect or needs authentication at once. See [[03-slash-commands]].
 - **The non-interactive first turn still waits for servers you named** — MCP servers named by `--allowedTools` or an `mcp_tool` hook get up to 2s to connect even when `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` is `0`. See [[23-environment-variables]].
 
+### New in v2.1.287
+
+- **URL prompts on the 2025-11-25 protocol** — MCP servers on the 2025-11-25 protocol can now show URL prompts, for example to sign in. If a server no longer connects after this update, add `"bareElicitationCapability": true` to its MCP config entry.
+- **`alwaysLoad: false` defers the whole server** — setting it on an MCP server now defers all of that server's tools behind tool search.
+
 ---
 
 ---

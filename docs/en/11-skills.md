@@ -208,6 +208,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **A `verify` skill runs before commits** — when your project or user skills include one named `verify`, Claude is told to run it right before committing, except for docs-only and tests-only commits. See [[15-git-integration]].
 - **Slash command suggestions match by word prefix** — suggestions stay responsive with many skills or plugin commands installed, and command descriptions now match by word prefix.
 
+### New in v2.1.287
+
+- **`/skill` names typed mid-message are recognized** — Claude is now told that a `/skill` name typed in the middle of a message is a skill, including skills with `disable-model-invocation`.
+
 ---
 
 ---

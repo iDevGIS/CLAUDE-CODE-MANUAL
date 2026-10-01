@@ -25,6 +25,30 @@
 
 ---
 
+## [1.80.0] — 2026-10-02
+
+### Compatibility
+- **Claude Code:** `v2.1.287+`
+
+### Added
+- **allow rule แบบทั้ง tool ของ `Bash` / hook ที่อนุญาต ถามก่อนเขียนไฟล์ต้องห้าม** + **เขียนผ่าน symlink ที่ commit ไว้บอกปลายทางและรอคน** + **prompt ที่รอเรียงจากเก่าสุด** + **Windows เตือนเมื่อ deny Bash แล้ว PowerShell ปิดตาม** — บท 05 (Permissions) EN+TH
+- **Opus 4.7+ และ Fable ใช้ context 1M เป็นค่าเริ่มต้นบน Bedrock/Vertex/Foundry/Claude apps gateway ไม่ต้องมี `[1m]`** + **สลับโมเดลอัตโนมัติคง effort level** + **OpenTelemetry `user_prompt` มี `prompt_text`** — บท 06 (Configuration) EN+TH
+- **MCP URL prompt บน protocol 2025-11-25 + `bareElicitationCapability`** + **`alwaysLoad: false` defer tool ทั้ง server** — บท 09 (MCP) EN+TH
+- **ชื่อ `/skill` ที่พิมพ์กลางข้อความถูกบอกว่าเป็น skill (รวม `disable-model-invocation`)** — บท 11 (Skills) EN+TH
+- **filter `n:<text>` ในหน้า agents** + **คำตอบจาก `claude agents` มาเป็น queued message / slash command ยกเว้น `/stop` รันเมื่อ turn จบ** — บท 41 (Background agents) + บท 12 ใน guide EN+TH
+- **VS Code: "Run in background", output ของ background shell/Monitor ใน agent map, สวิตช์ Claude in Chrome "Enabled by default" ครอบ session ของ editor** — บท 17 (IDE) EN+TH
+- **Claude Mods** + **mod ในตัว "You should know" (`/plugin enable cc-plugin-you-should-know@builtin`)** + **รายการ plugin บอก dependency ที่ยังไม่ติดตั้ง** — บท 18 (Plugins) EN+TH
+- **`CLAUDE_AX_PREPARK_MS`** — แถวใหม่ในตาราง env var บท 23 EN+TH
+- **แถว What's-new ของ `v2.1.287`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.286` → `2.1.287` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.287` ส่วนใหญ่เป็น bug fix (screen reader mode, Remote Control, cloud sessions, MCP, VS Code, Claude Tag, Code Review) และ UI polish (`/config`, `/memory`, prompt border, permission prompt) ซึ่งข้ามตามกติกา · ไม่มี model lineup เปลี่ยน · ของที่คัดมาคือ Claude Mods + mod "You should know", ค่าเริ่มต้น context 1M บน cloud provider, การเปลี่ยนพฤติกรรม permission ของ shell write, MCP URL prompt/`alwaysLoad`, agents view และฟีเจอร์ใหม่ของ VS Code
+
+---
+
 ## [1.79.0] — 2026-10-01
 
 ### Compatibility
@@ -1798,6 +1822,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.80.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.79.0...v1.80.0
 [1.79.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.78.0...v1.79.0
 [1.78.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.77.0...v1.78.0
 [1.77.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.76.0...v1.77.0

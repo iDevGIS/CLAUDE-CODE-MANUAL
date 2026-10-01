@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.286         │
+│ Welcome to Claude Code v2.1.287         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.286
+- run: npm install -g @anthropic-ai/claude-code@2.1.287
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1775,6 +1775,12 @@ Skill(commit)                    # Specific skill
 - **Stacked permission prompts show a count** — when several permission requests stack up, the prompt shows a count such as "2 of 5".
 - **claude.ai artifact links in WebFetch ask like the Artifact tool** — no prompt while the session's network access is on, one per artifact while it is off; an auto-mode approval no longer counts where only you can answer.
 
+### New in v2.1.287
+- **Whole-tool `Bash` allow rules no longer cover writes to refused files** — a whole-tool `Bash` allow rule or an allowing hook now prompts for, instead of running, a shell write to a file Claude Code's file tools refuse outright (the Anthropic profile store, the host credentials file).
+- **Symlink writes name where they land** — a shell write through a repo-committed symlink onto a sensitive file or out of the working tree names its destination and waits for a person, on lines with a `~` target too.
+- **Waiting prompts show oldest first** — a new permission prompt no longer covers the one you're reading; prompts with a countdown still open on top.
+- **Windows: warning when denying Bash also turns off PowerShell** — Claude Code warns at startup when a deny on the Bash tool also turns off the PowerShell tool, leaving Claude with no shell tool.
+
 ---
 
 ## 6. Configuration
@@ -2077,6 +2083,12 @@ Skill(commit)                    # Specific skill
 - **One retry budget per model call** — one limit now covers a whole model call, so with the default retry settings a failing call sends at most 14 requests.
 - **A refused model falls back once** — when the Anthropic API refuses the model your default or a model alias resolves to, Claude Code retries once on the previous model of the same tier instead of failing every turn.
 - **Fallback notices mention the context window** — the model fallback notice and the autocompact-thrashing error say when a fallback dropped the context window from 1M to 200K tokens.
+
+### New in v2.1.287
+
+- **1M context by default on Bedrock, Vertex, Foundry and the Claude apps gateway** — Opus 4.7+ and Fable now use a 1M context window there by default, with no `[1m]` suffix; `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` keeps 200K (see 23. Environment Variables).
+- **Automatic model switches keep your effort level** — after a flagged message, an automatic model switch keeps your current effort level instead of the new model's default.
+- **OpenTelemetry `user_prompt` gains `prompt_text`** — a copy of `prompt` for backends that nest dotted keys; drop or mask it wherever you drop or mask `prompt`.
 
 ---
 
@@ -2491,6 +2503,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **`/mcp reconnect all`** — in the interactive terminal, retries every MCP server that failed to connect or needs authentication at once.
 - **The non-interactive first turn still waits for servers you named** — MCP servers named by `--allowedTools` or an `mcp_tool` hook get up to 2s to connect even when `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` is `0` (see 23. Environment Variables).
 
+### New in v2.1.287
+
+- **URL prompts on the 2025-11-25 protocol** — MCP servers on the 2025-11-25 protocol can now show URL prompts, for example to sign in. If a server no longer connects after this update, add `"bareElicitationCapability": true` to its MCP config entry.
+- **`alwaysLoad: false` defers the whole server** — setting it on an MCP server now defers all of that server's tools behind tool search.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -2882,6 +2899,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **A `verify` skill runs before commits** — when your project or user skills include one named `verify`, Claude is told to run it right before committing, except for docs-only and tests-only commits (see 15. Git Integration).
 - **Slash command suggestions match by word prefix** — suggestions stay responsive with many skills or plugin commands installed, and command descriptions now match by word prefix.
 
+### New in v2.1.287
+
+- **`/skill` names typed mid-message are recognized** — Claude is now told that a `/skill` name typed in the middle of a message is a skill, including skills with `disable-model-invocation`.
+
 ---
 
 ## 12. Subagents (Specialized Helpers)
@@ -3071,6 +3092,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Send now (ctrl+enter) backgrounds the running command** — in a subagent's view it moves the subagent's running command to the background so your message is read right away; for a skill's own shell command it now moves it to the background instead of ending it.
 - **`/compact`, `/clear` and `/rewind` ask first in an agent's view** — typed while viewing a background agent's or teammate's transcript, they open a dialog naming the target instead of silently acting on the main conversation.
 - **No recap in replies** — background agents' replies to your messages no longer open with a separate recap of what you said.
+
+### New in v2.1.287
+
+- **`n:<text>` filter in the agents view** — matches session names and tasks; a filter now shows matches in collapsed sections, and Enter opens the first match.
+- **Replies from `claude agents` arrive as queued messages** — and slash commands other than `/stop` sent while a turn is running now run when it ends.
 
 ---
 
@@ -3527,6 +3553,12 @@ cat src/*.ts | claude -p "find bugs"
 - **Answered questions stay in the conversation (VS Code)** — after you answer a question card, a Questions row shows each question with your picks; question cards also preview the highlighted option's mockup or snippet.
 - **The "✻ Claude Code" status bar item shows in every window (VS Code)** — so you can open Claude when no file is open.
 
+### New in v2.1.287
+
+- **"Run in background" (VS Code)** — move a running command or subagent to the background and keep working.
+- **Background shells and Monitors in the agent map (VS Code)** — their output now shows on their cards.
+- **Claude in Chrome "Enabled by default" covers the editor's sessions (VS Code)** — the switch now also connects the editor's own sessions, which still ask before browser actions.
+
 ### JetBrains IDEs
 
 **Install:**
@@ -3695,6 +3727,12 @@ claude --plugin-dir ./my-plugin
 
 - **Stricter npm plugin sources** — plugin installs refuse npm sources that are git repositories or folders, and install plugin dependencies only from registry packages.
 - **Clearer errors for a refused marketplace** — plugin errors for a marketplace Claude Code refuses to load now say why and how to fix it instead of "not found".
+
+### New in v2.1.287
+
+- **Claude Mods** — plugins may now modify deeper behavior.
+- **"You should know" built-in mod** — a side agent watches your back and flags things you or Claude might miss; turn it on with `/plugin enable cc-plugin-you-should-know@builtin` (first-party sessions with telemetry on).
+- **Plugin listings note missing dependencies** — and updating a plugin now retries an install that did not finish; marketplace errors say in plain words why a marketplace was ignored or refused and what to do.
 
 ---
 
@@ -4114,6 +4152,7 @@ your-project/
 | `OTEL_LOG_TOOL_CONTENT` | Set `1` to include tool content in the `tool.output` OpenTelemetry span event; since v2.1.283 this also covers MCP tool, WebFetch and WebSearch outputs. *(changed v2.1.283)* |
 | `CLAUDE_CODE_DISABLE_WEB_FETCH` | Set `1` to turn off the WebFetch tool. *(v2.1.285)* |
 | `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | Caps how many times a non-streaming fallback request that timed out is re-sent. *(v2.1.285)* |
+| `CLAUDE_AX_PREPARK_MS` | Screen reader mode now writes new or changed lines without first pausing with the cursor at the start of the line; set `50` to restore the pause. *(v2.1.287)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5444,7 +5483,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.286`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.287`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

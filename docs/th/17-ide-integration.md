@@ -82,6 +82,12 @@ related:
 - **คำถามที่ตอบแล้วอยู่ในบทสนทนา (VS Code)** — หลังตอบการ์ดคำถาม จะมีแถว Questions แสดงแต่ละคำถามพร้อมตัวเลือกที่เราเลือก · การ์ดคำถามยังแสดง preview mockup หรือ snippet ของตัวเลือกที่ไฮไลต์อยู่ด้วย
 - **ปุ่ม "✻ Claude Code" บน status bar แสดงทุกหน้าต่าง (VS Code)** — เปิด Claude ได้แม้ไม่ได้เปิดไฟล์ไหนอยู่
 
+### 🆕 ใหม่ใน v2.1.287
+
+- **"Run in background" (VS Code)** — ย้ายคำสั่งหรือ subagent ที่กำลังรันไปเบื้องหลังแล้วทำงานต่อได้เลย ดู [[41-background-agents]]
+- **background shell และ Monitor ใน agent map (VS Code)** — output ของมันแสดงบนการ์ดใน agent map แล้ว
+- **สวิตช์ "Enabled by default" ของ Claude in Chrome ครอบ session ของ editor ด้วย (VS Code)** — สวิตช์นี้เชื่อม session ของ editor เองด้วยแล้ว แต่ยังถามก่อนทำ action บนเบราว์เซอร์ ดู [[40-claude-in-chrome]]
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**

@@ -143,6 +143,11 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 - **`/compact`, `/clear` และ `/rewind` ถามก่อนเมื่ออยู่ในหน้าจอของ agent** — ถ้าพิมพ์ตอนกำลังดู transcript ของ background agent หรือ teammate จะขึ้น dialog บอกเป้าหมายและถามก่อน แทนที่จะไปทำกับบทสนทนาหลักเงียบ ๆ
 - **ไม่มีสรุปซ้ำในคำตอบ** — คำตอบของ background agent ต่อข้อความของเราไม่ขึ้นต้นด้วยการสรุปสิ่งที่เราพูดแยกอีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.287
+
+- **filter `n:<text>` ในหน้า agents** — match ทั้งชื่อ session และ task · เวลาใช้ filter จะแสดงผลที่ match ใน section ที่ยุบอยู่ด้วย และกด Enter เปิดตัวแรกที่ match ได้เลย
+- **คำตอบจาก `claude agents` มาเป็น queued message** — และ slash command อื่นที่ไม่ใช่ `/stop` ที่ส่งระหว่าง turn กำลังรัน จะรันเมื่อ turn นั้นจบ
+
 ---
 
 ---

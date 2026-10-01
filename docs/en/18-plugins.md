@@ -165,6 +165,12 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **Stricter npm plugin sources** — plugin installs refuse npm sources that are git repositories or folders, and install plugin dependencies only from registry packages.
 - **Clearer errors for a refused marketplace** — plugin errors for a marketplace Claude Code refuses to load now say why and how to fix it instead of "not found".
 
+### New in v2.1.287
+
+- **Claude Mods** — plugins may now modify deeper behavior.
+- **"You should know" built-in mod** — a side agent watches your back and flags things you or Claude might miss; turn it on with `/plugin enable cc-plugin-you-should-know@builtin` (first-party sessions with telemetry on).
+- **Plugin listings note missing dependencies** — and updating a plugin now retries an install that did not finish; marketplace errors say in plain words why a marketplace was ignored or refused and what to do.
+
 ---
 
 ---

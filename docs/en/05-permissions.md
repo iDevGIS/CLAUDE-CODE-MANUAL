@@ -255,6 +255,12 @@ Skill(commit)                    # Specific skill
 - **Stacked permission prompts show a count** — when several permission requests stack up, the prompt shows a count such as "2 of 5".
 - **claude.ai artifact links in WebFetch ask like the Artifact tool** — no prompt while the session's network access is on, one per artifact while it is off; an auto-mode approval no longer counts where only you can answer.
 
+### New in v2.1.287
+- **Whole-tool `Bash` allow rules no longer cover writes to refused files** — a whole-tool `Bash` allow rule or an allowing hook now prompts for, instead of running, a shell write to a file Claude Code's file tools refuse outright (the Anthropic profile store, the host credentials file).
+- **Symlink writes name where they land** — a shell write through a repo-committed symlink onto a sensitive file or out of the working tree names its destination and waits for a person, on lines with a `~` target too.
+- **Waiting prompts show oldest first** — a new permission prompt no longer covers the one you're reading; prompts with a countdown still open on top.
+- **Windows: warning when denying Bash also turns off PowerShell** — Claude Code warns at startup when a deny on the Bash tool also turns off the PowerShell tool, leaving Claude with no shell tool.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

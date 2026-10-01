@@ -326,6 +326,12 @@ related:
 - **โมเดลที่ถูกปฏิเสธจะถอยหนึ่งครั้ง** — เมื่อ Anthropic API ปฏิเสธโมเดลที่ค่า default หรือ model alias ชี้ไป Claude Code จะลองใหม่หนึ่งครั้งด้วยโมเดลรุ่นก่อนหน้าใน tier เดียวกัน แทนที่จะล้มทุก turn
 - **ข้อความแจ้ง fallback บอกเรื่อง context window** — ข้อความแจ้ง model fallback และ error autocompact-thrashing จะบอกเมื่อการ fallback ทำให้ context window ลดจาก 1M เหลือ 200K token
 
+### 🆕 ใหม่ใน v2.1.287
+
+- **context 1M เป็นค่าเริ่มต้นบน Bedrock, Vertex, Foundry และ Claude apps gateway** — Opus 4.7 ขึ้นไปและ Fable ใช้ context window 1M เป็นค่าเริ่มต้นบน provider เหล่านี้แล้ว โดยไม่ต้องเติม `[1m]` · ตั้ง `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` ถ้าต้องการคงไว้ที่ 200K ดู [[23-environment-variables]]
+- **การสลับโมเดลอัตโนมัติคง effort level เดิม** — หลังข้อความถูก flag การสลับโมเดลอัตโนมัติจะคง effort level ปัจจุบันไว้ แทนที่จะใช้ค่าเริ่มต้นของโมเดลใหม่
+- **event `user_prompt` ของ OpenTelemetry มี `prompt_text`** — เป็นสำเนาของ `prompt` สำหรับ backend ที่แตก key ที่มีจุดเป็นชั้นซ้อน · ถ้าเคย drop หรือ mask `prompt` ไว้ที่ไหน ให้ทำกับ `prompt_text` ด้วย
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

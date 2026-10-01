@@ -143,6 +143,11 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 - **`/compact`, `/clear` and `/rewind` ask first in an agent's view** — typed while viewing a background agent's or teammate's transcript, they open a dialog naming the target instead of silently acting on the main conversation.
 - **No recap in replies** — background agents' replies to your messages no longer open with a separate recap of what you said.
 
+### New in v2.1.287
+
+- **`n:<text>` filter in the agents view** — matches session names and tasks; a filter now shows matches in collapsed sections, and Enter opens the first match.
+- **Replies from `claude agents` arrive as queued messages** — and slash commands other than `/stop` sent while a turn is running now run when it ends.
+
 ---
 
 ---

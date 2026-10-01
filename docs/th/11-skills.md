@@ -208,6 +208,10 @@ my-skill/
 - **skill ชื่อ `verify` จะถูกรันก่อน commit** — ถ้าใน skill ระดับ project หรือ user มีตัวที่ชื่อ `verify` Claude จะถูกบอกให้รันมันก่อน commit ทุกครั้ง ยกเว้น commit ที่แก้แค่ docs หรือแค่ tests ดู [[15-git-integration]]
 - **คำแนะนำ slash command match ด้วย prefix ของคำ** — รายการแนะนำยังลื่นแม้ติดตั้ง skill หรือ plugin command ไว้เยอะ และคำอธิบายของ command match ด้วย prefix ของคำแล้ว
 
+### 🆕 ใหม่ใน v2.1.287
+
+- **ชื่อ `/skill` ที่พิมพ์กลางข้อความถูกรู้จักว่าเป็น skill** — Claude จะถูกบอกว่าชื่อ `/skill` ที่พิมพ์ไว้กลางข้อความคือ skill รวมถึง skill ที่ตั้ง `disable-model-invocation` ด้วย
+
 ---
 
 ---

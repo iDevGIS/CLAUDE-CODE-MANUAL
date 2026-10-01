@@ -82,6 +82,12 @@ related:
 - **Answered questions stay in the conversation (VS Code)** — after you answer a question card, a Questions row shows each question with your picks; question cards also preview the highlighted option's mockup or snippet.
 - **The "✻ Claude Code" status bar item shows in every window (VS Code)** — so you can open Claude when no file is open.
 
+### New in v2.1.287
+
+- **"Run in background" (VS Code)** — move a running command or subagent to the background and keep working. See [[41-background-agents]].
+- **Background shells and Monitors in the agent map (VS Code)** — their output now shows on their cards.
+- **Claude in Chrome "Enabled by default" covers the editor's sessions (VS Code)** — the switch now also connects the editor's own sessions, which still ask before browser actions. See [[40-claude-in-chrome]].
+
 ### JetBrains IDEs
 
 **Install:**

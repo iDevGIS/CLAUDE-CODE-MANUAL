@@ -165,6 +165,12 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **source แบบ npm ของ plugin เข้มขึ้น** — การติดตั้ง plugin ปฏิเสธ npm source ที่เป็น git repository หรือโฟลเดอร์ และติดตั้ง dependency ของ plugin จาก package บน registry เท่านั้น
 - **error ของ marketplace ที่ถูกปฏิเสธชัดขึ้น** — error ของ plugin จาก marketplace ที่ Claude Code ไม่ยอมโหลด จะบอกเหตุผลและวิธีแก้ แทนที่จะขึ้นแค่ "not found"
 
+### 🆕 ใหม่ใน v2.1.287
+
+- **Claude Mods** — plugin ปรับพฤติกรรมเชิงลึกของ Claude Code ได้แล้ว
+- **mod ในตัว "You should know"** — มี side agent คอยระวังหลังให้ และ flag สิ่งที่เราหรือ Claude อาจมองข้าม · เปิดด้วย `/plugin enable cc-plugin-you-should-know@builtin` (สำหรับ session first-party ที่เปิด telemetry)
+- **รายการ plugin บอกเมื่อ dependency ยังไม่ได้ติดตั้ง** — และการอัปเดต plugin จะลองติดตั้งที่ค้างไม่เสร็จใหม่ให้ · error ของ marketplace บอกเป็นภาษาคนว่าทำไม marketplace ถูกข้ามหรือถูกปฏิเสธ และต้องทำอะไรต่อ
+
 ---
 
 ---

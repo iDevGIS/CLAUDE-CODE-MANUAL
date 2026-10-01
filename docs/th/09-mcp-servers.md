@@ -198,6 +198,11 @@ claude --mcp-config ./mcp.json
 - **`/mcp reconnect all`** — ใน terminal แบบ interactive สั่งลองต่อใหม่ทุก MCP server ที่ต่อไม่ติดหรือรอ authentication ในทีเดียว ดู [[03-slash-commands]]
 - **turn แรกแบบ non-interactive ยังรอ server ที่ระบุชื่อไว้** — MCP server ที่ถูกอ้างใน `--allowedTools` หรือใน hook แบบ `mcp_tool` ได้เวลาต่อสูงสุด 2 วินาที แม้ตั้ง `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` เป็น `0` ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.287
+
+- **URL prompt บน protocol 2025-11-25** — MCP server ที่ใช้ protocol 2025-11-25 แสดง URL prompt ได้แล้ว เช่น ให้ไป sign in · ถ้า server ต่อไม่ติดหลังอัปเดตนี้ ให้เพิ่ม `"bareElicitationCapability": true` ใน entry ของ server นั้นใน MCP config
+- **`alwaysLoad: false` defer ทั้ง server** — ตั้งค่านี้ที่ MCP server แล้ว tool ทุกตัวของ server นั้นจะถูก defer ไว้หลัง tool search
+
 ---
 
 ---

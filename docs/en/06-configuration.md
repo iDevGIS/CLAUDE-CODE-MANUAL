@@ -326,6 +326,12 @@ Set the `model` key to any of these (newest → cheapest):
 - **A refused model falls back once** — when the Anthropic API refuses the model your default or a model alias resolves to, Claude Code retries once on the previous model of the same tier instead of failing every turn.
 - **Fallback notices mention the context window** — the model fallback notice and the autocompact-thrashing error say when a fallback dropped the context window from 1M to 200K tokens.
 
+### New in v2.1.287
+
+- **1M context by default on Bedrock, Vertex, Foundry and the Claude apps gateway** — Opus 4.7+ and Fable now use a 1M context window there by default, with no `[1m]` suffix; `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` keeps 200K. See [[23-environment-variables]].
+- **Automatic model switches keep your effort level** — after a flagged message, an automatic model switch keeps your current effort level instead of the new model's default.
+- **OpenTelemetry `user_prompt` gains `prompt_text`** — a copy of `prompt` for backends that nest dotted keys; drop or mask it wherever you drop or mask `prompt`.
+
 ---
 
 ---

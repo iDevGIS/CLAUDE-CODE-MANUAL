@@ -98,6 +98,7 @@ related:
 | `OTEL_LOG_TOOL_CONTENT` | ตั้ง `1` เพื่อใส่เนื้อหาของ tool ลงใน span event `tool.output` ของ OpenTelemetry · ตั้งแต่ v2.1.283 ครอบผลลัพธ์ของ MCP tool, WebFetch และ WebSearch ด้วย ดู [[09-mcp-servers]] *(เปลี่ยน v2.1.283)* |
 | `CLAUDE_CODE_DISABLE_WEB_FETCH` | ตั้ง `1` เพื่อปิด tool WebFetch *(v2.1.285)* |
 | `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | จำกัดจำนวนครั้งที่ส่ง request แบบ non-streaming fallback ซ้ำเมื่อหมดเวลา *(v2.1.285)* |
+| `CLAUDE_AX_PREPARK_MS` | screen reader mode เขียนบรรทัดใหม่หรือบรรทัดที่เปลี่ยนโดยไม่หยุดพักให้ cursor ไปรอที่ต้นบรรทัดก่อนแล้ว · ตั้ง `50` เพื่อให้กลับมาหยุดพักเหมือนเดิม *(v2.1.287)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
