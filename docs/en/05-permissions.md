@@ -261,6 +261,11 @@ Skill(commit)                    # Specific skill
 - **Waiting prompts show oldest first** — a new permission prompt no longer covers the one you're reading; prompts with a countdown still open on top.
 - **Windows: warning when denying Bash also turns off PowerShell** — Claude Code warns at startup when a deny on the Bash tool also turns off the PowerShell tool, leaving Claude with no shell tool.
 
+### New in v2.1.288
+- **Auto mode compacts instead of failing on long conversations** — when a conversation grows too long for the client-side safety classifier to review, it is now compacted instead of prompting for, or failing, every tool call.
+- **Auto mode classifier ignores a Sonnet 5.5 / Opus 5.5 pin** — the client-side classifier ignores an `ANTHROPIC_DEFAULT_SONNET_MODEL` pin that names Claude Sonnet 5.5 or Opus 5.5 and uses Claude Sonnet 5 instead.
+- **Dangerous `rm` inside `bash -c` / `sh -c` now prompts** — such a command (for example on `/` or the home directory) no longer runs without a prompt in `bypassPermissions` mode or under a shell allow rule.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

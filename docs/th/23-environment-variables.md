@@ -99,6 +99,7 @@ related:
 | `CLAUDE_CODE_DISABLE_WEB_FETCH` | ตั้ง `1` เพื่อปิด tool WebFetch *(v2.1.285)* |
 | `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | จำกัดจำนวนครั้งที่ส่ง request แบบ non-streaming fallback ซ้ำเมื่อหมดเวลา *(v2.1.285)* |
 | `CLAUDE_AX_PREPARK_MS` | screen reader mode เขียนบรรทัดใหม่หรือบรรทัดที่เปลี่ยนโดยไม่หยุดพักให้ cursor ไปรอที่ต้นบรรทัดก่อนแล้ว · ตั้ง `50` เพื่อให้กลับมาหยุดพักเหมือนเดิม *(v2.1.287)* |
+| `CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS` | ตั้ง `1` เพื่อปิด structured outputs — ใช้กับ Mantle หรือ gateway ที่ไม่รับ structured outputs ซึ่งทำให้ชื่อ session, memory recall และ prompt hook ล้ม *(v2.1.288)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

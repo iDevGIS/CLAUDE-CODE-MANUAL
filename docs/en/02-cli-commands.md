@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.287         │
+│ Welcome to Claude Code v2.1.288         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -511,7 +511,7 @@ claude update              # Update to the latest version
 claude agents              # List subagents
 claude remote-control      # Start the remote control server
 claude ultrareview [target]   # Non-interactive code review for CI/scripts; prints findings to stdout (--json for raw). Exit 0 on completion, 1 on failure
-claude project purge [path]   # Delete all Claude Code state for a project. Flags: --dry-run, -y (yes), -i (interactive), --all
+claude purge [path]           # Delete all Claude Code state for a project. Flags: --dry-run, -y (yes), -i (interactive), --all (was `claude project purge`, still works with a notice)
 claude plugin prune        # Remove orphaned auto-installed plugin dependencies (claude plugin uninstall --prune cascades)
 ```
 
@@ -646,6 +646,12 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`--bare` is leaner** — it now connects only the MCP servers named on the command line, sends the model no system reminders and starts no background tasks; under `--bare`, a shell command that reaches its timeout stops instead of moving to the background.
 - **`claude auth status` reports `api_key` for a Console sign-in** — a Console sign-in's stored API key was reported as `claude.ai`; it now reports `api_key`.
 - **`claude ultrareview` no longer prints a browser link** — the same goes for `/ultrareview`.
+
+### New in v2.1.288
+
+- **`claude project purge` → `claude purge`** — the command is renamed; the old name still works and prints a notice.
+- **Background command time limit only in unattended sessions** — it now applies only to `-p`, Agent SDK, CI and cloud sessions; terminal, desktop app and VS Code sessions have no limit.
+- **Up brings back a prompt cleared with Ctrl+C** — pressing Up on the empty prompt restores the draft, including pasted text and images.
 
 ---
 
@@ -1018,7 +1024,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.287
+- run: npm install -g @anthropic-ai/claude-code@2.1.288
 ```
 
 ---

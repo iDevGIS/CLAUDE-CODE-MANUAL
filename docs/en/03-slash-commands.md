@@ -271,6 +271,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/usage` shows gateway spend in dollars** — the Claude apps gateway spend limit reads like "$271.40 / $500.00 spent this month" when the gateway runs this version or later. See [[06-configuration]].
 - **`/recap` declines relayed requests** — arriving from a chat thread (your own included), a routine or a webhook it answers with a short notice; typed in the terminal, the Claude apps, Remote Control, `-p` or an SDK host it runs as before.
 
+### New in v2.1.288
+- **`/code-review --max-findings <n>|all`** — reports more or fewer findings than the usual limit; the choice is reused until you pass `--max-findings default`.
+- **`/autocompact` is saved per model** — each model keeps its own auto-compact window when you switch. See [[14-context-management]].
+
 ---
 
 ---

@@ -206,6 +206,12 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 - **`/hooks` opens on one grouped list** — it now opens on a single list of your configured hooks grouped by event, so viewing a hook takes one Enter instead of three. See [[03-slash-commands]].
 
+### New in v2.1.288
+
+- **A failed hook match blocks the call** — when matching `PreToolUse` or `PermissionRequest` hooks fails, or the tool's input can't be serialized to JSON, the call is now blocked instead of the hooks being skipped.
+- **`InstructionsLoaded` reports more** — it now includes `agent_id` and `agent_type` when a subagent's file access loads a rule or nested CLAUDE.md; rules and nested CLAUDE.md files loaded on file access also report effort.
+- **`idle_prompt` notification hooks wait for background agents** — they no longer fire while background agents are still running.
+
 ---
 
 ---

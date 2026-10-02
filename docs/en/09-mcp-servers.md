@@ -203,6 +203,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **URL prompts on the 2025-11-25 protocol** — MCP servers on the 2025-11-25 protocol can now show URL prompts, for example to sign in. If a server no longer connects after this update, add `"bareElicitationCapability": true` to its MCP config entry.
 - **`alwaysLoad: false` defers the whole server** — setting it on an MCP server now defers all of that server's tools behind tool search.
 
+### New in v2.1.288
+
+- **Re-authenticate prompt for more OAuth scope** — when an MCP server asks for more OAuth scope during a tool call, Claude Code now prompts you to re-authenticate.
+- **URL prompts wait for "I'm done, continue"** — for servers that can't report when you're done, the tool call now waits until you confirm, so you can finish in the browser first.
+
 ---
 
 ---

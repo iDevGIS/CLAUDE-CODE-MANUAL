@@ -272,6 +272,10 @@ related:
 - **`/usage` แสดงยอดใช้จ่ายของ gateway เป็นดอลลาร์** — spend limit ของ Claude apps gateway ขึ้นแบบ "$271.40 / $500.00 spent this month" เมื่อ gateway รันเวอร์ชันนี้ขึ้นไป ดู [[06-configuration]]
 - **`/recap` ปฏิเสธคำขอที่ถูกส่งต่อมา** — ถ้ามาจาก chat thread (รวมของเราเอง), routine หรือ webhook จะตอบกลับด้วยข้อความสั้น ๆ · ถ้าพิมพ์ใน terminal, Claude apps, Remote Control, `-p` หรือ SDK host ยังทำงานเหมือนเดิม
 
+### 🆕 ใหม่ใน v2.1.288
+- **`/code-review --max-findings <n>|all`** — สั่งให้รายงาน finding มากหรือน้อยกว่าลิมิตปกติ · ค่าที่เลือกจะถูกใช้ต่อไปจนกว่าจะสั่ง `--max-findings default`
+- **`/autocompact` บันทึกแยกตามโมเดล** — สลับโมเดลแล้วแต่ละโมเดลยังคงหน้าต่าง auto-compact ของตัวเอง ดู [[14-context-management]]
+
 ---
 
 ---

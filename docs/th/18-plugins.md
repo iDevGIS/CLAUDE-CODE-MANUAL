@@ -171,6 +171,12 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **mod ในตัว "You should know"** — มี side agent คอยระวังหลังให้ และ flag สิ่งที่เราหรือ Claude อาจมองข้าม · เปิดด้วย `/plugin enable cc-plugin-you-should-know@builtin` (สำหรับ session first-party ที่เปิด telemetry)
 - **รายการ plugin บอกเมื่อ dependency ยังไม่ได้ติดตั้ง** — และการอัปเดต plugin จะลองติดตั้งที่ค้างไม่เสร็จใหม่ให้ · error ของ marketplace บอกเป็นภาษาคนว่าทำไม marketplace ถูกข้ามหรือถูกปฏิเสธ และต้องทำอะไรต่อ
 
+### 🆕 ใหม่ใน v2.1.288
+
+- **`$.ui.selection()` สำหรับ mod** — คืนข้อความที่เราเลือกล่าสุดในโหมด fullscreen และถ้าส่วนที่เลือกอยู่ใน transcript แถวเดียว ก็คืนแถวนั้นมาด้วย
+- **`requestTimeout` ของ LSP ใน plugin** — LSP tool call timeout ที่ 60 วินาทีแทนที่จะค้างไปเรื่อย ๆ เมื่อ language server ใช้ dynamic capability registration หรือไม่ตอบ · ปรับได้ต่อ server ด้วย `requestTimeout`
+- **ติดตั้ง plugin จาก GitHub fallback เป็น HTTPS** — `claude plugin install` บน macOS/Linux ที่ไม่มี GitHub SSH key จะ clone ผ่าน HTTPS แทนและพิมพ์ notice บอก
+
 ---
 
 ---

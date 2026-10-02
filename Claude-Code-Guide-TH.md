@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.287         │
+│ Welcome to Claude Code v2.1.288         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -604,7 +604,7 @@ claude update              # อัปเดตเวอร์ชันล่า
 claude agents              # ดูรายการ Subagents
 claude remote-control      # เริ่ม Remote Control Server
 claude ultrareview [target] # review โค้ดแบบ non-interactive สำหรับ CI/สคริปต์ (--json = raw)
-claude project purge [path] # ลบ state ทั้งหมดของโปรเจกต์ (--dry-run, -y, -i, --all)
+claude purge [path]         # ลบ state ทั้งหมดของโปรเจกต์ (--dry-run, -y, -i, --all) (เดิม `claude project purge` ยังใช้ได้)
 claude plugin prune        # ลบ plugin dependency ที่ค้าง (uninstall --prune = cascade)
 ```
 
@@ -750,6 +750,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **`--bare` เบาลงอีก** — เชื่อมต่อเฉพาะ MCP server ที่ระบุใน command line, ไม่ส่ง system reminder ให้โมเดล และไม่เริ่ม background task ใด ๆ · ภายใต้ `--bare` คำสั่ง shell ที่ถึง timeout จะหยุดทันทีแทนที่จะย้ายไปรันเบื้องหลัง
 - **`claude auth status` รายงาน `api_key` สำหรับการ sign-in ผ่าน Console** — เดิม API key ที่เก็บไว้จากการ sign-in ผ่าน Console ถูกรายงานเป็น `claude.ai` ตอนนี้รายงานเป็น `api_key` แล้ว
 - **`claude ultrareview` ไม่แสดงลิงก์เบราว์เซอร์แล้ว** — `/ultrareview` ก็เช่นกัน
+
+### 🆕 ใหม่ใน v2.1.288
+
+- **`claude project purge` → `claude purge`** — เปลี่ยนชื่อคำสั่ง · ชื่อเดิมยังใช้ได้และจะพิมพ์ notice บอก
+- **เวลาจำกัดของ background command ใช้เฉพาะ session ที่ไม่มีคนเฝ้า** — มีผลแค่ `-p`, Agent SDK, CI และ cloud · session ใน terminal, desktop app และ VS Code ไม่มีเวลาจำกัดแล้ว
+- **กด Up เรียก prompt ที่ล้างด้วย Ctrl+C กลับมาได้** — กด Up ตอน prompt ว่างจะได้ draft คืน รวมข้อความและรูปที่ paste ไว้
 
 ---
 
@@ -1082,7 +1088,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.287
+- run: npm install -g @anthropic-ai/claude-code@2.1.288
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1374,6 +1380,10 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/rate-limit-options` โผล่ในรายการแล้ว** — สมาชิก claude.ai หาเจอได้ใน `/help` และเมนูคำสั่ง ข้อความแจ้งเตือน usage limit ที่อ้างถึงคำสั่งนี้จึงชี้ไปที่คำสั่งที่หาเจอจริง
 - **`/usage` แสดงยอดใช้จ่ายของ gateway เป็นดอลลาร์** — spend limit ของ Claude apps gateway ขึ้นแบบ "$271.40 / $500.00 spent this month" เมื่อ gateway รันเวอร์ชันนี้ขึ้นไป (ดูบท 6 Configuration)
 - **`/recap` ปฏิเสธคำขอที่ถูกส่งต่อมา** — ถ้ามาจาก chat thread (รวมของเราเอง), routine หรือ webhook จะตอบกลับด้วยข้อความสั้น ๆ · ถ้าพิมพ์ใน terminal, Claude apps, Remote Control, `-p` หรือ SDK host ยังทำงานเหมือนเดิม
+
+### 🆕 ใหม่ใน v2.1.288
+- **`/code-review --max-findings <n>|all`** — สั่งให้รายงาน finding มากหรือน้อยกว่าลิมิตปกติ · ค่าที่เลือกจะถูกใช้ต่อไปจนกว่าจะสั่ง `--max-findings default`
+- **`/autocompact` บันทึกแยกตามโมเดล** — สลับโมเดลแล้วแต่ละโมเดลยังคงหน้าต่าง auto-compact ของตัวเอง (ดูบท 14 การจัดการ Context)
 
 ---
 
@@ -1774,6 +1784,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **การเขียนผ่าน symlink บอกปลายทาง** — คำสั่ง shell ที่เขียนผ่าน symlink ที่ commit ไว้ใน repo ไปลงไฟล์สำคัญหรือออกนอก working tree จะบอกว่าไปลงที่ไหนแล้วรอคนตัดสิน รวมถึงบรรทัดที่มีปลายทางเป็น `~` ด้วย
 - **prompt ที่รออยู่เรียงจากเก่าสุดก่อน** — prompt ใหม่ไม่บังอันที่เรากำลังอ่านอยู่อีก · prompt ที่มีนับถอยหลังยังเด้งขึ้นบนสุดเหมือนเดิม
 - **Windows: เตือนเมื่อ deny Bash แล้ว PowerShell ปิดตามไปด้วย** — ตอนเปิดโปรแกรม Claude Code จะเตือนถ้าการ deny tool Bash ทำให้ tool PowerShell ถูกปิดไปด้วย จน Claude ไม่เหลือ shell tool ให้ใช้
+
+### 🆕 ใหม่ใน v2.1.288
+- **auto mode compact ให้แทนที่จะล้มเมื่อบทสนทนายาวเกิน** — ถ้าบทสนทนายาวเกินกว่าที่ safety classifier ฝั่ง client จะรีวิวไหว ตอนนี้จะ compact ให้ แทนที่จะถามหรือ fail ทุก tool call
+- **classifier ของ auto mode ไม่สน pin Sonnet 5.5 / Opus 5.5** — classifier ฝั่ง client จะข้าม `ANTHROPIC_DEFAULT_SONNET_MODEL` ที่ pin เป็น Claude Sonnet 5.5 หรือ Opus 5.5 แล้วใช้ Claude Sonnet 5 แทน
+- **`rm` อันตรายใน `bash -c` / `sh -c` ถามก่อนแล้ว** — คำสั่งแบบนี้ (เช่นลบ `/` หรือ home directory) ไม่รันเงียบ ๆ อีกต่อไปในโหมด `bypassPermissions` หรือภายใต้ shell allow rule
 
 ---
 
@@ -2501,6 +2516,11 @@ claude --mcp-config ./mcp.json
 - **URL prompt บน protocol 2025-11-25** — MCP server ที่ใช้ protocol 2025-11-25 แสดง URL prompt ได้แล้ว เช่น ให้ไป sign in · ถ้า server ต่อไม่ติดหลังอัปเดตนี้ ให้เพิ่ม `"bareElicitationCapability": true` ใน entry ของ server นั้นใน MCP config
 - **`alwaysLoad: false` defer ทั้ง server** — ตั้งค่านี้ที่ MCP server แล้ว tool ทุกตัวของ server นั้นจะถูก defer ไว้หลัง tool search
 
+### 🆕 ใหม่ใน v2.1.288
+
+- **prompt ให้ re-authenticate เมื่อขอ OAuth scope เพิ่ม** — ถ้า MCP server ขอ OAuth scope เพิ่มระหว่าง tool call จะมี prompt ให้ authenticate ใหม่
+- **URL prompt รอจนกด "I'm done, continue"** — สำหรับ server ที่บอกไม่ได้ว่าเราทำเสร็จเมื่อไร tool call จะรอให้ยืนยันก่อน จะได้ทำในเบราว์เซอร์ให้เสร็จก่อน
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -2695,6 +2715,12 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 ### 🆕 ใหม่ใน v2.1.286
 
 - **`/hooks` เปิดมาเป็นรายการเดียวจัดกลุ่มตาม event** — เปิดมาเจอรายการ hook ที่ตั้งไว้ทั้งหมดจัดกลุ่มตาม event เลย ดู hook หนึ่งตัวกด Enter ครั้งเดียวแทนสามครั้ง (ดูบท 3 Slash Commands)
+
+### 🆕 ใหม่ใน v2.1.288
+
+- **match hook ไม่ได้ = block** — ถ้าการ match hook `PreToolUse` หรือ `PermissionRequest` ล้มเหลว หรือ input ของ tool แปลงเป็น JSON ไม่ได้ จากเดิมที่ข้าม hook ไปเฉย ๆ ตอนนี้ tool call นั้นจะถูก block
+- **`InstructionsLoaded` บอกข้อมูลครบขึ้น** — เมื่อ subagent เข้าถึงไฟล์แล้วโหลด rule หรือ CLAUDE.md ซ้อน hook จะได้ `agent_id` และ `agent_type` · rule และ CLAUDE.md ซ้อนที่โหลดตอนเข้าถึงไฟล์รายงาน effort ด้วย
+- **`idle_prompt` notification ไม่ยิงระหว่างที่ background agent ยังทำงาน**
 
 ---
 
@@ -3090,6 +3116,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **filter `n:<text>` ในหน้า agents** — match ทั้งชื่อ session และ task · เวลาใช้ filter จะแสดงผลที่ match ใน section ที่ยุบอยู่ด้วย และกด Enter เปิดตัวแรกที่ match ได้เลย
 - **คำตอบจาก `claude agents` มาเป็น queued message** — และ slash command อื่นที่ไม่ใช่ `/stop` ที่ส่งระหว่าง turn กำลังรัน จะรันเมื่อ turn นั้นจบ
+
+### 🆕 ใหม่ใน v2.1.288
+
+- **Ctrl+F หา session จากชื่อ · Alt+↑/↓ กระโดดข้ามกลุ่ม** — ในหน้า agents · ทั้งสองปุ่มและการ rename ปรับ binding ได้ใน `keybindings.json` (ดูบท 4 คีย์ลัด)
+- **Enter เปิดตัวที่ match ที่สุด** — filter `n:` (และการค้นด้วย Ctrl+F) จะเปิด session ที่ชื่อ match ที่สุด แทนที่จะเปิดแถวบนสุด
 
 ---
 
@@ -3723,6 +3754,12 @@ claude --plugin-dir ./my-plugin
 - **mod ในตัว "You should know"** — มี side agent คอยระวังหลังให้ และ flag สิ่งที่เราหรือ Claude อาจมองข้าม · เปิดด้วย `/plugin enable cc-plugin-you-should-know@builtin` (สำหรับ session first-party ที่เปิด telemetry)
 - **รายการ plugin บอกเมื่อ dependency ยังไม่ได้ติดตั้ง** — และการอัปเดต plugin จะลองติดตั้งที่ค้างไม่เสร็จใหม่ให้ · error ของ marketplace บอกเป็นภาษาคนว่าทำไม marketplace ถูกข้ามหรือถูกปฏิเสธ และต้องทำอะไรต่อ
 
+### 🆕 ใหม่ใน v2.1.288
+
+- **`$.ui.selection()` สำหรับ mod** — คืนข้อความที่เราเลือกล่าสุดในโหมด fullscreen และถ้าส่วนที่เลือกอยู่ใน transcript แถวเดียว ก็คืนแถวนั้นมาด้วย
+- **`requestTimeout` ของ LSP ใน plugin** — LSP tool call timeout ที่ 60 วินาทีแทนที่จะค้างไปเรื่อย ๆ เมื่อ language server ใช้ dynamic capability registration หรือไม่ตอบ · ปรับได้ต่อ server ด้วย `requestTimeout`
+- **ติดตั้ง plugin จาก GitHub fallback เป็น HTTPS** — `claude plugin install` บน macOS/Linux ที่ไม่มี GitHub SSH key จะ clone ผ่าน HTTPS แทนและพิมพ์ notice บอก
+
 ---
 
 ## 19. Session Management
@@ -4142,6 +4179,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_WEB_FETCH` | ตั้ง `1` เพื่อปิด tool WebFetch *(v2.1.285)* |
 | `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | จำกัดจำนวนครั้งที่ส่ง request แบบ non-streaming fallback ซ้ำเมื่อหมดเวลา *(v2.1.285)* |
 | `CLAUDE_AX_PREPARK_MS` | screen reader mode เขียนบรรทัดใหม่หรือบรรทัดที่เปลี่ยนโดยไม่หยุดพักให้ cursor ไปรอที่ต้นบรรทัดก่อนแล้ว · ตั้ง `50` เพื่อให้กลับมาหยุดพักเหมือนเดิม *(v2.1.287)* |
+| `CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS` | ตั้ง `1` เพื่อปิด structured outputs — ใช้กับ Mantle หรือ gateway ที่ไม่รับ structured outputs ซึ่งทำให้ชื่อ session, memory recall และ prompt hook ล้ม *(v2.1.288)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5469,7 +5507,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.287`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.288`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

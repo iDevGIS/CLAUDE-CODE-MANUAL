@@ -203,6 +203,11 @@ claude --mcp-config ./mcp.json
 - **URL prompt บน protocol 2025-11-25** — MCP server ที่ใช้ protocol 2025-11-25 แสดง URL prompt ได้แล้ว เช่น ให้ไป sign in · ถ้า server ต่อไม่ติดหลังอัปเดตนี้ ให้เพิ่ม `"bareElicitationCapability": true` ใน entry ของ server นั้นใน MCP config
 - **`alwaysLoad: false` defer ทั้ง server** — ตั้งค่านี้ที่ MCP server แล้ว tool ทุกตัวของ server นั้นจะถูก defer ไว้หลัง tool search
 
+### 🆕 ใหม่ใน v2.1.288
+
+- **prompt ให้ re-authenticate เมื่อขอ OAuth scope เพิ่ม** — ถ้า MCP server ขอ OAuth scope เพิ่มระหว่าง tool call จะมี prompt ให้ authenticate ใหม่
+- **URL prompt รอจนกด "I'm done, continue"** — สำหรับ server ที่บอกไม่ได้ว่าเราทำเสร็จเมื่อไร tool call จะรอให้ยืนยันก่อน จะได้ทำในเบราว์เซอร์ให้เสร็จก่อน
+
 ---
 
 ---

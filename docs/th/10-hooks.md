@@ -210,6 +210,12 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **`/hooks` เปิดมาเป็นรายการเดียวจัดกลุ่มตาม event** — เปิดมาเจอรายการ hook ที่ตั้งไว้ทั้งหมดจัดกลุ่มตาม event เลย ดู hook หนึ่งตัวกด Enter ครั้งเดียวแทนสามครั้ง ดู [[03-slash-commands]]
 
+#### 🆕 ใหม่ใน v2.1.288
+
+- **match hook ไม่ได้ = block** — ถ้าการ match hook `PreToolUse` หรือ `PermissionRequest` ล้มเหลว หรือ input ของ tool แปลงเป็น JSON ไม่ได้ จากเดิมที่ข้าม hook ไปเฉย ๆ ตอนนี้ tool call นั้นจะถูก block
+- **`InstructionsLoaded` บอกข้อมูลครบขึ้น** — เมื่อ subagent เข้าถึงไฟล์แล้วโหลด rule หรือ CLAUDE.md ซ้อน hook จะได้ `agent_id` และ `agent_type` · rule และ CLAUDE.md ซ้อนที่โหลดตอนเข้าถึงไฟล์รายงาน effort ด้วย
+- **`idle_prompt` notification ไม่ยิงระหว่างที่ background agent ยังทำงาน**
+
 ---
 
 ---

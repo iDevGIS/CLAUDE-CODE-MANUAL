@@ -148,6 +148,12 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 - **`n:<text>` filter in the agents view** — matches session names and tasks; a filter now shows matches in collapsed sections, and Enter opens the first match.
 - **Replies from `claude agents` arrive as queued messages** — and slash commands other than `/stop` sent while a turn is running now run when it ends.
 
+### New in v2.1.288
+
+- **Ctrl+F finds a session by name; Alt+↑/↓ jumps between groups** — both, and rename, can be rebound in `keybindings.json`. See [[04-keyboard-shortcuts]].
+- **Enter opens the best match** — the `n:` filter (and Ctrl+F search) now opens the session whose name matches best instead of the top row.
+- **Background command time limit only in unattended sessions** — it applies to `-p`, Agent SDK, CI and cloud sessions; terminal, desktop app and VS Code sessions have no limit.
+
 ---
 
 ---

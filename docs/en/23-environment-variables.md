@@ -99,6 +99,7 @@ related:
 | `CLAUDE_CODE_DISABLE_WEB_FETCH` | Set `1` to turn off the WebFetch tool. *(v2.1.285)* |
 | `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | Caps how many times a non-streaming fallback request that timed out is re-sent. *(v2.1.285)* |
 | `CLAUDE_AX_PREPARK_MS` | Screen reader mode now writes new or changed lines without first pausing with the cursor at the start of the line; set `50` to restore the pause. *(v2.1.287)* |
+| `CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS` | Set `1` to turn structured outputs off — for Mantle or gateways that reject them, where session titles, memory recall and prompt hooks would otherwise fail. *(v2.1.288)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

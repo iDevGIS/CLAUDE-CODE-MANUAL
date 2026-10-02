@@ -25,6 +25,31 @@
 
 ---
 
+## [1.81.0] — 2026-10-03
+
+### Compatibility
+- **Claude Code:** `v2.1.288+`
+
+### Added
+- **`claude project purge` → `claude purge`** + **เวลาจำกัดของ background command ใช้เฉพาะ session ที่ไม่มีคนเฝ้า** + **กด Up เรียก prompt ที่ล้างด้วย Ctrl+C กลับมา** — บท 02 (CLI) EN+TH
+- **`/code-review --max-findings <n>|all`** + **`/autocompact` บันทึกแยกตามโมเดล** — บท 03 (Slash commands) EN+TH
+- **auto mode compact แทนการล้มเมื่อบทสนทนายาวเกิน classifier** + **classifier ข้าม pin `ANTHROPIC_DEFAULT_SONNET_MODEL` ที่เป็น Sonnet 5.5/Opus 5.5 แล้วใช้ Sonnet 5** + **คำสั่งลบอันตรายใน `bash -c`/`sh -c` ถามก่อน** — บท 05 (Permissions) EN+TH
+- **prompt ให้ re-authenticate เมื่อ MCP server ขอ OAuth scope เพิ่ม** + **URL prompt รอ "I'm done, continue"** — บท 09 (MCP) EN+TH
+- **match hook `PreToolUse`/`PermissionRequest` ไม่ได้ = block** + **`InstructionsLoaded` มี `agent_id`/`agent_type`/effort** + **`idle_prompt` รอ background agent** — บท 10 (Hooks) EN+TH
+- **`$.ui.selection()` สำหรับ mod** + **`requestTimeout` ของ plugin LSP (ค่าเริ่มต้น 60s)** + **`claude plugin install` จาก GitHub fallback เป็น HTTPS** — บท 18 (Plugins) EN+TH
+- **Ctrl+F / Alt+↑↓ ในหน้า agents (rebind ได้)** + **Enter เปิดตัวที่ match ที่สุด** — บท 41 (Background agents) + บท 12 ใน guide EN+TH
+- **`CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS`** — แถวใหม่ในตาราง env var บท 23 EN+TH
+- **แถว What's-new ของ `v2.1.288`** ใน README.md + README.EN.md
+
+### Changed
+- **`claude project purge`** ในตารางคำสั่ง CLI (guide + บท 02) เปลี่ยนเป็น `claude purge` พร้อมหมายเหตุชื่อเดิม (คง note ประวัติ v2.1.191 ไว้)
+- **Version strings** bumped `2.1.287` → `2.1.288` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.288` ส่วนใหญ่เป็น bug fix (resume/compaction, auto mode บน Bedrock/Mantle, plugin, cloud sessions, VS Code, Claude Tag, screen reader) ซึ่งข้ามตามกติกา · ไม่มี model lineup เปลี่ยน · ของที่คัดมาคือ rename `claude purge`, flag ใหม่ของ `/code-review`, env var ใหม่, การเปลี่ยนพฤติกรรมของ hook/auto mode/background command และ keybinding ใหม่ในหน้า agents
+
+---
+
 ## [1.80.0] — 2026-10-02
 
 ### Compatibility
@@ -1822,6 +1847,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.81.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.80.0...v1.81.0
 [1.80.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.79.0...v1.80.0
 [1.79.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.78.0...v1.79.0
 [1.78.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.77.0...v1.78.0

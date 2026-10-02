@@ -148,6 +148,12 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 - **filter `n:<text>` ในหน้า agents** — match ทั้งชื่อ session และ task · เวลาใช้ filter จะแสดงผลที่ match ใน section ที่ยุบอยู่ด้วย และกด Enter เปิดตัวแรกที่ match ได้เลย
 - **คำตอบจาก `claude agents` มาเป็น queued message** — และ slash command อื่นที่ไม่ใช่ `/stop` ที่ส่งระหว่าง turn กำลังรัน จะรันเมื่อ turn นั้นจบ
 
+### 🆕 ใหม่ใน v2.1.288
+
+- **Ctrl+F หา session จากชื่อ · Alt+↑/↓ กระโดดข้ามกลุ่ม** — ทั้งสองปุ่มและการ rename ปรับ binding ได้ใน `keybindings.json` ดู [[04-keyboard-shortcuts]]
+- **Enter เปิดตัวที่ match ที่สุด** — filter `n:` (และการค้นด้วย Ctrl+F) จะเปิด session ที่ชื่อ match ที่สุด แทนที่จะเปิดแถวบนสุด
+- **เวลาจำกัดของ background command ใช้เฉพาะ session ที่ไม่มีคนเฝ้า** — มีผลแค่ `-p`, Agent SDK, CI และ cloud · session ใน terminal, desktop app และ VS Code ไม่มีเวลาจำกัด
+
 ---
 
 ---

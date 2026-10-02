@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.287         │
+│ Welcome to Claude Code v2.1.288         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -620,7 +620,7 @@ claude update              # Update to the latest version
 claude agents              # List subagents
 claude remote-control      # Start the remote control server
 claude ultrareview [target] # Non-interactive code review for CI/scripts. Prints findings to stdout (--json for raw). Exit 0 on completion, 1 on failure
-claude project purge [path] # Delete all Claude Code state for a project. Flags: --dry-run, -y (yes), -i (interactive), --all
+claude purge [path]         # Delete all Claude Code state for a project. Flags: --dry-run, -y (yes), -i (interactive), --all (was `claude project purge`, still works with a notice)
 claude plugin prune        # Remove orphaned auto-installed plugin dependencies (claude plugin uninstall --prune cascades)
 ```
 
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.287
+- run: npm install -g @anthropic-ai/claude-code@2.1.288
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1096,6 +1096,12 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **`--bare` is leaner** — it now connects only the MCP servers named on the command line, sends the model no system reminders and starts no background tasks; under `--bare`, a shell command that reaches its timeout stops instead of moving to the background.
 - **`claude auth status` reports `api_key` for a Console sign-in** — a Console sign-in's stored API key was reported as `claude.ai`; it now reports `api_key`.
 - **`claude ultrareview` no longer prints a browser link** — the same goes for `/ultrareview`.
+
+### New in v2.1.288
+
+- **`claude project purge` → `claude purge`** — the command is renamed; the old name still works and prints a notice.
+- **Background command time limit only in unattended sessions** — it now applies only to `-p`, Agent SDK, CI and cloud sessions; terminal, desktop app and VS Code sessions have no limit.
+- **Up brings back a prompt cleared with Ctrl+C** — pressing Up on the empty prompt restores the draft, including pasted text and images.
 
 ---
 
@@ -1380,6 +1386,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/rate-limit-options` is listed** — claude.ai subscribers now find it in `/help` and the command menu, so the usage-limit notices that mention it point to a command you can find.
 - **`/usage` shows gateway spend in dollars** — the Claude apps gateway spend limit reads like "$271.40 / $500.00 spent this month" when the gateway runs this version or later (see 6. Configuration).
 - **`/recap` declines relayed requests** — arriving from a chat thread (your own included), a routine or a webhook it answers with a short notice; typed in the terminal, the Claude apps, Remote Control, `-p` or an SDK host it runs as before.
+
+### New in v2.1.288
+- **`/code-review --max-findings <n>|all`** — reports more or fewer findings than the usual limit; the choice is reused until you pass `--max-findings default`.
+- **`/autocompact` is saved per model** — each model keeps its own auto-compact window when you switch (see 14. Context Management).
 
 ---
 
@@ -1780,6 +1790,11 @@ Skill(commit)                    # Specific skill
 - **Symlink writes name where they land** — a shell write through a repo-committed symlink onto a sensitive file or out of the working tree names its destination and waits for a person, on lines with a `~` target too.
 - **Waiting prompts show oldest first** — a new permission prompt no longer covers the one you're reading; prompts with a countdown still open on top.
 - **Windows: warning when denying Bash also turns off PowerShell** — Claude Code warns at startup when a deny on the Bash tool also turns off the PowerShell tool, leaving Claude with no shell tool.
+
+### New in v2.1.288
+- **Auto mode compacts instead of failing on long conversations** — when a conversation grows too long for the client-side safety classifier to review, it is now compacted instead of prompting for, or failing, every tool call.
+- **Auto mode classifier ignores a Sonnet 5.5 / Opus 5.5 pin** — the client-side classifier ignores an `ANTHROPIC_DEFAULT_SONNET_MODEL` pin that names Claude Sonnet 5.5 or Opus 5.5 and uses Claude Sonnet 5 instead.
+- **Dangerous `rm` inside `bash -c` / `sh -c` now prompts** — such a command (for example on `/` or the home directory) no longer runs without a prompt in `bypassPermissions` mode or under a shell allow rule.
 
 ---
 
@@ -2508,6 +2523,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **URL prompts on the 2025-11-25 protocol** — MCP servers on the 2025-11-25 protocol can now show URL prompts, for example to sign in. If a server no longer connects after this update, add `"bareElicitationCapability": true` to its MCP config entry.
 - **`alwaysLoad: false` defers the whole server** — setting it on an MCP server now defers all of that server's tools behind tool search.
 
+### New in v2.1.288
+
+- **Re-authenticate prompt for more OAuth scope** — when an MCP server asks for more OAuth scope during a tool call, Claude Code now prompts you to re-authenticate.
+- **URL prompts wait for "I'm done, continue"** — for servers that can't report when you're done, the tool call now waits until you confirm, so you can finish in the browser first.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -2639,6 +2659,12 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 ### New in v2.1.286
 
 - **`/hooks` opens on one grouped list** — it now opens on a single list of your configured hooks grouped by event, so viewing a hook takes one Enter instead of three (see 3. Slash Commands).
+
+### New in v2.1.288
+
+- **A failed hook match blocks the call** — when matching `PreToolUse` or `PermissionRequest` hooks fails, or the tool's input can't be serialized to JSON, the call is now blocked instead of the hooks being skipped.
+- **`InstructionsLoaded` reports more** — it now includes `agent_id` and `agent_type` when a subagent's file access loads a rule or nested CLAUDE.md; rules and nested CLAUDE.md files loaded on file access also report effort.
+- **`idle_prompt` notification hooks wait for background agents** — they no longer fire while background agents are still running.
 
 ### Configuring Hooks
 
@@ -3097,6 +3123,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **`n:<text>` filter in the agents view** — matches session names and tasks; a filter now shows matches in collapsed sections, and Enter opens the first match.
 - **Replies from `claude agents` arrive as queued messages** — and slash commands other than `/stop` sent while a turn is running now run when it ends.
+
+### New in v2.1.288
+
+- **Ctrl+F finds a session by name; Alt+↑/↓ jumps between groups** — in the agents view; both, and rename, can be rebound in `keybindings.json` (see 4. Keyboard Shortcuts).
+- **Enter opens the best match** — the `n:` filter (and Ctrl+F search) now opens the session whose name matches best instead of the top row.
 
 ---
 
@@ -3734,6 +3765,12 @@ claude --plugin-dir ./my-plugin
 - **"You should know" built-in mod** — a side agent watches your back and flags things you or Claude might miss; turn it on with `/plugin enable cc-plugin-you-should-know@builtin` (first-party sessions with telemetry on).
 - **Plugin listings note missing dependencies** — and updating a plugin now retries an install that did not finish; marketplace errors say in plain words why a marketplace was ignored or refused and what to do.
 
+### New in v2.1.288
+
+- **`$.ui.selection()` for mods** — returns the text you last selected in fullscreen mode and, when the selection lies within one transcript row, that row.
+- **Plugin LSP `requestTimeout`** — LSP tool calls now time out after 60s instead of hanging when a language server uses dynamic capability registration or stops responding; set a per-server `requestTimeout` to change it.
+- **GitHub-source installs fall back to HTTPS** — `claude plugin install` on macOS and Linux machines with no GitHub SSH key now clones over HTTPS and prints a notice.
+
 ---
 
 ## 19. Session Management
@@ -4153,6 +4190,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_WEB_FETCH` | Set `1` to turn off the WebFetch tool. *(v2.1.285)* |
 | `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | Caps how many times a non-streaming fallback request that timed out is re-sent. *(v2.1.285)* |
 | `CLAUDE_AX_PREPARK_MS` | Screen reader mode now writes new or changed lines without first pausing with the cursor at the start of the line; set `50` to restore the pause. *(v2.1.287)* |
+| `CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS` | Set `1` to turn structured outputs off — for Mantle or gateways that reject them, where session titles, memory recall and prompt hooks would otherwise fail. *(v2.1.288)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5483,7 +5521,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.287`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.288`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

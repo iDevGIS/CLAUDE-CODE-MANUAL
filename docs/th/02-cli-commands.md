@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.287         │
+│ Welcome to Claude Code v2.1.288         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -511,7 +511,7 @@ claude update              # อัปเดตเวอร์ชันล่า
 claude agents              # ดูรายการ Subagents
 claude remote-control      # เริ่ม Remote Control Server
 claude ultrareview [target]   # review โค้ดแบบ non-interactive สำหรับ CI/สคริปต์ พิมพ์ผลออก stdout (--json = raw) exit 0 เมื่อสำเร็จ / 1 เมื่อ fail
-claude project purge [path]   # ลบ state ทั้งหมดของโปรเจกต์ flags: --dry-run, -y, -i, --all
+claude purge [path]           # ลบ state ทั้งหมดของโปรเจกต์ flags: --dry-run, -y, -i, --all (เดิมชื่อ `claude project purge` ยังใช้ได้แต่จะขึ้น notice)
 claude plugin prune        # ลบ plugin dependency ที่ค้าง (claude plugin uninstall --prune ลบแบบ cascade)
 ```
 
@@ -646,6 +646,12 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **`--bare` เบาลงอีก** — เชื่อมต่อเฉพาะ MCP server ที่ระบุใน command line, ไม่ส่ง system reminder ให้โมเดล และไม่เริ่ม background task ใด ๆ · ภายใต้ `--bare` คำสั่ง shell ที่ถึง timeout จะหยุดทันทีแทนที่จะย้ายไปรันเบื้องหลัง
 - **`claude auth status` รายงาน `api_key` สำหรับการ sign-in ผ่าน Console** — เดิม API key ที่เก็บไว้จากการ sign-in ผ่าน Console ถูกรายงานเป็น `claude.ai` ตอนนี้รายงานเป็น `api_key` แล้ว
 - **`claude ultrareview` ไม่แสดงลิงก์เบราว์เซอร์แล้ว** — `/ultrareview` ก็เช่นกัน
+
+### 🆕 ใหม่ใน v2.1.288
+
+- **`claude project purge` → `claude purge`** — เปลี่ยนชื่อคำสั่ง · ชื่อเดิมยังใช้ได้และจะพิมพ์ notice บอก
+- **เวลาจำกัดของ background command ใช้เฉพาะ session ที่ไม่มีคนเฝ้า** — มีผลแค่ `-p`, Agent SDK, CI และ cloud · session ใน terminal, desktop app และ VS Code ไม่มีเวลาจำกัดแล้ว
+- **กด Up เรียก prompt ที่ล้างด้วย Ctrl+C กลับมาได้** — กด Up ตอน prompt ว่างจะได้ draft คืน รวมข้อความและรูปที่ paste ไว้
 
 ---
 
@@ -1018,7 +1024,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.287
+- run: npm install -g @anthropic-ai/claude-code@2.1.288
 ```
 
 ---

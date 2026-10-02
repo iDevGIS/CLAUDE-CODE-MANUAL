@@ -290,6 +290,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **prompt ที่รออยู่เรียงจากเก่าสุดก่อน** — prompt ใหม่ไม่บังอันที่เรากำลังอ่านอยู่อีก · prompt ที่มีนับถอยหลังยังเด้งขึ้นบนสุดเหมือนเดิม
 - **Windows: เตือนเมื่อ deny Bash แล้ว PowerShell ปิดตามไปด้วย** — ตอนเปิดโปรแกรม Claude Code จะเตือนถ้าการ deny tool Bash ทำให้ tool PowerShell ถูกปิดไปด้วย จน Claude ไม่เหลือ shell tool ให้ใช้
 
+### 🆕 ใหม่ใน v2.1.288
+- **auto mode compact ให้แทนที่จะล้มเมื่อบทสนทนายาวเกิน** — ถ้าบทสนทนายาวเกินกว่าที่ safety classifier ฝั่ง client จะรีวิวไหว ตอนนี้จะ compact ให้ แทนที่จะถามหรือ fail ทุก tool call
+- **classifier ของ auto mode ไม่สน pin Sonnet 5.5 / Opus 5.5** — classifier ฝั่ง client จะข้าม `ANTHROPIC_DEFAULT_SONNET_MODEL` ที่ pin เป็น Claude Sonnet 5.5 หรือ Opus 5.5 แล้วใช้ Claude Sonnet 5 แทน
+- **`rm` อันตรายใน `bash -c` / `sh -c` ถามก่อนแล้ว** — คำสั่งแบบนี้ (เช่นลบ `/` หรือ home directory) ไม่รันเงียบ ๆ อีกต่อไปในโหมด `bypassPermissions` หรือภายใต้ shell allow rule
+
 ---
 
 ---

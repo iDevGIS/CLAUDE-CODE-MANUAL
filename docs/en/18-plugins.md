@@ -171,6 +171,12 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **"You should know" built-in mod** — a side agent watches your back and flags things you or Claude might miss; turn it on with `/plugin enable cc-plugin-you-should-know@builtin` (first-party sessions with telemetry on).
 - **Plugin listings note missing dependencies** — and updating a plugin now retries an install that did not finish; marketplace errors say in plain words why a marketplace was ignored or refused and what to do.
 
+### New in v2.1.288
+
+- **`$.ui.selection()` for mods** — returns the text you last selected in fullscreen mode and, when the selection lies within one transcript row, that row.
+- **Plugin LSP `requestTimeout`** — LSP tool calls now time out after 60s instead of hanging when a language server uses dynamic capability registration or stops responding; set a per-server `requestTimeout` to change it.
+- **GitHub-source installs fall back to HTTPS** — `claude plugin install` on macOS and Linux machines with no GitHub SSH key now clones over HTTPS and prints a notice.
+
 ---
 
 ---
