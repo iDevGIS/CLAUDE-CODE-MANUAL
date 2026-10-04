@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.288-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.81.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.289-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.82.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.288`
+## 🆕 What's new — synced to Claude Code `v2.1.289`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -153,8 +153,9 @@ Never used a command line? You can still follow along 👇
 | 🪶 **Leaner `--bare` + `verify` skill before commits** | `--bare` connects only the MCP servers named on the command line, sends no system reminders and starts no background tasks · a skill named `verify` runs right before committing (except docs-only/tests-only commits) · stacked permission prompts show a "2 of 5" count · at most 14 requests per model call, and a refused model falls back to the previous model of the same tier · `/hooks` opens on one list grouped by event · VS Code Bookmarks (v2.1.286) |
 | 🧩 **Claude Mods + the "You should know" mod** | plugins may now modify deeper behavior (Claude Mods) · the built-in "You should know" mod runs a side agent that flags things you or Claude might miss (`/plugin enable cc-plugin-you-should-know@builtin`) · Opus 4.7+ and Fable default to 1M context on Bedrock/Vertex/Foundry/gateway with no `[1m]` suffix · MCP URL prompts on the 2025-11-25 protocol (`bareElicitationCapability`) · `alwaysLoad: false` defers the whole server · `n:<text>` filter in the agents view · VS Code "Run in background" (v2.1.287) |
 | 🧹 **`claude purge` + `/code-review --max-findings`** | `claude project purge` is renamed `claude purge` (old name still works) · `/code-review --max-findings <n>\|all` · `/autocompact` saved per model · a failed `PreToolUse`/`PermissionRequest` hook match now blocks the call · MCP re-authenticate prompt for more OAuth scope · `CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS` · Ctrl+F / Alt+↑↓ in the agents view · the background command time limit applies only to unattended sessions · `$.ui.selection()` for mods (v2.1.288) |
+| 🧩 **Mod API: `agent.spawn` + agent states** | mods can spawn teammates through `agent.spawn` · a plugin sees one agent id across all hook events · `$.agent.list()` reports `idle` / `waiting` states · the rest is bug fixes (permission rules under sandbox auto-allow, plugin/mod rendering, VS Code revert of the 2.1.288 `claude auth status` change) (v2.1.289) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.288` (manual `v1.81.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.289` (manual `v1.82.0`)
 
 ---
 
@@ -177,7 +178,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.288** + the Fable 5.1 / Opus 5.5 / Sonnet 5.5 lineup
+Tracks Claude Code **v2.1.289** + the Fable 5.1 / Opus 5.5 / Sonnet 5.5 lineup
 
 </td>
 </tr>
@@ -237,7 +238,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.288`
+> **Claude Code Version:** `2.1.289`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

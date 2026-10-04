@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.288         │
+│ Welcome to Claude Code v2.1.289         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1088,7 +1088,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.288
+- run: npm install -g @anthropic-ai/claude-code@2.1.289
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -3760,6 +3760,12 @@ claude --plugin-dir ./my-plugin
 - **`requestTimeout` ของ LSP ใน plugin** — LSP tool call timeout ที่ 60 วินาทีแทนที่จะค้างไปเรื่อย ๆ เมื่อ language server ใช้ dynamic capability registration หรือไม่ตอบ · ปรับได้ต่อ server ด้วย `requestTimeout`
 - **ติดตั้ง plugin จาก GitHub fallback เป็น HTTPS** — `claude plugin install` บน macOS/Linux ที่ไม่มี GitHub SSH key จะ clone ผ่าน HTTPS แทนและพิมพ์ notice บอก
 
+### 🆕 ใหม่ใน v2.1.289
+
+- **`agent.spawn` สำหรับ teammate** — mod สั่ง spawn teammate ได้แล้วผ่าน `agent.spawn`
+- **agent id เดียวกันทุก hook event ของ plugin** — plugin เห็น agent id ตัวเดียวกันของ agent หนึ่ง ๆ ในทุก hook event จึงจับคู่ event ได้โดยไม่ต้องเทียบจากชื่อ
+- **สถานะ `idle` และ `waiting` ใน `$.agent.list()`** — รายการ agent บอกได้แล้วว่า agent ตัวไหนว่าง (idle) หรือรออยู่ (waiting) เพิ่มจากสถานะเดิมที่คืนมา
+
 ---
 
 ## 19. Session Management
@@ -5507,7 +5513,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.288`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.289`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

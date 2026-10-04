@@ -177,6 +177,12 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **`requestTimeout` ของ LSP ใน plugin** — LSP tool call timeout ที่ 60 วินาทีแทนที่จะค้างไปเรื่อย ๆ เมื่อ language server ใช้ dynamic capability registration หรือไม่ตอบ · ปรับได้ต่อ server ด้วย `requestTimeout`
 - **ติดตั้ง plugin จาก GitHub fallback เป็น HTTPS** — `claude plugin install` บน macOS/Linux ที่ไม่มี GitHub SSH key จะ clone ผ่าน HTTPS แทนและพิมพ์ notice บอก
 
+### 🆕 ใหม่ใน v2.1.289
+
+- **`agent.spawn` สำหรับ teammate** — mod สั่ง spawn teammate ได้แล้วผ่าน `agent.spawn`
+- **agent id เดียวกันทุก hook event ของ plugin** — plugin เห็น agent id ตัวเดียวกันของ agent หนึ่ง ๆ ในทุก hook event จึงจับคู่ event ได้โดยไม่ต้องเทียบจากชื่อ
+- **สถานะ `idle` และ `waiting` ใน `$.agent.list()`** — รายการ agent บอกได้แล้วว่า agent ตัวไหนว่าง (idle) หรือรออยู่ (waiting) เพิ่มจากสถานะเดิมที่คืนมา
+
 ---
 
 ---

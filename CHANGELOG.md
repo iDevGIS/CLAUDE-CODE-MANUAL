@@ -25,6 +25,23 @@
 
 ---
 
+## [1.82.0] — 2026-10-04
+
+### Compatibility
+- **Claude Code:** `v2.1.289+`
+
+### Added
+- **`agent.spawn` สำหรับ teammate ใน mod** + **agent id เดียวกันทุก hook event ของ plugin** + **สถานะ `idle` / `waiting` ใน `$.agent.list()`** — บท 18 (Plugins) EN+TH ทั้ง guide หน้าเดียวและ atomic note
+- **แถว What's-new ของ `v2.1.289`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.288` → `2.1.289` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.289` เป็น bug fix เกือบทั้งหมด (permission deny/ask rule ใต้ sandbox auto-allow, Read deny ผ่าน symlink, plugin/mod rendering และ `claude plugin validate`, terminal freeze, VS Code revert การเปลี่ยน `claude auth status` ของ 2.1.288 ซึ่งคู่มือไม่เคยบันทึกไว้) ซึ่งข้ามตามกติกา · ไม่มี model lineup เปลี่ยน · ของที่คัดมาคือ mod/plugin API ใหม่ชุดเดียว
+
+---
+
 ## [1.81.0] — 2026-10-03
 
 ### Compatibility
@@ -1847,6 +1864,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.82.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.81.0...v1.82.0
 [1.81.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.80.0...v1.81.0
 [1.80.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.79.0...v1.80.0
 [1.79.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.78.0...v1.79.0

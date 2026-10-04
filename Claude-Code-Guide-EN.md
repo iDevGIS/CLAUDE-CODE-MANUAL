@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.288         │
+│ Welcome to Claude Code v2.1.289         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.288
+- run: npm install -g @anthropic-ai/claude-code@2.1.289
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -3771,6 +3771,12 @@ claude --plugin-dir ./my-plugin
 - **Plugin LSP `requestTimeout`** — LSP tool calls now time out after 60s instead of hanging when a language server uses dynamic capability registration or stops responding; set a per-server `requestTimeout` to change it.
 - **GitHub-source installs fall back to HTTPS** — `claude plugin install` on macOS and Linux machines with no GitHub SSH key now clones over HTTPS and prints a notice.
 
+### New in v2.1.289
+
+- **`agent.spawn` for teammates** — a mod can now spawn teammates through `agent.spawn`.
+- **One agent id across plugin hook events** — a plugin sees the same agent id for a given agent in every hook event, so it can correlate events instead of matching by name.
+- **`idle` and `waiting` states in `$.agent.list()`** — the agent list now reports when an agent is idle or waiting, alongside the states it already returned.
+
 ---
 
 ## 19. Session Management
@@ -5521,7 +5527,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.288`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.289`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

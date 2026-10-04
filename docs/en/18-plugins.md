@@ -177,6 +177,12 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **Plugin LSP `requestTimeout`** — LSP tool calls now time out after 60s instead of hanging when a language server uses dynamic capability registration or stops responding; set a per-server `requestTimeout` to change it.
 - **GitHub-source installs fall back to HTTPS** — `claude plugin install` on macOS and Linux machines with no GitHub SSH key now clones over HTTPS and prints a notice.
 
+### New in v2.1.289
+
+- **`agent.spawn` for teammates** — a mod can now spawn teammates through `agent.spawn`.
+- **One agent id across plugin hook events** — a plugin sees the same agent id for a given agent in every hook event, so it can correlate events instead of matching by name.
+- **`idle` and `waiting` states in `$.agent.list()`** — the agent list now reports when an agent is idle or waiting, alongside the states it already returned.
+
 ---
 
 ---
