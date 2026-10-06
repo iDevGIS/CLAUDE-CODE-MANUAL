@@ -216,6 +216,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **`InstructionsLoaded` บอกข้อมูลครบขึ้น** — เมื่อ subagent เข้าถึงไฟล์แล้วโหลด rule หรือ CLAUDE.md ซ้อน hook จะได้ `agent_id` และ `agent_type` · rule และ CLAUDE.md ซ้อนที่โหลดตอนเข้าถึงไฟล์รายงาน effort ด้วย
 - **`idle_prompt` notification ไม่ยิงระหว่างที่ background agent ยังทำงาน**
 
+#### 🆕 ใหม่ใน v2.1.292
+
+- **tag `<system-reminder>` ใน output ของ hook ถูก escape** — tag ที่ hook เขียนลง output จะถูก escape ก่อนส่งถึง Claude
+
 ---
 
 ---

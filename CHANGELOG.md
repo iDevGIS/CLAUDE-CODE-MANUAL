@@ -25,6 +25,30 @@
 
 ---
 
+## [1.84.0] — 2026-10-07
+
+### Compatibility
+- **Claude Code:** `v2.1.292+`
+
+### Added
+- **New in v2.1.292** ใน 6 บท EN+TH (guide หน้าเดียว + atomic note):
+  - บท 02 CLI — `claude plugin install --marketplace <source>`
+  - บท 05 Permissions — strict sandbox อนุญาตคำสั่ง interpreter ที่มี env var prefix (เช่น `FOO=bar python3 app.py`) อัตโนมัติ
+  - บท 09 MCP — stdio server negotiate protocol 2026-07-28 เป็น default (`MCP_PROTOCOL_NEGOTIATION=legacy` เพื่อ opt out) · จำ stdio server ที่ต่อช้าไว้ 7 วัน · `claude -p`/SDK turn แรกไม่รอ `resources/list`
+  - บท 10 Hooks — tag `<system-reminder>` ใน output ของ hook ถูก escape
+  - บท 12 Subagents — พารามิเตอร์ `effort` ใน Agent tool · ชื่อ agent ไม่เกิน 256 ตัวอักษร
+  - บท 18 Plugins — `claude plugin install --marketplace` · event `prompt.autocomplete` · prompt caching ใน `$.model.complete` · workflow agent ใน `agent.spawn` · `claude plugin test` fail เมื่อ `expect` ใน hook fail
+- **บท 23 Environment Variables** — แถว `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` และ `MCP_PROTOCOL_NEGOTIATION` (guide + atomic, EN+TH)
+- **แถว What's-new ของ `v2.1.292`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.291` → `2.1.292` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.292` เป็น release ใหญ่ที่ส่วนมากเป็น bug fix (sandbox/permission, plugin hooks worker, vim mode, cloud sessions, Claude Tag, Code Review) ซึ่งข้ามตามกติกา · ไม่มี model lineup เปลี่ยน ไม่มีอะไรถูก rename/ถอดจากที่คู่มือเขียนไว้ · ของที่คัดมาคือ flag/param/env var ใหม่, default MCP protocol ที่เปลี่ยน และ mod API ใหม่
+
+---
+
 ## [1.83.0] — 2026-10-06
 
 ### Compatibility
@@ -1890,6 +1914,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.84.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.83.0...v1.84.0
 [1.83.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.82.0...v1.83.0
 [1.82.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.81.0...v1.82.0
 [1.81.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.80.0...v1.81.0

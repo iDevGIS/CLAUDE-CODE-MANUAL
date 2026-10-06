@@ -200,6 +200,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **`agent_id` ของ teammate แบบ in-process** — ในผลลัพธ์ของ Agent ค่า `agent_id` ของ teammate แบบ in-process เป็น agent ID ของมันแล้ว ส่วน address `name@team` ย้ายไปอยู่ใน `teammate_id`
 - **hook `TeammateIdle` ไม่ยิงจาก subagent หรือ fork ของ teammate อีกต่อไป** ดู [[10-hooks]]
 
+### 🆕 ใหม่ใน v2.1.292
+
+- **พารามิเตอร์ `effort` ใน Agent tool** — Claude รัน sub-agent ที่ระดับ effort ตามที่เราขอได้
+- **ชื่อ agent ยาวได้ไม่เกิน 256 ตัวอักษร** — ยาวกว่านั้นจะถูกปฏิเสธ และ `name` ของ skill หรือไฟล์ใน plugin ที่ยาวเกินจะถูกเมิน
+
 ---
 
 ---

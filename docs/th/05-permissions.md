@@ -299,6 +299,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **`pyright` และ `ps` อีกหลายรูปแบบต้องขออนุญาต** — `pyright` ไม่ถูกนับเป็นคำสั่ง read-only แล้ว และ `ps` หลายรูปแบบเพิ่มเติมจะถามก่อนแทนที่จะรันเลย
 - **settings ของ repo เปิด Claude in Chrome หรือตั้ง `CLAUDE_CODE_DISABLE_ATTACHMENTS` ไม่ได้แล้ว** — Chrome ให้ใช้ `--chrome`, `/chrome` หรือ user settings · `CLAUDE_CODE_DISABLE_ATTACHMENTS` ยังตั้งได้จาก shell, user และ managed settings ดู [[40-claude-in-chrome]]
 
+### 🆕 ใหม่ใน v2.1.292
+- **strict sandbox อนุญาตคำสั่ง interpreter ที่มี env var นำหน้าให้อัตโนมัติ** — เมื่อตั้ง strict sandbox mode ใน user, managed หรือ `--settings` คำสั่ง interpreter ที่มี env var prefix เช่น `FOO=bar python3 app.py` จะรันได้เลยโดยไม่ถาม
+
 ---
 
 ---

@@ -270,6 +270,9 @@ Skill(commit)                    # Specific skill
 - **`pyright` and more forms of `ps` now ask** — `pyright` is no longer treated as a read-only command, and more forms of `ps` ask for approval instead of running without asking.
 - **Repository settings can no longer turn on Claude in Chrome or set `CLAUDE_CODE_DISABLE_ATTACHMENTS`** — use `--chrome`, `/chrome` or your user settings for Chrome; shell, user and managed settings can still set `CLAUDE_CODE_DISABLE_ATTACHMENTS`. See [[40-claude-in-chrome]].
 
+### New in v2.1.292
+- **Strict sandbox auto-allows env-prefixed interpreter commands** — with strict sandbox mode set in user, managed or `--settings` settings, an interpreter command with an env var prefix like `FOO=bar python3 app.py` runs unprompted.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

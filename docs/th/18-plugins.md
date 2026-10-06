@@ -192,6 +192,14 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **`claude plugin validate` แสดง gating hook** — hook ที่ mod ลงทะเบียนไว้ที่ gating site ถูกแสดงพร้อมบอกว่ามี `.catch` หรือไม่ (`gatingHooks` เมื่อใช้ `--json`)
 - **plugin hooks ตัดข้อความยาว** — ข้อความยาวจะถูกตัดและ log ไว้ แทนที่จะถูกปฏิเสธหรือทิ้งเงียบ ๆ · `$.process.spawn` ที่ mod อื่นปฏิเสธหลัง child รันไปแล้วจะบอกว่าคำสั่งรันแล้วแต่ plugin กักผลไว้
 
+### 🆕 ใหม่ใน v2.1.292
+
+- **`claude plugin install --marketplace <source>`** — เพิ่ม marketplace ให้เองถ้ายังไม่มี (ผ่าน policy check ชุดเดียวกับ `claude plugin marketplace add`) แล้วติดตั้ง plugin จาก marketplace นั้น
+- **event `prompt.autocomplete`** — mod ใช้ hook นี้เพิ่มแถวของตัวเองลงในรายการ autocomplete ของช่อง prompt
+- **prompt caching ใน `$.model.complete`** — `prompt` และ `system` รับข้อความเป็น block ได้ และใส่ `cache: true` ที่ block ไหนจะ cache request จนถึง block นั้น
+- **workflow agent ใน `agent.spawn`** — mod hook เห็น workflow agent พร้อม run และ index แล้ว จึงปฏิเสธได้
+- **`claude plugin test` ไม่ผ่านแบบเงียบ ๆ อีกต่อไป** — `expect` ที่ fail ใน hook ที่ test ลงทะเบียนไว้ หรือ stub answer ที่ engine ปฏิเสธ จะทำให้ test fail
+
 ---
 
 ---

@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.291         │
+│ Welcome to Claude Code v2.1.292         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -657,6 +657,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **`claude attach <name>` / `claude logs <name>`** — ใส่ชื่อ session แค่บางส่วนแทน session id ได้แล้ว ดู [[41-background-agents]]
 
+### 🆕 ใหม่ใน v2.1.292
+
+- **`claude plugin install --marketplace <source>`** — เพิ่ม marketplace ให้เองถ้ายังไม่มี (ผ่าน policy check ชุดเดียวกับ `claude plugin marketplace add`) แล้วติดตั้ง plugin จาก marketplace นั้น ดู [[18-plugins]]
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1028,7 +1032,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.291
+- run: npm install -g @anthropic-ai/claude-code@2.1.292
 ```
 
 ---

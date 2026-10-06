@@ -208,6 +208,12 @@ claude --mcp-config ./mcp.json
 - **prompt ให้ re-authenticate เมื่อขอ OAuth scope เพิ่ม** — ถ้า MCP server ขอ OAuth scope เพิ่มระหว่าง tool call จะมี prompt ให้ authenticate ใหม่
 - **URL prompt รอจนกด "I'm done, continue"** — สำหรับ server ที่บอกไม่ได้ว่าเราทำเสร็จเมื่อไร tool call จะรอให้ยืนยันก่อน จะได้ทำในเบราว์เซอร์ให้เสร็จก่อน
 
+### 🆕 ใหม่ใน v2.1.292
+
+- **stdio server negotiate protocol 2026-07-28 เป็นค่า default** — ทุกการติดตั้ง รวม Bedrock, Vertex และ Foundry · ตั้ง `MCP_PROTOCOL_NEGOTIATION=legacy` เพื่อ opt out ดู [[23-environment-variables]]
+- **จำ stdio server ที่ต่อช้าไว้ 7 วัน** — local server ที่ไม่ตอบ protocol check แบบใหม่ หลังต่อช้าไปหนึ่งครั้งจะถูกต่อแบบเก่าโดยไม่ต้องรอ
+- **`claude -p` และ SDK session เริ่มเร็วขึ้น** — turn แรกไม่ต้องรอ HTTP และ SSE MCP server ตอบ `resources/list` แล้ว
+
 ---
 
 ---

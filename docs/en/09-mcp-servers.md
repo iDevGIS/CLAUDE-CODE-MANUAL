@@ -208,6 +208,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **Re-authenticate prompt for more OAuth scope** — when an MCP server asks for more OAuth scope during a tool call, Claude Code now prompts you to re-authenticate.
 - **URL prompts wait for "I'm done, continue"** — for servers that can't report when you're done, the tool call now waits until you confirm, so you can finish in the browser first.
 
+### New in v2.1.292
+
+- **stdio servers negotiate protocol 2026-07-28 by default** — on every install, including Bedrock, Vertex and Foundry; set `MCP_PROTOCOL_NEGOTIATION=legacy` to opt out. See [[23-environment-variables]].
+- **Slow stdio servers are remembered for 7 days** — a local server that ignores the newer protocol check is, after one slow connect, connected the older way without the wait.
+- **`claude -p` and SDK sessions start faster** — the first turn no longer waits for HTTP and SSE MCP servers to answer `resources/list`.
+
 ---
 
 ---

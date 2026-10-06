@@ -200,6 +200,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **In-process teammate `agent_id`** — in Agent results, an in-process teammate's `agent_id` is now its agent ID; its `name@team` address stays in `teammate_id`.
 - **`TeammateIdle` hooks no longer fire from a teammate's subagents or forks.** See [[10-hooks]].
 
+### New in v2.1.292
+
+- **`effort` parameter on the Agent tool** — Claude runs a sub-agent at the effort level you ask for.
+- **Agent names are capped at 256 characters** — a longer one is rejected, and a skill's or a plugin file's `name` longer than that is ignored.
+
 ---
 
 ---

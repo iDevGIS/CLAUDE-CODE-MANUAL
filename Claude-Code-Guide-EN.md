@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.291         │
+│ Welcome to Claude Code v2.1.292         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.291
+- run: npm install -g @anthropic-ai/claude-code@2.1.292
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1106,6 +1106,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.290
 
 - **`claude attach <name>` / `claude logs <name>`** — part of a session name now works in place of the session id.
+
+### New in v2.1.292
+
+- **`claude plugin install --marketplace <source>`** — adds the marketplace if needed (under the same policy checks as `claude plugin marketplace add`), then installs the plugin from it (see 18. Plugins).
 
 ---
 
@@ -1807,6 +1811,9 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.290
 - **`pyright` and more forms of `ps` now ask** — `pyright` is no longer treated as a read-only command, and more forms of `ps` ask for approval instead of running without asking.
 - **Repository settings can no longer turn on Claude in Chrome or set `CLAUDE_CODE_DISABLE_ATTACHMENTS`** — use `--chrome`, `/chrome` or your user settings for Chrome; shell, user and managed settings can still set `CLAUDE_CODE_DISABLE_ATTACHMENTS`.
+
+### New in v2.1.292
+- **Strict sandbox auto-allows env-prefixed interpreter commands** — with strict sandbox mode set in user, managed or `--settings` settings, an interpreter command with an env var prefix like `FOO=bar python3 app.py` runs unprompted.
 
 ---
 
@@ -2546,6 +2553,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **Re-authenticate prompt for more OAuth scope** — when an MCP server asks for more OAuth scope during a tool call, Claude Code now prompts you to re-authenticate.
 - **URL prompts wait for "I'm done, continue"** — for servers that can't report when you're done, the tool call now waits until you confirm, so you can finish in the browser first.
 
+### New in v2.1.292
+
+- **stdio servers negotiate protocol 2026-07-28 by default** — on every install, including Bedrock, Vertex and Foundry; set `MCP_PROTOCOL_NEGOTIATION=legacy` to opt out (see 23. Environment Variables).
+- **Slow stdio servers are remembered for 7 days** — a local server that ignores the newer protocol check is, after one slow connect, connected the older way without the wait.
+- **`claude -p` and SDK sessions start faster** — the first turn no longer waits for HTTP and SSE MCP servers to answer `resources/list`.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -2683,6 +2696,10 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 - **A failed hook match blocks the call** — when matching `PreToolUse` or `PermissionRequest` hooks fails, or the tool's input can't be serialized to JSON, the call is now blocked instead of the hooks being skipped.
 - **`InstructionsLoaded` reports more** — it now includes `agent_id` and `agent_type` when a subagent's file access loads a rule or nested CLAUDE.md; rules and nested CLAUDE.md files loaded on file access also report effort.
 - **`idle_prompt` notification hooks wait for background agents** — they no longer fire while background agents are still running.
+
+### New in v2.1.292
+
+- **`<system-reminder>` tags in hook output are escaped** — tags a hook writes in its output are escaped before they reach Claude.
 
 ### Configuring Hooks
 
@@ -3157,6 +3174,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **In-process teammate `agent_id`** — in Agent results, an in-process teammate's `agent_id` is now its agent ID; its `name@team` address stays in `teammate_id`.
 - **`TeammateIdle` hooks no longer fire from a teammate's subagents or forks.**
 - **`/model`, `/effort` and `/rename` from `claude agents` apply right away** — sent to a busy background session, they now take effect immediately without a confirmation instead of when the turn ends.
+
+### New in v2.1.292
+
+- **`effort` parameter on the Agent tool** — Claude runs a sub-agent at the effort level you ask for.
+- **Agent names are capped at 256 characters** — a longer one is rejected, and a skill's or a plugin file's `name` longer than that is ignored.
 
 ---
 
@@ -3815,6 +3837,14 @@ claude --plugin-dir ./my-plugin
 - **`claude plugin validate` lists gating hooks** — each hook a mod registers at a gating site is listed with whether it has a `.catch` (`gatingHooks` under `--json`).
 - **Plugin hooks clip long text** — long text is now clipped and logged instead of being refused or dropped silently; a `$.process.spawn` denied by another mod after the child ran now says the call ran and a plugin withheld its result.
 
+### New in v2.1.292
+
+- **`claude plugin install --marketplace <source>`** — adds the marketplace if needed, under the same policy checks as `claude plugin marketplace add`, then installs the plugin from it.
+- **`prompt.autocomplete` event** — a mod hooks it to add its own rows to the prompt box's autocomplete list.
+- **Prompt caching in `$.model.complete`** — `prompt` and `system` take blocks of text, and `cache: true` on a block caches the request up to it.
+- **Workflow agents in `agent.spawn`** — the mod hook now sees workflow agents, with their run and index, so a mod can refuse them.
+- **`claude plugin test` no longer passes silently** — a failed `expect` inside a hook the test registered, or a stub answer the engine refuses, now fails the test.
+
 ---
 
 ## 19. Session Management
@@ -4235,6 +4265,8 @@ your-project/
 | `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | Caps how many times a non-streaming fallback request that timed out is re-sent. *(v2.1.285)* |
 | `CLAUDE_AX_PREPARK_MS` | Screen reader mode now writes new or changed lines without first pausing with the cursor at the start of the line; set `50` to restore the pause. *(v2.1.287)* |
 | `CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS` | Set `1` to turn structured outputs off — for Mantle or gateways that reject them, where session titles, memory recall and prompt hooks would otherwise fail. *(v2.1.288)* |
+| `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | Sets a longer base delay for the backoff when retrying an overloaded (529) request. *(v2.1.292)* |
+| `MCP_PROTOCOL_NEGOTIATION` | Set `legacy` to opt out of local (stdio) MCP servers negotiating protocol version 2026-07-28, now the default on every install including Bedrock, Vertex and Foundry. *(v2.1.292)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5565,7 +5597,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.291`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.292`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

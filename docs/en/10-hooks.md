@@ -212,6 +212,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **`InstructionsLoaded` reports more** — it now includes `agent_id` and `agent_type` when a subagent's file access loads a rule or nested CLAUDE.md; rules and nested CLAUDE.md files loaded on file access also report effort.
 - **`idle_prompt` notification hooks wait for background agents** — they no longer fire while background agents are still running.
 
+### New in v2.1.292
+
+- **`<system-reminder>` tags in hook output are escaped** — tags a hook writes in its output are escaped before they reach Claude.
+
 ---
 
 ---

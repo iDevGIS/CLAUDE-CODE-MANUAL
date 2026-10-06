@@ -192,6 +192,14 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **`claude plugin validate` lists gating hooks** — each hook a mod registers at a gating site is listed with whether it has a `.catch` (`gatingHooks` under `--json`).
 - **Plugin hooks clip long text** — long text is now clipped and logged instead of being refused or dropped silently; a `$.process.spawn` denied by another mod after the child ran now says the call ran and a plugin withheld its result.
 
+### New in v2.1.292
+
+- **`claude plugin install --marketplace <source>`** — adds the marketplace if needed, under the same policy checks as `claude plugin marketplace add`, then installs the plugin from it.
+- **`prompt.autocomplete` event** — a mod hooks it to add its own rows to the prompt box's autocomplete list.
+- **Prompt caching in `$.model.complete`** — `prompt` and `system` take blocks of text, and `cache: true` on a block caches the request up to it.
+- **Workflow agents in `agent.spawn`** — the mod hook now sees workflow agents, with their run and index, so a mod can refuse them.
+- **`claude plugin test` no longer passes silently** — a failed `expect` inside a hook the test registered, or a stub answer the engine refuses, now fails the test.
+
 ---
 
 ---

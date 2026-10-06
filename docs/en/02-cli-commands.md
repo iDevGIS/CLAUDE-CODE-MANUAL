@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.291         │
+│ Welcome to Claude Code v2.1.292         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -657,6 +657,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **`claude attach <name>` / `claude logs <name>`** — part of a session name now works in place of the session id. See [[41-background-agents]].
 
+### New in v2.1.292
+
+- **`claude plugin install --marketplace <source>`** — adds the marketplace if needed (under the same policy checks as `claude plugin marketplace add`), then installs the plugin from it. See [[18-plugins]].
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1028,7 +1032,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.291
+- run: npm install -g @anthropic-ai/claude-code@2.1.292
 ```
 
 ---

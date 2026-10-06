@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.291         │
+│ Welcome to Claude Code v2.1.292         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -761,6 +761,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **`claude attach <name>` / `claude logs <name>`** — ใส่ชื่อ session แค่บางส่วนแทน session id ได้แล้ว
 
+### 🆕 ใหม่ใน v2.1.292
+
+- **`claude plugin install --marketplace <source>`** — เพิ่ม marketplace ให้เองถ้ายังไม่มี (ผ่าน policy check ชุดเดียวกับ `claude plugin marketplace add`) แล้วติดตั้ง plugin จาก marketplace นั้น (ดู 18. Plugins)
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1092,7 +1096,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.291
+- run: npm install -g @anthropic-ai/claude-code@2.1.292
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1801,6 +1805,9 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.290
 - **`pyright` และ `ps` อีกหลายรูปแบบต้องขออนุญาต** — `pyright` ไม่ถูกนับเป็นคำสั่ง read-only แล้ว และ `ps` หลายรูปแบบเพิ่มเติมจะถามก่อนแทนที่จะรันเลย
 - **settings ของ repo เปิด Claude in Chrome หรือตั้ง `CLAUDE_CODE_DISABLE_ATTACHMENTS` ไม่ได้แล้ว** — Chrome ให้ใช้ `--chrome`, `/chrome` หรือ user settings · `CLAUDE_CODE_DISABLE_ATTACHMENTS` ยังตั้งได้จาก shell, user และ managed settings
+
+### 🆕 ใหม่ใน v2.1.292
+- **strict sandbox อนุญาตคำสั่ง interpreter ที่มี env var นำหน้าให้อัตโนมัติ** — เมื่อตั้ง strict sandbox mode ใน user, managed หรือ `--settings` คำสั่ง interpreter ที่มี env var prefix เช่น `FOO=bar python3 app.py` จะรันได้เลยโดยไม่ถาม
 
 ---
 
@@ -2539,6 +2546,12 @@ claude --mcp-config ./mcp.json
 - **prompt ให้ re-authenticate เมื่อขอ OAuth scope เพิ่ม** — ถ้า MCP server ขอ OAuth scope เพิ่มระหว่าง tool call จะมี prompt ให้ authenticate ใหม่
 - **URL prompt รอจนกด "I'm done, continue"** — สำหรับ server ที่บอกไม่ได้ว่าเราทำเสร็จเมื่อไร tool call จะรอให้ยืนยันก่อน จะได้ทำในเบราว์เซอร์ให้เสร็จก่อน
 
+### 🆕 ใหม่ใน v2.1.292
+
+- **stdio server negotiate protocol 2026-07-28 เป็นค่า default** — ทุกการติดตั้ง รวม Bedrock, Vertex และ Foundry · ตั้ง `MCP_PROTOCOL_NEGOTIATION=legacy` เพื่อ opt out (ดู 23. Environment Variables)
+- **จำ stdio server ที่ต่อช้าไว้ 7 วัน** — local server ที่ไม่ตอบ protocol check แบบใหม่ หลังต่อช้าไปหนึ่งครั้งจะถูกต่อแบบเก่าโดยไม่ต้องรอ
+- **`claude -p` และ SDK session เริ่มเร็วขึ้น** — turn แรกไม่ต้องรอ HTTP และ SSE MCP server ตอบ `resources/list` แล้ว
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -2739,6 +2752,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **match hook ไม่ได้ = block** — ถ้าการ match hook `PreToolUse` หรือ `PermissionRequest` ล้มเหลว หรือ input ของ tool แปลงเป็น JSON ไม่ได้ จากเดิมที่ข้าม hook ไปเฉย ๆ ตอนนี้ tool call นั้นจะถูก block
 - **`InstructionsLoaded` บอกข้อมูลครบขึ้น** — เมื่อ subagent เข้าถึงไฟล์แล้วโหลด rule หรือ CLAUDE.md ซ้อน hook จะได้ `agent_id` และ `agent_type` · rule และ CLAUDE.md ซ้อนที่โหลดตอนเข้าถึงไฟล์รายงาน effort ด้วย
 - **`idle_prompt` notification ไม่ยิงระหว่างที่ background agent ยังทำงาน**
+
+### 🆕 ใหม่ใน v2.1.292
+
+- **tag `<system-reminder>` ใน output ของ hook ถูก escape** — tag ที่ hook เขียนลง output จะถูก escape ก่อนส่งถึง Claude
 
 ---
 
@@ -3150,6 +3167,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **`agent_id` ของ teammate แบบ in-process** — ในผลลัพธ์ของ Agent ค่า `agent_id` ของ teammate แบบ in-process เป็น agent ID ของมันแล้ว ส่วน address `name@team` ย้ายไปอยู่ใน `teammate_id`
 - **hook `TeammateIdle` ไม่ยิงจาก subagent หรือ fork ของ teammate อีกต่อไป**
 - **`/model`, `/effort` และ `/rename` ที่ส่งจาก `claude agents` มีผลทันที** — ส่งไปยัง background session ที่กำลังทำงานอยู่ก็มีผลเลยโดยไม่ต้องยืนยัน แทนที่จะรอจบ turn
+
+### 🆕 ใหม่ใน v2.1.292
+
+- **พารามิเตอร์ `effort` ใน Agent tool** — Claude รัน sub-agent ที่ระดับ effort ตามที่เราขอได้
+- **ชื่อ agent ยาวได้ไม่เกิน 256 ตัวอักษร** — ยาวกว่านั้นจะถูกปฏิเสธ และ `name` ของ skill หรือไฟล์ใน plugin ที่ยาวเกินจะถูกเมิน
 
 ---
 
@@ -3804,6 +3826,14 @@ claude --plugin-dir ./my-plugin
 - **`claude plugin validate` แสดง gating hook** — hook ที่ mod ลงทะเบียนไว้ที่ gating site ถูกแสดงพร้อมบอกว่ามี `.catch` หรือไม่ (`gatingHooks` เมื่อใช้ `--json`)
 - **plugin hooks ตัดข้อความยาว** — ข้อความยาวจะถูกตัดและ log ไว้ แทนที่จะถูกปฏิเสธหรือทิ้งเงียบ ๆ · `$.process.spawn` ที่ mod อื่นปฏิเสธหลัง child รันไปแล้วจะบอกว่าคำสั่งรันแล้วแต่ plugin กักผลไว้
 
+### 🆕 ใหม่ใน v2.1.292
+
+- **`claude plugin install --marketplace <source>`** — เพิ่ม marketplace ให้เองถ้ายังไม่มี (ผ่าน policy check ชุดเดียวกับ `claude plugin marketplace add`) แล้วติดตั้ง plugin จาก marketplace นั้น
+- **event `prompt.autocomplete`** — mod ใช้ hook นี้เพิ่มแถวของตัวเองลงในรายการ autocomplete ของช่อง prompt
+- **prompt caching ใน `$.model.complete`** — `prompt` และ `system` รับข้อความเป็น block ได้ และใส่ `cache: true` ที่ block ไหนจะ cache request จนถึง block นั้น
+- **workflow agent ใน `agent.spawn`** — mod hook เห็น workflow agent พร้อม run และ index แล้ว จึงปฏิเสธได้
+- **`claude plugin test` ไม่ผ่านแบบเงียบ ๆ อีกต่อไป** — `expect` ที่ fail ใน hook ที่ test ลงทะเบียนไว้ หรือ stub answer ที่ engine ปฏิเสธ จะทำให้ test fail
+
 ---
 
 ## 19. Session Management
@@ -4224,6 +4254,8 @@ your-project/
 | `CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES` | จำกัดจำนวนครั้งที่ส่ง request แบบ non-streaming fallback ซ้ำเมื่อหมดเวลา *(v2.1.285)* |
 | `CLAUDE_AX_PREPARK_MS` | screen reader mode เขียนบรรทัดใหม่หรือบรรทัดที่เปลี่ยนโดยไม่หยุดพักให้ cursor ไปรอที่ต้นบรรทัดก่อนแล้ว · ตั้ง `50` เพื่อให้กลับมาหยุดพักเหมือนเดิม *(v2.1.287)* |
 | `CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS` | ตั้ง `1` เพื่อปิด structured outputs — ใช้กับ Mantle หรือ gateway ที่ไม่รับ structured outputs ซึ่งทำให้ชื่อ session, memory recall และ prompt hook ล้ม *(v2.1.288)* |
+| `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | ตั้ง base delay ของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.292)* |
+| `MCP_PROTOCOL_NEGOTIATION` | ตั้ง `legacy` เพื่อไม่ให้ MCP server แบบ local (stdio) negotiate protocol version 2026-07-28 ซึ่งตอนนี้เป็นค่า default ทุกการติดตั้ง รวม Bedrock, Vertex และ Foundry *(v2.1.292)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5551,7 +5583,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.291`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.292`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
