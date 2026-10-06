@@ -295,6 +295,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **classifier ของ auto mode ไม่สน pin Sonnet 5.5 / Opus 5.5** — classifier ฝั่ง client จะข้าม `ANTHROPIC_DEFAULT_SONNET_MODEL` ที่ pin เป็น Claude Sonnet 5.5 หรือ Opus 5.5 แล้วใช้ Claude Sonnet 5 แทน
 - **`rm` อันตรายใน `bash -c` / `sh -c` ถามก่อนแล้ว** — คำสั่งแบบนี้ (เช่นลบ `/` หรือ home directory) ไม่รันเงียบ ๆ อีกต่อไปในโหมด `bypassPermissions` หรือภายใต้ shell allow rule
 
+### 🆕 ใหม่ใน v2.1.290
+- **`pyright` และ `ps` อีกหลายรูปแบบต้องขออนุญาต** — `pyright` ไม่ถูกนับเป็นคำสั่ง read-only แล้ว และ `ps` หลายรูปแบบเพิ่มเติมจะถามก่อนแทนที่จะรันเลย
+- **settings ของ repo เปิด Claude in Chrome หรือตั้ง `CLAUDE_CODE_DISABLE_ATTACHMENTS` ไม่ได้แล้ว** — Chrome ให้ใช้ `--chrome`, `/chrome` หรือ user settings · `CLAUDE_CODE_DISABLE_ATTACHMENTS` ยังตั้งได้จาก shell, user และ managed settings ดู [[40-claude-in-chrome]]
+
 ---
 
 ---

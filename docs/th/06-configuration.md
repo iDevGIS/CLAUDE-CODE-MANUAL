@@ -332,6 +332,12 @@ related:
 - **การสลับโมเดลอัตโนมัติคง effort level เดิม** — หลังข้อความถูก flag การสลับโมเดลอัตโนมัติจะคง effort level ปัจจุบันไว้ แทนที่จะใช้ค่าเริ่มต้นของโมเดลใหม่
 - **event `user_prompt` ของ OpenTelemetry มี `prompt_text`** — เป็นสำเนาของ `prompt` สำหรับ backend ที่แตก key ที่มีจุดเป็นชั้นซ้อน · ถ้าเคย drop หรือ mask `prompt` ไว้ที่ไหน ให้ทำกับ `prompt_text` ด้วย
 
+### 🆕 ใหม่ใน v2.1.290
+
+- **คำเตือนเรื่อง managed settings** — เตือนเมื่อไฟล์ managed settings เป็น link ไปยังไฟล์นอกโฟลเดอร์ managed settings · `/status` และ doctor เตือนเมื่อ managed settings ไม่สน `allowRead` path หรือ allowed domain ของ sandbox ที่ user ตั้งไว้
+- **โควตา WebSearch เติมคืนตามเวลา** — session แบบ interactive ได้โควตา WebSearch เติมคืน 100 ครั้ง/ชั่วโมง แทนที่จะหมดหลัง 200 ครั้ง · ปรับอัตราด้วย `CLAUDE_CODE_WEB_SEARCH_REFILLS_PER_HOUR` (`0` = ปิดการเติม)
+- **`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` ข้ามการ warm-up connection ตอนเริ่มด้วย** ดู [[23-environment-variables]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

@@ -154,6 +154,13 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 - **Enter เปิดตัวที่ match ที่สุด** — filter `n:` (และการค้นด้วย Ctrl+F) จะเปิด session ที่ชื่อ match ที่สุด แทนที่จะเปิดแถวบนสุด
 - **เวลาจำกัดของ background command ใช้เฉพาะ session ที่ไม่มีคนเฝ้า** — มีผลแค่ `-p`, Agent SDK, CI และ cloud · session ใน terminal, desktop app และ VS Code ไม่มีเวลาจำกัด
 
+### 🆕 ใหม่ใน v2.1.290
+
+- **`claude attach <name>` / `claude logs <name>`** — ใส่ชื่อ session แค่บางส่วนแทน id ได้
+- **`/model`, `/effort` และ `/rename` มีผลทันที** — ส่งจาก `claude agents` ไปยัง background session ที่กำลังทำงานอยู่ก็มีผลเลยโดยไม่ต้องยืนยัน แทนที่จะรอจบ turn
+- **session ที่รอ scheduled wakeup (`/loop`) ถูกปล่อยให้รันต่อ** — ผ่านการอัปเดตและช่วง memory ต่ำ ซึ่งเดิมการ restart หรือ shutdown อาจทำให้ wakeup หายเงียบ ๆ
+- **session ที่ scheduled task หายไปแล้วย้ายไป Completed** — ราว 20 วินาทีต่อมา และอัปเดตหรือ shutdown ได้เมื่อว่าง
+
 ---
 
 ---

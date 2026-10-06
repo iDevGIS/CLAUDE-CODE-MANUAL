@@ -123,6 +123,11 @@ Claude in Chrome คือการเชื่อม Claude Code เข้า�
 
 - **managed setting `allowClaudeInChromeWithManagedMcp`** — ให้ `claude --chrome` รันคู่กับ `managed-mcp.json` แบบ exclusive ได้ · ข้อความ error ตอน Chrome ถูกบล็อกจะบอกชื่อ setting นี้ให้ด้วย ดู [[06-configuration]]
 
+### 🆕 ใหม่ใน v2.1.290
+
+- **ไฟล์ settings ของโปรเจกต์เปิด Claude in Chrome ไม่ได้แล้ว** — ให้ใช้ `--chrome`, `/chrome` หรือ user settings แทน ดู [[05-permissions]]
+- **timeout ของ `browser_batch` เพิ่มเป็น 90 วินาที** — จากเดิม 60 วินาที ก่อนถูกรายงานว่า timeout
+
 ---
 
 ---

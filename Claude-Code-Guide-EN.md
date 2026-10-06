@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.289         │
+│ Welcome to Claude Code v2.1.291         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.289
+- run: npm install -g @anthropic-ai/claude-code@2.1.291
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1102,6 +1102,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **`claude project purge` → `claude purge`** — the command is renamed; the old name still works and prints a notice.
 - **Background command time limit only in unattended sessions** — it now applies only to `-p`, Agent SDK, CI and cloud sessions; terminal, desktop app and VS Code sessions have no limit.
 - **Up brings back a prompt cleared with Ctrl+C** — pressing Up on the empty prompt restores the draft, including pasted text and images.
+
+### New in v2.1.290
+
+- **`claude attach <name>` / `claude logs <name>`** — part of a session name now works in place of the session id.
 
 ---
 
@@ -1390,6 +1394,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.288
 - **`/code-review --max-findings <n>|all`** — reports more or fewer findings than the usual limit; the choice is reused until you pass `--max-findings default`.
 - **`/autocompact` is saved per model** — each model keeps its own auto-compact window when you switch (see 14. Context Management).
+
+### New in v2.1.290
+- **`/code-review` at medium effort reports more** — on models without tuned review settings, including Opus 5.5 and Sonnet 5.5, it now also reports cleanup and CLAUDE.md-conventions findings.
+- **`/claude-api managed-agents-onboard <url>|<quickstart-name>`** — sets up the Managed Agents pattern a page describes as `ant apply` files, or builds a Console quickstart template (such as `deep-researcher`) with the `ant` CLI.
 
 ---
 
@@ -1796,6 +1804,10 @@ Skill(commit)                    # Specific skill
 - **Auto mode classifier ignores a Sonnet 5.5 / Opus 5.5 pin** — the client-side classifier ignores an `ANTHROPIC_DEFAULT_SONNET_MODEL` pin that names Claude Sonnet 5.5 or Opus 5.5 and uses Claude Sonnet 5 instead.
 - **Dangerous `rm` inside `bash -c` / `sh -c` now prompts** — such a command (for example on `/` or the home directory) no longer runs without a prompt in `bypassPermissions` mode or under a shell allow rule.
 
+### New in v2.1.290
+- **`pyright` and more forms of `ps` now ask** — `pyright` is no longer treated as a read-only command, and more forms of `ps` ask for approval instead of running without asking.
+- **Repository settings can no longer turn on Claude in Chrome or set `CLAUDE_CODE_DISABLE_ATTACHMENTS`** — use `--chrome`, `/chrome` or your user settings for Chrome; shell, user and managed settings can still set `CLAUDE_CODE_DISABLE_ATTACHMENTS`.
+
 ---
 
 ## 6. Configuration
@@ -2104,6 +2116,12 @@ Skill(commit)                    # Specific skill
 - **1M context by default on Bedrock, Vertex, Foundry and the Claude apps gateway** — Opus 4.7+ and Fable now use a 1M context window there by default, with no `[1m]` suffix; `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` keeps 200K (see 23. Environment Variables).
 - **Automatic model switches keep your effort level** — after a flagged message, an automatic model switch keeps your current effort level instead of the new model's default.
 - **OpenTelemetry `user_prompt` gains `prompt_text`** — a copy of `prompt` for backends that nest dotted keys; drop or mask it wherever you drop or mask `prompt`.
+
+### New in v2.1.290
+
+- **Managed settings warnings** — Claude Code warns when a managed settings file is a link to a file outside the managed settings folder, and `/status` and doctor warn when managed settings ignore user-configured sandbox `allowRead` paths or allowed domains.
+- **WebSearch budget refills over time** — the interactive session's WebSearch budget now refills at 100 calls/hour instead of ending after 200 calls; `CLAUDE_CODE_WEB_SEARCH_REFILLS_PER_HOUR` sets the rate (`0` turns refilling off).
+- **`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` also skips the startup connection warm-up** (see 23. Environment Variables).
 
 ---
 
@@ -2929,6 +2947,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **`/skill` names typed mid-message are recognized** — Claude is now told that a `/skill` name typed in the middle of a message is a skill, including skills with `disable-model-invocation`.
 
+### New in v2.1.290
+
+- **Skill listing shows both names** — when a skill's folder name differs from the `name` in its SKILL.md (for example a non-English folder name), the listing shows both, so the skill is found by either.
+- **`!` shell commands with raw control characters are refused** — skills and custom commands refuse a `!` command containing control characters other than tab and newline, with a message showing where they are.
+
 ---
 
 ## 12. Subagents (Specialized Helpers)
@@ -3128,6 +3151,12 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Ctrl+F finds a session by name; Alt+↑/↓ jumps between groups** — in the agents view; both, and rename, can be rebound in `keybindings.json` (see 4. Keyboard Shortcuts).
 - **Enter opens the best match** — the `n:` filter (and Ctrl+F search) now opens the session whose name matches best instead of the top row.
+
+### New in v2.1.290
+
+- **In-process teammate `agent_id`** — in Agent results, an in-process teammate's `agent_id` is now its agent ID; its `name@team` address stays in `teammate_id`.
+- **`TeammateIdle` hooks no longer fire from a teammate's subagents or forks.**
+- **`/model`, `/effort` and `/rename` from `claude agents` apply right away** — sent to a busy background session, they now take effect immediately without a confirmation instead of when the turn ends.
 
 ---
 
@@ -3776,6 +3805,15 @@ claude --plugin-dir ./my-plugin
 - **`agent.spawn` for teammates** — a mod can now spawn teammates through `agent.spawn`.
 - **One agent id across plugin hook events** — a plugin sees the same agent id for a given agent in every hook event, so it can correlate events instead of matching by name.
 - **`idle` and `waiting` states in `$.agent.list()`** — the agent list now reports when an agent is idle or waiting, alongside the states it already returned.
+
+### New in v2.1.290
+
+- **`serverToolUses` in a mod's `turn.step` result** — the tool calls the API ran itself (the advisor), each with its id, name, input, start and end.
+- **`agentId` on the plugin hooks `tool.check` event** — a hook can tell a subagent's permission check from the main session's.
+- **`ceiling` in `tool.check`** — the question and verdict a mod's `tool.check` hook reads now name the approval an organization requires for a tool.
+- **`ThemeKey` and `Color` types** in the plugin hooks typings, so an editor lists the theme colors a mod's drawing can name.
+- **`claude plugin validate` lists gating hooks** — each hook a mod registers at a gating site is listed with whether it has a `.catch` (`gatingHooks` under `--json`).
+- **Plugin hooks clip long text** — long text is now clipped and logged instead of being refused or dropped silently; a `$.process.spawn` denied by another mod after the child ran now says the call ran and a plugin withheld its result.
 
 ---
 
@@ -5527,7 +5565,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.289`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.291`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

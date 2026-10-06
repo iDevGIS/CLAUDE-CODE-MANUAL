@@ -276,6 +276,10 @@ related:
 - **`/code-review --max-findings <n>|all`** — สั่งให้รายงาน finding มากหรือน้อยกว่าลิมิตปกติ · ค่าที่เลือกจะถูกใช้ต่อไปจนกว่าจะสั่ง `--max-findings default`
 - **`/autocompact` บันทึกแยกตามโมเดล** — สลับโมเดลแล้วแต่ละโมเดลยังคงหน้าต่าง auto-compact ของตัวเอง ดู [[14-context-management]]
 
+### 🆕 ใหม่ใน v2.1.290
+- **`/code-review` ระดับ medium รายงานกว้างขึ้น** — บนโมเดลที่ไม่มีค่า review ที่จูนไว้ รวมถึง Opus 5.5 และ Sonnet 5.5 จะรายงาน finding ด้าน cleanup และ convention ใน CLAUDE.md ด้วย
+- **`/claude-api managed-agents-onboard <url>|<quickstart-name>`** — ตั้ง pattern Managed Agents ตามที่หน้าเว็บอธิบายเป็นไฟล์ `ant apply` หรือสร้าง Console quickstart template (เช่น `deep-researcher`) ด้วย `ant` CLI
+
 ---
 
 ---

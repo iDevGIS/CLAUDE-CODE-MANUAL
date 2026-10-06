@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.289         │
+│ Welcome to Claude Code v2.1.291         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -653,6 +653,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **เวลาจำกัดของ background command ใช้เฉพาะ session ที่ไม่มีคนเฝ้า** — มีผลแค่ `-p`, Agent SDK, CI และ cloud · session ใน terminal, desktop app และ VS Code ไม่มีเวลาจำกัดแล้ว
 - **กด Up เรียก prompt ที่ล้างด้วย Ctrl+C กลับมาได้** — กด Up ตอน prompt ว่างจะได้ draft คืน รวมข้อความและรูปที่ paste ไว้
 
+### 🆕 ใหม่ใน v2.1.290
+
+- **`claude attach <name>` / `claude logs <name>`** — ใส่ชื่อ session แค่บางส่วนแทน session id ได้แล้ว ดู [[41-background-agents]]
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1024,7 +1028,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.289
+- run: npm install -g @anthropic-ai/claude-code@2.1.291
 ```
 
 ---

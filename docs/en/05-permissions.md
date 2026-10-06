@@ -266,6 +266,10 @@ Skill(commit)                    # Specific skill
 - **Auto mode classifier ignores a Sonnet 5.5 / Opus 5.5 pin** — the client-side classifier ignores an `ANTHROPIC_DEFAULT_SONNET_MODEL` pin that names Claude Sonnet 5.5 or Opus 5.5 and uses Claude Sonnet 5 instead.
 - **Dangerous `rm` inside `bash -c` / `sh -c` now prompts** — such a command (for example on `/` or the home directory) no longer runs without a prompt in `bypassPermissions` mode or under a shell allow rule.
 
+### New in v2.1.290
+- **`pyright` and more forms of `ps` now ask** — `pyright` is no longer treated as a read-only command, and more forms of `ps` ask for approval instead of running without asking.
+- **Repository settings can no longer turn on Claude in Chrome or set `CLAUDE_CODE_DISABLE_ATTACHMENTS`** — use `--chrome`, `/chrome` or your user settings for Chrome; shell, user and managed settings can still set `CLAUDE_CODE_DISABLE_ATTACHMENTS`. See [[40-claude-in-chrome]].
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

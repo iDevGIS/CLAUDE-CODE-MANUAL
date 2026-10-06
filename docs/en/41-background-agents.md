@@ -154,6 +154,13 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 - **Enter opens the best match** — the `n:` filter (and Ctrl+F search) now opens the session whose name matches best instead of the top row.
 - **Background command time limit only in unattended sessions** — it applies to `-p`, Agent SDK, CI and cloud sessions; terminal, desktop app and VS Code sessions have no limit.
 
+### New in v2.1.290
+
+- **`claude attach <name>` / `claude logs <name>`** — part of a session name works in place of the id.
+- **`/model`, `/effort` and `/rename` apply right away** — sent from `claude agents` to a busy background session, they now take effect immediately without a confirmation instead of when the turn ends.
+- **Sessions waiting on a scheduled wakeup (`/loop`) are kept running** — through updates and low memory, where a restart or shutdown could silently lose the wakeup.
+- **Sessions whose scheduled task is gone move to Completed** — about 20 seconds later, and can then be updated or shut down when idle.
+
 ---
 
 ---

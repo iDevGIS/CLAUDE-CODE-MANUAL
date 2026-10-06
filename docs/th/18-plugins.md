@@ -183,6 +183,15 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **agent id เดียวกันทุก hook event ของ plugin** — plugin เห็น agent id ตัวเดียวกันของ agent หนึ่ง ๆ ในทุก hook event จึงจับคู่ event ได้โดยไม่ต้องเทียบจากชื่อ
 - **สถานะ `idle` และ `waiting` ใน `$.agent.list()`** — รายการ agent บอกได้แล้วว่า agent ตัวไหนว่าง (idle) หรือรออยู่ (waiting) เพิ่มจากสถานะเดิมที่คืนมา
 
+### 🆕 ใหม่ใน v2.1.290
+
+- **`serverToolUses` ในผลของ hook `turn.step` ของ mod** — tool call ที่ API รันเอง (advisor) แต่ละตัวมี id, name, input, start และ end
+- **`agentId` ใน event `tool.check` ของ plugin hooks** — hook แยกได้ว่า permission check มาจาก subagent หรือ session หลัก
+- **`ceiling` ใน `tool.check`** — question และ verdict ที่ hook `tool.check` ของ mod อ่าน บอกระดับการอนุมัติที่องค์กรกำหนดให้ tool นั้น
+- **type `ThemeKey` และ `Color`** ใน typings ของ plugin hooks · editor จึงแสดงสีของ theme ที่ mod ใช้วาดได้
+- **`claude plugin validate` แสดง gating hook** — hook ที่ mod ลงทะเบียนไว้ที่ gating site ถูกแสดงพร้อมบอกว่ามี `.catch` หรือไม่ (`gatingHooks` เมื่อใช้ `--json`)
+- **plugin hooks ตัดข้อความยาว** — ข้อความยาวจะถูกตัดและ log ไว้ แทนที่จะถูกปฏิเสธหรือทิ้งเงียบ ๆ · `$.process.spawn` ที่ mod อื่นปฏิเสธหลัง child รันไปแล้วจะบอกว่าคำสั่งรันแล้วแต่ plugin กักผลไว้
+
 ---
 
 ---

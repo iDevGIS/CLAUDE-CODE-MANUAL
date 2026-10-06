@@ -275,6 +275,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/code-review --max-findings <n>|all`** — reports more or fewer findings than the usual limit; the choice is reused until you pass `--max-findings default`.
 - **`/autocompact` is saved per model** — each model keeps its own auto-compact window when you switch. See [[14-context-management]].
 
+### New in v2.1.290
+- **`/code-review` at medium effort reports more** — on models without tuned review settings, including Opus 5.5 and Sonnet 5.5, it now also reports cleanup and CLAUDE.md-conventions findings.
+- **`/claude-api managed-agents-onboard <url>|<quickstart-name>`** — sets up the Managed Agents pattern a page describes as `ant apply` files, or builds a Console quickstart template (such as `deep-researcher`) with the `ant` CLI.
+
 ---
 
 ---

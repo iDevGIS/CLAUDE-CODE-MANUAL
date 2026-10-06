@@ -332,6 +332,12 @@ Set the `model` key to any of these (newest → cheapest):
 - **Automatic model switches keep your effort level** — after a flagged message, an automatic model switch keeps your current effort level instead of the new model's default.
 - **OpenTelemetry `user_prompt` gains `prompt_text`** — a copy of `prompt` for backends that nest dotted keys; drop or mask it wherever you drop or mask `prompt`.
 
+### New in v2.1.290
+
+- **Managed settings warnings** — Claude Code warns when a managed settings file is a link to a file outside the managed settings folder, and `/status` and doctor warn when managed settings ignore user-configured sandbox `allowRead` paths or allowed domains.
+- **WebSearch budget refills over time** — the interactive session's WebSearch budget now refills at 100 calls/hour instead of ending after 200 calls; `CLAUDE_CODE_WEB_SEARCH_REFILLS_PER_HOUR` sets the rate (`0` turns refilling off).
+- **`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` also skips the startup connection warm-up.** See [[23-environment-variables]].
+
 ---
 
 ---

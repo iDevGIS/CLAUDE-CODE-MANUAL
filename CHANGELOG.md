@@ -25,6 +25,32 @@
 
 ---
 
+## [1.83.0] — 2026-10-06
+
+### Compatibility
+- **Claude Code:** `v2.1.291+`
+
+### Added
+- **New in v2.1.290** ใน 9 บท EN+TH (guide หน้าเดียวและ/หรือ atomic note):
+  - บท 02 CLI — `claude attach <name>` / `claude logs <name>` ใช้ชื่อ session บางส่วนแทน id
+  - บท 03 Slash — `/code-review` ระดับ medium รายงาน cleanup + CLAUDE.md conventions บน Opus 5.5/Sonnet 5.5 · `/claude-api managed-agents-onboard <url>|<quickstart-name>`
+  - บท 05 Permissions — `pyright` และ `ps` บางรูปแบบต้องขออนุญาต · settings ของ repo เปิด Claude in Chrome / ตั้ง `CLAUDE_CODE_DISABLE_ATTACHMENTS` ไม่ได้
+  - บท 06 Configuration — คำเตือน managed settings (link นอกโฟลเดอร์, `/status`+doctor เตือน sandbox `allowRead`/domain ถูกเมิน) · WebSearch เติมโควตา 100 ครั้ง/ชม. (`CLAUDE_CODE_WEB_SEARCH_REFILLS_PER_HOUR`) · `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` ข้าม warm-up
+  - บท 11 Skills — รายการ skill แสดงทั้งชื่อโฟลเดอร์และ `name` · คำสั่ง `!` ที่มี control character ดิบถูกปฏิเสธ
+  - บท 12 Subagents — `agent_id` ของ in-process teammate (address ย้ายไป `teammate_id`) · `TeammateIdle` ไม่ยิงจาก subagent/fork ของ teammate
+  - บท 18 Plugins — `serverToolUses` ใน `turn.step`, `agentId` + `ceiling` ใน `tool.check`, type `ThemeKey`/`Color`, `gatingHooks` ใน `claude plugin validate`, plugin hooks ตัดข้อความยาว
+  - บท 40 Chrome (atomic) — settings ของโปรเจกต์เปิด Chrome ไม่ได้ · `browser_batch` timeout 90 วินาที
+  - บท 41 Background (atomic) — `/model`/`/effort`/`/rename` จาก `claude agents` มีผลทันที · session ที่รอ `/loop` wakeup ไม่ถูก restart ระหว่างอัปเดต · session ที่ scheduled task หายย้ายไป Completed
+- **แถว What's-new ของ `v2.1.290–291`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.289` → `2.1.291` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.290` เป็น release ใหญ่ที่ส่วนมากเป็น bug fix (permission/sandbox, `/ultrareview` upload, agents view, scheduled tasks, Claude apps gateway, VS Code, Claude Tag) ซึ่งข้ามตามกติกา · `2.1.291` เป็น regression fix ล้วน · ไม่มี model lineup เปลี่ยน ไม่มีอะไรถูก rename/ถอดจากที่คู่มือเขียนไว้
+
+---
+
 ## [1.82.0] — 2026-10-04
 
 ### Compatibility
@@ -1864,6 +1890,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.83.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.82.0...v1.83.0
 [1.82.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.81.0...v1.82.0
 [1.81.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.80.0...v1.81.0
 [1.80.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.79.0...v1.80.0

@@ -125,6 +125,11 @@ For the full security playbook, see [[32-security-best-practices]].
 
 - **`allowClaudeInChromeWithManagedMcp` managed setting** — lets `claude --chrome` run alongside an exclusive `managed-mcp.json`; the error shown when Chrome is blocked now names this setting. See [[06-configuration]].
 
+### New in v2.1.290
+
+- **A project's settings files can no longer turn Claude in Chrome on** — use `--chrome`, `/chrome` or your user settings. See [[05-permissions]].
+- **`browser_batch` timeout raised to 90 seconds** — up from 60, before the call is reported as timed out.
+
 ---
 
 ---

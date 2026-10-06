@@ -212,6 +212,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **`/skill` names typed mid-message are recognized** — Claude is now told that a `/skill` name typed in the middle of a message is a skill, including skills with `disable-model-invocation`.
 
+### New in v2.1.290
+
+- **Skill listing shows both names** — when a skill's folder name differs from the `name` in its SKILL.md (for example a non-English folder name), the listing shows both, so the skill is found by either.
+- **`!` shell commands with raw control characters are refused** — skills and custom commands refuse a `!` command containing control characters other than tab and newline, with a message showing where they are.
+
 ---
 
 ---

@@ -195,6 +195,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Fork subagents keep the parent's permission mode** — a fork now runs under its parent's permission mode (including plan mode and `dontAsk`) and cannot exit plan mode. See [[05-permissions]].
 - **Auto-mode subagents stop after reporting** — a subagent's run ends as soon as it hands its report back to its caller, instead of taking extra turns that reach no one.
 
+### New in v2.1.290
+
+- **In-process teammate `agent_id`** — in Agent results, an in-process teammate's `agent_id` is now its agent ID; its `name@team` address stays in `teammate_id`.
+- **`TeammateIdle` hooks no longer fire from a teammate's subagents or forks.** See [[10-hooks]].
+
 ---
 
 ---

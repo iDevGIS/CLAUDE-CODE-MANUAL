@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.289         │
+│ Welcome to Claude Code v2.1.291         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -757,6 +757,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **เวลาจำกัดของ background command ใช้เฉพาะ session ที่ไม่มีคนเฝ้า** — มีผลแค่ `-p`, Agent SDK, CI และ cloud · session ใน terminal, desktop app และ VS Code ไม่มีเวลาจำกัดแล้ว
 - **กด Up เรียก prompt ที่ล้างด้วย Ctrl+C กลับมาได้** — กด Up ตอน prompt ว่างจะได้ draft คืน รวมข้อความและรูปที่ paste ไว้
 
+### 🆕 ใหม่ใน v2.1.290
+
+- **`claude attach <name>` / `claude logs <name>`** — ใส่ชื่อ session แค่บางส่วนแทน session id ได้แล้ว
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1088,7 +1092,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.289
+- run: npm install -g @anthropic-ai/claude-code@2.1.291
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1384,6 +1388,10 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.288
 - **`/code-review --max-findings <n>|all`** — สั่งให้รายงาน finding มากหรือน้อยกว่าลิมิตปกติ · ค่าที่เลือกจะถูกใช้ต่อไปจนกว่าจะสั่ง `--max-findings default`
 - **`/autocompact` บันทึกแยกตามโมเดล** — สลับโมเดลแล้วแต่ละโมเดลยังคงหน้าต่าง auto-compact ของตัวเอง (ดูบท 14 การจัดการ Context)
+
+### 🆕 ใหม่ใน v2.1.290
+- **`/code-review` ระดับ medium รายงานกว้างขึ้น** — บนโมเดลที่ไม่มีค่า review ที่จูนไว้ รวมถึง Opus 5.5 และ Sonnet 5.5 จะรายงาน finding ด้าน cleanup และ convention ใน CLAUDE.md ด้วย
+- **`/claude-api managed-agents-onboard <url>|<quickstart-name>`** — ตั้ง pattern Managed Agents ตามที่หน้าเว็บอธิบายเป็นไฟล์ `ant apply` หรือสร้าง Console quickstart template (เช่น `deep-researcher`) ด้วย `ant` CLI
 
 ---
 
@@ -1790,6 +1798,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **classifier ของ auto mode ไม่สน pin Sonnet 5.5 / Opus 5.5** — classifier ฝั่ง client จะข้าม `ANTHROPIC_DEFAULT_SONNET_MODEL` ที่ pin เป็น Claude Sonnet 5.5 หรือ Opus 5.5 แล้วใช้ Claude Sonnet 5 แทน
 - **`rm` อันตรายใน `bash -c` / `sh -c` ถามก่อนแล้ว** — คำสั่งแบบนี้ (เช่นลบ `/` หรือ home directory) ไม่รันเงียบ ๆ อีกต่อไปในโหมด `bypassPermissions` หรือภายใต้ shell allow rule
 
+### 🆕 ใหม่ใน v2.1.290
+- **`pyright` และ `ps` อีกหลายรูปแบบต้องขออนุญาต** — `pyright` ไม่ถูกนับเป็นคำสั่ง read-only แล้ว และ `ps` หลายรูปแบบเพิ่มเติมจะถามก่อนแทนที่จะรันเลย
+- **settings ของ repo เปิด Claude in Chrome หรือตั้ง `CLAUDE_CODE_DISABLE_ATTACHMENTS` ไม่ได้แล้ว** — Chrome ให้ใช้ `--chrome`, `/chrome` หรือ user settings · `CLAUDE_CODE_DISABLE_ATTACHMENTS` ยังตั้งได้จาก shell, user และ managed settings
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2098,6 +2110,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **context 1M เป็นค่าเริ่มต้นบน Bedrock, Vertex, Foundry และ Claude apps gateway** — Opus 4.7 ขึ้นไปและ Fable ใช้ context window 1M เป็นค่าเริ่มต้นบน provider เหล่านี้แล้ว โดยไม่ต้องเติม `[1m]` · ตั้ง `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` ถ้าต้องการคงไว้ที่ 200K (ดูบท 23 Environment Variables)
 - **การสลับโมเดลอัตโนมัติคง effort level เดิม** — หลังข้อความถูก flag การสลับโมเดลอัตโนมัติจะคง effort level ปัจจุบันไว้ แทนที่จะใช้ค่าเริ่มต้นของโมเดลใหม่
 - **event `user_prompt` ของ OpenTelemetry มี `prompt_text`** — เป็นสำเนาของ `prompt` สำหรับ backend ที่แตก key ที่มีจุดเป็นชั้นซ้อน · ถ้าเคย drop หรือ mask `prompt` ไว้ที่ไหน ให้ทำกับ `prompt_text` ด้วย
+
+### 🆕 ใหม่ใน v2.1.290
+
+- **คำเตือนเรื่อง managed settings** — เตือนเมื่อไฟล์ managed settings เป็น link ไปยังไฟล์นอกโฟลเดอร์ managed settings · `/status` และ doctor เตือนเมื่อ managed settings ไม่สน `allowRead` path หรือ allowed domain ของ sandbox ที่ user ตั้งไว้
+- **โควตา WebSearch เติมคืนตามเวลา** — session แบบ interactive ได้โควตา WebSearch เติมคืน 100 ครั้ง/ชั่วโมง แทนที่จะหมดหลัง 200 ครั้ง · ปรับอัตราด้วย `CLAUDE_CODE_WEB_SEARCH_REFILLS_PER_HOUR` (`0` = ปิดการเติม)
+- **`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` ข้ามการ warm-up connection ตอนเริ่มด้วย** (ดูบท 23 Environment Variables)
 
 ---
 
@@ -2922,6 +2940,11 @@ my-skill/
 
 - **ชื่อ `/skill` ที่พิมพ์กลางข้อความถูกรู้จักว่าเป็น skill** — Claude จะถูกบอกว่าชื่อ `/skill` ที่พิมพ์ไว้กลางข้อความคือ skill รวมถึง skill ที่ตั้ง `disable-model-invocation` ด้วย
 
+### 🆕 ใหม่ใน v2.1.290
+
+- **รายการ skill แสดงทั้งสองชื่อ** — ถ้าชื่อโฟลเดอร์ของ skill ต่างจาก `name` ใน SKILL.md (เช่นโฟลเดอร์ชื่อภาษาไทย) รายการจะแสดงทั้งคู่ จึงเรียกด้วยชื่อไหนก็เจอ
+- **คำสั่ง `!` ที่มี control character ดิบถูกปฏิเสธ** — skill และ custom command จะไม่รันคำสั่ง `!` ที่มี control character นอกจาก tab และ newline พร้อมข้อความชี้ตำแหน่ง
+
 ---
 
 ## 12. Subagents (ตัวช่วยเฉพาะทาง)
@@ -3121,6 +3144,12 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **Ctrl+F หา session จากชื่อ · Alt+↑/↓ กระโดดข้ามกลุ่ม** — ในหน้า agents · ทั้งสองปุ่มและการ rename ปรับ binding ได้ใน `keybindings.json` (ดูบท 4 คีย์ลัด)
 - **Enter เปิดตัวที่ match ที่สุด** — filter `n:` (และการค้นด้วย Ctrl+F) จะเปิด session ที่ชื่อ match ที่สุด แทนที่จะเปิดแถวบนสุด
+
+### 🆕 ใหม่ใน v2.1.290
+
+- **`agent_id` ของ teammate แบบ in-process** — ในผลลัพธ์ของ Agent ค่า `agent_id` ของ teammate แบบ in-process เป็น agent ID ของมันแล้ว ส่วน address `name@team` ย้ายไปอยู่ใน `teammate_id`
+- **hook `TeammateIdle` ไม่ยิงจาก subagent หรือ fork ของ teammate อีกต่อไป**
+- **`/model`, `/effort` และ `/rename` ที่ส่งจาก `claude agents` มีผลทันที** — ส่งไปยัง background session ที่กำลังทำงานอยู่ก็มีผลเลยโดยไม่ต้องยืนยัน แทนที่จะรอจบ turn
 
 ---
 
@@ -3765,6 +3794,15 @@ claude --plugin-dir ./my-plugin
 - **`agent.spawn` สำหรับ teammate** — mod สั่ง spawn teammate ได้แล้วผ่าน `agent.spawn`
 - **agent id เดียวกันทุก hook event ของ plugin** — plugin เห็น agent id ตัวเดียวกันของ agent หนึ่ง ๆ ในทุก hook event จึงจับคู่ event ได้โดยไม่ต้องเทียบจากชื่อ
 - **สถานะ `idle` และ `waiting` ใน `$.agent.list()`** — รายการ agent บอกได้แล้วว่า agent ตัวไหนว่าง (idle) หรือรออยู่ (waiting) เพิ่มจากสถานะเดิมที่คืนมา
+
+### 🆕 ใหม่ใน v2.1.290
+
+- **`serverToolUses` ในผลของ hook `turn.step` ของ mod** — tool call ที่ API รันเอง (advisor) แต่ละตัวมี id, name, input, start และ end
+- **`agentId` ใน event `tool.check` ของ plugin hooks** — hook แยกได้ว่า permission check มาจาก subagent หรือ session หลัก
+- **`ceiling` ใน `tool.check`** — question และ verdict ที่ hook `tool.check` ของ mod อ่าน บอกระดับการอนุมัติที่องค์กรกำหนดให้ tool นั้น
+- **type `ThemeKey` และ `Color`** ใน typings ของ plugin hooks · editor จึงแสดงสีของ theme ที่ mod ใช้วาดได้
+- **`claude plugin validate` แสดง gating hook** — hook ที่ mod ลงทะเบียนไว้ที่ gating site ถูกแสดงพร้อมบอกว่ามี `.catch` หรือไม่ (`gatingHooks` เมื่อใช้ `--json`)
+- **plugin hooks ตัดข้อความยาว** — ข้อความยาวจะถูกตัดและ log ไว้ แทนที่จะถูกปฏิเสธหรือทิ้งเงียบ ๆ · `$.process.spawn` ที่ mod อื่นปฏิเสธหลัง child รันไปแล้วจะบอกว่าคำสั่งรันแล้วแต่ plugin กักผลไว้
 
 ---
 
@@ -5513,7 +5551,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.289`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.291`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

@@ -183,6 +183,15 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **One agent id across plugin hook events** — a plugin sees the same agent id for a given agent in every hook event, so it can correlate events instead of matching by name.
 - **`idle` and `waiting` states in `$.agent.list()`** — the agent list now reports when an agent is idle or waiting, alongside the states it already returned.
 
+### New in v2.1.290
+
+- **`serverToolUses` in a mod's `turn.step` result** — the tool calls the API ran itself (the advisor), each with its id, name, input, start and end.
+- **`agentId` on the plugin hooks `tool.check` event** — a hook can tell a subagent's permission check from the main session's.
+- **`ceiling` in `tool.check`** — the question and verdict a mod's `tool.check` hook reads now name the approval an organization requires for a tool.
+- **`ThemeKey` and `Color` types** in the plugin hooks typings, so an editor lists the theme colors a mod's drawing can name.
+- **`claude plugin validate` lists gating hooks** — each hook a mod registers at a gating site is listed with whether it has a `.catch` (`gatingHooks` under `--json`).
+- **Plugin hooks clip long text** — long text is now clipped and logged instead of being refused or dropped silently; a `$.process.spawn` denied by another mod after the child ran now says the call ran and a plugin withheld its result.
+
 ---
 
 ---

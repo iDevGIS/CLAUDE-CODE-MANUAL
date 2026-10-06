@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.289         │
+│ Welcome to Claude Code v2.1.291         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -653,6 +653,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **Background command time limit only in unattended sessions** — it now applies only to `-p`, Agent SDK, CI and cloud sessions; terminal, desktop app and VS Code sessions have no limit.
 - **Up brings back a prompt cleared with Ctrl+C** — pressing Up on the empty prompt restores the draft, including pasted text and images.
 
+### New in v2.1.290
+
+- **`claude attach <name>` / `claude logs <name>`** — part of a session name now works in place of the session id. See [[41-background-agents]].
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1024,7 +1028,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.289
+- run: npm install -g @anthropic-ai/claude-code@2.1.291
 ```
 
 ---

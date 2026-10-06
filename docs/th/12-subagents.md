@@ -195,6 +195,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **fork subagent ใช้ permission mode ของตัวแม่** — fork รันภายใต้ permission mode ของ parent (รวม plan mode และ `dontAsk`) และออกจาก plan mode เองไม่ได้ ดู [[05-permissions]]
 - **subagent ใน auto mode จบทันทีหลังรายงาน** — run ของ subagent จบทันทีที่ส่งรายงานกลับให้ผู้เรียก แทนที่จะเดิน turn เพิ่มที่ไม่มีใครได้รับ
 
+### 🆕 ใหม่ใน v2.1.290
+
+- **`agent_id` ของ teammate แบบ in-process** — ในผลลัพธ์ของ Agent ค่า `agent_id` ของ teammate แบบ in-process เป็น agent ID ของมันแล้ว ส่วน address `name@team` ย้ายไปอยู่ใน `teammate_id`
+- **hook `TeammateIdle` ไม่ยิงจาก subagent หรือ fork ของ teammate อีกต่อไป** ดู [[10-hooks]]
+
 ---
 
 ---
