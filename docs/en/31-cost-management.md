@@ -47,7 +47,7 @@ Input tokens (sent in) + Output tokens (sent back) = Cost
 |-------|-------|--------|-------------|
 | **Opus 4.x** | High | High | Hard work: large refactors, architecture, deep debugging |
 | **Sonnet 4.x** | Medium | Medium | Default for general use — best value |
-| **Haiku 4.x** | Lowest | Lowest | Easy work: rename, format, regex, short summaries |
+| **Haiku 5.5** | Lowest | Lowest | Easy work: rename, format, regex, short summaries |
 
 > Prices change — check the latest at console.anthropic.com
 

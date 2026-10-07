@@ -60,7 +60,8 @@ Set the `model` key to any of these (newest → cheapest):
 - **Opus 4.8** (`claude-opus-4-8`) — previous **Opus** flagship; top-tier coding and complex-bug analysis; defaults to **high effort** on demanding tasks.
 - **Sonnet 5.5** (`claude-sonnet-5-5`) — the **new default Sonnet model** on the Anthropic API (since Claude Code 2.1.284); **1M context**; **$2/$10 per Mtok** with **$0.20/Mtok cache reads**.
 - **Sonnet 5** (`claude-sonnet-5`) — the previous default Sonnet model (Claude Code 2.1.197–2.1.283); balanced and fast, with a **native 1M-token context window** ($2/$10 per Mtok — its standard list price since 2.1.243).
-- **Haiku 4.5** (`claude-haiku-4-5`) — fastest, cheapest; for easy/boilerplate tasks.
+- **Haiku 5.5** (`claude-haiku-5-5`) — the **new default Haiku model** on the Anthropic API (since Claude Code 2.1.293); **1M context**; **$0.10/$0.50 per Mtok** ($0.50/$2.50 for prompts over 100K) — fastest, cheapest; for easy/boilerplate tasks.
+- **Haiku 4.5** (`claude-haiku-4-5`) — the previous default Haiku model.
 - Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed from fast mode in 2.1.219).
 
 ### Example settings.json
@@ -337,6 +338,12 @@ Set the `model` key to any of these (newest → cheapest):
 - **Managed settings warnings** — Claude Code warns when a managed settings file is a link to a file outside the managed settings folder, and `/status` and doctor warn when managed settings ignore user-configured sandbox `allowRead` paths or allowed domains.
 - **WebSearch budget refills over time** — the interactive session's WebSearch budget now refills at 100 calls/hour instead of ending after 200 calls; `CLAUDE_CODE_WEB_SEARCH_REFILLS_PER_HOUR` sets the rate (`0` turns refilling off).
 - **`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` also skips the startup connection warm-up.** See [[23-environment-variables]].
+
+### New in v2.1.293
+
+- **Claude Haiku 5.5** (`claude-haiku-5-5`) — the new **default Haiku model** on the Anthropic API: 1M context, **$0.10/$0.50 per Mtok** ($0.50/$2.50 for prompts over 100K).
+- **Faster startup for Team and Enterprise** — policy and managed settings are fetched earlier, and a stalled request is retried after 3 seconds.
+- **OpenTelemetry `claude_code.at_mention` is capped** — at most 100 agent and 100 MCP-resource events each time a prompt is read.
 
 ---
 

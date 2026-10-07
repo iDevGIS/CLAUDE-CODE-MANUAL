@@ -47,7 +47,7 @@ related:
 |-------|-------|--------|---------|
 | **Opus 4.x** | สูง | สูง | งานยาก: refactor ใหญ่, architecture, debug ลึก |
 | **Sonnet 4.x** | กลาง | กลาง | default ใช้ทั่วไป — ดีสุดด้านความคุ้ม |
-| **Haiku 4.x** | ต่ำสุด | ต่ำสุด | งานง่าย: rename, format, regex, สรุปสั้น |
+| **Haiku 5.5** | ต่ำสุด | ต่ำสุด | งานง่าย: rename, format, regex, สรุปสั้น |
 
 > 💡 ราคาเปลี่ยนได้ — เช็คล่าสุดที่ console.anthropic.com
 

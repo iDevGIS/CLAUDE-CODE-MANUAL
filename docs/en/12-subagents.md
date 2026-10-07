@@ -205,6 +205,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **`effort` parameter on the Agent tool** — Claude runs a sub-agent at the effort level you ask for.
 - **Agent names are capped at 256 characters** — a longer one is rejected, and a skill's or a plugin file's `name` longer than that is ignored.
 
+### New in v2.1.293
+
+- **`agentType` in `subagentStatusLine`** — the payload now includes each agent's type, so scripts can tell custom subagent types apart.
+- **Non-ASCII names sort last** — agent lists and the MCP servers announced to the model now put names with non-ASCII characters after ASCII names.
+
 ---
 
 ---

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.292         │
+│ Welcome to Claude Code v2.1.293         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -283,7 +283,7 @@ git checkout main
 claude --model claude-fable-5-1  # Fable 5.1 — เก่งสุด, context 1M (default Fable ตัวใหม่)
 claude --model opus              # ใช้ Opus 5.5 (default Opus ตัวใหม่, context 1M)
 claude --model sonnet            # ใช้ Sonnet 5.5 (default Sonnet ใหม่, context 1M)
-claude --model haiku             # ใช้ Haiku 4.5 (เร็ว, ถูก, สำหรับงานง่าย)
+claude --model haiku             # ใช้ Haiku 5.5 (default Haiku ใหม่, context 1M)
 claude --model claude-opus-5     # ใช้ชื่อเต็ม (ระบุ version ตรงๆ)
 ```
 
@@ -765,6 +765,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **`claude plugin install --marketplace <source>`** — เพิ่ม marketplace ให้เองถ้ายังไม่มี (ผ่าน policy check ชุดเดียวกับ `claude plugin marketplace add`) แล้วติดตั้ง plugin จาก marketplace นั้น (ดู 18. Plugins)
 
+### 🆕 ใหม่ใน v2.1.293
+
+- **`claude purge` บอกว่าลบอะไรไม่ได้** — ถ้ามีไฟล์หรือโฟลเดอร์ที่ลบไม่ได้ จะลบที่เหลือต่อจนครบ แสดงรายการที่ลบไม่ได้ และจบด้วย exit 1 แทนที่จะหยุดเงียบ ๆ
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1096,7 +1100,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.292
+- run: npm install -g @anthropic-ai/claude-code@2.1.293
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -2124,6 +2128,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **โควตา WebSearch เติมคืนตามเวลา** — session แบบ interactive ได้โควตา WebSearch เติมคืน 100 ครั้ง/ชั่วโมง แทนที่จะหมดหลัง 200 ครั้ง · ปรับอัตราด้วย `CLAUDE_CODE_WEB_SEARCH_REFILLS_PER_HOUR` (`0` = ปิดการเติม)
 - **`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` ข้ามการ warm-up connection ตอนเริ่มด้วย** (ดูบท 23 Environment Variables)
 
+### 🆕 ใหม่ใน v2.1.293
+
+- **Claude Haiku 5.5** (`claude-haiku-5-5`) — **default Haiku ตัวใหม่**บน Anthropic API: context 1M, ราคา **$0.10/$0.50 ต่อ Mtok** ($0.50/$2.50 สำหรับ prompt เกิน 100K)
+- **เปิดเร็วขึ้นสำหรับองค์กร Team และ Enterprise** — ดึง policy และ managed settings เร็วขึ้น และ retry request ที่ค้างหลัง 3 วินาที
+- **OpenTelemetry `claude_code.at_mention` มีเพดาน** — ส่ง event ของ agent ได้ไม่เกิน 100 และของ MCP resource ไม่เกิน 100 ต่อการอ่าน prompt หนึ่งครั้ง
+
 ---
 
 ## 7. CLAUDE.md - คำสั่งถาวรสำหรับโปรเจกต์
@@ -2962,6 +2972,10 @@ my-skill/
 - **รายการ skill แสดงทั้งสองชื่อ** — ถ้าชื่อโฟลเดอร์ของ skill ต่างจาก `name` ใน SKILL.md (เช่นโฟลเดอร์ชื่อภาษาไทย) รายการจะแสดงทั้งคู่ จึงเรียกด้วยชื่อไหนก็เจอ
 - **คำสั่ง `!` ที่มี control character ดิบถูกปฏิเสธ** — skill และ custom command จะไม่รันคำสั่ง `!` ที่มี control character นอกจาก tab และ newline พร้อมข้อความชี้ตำแหน่ง
 
+### 🆕 ใหม่ใน v2.1.293
+
+- **sync skill จาก claude.ai เช็กห่างขึ้นตอนว่าง** — ระหว่างที่ไม่มี session ใช้งาน จะเช็กการเปลี่ยนแปลงของ skill ที่ sync ไว้ราว ๆ ทุก 40 นาที แทนทุก 10 นาที
+
 ---
 
 ## 12. Subagents (ตัวช่วยเฉพาะทาง)
@@ -3172,6 +3186,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **พารามิเตอร์ `effort` ใน Agent tool** — Claude รัน sub-agent ที่ระดับ effort ตามที่เราขอได้
 - **ชื่อ agent ยาวได้ไม่เกิน 256 ตัวอักษร** — ยาวกว่านั้นจะถูกปฏิเสธ และ `name` ของ skill หรือไฟล์ใน plugin ที่ยาวเกินจะถูกเมิน
+
+### 🆕 ใหม่ใน v2.1.293
+
+- **`agentType` ใน `subagentStatusLine`** — payload มีชนิดของ agent แต่ละตัวแล้ว script จึงแยก custom subagent แต่ละชนิดออกจากกันได้
+- **ชื่อที่ไม่ใช่ ASCII เรียงไว้ท้าย** — รายการ agent และ MCP server ที่แจ้งให้โมเดลรู้ จะเรียงชื่อที่มีตัวอักษรนอก ASCII (เช่นภาษาไทย) ไว้หลังชื่อ ASCII
 
 ---
 
@@ -3834,6 +3853,11 @@ claude --plugin-dir ./my-plugin
 - **workflow agent ใน `agent.spawn`** — mod hook เห็น workflow agent พร้อม run และ index แล้ว จึงปฏิเสธได้
 - **`claude plugin test` ไม่ผ่านแบบเงียบ ๆ อีกต่อไป** — `expect` ที่ fail ใน hook ที่ test ลงทะเบียนไว้ หรือ stub answer ที่ engine ปฏิเสธ จะทำให้ test fail
 
+### 🆕 ใหม่ใน v2.1.293
+
+- **`isDeferred` ใน `$.tool.register`** — ตั้ง `false` เพื่อให้ schema ของ tool ใน mod อยู่ใน prompt ตั้งแต่แรก แทนที่จะซ่อนอยู่หลัง tool search
+- **`mock.session` ใน `claude plugin test`** — test ของ mod ที่เรียก `$.session.append` อ่านแถวที่ append ไปกลับมาตรวจได้
+
 ---
 
 ## 19. Session Management
@@ -4420,7 +4444,7 @@ claude --version  # ตรวจสอบเวอร์ชัน
 | งานคิดหนักสุด, context ใหญ่มาก | Fable 5.1 | โมเดลเก่งสุด, context 1M เป็นค่าเริ่มต้น |
 | วางสถาปัตยกรรม, แก้ Bug ซับซ้อน | Opus 5.5 | คิดลึก วิเคราะห์ดี |
 | เขียนโค้ดทั่วไป, แก้ Bug ธรรมดา | Sonnet 5.5 | เร็ว ประหยัด — เป็น default |
-| งาน Boilerplate, Generate Data | Haiku 4.5 | เร็วมาก ถูกมาก |
+| งาน Boilerplate, Generate Data | Haiku 5.5 | เร็วมาก ถูกมาก |
 
 ### ประหยัดค่าใช้จ่าย
 
@@ -5583,7 +5607,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.292`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.293`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
@@ -6685,7 +6709,7 @@ git status / git stash list / git reflog
 |-------|-------|--------|---------|
 | **Opus 4.x** | สูง | สูง | งานยาก: refactor ใหญ่, architecture, debug ลึก |
 | **Sonnet 4.x** | กลาง | กลาง | default ใช้ทั่วไป — ดีสุดด้านความคุ้ม |
-| **Haiku 4.x** | ต่ำสุด | ต่ำสุด | งานง่าย: rename, format, regex, สรุปสั้น |
+| **Haiku 5.5** | ต่ำสุด | ต่ำสุด | งานง่าย: rename, format, regex, สรุปสั้น |
 
 > 💡 ราคาเปลี่ยนได้ — เช็คล่าสุดที่ console.anthropic.com
 
@@ -7865,4 +7889,4 @@ Claude Code เป็นเครื่องมือ AI สำหรับน�
 ---
 
 > **เวอร์ชันเอกสาร:** ปรับปรุงล่าสุด 25 มิถุนายน 2026  
-> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 4.5)
+> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5)

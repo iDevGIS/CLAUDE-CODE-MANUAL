@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.292         │
+│ Welcome to Claude Code v2.1.293         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -283,7 +283,7 @@ git checkout main
 claude --model claude-fable-5-1  # Fable 5.1 — most capable, 1M context (new default Fable)
 claude --model opus              # Opus 5.5 (new default Opus, 1M context)
 claude --model sonnet            # Sonnet 5.5 (new default Sonnet, 1M context)
-claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
+claude --model haiku             # Haiku 5.5 (new default Haiku, 1M context)
 claude --model claude-opus-5     # Full name (specify exact version)
 ```
 
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.292
+- run: npm install -g @anthropic-ai/claude-code@2.1.293
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1110,6 +1110,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.292
 
 - **`claude plugin install --marketplace <source>`** — adds the marketplace if needed (under the same policy checks as `claude plugin marketplace add`), then installs the plugin from it (see 18. Plugins).
+
+### New in v2.1.293
+
+- **`claude purge` reports what it couldn't delete** — when a file or folder can't be deleted, it now deletes the rest, lists what it could not delete, and exits 1 instead of stopping silently.
 
 ---
 
@@ -2130,6 +2134,12 @@ Skill(commit)                    # Specific skill
 - **WebSearch budget refills over time** — the interactive session's WebSearch budget now refills at 100 calls/hour instead of ending after 200 calls; `CLAUDE_CODE_WEB_SEARCH_REFILLS_PER_HOUR` sets the rate (`0` turns refilling off).
 - **`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` also skips the startup connection warm-up** (see 23. Environment Variables).
 
+### New in v2.1.293
+
+- **Claude Haiku 5.5** (`claude-haiku-5-5`) — the new **default Haiku model** on the Anthropic API: 1M context, **$0.10/$0.50 per Mtok** ($0.50/$2.50 for prompts over 100K).
+- **Faster startup for Team and Enterprise** — policy and managed settings are fetched earlier, and a stalled request is retried after 3 seconds.
+- **OpenTelemetry `claude_code.at_mention` is capped** — at most 100 agent and 100 MCP-resource events each time a prompt is read.
+
 ---
 
 ## 7. CLAUDE.md - Persistent Project Instructions
@@ -2969,6 +2979,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **Skill listing shows both names** — when a skill's folder name differs from the `name` in its SKILL.md (for example a non-English folder name), the listing shows both, so the skill is found by either.
 - **`!` shell commands with raw control characters are refused** — skills and custom commands refuse a `!` command containing control characters other than tab and newline, with a message showing where they are.
 
+### New in v2.1.293
+
+- **claude.ai skill sync checks less often while idle** — synced skills are checked for changes about every 40 minutes, instead of every 10, while no session is in use.
+
 ---
 
 ## 12. Subagents (Specialized Helpers)
@@ -3179,6 +3193,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **`effort` parameter on the Agent tool** — Claude runs a sub-agent at the effort level you ask for.
 - **Agent names are capped at 256 characters** — a longer one is rejected, and a skill's or a plugin file's `name` longer than that is ignored.
+
+### New in v2.1.293
+
+- **`agentType` in `subagentStatusLine`** — the payload now includes each agent's type, so scripts can tell custom subagent types apart.
+- **Non-ASCII names sort last** — agent lists and the MCP servers announced to the model now put names with non-ASCII characters after ASCII names.
 
 ---
 
@@ -3845,6 +3864,11 @@ claude --plugin-dir ./my-plugin
 - **Workflow agents in `agent.spawn`** — the mod hook now sees workflow agents, with their run and index, so a mod can refuse them.
 - **`claude plugin test` no longer passes silently** — a failed `expect` inside a hook the test registered, or a stub answer the engine refuses, now fails the test.
 
+### New in v2.1.293
+
+- **`isDeferred` in `$.tool.register`** — `false` lists a mod tool's schema in the prompt from the start instead of behind tool search.
+- **`mock.session` in `claude plugin test`** — tests for mods that call `$.session.append` can read the appended rows back.
+
 ---
 
 ## 19. Session Management
@@ -4431,7 +4455,7 @@ claude --version  # check the version
 | Hardest reasoning, huge context | Fable 5.1 | Most capable model, 1M context by default |
 | Architecture, complex bugs | Opus 5.5 | Deep thought, strong analysis |
 | General coding, ordinary bugs | Sonnet 5.5 | Fast, economical — the default |
-| Boilerplate, data generation | Haiku 4.5 | Very fast and very cheap |
+| Boilerplate, data generation | Haiku 5.5 | Very fast and very cheap |
 
 ### Save Money
 
@@ -5597,7 +5621,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.292`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.293`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
@@ -6699,7 +6723,7 @@ Input tokens (sent in) + Output tokens (sent back) = Cost
 |-------|-------|--------|-------------|
 | **Opus 4.x** | High | High | Hard work: large refactors, architecture, deep debugging |
 | **Sonnet 4.x** | Medium | Medium | Default for general use — best value |
-| **Haiku 4.x** | Lowest | Lowest | Easy work: rename, format, regex, short summaries |
+| **Haiku 5.5** | Lowest | Lowest | Easy work: rename, format, regex, short summaries |
 
 > Prices change — check the latest at console.anthropic.com
 
@@ -7879,4 +7903,4 @@ Claude Code is a feature-complete AI tool for developers:
 ---
 
 > **Document version:** Last updated June 25, 2026
-> **Applies to:** Latest Claude Code version (Claude Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 4.5)
+> **Applies to:** Latest Claude Code version (Claude Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5)

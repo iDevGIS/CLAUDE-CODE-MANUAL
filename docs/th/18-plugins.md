@@ -200,6 +200,11 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **workflow agent ใน `agent.spawn`** — mod hook เห็น workflow agent พร้อม run และ index แล้ว จึงปฏิเสธได้
 - **`claude plugin test` ไม่ผ่านแบบเงียบ ๆ อีกต่อไป** — `expect` ที่ fail ใน hook ที่ test ลงทะเบียนไว้ หรือ stub answer ที่ engine ปฏิเสธ จะทำให้ test fail
 
+### 🆕 ใหม่ใน v2.1.293
+
+- **`isDeferred` ใน `$.tool.register`** — ตั้ง `false` เพื่อให้ schema ของ tool ใน mod อยู่ใน prompt ตั้งแต่แรก แทนที่จะซ่อนอยู่หลัง tool search
+- **`mock.session` ใน `claude plugin test`** — test ของ mod ที่เรียก `$.session.append` อ่านแถวที่ append ไปกลับมาตรวจได้
+
 ---
 
 ---

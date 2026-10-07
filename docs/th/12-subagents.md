@@ -205,6 +205,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **พารามิเตอร์ `effort` ใน Agent tool** — Claude รัน sub-agent ที่ระดับ effort ตามที่เราขอได้
 - **ชื่อ agent ยาวได้ไม่เกิน 256 ตัวอักษร** — ยาวกว่านั้นจะถูกปฏิเสธ และ `name` ของ skill หรือไฟล์ใน plugin ที่ยาวเกินจะถูกเมิน
 
+### 🆕 ใหม่ใน v2.1.293
+
+- **`agentType` ใน `subagentStatusLine`** — payload มีชนิดของ agent แต่ละตัวแล้ว script จึงแยก custom subagent แต่ละชนิดออกจากกันได้
+- **ชื่อที่ไม่ใช่ ASCII เรียงไว้ท้าย** — รายการ agent และ MCP server ที่แจ้งให้โมเดลรู้ จะเรียงชื่อที่มีตัวอักษรนอก ASCII (เช่นภาษาไทย) ไว้หลังชื่อ ASCII
+
 ---
 
 ---

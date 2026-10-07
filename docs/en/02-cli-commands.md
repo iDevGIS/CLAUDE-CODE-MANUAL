@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.292         │
+│ Welcome to Claude Code v2.1.293         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -174,7 +174,7 @@ git checkout main
 claude --model claude-fable-5-1  # Fable 5.1 — most capable, 1M context (new default Fable)
 claude --model opus              # Opus 5.5 (new default Opus, 1M context)
 claude --model sonnet            # Sonnet 5.5 (new default Sonnet, 1M context)
-claude --model haiku             # Haiku 4.5 (fast, cheap, easy tasks)
+claude --model haiku             # Haiku 5.5 (new default Haiku, 1M context)
 claude --model claude-opus-5     # Full name (specify exact version)
 ```
 
@@ -661,6 +661,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **`claude plugin install --marketplace <source>`** — adds the marketplace if needed (under the same policy checks as `claude plugin marketplace add`), then installs the plugin from it. See [[18-plugins]].
 
+### New in v2.1.293
+
+- **`claude purge` reports what it couldn't delete** — when a file or folder can't be deleted, it now deletes the rest, lists what it could not delete, and exits 1 instead of stopping silently.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1032,7 +1036,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.292
+- run: npm install -g @anthropic-ai/claude-code@2.1.293
 ```
 
 ---

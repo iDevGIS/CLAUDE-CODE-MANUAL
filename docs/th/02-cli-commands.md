@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.292         │
+│ Welcome to Claude Code v2.1.293         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -174,7 +174,7 @@ git checkout main
 claude --model claude-fable-5-1  # Fable 5.1 — เก่งสุด, context 1M (default Fable ตัวใหม่)
 claude --model opus              # ใช้ Opus 5.5 (default Opus ตัวใหม่, context 1M)
 claude --model sonnet            # ใช้ Sonnet 5.5 (default Sonnet ใหม่, context 1M)
-claude --model haiku             # ใช้ Haiku 4.5 (เร็ว, ถูก, สำหรับงานง่าย)
+claude --model haiku             # ใช้ Haiku 5.5 (default Haiku ใหม่, context 1M)
 claude --model claude-opus-5     # ใช้ชื่อเต็ม (ระบุ version ตรงๆ)
 ```
 
@@ -661,6 +661,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **`claude plugin install --marketplace <source>`** — เพิ่ม marketplace ให้เองถ้ายังไม่มี (ผ่าน policy check ชุดเดียวกับ `claude plugin marketplace add`) แล้วติดตั้ง plugin จาก marketplace นั้น ดู [[18-plugins]]
 
+### 🆕 ใหม่ใน v2.1.293
+
+- **`claude purge` บอกว่าลบอะไรไม่ได้** — ถ้ามีไฟล์หรือโฟลเดอร์ที่ลบไม่ได้ จะลบที่เหลือต่อจนครบ แสดงรายการที่ลบไม่ได้ และจบด้วย exit 1 แทนที่จะหยุดเงียบ ๆ
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1032,7 +1036,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.292
+- run: npm install -g @anthropic-ai/claude-code@2.1.293
 ```
 
 ---

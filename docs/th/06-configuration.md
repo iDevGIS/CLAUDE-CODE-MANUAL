@@ -117,7 +117,8 @@ related:
 | **Opus 4.8** | `claude-opus-4-8` | เรือธง **Opus** ตัวก่อน; coding และวิเคราะห์บั๊กซับซ้อนเก่งสุด; default เป็น **high effort** กับงานหนัก |
 | **Sonnet 5.5** | `claude-sonnet-5-5` | **default Sonnet ตัวใหม่**บน Anthropic API (ตั้งแต่ Claude Code **2.1.284**); context **1M**; ราคา **$2/$10 ต่อ Mtok** + **cache read $0.20 ต่อ Mtok** |
 | **Sonnet 5** | `claude-sonnet-5` | default Sonnet ตัวก่อน (Claude Code **2.1.197–2.1.283**); สมดุล เร็ว, context **1M native** ($2/$10 ต่อ Mtok — เป็นราคา standard ตั้งแต่ 2.1.243) |
-| **Haiku 4.5** | `claude-haiku-4-5` | เร็วสุด ถูกสุด; สำหรับงานง่าย/boilerplate |
+| **Haiku 5.5** | `claude-haiku-5-5` | **default Haiku ตัวใหม่**บน Anthropic API (ตั้งแต่ Claude Code **2.1.293**); context **1M**; ราคา **$0.10/$0.50 ต่อ Mtok** ($0.50/$2.50 สำหรับ prompt เกิน 100K) — เร็วสุด ถูกสุด; สำหรับงานง่าย/boilerplate |
+| **Haiku 4.5** | `claude-haiku-4-5` | default Haiku ตัวก่อน |
 
 > หมายเหตุ: Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกจาก fast mode ใน 2.1.219) — Fable 5.1 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 5.5 คือ **default Opus** ตัวปัจจุบัน
 
@@ -337,6 +338,12 @@ related:
 - **คำเตือนเรื่อง managed settings** — เตือนเมื่อไฟล์ managed settings เป็น link ไปยังไฟล์นอกโฟลเดอร์ managed settings · `/status` และ doctor เตือนเมื่อ managed settings ไม่สน `allowRead` path หรือ allowed domain ของ sandbox ที่ user ตั้งไว้
 - **โควตา WebSearch เติมคืนตามเวลา** — session แบบ interactive ได้โควตา WebSearch เติมคืน 100 ครั้ง/ชั่วโมง แทนที่จะหมดหลัง 200 ครั้ง · ปรับอัตราด้วย `CLAUDE_CODE_WEB_SEARCH_REFILLS_PER_HOUR` (`0` = ปิดการเติม)
 - **`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` ข้ามการ warm-up connection ตอนเริ่มด้วย** ดู [[23-environment-variables]]
+
+### 🆕 ใหม่ใน v2.1.293
+
+- **Claude Haiku 5.5** (`claude-haiku-5-5`) — **default Haiku ตัวใหม่**บน Anthropic API: context 1M, ราคา **$0.10/$0.50 ต่อ Mtok** ($0.50/$2.50 สำหรับ prompt เกิน 100K)
+- **เปิดเร็วขึ้นสำหรับองค์กร Team และ Enterprise** — ดึง policy และ managed settings เร็วขึ้น และ retry request ที่ค้างหลัง 3 วินาที
+- **OpenTelemetry `claude_code.at_mention` มีเพดาน** — ส่ง event ของ agent ได้ไม่เกิน 100 และของ MCP resource ไม่เกิน 100 ต่อการอ่าน prompt หนึ่งครั้ง
 
 ### การ Persist ของ `/config` และ `/model`
 

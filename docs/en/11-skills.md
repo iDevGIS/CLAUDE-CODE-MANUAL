@@ -217,6 +217,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **Skill listing shows both names** — when a skill's folder name differs from the `name` in its SKILL.md (for example a non-English folder name), the listing shows both, so the skill is found by either.
 - **`!` shell commands with raw control characters are refused** — skills and custom commands refuse a `!` command containing control characters other than tab and newline, with a message showing where they are.
 
+### New in v2.1.293
+
+- **claude.ai skill sync checks less often while idle** — synced skills are checked for changes about every 40 minutes, instead of every 10, while no session is in use.
+
 ---
 
 ---

@@ -200,6 +200,11 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **Workflow agents in `agent.spawn`** — the mod hook now sees workflow agents, with their run and index, so a mod can refuse them.
 - **`claude plugin test` no longer passes silently** — a failed `expect` inside a hook the test registered, or a stub answer the engine refuses, now fails the test.
 
+### New in v2.1.293
+
+- **`isDeferred` in `$.tool.register`** — `false` lists a mod tool's schema in the prompt from the start instead of behind tool search.
+- **`mock.session` in `claude plugin test`** — tests for mods that call `$.session.append` can read the appended rows back.
+
 ---
 
 ---

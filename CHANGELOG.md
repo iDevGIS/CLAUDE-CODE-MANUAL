@@ -25,6 +25,29 @@
 
 ---
 
+## [1.85.0] — 2026-10-08
+
+### Compatibility
+- **Claude Code:** `v2.1.293+`
+
+### Added
+- **New in v2.1.293** ใน 5 บท EN+TH (guide หน้าเดียว + atomic note):
+  - บท 02 CLI — `claude purge` ลบที่เหลือต่อ แสดงรายการที่ลบไม่ได้ และ exit 1
+  - บท 06 Configuration — **Claude Haiku 5.5** (`claude-haiku-5-5`) เป็น default Haiku บน Anthropic API (1M context, $0.10/$0.50 ต่อ Mtok; $0.50/$2.50 สำหรับ prompt เกิน 100K) · Team/Enterprise ดึง managed settings เร็วขึ้น · เพดาน event OpenTelemetry `claude_code.at_mention`
+  - บท 11 Skills — sync skill จาก claude.ai เช็กทุก ~40 นาที (จากเดิม 10) ตอนไม่มี session ใช้งาน
+  - บท 12 Subagents — `agentType` ใน payload ของ `subagentStatusLine` · ชื่อที่ไม่ใช่ ASCII เรียงไว้ท้ายรายการ agent/MCP server
+  - บท 18 Plugins — `isDeferred` ใน `$.tool.register` · `mock.session` ใน `claude plugin test`
+- **แถว What's-new ของ `v2.1.293`** ใน README.md + README.EN.md
+
+### Changed
+- **Model lineup** — Haiku 5.5 แทน Haiku 4.5 ในจุดที่อ้างอิง Haiku ปัจจุบัน (alias `--model haiku`, ตาราง model ในบท 06, ตารางเลือกโมเดลในบท 25/31, บรรทัด "Applies to" บท 26, README tagline) · Haiku 4.5 เก็บไว้เป็น "default Haiku ตัวก่อน" และคงข้อความประวัติ (todo/task tools) ไว้
+- **Version strings** bumped `2.1.292` → `2.1.293` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.293` เพิ่มโมเดล Haiku 5.5 เป็น default Haiku → ต้องอัปเดต model lineup · ที่เหลือส่วนมากเป็น bug fix (vim mode, `←` backgrounding, Remote Control, Claude Tag, `/ultrareview`) ซึ่งข้ามตามกติกา · มี 2 revert (ข้อความ denial ของ auto mode จาก 2.1.281 และ fix cloud session `/loop` wakeup จาก 2.1.290) ซึ่งคู่มือไม่ได้เขียนไว้ จึงไม่มีอะไรต้องถอด
+
+---
+
 ## [1.84.0] — 2026-10-07
 
 ### Compatibility
@@ -1914,6 +1937,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.85.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.84.0...v1.85.0
 [1.84.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.83.0...v1.84.0
 [1.83.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.82.0...v1.83.0
 [1.82.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.81.0...v1.82.0
