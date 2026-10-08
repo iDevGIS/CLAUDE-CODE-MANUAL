@@ -101,7 +101,8 @@ related:
 | `CLAUDE_AX_PREPARK_MS` | Screen reader mode now writes new or changed lines without first pausing with the cursor at the start of the line; set `50` to restore the pause. *(v2.1.287)* |
 | `CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS` | Set `1` to turn structured outputs off — for Mantle or gateways that reject them, where session titles, memory recall and prompt hooks would otherwise fail. *(v2.1.288)* |
 | `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | Sets a longer base delay for the backoff when retrying an overloaded (529) request. *(v2.1.292)* |
-| `MCP_PROTOCOL_NEGOTIATION` | Set `legacy` to opt out of local (stdio) MCP servers negotiating protocol version 2026-07-28, now the default on every install including Bedrock, Vertex and Foundry. *(v2.1.292)* |
+| `MCP_PROTOCOL_NEGOTIATION` | Set `legacy` to opt out of local (stdio) MCP servers negotiating protocol version 2026-07-28, now the default on every install including Bedrock, Vertex and Foundry. *(v2.1.292)* Also opts claude.ai connectors out on installs that fetch no flags. *(v2.1.295)* |
+| `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | Limits how long unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) waits out 429 and 529 errors. *(v2.1.295)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

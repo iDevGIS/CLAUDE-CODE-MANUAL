@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.293         │
+│ Welcome to Claude Code v2.1.295         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -665,6 +665,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **`claude purge` reports what it couldn't delete** — when a file or folder can't be deleted, it now deletes the rest, lists what it could not delete, and exits 1 instead of stopping silently.
 
+### New in v2.1.295
+
+- **`claude -p` says what it's waiting for** — when a print-mode run stays open after its last turn and stderr is a terminal, a line on stderr says what the run is waiting for.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1036,7 +1040,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.293
+- run: npm install -g @anthropic-ai/claude-code@2.1.295
 ```
 
 ---

@@ -101,7 +101,8 @@ related:
 | `CLAUDE_AX_PREPARK_MS` | screen reader mode เขียนบรรทัดใหม่หรือบรรทัดที่เปลี่ยนโดยไม่หยุดพักให้ cursor ไปรอที่ต้นบรรทัดก่อนแล้ว · ตั้ง `50` เพื่อให้กลับมาหยุดพักเหมือนเดิม *(v2.1.287)* |
 | `CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS` | ตั้ง `1` เพื่อปิด structured outputs — ใช้กับ Mantle หรือ gateway ที่ไม่รับ structured outputs ซึ่งทำให้ชื่อ session, memory recall และ prompt hook ล้ม *(v2.1.288)* |
 | `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | ตั้ง base delay ของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.292)* |
-| `MCP_PROTOCOL_NEGOTIATION` | ตั้ง `legacy` เพื่อไม่ให้ MCP server แบบ local (stdio) negotiate protocol version 2026-07-28 ซึ่งตอนนี้เป็นค่า default ทุกการติดตั้ง รวม Bedrock, Vertex และ Foundry *(v2.1.292)* |
+| `MCP_PROTOCOL_NEGOTIATION` | ตั้ง `legacy` เพื่อไม่ให้ MCP server แบบ local (stdio) negotiate protocol version 2026-07-28 ซึ่งตอนนี้เป็นค่า default ทุกการติดตั้ง รวม Bedrock, Vertex และ Foundry *(v2.1.292)* และ opt out ให้ claude.ai connector บนการติดตั้งที่ไม่ได้ดึง flag ด้วย *(v2.1.295)* |
+| `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | จำกัดเวลาที่โหมด retry แบบไม่มีคนเฝ้า (`CLAUDE_CODE_RETRY_WATCHDOG`) จะรอผ่าน error 429 และ 529 *(v2.1.295)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

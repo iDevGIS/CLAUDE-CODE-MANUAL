@@ -214,6 +214,12 @@ claude --mcp-config ./mcp.json
 - **จำ stdio server ที่ต่อช้าไว้ 7 วัน** — local server ที่ไม่ตอบ protocol check แบบใหม่ หลังต่อช้าไปหนึ่งครั้งจะถูกต่อแบบเก่าโดยไม่ต้องรอ
 - **`claude -p` และ SDK session เริ่มเร็วขึ้น** — turn แรกไม่ต้องรอ HTTP และ SSE MCP server ตอบ `resources/list` แล้ว
 
+### 🆕 ใหม่ใน v2.1.295
+
+- **claude.ai connector negotiate protocol 2026-07-28 เป็นค่า default** — บนการติดตั้งที่ไม่ได้ดึง flag · `MCP_PROTOCOL_NEGOTIATION=legacy` เพื่อ opt out ดู [[23-environment-variables]]
+- **คำอธิบาย tool ผ่าน tool search ยาวขึ้น** — คำอธิบาย MCP tool ที่โมเดลโหลดผ่าน tool search ถูกตัดที่ 16,384 ตัวอักษร (จากเดิม 2,048)
+- **WebSocket (`ws`) server มีเพดานข้อความ 16 MiB** — ข้อความที่ใหญ่กว่านี้จะไม่ถูก parse และปิด connection ทันที เท่ากับ transport แบบอื่น
+
 ---
 
 ---

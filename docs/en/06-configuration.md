@@ -345,6 +345,11 @@ Set the `model` key to any of these (newest → cheapest):
 - **Faster startup for Team and Enterprise** — policy and managed settings are fetched earlier, and a stalled request is retried after 3 seconds.
 - **OpenTelemetry `claude_code.at_mention` is capped** — at most 100 agent and 100 MCP-resource events each time a prompt is read.
 
+### New in v2.1.295
+
+- **Gateway login from your own user settings** — `forceLoginMethod: "gateway"` and `forceLoginGatewayUrl` now work in user settings on machines with no managed settings, so `/login` opens on that Claude apps gateway.
+- **Program Status Protocol (OSC 7501)** — terminals that implement it can show whether Claude Code is working, waiting on you, or done.
+
 ---
 
 ---

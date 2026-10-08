@@ -210,6 +210,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **`agentType` in `subagentStatusLine`** — the payload now includes each agent's type, so scripts can tell custom subagent types apart.
 - **Non-ASCII names sort last** — agent lists and the MCP servers announced to the model now put names with non-ASCII characters after ASCII names.
 
+### New in v2.1.295
+
+- **At most 32 preloaded skills** — a subagent now preloads at most 32 skills from its `skills` field, each once; a subagent with the Skill tool can still invoke the rest.
+
 ---
 
 ---

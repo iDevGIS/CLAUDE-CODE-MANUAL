@@ -25,6 +25,30 @@
 
 ---
 
+## [1.86.0] — 2026-10-09
+
+### Compatibility
+- **Claude Code:** `v2.1.295+`
+
+### Added
+- **New in v2.1.295** ใน 7 บท EN+TH (guide หน้าเดียว + atomic note; บท 41 มีเฉพาะ atomic note):
+  - บท 02 CLI — `claude -p` เขียนบรรทัดบน stderr บอกว่ากำลังรออะไร เมื่อ run ค้างหลัง turn สุดท้าย
+  - บท 06 Configuration — `forceLoginMethod: "gateway"` + `forceLoginGatewayUrl` ใช้ใน user settings ได้บนเครื่องที่ไม่มี managed settings · Program Status Protocol (OSC 7501)
+  - บท 09 MCP — claude.ai connector negotiate protocol 2026-07-28 เป็น default · คำอธิบาย tool ผ่าน tool search ตัดที่ 16,384 ตัวอักษร (จาก 2,048) · WebSocket server เพดานข้อความ 16 MiB
+  - บท 10 Hooks — `onFailure: "block"` สำหรับ command และ HTTP hook
+  - บท 12 Subagents — preload skill จาก field `skills` ได้ไม่เกิน 32 ตัว
+  - บท 23 Environment Variables — `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` + `MCP_PROTOCOL_NEGOTIATION=legacy` ครอบคลุม claude.ai connector
+  - บท 41 Background agents — Ctrl+C ที่ idle prompt ไม่หยุด `/loop` wakeup ที่รออยู่ · หยุด `claude agents` พร้อม background service แล้ว session หยุดในราว 1 นาที
+- **แถว What's-new ของ `v2.1.294–295`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.293` → `2.1.295` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.294` เป็น bug fix ของ `prompt`/`agent` hook ล้วน (ข้ามตามกติกา) · `2.1.295` เพิ่ม hook option, env var, ข้อจำกัด MCP/subagent และ behavior ของ background session ที่ผู้ใช้ต้องรู้ · ที่เหลือเป็น bug fix, ของฝั่ง Claude apps gateway admin, mod API และ UI polish ซึ่งข้ามไว้
+
+---
+
 ## [1.85.0] — 2026-10-08
 
 ### Compatibility
@@ -1937,6 +1961,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.86.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.85.0...v1.86.0
 [1.85.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.84.0...v1.85.0
 [1.84.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.83.0...v1.84.0
 [1.83.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.82.0...v1.83.0

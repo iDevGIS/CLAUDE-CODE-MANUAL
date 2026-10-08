@@ -220,6 +220,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **tag `<system-reminder>` ใน output ของ hook ถูก escape** — tag ที่ hook เขียนลง output จะถูก escape ก่อนส่งถึง Claude
 
+#### 🆕 ใหม่ใน v2.1.295
+
+- **`onFailure: "block"` สำหรับ command hook และ HTTP hook** — hook ที่เริ่มไม่ได้ หมดเวลา หรือจบด้วย exit code ที่ไม่คาดไว้ จะบล็อก action นั้นแทนที่จะปล่อยผ่าน
+
 ---
 
 ---

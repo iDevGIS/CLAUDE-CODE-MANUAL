@@ -345,6 +345,11 @@ related:
 - **เปิดเร็วขึ้นสำหรับองค์กร Team และ Enterprise** — ดึง policy และ managed settings เร็วขึ้น และ retry request ที่ค้างหลัง 3 วินาที
 - **OpenTelemetry `claude_code.at_mention` มีเพดาน** — ส่ง event ของ agent ได้ไม่เกิน 100 และของ MCP resource ไม่เกิน 100 ต่อการอ่าน prompt หนึ่งครั้ง
 
+### 🆕 ใหม่ใน v2.1.295
+
+- **ล็อก login ผ่าน gateway จาก user settings ของเราเอง** — `forceLoginMethod: "gateway"` และ `forceLoginGatewayUrl` ใช้ใน user settings ได้แล้วบนเครื่องที่ไม่มี managed settings ทำให้ `/login` เปิดที่ Claude apps gateway นั้น
+- **Program Status Protocol (OSC 7501)** — terminal ที่รองรับจะแสดงได้ว่า Claude Code กำลังทำงาน รอเราอยู่ หรือเสร็จแล้ว
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

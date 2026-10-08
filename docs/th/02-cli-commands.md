@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.293         │
+│ Welcome to Claude Code v2.1.295         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -665,6 +665,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **`claude purge` บอกว่าลบอะไรไม่ได้** — ถ้ามีไฟล์หรือโฟลเดอร์ที่ลบไม่ได้ จะลบที่เหลือต่อจนครบ แสดงรายการที่ลบไม่ได้ และจบด้วย exit 1 แทนที่จะหยุดเงียบ ๆ
 
+### 🆕 ใหม่ใน v2.1.295
+
+- **`claude -p` บอกว่ากำลังรออะไร** — ถ้า run แบบ print mode ยังค้างเปิดอยู่หลัง turn สุดท้าย และ stderr เป็น terminal จะมีบรรทัดบน stderr บอกว่า run นั้นกำลังรออะไรอยู่
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1036,7 +1040,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.293
+- run: npm install -g @anthropic-ai/claude-code@2.1.295
 ```
 
 ---

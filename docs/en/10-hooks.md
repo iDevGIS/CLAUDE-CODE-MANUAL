@@ -216,6 +216,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 - **`<system-reminder>` tags in hook output are escaped** — tags a hook writes in its output are escaped before they reach Claude.
 
+### New in v2.1.295
+
+- **`onFailure: "block"` for command and HTTP hooks** — a hook that can't start, times out, or exits with an unexpected code blocks the action instead of letting it through.
+
 ---
 
 ---

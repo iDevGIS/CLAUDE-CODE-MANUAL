@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.293         │
+│ Welcome to Claude Code v2.1.295         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.293
+- run: npm install -g @anthropic-ai/claude-code@2.1.295
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1114,6 +1114,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.293
 
 - **`claude purge` reports what it couldn't delete** — when a file or folder can't be deleted, it now deletes the rest, lists what it could not delete, and exits 1 instead of stopping silently.
+
+### New in v2.1.295
+
+- **`claude -p` says what it's waiting for** — when a print-mode run stays open after its last turn and stderr is a terminal, a line on stderr says what the run is waiting for.
 
 ---
 
@@ -2140,6 +2144,11 @@ Skill(commit)                    # Specific skill
 - **Faster startup for Team and Enterprise** — policy and managed settings are fetched earlier, and a stalled request is retried after 3 seconds.
 - **OpenTelemetry `claude_code.at_mention` is capped** — at most 100 agent and 100 MCP-resource events each time a prompt is read.
 
+### New in v2.1.295
+
+- **Gateway login from your own user settings** — `forceLoginMethod: "gateway"` and `forceLoginGatewayUrl` now work in user settings on machines with no managed settings, so `/login` opens on that Claude apps gateway.
+- **Program Status Protocol (OSC 7501)** — terminals that implement it can show whether Claude Code is working, waiting on you, or done.
+
 ---
 
 ## 7. CLAUDE.md - Persistent Project Instructions
@@ -2569,6 +2578,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **Slow stdio servers are remembered for 7 days** — a local server that ignores the newer protocol check is, after one slow connect, connected the older way without the wait.
 - **`claude -p` and SDK sessions start faster** — the first turn no longer waits for HTTP and SSE MCP servers to answer `resources/list`.
 
+### New in v2.1.295
+
+- **claude.ai connectors negotiate protocol 2026-07-28 by default** — on installs that fetch no flags; `MCP_PROTOCOL_NEGOTIATION=legacy` opts out (see 23. Environment Variables).
+- **Longer tool descriptions through tool search** — MCP tool descriptions loaded through tool search are now cut at 16,384 characters instead of 2,048.
+- **16 MiB message limit for WebSocket (`ws`) servers** — a larger message is no longer parsed and closes the connection, the limit the other transports already have.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -2710,6 +2725,10 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 ### New in v2.1.292
 
 - **`<system-reminder>` tags in hook output are escaped** — tags a hook writes in its output are escaped before they reach Claude.
+
+### New in v2.1.295
+
+- **`onFailure: "block"` for command and HTTP hooks** — a hook that can't start, times out, or exits with an unexpected code blocks the action instead of letting it through.
 
 ### Configuring Hooks
 
@@ -3198,6 +3217,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **`agentType` in `subagentStatusLine`** — the payload now includes each agent's type, so scripts can tell custom subagent types apart.
 - **Non-ASCII names sort last** — agent lists and the MCP servers announced to the model now put names with non-ASCII characters after ASCII names.
+
+### New in v2.1.295
+
+- **At most 32 preloaded skills** — a subagent now preloads at most 32 skills from its `skills` field, each once; a subagent with the Skill tool can still invoke the rest.
 
 ---
 
@@ -4290,7 +4313,8 @@ your-project/
 | `CLAUDE_AX_PREPARK_MS` | Screen reader mode now writes new or changed lines without first pausing with the cursor at the start of the line; set `50` to restore the pause. *(v2.1.287)* |
 | `CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS` | Set `1` to turn structured outputs off — for Mantle or gateways that reject them, where session titles, memory recall and prompt hooks would otherwise fail. *(v2.1.288)* |
 | `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | Sets a longer base delay for the backoff when retrying an overloaded (529) request. *(v2.1.292)* |
-| `MCP_PROTOCOL_NEGOTIATION` | Set `legacy` to opt out of local (stdio) MCP servers negotiating protocol version 2026-07-28, now the default on every install including Bedrock, Vertex and Foundry. *(v2.1.292)* |
+| `MCP_PROTOCOL_NEGOTIATION` | Set `legacy` to opt out of local (stdio) MCP servers negotiating protocol version 2026-07-28, now the default on every install including Bedrock, Vertex and Foundry. *(v2.1.292)* Also opts claude.ai connectors out on installs that fetch no flags. *(v2.1.295)* |
+| `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | Limits how long unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) waits out 429 and 529 errors. *(v2.1.295)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5621,7 +5645,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.293`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.295`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

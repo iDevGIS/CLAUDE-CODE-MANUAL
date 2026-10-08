@@ -161,6 +161,11 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 - **Sessions waiting on a scheduled wakeup (`/loop`) are kept running** — through updates and low memory, where a restart or shutdown could silently lose the wakeup.
 - **Sessions whose scheduled task is gone move to Completed** — about 20 seconds later, and can then be updated or shut down when idle.
 
+### New in v2.1.295
+
+- **Ctrl+C leaves a pending `/loop` wakeup alone** — at the idle prompt of an attached background session, Ctrl+C no longer stops a pending `/loop` wakeup, so pressing it twice detaches and the loop keeps running; press Esc to stop it.
+- **Stopping `claude agents` with its background service** — on macOS, or Linux without the service installed, running sessions now stop in about a minute unless `claude agents` is run again, and a notice says so.
+
 ---
 
 ---

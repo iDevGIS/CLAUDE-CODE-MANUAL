@@ -214,6 +214,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **Slow stdio servers are remembered for 7 days** — a local server that ignores the newer protocol check is, after one slow connect, connected the older way without the wait.
 - **`claude -p` and SDK sessions start faster** — the first turn no longer waits for HTTP and SSE MCP servers to answer `resources/list`.
 
+### New in v2.1.295
+
+- **claude.ai connectors negotiate protocol 2026-07-28 by default** — on installs that fetch no flags; `MCP_PROTOCOL_NEGOTIATION=legacy` opts out. See [[23-environment-variables]].
+- **Longer tool descriptions through tool search** — MCP tool descriptions loaded through tool search are now cut at 16,384 characters instead of 2,048.
+- **16 MiB message limit for WebSocket (`ws`) servers** — a larger message is no longer parsed and closes the connection, the limit the other transports already have.
+
 ---
 
 ---

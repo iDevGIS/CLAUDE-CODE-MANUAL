@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.293         │
+│ Welcome to Claude Code v2.1.295         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -769,6 +769,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **`claude purge` บอกว่าลบอะไรไม่ได้** — ถ้ามีไฟล์หรือโฟลเดอร์ที่ลบไม่ได้ จะลบที่เหลือต่อจนครบ แสดงรายการที่ลบไม่ได้ และจบด้วย exit 1 แทนที่จะหยุดเงียบ ๆ
 
+### 🆕 ใหม่ใน v2.1.295
+
+- **`claude -p` บอกว่ากำลังรออะไร** — ถ้า run แบบ print mode ยังค้างเปิดอยู่หลัง turn สุดท้าย และ stderr เป็น terminal จะมีบรรทัดบน stderr บอกว่า run นั้นกำลังรออะไรอยู่
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1100,7 +1104,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.293
+- run: npm install -g @anthropic-ai/claude-code@2.1.295
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -2134,6 +2138,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **เปิดเร็วขึ้นสำหรับองค์กร Team และ Enterprise** — ดึง policy และ managed settings เร็วขึ้น และ retry request ที่ค้างหลัง 3 วินาที
 - **OpenTelemetry `claude_code.at_mention` มีเพดาน** — ส่ง event ของ agent ได้ไม่เกิน 100 และของ MCP resource ไม่เกิน 100 ต่อการอ่าน prompt หนึ่งครั้ง
 
+### 🆕 ใหม่ใน v2.1.295
+
+- **ล็อก login ผ่าน gateway จาก user settings ของเราเอง** — `forceLoginMethod: "gateway"` และ `forceLoginGatewayUrl` ใช้ใน user settings ได้แล้วบนเครื่องที่ไม่มี managed settings ทำให้ `/login` เปิดที่ Claude apps gateway นั้น
+- **Program Status Protocol (OSC 7501)** — terminal ที่รองรับจะแสดงได้ว่า Claude Code กำลังทำงาน รอเราอยู่ หรือเสร็จแล้ว
+
 ---
 
 ## 7. CLAUDE.md - คำสั่งถาวรสำหรับโปรเจกต์
@@ -2562,6 +2571,12 @@ claude --mcp-config ./mcp.json
 - **จำ stdio server ที่ต่อช้าไว้ 7 วัน** — local server ที่ไม่ตอบ protocol check แบบใหม่ หลังต่อช้าไปหนึ่งครั้งจะถูกต่อแบบเก่าโดยไม่ต้องรอ
 - **`claude -p` และ SDK session เริ่มเร็วขึ้น** — turn แรกไม่ต้องรอ HTTP และ SSE MCP server ตอบ `resources/list` แล้ว
 
+### 🆕 ใหม่ใน v2.1.295
+
+- **claude.ai connector negotiate protocol 2026-07-28 เป็นค่า default** — บนการติดตั้งที่ไม่ได้ดึง flag · `MCP_PROTOCOL_NEGOTIATION=legacy` เพื่อ opt out (ดู 23. Environment Variables)
+- **คำอธิบาย tool ผ่าน tool search ยาวขึ้น** — คำอธิบาย MCP tool ที่โมเดลโหลดผ่าน tool search ถูกตัดที่ 16,384 ตัวอักษร (จากเดิม 2,048)
+- **WebSocket (`ws`) server มีเพดานข้อความ 16 MiB** — ข้อความที่ใหญ่กว่านี้จะไม่ถูก parse และปิด connection ทันที เท่ากับ transport แบบอื่น
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -2766,6 +2781,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 ### 🆕 ใหม่ใน v2.1.292
 
 - **tag `<system-reminder>` ใน output ของ hook ถูก escape** — tag ที่ hook เขียนลง output จะถูก escape ก่อนส่งถึง Claude
+
+### 🆕 ใหม่ใน v2.1.295
+
+- **`onFailure: "block"` สำหรับ command hook และ HTTP hook** — hook ที่เริ่มไม่ได้ หมดเวลา หรือจบด้วย exit code ที่ไม่คาดไว้ จะบล็อก action นั้นแทนที่จะปล่อยผ่าน
 
 ---
 
@@ -3191,6 +3210,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **`agentType` ใน `subagentStatusLine`** — payload มีชนิดของ agent แต่ละตัวแล้ว script จึงแยก custom subagent แต่ละชนิดออกจากกันได้
 - **ชื่อที่ไม่ใช่ ASCII เรียงไว้ท้าย** — รายการ agent และ MCP server ที่แจ้งให้โมเดลรู้ จะเรียงชื่อที่มีตัวอักษรนอก ASCII (เช่นภาษาไทย) ไว้หลังชื่อ ASCII
+
+### 🆕 ใหม่ใน v2.1.295
+
+- **preload skill ได้ไม่เกิน 32 ตัว** — subagent จะ preload skill จาก field `skills` ได้สูงสุด 32 ตัว ตัวละครั้ง · subagent ที่มี Skill tool ยังเรียกตัวที่เหลือได้
 
 ---
 
@@ -4279,7 +4302,8 @@ your-project/
 | `CLAUDE_AX_PREPARK_MS` | screen reader mode เขียนบรรทัดใหม่หรือบรรทัดที่เปลี่ยนโดยไม่หยุดพักให้ cursor ไปรอที่ต้นบรรทัดก่อนแล้ว · ตั้ง `50` เพื่อให้กลับมาหยุดพักเหมือนเดิม *(v2.1.287)* |
 | `CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS` | ตั้ง `1` เพื่อปิด structured outputs — ใช้กับ Mantle หรือ gateway ที่ไม่รับ structured outputs ซึ่งทำให้ชื่อ session, memory recall และ prompt hook ล้ม *(v2.1.288)* |
 | `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | ตั้ง base delay ของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.292)* |
-| `MCP_PROTOCOL_NEGOTIATION` | ตั้ง `legacy` เพื่อไม่ให้ MCP server แบบ local (stdio) negotiate protocol version 2026-07-28 ซึ่งตอนนี้เป็นค่า default ทุกการติดตั้ง รวม Bedrock, Vertex และ Foundry *(v2.1.292)* |
+| `MCP_PROTOCOL_NEGOTIATION` | ตั้ง `legacy` เพื่อไม่ให้ MCP server แบบ local (stdio) negotiate protocol version 2026-07-28 ซึ่งตอนนี้เป็นค่า default ทุกการติดตั้ง รวม Bedrock, Vertex และ Foundry *(v2.1.292)* และ opt out ให้ claude.ai connector บนการติดตั้งที่ไม่ได้ดึง flag ด้วย *(v2.1.295)* |
+| `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | จำกัดเวลาที่โหมด retry แบบไม่มีคนเฝ้า (`CLAUDE_CODE_RETRY_WATCHDOG`) จะรอผ่าน error 429 และ 529 *(v2.1.295)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5607,7 +5631,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.293`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.295`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

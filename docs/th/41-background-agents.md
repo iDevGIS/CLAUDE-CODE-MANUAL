@@ -161,6 +161,11 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 - **session ที่รอ scheduled wakeup (`/loop`) ถูกปล่อยให้รันต่อ** — ผ่านการอัปเดตและช่วง memory ต่ำ ซึ่งเดิมการ restart หรือ shutdown อาจทำให้ wakeup หายเงียบ ๆ
 - **session ที่ scheduled task หายไปแล้วย้ายไป Completed** — ราว 20 วินาทีต่อมา และอัปเดตหรือ shutdown ได้เมื่อว่าง
 
+### 🆕 ใหม่ใน v2.1.295
+
+- **Ctrl+C ไม่ยุ่งกับ `/loop` wakeup ที่รออยู่** — ที่ idle prompt ของ background session ที่ attach อยู่ กด Ctrl+C จะไม่หยุด wakeup ของ `/loop` แล้ว กดสองครั้งจึง detach โดย loop ยังรันต่อ · กด Esc ถ้าต้องการหยุด
+- **หยุด `claude agents` พร้อม background service** — บน macOS หรือ Linux ที่ไม่ได้ติดตั้ง service ตัว session ที่รันอยู่จะหยุดในราว 1 นาที เว้นแต่รัน `claude agents` อีกครั้ง และมีข้อความแจ้งให้รู้
+
 ---
 
 ---

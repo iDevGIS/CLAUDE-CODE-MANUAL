@@ -210,6 +210,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **`agentType` ใน `subagentStatusLine`** — payload มีชนิดของ agent แต่ละตัวแล้ว script จึงแยก custom subagent แต่ละชนิดออกจากกันได้
 - **ชื่อที่ไม่ใช่ ASCII เรียงไว้ท้าย** — รายการ agent และ MCP server ที่แจ้งให้โมเดลรู้ จะเรียงชื่อที่มีตัวอักษรนอก ASCII (เช่นภาษาไทย) ไว้หลังชื่อ ASCII
 
+### 🆕 ใหม่ใน v2.1.295
+
+- **preload skill ได้ไม่เกิน 32 ตัว** — subagent จะ preload skill จาก field `skills` ได้สูงสุด 32 ตัว ตัวละครั้ง · subagent ที่มี Skill tool ยังเรียกตัวที่เหลือได้
+
 ---
 
 ---
