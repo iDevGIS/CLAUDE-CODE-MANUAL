@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.295-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.86.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.296-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.87.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.295`
+## 🆕 What's new — synced to Claude Code `v2.1.296`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -158,8 +158,9 @@ Never used a command line? You can still follow along 👇
 | 🎚️ **Agent tool takes `effort` + `plugin install --marketplace`** | `effort` parameter on the Agent tool · `claude plugin install --marketplace <source>` · stdio MCP servers negotiate protocol 2026-07-28 by default (`MCP_PROTOCOL_NEGOTIATION=legacy` opts out) · `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` · strict sandbox auto-allows `FOO=bar python3 ...` · agent names capped at 256 characters · mod API: `prompt.autocomplete`, prompt caching in `$.model.complete`, workflow agents in `agent.spawn` (v2.1.292) |
 | 🐇 **Claude Haiku 5.5 is the default Haiku** | `claude-haiku-5-5` — 1M context, $0.10/$0.50 per Mtok · `agentType` in the `subagentStatusLine` payload · `claude purge` deletes the rest and exits 1 when something can't be deleted · claude.ai skill sync checks every ~40 min while idle · mod API: `isDeferred` in `$.tool.register`, `mock.session` in `claude plugin test` (v2.1.293) |
 | 🧱 **Hook `onFailure: "block"` + subagent skill cap** | command/HTTP hooks that can't start, time out or exit unexpectedly can block the action · subagents preload at most 32 skills · `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` · claude.ai connectors negotiate MCP protocol 2026-07-28 · tool-search descriptions up to 16,384 characters · `forceLoginMethod: "gateway"` in user settings · OSC 7501 · Ctrl+C leaves a background session's `/loop` running (v2.1.294–295) |
+| 🗜️ **Subagent `autoCompactWindow` + one model for every workflow agent** | subagents can set `autoCompactWindow` to compact earlier than the main conversation · `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` · `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` · `code` key in the gateway's `managed.policies[]` · MCP tool description / server instruction limit 4,096 characters · Sonnet 5.5 cache reads $0.10/Mtok · `←` stops work started while moving to the background (v2.1.296) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.295` (manual `v1.86.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.295` (manual `v1.87.0`)
 
 ---
 
@@ -182,7 +183,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.295** + the Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 lineup
+Tracks Claude Code **v2.1.296** + the Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 lineup
 
 </td>
 </tr>
@@ -242,7 +243,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.295`
+> **Claude Code Version:** `2.1.296`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

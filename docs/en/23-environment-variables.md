@@ -103,6 +103,8 @@ related:
 | `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | Sets a longer base delay for the backoff when retrying an overloaded (529) request. *(v2.1.292)* |
 | `MCP_PROTOCOL_NEGOTIATION` | Set `legacy` to opt out of local (stdio) MCP servers negotiating protocol version 2026-07-28, now the default on every install including Bedrock, Vertex and Foundry. *(v2.1.292)* Also opts claude.ai connectors out on installs that fetch no flags. *(v2.1.295)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | Limits how long unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) waits out 429 and 529 errors. *(v2.1.295)* |
+| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | Sets a longer maximum delay for the backoff when retrying an overloaded (529) request. *(v2.1.296)* |
+| `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` | Runs every workflow agent on one model while other subagents keep theirs. See [[39-dynamic-workflows]]. *(v2.1.296)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

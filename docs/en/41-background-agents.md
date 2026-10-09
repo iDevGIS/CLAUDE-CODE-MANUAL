@@ -166,6 +166,10 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 - **Ctrl+C leaves a pending `/loop` wakeup alone** — at the idle prompt of an attached background session, Ctrl+C no longer stops a pending `/loop` wakeup, so pressing it twice detaches and the loop keeps running; press Esc to stop it.
 - **Stopping `claude agents` with its background service** — on macOS, or Linux without the service installed, running sessions now stop in about a minute unless `claude agents` is run again, and a notice says so.
 
+### New in v2.1.296
+
+- **`←` stops work started mid-move** — a turn or `!` command started while the session moves to the background is now stopped instead of finishing out of sight.
+
 ---
 
 ---

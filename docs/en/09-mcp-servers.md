@@ -220,6 +220,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **Longer tool descriptions through tool search** — MCP tool descriptions loaded through tool search are now cut at 16,384 characters instead of 2,048.
 - **16 MiB message limit for WebSocket (`ws`) servers** — a larger message is no longer parsed and closes the connection, the limit the other transports already have.
 
+### New in v2.1.296
+
+- **Up-front MCP limits doubled** — the default limit on MCP tool descriptions sent up front and on MCP server instructions is now 4,096 characters (was 2,048).
+
 ---
 
 ---

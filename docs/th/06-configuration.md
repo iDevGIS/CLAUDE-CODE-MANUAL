@@ -115,7 +115,7 @@ related:
 | **Opus 5.5** | `claude-opus-5-5` | **default Opus ตัวใหม่** (ตั้งแต่ Claude Code **2.1.280**); context **1M**; ราคา **$4/$20 ต่อ Mtok** + **cache read $0.20 ต่อ Mtok** |
 | **Opus 5** | `claude-opus-5` | default Opus ตัวก่อน (Claude Code **2.1.219–2.1.278**); context **1M**; fast mode ราคา **$10/$50 ต่อ Mtok** |
 | **Opus 4.8** | `claude-opus-4-8` | เรือธง **Opus** ตัวก่อน; coding และวิเคราะห์บั๊กซับซ้อนเก่งสุด; default เป็น **high effort** กับงานหนัก |
-| **Sonnet 5.5** | `claude-sonnet-5-5` | **default Sonnet ตัวใหม่**บน Anthropic API (ตั้งแต่ Claude Code **2.1.284**); context **1M**; ราคา **$2/$10 ต่อ Mtok** + **cache read $0.20 ต่อ Mtok** |
+| **Sonnet 5.5** | `claude-sonnet-5-5` | **default Sonnet ตัวใหม่**บน Anthropic API (ตั้งแต่ Claude Code **2.1.284**); context **1M**; ราคา **$2/$10 ต่อ Mtok** + **cache read $0.10 ต่อ Mtok** (ตัวเลขค่าใช้จ่ายของ Claude Code ใช้ค่านี้ตั้งแต่ 2.1.296; เดิม $0.20) |
 | **Sonnet 5** | `claude-sonnet-5` | default Sonnet ตัวก่อน (Claude Code **2.1.197–2.1.283**); สมดุล เร็ว, context **1M native** ($2/$10 ต่อ Mtok — เป็นราคา standard ตั้งแต่ 2.1.243) |
 | **Haiku 5.5** | `claude-haiku-5-5` | **default Haiku ตัวใหม่**บน Anthropic API (ตั้งแต่ Claude Code **2.1.293**); context **1M**; ราคา **$0.10/$0.50 ต่อ Mtok** ($0.50/$2.50 สำหรับ prompt เกิน 100K) — เร็วสุด ถูกสุด; สำหรับงานง่าย/boilerplate |
 | **Haiku 4.5** | `claude-haiku-4-5` | default Haiku ตัวก่อน |
@@ -349,6 +349,11 @@ related:
 
 - **ล็อก login ผ่าน gateway จาก user settings ของเราเอง** — `forceLoginMethod: "gateway"` และ `forceLoginGatewayUrl` ใช้ใน user settings ได้แล้วบนเครื่องที่ไม่มี managed settings ทำให้ `/login` เปิดที่ Claude apps gateway นั้น
 - **Program Status Protocol (OSC 7501)** — terminal ที่รองรับจะแสดงได้ว่า Claude Code กำลังทำงาน รอเราอยู่ หรือเสร็จแล้ว
+
+### 🆕 ใหม่ใน v2.1.296
+
+- **key `code` ใน `managed.policies[]` ของ Claude apps gateway** — รับ settings ชุดเดียวกับ `cli` และนำไปใช้ใน Code tab ของ Claude Desktop ด้วย · ถ้ามีคู่กับ `desktop` จะเปิด gateway mode ของ Claude Desktop
+- **cache read ของ Sonnet 5.5 คิดราคา $0.10/Mtok** (จากเดิม $0.20) ใน `/cost`, status line, `--max-budget-usd` และตัวเลขค่าใช้จ่ายของ SDK
 
 ### การ Persist ของ `/config` และ `/model`
 

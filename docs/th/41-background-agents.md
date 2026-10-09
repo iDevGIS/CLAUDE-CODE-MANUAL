@@ -166,6 +166,10 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 - **Ctrl+C ไม่ยุ่งกับ `/loop` wakeup ที่รออยู่** — ที่ idle prompt ของ background session ที่ attach อยู่ กด Ctrl+C จะไม่หยุด wakeup ของ `/loop` แล้ว กดสองครั้งจึง detach โดย loop ยังรันต่อ · กด Esc ถ้าต้องการหยุด
 - **หยุด `claude agents` พร้อม background service** — บน macOS หรือ Linux ที่ไม่ได้ติดตั้ง service ตัว session ที่รันอยู่จะหยุดในราว 1 นาที เว้นแต่รัน `claude agents` อีกครั้ง และมีข้อความแจ้งให้รู้
 
+### 🆕 ใหม่ใน v2.1.296
+
+- **`←` หยุดงานที่เริ่มระหว่างย้าย** — turn หรือคำสั่ง `!` ที่เริ่มขณะ session กำลังย้ายไป background จะถูกหยุดแทนที่จะรันจนจบแบบที่เรามองไม่เห็น
+
 ---
 
 ---

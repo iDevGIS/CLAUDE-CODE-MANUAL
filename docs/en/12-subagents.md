@@ -214,6 +214,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **At most 32 preloaded skills** — a subagent now preloads at most 32 skills from its `skills` field, each once; a subagent with the Skill tool can still invoke the rest.
 
+### New in v2.1.296
+
+- **`autoCompactWindow` for subagents** — set it in subagent frontmatter or an `--agents` definition so that subagent auto-compacts earlier than the main conversation's window.
+- **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`** — runs every workflow agent on one model while other subagents keep theirs. See [[23-environment-variables]].
+
 ---
 
 ---

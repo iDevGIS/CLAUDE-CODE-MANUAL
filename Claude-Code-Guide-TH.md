@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.295         │
+│ Welcome to Claude Code v2.1.296         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1104,7 +1104,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.295
+- run: npm install -g @anthropic-ai/claude-code@2.1.296
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -2143,6 +2143,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **ล็อก login ผ่าน gateway จาก user settings ของเราเอง** — `forceLoginMethod: "gateway"` และ `forceLoginGatewayUrl` ใช้ใน user settings ได้แล้วบนเครื่องที่ไม่มี managed settings ทำให้ `/login` เปิดที่ Claude apps gateway นั้น
 - **Program Status Protocol (OSC 7501)** — terminal ที่รองรับจะแสดงได้ว่า Claude Code กำลังทำงาน รอเราอยู่ หรือเสร็จแล้ว
 
+### 🆕 ใหม่ใน v2.1.296
+
+- **key `code` ใน `managed.policies[]` ของ Claude apps gateway** — รับ settings ชุดเดียวกับ `cli` และนำไปใช้ใน Code tab ของ Claude Desktop ด้วย · ถ้ามีคู่กับ `desktop` จะเปิด gateway mode ของ Claude Desktop
+- **cache read ของ Sonnet 5.5 คิดราคา $0.10/Mtok** (จากเดิม $0.20) ใน `/cost`, status line, `--max-budget-usd` และตัวเลขค่าใช้จ่ายของ SDK
+
 ---
 
 ## 7. CLAUDE.md - คำสั่งถาวรสำหรับโปรเจกต์
@@ -2576,6 +2581,10 @@ claude --mcp-config ./mcp.json
 - **claude.ai connector negotiate protocol 2026-07-28 เป็นค่า default** — บนการติดตั้งที่ไม่ได้ดึง flag · `MCP_PROTOCOL_NEGOTIATION=legacy` เพื่อ opt out (ดู 23. Environment Variables)
 - **คำอธิบาย tool ผ่าน tool search ยาวขึ้น** — คำอธิบาย MCP tool ที่โมเดลโหลดผ่าน tool search ถูกตัดที่ 16,384 ตัวอักษร (จากเดิม 2,048)
 - **WebSocket (`ws`) server มีเพดานข้อความ 16 MiB** — ข้อความที่ใหญ่กว่านี้จะไม่ถูก parse และปิด connection ทันที เท่ากับ transport แบบอื่น
+
+### 🆕 ใหม่ใน v2.1.296
+
+- **เพดาน MCP ที่ส่งไปตั้งแต่ต้นเพิ่มเป็นสองเท่า** — ค่า default ของความยาวคำอธิบาย MCP tool ที่ส่งไปตั้งแต่ต้น และ MCP server instructions เป็น 4,096 ตัวอักษร (จากเดิม 2,048)
 
 ---
 
@@ -3214,6 +3223,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 ### 🆕 ใหม่ใน v2.1.295
 
 - **preload skill ได้ไม่เกิน 32 ตัว** — subagent จะ preload skill จาก field `skills` ได้สูงสุด 32 ตัว ตัวละครั้ง · subagent ที่มี Skill tool ยังเรียกตัวที่เหลือได้
+
+### 🆕 ใหม่ใน v2.1.296
+
+- **`autoCompactWindow` สำหรับ subagent** — ตั้งใน frontmatter ของ subagent หรือใน definition ของ `--agents` เพื่อให้ subagent นั้น auto-compact เร็วกว่า window ของ conversation หลัก
+- **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`** — ให้ทุก agent ใน workflow รันบนโมเดลเดียว ขณะที่ subagent อื่นยังใช้โมเดลของตัวเอง (ดู 23. Environment Variables)
 
 ---
 
@@ -4304,6 +4318,8 @@ your-project/
 | `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | ตั้ง base delay ของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.292)* |
 | `MCP_PROTOCOL_NEGOTIATION` | ตั้ง `legacy` เพื่อไม่ให้ MCP server แบบ local (stdio) negotiate protocol version 2026-07-28 ซึ่งตอนนี้เป็นค่า default ทุกการติดตั้ง รวม Bedrock, Vertex และ Foundry *(v2.1.292)* และ opt out ให้ claude.ai connector บนการติดตั้งที่ไม่ได้ดึง flag ด้วย *(v2.1.295)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | จำกัดเวลาที่โหมด retry แบบไม่มีคนเฝ้า (`CLAUDE_CODE_RETRY_WATCHDOG`) จะรอผ่าน error 429 และ 529 *(v2.1.295)* |
+| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | ตั้ง delay สูงสุดของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.296)* |
+| `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` | ให้ทุก agent ใน workflow รันบนโมเดลเดียว ขณะที่ subagent อื่นยังใช้โมเดลของตัวเอง *(v2.1.296)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5631,7 +5647,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.295`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.296`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

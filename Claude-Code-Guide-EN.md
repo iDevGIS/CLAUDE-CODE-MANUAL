@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.295         │
+│ Welcome to Claude Code v2.1.296         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.295
+- run: npm install -g @anthropic-ai/claude-code@2.1.296
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -2149,6 +2149,11 @@ Skill(commit)                    # Specific skill
 - **Gateway login from your own user settings** — `forceLoginMethod: "gateway"` and `forceLoginGatewayUrl` now work in user settings on machines with no managed settings, so `/login` opens on that Claude apps gateway.
 - **Program Status Protocol (OSC 7501)** — terminals that implement it can show whether Claude Code is working, waiting on you, or done.
 
+### New in v2.1.296
+
+- **`code` key in the Claude apps gateway's `managed.policies[]`** — takes the same settings as `cli` and also applies them in Claude Desktop's Code tab; beside `desktop`, it turns on Claude Desktop's gateway mode.
+- **Sonnet 5.5 cache reads now priced at $0.10/Mtok** (was $0.20) in `/cost`, the status line, `--max-budget-usd` and the SDK's cost figures.
+
 ---
 
 ## 7. CLAUDE.md - Persistent Project Instructions
@@ -2583,6 +2588,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **claude.ai connectors negotiate protocol 2026-07-28 by default** — on installs that fetch no flags; `MCP_PROTOCOL_NEGOTIATION=legacy` opts out (see 23. Environment Variables).
 - **Longer tool descriptions through tool search** — MCP tool descriptions loaded through tool search are now cut at 16,384 characters instead of 2,048.
 - **16 MiB message limit for WebSocket (`ws`) servers** — a larger message is no longer parsed and closes the connection, the limit the other transports already have.
+
+### New in v2.1.296
+
+- **Up-front MCP limits doubled** — the default limit on MCP tool descriptions sent up front and on MCP server instructions is now 4,096 characters (was 2,048).
 
 ---
 
@@ -3221,6 +3230,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 ### New in v2.1.295
 
 - **At most 32 preloaded skills** — a subagent now preloads at most 32 skills from its `skills` field, each once; a subagent with the Skill tool can still invoke the rest.
+
+### New in v2.1.296
+
+- **`autoCompactWindow` for subagents** — set it in subagent frontmatter or an `--agents` definition so that subagent auto-compacts earlier than the main conversation's window.
+- **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`** — runs every workflow agent on one model while other subagents keep theirs (see 23. Environment Variables).
 
 ---
 
@@ -4315,6 +4329,8 @@ your-project/
 | `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | Sets a longer base delay for the backoff when retrying an overloaded (529) request. *(v2.1.292)* |
 | `MCP_PROTOCOL_NEGOTIATION` | Set `legacy` to opt out of local (stdio) MCP servers negotiating protocol version 2026-07-28, now the default on every install including Bedrock, Vertex and Foundry. *(v2.1.292)* Also opts claude.ai connectors out on installs that fetch no flags. *(v2.1.295)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | Limits how long unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) waits out 429 and 529 errors. *(v2.1.295)* |
+| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | Sets a longer maximum delay for the backoff when retrying an overloaded (529) request. *(v2.1.296)* |
+| `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` | Runs every workflow agent on one model while other subagents keep theirs. *(v2.1.296)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5645,7 +5661,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.295`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.296`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

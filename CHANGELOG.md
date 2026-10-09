@@ -25,6 +25,30 @@
 
 ---
 
+## [1.87.0] — 2026-10-10
+
+### Compatibility
+- **Claude Code:** `v2.1.296+`
+
+### Added
+- **New in v2.1.296** ใน 6 บท EN+TH (guide หน้าเดียว + atomic note; บท 39 และ 41 มีเฉพาะ atomic note):
+  - บท 06 Configuration — key `code` ใน `managed.policies[]` ของ Claude apps gateway (settings แบบ `cli` + ใช้ใน Code tab ของ Claude Desktop) · cache read ของ Sonnet 5.5 คิด $0.10/Mtok
+  - บท 09 MCP — เพดานคำอธิบาย MCP tool ที่ส่งไปตั้งแต่ต้นและ MCP server instructions เป็น 4,096 ตัวอักษร (จาก 2,048)
+  - บท 12 Subagents — `autoCompactWindow` ใน frontmatter / `--agents` · `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`
+  - บท 23 Environment Variables — `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` + `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`
+  - บท 39 Dynamic workflows — `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`
+  - บท 41 Background agents — `←` หยุด turn หรือคำสั่ง `!` ที่เริ่มระหว่างย้ายไป background
+- **แถว What's-new ของ `v2.1.296`** ใน README.md + README.EN.md
+
+### Changed
+- **ราคา cache read ของ Sonnet 5.5** ในตาราง lineup ของ atomic note บท 06 (EN+TH) → $0.10/Mtok (section New-in v2.1.284 เดิมคงไว้เป็นประวัติ)
+- **Version strings** bumped `2.1.295` → `2.1.296` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.296` เพิ่ม frontmatter field ของ subagent, env var 2 ตัว, key ใหม่ของ gateway policy, ขยายเพดาน MCP และเปลี่ยนราคา cache read ของ Sonnet 5.5 ที่ผู้ใช้ต้องรู้ · ที่เหลือเป็น bug fix, UI polish, ของฝั่ง VS Code / Claude Tag / Code Review / cloud admin และ Read tool option ภายใน (`allow_large`) ซึ่งข้ามไว้
+
+---
+
 ## [1.86.0] — 2026-10-09
 
 ### Compatibility
@@ -1961,6 +1985,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.87.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.86.0...v1.87.0
 [1.86.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.85.0...v1.86.0
 [1.85.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.84.0...v1.85.0
 [1.84.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.83.0...v1.84.0

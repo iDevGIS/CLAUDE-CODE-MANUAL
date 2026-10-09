@@ -214,6 +214,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **preload skill ได้ไม่เกิน 32 ตัว** — subagent จะ preload skill จาก field `skills` ได้สูงสุด 32 ตัว ตัวละครั้ง · subagent ที่มี Skill tool ยังเรียกตัวที่เหลือได้
 
+### 🆕 ใหม่ใน v2.1.296
+
+- **`autoCompactWindow` สำหรับ subagent** — ตั้งใน frontmatter ของ subagent หรือใน definition ของ `--agents` เพื่อให้ subagent นั้น auto-compact เร็วกว่า window ของ conversation หลัก
+- **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`** — ให้ทุก agent ใน workflow รันบนโมเดลเดียว ขณะที่ subagent อื่นยังใช้โมเดลของตัวเอง ดู [[23-environment-variables]]
+
 ---
 
 ---

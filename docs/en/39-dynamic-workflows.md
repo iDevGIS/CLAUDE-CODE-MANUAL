@@ -153,6 +153,10 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 - **A usage limit pauses the workflow instead of dropping agents** — a dynamic workflow that hits your usage limit now waits and continues automatically when the limit resets.
 - **Smaller default workflow size** — the default is small on Pro plans, and the medium size guideline drops from 15 agents to 10.
 
+### New in v2.1.296
+
+- **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`** — runs every workflow agent on one model while other subagents keep theirs. See [[23-environment-variables]].
+
 ---
 
 ---

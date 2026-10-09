@@ -58,7 +58,7 @@ Set the `model` key to any of these (newest → cheapest):
 - **Opus 5.5** (`claude-opus-5-5`) — the **new default Opus model** (since Claude Code 2.1.280); **1M context**; **$4/$20 per Mtok** with **$0.20/Mtok cache reads**.
 - **Opus 5** (`claude-opus-5`) — the previous default Opus model (Claude Code 2.1.219–2.1.278); **1M context**; fast mode at **$10/$50 per Mtok**.
 - **Opus 4.8** (`claude-opus-4-8`) — previous **Opus** flagship; top-tier coding and complex-bug analysis; defaults to **high effort** on demanding tasks.
-- **Sonnet 5.5** (`claude-sonnet-5-5`) — the **new default Sonnet model** on the Anthropic API (since Claude Code 2.1.284); **1M context**; **$2/$10 per Mtok** with **$0.20/Mtok cache reads**.
+- **Sonnet 5.5** (`claude-sonnet-5-5`) — the **new default Sonnet model** on the Anthropic API (since Claude Code 2.1.284); **1M context**; **$2/$10 per Mtok** with **$0.10/Mtok cache reads** (Claude Code's cost figures use this since 2.1.296; was $0.20).
 - **Sonnet 5** (`claude-sonnet-5`) — the previous default Sonnet model (Claude Code 2.1.197–2.1.283); balanced and fast, with a **native 1M-token context window** ($2/$10 per Mtok — its standard list price since 2.1.243).
 - **Haiku 5.5** (`claude-haiku-5-5`) — the **new default Haiku model** on the Anthropic API (since Claude Code 2.1.293); **1M context**; **$0.10/$0.50 per Mtok** ($0.50/$2.50 for prompts over 100K) — fastest, cheapest; for easy/boilerplate tasks.
 - **Haiku 4.5** (`claude-haiku-4-5`) — the previous default Haiku model.
@@ -349,6 +349,11 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **Gateway login from your own user settings** — `forceLoginMethod: "gateway"` and `forceLoginGatewayUrl` now work in user settings on machines with no managed settings, so `/login` opens on that Claude apps gateway.
 - **Program Status Protocol (OSC 7501)** — terminals that implement it can show whether Claude Code is working, waiting on you, or done.
+
+### New in v2.1.296
+
+- **`code` key in the Claude apps gateway's `managed.policies[]`** — takes the same settings as `cli` and also applies them in Claude Desktop's Code tab; beside `desktop`, it turns on Claude Desktop's gateway mode.
+- **Sonnet 5.5 cache reads now priced at $0.10/Mtok** (was $0.20) in `/cost`, the status line, `--max-budget-usd` and the SDK's cost figures.
 
 ---
 

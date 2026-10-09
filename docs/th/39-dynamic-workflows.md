@@ -153,6 +153,10 @@ log(`Done — ${results.filter((r) => r && r.confirmed).length} confirmed issues
 - **ชน usage limit แล้ว workflow พักแทนที่จะทิ้ง agent** — dynamic workflow ที่ชนเพดานการใช้งานจะรอ แล้วทำงานต่อเองเมื่อเพดานรีเซ็ต
 - **ขนาด workflow default เล็กลง** — แพลน Pro ใช้ค่า default เป็น small และไกด์ไลน์ขนาด medium ลดจาก 15 agent เหลือ 10
 
+### 🆕 ใหม่ใน v2.1.296
+
+- **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`** — ให้ทุก agent ใน workflow รันบนโมเดลเดียว ขณะที่ subagent อื่นยังใช้โมเดลของตัวเอง ดู [[23-environment-variables]]
+
 ---
 
 ---
