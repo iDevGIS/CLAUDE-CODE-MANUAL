@@ -88,6 +88,10 @@ related:
 - **background shell และ Monitor ใน agent map (VS Code)** — output ของมันแสดงบนการ์ดใน agent map แล้ว
 - **สวิตช์ "Enabled by default" ของ Claude in Chrome ครอบ session ของ editor ด้วย (VS Code)** — สวิตช์นี้เชื่อม session ของ editor เองด้วยแล้ว แต่ยังถามก่อนทำ action บนเบราว์เซอร์ ดู [[40-claude-in-chrome]]
 
+### 🆕 ใหม่ใน v2.1.300
+
+- **`claudeCode.attachSelection` (VS Code)** — setting สำหรับหยุดไม่ให้ข้อความที่เลือกไว้ใน editor ถูกแนบเข้าไปในข้อความที่เราส่ง
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**

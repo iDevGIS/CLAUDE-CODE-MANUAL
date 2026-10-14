@@ -25,6 +25,34 @@
 
 ---
 
+## [1.89.0] — 2026-10-15
+
+### Compatibility
+- **Claude Code:** `v2.1.300+`
+
+### Added
+- **New in v2.1.300** ใน 8 บท EN+TH (guide หน้าเดียว + atomic note):
+  - บท 02 CLI — `claude remote-control` ถอด `--sandbox`/`--no-sandbox` (ใส่แล้ว exit พร้อม error · ใช้ `sandbox.enabled` แทน) · ตอนออก force-kill background command ที่ค้างเกิน 1.5 วินาที
+  - บท 03 Slash Commands — `/advisor` บน Claude Platform on AWS (ไม่มี advisor จนกว่าจะเลือก) · ตัวเลือก `/sandbox` เปลี่ยนชื่อเป็น "Sandbox commands"
+  - บท 06 Configuration — request ใหญ่ไป api.anthropic.com บีบ gzip แม้ปิด telemetry (`CLAUDE_CODE_GZIP_REQUEST_BODIES=0`) · session `CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST` เมินตัวแปร CA bundle/proxy/git TLS ใน settings
+  - บท 10 Hooks — `updatedInput` ถูกตรวจแบบ input ของ Claude · agent hook ใช้ `model` ของตัวเองจริง · Cowork cloud เมิน `setMode` ใน allow ของ `PermissionRequest`
+  - บท 17 IDE Integration — setting `claudeCode.attachSelection` (VS Code)
+  - บท 18 Plugins — `virtualText` · `$.ui.view({ agentId })` · prop `dir` ของ `Text` · `agent.spawn` แก้ `prompt`/`model` ของ workflow agent ได้ · hook `prompt.change`
+  - บท 19 Session Management — transcript บันทึก system prompt/tools/parameter ของทุก request · background session resume workflow ผ่านการอนุมัติของ Workflow tool
+  - บท 23 Environment Variables — `CLAUDE_CODE_GZIP_REQUEST_BODIES`, `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` + โน้ต OpenTelemetry (`cache_creation_5m_tokens`/`cache_creation_1h_tokens`, attribute GenAI semantic convention)
+- **แถว What's-new ของ `v2.1.300`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.299` → `2.1.300` (current-version references only; historical sections kept)
+
+### Removed
+- ไม่มีเนื้อหาเดิมในคู่มือที่อ้าง `claude remote-control --sandbox`/`--no-sandbox` จึงบันทึกการถอดไว้เป็น New-in ของบท 02 เท่านั้น
+
+### Why
+- Upstream `2.1.300` เปลี่ยนพฤติกรรมด้าน hook ที่กระทบ guard/rewrite hook (`updatedInput` ถูก validate, `model` ของ agent hook), ถอด flag ของ `remote-control`, เพิ่ม env var 2 ตัว และขยาย mod API · ที่เหลือเป็น bug fix, UI polish และของฝั่ง VS Code / Cloud sessions / Claude Tag / Code Review ซึ่งข้ามไว้
+
+---
+
 ## [1.88.0] — 2026-10-14
 
 ### Compatibility
@@ -2014,6 +2042,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.89.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.88.0...v1.89.0
 [1.88.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.87.0...v1.88.0
 [1.87.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.86.0...v1.87.0
 [1.86.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.85.0...v1.86.0

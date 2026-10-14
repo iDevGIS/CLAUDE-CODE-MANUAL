@@ -135,6 +135,11 @@ Shows an interactive picker to choose a session.
 
 - **Fork a Remote Control session from the Claude app** — a session started with `claude --remote-control` or `/remote-control` can be forked from the Claude app; the fork runs as a background session on your computer. See [[41-background-agents]].
 
+### New in v2.1.300
+
+- **Transcripts record each API request** — local session transcripts also store each request's system prompt, tools and parameters, so a transcript you choose to share can reproduce a request exactly.
+- **Background sessions resume a carried workflow through the Workflow tool's approval** instead of running it from the handoff file. See [[39-dynamic-workflows]].
+
 ---
 
 ---

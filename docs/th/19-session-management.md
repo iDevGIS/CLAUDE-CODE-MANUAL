@@ -135,6 +135,11 @@ claude --fork-session                # แยก Branch ใหม่
 
 - **fork session แบบ Remote Control จาก Claude app ได้** — session ที่เปิดด้วย `claude --remote-control` หรือ `/remote-control` สั่ง fork จาก Claude app ได้แล้ว โดยตัวที่ fork ออกมาจะรันเป็น background session บนเครื่องเรา ดู [[41-background-agents]]
 
+### 🆕 ใหม่ใน v2.1.300
+
+- **transcript บันทึกทุก API request** — transcript ของ session บนเครื่องเก็บ system prompt, tools และ parameter ของแต่ละ request ไว้ด้วย เพื่อให้ transcript ที่เราเลือกแชร์ใช้ reproduce request นั้นได้เป๊ะ ๆ
+- **background session resume workflow ที่พกมาผ่านการอนุมัติของ Workflow tool** แทนการรันจาก handoff file ดู [[39-dynamic-workflows]]
+
 ---
 
 ---

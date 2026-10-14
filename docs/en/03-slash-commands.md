@@ -284,6 +284,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/usage` warns about costly patterns** — max effort, workflows, always-on context and large tool results.
 - **`/reload-skills` re-sends the full skill list to Claude** — the way to get skills back after compaction. See [[11-skills]].
 
+### New in v2.1.300
+- **`/advisor` on Claude Platform on AWS** — no advisor runs until you pick one with `/advisor`, the `advisorModel` setting or `--advisor`; `CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1` turns it off. See [[23-environment-variables]].
+- **`/sandbox` mode options read "Sandbox commands"** instead of "Sandbox BashTool".
+
 ---
 
 ---

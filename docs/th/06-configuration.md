@@ -361,6 +361,11 @@ related:
 - **`CLAUDE_CODE_DISABLE_FILE_MENTIONS`** — Claude ได้แค่ path ของไฟล์ที่ `@` mention ไว้เพื่อไปอ่านเองด้วย file tool แทนที่จะได้เนื้อหาไฟล์
 - **attribution block หลัง Claude apps gateway** — ตั้ง `CLAUDE_CODE_ATTRIBUTION_HEADER=0` เพื่อเอาออก (สำหรับ Code tab ของ Claude Desktop ให้ตั้งใน `env` ของ policy `code` ของ gateway) ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.300
+
+- **request ขนาดใหญ่ถูกบีบอัดด้วย gzip แม้ปิด telemetry** — ใช้กับ request ไปยัง api.anthropic.com · ปิดได้ด้วย `CLAUDE_CODE_GZIP_REQUEST_BODIES=0` ดู [[23-environment-variables]]
+- **session แบบ `CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST` ไม่สนตัวแปรด้านเครือข่ายใน settings** — ตัวแปร CA bundle, tool proxy, git TLS และ git config เช่น `SSL_CERT_FILE` ที่ตั้งไว้ใน settings จะถูกเมิน · ถ้ารันใต้ Claude Desktop จะเมินเฉพาะที่อยู่ใน project settings
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

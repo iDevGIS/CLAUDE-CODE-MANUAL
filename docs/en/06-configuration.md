@@ -361,6 +361,11 @@ Set the `model` key to any of these (newest → cheapest):
 - **`CLAUDE_CODE_DISABLE_FILE_MENTIONS`** — Claude gets the paths of `@` file mentions to read with its file tools, not the files' contents.
 - **Attribution block behind a Claude apps gateway** — set `CLAUDE_CODE_ATTRIBUTION_HEADER=0` (in the `env` of the gateway's `code` policy for Claude Desktop's Code tab) to remove it. See [[23-environment-variables]].
 
+### New in v2.1.300
+
+- **Large API requests are gzip-compressed even with telemetry disabled** — applies to requests to api.anthropic.com; `CLAUDE_CODE_GZIP_REQUEST_BODIES=0` turns it off. See [[23-environment-variables]].
+- **`CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST` sessions ignore network variables in settings** — CA-bundle, tool-proxy, git TLS and git config variables such as `SSL_CERT_FILE` set in settings are ignored; under Claude Desktop, only those in project settings.
+
 ---
 
 ---

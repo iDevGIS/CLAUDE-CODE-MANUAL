@@ -212,6 +212,14 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **UI ของ mod** — `Text` มี `size`, `weight`, `mono` และ `tabular` (`bold` deprecated ให้ใช้ `weight` แทน) · `Box` มีระยะห่างแบบตั้งชื่อ `xs` ถึง `xl`
 - **`/plugin` และ `claude plugin validate` บอกชื่อ hook ของ mod ที่ถูกข้าม** ในที่ที่องค์กรจัดการ Claude Code
 
+### 🆕 ใหม่ใน v2.1.300
+
+- **`virtualText` ใน prompt decoration ของ mod** — ข้อความที่วาดในช่อง prompt แต่ไม่เข้าไปอยู่ใน draft หรือ prompt ที่ส่งออกไป
+- **`$.ui.view({ agentId })`** — แสดง transcript ของ agent ใน view หลักเมื่อเราสั่ง · `$.ui.view({})` เพื่อกลับ
+- **prop `dir` ของ `Text` ใน mod** — สำหรับข้อความขวาไปซ้าย: บน Windows และใน terminal ของ VS Code แถวจะอ่านตามทิศนั้นและชิดขวา
+- **`agent.spawn` แก้ workflow agent ได้** — hook นี้เปลี่ยน `prompt` และ `model` ของ workflow agent ได้แล้ว จากเดิมทำได้แค่ปฏิเสธ ดู [[39-dynamic-workflows]]
+- **hook `prompt.change` ของ mod** — ถูกเรียกเมื่อข้อความในช่อง prompt เปลี่ยนโดยไม่ได้พิมพ์แก้: เรียกประวัติขึ้นมา, ล้าง, undo หรือ plugin เติมข้อความให้
+
 ---
 
 ---

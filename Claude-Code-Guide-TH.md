@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.299         │
+│ Welcome to Claude Code v2.1.300         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -778,6 +778,11 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **คำสั่ง resume ที่พิมพ์ตอนออกอ้าง session ด้วย ID** — บรรทัดที่พิมพ์ตอนออกไม่ใช้ชื่อ session แล้ว เพื่อไม่ให้มีอะไรในชื่อถูกรันตอน paste บรรทัดนั้น · session แบบ worktree จะใช้ `-w` และ `-r` ถ้า flag แบบยาวไม่พอดีกับ terminal
 - **`--shutdown-drain-sec` สำหรับ `claude self-hosted-runner orchestrator`** — เมื่อได้รับ SIGTERM จะหยุด poll แล้วให้เวลา poll ที่ค้างอยู่และ spawn hook ที่กำลังรันได้ทำงานให้เสร็จไม่เกินจำนวนวินาทีที่กำหนด
 
+### 🆕 ใหม่ใน v2.1.300
+
+- **`claude remote-control` ถอด `--sandbox` และ `--no-sandbox`** — สอง flag นี้ไม่เคยมีผลอะไร ตอนนี้ใส่ตัวไหนก็จะ exit พร้อม error · ถ้าจะ sandbox session ให้ตั้ง `sandbox.enabled` ใน settings
+- **ตอนออก force-kill background command ที่ค้าง** — background command ที่ยังรันอยู่ 1.5 วินาทีหลังถูกสั่งหยุดจะถูก force-kill · เดิมในโหมด fullscreen คำสั่งพวกนี้อาจค้างรันต่อ
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1109,7 +1114,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.299
+- run: npm install -g @anthropic-ai/claude-code@2.1.300
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1414,6 +1419,10 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/effort` และ `/fast` ใน agent view** — ตั้งค่าที่ session ใหม่จะเริ่มด้วย · พิมพ์ `/model`, `/effort` หรือ `/fast` เปล่า ๆ ในนั้นจะเปิด picker
 - **`/usage` เตือนรูปแบบที่กินโควตา** — max effort, workflow, context ที่โหลดตลอด และผลลัพธ์ tool ขนาดใหญ่
 - **`/reload-skills` ส่งรายการ skill ทั้งหมดให้ Claude ใหม่** — เป็นวิธีเอา skill กลับมาหลัง compaction
+
+### 🆕 ใหม่ใน v2.1.300
+- **`/advisor` บน Claude Platform on AWS** — จะไม่มี advisor รันจนกว่าจะเลือกเองด้วย `/advisor`, setting `advisorModel` หรือ `--advisor` · ปิดได้ด้วย `CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1`
+- **ตัวเลือกโหมดของ `/sandbox` เปลี่ยนเป็น "Sandbox commands"** แทน "Sandbox BashTool"
 
 ---
 
@@ -2169,6 +2178,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **`CLAUDE_CODE_DISABLE_FILE_MENTIONS`** — Claude ได้แค่ path ของไฟล์ที่ `@` mention ไว้เพื่อไปอ่านเองด้วย file tool แทนที่จะได้เนื้อหาไฟล์
 - **attribution block หลัง Claude apps gateway** — ตั้ง `CLAUDE_CODE_ATTRIBUTION_HEADER=0` เพื่อเอาออก (สำหรับ Code tab ของ Claude Desktop ให้ตั้งใน `env` ของ policy `code` ของ gateway)
 
+### 🆕 ใหม่ใน v2.1.300
+
+- **request ขนาดใหญ่ถูกบีบอัดด้วย gzip แม้ปิด telemetry** — ใช้กับ request ไปยัง api.anthropic.com · ปิดได้ด้วย `CLAUDE_CODE_GZIP_REQUEST_BODIES=0`
+- **session แบบ `CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST` ไม่สนตัวแปรด้านเครือข่ายใน settings** — ตัวแปร CA bundle, tool proxy, git TLS และ git config เช่น `SSL_CERT_FILE` ที่ตั้งไว้ใน settings จะถูกเมิน · ถ้ารันใต้ Claude Desktop จะเมินเฉพาะที่อยู่ใน project settings
+
 ---
 
 ## 7. CLAUDE.md - คำสั่งถาวรสำหรับโปรเจกต์
@@ -2827,6 +2841,12 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **`UserPromptSubmit` รันก่อน skill หรือ custom slash command ถูกขยาย** — hook ที่บล็อก prompt จะหยุด shell command ที่ฝังอยู่ในคำสั่งนั้นด้วย · ส่วน `UserPromptSubmit` hook ใน front-matter ของ skill เองจะเริ่มรันกับ prompt ถัดจาก prompt ที่เรียก skill
 - **Windows: guard hook fail แบบปิด** — `PreToolUse` และ `PermissionRequest` hook ที่ไม่ได้กำหนด shell จะไม่ปล่อยผ่านอีกเมื่อไม่ได้ติดตั้ง Git for Windows · guard ที่ล้มเหลวจะบล็อกการเรียกนั้น
 - **plugin hook ปฏิเสธสิ่งที่ตรวจไม่ได้** — action ที่ plugin hook บล็อกได้ จะถูกปฏิเสธถ้าส่งให้ hook ไม่ได้หรือ hook ตอบกลับไม่ได้ · tool ที่รันไปแล้วจะถูกกักผลลัพธ์ไว้
+
+### 🆕 ใหม่ใน v2.1.300
+
+- **`updatedInput` ถูกตรวจแบบเดียวกับ input ของ Claude เอง** — จาก hook `PreToolUse` และ `PermissionRequest` key ที่ไม่รู้จักจะถูกตัดทิ้ง และ input ที่ tool ปฏิเสธจะทำให้การเรียกนั้นถูก deny
+- **agent hook ใช้ `model` ของตัวเองจริง** — alias อย่าง `haiku` resolve ได้ · โมเดลของ subagent ไม่ทับอีกต่อไป · ถ้าโมเดลใช้ไม่ได้จะ fallback ไปใช้โมเดลของผู้เรียกแทนการปล่อยผ่าน action
+- **Cowork cloud session เมิน `setMode` ใน allow ของ hook `PermissionRequest`** — ส่วนอื่นของการอนุมัติยังมีผลตามเดิม
 
 ---
 
@@ -3728,6 +3748,10 @@ cat src/*.ts | claude -p "หา Bug"
 - **background shell และ Monitor ใน agent map (VS Code)** — output ของมันแสดงบนการ์ดใน agent map แล้ว
 - **สวิตช์ "Enabled by default" ของ Claude in Chrome ครอบ session ของ editor ด้วย (VS Code)** — สวิตช์นี้เชื่อม session ของ editor เองด้วยแล้ว แต่ยังถามก่อนทำ action บนเบราว์เซอร์
 
+### 🆕 ใหม่ใน v2.1.300
+
+- **`claudeCode.attachSelection` (VS Code)** — setting สำหรับหยุดไม่ให้ข้อความที่เลือกไว้ใน editor ถูกแนบเข้าไปในข้อความที่เราส่ง
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**
@@ -3944,6 +3968,14 @@ claude --plugin-dir ./my-plugin
 - **UI ของ mod** — `Text` มี `size`, `weight`, `mono` และ `tabular` (`bold` deprecated ให้ใช้ `weight` แทน) · `Box` มีระยะห่างแบบตั้งชื่อ `xs` ถึง `xl`
 - **`/plugin` และ `claude plugin validate` บอกชื่อ hook ของ mod ที่ถูกข้าม** ในที่ที่องค์กรจัดการ Claude Code
 
+### 🆕 ใหม่ใน v2.1.300
+
+- **`virtualText` ใน prompt decoration ของ mod** — ข้อความที่วาดในช่อง prompt แต่ไม่เข้าไปอยู่ใน draft หรือ prompt ที่ส่งออกไป
+- **`$.ui.view({ agentId })`** — แสดง transcript ของ agent ใน view หลักเมื่อเราสั่ง · `$.ui.view({})` เพื่อกลับ
+- **prop `dir` ของ `Text` ใน mod** — สำหรับข้อความขวาไปซ้าย: บน Windows และใน terminal ของ VS Code แถวจะอ่านตามทิศนั้นและชิดขวา
+- **`agent.spawn` แก้ workflow agent ได้** — hook นี้เปลี่ยน `prompt` และ `model` ของ workflow agent ได้แล้ว จากเดิมทำได้แค่ปฏิเสธ
+- **hook `prompt.change` ของ mod** — ถูกเรียกเมื่อข้อความในช่อง prompt เปลี่ยนโดยไม่ได้พิมพ์แก้: เรียกประวัติขึ้นมา, ล้าง, undo หรือ plugin เติมข้อความให้
+
 ---
 
 ## 19. Session Management
@@ -4065,6 +4097,11 @@ claude --fork-session                # แยก Branch ใหม่
 ### 🆕 ใหม่ใน v2.1.273
 
 - **fork session แบบ Remote Control จาก Claude app ได้** — session ที่เปิดด้วย `claude --remote-control` หรือ `/remote-control` สั่ง fork จาก Claude app ได้แล้ว โดยตัวที่ fork ออกมาจะรันเป็น background session บนเครื่องเรา
+
+### 🆕 ใหม่ใน v2.1.300
+
+- **transcript บันทึกทุก API request** — transcript ของ session บนเครื่องเก็บ system prompt, tools และ parameter ของแต่ละ request ไว้ด้วย เพื่อให้ transcript ที่เราเลือกแชร์ใช้ reproduce request นั้นได้เป๊ะ ๆ
+- **background session resume workflow ที่พกมาผ่านการอนุมัติของ Workflow tool** แทนการรันจาก handoff file
 
 ---
 
@@ -4373,6 +4410,8 @@ your-project/
 | `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` | เปลี่ยนขั้นต่ำ 200K token ของ idle compaction (ปิดด้วย `"idleCompaction": false` ใน settings.json) *(v2.1.299)* |
 | `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT` | ตั้ง `1` เพื่อให้ยังถามเรื่อง rm ที่สร้างตอนรันในสคริปต์ shell `-c` ที่ Claude Code อ่านไม่ได้ *(v2.1.299)* |
 | `CLAUDE_CODE_ATTRIBUTION_HEADER` | ตั้ง `0` เพื่อเอา attribution block ออกใน session หลัง Claude apps gateway (สำหรับ Code tab ของ Claude Desktop ตั้งใน `env` ของ policy `code` ของ gateway) *(v2.1.299)* |
+| `CLAUDE_CODE_GZIP_REQUEST_BODIES` | ตั้ง `0` เพื่อหยุดบีบอัด gzip ให้ request ขนาดใหญ่ไปยัง api.anthropic.com ซึ่งตอนนี้ทำแม้ปิด telemetry *(v2.1.300)* |
+| `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | ตั้ง `1` เพื่อปิด advisor รวมถึง `/advisor` บน Claude Platform on AWS *(v2.1.300)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -4389,6 +4428,8 @@ your-project/
 > trace span `claude_code.llm_request` ของ OpenTelemetry มี attribute `effort` แล้ว ตรงกับ event `api_request` · และมี event ใหม่ `claude_code.managed_settings_resolved` ที่รายงานว่าใช้ managed-settings จากแหล่งใดและสถานะของ policy helper *(v2.1.274)*
 
 > telemetry ที่ Claude Desktop และ Cowork ส่งผ่าน Claude apps gateway มี `enduser.sub` ซึ่งเป็น subject จาก IdP ติดไปด้วย *(v2.1.274)*
+
+> event `api_request` ของ OpenTelemetry แยก cache write ตามอายุ cache ด้วย `cache_creation_5m_tokens` และ `cache_creation_1h_tokens` · trace span มี attribute ตาม GenAI semantic convention เช่น `gen_ai.provider.name`, `gen_ai.conversation.id`, `gen_ai.tool.name` และ `error.type` *(v2.1.300)*
 
 ### ตั้งค่าใน settings.json
 
@@ -5700,7 +5741,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.299`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.300`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

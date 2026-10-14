@@ -226,6 +226,12 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **Windows: guard hooks fail closed** — `PreToolUse` and `PermissionRequest` hooks that set no shell no longer fail open when Git for Windows isn't installed; a guard that fails now blocks the call.
 - **Plugin hooks refuse what they can't check** — an action a plugin hook can block is refused when the hook can't be handed it or can't hand back its answer; a tool that already ran has its result withheld.
 
+### New in v2.1.300
+
+- **`updatedInput` is validated like Claude's own input** — from `PreToolUse` and `PermissionRequest` hooks, unknown keys are dropped and input the tool rejects denies the call.
+- **Agent hooks honor their `model`** — aliases like `haiku` resolve, a subagent's model no longer overrides it, and an unavailable model falls back to the caller's instead of allowing the action.
+- **Cowork cloud sessions ignore `setMode` in a `PermissionRequest` hook's allow** — the rest of the approval still applies.
+
 ---
 
 ---

@@ -285,6 +285,10 @@ related:
 - **`/usage` เตือนรูปแบบที่กินโควตา** — max effort, workflow, context ที่โหลดตลอด และผลลัพธ์ tool ขนาดใหญ่
 - **`/reload-skills` ส่งรายการ skill ทั้งหมดให้ Claude ใหม่** — เป็นวิธีเอา skill กลับมาหลัง compaction ดู [[11-skills]]
 
+### 🆕 ใหม่ใน v2.1.300
+- **`/advisor` บน Claude Platform on AWS** — จะไม่มี advisor รันจนกว่าจะเลือกเองด้วย `/advisor`, setting `advisorModel` หรือ `--advisor` · ปิดได้ด้วย `CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1` ดู [[23-environment-variables]]
+- **ตัวเลือกโหมดของ `/sandbox` เปลี่ยนเป็น "Sandbox commands"** แทน "Sandbox BashTool"
+
 ---
 
 ---

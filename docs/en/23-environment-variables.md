@@ -109,6 +109,8 @@ related:
 | `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` | Changes idle compaction's 200K-token minimum (`"idleCompaction": false` in settings.json turns it off). See [[06-configuration]]. *(v2.1.299)* |
 | `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT` | Set `1` to keep prompting for an rm built at run time in a shell `-c` script Claude Code can't read. *(v2.1.299)* |
 | `CLAUDE_CODE_ATTRIBUTION_HEADER` | Set `0` to remove the attribution block in sessions behind a Claude apps gateway (in the `env` of the gateway's `code` policy for Claude Desktop's Code tab). *(v2.1.299)* |
+| `CLAUDE_CODE_GZIP_REQUEST_BODIES` | Set `0` to stop gzip-compressing large requests to api.anthropic.com, which now happens even when telemetry is disabled. See [[06-configuration]]. *(v2.1.300)* |
+| `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | Set `1` to turn off the advisor, including `/advisor` on Claude Platform on AWS. See [[03-slash-commands]]. *(v2.1.300)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -125,6 +127,8 @@ related:
 > The `claude_code.llm_request` OpenTelemetry trace span carries an `effort` attribute, matching the `api_request` event; a new `claude_code.managed_settings_resolved` event reports which managed-settings sources were used and the policy helper's state. *(v2.1.274)*
 
 > Telemetry that Claude Desktop and Cowork send through a Claude apps gateway includes `enduser.sub`, the IdP subject. *(v2.1.274)*
+
+> The OpenTelemetry `api_request` event splits cache writes by lifetime with `cache_creation_5m_tokens` and `cache_creation_1h_tokens`; trace spans carry GenAI semantic-convention attributes such as `gen_ai.provider.name`, `gen_ai.conversation.id`, `gen_ai.tool.name` and `error.type`. *(v2.1.300)*
 
 ### Configure in settings.json
 

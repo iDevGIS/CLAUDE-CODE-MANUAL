@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.299-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.88.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.300-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.89.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.299`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.300`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -160,8 +160,9 @@
 | 🧱 **Hook `onFailure: "block"` + เพดาน skill ของ subagent** | command/HTTP hook ที่เริ่มไม่ได้ หมดเวลา หรือ exit code แปลก บล็อก action ได้ · subagent preload skill ได้ไม่เกิน 32 ตัว · `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` · claude.ai connector negotiate MCP protocol 2026-07-28 · คำอธิบาย tool ผ่าน tool search ยาวถึง 16,384 ตัวอักษร · `forceLoginMethod: "gateway"` ใน user settings · OSC 7501 · Ctrl+C ไม่หยุด `/loop` ของ background session (v2.1.294–295) |
 | 🗜️ **`autoCompactWindow` ของ subagent + โมเดลเดียวทั้ง workflow** | subagent ตั้ง `autoCompactWindow` ให้ compact เร็วกว่า conversation หลัก · `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` · `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` · key `code` ใน `managed.policies[]` ของ gateway · เพดานคำอธิบาย MCP tool/server instructions 4,096 ตัวอักษร · cache read Sonnet 5.5 $0.10/Mtok · `←` หยุดงานที่เริ่มระหว่างย้ายไป background (v2.1.296) |
 | 💤 **Idle compaction + MCP rule ที่เข้มขึ้น** | conversation 200K+ ที่ว่างราว 54 นาทีถูก compact ก่อน cache หมดอายุ (`idleCompaction` · `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS`) · `CLAUDE_CODE_DISABLE_FILE_MENTIONS` · allow rule และ `tools:` ของ MCP ครอบเฉพาะ server ที่ระบุชื่อ · `UserPromptSubmit` รันก่อน skill ขยาย · `/effort` `/fast` ใน agent view · `claude plugin eval --disallow-tools` (v2.1.299) |
+| 🪝 **hook `updatedInput` ถูกตรวจ + mod API เพิ่ม** | `updatedInput` จาก `PreToolUse`/`PermissionRequest` ถูกตรวจแบบ input ของ Claude · agent hook ใช้ `model` ของตัวเองจริง · `/advisor` บน Claude Platform on AWS (`CLAUDE_CODE_DISABLE_ADVISOR_TOOL`) · `CLAUDE_CODE_GZIP_REQUEST_BODIES` · `claude remote-control` ถอด `--sandbox`/`--no-sandbox` · mod: `virtualText`, `$.ui.view`, hook `prompt.change` · OTel `cache_creation_5m_tokens`/`cache_creation_1h_tokens` (v2.1.300) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.299` (manual `v1.88.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.300` (manual `v1.89.0`)
 
 ---
 
@@ -184,7 +185,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.299** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
+ตรงกับ Claude Code **v2.1.300** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
 
 </td>
 </tr>
@@ -244,7 +245,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.299`
+> **Claude Code Version:** `2.1.300`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

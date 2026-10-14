@@ -230,6 +230,12 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **Windows: guard hook fail แบบปิด** — `PreToolUse` และ `PermissionRequest` hook ที่ไม่ได้กำหนด shell จะไม่ปล่อยผ่านอีกเมื่อไม่ได้ติดตั้ง Git for Windows · guard ที่ล้มเหลวจะบล็อกการเรียกนั้น
 - **plugin hook ปฏิเสธสิ่งที่ตรวจไม่ได้** — action ที่ plugin hook บล็อกได้ จะถูกปฏิเสธถ้าส่งให้ hook ไม่ได้หรือ hook ตอบกลับไม่ได้ · tool ที่รันไปแล้วจะถูกกักผลลัพธ์ไว้
 
+#### 🆕 ใหม่ใน v2.1.300
+
+- **`updatedInput` ถูกตรวจแบบเดียวกับ input ของ Claude เอง** — จาก hook `PreToolUse` และ `PermissionRequest` key ที่ไม่รู้จักจะถูกตัดทิ้ง และ input ที่ tool ปฏิเสธจะทำให้การเรียกนั้นถูก deny
+- **agent hook ใช้ `model` ของตัวเองจริง** — alias อย่าง `haiku` resolve ได้ · โมเดลของ subagent ไม่ทับอีกต่อไป · ถ้าโมเดลใช้ไม่ได้จะ fallback ไปใช้โมเดลของผู้เรียกแทนการปล่อยผ่าน action
+- **Cowork cloud session เมิน `setMode` ใน allow ของ hook `PermissionRequest`** — ส่วนอื่นของการอนุมัติยังมีผลตามเดิม
+
 ---
 
 ---

@@ -109,6 +109,8 @@ related:
 | `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` | เปลี่ยนขั้นต่ำ 200K token ของ idle compaction (ปิดด้วย `"idleCompaction": false` ใน settings.json) ดู [[06-configuration]] *(v2.1.299)* |
 | `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT` | ตั้ง `1` เพื่อให้ยังถามเรื่อง rm ที่สร้างตอนรันในสคริปต์ shell `-c` ที่ Claude Code อ่านไม่ได้ *(v2.1.299)* |
 | `CLAUDE_CODE_ATTRIBUTION_HEADER` | ตั้ง `0` เพื่อเอา attribution block ออกใน session หลัง Claude apps gateway (สำหรับ Code tab ของ Claude Desktop ตั้งใน `env` ของ policy `code` ของ gateway) *(v2.1.299)* |
+| `CLAUDE_CODE_GZIP_REQUEST_BODIES` | ตั้ง `0` เพื่อหยุดบีบอัด gzip ให้ request ขนาดใหญ่ไปยัง api.anthropic.com ซึ่งตอนนี้ทำแม้ปิด telemetry ดู [[06-configuration]] *(v2.1.300)* |
+| `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | ตั้ง `1` เพื่อปิด advisor รวมถึง `/advisor` บน Claude Platform on AWS ดู [[03-slash-commands]] *(v2.1.300)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -125,6 +127,8 @@ related:
 > trace span `claude_code.llm_request` ของ OpenTelemetry มี attribute `effort` แล้ว ตรงกับ event `api_request` · และมี event ใหม่ `claude_code.managed_settings_resolved` ที่รายงานว่าใช้ managed-settings จากแหล่งใดและสถานะของ policy helper *(v2.1.274)*
 
 > telemetry ที่ Claude Desktop และ Cowork ส่งผ่าน Claude apps gateway มี `enduser.sub` ซึ่งเป็น subject จาก IdP ติดไปด้วย *(v2.1.274)*
+
+> event `api_request` ของ OpenTelemetry แยก cache write ตามอายุ cache ด้วย `cache_creation_5m_tokens` และ `cache_creation_1h_tokens` · trace span มี attribute ตาม GenAI semantic convention เช่น `gen_ai.provider.name`, `gen_ai.conversation.id`, `gen_ai.tool.name` และ `error.type` *(v2.1.300)*
 
 ### ตั้งค่าใน settings.json
 

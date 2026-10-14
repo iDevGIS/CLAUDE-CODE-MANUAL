@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.299         │
+│ Welcome to Claude Code v2.1.300         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -674,6 +674,11 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **คำสั่ง resume ที่พิมพ์ตอนออกอ้าง session ด้วย ID** — บรรทัดที่พิมพ์ตอนออกไม่ใช้ชื่อ session แล้ว เพื่อไม่ให้มีอะไรในชื่อถูกรันตอน paste บรรทัดนั้น · session แบบ worktree จะใช้ `-w` และ `-r` ถ้า flag แบบยาวไม่พอดีกับ terminal
 - **`--shutdown-drain-sec` สำหรับ `claude self-hosted-runner orchestrator`** — เมื่อได้รับ SIGTERM จะหยุด poll แล้วให้เวลา poll ที่ค้างอยู่และ spawn hook ที่กำลังรันได้ทำงานให้เสร็จไม่เกินจำนวนวินาทีที่กำหนด
 
+### 🆕 ใหม่ใน v2.1.300
+
+- **`claude remote-control` ถอด `--sandbox` และ `--no-sandbox`** — สอง flag นี้ไม่เคยมีผลอะไร ตอนนี้ใส่ตัวไหนก็จะ exit พร้อม error · ถ้าจะ sandbox session ให้ตั้ง `sandbox.enabled` ใน settings ดู [[05-permissions]]
+- **ตอนออก force-kill background command ที่ค้าง** — background command ที่ยังรันอยู่ 1.5 วินาทีหลังถูกสั่งหยุดจะถูก force-kill · เดิมในโหมด fullscreen คำสั่งพวกนี้อาจค้างรันต่อ ดู [[41-background-agents]]
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1045,7 +1050,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.299
+- run: npm install -g @anthropic-ai/claude-code@2.1.300
 ```
 
 ---

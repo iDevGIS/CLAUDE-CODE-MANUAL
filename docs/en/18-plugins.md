@@ -212,6 +212,14 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **Mod UI** — `Text` gains `size`, `weight`, `mono` and `tabular` (`bold` is deprecated in favor of `weight`); `Box` gains named spacing steps `xs` to `xl`.
 - **`/plugin` and `claude plugin validate` name skipped mod hooks** where an organization manages Claude Code.
 
+### New in v2.1.300
+
+- **`virtualText` in a mod's prompt decorations** — text drawn in the prompt box that never enters the draft or the submitted prompt.
+- **`$.ui.view({ agentId })`** — shows an agent's transcript in the main view when you ask; `$.ui.view({})` goes back.
+- **`dir` prop on a mod's `Text`** — for right-to-left text: on Windows and in VS Code's terminal its rows read in that direction and sit flush right.
+- **`agent.spawn` can rewrite workflow agents** — the hook can now change a workflow agent's `prompt` and `model`; before, it could only refuse them. See [[39-dynamic-workflows]].
+- **`prompt.change` mod hook** — raised when the prompt box's text changes without a typed edit: a recalled history entry, a clear, an undo, or a plugin's fill.
+
 ---
 
 ---

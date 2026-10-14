@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.299         │
+│ Welcome to Claude Code v2.1.300         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.299
+- run: npm install -g @anthropic-ai/claude-code@2.1.300
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1123,6 +1123,11 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 - **Resume command at exit names the session by ID** — the line printed at exit no longer uses the session name, so nothing in a name can run when the line is pasted; worktree sessions use `-w` and `-r` when the long flags don't fit the terminal.
 - **`--shutdown-drain-sec` for `claude self-hosted-runner orchestrator`** — on SIGTERM it stops polling and gives the poll in flight and running spawn hooks up to that many seconds to finish.
+
+### New in v2.1.300
+
+- **`claude remote-control` drops `--sandbox` and `--no-sandbox`** — the flags never had an effect; passing either now exits with an error. Set `sandbox.enabled` in settings to sandbox sessions.
+- **Exit force-kills lingering background commands** — a background command still running 1.5 seconds after being asked to stop is force-killed; in fullscreen mode such commands could previously be left running.
 
 ---
 
@@ -1420,6 +1425,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/effort` and `/fast` in agent view** — set what new sessions start with; a bare `/model`, `/effort` or `/fast` there opens a picker.
 - **`/usage` warns about costly patterns** — max effort, workflows, always-on context and large tool results.
 - **`/reload-skills` re-sends the full skill list to Claude** — the way to get skills back after compaction.
+
+### New in v2.1.300
+- **`/advisor` on Claude Platform on AWS** — no advisor runs until you pick one with `/advisor`, the `advisorModel` setting or `--advisor`; `CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1` turns it off.
+- **`/sandbox` mode options read "Sandbox commands"** instead of "Sandbox BashTool".
 
 ---
 
@@ -2175,6 +2184,11 @@ Skill(commit)                    # Specific skill
 - **`CLAUDE_CODE_DISABLE_FILE_MENTIONS`** — Claude gets the paths of `@` file mentions to read with its file tools, not the files' contents.
 - **Attribution block behind a Claude apps gateway** — set `CLAUDE_CODE_ATTRIBUTION_HEADER=0` (in the `env` of the gateway's `code` policy for Claude Desktop's Code tab) to remove it.
 
+### New in v2.1.300
+
+- **Large API requests are gzip-compressed even with telemetry disabled** — applies to requests to api.anthropic.com; `CLAUDE_CODE_GZIP_REQUEST_BODIES=0` turns it off.
+- **`CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST` sessions ignore network variables in settings** — CA-bundle, tool-proxy, git TLS and git config variables such as `SSL_CERT_FILE` set in settings are ignored; under Claude Desktop, only those in project settings.
+
 ---
 
 ## 7. CLAUDE.md - Persistent Project Instructions
@@ -2771,6 +2785,12 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 - **`UserPromptSubmit` runs before a skill or custom slash command expands** — a hook that blocks the prompt now also stops the command's embedded shell commands. A skill's own front-matter `UserPromptSubmit` hook first runs on the prompt after the one that invokes the skill.
 - **Windows: guard hooks fail closed** — `PreToolUse` and `PermissionRequest` hooks that set no shell no longer fail open when Git for Windows isn't installed; a guard that fails now blocks the call.
 - **Plugin hooks refuse what they can't check** — an action a plugin hook can block is refused when the hook can't be handed it or can't hand back its answer; a tool that already ran has its result withheld.
+
+### New in v2.1.300
+
+- **`updatedInput` is validated like Claude's own input** — from `PreToolUse` and `PermissionRequest` hooks, unknown keys are dropped and input the tool rejects denies the call.
+- **Agent hooks honor their `model`** — aliases like `haiku` resolve, a subagent's model no longer overrides it, and an unavailable model falls back to the caller's instead of allowing the action.
+- **Cowork cloud sessions ignore `setMode` in a `PermissionRequest` hook's allow** — the rest of the approval still applies.
 
 ### Configuring Hooks
 
@@ -3739,6 +3759,10 @@ cat src/*.ts | claude -p "find bugs"
 - **Background shells and Monitors in the agent map (VS Code)** — their output now shows on their cards.
 - **Claude in Chrome "Enabled by default" covers the editor's sessions (VS Code)** — the switch now also connects the editor's own sessions, which still ask before browser actions.
 
+### New in v2.1.300
+
+- **`claudeCode.attachSelection` (VS Code)** — a setting to stop text selected in the editor from being added to your messages.
+
 ### JetBrains IDEs
 
 **Install:**
@@ -3955,6 +3979,14 @@ claude --plugin-dir ./my-plugin
 - **Mod UI** — `Text` gains `size`, `weight`, `mono` and `tabular` (`bold` is deprecated in favor of `weight`); `Box` gains named spacing steps `xs` to `xl`.
 - **`/plugin` and `claude plugin validate` name skipped mod hooks** where an organization manages Claude Code.
 
+### New in v2.1.300
+
+- **`virtualText` in a mod's prompt decorations** — text drawn in the prompt box that never enters the draft or the submitted prompt.
+- **`$.ui.view({ agentId })`** — shows an agent's transcript in the main view when you ask; `$.ui.view({})` goes back.
+- **`dir` prop on a mod's `Text`** — for right-to-left text: on Windows and in VS Code's terminal its rows read in that direction and sit flush right.
+- **`agent.spawn` can rewrite workflow agents** — the hook can now change a workflow agent's `prompt` and `model`; before, it could only refuse them.
+- **`prompt.change` mod hook** — raised when the prompt box's text changes without a typed edit: a recalled history entry, a clear, an undo, or a plugin's fill.
+
 ---
 
 ## 19. Session Management
@@ -4070,6 +4102,11 @@ Shows an interactive picker to choose a session.
 ### New in v2.1.273
 
 - **Fork a Remote Control session from the Claude app** — a session started with `claude --remote-control` or `/remote-control` can be forked from the Claude app; the fork runs as a background session on your computer.
+
+### New in v2.1.300
+
+- **Transcripts record each API request** — local session transcripts also store each request's system prompt, tools and parameters, so a transcript you choose to share can reproduce a request exactly.
+- **Background sessions resume a carried workflow through the Workflow tool's approval** instead of running it from the handoff file.
 
 ### Session File Locations
 
@@ -4384,6 +4421,8 @@ your-project/
 | `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` | Changes idle compaction's 200K-token minimum (`"idleCompaction": false` in settings.json turns it off). *(v2.1.299)* |
 | `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT` | Set `1` to keep prompting for an rm built at run time in a shell `-c` script Claude Code can't read. *(v2.1.299)* |
 | `CLAUDE_CODE_ATTRIBUTION_HEADER` | Set `0` to remove the attribution block in sessions behind a Claude apps gateway (in the `env` of the gateway's `code` policy for Claude Desktop's Code tab). *(v2.1.299)* |
+| `CLAUDE_CODE_GZIP_REQUEST_BODIES` | Set `0` to stop gzip-compressing large requests to api.anthropic.com, which now happens even when telemetry is disabled. *(v2.1.300)* |
+| `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | Set `1` to turn off the advisor, including `/advisor` on Claude Platform on AWS. *(v2.1.300)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -4400,6 +4439,8 @@ your-project/
 > The `claude_code.llm_request` OpenTelemetry trace span carries an `effort` attribute, matching the `api_request` event; a new `claude_code.managed_settings_resolved` event reports which managed-settings sources were used and the policy helper's state. *(v2.1.274)*
 
 > Telemetry that Claude Desktop and Cowork send through a Claude apps gateway includes `enduser.sub`, the IdP subject. *(v2.1.274)*
+
+> The OpenTelemetry `api_request` event splits cache writes by lifetime with `cache_creation_5m_tokens` and `cache_creation_1h_tokens`; trace spans carry GenAI semantic-convention attributes such as `gen_ai.provider.name`, `gen_ai.conversation.id`, `gen_ai.tool.name` and `error.type`. *(v2.1.300)*
 
 ### Configure in settings.json
 
@@ -5714,7 +5755,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.299`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.300`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
