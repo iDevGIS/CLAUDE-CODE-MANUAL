@@ -279,6 +279,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/code-review` at medium effort reports more** — on models without tuned review settings, including Opus 5.5 and Sonnet 5.5, it now also reports cleanup and CLAUDE.md-conventions findings.
 - **`/claude-api managed-agents-onboard <url>|<quickstart-name>`** — sets up the Managed Agents pattern a page describes as `ant apply` files, or builds a Console quickstart template (such as `deep-researcher`) with the `ant` CLI.
 
+### New in v2.1.299
+- **`/effort` and `/fast` in agent view** — set what new sessions start with; a bare `/model`, `/effort` or `/fast` there opens a picker.
+- **`/usage` warns about costly patterns** — max effort, workflows, always-on context and large tool results.
+- **`/reload-skills` re-sends the full skill list to Claude** — the way to get skills back after compaction. See [[11-skills]].
+
 ---
 
 ---

@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.296         │
+│ Welcome to Claude Code v2.1.299         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -669,6 +669,11 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **`claude -p` says what it's waiting for** — when a print-mode run stays open after its last turn and stderr is a terminal, a line on stderr says what the run is waiting for.
 
+### New in v2.1.299
+
+- **Resume command at exit names the session by ID** — the line printed at exit no longer uses the session name, so nothing in a name can run when the line is pasted; worktree sessions use `-w` and `-r` when the long flags don't fit the terminal.
+- **`--shutdown-drain-sec` for `claude self-hosted-runner orchestrator`** — on SIGTERM it stops polling and gives the poll in flight and running spawn hooks up to that many seconds to finish.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1040,7 +1045,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.296
+- run: npm install -g @anthropic-ai/claude-code@2.1.299
 ```
 
 ---

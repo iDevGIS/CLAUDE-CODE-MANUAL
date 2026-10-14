@@ -280,6 +280,11 @@ related:
 - **`/code-review` ระดับ medium รายงานกว้างขึ้น** — บนโมเดลที่ไม่มีค่า review ที่จูนไว้ รวมถึง Opus 5.5 และ Sonnet 5.5 จะรายงาน finding ด้าน cleanup และ convention ใน CLAUDE.md ด้วย
 - **`/claude-api managed-agents-onboard <url>|<quickstart-name>`** — ตั้ง pattern Managed Agents ตามที่หน้าเว็บอธิบายเป็นไฟล์ `ant apply` หรือสร้าง Console quickstart template (เช่น `deep-researcher`) ด้วย `ant` CLI
 
+### 🆕 ใหม่ใน v2.1.299
+- **`/effort` และ `/fast` ใน agent view** — ตั้งค่าที่ session ใหม่จะเริ่มด้วย · พิมพ์ `/model`, `/effort` หรือ `/fast` เปล่า ๆ ในนั้นจะเปิด picker
+- **`/usage` เตือนรูปแบบที่กินโควตา** — max effort, workflow, context ที่โหลดตลอด และผลลัพธ์ tool ขนาดใหญ่
+- **`/reload-skills` ส่งรายการ skill ทั้งหมดให้ Claude ใหม่** — เป็นวิธีเอา skill กลับมาหลัง compaction ดู [[11-skills]]
+
 ---
 
 ---

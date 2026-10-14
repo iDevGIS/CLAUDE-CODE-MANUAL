@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.296         │
+│ Welcome to Claude Code v2.1.299         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -773,6 +773,11 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **`claude -p` บอกว่ากำลังรออะไร** — ถ้า run แบบ print mode ยังค้างเปิดอยู่หลัง turn สุดท้าย และ stderr เป็น terminal จะมีบรรทัดบน stderr บอกว่า run นั้นกำลังรออะไรอยู่
 
+### 🆕 ใหม่ใน v2.1.299
+
+- **คำสั่ง resume ที่พิมพ์ตอนออกอ้าง session ด้วย ID** — บรรทัดที่พิมพ์ตอนออกไม่ใช้ชื่อ session แล้ว เพื่อไม่ให้มีอะไรในชื่อถูกรันตอน paste บรรทัดนั้น · session แบบ worktree จะใช้ `-w` และ `-r` ถ้า flag แบบยาวไม่พอดีกับ terminal
+- **`--shutdown-drain-sec` สำหรับ `claude self-hosted-runner orchestrator`** — เมื่อได้รับ SIGTERM จะหยุด poll แล้วให้เวลา poll ที่ค้างอยู่และ spawn hook ที่กำลังรันได้ทำงานให้เสร็จไม่เกินจำนวนวินาทีที่กำหนด
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1104,7 +1109,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.296
+- run: npm install -g @anthropic-ai/claude-code@2.1.299
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1404,6 +1409,11 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.290
 - **`/code-review` ระดับ medium รายงานกว้างขึ้น** — บนโมเดลที่ไม่มีค่า review ที่จูนไว้ รวมถึง Opus 5.5 และ Sonnet 5.5 จะรายงาน finding ด้าน cleanup และ convention ใน CLAUDE.md ด้วย
 - **`/claude-api managed-agents-onboard <url>|<quickstart-name>`** — ตั้ง pattern Managed Agents ตามที่หน้าเว็บอธิบายเป็นไฟล์ `ant apply` หรือสร้าง Console quickstart template (เช่น `deep-researcher`) ด้วย `ant` CLI
+
+### 🆕 ใหม่ใน v2.1.299
+- **`/effort` และ `/fast` ใน agent view** — ตั้งค่าที่ session ใหม่จะเริ่มด้วย · พิมพ์ `/model`, `/effort` หรือ `/fast` เปล่า ๆ ในนั้นจะเปิด picker
+- **`/usage` เตือนรูปแบบที่กินโควตา** — max effort, workflow, context ที่โหลดตลอด และผลลัพธ์ tool ขนาดใหญ่
+- **`/reload-skills` ส่งรายการ skill ทั้งหมดให้ Claude ใหม่** — เป็นวิธีเอา skill กลับมาหลัง compaction
 
 ---
 
@@ -1817,6 +1827,11 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.292
 - **strict sandbox อนุญาตคำสั่ง interpreter ที่มี env var นำหน้าให้อัตโนมัติ** — เมื่อตั้ง strict sandbox mode ใน user, managed หรือ `--settings` คำสั่ง interpreter ที่มี env var prefix เช่น `FOO=bar python3 app.py` จะรันได้เลยโดยไม่ถาม
 
+### 🆕 ใหม่ใน v2.1.299
+- **allow rule ของ MCP ครอบเฉพาะ server ที่ระบุชื่อ** — `mcp__a` ไม่อนุญาต server ชื่อ `a__b` หรือ `a_` อีกต่อไป · ให้เขียน `mcp__<server>__*` ด้วยชื่อ server แบบ normalize เต็ม ๆ
+- **plan mode ไม่รัน write ที่ hook อนุญาตแล้ว** — write (MCP tool, ไฟล์ หรือ shell command) ที่ `PreToolUse` hook หรือ hook `tool.check` ของ mod อนุญาต จะไม่ถูกรันใน plan mode · และมีโน้ตครั้งเดียวบอกเมื่อ plan mode จะไม่ถามก่อนแก้ไฟล์/รันคำสั่งส่วนใหญ่เพราะมี bypass permissions ให้ใช้
+- **ถามเรื่อง rm เฉพาะเมื่อสคริปต์ `-c` รัน `rm` จริง** — rm ที่สร้างตอนรันในสคริปต์ที่ Claude Code อ่านไม่ได้จะไม่ถามอีก เว้นแต่ตั้ง `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT=1`
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2147,6 +2162,12 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **key `code` ใน `managed.policies[]` ของ Claude apps gateway** — รับ settings ชุดเดียวกับ `cli` และนำไปใช้ใน Code tab ของ Claude Desktop ด้วย · ถ้ามีคู่กับ `desktop` จะเปิด gateway mode ของ Claude Desktop
 - **cache read ของ Sonnet 5.5 คิดราคา $0.10/Mtok** (จากเดิม $0.20) ใน `/cost`, status line, `--max-budget-usd` และตัวเลขค่าใช้จ่ายของ SDK
+
+### 🆕 ใหม่ใน v2.1.299
+
+- **Idle compaction** — ใน terminal conversation ที่เกิน 200K token และถูกทิ้งไว้ราว 54 นาทีจะถูก compact ก่อน prompt cache หนึ่งชั่วโมงหมดอายุ ข้อความถัดไปจึงไม่ต้องประมวลผลใหม่ทั้งหมด · ปิดได้ด้วย `"idleCompaction": false` ใน settings.json · เปลี่ยนขั้นต่ำ 200K ได้ด้วย `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` (ทั้งสองอย่างต้องใช้ v2.1.290 ขึ้นไป)
+- **`CLAUDE_CODE_DISABLE_FILE_MENTIONS`** — Claude ได้แค่ path ของไฟล์ที่ `@` mention ไว้เพื่อไปอ่านเองด้วย file tool แทนที่จะได้เนื้อหาไฟล์
+- **attribution block หลัง Claude apps gateway** — ตั้ง `CLAUDE_CODE_ATTRIBUTION_HEADER=0` เพื่อเอาออก (สำหรับ Code tab ของ Claude Desktop ให้ตั้งใน `env` ของ policy `code` ของ gateway)
 
 ---
 
@@ -2586,6 +2607,12 @@ claude --mcp-config ./mcp.json
 
 - **เพดาน MCP ที่ส่งไปตั้งแต่ต้นเพิ่มเป็นสองเท่า** — ค่า default ของความยาวคำอธิบาย MCP tool ที่ส่งไปตั้งแต่ต้น และ MCP server instructions เป็น 4,096 ตัวอักษร (จากเดิม 2,048)
 
+### 🆕 ใหม่ใน v2.1.299
+
+- **MCP server ของ Anthropic เองไม่ถูกตัด** — คำอธิบาย tool และ server instructions จาก server ที่ `api.anthropic.com` ส่งถึง Claude ครบ ไม่ถูกตัดที่ 4,096 ตัวอักษร
+- **ไม่ follow HTTP redirect ผ่าน MCP proxy ของ Anthropic** — request ไปยัง connector proxy ของ claude.ai, MCP server ที่ Anthropic host และผ่าน MCP proxy ของ cloud session / self-hosted runner จะไม่ตาม redirect แล้ว · redirect จาก server ของ connector เองไม่ได้รับผลกระทบ
+- **connector ของ cloud session และ Remote Control negotiate protocol 2026-07-28** เป็นค่า default บน install ที่ไม่ได้ดึง flag · opt out ด้วย `MCP_PROTOCOL_NEGOTIATION=legacy`
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -2795,6 +2822,12 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **`onFailure: "block"` สำหรับ command hook และ HTTP hook** — hook ที่เริ่มไม่ได้ หมดเวลา หรือจบด้วย exit code ที่ไม่คาดไว้ จะบล็อก action นั้นแทนที่จะปล่อยผ่าน
 
+### 🆕 ใหม่ใน v2.1.299
+
+- **`UserPromptSubmit` รันก่อน skill หรือ custom slash command ถูกขยาย** — hook ที่บล็อก prompt จะหยุด shell command ที่ฝังอยู่ในคำสั่งนั้นด้วย · ส่วน `UserPromptSubmit` hook ใน front-matter ของ skill เองจะเริ่มรันกับ prompt ถัดจาก prompt ที่เรียก skill
+- **Windows: guard hook fail แบบปิด** — `PreToolUse` และ `PermissionRequest` hook ที่ไม่ได้กำหนด shell จะไม่ปล่อยผ่านอีกเมื่อไม่ได้ติดตั้ง Git for Windows · guard ที่ล้มเหลวจะบล็อกการเรียกนั้น
+- **plugin hook ปฏิเสธสิ่งที่ตรวจไม่ได้** — action ที่ plugin hook บล็อกได้ จะถูกปฏิเสธถ้าส่งให้ hook ไม่ได้หรือ hook ตอบกลับไม่ได้ · tool ที่รันไปแล้วจะถูกกักผลลัพธ์ไว้
+
 ---
 
 ## 11. Skills (คำสั่งที่สร้างเอง)
@@ -3003,6 +3036,11 @@ my-skill/
 ### 🆕 ใหม่ใน v2.1.293
 
 - **sync skill จาก claude.ai เช็กห่างขึ้นตอนว่าง** — ระหว่างที่ไม่มี session ใช้งาน จะเช็กการเปลี่ยนแปลงของ skill ที่ sync ไว้ราว ๆ ทุก 40 นาที แทนทุก 10 นาที
+
+### 🆕 ใหม่ใน v2.1.299
+
+- **ชื่อ skill ที่น่าสงสัยถูกปฏิเสธ** — skill หรือ command ที่ชื่อไฟล์/โฟลเดอร์มีตัวอักษรซ่อน ตัวเปลี่ยนทิศทาง ตัวที่ดูเหมือนช่องว่าง หรือ `<` / `>` จะไม่ถูกเสนอจนกว่าจะเปลี่ยนชื่อ · `name:` แบบนั้นจะถูกเมิน
+- **hook `skill.prompt` ของ mod ได้ข้อมูลมากขึ้น** — frontmatter, source, ชื่อ plugin และ path ไฟล์ของ skill
 
 ---
 
@@ -3228,6 +3266,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **`autoCompactWindow` สำหรับ subagent** — ตั้งใน frontmatter ของ subagent หรือใน definition ของ `--agents` เพื่อให้ subagent นั้น auto-compact เร็วกว่า window ของ conversation หลัก
 - **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`** — ให้ทุก agent ใน workflow รันบนโมเดลเดียว ขณะที่ subagent อื่นยังใช้โมเดลของตัวเอง (ดู 23. Environment Variables)
+
+### 🆕 ใหม่ใน v2.1.299
+
+- **รายการ `tools:` ของ agent รับเฉพาะ tool ของ MCP server ที่ระบุชื่อ** — server ที่ชื่อมี `__` ให้เขียนเป็น `mcp__<ชื่อเต็ม>__*`
 
 ---
 
@@ -3895,6 +3937,13 @@ claude --plugin-dir ./my-plugin
 - **`isDeferred` ใน `$.tool.register`** — ตั้ง `false` เพื่อให้ schema ของ tool ใน mod อยู่ใน prompt ตั้งแต่แรก แทนที่จะซ่อนอยู่หลัง tool search
 - **`mock.session` ใน `claude plugin test`** — test ของ mod ที่เรียก `$.session.append` อ่านแถวที่ append ไปกลับมาตรวจได้
 
+### 🆕 ใหม่ใน v2.1.299
+
+- **`claude plugin eval --disallow-tools`** (และ field `disallowed_tools` ใน case) กัน built-in tool บางตัว เช่น Agent ออกจาก eval run · run ที่จบด้วย API error ได้ 0 คะแนนและทำให้ suite exit 1
+- **mod ที่ติดตั้งผ่าน managed settings ได้ความสามารถเพิ่ม** — `$.prompt.media` ให้ hook `prompt.submit` อ่าน bytes ของรูป/เอกสารที่แนบมา · `$.session.identity()` บอกว่า session sign in ด้วยวิธีไหน
+- **UI ของ mod** — `Text` มี `size`, `weight`, `mono` และ `tabular` (`bold` deprecated ให้ใช้ `weight` แทน) · `Box` มีระยะห่างแบบตั้งชื่อ `xs` ถึง `xl`
+- **`/plugin` และ `claude plugin validate` บอกชื่อ hook ของ mod ที่ถูกข้าม** ในที่ที่องค์กรจัดการ Claude Code
+
 ---
 
 ## 19. Session Management
@@ -4320,6 +4369,10 @@ your-project/
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | จำกัดเวลาที่โหมด retry แบบไม่มีคนเฝ้า (`CLAUDE_CODE_RETRY_WATCHDOG`) จะรอผ่าน error 429 และ 529 *(v2.1.295)* |
 | `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | ตั้ง delay สูงสุดของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.296)* |
 | `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` | ให้ทุก agent ใน workflow รันบนโมเดลเดียว ขณะที่ subagent อื่นยังใช้โมเดลของตัวเอง *(v2.1.296)* |
+| `CLAUDE_CODE_DISABLE_FILE_MENTIONS` | Claude ได้แค่ path ของไฟล์ที่ `@` mention ไว้เพื่อไปอ่านเองด้วย file tool แทนเนื้อหาไฟล์ *(v2.1.299)* |
+| `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` | เปลี่ยนขั้นต่ำ 200K token ของ idle compaction (ปิดด้วย `"idleCompaction": false` ใน settings.json) *(v2.1.299)* |
+| `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT` | ตั้ง `1` เพื่อให้ยังถามเรื่อง rm ที่สร้างตอนรันในสคริปต์ shell `-c` ที่ Claude Code อ่านไม่ได้ *(v2.1.299)* |
+| `CLAUDE_CODE_ATTRIBUTION_HEADER` | ตั้ง `0` เพื่อเอา attribution block ออกใน session หลัง Claude apps gateway (สำหรับ Code tab ของ Claude Desktop ตั้งใน `env` ของ policy `code` ของ gateway) *(v2.1.299)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5647,7 +5700,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.296`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.299`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

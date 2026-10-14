@@ -25,6 +25,35 @@
 
 ---
 
+## [1.88.0] — 2026-10-14
+
+### Compatibility
+- **Claude Code:** `v2.1.299+`
+
+### Added
+- **New in v2.1.299** ใน 9 บท EN+TH (guide หน้าเดียว + atomic note):
+  - บท 02 CLI — คำสั่ง resume ที่พิมพ์ตอนออกอ้าง session ด้วย ID (worktree ใช้ `-w`/`-r`) · `--shutdown-drain-sec` ของ `claude self-hosted-runner orchestrator`
+  - บท 03 Slash Commands — `/effort` และ `/fast` ใน agent view · `/usage` เตือน max effort/workflow/always-on context/tool result ใหญ่ · `/reload-skills` ส่งรายการ skill ใหม่หลัง compaction
+  - บท 05 Permissions — allow rule ของ MCP ครอบเฉพาะ server ที่ระบุชื่อ · plan mode ไม่รัน write ที่ hook อนุญาต + โน้ตเรื่อง bypass permissions · rm prompt บนสคริปต์ `-c` (`CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT`)
+  - บท 06 Configuration — idle compaction (`idleCompaction`, `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS`) · `CLAUDE_CODE_DISABLE_FILE_MENTIONS` · `CLAUDE_CODE_ATTRIBUTION_HEADER=0` หลัง Claude apps gateway
+  - บท 09 MCP — MCP server ของ Anthropic ไม่ถูกตัดที่ 4,096 ตัวอักษร · ไม่ follow redirect ผ่าน MCP proxy ของ Anthropic · connector ของ cloud/Remote Control negotiate protocol 2026-07-28
+  - บท 10 Hooks — `UserPromptSubmit` รันก่อน skill/custom command ขยาย · guard hook บน Windows fail แบบปิด · plugin hook ปฏิเสธ action ที่ตรวจไม่ได้
+  - บท 11 Skills — ชื่อ skill ที่มีตัวอักษรซ่อน/`<` `>` ถูกปฏิเสธ · hook `skill.prompt` ของ mod ได้ข้อมูลเพิ่ม
+  - บท 12 Subagents — `tools:` ของ agent รับเฉพาะ tool ของ MCP server ที่ระบุชื่อ
+  - บท 18 Plugins — `claude plugin eval --disallow-tools` / `disallowed_tools` · `$.prompt.media` · `$.session.identity()` · `Text`/`Box` ของ mod · `/plugin` บอก hook ของ mod ที่ถูกข้าม
+  - บท 23 Environment Variables — `CLAUDE_CODE_DISABLE_FILE_MENTIONS`, `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS`, `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT`, `CLAUDE_CODE_ATTRIBUTION_HEADER`
+- **แถว What's-new ของ `v2.1.299`** ใน README.md + README.EN.md
+
+### Changed
+- **ราคา cache read ของ Sonnet 5.5** ในตาราง What's-new ของ README.md + README.EN.md → $0.10/Mtok (ตกค้างจาก v1.87.0)
+- **README บรรทัดอ้างอิง CHANGELOG** → Claude Code `v2.1.299` (เดิมค้างที่ `v2.1.295`)
+- **Version strings** bumped `2.1.296` → `2.1.299` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.299` (ข้าม 2.1.297–2.1.298 บน npm) เพิ่ม idle compaction, env var 4 ตัว และเปลี่ยนพฤติกรรมด้าน security ที่ผู้ใช้ต้องรู้ (การจับคู่ชื่อ MCP server ใน allow rule / `tools:`, ลำดับ `UserPromptSubmit`, plan mode กับ hook) · ที่เหลือเป็น bug fix, UI polish และของฝั่ง VS Code / Cloud sessions / Claude Tag / Code Review ซึ่งข้ามไว้
+
+---
+
 ## [1.87.0] — 2026-10-10
 
 ### Compatibility
@@ -1985,6 +2014,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.88.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.87.0...v1.88.0
 [1.87.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.86.0...v1.87.0
 [1.86.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.85.0...v1.86.0
 [1.85.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.84.0...v1.85.0

@@ -220,6 +220,12 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 - **`onFailure: "block"` for command and HTTP hooks** — a hook that can't start, times out, or exits with an unexpected code blocks the action instead of letting it through.
 
+### New in v2.1.299
+
+- **`UserPromptSubmit` runs before a skill or custom slash command expands** — a hook that blocks the prompt now also stops the command's embedded shell commands. A skill's own front-matter `UserPromptSubmit` hook first runs on the prompt after the one that invokes the skill.
+- **Windows: guard hooks fail closed** — `PreToolUse` and `PermissionRequest` hooks that set no shell no longer fail open when Git for Windows isn't installed; a guard that fails now blocks the call.
+- **Plugin hooks refuse what they can't check** — an action a plugin hook can block is refused when the hook can't be handed it or can't hand back its answer; a tool that already ran has its result withheld.
+
 ---
 
 ---

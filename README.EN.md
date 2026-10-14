@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.296-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.87.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.299-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.88.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,14 +33,14 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.296`
+## 🆕 What's new — synced to Claude Code `v2.1.299`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
 | 🔥 New | Details |
 |---|---|
 | 🚀 **Opus 5.5 model** | `claude-opus-5-5` — the **new default Opus** (v2.1.280), 1M context, $4/$20 per Mtok with $0.20/Mtok cache reads (previously `claude-opus-5` since v2.1.219) |
-| ✨ **Sonnet 5.5 model** | `claude-sonnet-5-5` — the **new default Sonnet** on the Anthropic API (v2.1.284), 1M context, $2/$10 per Mtok with $0.20/Mtok cache reads (previously `claude-sonnet-5` since v2.1.197) |
+| ✨ **Sonnet 5.5 model** | `claude-sonnet-5-5` — the **new default Sonnet** on the Anthropic API (v2.1.284), 1M context, $2/$10 per Mtok with $0.10/Mtok cache reads (previously `claude-sonnet-5` since v2.1.197) |
 | 🧠 **Fable 5 model** | `claude-fable-5` — Mythos-class, **1M** context by default — the first Fable of the family (see Fable 5.1 below) |
 | ⚡ **Dynamic Workflows** | orchestrate tens–hundreds of agents from a script via the **`ultracode`** keyword |
 | ⌨️ **New commands** | `/rewind` · `/cd` · `claude mcp login` · `claude plugin init` |
@@ -159,8 +159,9 @@ Never used a command line? You can still follow along 👇
 | 🐇 **Claude Haiku 5.5 is the default Haiku** | `claude-haiku-5-5` — 1M context, $0.10/$0.50 per Mtok · `agentType` in the `subagentStatusLine` payload · `claude purge` deletes the rest and exits 1 when something can't be deleted · claude.ai skill sync checks every ~40 min while idle · mod API: `isDeferred` in `$.tool.register`, `mock.session` in `claude plugin test` (v2.1.293) |
 | 🧱 **Hook `onFailure: "block"` + subagent skill cap** | command/HTTP hooks that can't start, time out or exit unexpectedly can block the action · subagents preload at most 32 skills · `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` · claude.ai connectors negotiate MCP protocol 2026-07-28 · tool-search descriptions up to 16,384 characters · `forceLoginMethod: "gateway"` in user settings · OSC 7501 · Ctrl+C leaves a background session's `/loop` running (v2.1.294–295) |
 | 🗜️ **Subagent `autoCompactWindow` + one model for every workflow agent** | subagents can set `autoCompactWindow` to compact earlier than the main conversation · `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` · `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` · `code` key in the gateway's `managed.policies[]` · MCP tool description / server instruction limit 4,096 characters · Sonnet 5.5 cache reads $0.10/Mtok · `←` stops work started while moving to the background (v2.1.296) |
+| 💤 **Idle compaction + stricter MCP rules** | 200K+ conversations idle ~54 min are compacted before the cache expires (`idleCompaction` · `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS`) · `CLAUDE_CODE_DISABLE_FILE_MENTIONS` · MCP allow rules and agent `tools:` reach only the named server · `UserPromptSubmit` runs before a skill expands · `/effort` `/fast` in agent view · `claude plugin eval --disallow-tools` (v2.1.299) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.295` (manual `v1.87.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.299` (manual `v1.88.0`)
 
 ---
 
@@ -183,7 +184,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.296** + the Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 lineup
+Tracks Claude Code **v2.1.299** + the Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 lineup
 
 </td>
 </tr>
@@ -243,7 +244,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.296`
+> **Claude Code Version:** `2.1.299`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

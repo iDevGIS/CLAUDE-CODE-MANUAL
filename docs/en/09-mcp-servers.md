@@ -224,6 +224,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Up-front MCP limits doubled** — the default limit on MCP tool descriptions sent up front and on MCP server instructions is now 4,096 characters (was 2,048).
 
+### New in v2.1.299
+
+- **Anthropic first-party MCP servers are not cut** — tool descriptions and server instructions from servers at `api.anthropic.com` reach Claude in full instead of being cut at 4,096 characters.
+- **No HTTP redirects through Anthropic's MCP proxies** — requests to claude.ai's connector proxy, to Anthropic-hosted MCP servers, and through the MCP proxy of cloud and self-hosted runner sessions no longer follow redirects; redirects by a connector's own server are unaffected.
+- **Cloud and Remote Control connectors negotiate protocol 2026-07-28** by default on installs that fetch no flags; `MCP_PROTOCOL_NEGOTIATION=legacy` opts out.
+
 ---
 
 ---

@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.296         │
+│ Welcome to Claude Code v2.1.299         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -669,6 +669,11 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **`claude -p` บอกว่ากำลังรออะไร** — ถ้า run แบบ print mode ยังค้างเปิดอยู่หลัง turn สุดท้าย และ stderr เป็น terminal จะมีบรรทัดบน stderr บอกว่า run นั้นกำลังรออะไรอยู่
 
+### 🆕 ใหม่ใน v2.1.299
+
+- **คำสั่ง resume ที่พิมพ์ตอนออกอ้าง session ด้วย ID** — บรรทัดที่พิมพ์ตอนออกไม่ใช้ชื่อ session แล้ว เพื่อไม่ให้มีอะไรในชื่อถูกรันตอน paste บรรทัดนั้น · session แบบ worktree จะใช้ `-w` และ `-r` ถ้า flag แบบยาวไม่พอดีกับ terminal
+- **`--shutdown-drain-sec` สำหรับ `claude self-hosted-runner orchestrator`** — เมื่อได้รับ SIGTERM จะหยุด poll แล้วให้เวลา poll ที่ค้างอยู่และ spawn hook ที่กำลังรันได้ทำงานให้เสร็จไม่เกินจำนวนวินาทีที่กำหนด
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1040,7 +1045,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.296
+- run: npm install -g @anthropic-ai/claude-code@2.1.299
 ```
 
 ---

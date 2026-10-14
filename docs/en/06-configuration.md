@@ -355,6 +355,12 @@ Set the `model` key to any of these (newest → cheapest):
 - **`code` key in the Claude apps gateway's `managed.policies[]`** — takes the same settings as `cli` and also applies them in Claude Desktop's Code tab; beside `desktop`, it turns on Claude Desktop's gateway mode.
 - **Sonnet 5.5 cache reads now priced at $0.10/Mtok** (was $0.20) in `/cost`, the status line, `--max-budget-usd` and the SDK's cost figures.
 
+### New in v2.1.299
+
+- **Idle compaction** — in the terminal, a 200K+ token conversation left idle for about 54 minutes is compacted before its one-hour prompt cache expires, so your next message doesn't reprocess it all. `"idleCompaction": false` in settings.json turns it off; `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` changes the 200K minimum (both need v2.1.290 or later).
+- **`CLAUDE_CODE_DISABLE_FILE_MENTIONS`** — Claude gets the paths of `@` file mentions to read with its file tools, not the files' contents.
+- **Attribution block behind a Claude apps gateway** — set `CLAUDE_CODE_ATTRIBUTION_HEADER=0` (in the `env` of the gateway's `code` policy for Claude Desktop's Code tab) to remove it. See [[23-environment-variables]].
+
 ---
 
 ---

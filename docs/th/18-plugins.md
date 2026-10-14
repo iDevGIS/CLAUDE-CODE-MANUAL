@@ -205,6 +205,13 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **`isDeferred` ใน `$.tool.register`** — ตั้ง `false` เพื่อให้ schema ของ tool ใน mod อยู่ใน prompt ตั้งแต่แรก แทนที่จะซ่อนอยู่หลัง tool search
 - **`mock.session` ใน `claude plugin test`** — test ของ mod ที่เรียก `$.session.append` อ่านแถวที่ append ไปกลับมาตรวจได้
 
+### 🆕 ใหม่ใน v2.1.299
+
+- **`claude plugin eval --disallow-tools`** (และ field `disallowed_tools` ใน case) กัน built-in tool บางตัว เช่น Agent ออกจาก eval run · run ที่จบด้วย API error ได้ 0 คะแนนและทำให้ suite exit 1
+- **mod ที่ติดตั้งผ่าน managed settings ได้ความสามารถเพิ่ม** — `$.prompt.media` ให้ hook `prompt.submit` อ่าน bytes ของรูป/เอกสารที่แนบมา · `$.session.identity()` บอกว่า session sign in ด้วยวิธีไหน
+- **UI ของ mod** — `Text` มี `size`, `weight`, `mono` และ `tabular` (`bold` deprecated ให้ใช้ `weight` แทน) · `Box` มีระยะห่างแบบตั้งชื่อ `xs` ถึง `xl`
+- **`/plugin` และ `claude plugin validate` บอกชื่อ hook ของ mod ที่ถูกข้าม** ในที่ที่องค์กรจัดการ Claude Code
+
 ---
 
 ---

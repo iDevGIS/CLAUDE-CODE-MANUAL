@@ -219,6 +219,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **`autoCompactWindow` สำหรับ subagent** — ตั้งใน frontmatter ของ subagent หรือใน definition ของ `--agents` เพื่อให้ subagent นั้น auto-compact เร็วกว่า window ของ conversation หลัก
 - **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`** — ให้ทุก agent ใน workflow รันบนโมเดลเดียว ขณะที่ subagent อื่นยังใช้โมเดลของตัวเอง ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.299
+
+- **รายการ `tools:` ของ agent รับเฉพาะ tool ของ MCP server ที่ระบุชื่อ** — server ที่ชื่อมี `__` ให้เขียนเป็น `mcp__<ชื่อเต็ม>__*`
+
 ---
 
 ---

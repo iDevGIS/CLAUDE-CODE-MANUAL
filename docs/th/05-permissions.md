@@ -302,6 +302,11 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.292
 - **strict sandbox อนุญาตคำสั่ง interpreter ที่มี env var นำหน้าให้อัตโนมัติ** — เมื่อตั้ง strict sandbox mode ใน user, managed หรือ `--settings` คำสั่ง interpreter ที่มี env var prefix เช่น `FOO=bar python3 app.py` จะรันได้เลยโดยไม่ถาม
 
+### 🆕 ใหม่ใน v2.1.299
+- **allow rule ของ MCP ครอบเฉพาะ server ที่ระบุชื่อ** — `mcp__a` ไม่อนุญาต server ชื่อ `a__b` หรือ `a_` อีกต่อไป · ให้เขียน `mcp__<server>__*` ด้วยชื่อ server แบบ normalize เต็ม ๆ
+- **plan mode ไม่รัน write ที่ hook อนุญาตแล้ว** — write (MCP tool, ไฟล์ หรือ shell command) ที่ `PreToolUse` hook หรือ hook `tool.check` ของ mod อนุญาต จะไม่ถูกรันใน plan mode · และมีโน้ตครั้งเดียวบอกเมื่อ plan mode จะไม่ถามก่อนแก้ไฟล์/รันคำสั่งส่วนใหญ่เพราะมี bypass permissions ให้ใช้
+- **ถามเรื่อง rm เฉพาะเมื่อสคริปต์ `-c` รัน `rm` จริง** — rm ที่สร้างตอนรันในสคริปต์ที่ Claude Code อ่านไม่ได้จะไม่ถามอีก เว้นแต่ตั้ง `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT=1` ดู [[23-environment-variables]]
+
 ---
 
 ---

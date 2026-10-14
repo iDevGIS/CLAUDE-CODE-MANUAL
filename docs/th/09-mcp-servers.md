@@ -224,6 +224,12 @@ claude --mcp-config ./mcp.json
 
 - **เพดาน MCP ที่ส่งไปตั้งแต่ต้นเพิ่มเป็นสองเท่า** — ค่า default ของความยาวคำอธิบาย MCP tool ที่ส่งไปตั้งแต่ต้น และ MCP server instructions เป็น 4,096 ตัวอักษร (จากเดิม 2,048)
 
+### 🆕 ใหม่ใน v2.1.299
+
+- **MCP server ของ Anthropic เองไม่ถูกตัด** — คำอธิบาย tool และ server instructions จาก server ที่ `api.anthropic.com` ส่งถึง Claude ครบ ไม่ถูกตัดที่ 4,096 ตัวอักษร
+- **ไม่ follow HTTP redirect ผ่าน MCP proxy ของ Anthropic** — request ไปยัง connector proxy ของ claude.ai, MCP server ที่ Anthropic host และผ่าน MCP proxy ของ cloud session / self-hosted runner จะไม่ตาม redirect แล้ว · redirect จาก server ของ connector เองไม่ได้รับผลกระทบ
+- **connector ของ cloud session และ Remote Control negotiate protocol 2026-07-28** เป็นค่า default บน install ที่ไม่ได้ดึง flag · opt out ด้วย `MCP_PROTOCOL_NEGOTIATION=legacy`
+
 ---
 
 ---

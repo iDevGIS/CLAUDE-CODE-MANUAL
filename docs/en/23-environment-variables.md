@@ -105,6 +105,10 @@ related:
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | Limits how long unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) waits out 429 and 529 errors. *(v2.1.295)* |
 | `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | Sets a longer maximum delay for the backoff when retrying an overloaded (529) request. *(v2.1.296)* |
 | `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` | Runs every workflow agent on one model while other subagents keep theirs. See [[39-dynamic-workflows]]. *(v2.1.296)* |
+| `CLAUDE_CODE_DISABLE_FILE_MENTIONS` | Claude gets the paths of `@` file mentions to read with its file tools, not the files' contents. *(v2.1.299)* |
+| `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` | Changes idle compaction's 200K-token minimum (`"idleCompaction": false` in settings.json turns it off). See [[06-configuration]]. *(v2.1.299)* |
+| `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT` | Set `1` to keep prompting for an rm built at run time in a shell `-c` script Claude Code can't read. *(v2.1.299)* |
+| `CLAUDE_CODE_ATTRIBUTION_HEADER` | Set `0` to remove the attribution block in sessions behind a Claude apps gateway (in the `env` of the gateway's `code` policy for Claude Desktop's Code tab). *(v2.1.299)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

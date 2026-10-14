@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.296         │
+│ Welcome to Claude Code v2.1.299         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.296
+- run: npm install -g @anthropic-ai/claude-code@2.1.299
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1118,6 +1118,11 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.295
 
 - **`claude -p` says what it's waiting for** — when a print-mode run stays open after its last turn and stderr is a terminal, a line on stderr says what the run is waiting for.
+
+### New in v2.1.299
+
+- **Resume command at exit names the session by ID** — the line printed at exit no longer uses the session name, so nothing in a name can run when the line is pasted; worktree sessions use `-w` and `-r` when the long flags don't fit the terminal.
+- **`--shutdown-drain-sec` for `claude self-hosted-runner orchestrator`** — on SIGTERM it stops polling and gives the poll in flight and running spawn hooks up to that many seconds to finish.
 
 ---
 
@@ -1410,6 +1415,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.290
 - **`/code-review` at medium effort reports more** — on models without tuned review settings, including Opus 5.5 and Sonnet 5.5, it now also reports cleanup and CLAUDE.md-conventions findings.
 - **`/claude-api managed-agents-onboard <url>|<quickstart-name>`** — sets up the Managed Agents pattern a page describes as `ant apply` files, or builds a Console quickstart template (such as `deep-researcher`) with the `ant` CLI.
+
+### New in v2.1.299
+- **`/effort` and `/fast` in agent view** — set what new sessions start with; a bare `/model`, `/effort` or `/fast` there opens a picker.
+- **`/usage` warns about costly patterns** — max effort, workflows, always-on context and large tool results.
+- **`/reload-skills` re-sends the full skill list to Claude** — the way to get skills back after compaction.
 
 ---
 
@@ -1823,6 +1833,11 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.292
 - **Strict sandbox auto-allows env-prefixed interpreter commands** — with strict sandbox mode set in user, managed or `--settings` settings, an interpreter command with an env var prefix like `FOO=bar python3 app.py` runs unprompted.
 
+### New in v2.1.299
+- **MCP allow rules reach only the server they name** — `mcp__a` no longer allows a server named `a__b` or `a_`; write `mcp__<server>__*` with the server's whole normalized name.
+- **Plan mode no longer runs writes a hook allowed** — a write (MCP tool, file or shell command) that a `PreToolUse` hook or a mod's `tool.check` hook allowed is not run in plan mode; a one-time note also says when plan mode won't ask before most edits or commands because bypass permissions is available.
+- **rm prompts only when a `-c` script runs `rm`** — an rm built at run time in a script Claude Code can't read no longer prompts unless `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT=1`.
+
 ---
 
 ## 6. Configuration
@@ -2153,6 +2168,12 @@ Skill(commit)                    # Specific skill
 
 - **`code` key in the Claude apps gateway's `managed.policies[]`** — takes the same settings as `cli` and also applies them in Claude Desktop's Code tab; beside `desktop`, it turns on Claude Desktop's gateway mode.
 - **Sonnet 5.5 cache reads now priced at $0.10/Mtok** (was $0.20) in `/cost`, the status line, `--max-budget-usd` and the SDK's cost figures.
+
+### New in v2.1.299
+
+- **Idle compaction** — in the terminal, a 200K+ token conversation left idle for about 54 minutes is compacted before its one-hour prompt cache expires, so your next message doesn't reprocess it all. `"idleCompaction": false` in settings.json turns it off; `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` changes the 200K minimum (both need v2.1.290 or later).
+- **`CLAUDE_CODE_DISABLE_FILE_MENTIONS`** — Claude gets the paths of `@` file mentions to read with its file tools, not the files' contents.
+- **Attribution block behind a Claude apps gateway** — set `CLAUDE_CODE_ATTRIBUTION_HEADER=0` (in the `env` of the gateway's `code` policy for Claude Desktop's Code tab) to remove it.
 
 ---
 
@@ -2593,6 +2614,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Up-front MCP limits doubled** — the default limit on MCP tool descriptions sent up front and on MCP server instructions is now 4,096 characters (was 2,048).
 
+### New in v2.1.299
+
+- **Anthropic first-party MCP servers are not cut** — tool descriptions and server instructions from servers at `api.anthropic.com` reach Claude in full instead of being cut at 4,096 characters.
+- **No HTTP redirects through Anthropic's MCP proxies** — requests to claude.ai's connector proxy, to Anthropic-hosted MCP servers, and through the MCP proxy of cloud and self-hosted runner sessions no longer follow redirects; redirects by a connector's own server are unaffected.
+- **Cloud and Remote Control connectors negotiate protocol 2026-07-28** by default on installs that fetch no flags; `MCP_PROTOCOL_NEGOTIATION=legacy` opts out.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -2738,6 +2765,12 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 ### New in v2.1.295
 
 - **`onFailure: "block"` for command and HTTP hooks** — a hook that can't start, times out, or exits with an unexpected code blocks the action instead of letting it through.
+
+### New in v2.1.299
+
+- **`UserPromptSubmit` runs before a skill or custom slash command expands** — a hook that blocks the prompt now also stops the command's embedded shell commands. A skill's own front-matter `UserPromptSubmit` hook first runs on the prompt after the one that invokes the skill.
+- **Windows: guard hooks fail closed** — `PreToolUse` and `PermissionRequest` hooks that set no shell no longer fail open when Git for Windows isn't installed; a guard that fails now blocks the call.
+- **Plugin hooks refuse what they can't check** — an action a plugin hook can block is refused when the hook can't be handed it or can't hand back its answer; a tool that already ran has its result withheld.
 
 ### Configuring Hooks
 
@@ -3011,6 +3044,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **claude.ai skill sync checks less often while idle** — synced skills are checked for changes about every 40 minutes, instead of every 10, while no session is in use.
 
+### New in v2.1.299
+
+- **Suspicious skill names are refused** — a skill or command whose file or folder name has hidden, direction-changing or blank-like characters, `<` or `>` is no longer offered until renamed; such a `name:` is ignored.
+- **Mod `skill.prompt` hooks get more context** — the skill's frontmatter, source, plugin name and file path.
+
 ---
 
 ## 12. Subagents (Specialized Helpers)
@@ -3235,6 +3273,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **`autoCompactWindow` for subagents** — set it in subagent frontmatter or an `--agents` definition so that subagent auto-compacts earlier than the main conversation's window.
 - **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`** — runs every workflow agent on one model while other subagents keep theirs (see 23. Environment Variables).
+
+### New in v2.1.299
+
+- **Agent `tools:` lists take only the named MCP server's tools** — list a server whose name contains `__` as `mcp__<whole name>__*`.
 
 ---
 
@@ -3906,6 +3948,13 @@ claude --plugin-dir ./my-plugin
 - **`isDeferred` in `$.tool.register`** — `false` lists a mod tool's schema in the prompt from the start instead of behind tool search.
 - **`mock.session` in `claude plugin test`** — tests for mods that call `$.session.append` can read the appended rows back.
 
+### New in v2.1.299
+
+- **`claude plugin eval --disallow-tools`** (and a `disallowed_tools` case field) keeps specific built-in tools, such as Agent, out of eval runs; a run that ends on an API error now scores 0 and makes the suite exit 1.
+- **Managed-settings mods get more** — `$.prompt.media` lets a `prompt.submit` hook read an attached image or document's bytes; `$.session.identity()` says how the session is signed in.
+- **Mod UI** — `Text` gains `size`, `weight`, `mono` and `tabular` (`bold` is deprecated in favor of `weight`); `Box` gains named spacing steps `xs` to `xl`.
+- **`/plugin` and `claude plugin validate` name skipped mod hooks** where an organization manages Claude Code.
+
 ---
 
 ## 19. Session Management
@@ -4331,6 +4380,10 @@ your-project/
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | Limits how long unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) waits out 429 and 529 errors. *(v2.1.295)* |
 | `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | Sets a longer maximum delay for the backoff when retrying an overloaded (529) request. *(v2.1.296)* |
 | `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` | Runs every workflow agent on one model while other subagents keep theirs. *(v2.1.296)* |
+| `CLAUDE_CODE_DISABLE_FILE_MENTIONS` | Claude gets the paths of `@` file mentions to read with its file tools, not the files' contents. *(v2.1.299)* |
+| `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` | Changes idle compaction's 200K-token minimum (`"idleCompaction": false` in settings.json turns it off). *(v2.1.299)* |
+| `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT` | Set `1` to keep prompting for an rm built at run time in a shell `-c` script Claude Code can't read. *(v2.1.299)* |
+| `CLAUDE_CODE_ATTRIBUTION_HEADER` | Set `0` to remove the attribution block in sessions behind a Claude apps gateway (in the `env` of the gateway's `code` policy for Claude Desktop's Code tab). *(v2.1.299)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5661,7 +5714,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.296`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.299`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

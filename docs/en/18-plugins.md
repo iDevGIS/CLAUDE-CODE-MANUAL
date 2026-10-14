@@ -205,6 +205,13 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **`isDeferred` in `$.tool.register`** — `false` lists a mod tool's schema in the prompt from the start instead of behind tool search.
 - **`mock.session` in `claude plugin test`** — tests for mods that call `$.session.append` can read the appended rows back.
 
+### New in v2.1.299
+
+- **`claude plugin eval --disallow-tools`** (and a `disallowed_tools` case field) keeps specific built-in tools, such as Agent, out of eval runs; a run that ends on an API error now scores 0 and makes the suite exit 1.
+- **Managed-settings mods get more** — `$.prompt.media` lets a `prompt.submit` hook read an attached image or document's bytes; `$.session.identity()` says how the session is signed in.
+- **Mod UI** — `Text` gains `size`, `weight`, `mono` and `tabular` (`bold` is deprecated in favor of `weight`); `Box` gains named spacing steps `xs` to `xl`.
+- **`/plugin` and `claude plugin validate` name skipped mod hooks** where an organization manages Claude Code.
+
 ---
 
 ---

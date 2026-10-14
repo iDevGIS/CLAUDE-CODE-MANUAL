@@ -105,6 +105,10 @@ related:
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | จำกัดเวลาที่โหมด retry แบบไม่มีคนเฝ้า (`CLAUDE_CODE_RETRY_WATCHDOG`) จะรอผ่าน error 429 และ 529 *(v2.1.295)* |
 | `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | ตั้ง delay สูงสุดของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.296)* |
 | `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` | ให้ทุก agent ใน workflow รันบนโมเดลเดียว ขณะที่ subagent อื่นยังใช้โมเดลของตัวเอง ดู [[39-dynamic-workflows]] *(v2.1.296)* |
+| `CLAUDE_CODE_DISABLE_FILE_MENTIONS` | Claude ได้แค่ path ของไฟล์ที่ `@` mention ไว้เพื่อไปอ่านเองด้วย file tool แทนเนื้อหาไฟล์ *(v2.1.299)* |
+| `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` | เปลี่ยนขั้นต่ำ 200K token ของ idle compaction (ปิดด้วย `"idleCompaction": false` ใน settings.json) ดู [[06-configuration]] *(v2.1.299)* |
+| `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT` | ตั้ง `1` เพื่อให้ยังถามเรื่อง rm ที่สร้างตอนรันในสคริปต์ shell `-c` ที่ Claude Code อ่านไม่ได้ *(v2.1.299)* |
+| `CLAUDE_CODE_ATTRIBUTION_HEADER` | ตั้ง `0` เพื่อเอา attribution block ออกใน session หลัง Claude apps gateway (สำหรับ Code tab ของ Claude Desktop ตั้งใน `env` ของ policy `code` ของ gateway) *(v2.1.299)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

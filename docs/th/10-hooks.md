@@ -224,6 +224,12 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **`onFailure: "block"` สำหรับ command hook และ HTTP hook** — hook ที่เริ่มไม่ได้ หมดเวลา หรือจบด้วย exit code ที่ไม่คาดไว้ จะบล็อก action นั้นแทนที่จะปล่อยผ่าน
 
+#### 🆕 ใหม่ใน v2.1.299
+
+- **`UserPromptSubmit` รันก่อน skill หรือ custom slash command ถูกขยาย** — hook ที่บล็อก prompt จะหยุด shell command ที่ฝังอยู่ในคำสั่งนั้นด้วย · ส่วน `UserPromptSubmit` hook ใน front-matter ของ skill เองจะเริ่มรันกับ prompt ถัดจาก prompt ที่เรียก skill
+- **Windows: guard hook fail แบบปิด** — `PreToolUse` และ `PermissionRequest` hook ที่ไม่ได้กำหนด shell จะไม่ปล่อยผ่านอีกเมื่อไม่ได้ติดตั้ง Git for Windows · guard ที่ล้มเหลวจะบล็อกการเรียกนั้น
+- **plugin hook ปฏิเสธสิ่งที่ตรวจไม่ได้** — action ที่ plugin hook บล็อกได้ จะถูกปฏิเสธถ้าส่งให้ hook ไม่ได้หรือ hook ตอบกลับไม่ได้ · tool ที่รันไปแล้วจะถูกกักผลลัพธ์ไว้
+
 ---
 
 ---

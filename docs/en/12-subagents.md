@@ -219,6 +219,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **`autoCompactWindow` for subagents** — set it in subagent frontmatter or an `--agents` definition so that subagent auto-compacts earlier than the main conversation's window.
 - **`CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL`** — runs every workflow agent on one model while other subagents keep theirs. See [[23-environment-variables]].
 
+### New in v2.1.299
+
+- **Agent `tools:` lists take only the named MCP server's tools** — list a server whose name contains `__` as `mcp__<whole name>__*`.
+
 ---
 
 ---

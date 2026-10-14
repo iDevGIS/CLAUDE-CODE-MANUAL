@@ -221,6 +221,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **claude.ai skill sync checks less often while idle** — synced skills are checked for changes about every 40 minutes, instead of every 10, while no session is in use.
 
+### New in v2.1.299
+
+- **Suspicious skill names are refused** — a skill or command whose file or folder name has hidden, direction-changing or blank-like characters, `<` or `>` is no longer offered until renamed; such a `name:` is ignored.
+- **Mod `skill.prompt` hooks get more context** — the skill's frontmatter, source, plugin name and file path.
+
 ---
 
 ---

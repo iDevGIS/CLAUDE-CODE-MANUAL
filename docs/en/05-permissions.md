@@ -273,6 +273,11 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.292
 - **Strict sandbox auto-allows env-prefixed interpreter commands** — with strict sandbox mode set in user, managed or `--settings` settings, an interpreter command with an env var prefix like `FOO=bar python3 app.py` runs unprompted.
 
+### New in v2.1.299
+- **MCP allow rules reach only the server they name** — `mcp__a` no longer allows a server named `a__b` or `a_`; write `mcp__<server>__*` with the server's whole normalized name.
+- **Plan mode no longer runs writes a hook allowed** — a write (MCP tool, file or shell command) that a `PreToolUse` hook or a mod's `tool.check` hook allowed is not run in plan mode; a one-time note also says when plan mode won't ask before most edits or commands because bypass permissions is available.
+- **rm prompts only when a `-c` script runs `rm`** — an rm built at run time in a script Claude Code can't read no longer prompts unless `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT=1`. See [[23-environment-variables]].
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

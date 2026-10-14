@@ -355,6 +355,12 @@ related:
 - **key `code` ใน `managed.policies[]` ของ Claude apps gateway** — รับ settings ชุดเดียวกับ `cli` และนำไปใช้ใน Code tab ของ Claude Desktop ด้วย · ถ้ามีคู่กับ `desktop` จะเปิด gateway mode ของ Claude Desktop
 - **cache read ของ Sonnet 5.5 คิดราคา $0.10/Mtok** (จากเดิม $0.20) ใน `/cost`, status line, `--max-budget-usd` และตัวเลขค่าใช้จ่ายของ SDK
 
+### 🆕 ใหม่ใน v2.1.299
+
+- **Idle compaction** — ใน terminal conversation ที่เกิน 200K token และถูกทิ้งไว้ราว 54 นาทีจะถูก compact ก่อน prompt cache หนึ่งชั่วโมงหมดอายุ ข้อความถัดไปจึงไม่ต้องประมวลผลใหม่ทั้งหมด · ปิดได้ด้วย `"idleCompaction": false` ใน settings.json · เปลี่ยนขั้นต่ำ 200K ได้ด้วย `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` (ทั้งสองอย่างต้องใช้ v2.1.290 ขึ้นไป)
+- **`CLAUDE_CODE_DISABLE_FILE_MENTIONS`** — Claude ได้แค่ path ของไฟล์ที่ `@` mention ไว้เพื่อไปอ่านเองด้วย file tool แทนที่จะได้เนื้อหาไฟล์
+- **attribution block หลัง Claude apps gateway** — ตั้ง `CLAUDE_CODE_ATTRIBUTION_HEADER=0` เพื่อเอาออก (สำหรับ Code tab ของ Claude Desktop ให้ตั้งใน `env` ของ policy `code` ของ gateway) ดู [[23-environment-variables]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.
