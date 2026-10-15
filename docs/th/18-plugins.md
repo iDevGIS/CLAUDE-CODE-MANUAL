@@ -220,6 +220,13 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **`agent.spawn` แก้ workflow agent ได้** — hook นี้เปลี่ยน `prompt` และ `model` ของ workflow agent ได้แล้ว จากเดิมทำได้แค่ปฏิเสธ ดู [[39-dynamic-workflows]]
 - **hook `prompt.change` ของ mod** — ถูกเรียกเมื่อข้อความในช่อง prompt เปลี่ยนโดยไม่ได้พิมพ์แก้: เรียกประวัติขึ้นมา, ล้าง, undo หรือ plugin เติมข้อความให้
 
+### 🆕 ใหม่ใน v2.1.301
+
+- **`rows` ใน `Input` ของ mod** — ช่องข้อความหลายบรรทัดใน terminal: Enter ส่ง · Shift+Enter หรือ backslash ก่อน Enter ขึ้นบรรทัดใหม่
+- **tree เหนือ dialog คำถามรองรับมากขึ้น** — ใน VS Code และแอป desktop/mobile tree ของ mod ใส่ Markdown ได้และยาวได้ถึง 48 แถว · ใน terminal ยังเป็น 12 แถวแบบข้อความล้วน
+- **`.catch` ของ mod hook ทำงานเฉพาะตอน hook throw หรือ timeout** — event ที่เกิดใต้การเรียกของ hook เองจะข้าม hook นั้นไปโดยไม่ถาม `.catch`
+- **`$.env.set` คืนผลลัพธ์** — resolve เป็น `{}` เมื่อ set/unset ตัวแปรสำเร็จ หรือ `{ deny }` พร้อมเหตุผลเมื่อเขียนไม่ได้
+
 ---
 
 ---

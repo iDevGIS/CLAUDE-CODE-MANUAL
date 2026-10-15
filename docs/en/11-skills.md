@@ -226,6 +226,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **Suspicious skill names are refused** — a skill or command whose file or folder name has hidden, direction-changing or blank-like characters, `<` or `>` is no longer offered until renamed; such a `name:` is ignored.
 - **Mod `skill.prompt` hooks get more context** — the skill's frontmatter, source, plugin name and file path.
 
+### New in v2.1.301
+
+- **`claude-api` skill covers OpenTelemetry tracing** — including setting up trace destinations with the `ant` CLI.
+- **Argument names are capped when filled in** — for skills and commands, only the first 64 argument names, each up to 64 characters, are filled in.
+
 ---
 
 ---

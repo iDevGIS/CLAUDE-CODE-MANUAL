@@ -111,6 +111,7 @@ related:
 | `CLAUDE_CODE_ATTRIBUTION_HEADER` | Set `0` to remove the attribution block in sessions behind a Claude apps gateway (in the `env` of the gateway's `code` policy for Claude Desktop's Code tab). *(v2.1.299)* |
 | `CLAUDE_CODE_GZIP_REQUEST_BODIES` | Set `0` to stop gzip-compressing large requests to api.anthropic.com, which now happens even when telemetry is disabled. See [[06-configuration]]. *(v2.1.300)* |
 | `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | Set `1` to turn off the advisor, including `/advisor` on Claude Platform on AWS. See [[03-slash-commands]]. *(v2.1.300)* |
+| `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` | Makes unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) end a request at a usage limit that resets too far away instead of waiting. *(v2.1.301)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -129,6 +130,8 @@ related:
 > Telemetry that Claude Desktop and Cowork send through a Claude apps gateway includes `enduser.sub`, the IdP subject. *(v2.1.274)*
 
 > The OpenTelemetry `api_request` event splits cache writes by lifetime with `cache_creation_5m_tokens` and `cache_creation_1h_tokens`; trace spans carry GenAI semantic-convention attributes such as `gen_ai.provider.name`, `gen_ai.conversation.id`, `gen_ai.tool.name` and `error.type`. *(v2.1.300)*
+
+> OpenTelemetry `tool_decision` events carry `classifier_verdict` and `permission_mode`, so auto mode classifier decisions can be told apart from permission rules; with `OTEL_LOG_TOOL_DETAILS=1` they also carry `classifier_category`, naming the built-in rule a classifier block matched. See [[05-permissions]]. *(v2.1.301)*
 
 ### Configure in settings.json
 

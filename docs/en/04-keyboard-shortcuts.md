@@ -131,6 +131,11 @@ related:
 - **The mouse wheel reaches more lists in fullscreen** — it scrolls the `/skills` list and selection lists with hidden options such as `/model` and `/permissions`; a skill's state options in `/plugin` can be clicked.
 - **Ctrl+C / Ctrl+D pressed twice closes a dialog, not Claude Code** — in `/model`, `/effort`, `/config`, `/status`, `/usage`, `/plugin`, `/sandbox`, `/permissions`, `/artifacts`, `/mobile`, `/login` and the setup dialogs.
 
+### New in v2.1.301
+
+- **`%` motion in vim mode** — jumps to the matching bracket, alone or with `d`/`c`/`y`.
+- **Vim NORMAL mode in AskUserQuestion's free-text field** — Esc now cancels only from NORMAL, so it no longer discards a typed answer.
+
 ---
 
 ---

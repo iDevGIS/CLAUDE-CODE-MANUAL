@@ -131,6 +131,11 @@ related:
 - **ล้อเมาส์เลื่อนลิสต์ได้มากขึ้นในโหมด fullscreen** — เลื่อนลิสต์ `/skills` และ selection list ที่มีตัวเลือกซ่อนอยู่อย่าง `/model` กับ `/permissions` ได้ · ตัวเลือกสถานะของ skill ใน `/plugin` คลิกได้แล้ว
 - **กด Ctrl+C / Ctrl+D สองครั้งปิด dialog ไม่ใช่ปิด Claude Code** — ใช้กับ `/model`, `/effort`, `/config`, `/status`, `/usage`, `/plugin`, `/sandbox`, `/permissions`, `/artifacts`, `/mobile`, `/login` และ dialog ชุด setup
 
+### 🆕 ใหม่ใน v2.1.301
+
+- **motion `%` ใน vim mode** — กระโดดไปวงเล็บคู่ของมัน ใช้เดี่ยว ๆ หรือร่วมกับ `d`/`c`/`y` ก็ได้
+- **ช่องพิมพ์คำตอบอิสระของ AskUserQuestion รองรับ vim NORMAL mode** — Esc จะยกเลิกได้เฉพาะตอนอยู่ NORMAL จึงไม่ทิ้งคำตอบที่พิมพ์ไว้อีกต่อไป
+
 ---
 
 ---

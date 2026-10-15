@@ -25,6 +25,29 @@
 
 ---
 
+## [1.90.0] — 2026-10-16
+
+### Compatibility
+- **Claude Code:** `v2.1.301+`
+
+### Added
+- **New in v2.1.301** ใน 6 บท EN+TH (guide หน้าเดียว + atomic note):
+  - บท 04 Keyboard Shortcuts — vim motion `%` (กระโดดไปวงเล็บคู่ ใช้ร่วม `d`/`c`/`y` ได้) · ช่องพิมพ์อิสระของ AskUserQuestion รองรับ vim NORMAL mode
+  - บท 06 Configuration — สลับไปโมเดลที่ context เล็กกว่า: บทสนทนาที่ยาวเกินถูกสรุปด้วยโมเดลเดิมก่อน · alias `fable`/`best` retry ด้วย Fable ตัวก่อนหน้าเมื่อองค์กรยังใช้ตัวใหม่สุดไม่ได้
+  - บท 11 Skills — skill `claude-api` มีคำแนะนำ OpenTelemetry tracing (`ant` CLI) · เติมชื่อ argument ได้สูงสุด 64 ชื่อ ชื่อละไม่เกิน 64 ตัวอักษร
+  - บท 17 IDE Integration — VS Code render สูตร LaTeX · ลิงก์ "Get more usage" บนแบนเนอร์ usage limit (VS Code/JetBrains)
+  - บท 18 Plugins — `rows` ใน `Input` ของ mod · tree เหนือ dialog คำถามใส่ Markdown ได้ถึง 48 แถว (นอก terminal) · `.catch` ของ mod hook ทำงานเฉพาะตอน throw/timeout · `$.env.set` resolve เป็น `{}` / `{ deny }`
+  - บท 23 Environment Variables — `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` + โน้ต OpenTelemetry `tool_decision` (`classifier_verdict`, `permission_mode`, `classifier_category`)
+- **แถว What's-new ของ `v2.1.301`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.300` → `2.1.301` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.301` เพิ่ม env var 1 ตัว, field ใหม่ใน OpenTelemetry `tool_decision`, vim motion `%`, ปรับพฤติกรรมการสลับโมเดลที่ context เล็กกว่า และขยาย/เปลี่ยน mod API · ที่เหลือเป็น bug fix, UI polish และของฝั่ง Self-hosted runner ซึ่งข้ามไว้
+
+---
+
 ## [1.89.0] — 2026-10-15
 
 ### Compatibility
@@ -2042,6 +2065,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.90.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.89.0...v1.90.0
 [1.89.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.88.0...v1.89.0
 [1.88.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.87.0...v1.88.0
 [1.87.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.86.0...v1.87.0

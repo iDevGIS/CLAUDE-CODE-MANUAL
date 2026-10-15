@@ -366,6 +366,11 @@ Set the `model` key to any of these (newest → cheapest):
 - **Large API requests are gzip-compressed even with telemetry disabled** — applies to requests to api.anthropic.com; `CLAUDE_CODE_GZIP_REQUEST_BODIES=0` turns it off. See [[23-environment-variables]].
 - **`CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST` sessions ignore network variables in settings** — CA-bundle, tool-proxy, git TLS and git config variables such as `SSL_CERT_FILE` set in settings are ignored; under Claude Desktop, only those in project settings.
 
+### New in v2.1.301
+
+- **Switching to a model with a smaller context window** — a conversation too long for the new model is now summarized by the previous model first, and Claude Code asks before spending usage credits on that summary.
+- **`fable` / `best` alias falls back** — on the Anthropic API, when the newest Fable model is not available to your organization, Claude Code retries once on the previous Fable model instead of erroring.
+
 ---
 
 ---

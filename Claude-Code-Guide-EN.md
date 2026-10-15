@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.300         │
+│ Welcome to Claude Code v2.1.301         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.300
+- run: npm install -g @anthropic-ai/claude-code@2.1.301
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1549,6 +1549,11 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **Home and End work in `/config` and selection lists** — including `/model`, `/memory` and permission prompts; `Tab` in the `/config` list no longer changes the selected setting's value.
 - **The mouse wheel reaches more lists in fullscreen** — it scrolls the `/skills` list and selection lists with hidden options such as `/model` and `/permissions`; a skill's state options in `/plugin` can be clicked.
 - **Ctrl+C / Ctrl+D pressed twice closes a dialog, not Claude Code** — in `/model`, `/effort`, `/config`, `/status`, `/usage`, `/plugin`, `/sandbox`, `/permissions`, `/artifacts`, `/mobile`, `/login` and the setup dialogs.
+
+### New in v2.1.301
+
+- **`%` motion in vim mode** — jumps to the matching bracket, alone or with `d`/`c`/`y`.
+- **Vim NORMAL mode in AskUserQuestion's free-text field** — Esc now cancels only from NORMAL, so it no longer discards a typed answer.
 
 ---
 
@@ -2188,6 +2193,11 @@ Skill(commit)                    # Specific skill
 
 - **Large API requests are gzip-compressed even with telemetry disabled** — applies to requests to api.anthropic.com; `CLAUDE_CODE_GZIP_REQUEST_BODIES=0` turns it off.
 - **`CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST` sessions ignore network variables in settings** — CA-bundle, tool-proxy, git TLS and git config variables such as `SSL_CERT_FILE` set in settings are ignored; under Claude Desktop, only those in project settings.
+
+### New in v2.1.301
+
+- **Switching to a model with a smaller context window** — a conversation too long for the new model is now summarized by the previous model first, and Claude Code asks before spending usage credits on that summary.
+- **`fable` / `best` alias falls back** — on the Anthropic API, when the newest Fable model is not available to your organization, Claude Code retries once on the previous Fable model instead of erroring.
 
 ---
 
@@ -3069,6 +3079,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **Suspicious skill names are refused** — a skill or command whose file or folder name has hidden, direction-changing or blank-like characters, `<` or `>` is no longer offered until renamed; such a `name:` is ignored.
 - **Mod `skill.prompt` hooks get more context** — the skill's frontmatter, source, plugin name and file path.
 
+### New in v2.1.301
+
+- **`claude-api` skill covers OpenTelemetry tracing** — including setting up trace destinations with the `ant` CLI.
+- **Argument names are capped when filled in** — for skills and commands, only the first 64 argument names, each up to 64 characters, are filled in.
+
 ---
 
 ## 12. Subagents (Specialized Helpers)
@@ -3763,6 +3778,11 @@ cat src/*.ts | claude -p "find bugs"
 
 - **`claudeCode.attachSelection` (VS Code)** — a setting to stop text selected in the editor from being added to your messages.
 
+### New in v2.1.301
+
+- **LaTeX math in VS Code** — Claude's responses render `$$` and multi-line `\[ … \]` blocks and inline `$…$` and `\(…\)` math.
+- **"Get more usage" link** — on the usage-limit banner for Pro and Max plans in the VS Code and JetBrains panels.
+
 ### JetBrains IDEs
 
 **Install:**
@@ -3986,6 +4006,13 @@ claude --plugin-dir ./my-plugin
 - **`dir` prop on a mod's `Text`** — for right-to-left text: on Windows and in VS Code's terminal its rows read in that direction and sit flush right.
 - **`agent.spawn` can rewrite workflow agents** — the hook can now change a workflow agent's `prompt` and `model`; before, it could only refuse them.
 - **`prompt.change` mod hook** — raised when the prompt box's text changes without a typed edit: a recalled history entry, a clear, an undo, or a plugin's fill.
+
+### New in v2.1.301
+
+- **`rows` on a mod's `Input`** — a multi-line text field in the terminal: Enter submits, Shift+Enter or a backslash before Enter starts a new line.
+- **Richer trees above the question dialog** — in VS Code and the desktop and mobile apps a mod's tree can hold Markdown and up to 48 rows; the terminal keeps 12 plain rows.
+- **A mod hook's `.catch` runs only when the hook throws or times out** — events raised beneath the hook's own calls now skip that hook without asking its `.catch`.
+- **`$.env.set` resolves with a result** — `{}` once the variable is set or unset, or `{ deny }` saying why when the write is not made.
 
 ---
 
@@ -4423,6 +4450,7 @@ your-project/
 | `CLAUDE_CODE_ATTRIBUTION_HEADER` | Set `0` to remove the attribution block in sessions behind a Claude apps gateway (in the `env` of the gateway's `code` policy for Claude Desktop's Code tab). *(v2.1.299)* |
 | `CLAUDE_CODE_GZIP_REQUEST_BODIES` | Set `0` to stop gzip-compressing large requests to api.anthropic.com, which now happens even when telemetry is disabled. *(v2.1.300)* |
 | `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | Set `1` to turn off the advisor, including `/advisor` on Claude Platform on AWS. *(v2.1.300)* |
+| `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` | Makes unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) end a request at a usage limit that resets too far away instead of waiting. *(v2.1.301)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -4441,6 +4469,8 @@ your-project/
 > Telemetry that Claude Desktop and Cowork send through a Claude apps gateway includes `enduser.sub`, the IdP subject. *(v2.1.274)*
 
 > The OpenTelemetry `api_request` event splits cache writes by lifetime with `cache_creation_5m_tokens` and `cache_creation_1h_tokens`; trace spans carry GenAI semantic-convention attributes such as `gen_ai.provider.name`, `gen_ai.conversation.id`, `gen_ai.tool.name` and `error.type`. *(v2.1.300)*
+
+> OpenTelemetry `tool_decision` events carry `classifier_verdict` and `permission_mode`, so auto mode classifier decisions can be told apart from permission rules; with `OTEL_LOG_TOOL_DETAILS=1` they also carry `classifier_category`, naming the built-in rule a classifier block matched. *(v2.1.301)*
 
 ### Configure in settings.json
 
@@ -5755,7 +5785,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.300`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.301`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

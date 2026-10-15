@@ -220,6 +220,13 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **`agent.spawn` can rewrite workflow agents** — the hook can now change a workflow agent's `prompt` and `model`; before, it could only refuse them. See [[39-dynamic-workflows]].
 - **`prompt.change` mod hook** — raised when the prompt box's text changes without a typed edit: a recalled history entry, a clear, an undo, or a plugin's fill.
 
+### New in v2.1.301
+
+- **`rows` on a mod's `Input`** — a multi-line text field in the terminal: Enter submits, Shift+Enter or a backslash before Enter starts a new line.
+- **Richer trees above the question dialog** — in VS Code and the desktop and mobile apps a mod's tree can hold Markdown and up to 48 rows; the terminal keeps 12 plain rows.
+- **A mod hook's `.catch` runs only when the hook throws or times out** — events raised beneath the hook's own calls now skip that hook without asking its `.catch`.
+- **`$.env.set` resolves with a result** — `{}` once the variable is set or unset, or `{ deny }` saying why when the write is not made.
+
 ---
 
 ---

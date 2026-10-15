@@ -92,6 +92,11 @@ related:
 
 - **`claudeCode.attachSelection` (VS Code)** — a setting to stop text selected in the editor from being added to your messages.
 
+### New in v2.1.301
+
+- **LaTeX math in VS Code** — Claude's responses render `$$` and multi-line `\[ … \]` blocks and inline `$…$` and `\(…\)` math.
+- **"Get more usage" link** — on the usage-limit banner for Pro and Max plans in the VS Code and JetBrains panels.
+
 ### JetBrains IDEs
 
 **Install:**

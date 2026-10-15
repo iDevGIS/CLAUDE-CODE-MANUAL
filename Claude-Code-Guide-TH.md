@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.300         │
+│ Welcome to Claude Code v2.1.301         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1114,7 +1114,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.300
+- run: npm install -g @anthropic-ai/claude-code@2.1.301
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1543,6 +1543,11 @@ claude -p "..."              # ถามเร็ว ๆ
 - **ปุ่ม Home และ End ใช้ได้ใน `/config` และ selection list** — รวมถึง `/model`, `/memory` และ permission prompt · ส่วนปุ่ม `Tab` ในลิสต์ของ `/config` จะไม่เปลี่ยนค่าของ setting ที่เลือกอยู่อีกต่อไป
 - **ล้อเมาส์เลื่อนลิสต์ได้มากขึ้นในโหมด fullscreen** — เลื่อนลิสต์ `/skills` และ selection list ที่มีตัวเลือกซ่อนอยู่อย่าง `/model` กับ `/permissions` ได้ · ตัวเลือกสถานะของ skill ใน `/plugin` คลิกได้แล้ว
 - **กด Ctrl+C / Ctrl+D สองครั้งปิด dialog ไม่ใช่ปิด Claude Code** — ใช้กับ `/model`, `/effort`, `/config`, `/status`, `/usage`, `/plugin`, `/sandbox`, `/permissions`, `/artifacts`, `/mobile`, `/login` และ dialog ชุด setup
+
+### 🆕 ใหม่ใน v2.1.301
+
+- **motion `%` ใน vim mode** — กระโดดไปวงเล็บคู่ของมัน ใช้เดี่ยว ๆ หรือร่วมกับ `d`/`c`/`y` ก็ได้
+- **ช่องพิมพ์คำตอบอิสระของ AskUserQuestion รองรับ vim NORMAL mode** — Esc จะยกเลิกได้เฉพาะตอนอยู่ NORMAL จึงไม่ทิ้งคำตอบที่พิมพ์ไว้อีกต่อไป
 
 ---
 
@@ -2182,6 +2187,11 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **request ขนาดใหญ่ถูกบีบอัดด้วย gzip แม้ปิด telemetry** — ใช้กับ request ไปยัง api.anthropic.com · ปิดได้ด้วย `CLAUDE_CODE_GZIP_REQUEST_BODIES=0`
 - **session แบบ `CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST` ไม่สนตัวแปรด้านเครือข่ายใน settings** — ตัวแปร CA bundle, tool proxy, git TLS และ git config เช่น `SSL_CERT_FILE` ที่ตั้งไว้ใน settings จะถูกเมิน · ถ้ารันใต้ Claude Desktop จะเมินเฉพาะที่อยู่ใน project settings
+
+### 🆕 ใหม่ใน v2.1.301
+
+- **สลับไปโมเดลที่ context window เล็กกว่า** — ถ้าบทสนทนายาวเกินกว่าโมเดลใหม่จะรับได้ จะถูกสรุปด้วยโมเดลเดิมก่อน และ Claude Code จะถามก่อนใช้ usage credit กับการสรุปนั้น
+- **alias `fable` / `best` มี fallback** — บน Anthropic API ถ้าองค์กรยังใช้ Fable ตัวใหม่สุดไม่ได้ Claude Code จะ retry หนึ่งครั้งด้วย Fable ตัวก่อนหน้าแทนการ error
 
 ---
 
@@ -3062,6 +3072,11 @@ my-skill/
 - **ชื่อ skill ที่น่าสงสัยถูกปฏิเสธ** — skill หรือ command ที่ชื่อไฟล์/โฟลเดอร์มีตัวอักษรซ่อน ตัวเปลี่ยนทิศทาง ตัวที่ดูเหมือนช่องว่าง หรือ `<` / `>` จะไม่ถูกเสนอจนกว่าจะเปลี่ยนชื่อ · `name:` แบบนั้นจะถูกเมิน
 - **hook `skill.prompt` ของ mod ได้ข้อมูลมากขึ้น** — frontmatter, source, ชื่อ plugin และ path ไฟล์ของ skill
 
+### 🆕 ใหม่ใน v2.1.301
+
+- **skill `claude-api` มีคำแนะนำเรื่อง OpenTelemetry tracing** — รวมถึงการตั้งปลายทาง trace ด้วย `ant` CLI
+- **จำกัดจำนวนชื่อ argument ที่ถูกเติม** — skill และ command จะเติมเฉพาะชื่อ argument 64 ตัวแรก แต่ละชื่อยาวไม่เกิน 64 ตัวอักษร
+
 ---
 
 ## 12. Subagents (ตัวช่วยเฉพาะทาง)
@@ -3752,6 +3767,11 @@ cat src/*.ts | claude -p "หา Bug"
 
 - **`claudeCode.attachSelection` (VS Code)** — setting สำหรับหยุดไม่ให้ข้อความที่เลือกไว้ใน editor ถูกแนบเข้าไปในข้อความที่เราส่ง
 
+### 🆕 ใหม่ใน v2.1.301
+
+- **แสดงสูตรคณิต LaTeX ใน VS Code** — คำตอบของ Claude render บล็อก `$$` และ `\[ … \]` หลายบรรทัด รวมถึง inline `$…$` และ `\(…\)`
+- **ลิงก์ "Get more usage"** — บนแบนเนอร์ usage limit ของแพ็กเกจ Pro และ Max ใน panel ของ VS Code และ JetBrains
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**
@@ -3975,6 +3995,13 @@ claude --plugin-dir ./my-plugin
 - **prop `dir` ของ `Text` ใน mod** — สำหรับข้อความขวาไปซ้าย: บน Windows และใน terminal ของ VS Code แถวจะอ่านตามทิศนั้นและชิดขวา
 - **`agent.spawn` แก้ workflow agent ได้** — hook นี้เปลี่ยน `prompt` และ `model` ของ workflow agent ได้แล้ว จากเดิมทำได้แค่ปฏิเสธ
 - **hook `prompt.change` ของ mod** — ถูกเรียกเมื่อข้อความในช่อง prompt เปลี่ยนโดยไม่ได้พิมพ์แก้: เรียกประวัติขึ้นมา, ล้าง, undo หรือ plugin เติมข้อความให้
+
+### 🆕 ใหม่ใน v2.1.301
+
+- **`rows` ใน `Input` ของ mod** — ช่องข้อความหลายบรรทัดใน terminal: Enter ส่ง · Shift+Enter หรือ backslash ก่อน Enter ขึ้นบรรทัดใหม่
+- **tree เหนือ dialog คำถามรองรับมากขึ้น** — ใน VS Code และแอป desktop/mobile tree ของ mod ใส่ Markdown ได้และยาวได้ถึง 48 แถว · ใน terminal ยังเป็น 12 แถวแบบข้อความล้วน
+- **`.catch` ของ mod hook ทำงานเฉพาะตอน hook throw หรือ timeout** — event ที่เกิดใต้การเรียกของ hook เองจะข้าม hook นั้นไปโดยไม่ถาม `.catch`
+- **`$.env.set` คืนผลลัพธ์** — resolve เป็น `{}` เมื่อ set/unset ตัวแปรสำเร็จ หรือ `{ deny }` พร้อมเหตุผลเมื่อเขียนไม่ได้
 
 ---
 
@@ -4412,6 +4439,7 @@ your-project/
 | `CLAUDE_CODE_ATTRIBUTION_HEADER` | ตั้ง `0` เพื่อเอา attribution block ออกใน session หลัง Claude apps gateway (สำหรับ Code tab ของ Claude Desktop ตั้งใน `env` ของ policy `code` ของ gateway) *(v2.1.299)* |
 | `CLAUDE_CODE_GZIP_REQUEST_BODIES` | ตั้ง `0` เพื่อหยุดบีบอัด gzip ให้ request ขนาดใหญ่ไปยัง api.anthropic.com ซึ่งตอนนี้ทำแม้ปิด telemetry *(v2.1.300)* |
 | `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | ตั้ง `1` เพื่อปิด advisor รวมถึง `/advisor` บน Claude Platform on AWS *(v2.1.300)* |
+| `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` | ให้โหมด retry แบบ unattended (`CLAUDE_CODE_RETRY_WATCHDOG`) จบ request ที่ชน usage limit ซึ่งจะ reset อีกนานเกินไป แทนที่จะนั่งรอ *(v2.1.301)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -4430,6 +4458,8 @@ your-project/
 > telemetry ที่ Claude Desktop และ Cowork ส่งผ่าน Claude apps gateway มี `enduser.sub` ซึ่งเป็น subject จาก IdP ติดไปด้วย *(v2.1.274)*
 
 > event `api_request` ของ OpenTelemetry แยก cache write ตามอายุ cache ด้วย `cache_creation_5m_tokens` และ `cache_creation_1h_tokens` · trace span มี attribute ตาม GenAI semantic convention เช่น `gen_ai.provider.name`, `gen_ai.conversation.id`, `gen_ai.tool.name` และ `error.type` *(v2.1.300)*
+
+> event `tool_decision` ของ OpenTelemetry มี `classifier_verdict` และ `permission_mode` แล้ว จึงแยกได้ว่าการตัดสินใจมาจาก classifier ของ auto mode หรือจาก permission rule · ถ้าตั้ง `OTEL_LOG_TOOL_DETAILS=1` จะมี `classifier_category` บอกชื่อ built-in rule ที่ classifier ใช้บล็อกด้วย *(v2.1.301)*
 
 ### ตั้งค่าใน settings.json
 
@@ -5741,7 +5771,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.300`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.301`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

@@ -366,6 +366,11 @@ related:
 - **request ขนาดใหญ่ถูกบีบอัดด้วย gzip แม้ปิด telemetry** — ใช้กับ request ไปยัง api.anthropic.com · ปิดได้ด้วย `CLAUDE_CODE_GZIP_REQUEST_BODIES=0` ดู [[23-environment-variables]]
 - **session แบบ `CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST` ไม่สนตัวแปรด้านเครือข่ายใน settings** — ตัวแปร CA bundle, tool proxy, git TLS และ git config เช่น `SSL_CERT_FILE` ที่ตั้งไว้ใน settings จะถูกเมิน · ถ้ารันใต้ Claude Desktop จะเมินเฉพาะที่อยู่ใน project settings
 
+### 🆕 ใหม่ใน v2.1.301
+
+- **สลับไปโมเดลที่ context window เล็กกว่า** — ถ้าบทสนทนายาวเกินกว่าโมเดลใหม่จะรับได้ จะถูกสรุปด้วยโมเดลเดิมก่อน และ Claude Code จะถามก่อนใช้ usage credit กับการสรุปนั้น
+- **alias `fable` / `best` มี fallback** — บน Anthropic API ถ้าองค์กรยังใช้ Fable ตัวใหม่สุดไม่ได้ Claude Code จะ retry หนึ่งครั้งด้วย Fable ตัวก่อนหน้าแทนการ error
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

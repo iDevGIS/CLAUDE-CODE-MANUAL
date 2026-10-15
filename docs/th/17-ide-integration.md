@@ -92,6 +92,11 @@ related:
 
 - **`claudeCode.attachSelection` (VS Code)** — setting สำหรับหยุดไม่ให้ข้อความที่เลือกไว้ใน editor ถูกแนบเข้าไปในข้อความที่เราส่ง
 
+### 🆕 ใหม่ใน v2.1.301
+
+- **แสดงสูตรคณิต LaTeX ใน VS Code** — คำตอบของ Claude render บล็อก `$$` และ `\[ … \]` หลายบรรทัด รวมถึง inline `$…$` และ `\(…\)`
+- **ลิงก์ "Get more usage"** — บนแบนเนอร์ usage limit ของแพ็กเกจ Pro และ Max ใน panel ของ VS Code และ JetBrains
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**
