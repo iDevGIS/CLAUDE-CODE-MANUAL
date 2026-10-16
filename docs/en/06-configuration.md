@@ -371,6 +371,10 @@ Set the `model` key to any of these (newest → cheapest):
 - **Switching to a model with a smaller context window** — a conversation too long for the new model is now summarized by the previous model first, and Claude Code asks before spending usage credits on that summary.
 - **`fable` / `best` alias falls back** — on the Anthropic API, when the newest Fable model is not available to your organization, Claude Code retries once on the previous Fable model instead of erroring.
 
+### New in v2.1.302
+
+- **`Idle compaction` row in `/config`** — turn idle compaction off or back on from `/config`; the notices shown after an idle compaction now say how to turn it off.
+
 ---
 
 ---

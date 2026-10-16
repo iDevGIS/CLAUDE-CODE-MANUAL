@@ -25,6 +25,28 @@
 
 ---
 
+## [1.91.0] — 2026-10-17
+
+### Compatibility
+- **Claude Code:** `v2.1.302+`
+
+### Added
+- **New in v2.1.302** ใน 4 บท EN+TH (guide หน้าเดียว + atomic note):
+  - บท 05 Permissions — `claude -p` และ Agent SDK ที่ไม่ได้ระบุ permission mode เริ่มที่ `default` บน third-party provider (ปิด telemetry หรือติดตั้งใหม่) · server-side auto mode compact บทสนทนาที่ยาวเกิน safety check แทนการ deny · `CLAUDE_CODE_AUTO_MODE_MODEL`
+  - บท 06 Configuration — แถว `Idle compaction` ใน `/config` สำหรับปิด/เปิด idle compaction
+  - บท 10 Hooks — prompt hook และ agent hook รันพร้อมกันได้สูงสุด 12 ตัวต่อ event ที่เหลือรอคิว
+  - บท 12 Subagents — fork subagent (`subagent_type: "fork"`) เปิดเป็นค่าเริ่มต้นใน `claude -p`, Agent SDK, desktop app และ VS Code · desktop/VS Code รัน subagent ของบทสนทนาหลักใน background เสมอ ส่วน Agent call ของ subagent เองรัน foreground
+  - บท 23 Environment Variables — `CLAUDE_CODE_AUTO_MODE_MODEL` · `CLAUDE_CODE_FORK_SUBAGENT`
+- **แถว What's-new ของ `v2.1.302`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.301` → `2.1.302` (current-version references only; historical sections kept)
+
+### Why
+- Upstream `2.1.302` เพิ่ม env var 1 ตัว (`CLAUDE_CODE_AUTO_MODE_MODEL`), แถวใหม่ใน `/config`, เปลี่ยน default ของ fork subagent / การรัน subagent แบบ background / permission mode ของ `claude -p` บน third-party provider และจำกัด concurrency ของ prompt/agent hook · ที่เหลือเป็น bug fix, UI polish, ของฝั่ง Cloud sessions/Claude Tag/Code Review และ notice ปิด Claude Design แบบ standalone (คู่มือไม่ได้ครอบคลุม `/design-sync`) ซึ่งข้ามไว้
+
+---
+
 ## [1.90.0] — 2026-10-16
 
 ### Compatibility
@@ -2065,6 +2087,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.91.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.90.0...v1.91.0
 [1.90.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.89.0...v1.90.0
 [1.89.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.88.0...v1.89.0
 [1.88.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.87.0...v1.88.0

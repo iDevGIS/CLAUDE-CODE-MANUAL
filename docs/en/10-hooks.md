@@ -232,6 +232,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **Agent hooks honor their `model`** — aliases like `haiku` resolve, a subagent's model no longer overrides it, and an unavailable model falls back to the caller's instead of allowing the action.
 - **Cowork cloud sessions ignore `setMode` in a `PermissionRequest` hook's allow** — the rest of the approval still applies.
 
+### New in v2.1.302
+
+- **Prompt and agent hooks are capped at 12 at a time per event** — at most 12 prompt/agent hooks of one event run concurrently; the rest wait their turn.
+
 ---
 
 ---

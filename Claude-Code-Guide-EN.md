@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.301         │
+│ Welcome to Claude Code v2.1.302         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.301
+- run: npm install -g @anthropic-ai/claude-code@2.1.302
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1852,6 +1852,11 @@ Skill(commit)                    # Specific skill
 - **Plan mode no longer runs writes a hook allowed** — a write (MCP tool, file or shell command) that a `PreToolUse` hook or a mod's `tool.check` hook allowed is not run in plan mode; a one-time note also says when plan mode won't ask before most edits or commands because bypass permissions is available.
 - **rm prompts only when a `-c` script runs `rm`** — an rm built at run time in a script Claude Code can't read no longer prompts unless `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT=1`.
 
+### New in v2.1.302
+- **`claude -p` and the Agent SDK start in `default` mode on third-party providers** — with no permission mode set, sessions on third-party providers with telemetry off or on a fresh install now start in `default`; pass `--permission-mode auto` to keep auto.
+- **Server-side auto mode compacts instead of denying** — a conversation too long for the safety check is now compacted, instead of every checked tool call being denied.
+- **Pick the client-side classifier's model** — `CLAUDE_CODE_AUTO_MODE_MODEL` chooses the model the client-side auto mode classifier uses; it does not change the model for server-side auto mode.
+
 ---
 
 ## 6. Configuration
@@ -2198,6 +2203,10 @@ Skill(commit)                    # Specific skill
 
 - **Switching to a model with a smaller context window** — a conversation too long for the new model is now summarized by the previous model first, and Claude Code asks before spending usage credits on that summary.
 - **`fable` / `best` alias falls back** — on the Anthropic API, when the newest Fable model is not available to your organization, Claude Code retries once on the previous Fable model instead of erroring.
+
+### New in v2.1.302
+
+- **`Idle compaction` row in `/config`** — turn idle compaction off or back on from `/config`; the notices shown after an idle compaction now say how to turn it off.
 
 ---
 
@@ -2802,6 +2811,10 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 - **Agent hooks honor their `model`** — aliases like `haiku` resolve, a subagent's model no longer overrides it, and an unavailable model falls back to the caller's instead of allowing the action.
 - **Cowork cloud sessions ignore `setMode` in a `PermissionRequest` hook's allow** — the rest of the approval still applies.
 
+### New in v2.1.302
+
+- **Prompt and agent hooks are capped at 12 at a time per event** — at most 12 prompt/agent hooks of one event run concurrently; the rest wait their turn.
+
 ### Configuring Hooks
 
 **In `.claude/settings.json`:**
@@ -3312,6 +3325,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 ### New in v2.1.299
 
 - **Agent `tools:` lists take only the named MCP server's tools** — list a server whose name contains `__` as `mcp__<whole name>__*`.
+
+### New in v2.1.302
+
+- **Fork subagents on by default everywhere** — `subagent_type: "fork"` is now on by default in `claude -p`, the Agent SDK, the desktop app and VS Code, as it already was in the terminal; `CLAUDE_CODE_FORK_SUBAGENT=0` turns it off, and `claude mcp serve` never offers it.
+- **Desktop and VS Code always background the main conversation's subagents** — as the terminal does, rather than letting Claude choose; a subagent's own Agent calls in `claude -p`, the Agent SDK, the desktop app and VS Code now run in the foreground by default.
 
 ---
 
@@ -4396,6 +4414,7 @@ your-project/
 | `CLAUDE_ENABLE_STREAM_WATCHDOG` | Streaming idle watchdog (on by default) — aborts & retries a stream with no events for 5 min; set `0` to disable. *(v2.1.198)* |
 | `CLAUDE_AX_SCREEN_READER` | Screen reader mode — plain-text rendering (= `--ax-screen-reader` / the `axScreenReader` setting). *(v2.1.208)* |
 | `CLAUDE_CODE_PROCESS_WRAPPER` | Corporate launcher wrapper — every Claude Code self-spawn (agent view, background service) runs through the required wrapper executable. *(v2.1.208)* |
+| `CLAUDE_CODE_FORK_SUBAGENT` | Set `0` to turn off fork subagents (`subagent_type: "fork"`), which are on by default in the terminal, `claude -p`, the Agent SDK, the desktop app and VS Code since v2.1.302; `claude mcp serve` never offers them. *(v2.1.302)* |
 | `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` | Include subagent text and thinking in `stream-json` output (= `--forward-subagent-text`). *(v2.1.211)* |
 | `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | Session-wide limit on WebSearch tool calls (default 200) to stop runaway search loops. *(v2.1.212)* |
 | `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | Per-session cap on subagent spawns; `/clear` resets the budget. The default cap of 200 was removed in v2.1.224 — long sessions no longer refuse new agents (concurrency and depth limits still apply). *(v2.1.212, changed v2.1.224)* |
@@ -4427,6 +4446,7 @@ your-project/
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | Set `0` to go back to remote and headless sessions reporting "waiting for your input" while background agents are still running. *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | Maximum age of an interrupted turn that `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` will still re-run; 6 hours by default. *(v2.1.269)* |
 | `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | Set `1` to send routing-hint headers to an LLM gateway: `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` and `x-claude-code-context-compacted`. Since v2.1.283 it also sends `x-claude-code-prompt-id`, so gateways can group the requests that serve one user prompt. *(v2.1.273, changed v2.1.283)* |
+| `CLAUDE_CODE_AUTO_MODE_MODEL` | Chooses the model the client-side auto mode classifier uses; it does not change the model for server-side auto mode. *(v2.1.302)* |
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `0` to opt out of the server-side auto mode classifier on Bedrock, Vertex, Foundry and gateways and judge locally instead. Since v2.1.278 these platforms — plus Claude API and Enterprise users — default to the server-side classifier, which doesn't charge for classifier overhead. Since v2.1.281 it also applies on a direct Anthropic API connection: `0` opts out (the local classifier then counts toward usage), `1` opts in. Since v2.1.282 the server-side classifier is the default there when telemetry is off. *(v2.1.273, changed v2.1.278, v2.1.281, v2.1.282)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | Bounds how long the first non-interactive turn waits for MCP servers that are still connecting; `0` = don't wait. *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | Set `1` to include redacted managed-settings values and their digests in the `claude_code.managed_settings_resolved` OpenTelemetry event. *(v2.1.274)* |
@@ -5785,7 +5805,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.301`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.302`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

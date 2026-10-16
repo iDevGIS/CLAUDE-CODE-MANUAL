@@ -278,6 +278,11 @@ Skill(commit)                    # Specific skill
 - **Plan mode no longer runs writes a hook allowed** — a write (MCP tool, file or shell command) that a `PreToolUse` hook or a mod's `tool.check` hook allowed is not run in plan mode; a one-time note also says when plan mode won't ask before most edits or commands because bypass permissions is available.
 - **rm prompts only when a `-c` script runs `rm`** — an rm built at run time in a script Claude Code can't read no longer prompts unless `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT=1`. See [[23-environment-variables]].
 
+### New in v2.1.302
+- **`claude -p` and the Agent SDK start in `default` mode on third-party providers** — with no permission mode set, sessions on third-party providers with telemetry off or on a fresh install now start in `default`; pass `--permission-mode auto` to keep auto.
+- **Server-side auto mode compacts instead of denying** — a conversation too long for the safety check is now compacted, instead of every checked tool call being denied.
+- **Pick the client-side classifier's model** — `CLAUDE_CODE_AUTO_MODE_MODEL` chooses the model the client-side auto mode classifier uses; it does not change the model for server-side auto mode. See [[23-environment-variables]].
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

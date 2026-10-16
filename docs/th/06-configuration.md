@@ -371,6 +371,10 @@ related:
 - **สลับไปโมเดลที่ context window เล็กกว่า** — ถ้าบทสนทนายาวเกินกว่าโมเดลใหม่จะรับได้ จะถูกสรุปด้วยโมเดลเดิมก่อน และ Claude Code จะถามก่อนใช้ usage credit กับการสรุปนั้น
 - **alias `fable` / `best` มี fallback** — บน Anthropic API ถ้าองค์กรยังใช้ Fable ตัวใหม่สุดไม่ได้ Claude Code จะ retry หนึ่งครั้งด้วย Fable ตัวก่อนหน้าแทนการ error
 
+### 🆕 ใหม่ใน v2.1.302
+
+- **แถว `Idle compaction` ใน `/config`** — ปิดหรือเปิด idle compaction กลับได้จาก `/config` · ข้อความแจ้งหลัง idle compaction บอกวิธีปิดไว้ด้วยแล้ว
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

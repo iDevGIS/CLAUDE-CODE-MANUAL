@@ -236,6 +236,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **agent hook ใช้ `model` ของตัวเองจริง** — alias อย่าง `haiku` resolve ได้ · โมเดลของ subagent ไม่ทับอีกต่อไป · ถ้าโมเดลใช้ไม่ได้จะ fallback ไปใช้โมเดลของผู้เรียกแทนการปล่อยผ่าน action
 - **Cowork cloud session เมิน `setMode` ใน allow ของ hook `PermissionRequest`** — ส่วนอื่นของการอนุมัติยังมีผลตามเดิม
 
+#### 🆕 ใหม่ใน v2.1.302
+
+- **prompt hook และ agent hook รันพร้อมกันได้สูงสุด 12 ตัวต่อ event** — hook ประเภท prompt/agent ของ event เดียวกันรันพร้อมกันได้ไม่เกิน 12 ตัว ที่เหลือรอคิว
+
 ---
 
 ---

@@ -223,6 +223,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **รายการ `tools:` ของ agent รับเฉพาะ tool ของ MCP server ที่ระบุชื่อ** — server ที่ชื่อมี `__` ให้เขียนเป็น `mcp__<ชื่อเต็ม>__*`
 
+### 🆕 ใหม่ใน v2.1.302
+
+- **fork subagent เปิดเป็นค่าเริ่มต้นทุกที่** — `subagent_type: "fork"` เปิดเป็นค่าเริ่มต้นใน `claude -p`, Agent SDK, desktop app และ VS Code เหมือนที่ terminal เป็นอยู่แล้ว · ปิดด้วย `CLAUDE_CODE_FORK_SUBAGENT=0` · และ `claude mcp serve` ไม่มีให้ใช้เลย ดู [[23-environment-variables]]
+- **desktop app และ VS Code รัน subagent ของบทสนทนาหลักใน background เสมอ** — เหมือน terminal แทนการให้ Claude เลือกเอง · ส่วน Agent call ที่ subagent เรียกเองใน `claude -p`, Agent SDK, desktop app และ VS Code จะรันแบบ foreground เป็นค่าเริ่มต้น
+
 ---
 
 ---

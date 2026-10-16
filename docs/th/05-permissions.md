@@ -307,6 +307,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **plan mode ไม่รัน write ที่ hook อนุญาตแล้ว** — write (MCP tool, ไฟล์ หรือ shell command) ที่ `PreToolUse` hook หรือ hook `tool.check` ของ mod อนุญาต จะไม่ถูกรันใน plan mode · และมีโน้ตครั้งเดียวบอกเมื่อ plan mode จะไม่ถามก่อนแก้ไฟล์/รันคำสั่งส่วนใหญ่เพราะมี bypass permissions ให้ใช้
 - **ถามเรื่อง rm เฉพาะเมื่อสคริปต์ `-c` รัน `rm` จริง** — rm ที่สร้างตอนรันในสคริปต์ที่ Claude Code อ่านไม่ได้จะไม่ถามอีก เว้นแต่ตั้ง `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT=1` ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.302
+- **`claude -p` และ Agent SDK เริ่มที่โหมด `default` บน third-party provider** — ถ้าไม่ได้ระบุ permission mode, session บน third-party provider ที่ปิด telemetry หรือเพิ่งติดตั้งใหม่จะเริ่มที่ `default` · ใส่ `--permission-mode auto` ถ้าต้องการคง auto ไว้
+- **server-side auto mode compact แทนการ deny** — บทสนทนาที่ยาวเกินกว่า safety check จะรับได้ จะถูก compact แทนที่จะ deny ทุก tool call ที่ต้องตรวจ
+- **เลือกโมเดลของ classifier ฝั่ง client ได้** — `CLAUDE_CODE_AUTO_MODE_MODEL` กำหนดโมเดลที่ classifier ของ auto mode ฝั่ง client ใช้ · ไม่เปลี่ยนโมเดลของ server-side auto mode ดู [[23-environment-variables]]
+
 ---
 
 ---

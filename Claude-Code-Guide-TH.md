@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.301         │
+│ Welcome to Claude Code v2.1.302         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1114,7 +1114,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.301
+- run: npm install -g @anthropic-ai/claude-code@2.1.302
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1846,6 +1846,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **plan mode ไม่รัน write ที่ hook อนุญาตแล้ว** — write (MCP tool, ไฟล์ หรือ shell command) ที่ `PreToolUse` hook หรือ hook `tool.check` ของ mod อนุญาต จะไม่ถูกรันใน plan mode · และมีโน้ตครั้งเดียวบอกเมื่อ plan mode จะไม่ถามก่อนแก้ไฟล์/รันคำสั่งส่วนใหญ่เพราะมี bypass permissions ให้ใช้
 - **ถามเรื่อง rm เฉพาะเมื่อสคริปต์ `-c` รัน `rm` จริง** — rm ที่สร้างตอนรันในสคริปต์ที่ Claude Code อ่านไม่ได้จะไม่ถามอีก เว้นแต่ตั้ง `CLAUDE_CODE_STRICT_INLINE_SHELL_RM_PROMPT=1`
 
+### 🆕 ใหม่ใน v2.1.302
+- **`claude -p` และ Agent SDK เริ่มที่โหมด `default` บน third-party provider** — ถ้าไม่ได้ระบุ permission mode, session บน third-party provider ที่ปิด telemetry หรือเพิ่งติดตั้งใหม่จะเริ่มที่ `default` · ใส่ `--permission-mode auto` ถ้าต้องการคง auto ไว้
+- **server-side auto mode compact แทนการ deny** — บทสนทนาที่ยาวเกินกว่า safety check จะรับได้ จะถูก compact แทนที่จะ deny ทุก tool call ที่ต้องตรวจ
+- **เลือกโมเดลของ classifier ฝั่ง client ได้** — `CLAUDE_CODE_AUTO_MODE_MODEL` กำหนดโมเดลที่ classifier ของ auto mode ฝั่ง client ใช้ · ไม่เปลี่ยนโมเดลของ server-side auto mode
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2192,6 +2197,10 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **สลับไปโมเดลที่ context window เล็กกว่า** — ถ้าบทสนทนายาวเกินกว่าโมเดลใหม่จะรับได้ จะถูกสรุปด้วยโมเดลเดิมก่อน และ Claude Code จะถามก่อนใช้ usage credit กับการสรุปนั้น
 - **alias `fable` / `best` มี fallback** — บน Anthropic API ถ้าองค์กรยังใช้ Fable ตัวใหม่สุดไม่ได้ Claude Code จะ retry หนึ่งครั้งด้วย Fable ตัวก่อนหน้าแทนการ error
+
+### 🆕 ใหม่ใน v2.1.302
+
+- **แถว `Idle compaction` ใน `/config`** — ปิดหรือเปิด idle compaction กลับได้จาก `/config` · ข้อความแจ้งหลัง idle compaction บอกวิธีปิดไว้ด้วยแล้ว
 
 ---
 
@@ -2858,6 +2867,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **agent hook ใช้ `model` ของตัวเองจริง** — alias อย่าง `haiku` resolve ได้ · โมเดลของ subagent ไม่ทับอีกต่อไป · ถ้าโมเดลใช้ไม่ได้จะ fallback ไปใช้โมเดลของผู้เรียกแทนการปล่อยผ่าน action
 - **Cowork cloud session เมิน `setMode` ใน allow ของ hook `PermissionRequest`** — ส่วนอื่นของการอนุมัติยังมีผลตามเดิม
 
+### 🆕 ใหม่ใน v2.1.302
+
+- **prompt hook และ agent hook รันพร้อมกันได้สูงสุด 12 ตัวต่อ event** — hook ประเภท prompt/agent ของ event เดียวกันรันพร้อมกันได้ไม่เกิน 12 ตัว ที่เหลือรอคิว
+
 ---
 
 ## 11. Skills (คำสั่งที่สร้างเอง)
@@ -3305,6 +3318,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 ### 🆕 ใหม่ใน v2.1.299
 
 - **รายการ `tools:` ของ agent รับเฉพาะ tool ของ MCP server ที่ระบุชื่อ** — server ที่ชื่อมี `__` ให้เขียนเป็น `mcp__<ชื่อเต็ม>__*`
+
+### 🆕 ใหม่ใน v2.1.302
+
+- **fork subagent เปิดเป็นค่าเริ่มต้นทุกที่** — `subagent_type: "fork"` เปิดเป็นค่าเริ่มต้นใน `claude -p`, Agent SDK, desktop app และ VS Code เหมือนที่ terminal เป็นอยู่แล้ว · ปิดด้วย `CLAUDE_CODE_FORK_SUBAGENT=0` · และ `claude mcp serve` ไม่มีให้ใช้เลย
+- **desktop app และ VS Code รัน subagent ของบทสนทนาหลักใน background เสมอ** — เหมือน terminal แทนการให้ Claude เลือกเอง · ส่วน Agent call ที่ subagent เรียกเองใน `claude -p`, Agent SDK, desktop app และ VS Code จะรันแบบ foreground เป็นค่าเริ่มต้น
 
 ---
 
@@ -4385,6 +4403,7 @@ your-project/
 | `CLAUDE_ENABLE_STREAM_WATCHDOG` | stream watchdog (เปิด default) — ยกเลิก+retry สตรีมที่เงียบเกิน 5 นาที; ตั้ง `0` เพื่อปิด *(v2.1.198)* |
 | `CLAUDE_AX_SCREEN_READER` | โหมด screen reader — แสดงผลเป็น plain text (= `--ax-screen-reader` / setting `axScreenReader`) *(v2.1.208)* |
 | `CLAUDE_CODE_PROCESS_WRAPPER` | wrapper สำหรับองค์กร — ทุก process ที่ Claude Code spawn ตัวเอง (agent view, background service) จะรันผ่าน executable ที่กำหนดไว้ *(v2.1.208)* |
+| `CLAUDE_CODE_FORK_SUBAGENT` | ตั้ง `0` เพื่อปิด fork subagent (`subagent_type: "fork"`) ซึ่งเปิดเป็นค่าเริ่มต้นใน terminal, `claude -p`, Agent SDK, desktop app และ VS Code ตั้งแต่ v2.1.302 · `claude mcp serve` ไม่มีให้ใช้เลย *(v2.1.302)* |
 | `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` | รวมข้อความและ thinking ของ subagent ลงใน output แบบ `stream-json` (= `--forward-subagent-text`) *(v2.1.211)* |
 | `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` | จำกัดจำนวนครั้งของ WebSearch ต่อ session (default 200) กันลูปค้นหาไม่รู้จบ *(v2.1.212)* |
 | `CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION` | เพดานจำนวน subagent ที่ spawn ได้ต่อ session; `/clear` รีเซ็ตโควตา — ค่า default 200 ถูกถอดออกใน v2.1.224 แล้ว session ที่รันยาวจึงไม่ปฏิเสธ agent ใหม่ (เพดานจำนวนที่รันพร้อมกันและความลึกยังมีผล) *(v2.1.212, เปลี่ยน v2.1.224)* |
@@ -4416,6 +4435,7 @@ your-project/
 | `CLAUDE_CODE_BG_TASKS_REPORT_RUNNING` | ตั้ง `0` เพื่อกลับไปให้ session แบบ remote และ headless รายงาน "waiting for your input" ทั้งที่ background agent ยังทำงานอยู่ แบบเดิม *(v2.1.269)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | อายุสูงสุดของ turn ที่ถูกขัดจังหวะซึ่ง `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` จะยังยอมรันซ้ำ ค่าเริ่มต้น 6 ชั่วโมง *(v2.1.269)* |
 | `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | ตั้ง `1` เพื่อส่ง header ใบ้เส้นทางไปให้ LLM gateway ได้แก่ `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` และ `x-claude-code-context-compacted` · ตั้งแต่ v2.1.283 ส่ง `x-claude-code-prompt-id` ด้วย ให้ gateway จัดกลุ่ม request ที่มาจาก prompt เดียวกันของผู้ใช้ได้ *(v2.1.273, เปลี่ยน v2.1.283)* |
+| `CLAUDE_CODE_AUTO_MODE_MODEL` | กำหนดโมเดลที่ classifier ของ auto mode ฝั่ง client ใช้ · ไม่เปลี่ยนโมเดลของ server-side auto mode *(v2.1.302)* |
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `0` เพื่อไม่ใช้ server-side classifier ของ auto mode บน Bedrock, Vertex, Foundry และ gateway แล้วกลับไปตัดสินด้วย classifier ในเครื่องแทน — ตั้งแต่ v2.1.278 แพลตฟอร์มกลุ่มนี้ (รวมผู้ใช้ Claude API และ Enterprise) ใช้ server-side classifier เป็นค่าเริ่มต้น ซึ่งไม่คิดเงินค่า overhead ของ classifier · ตั้งแต่ v2.1.281 ใช้กับการต่อ Anthropic API ตรงได้ด้วย: `0` = ไม่ใช้ (classifier ในเครื่องจะถูกนับเป็น usage), `1` = ใช้ · ตั้งแต่ v2.1.282 ถ้าปิด telemetry จะใช้ server-side classifier เป็นค่าเริ่มต้นบนการต่อแบบนี้ *(v2.1.273, เปลี่ยน v2.1.278, v2.1.281, v2.1.282)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จ ตั้ง `0` = ไม่รอเลย *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | ตั้ง `1` เพื่อใส่ค่าของ managed settings แบบ redact แล้วพร้อม digest ลงใน OpenTelemetry event `claude_code.managed_settings_resolved` *(v2.1.274)* |
@@ -5771,7 +5791,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.301`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.302`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
