@@ -25,6 +25,19 @@
 
 ---
 
+## [1.92.0] — 2026-10-19
+
+### Compatibility
+- **Claude Code:** `v2.1.303+`
+
+### Changed
+- Version strings bump `2.1.302` → `2.1.303` (welcome banner, npm pin, ตัวอย่างใน tutorial, compatibility ของ ProjectEx2, badge/version ใน README.md + README.EN.md) — heading "New in" และ version stamp ประวัติคงไว้ตามเดิม
+
+### Why
+- Claude Code `v2.1.303` มีแค่ bug fixes and reliability improvements ตาม changelog ทางการ — ไม่มี model/คำสั่ง/flag/setting/env var ใหม่ จึงไม่มี section "New in" เพิ่ม แค่ sync เลขเวอร์ชันให้ตรงกับ npm latest
+
+---
+
 ## [1.91.0] — 2026-10-17
 
 ### Compatibility
@@ -2087,6 +2100,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.92.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.91.0...v1.92.0
 [1.91.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.90.0...v1.91.0
 [1.90.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.89.0...v1.90.0
 [1.89.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.88.0...v1.89.0
