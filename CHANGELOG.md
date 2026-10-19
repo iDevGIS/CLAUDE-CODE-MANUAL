@@ -25,6 +25,30 @@
 
 ---
 
+## [1.93.0] — 2026-10-20
+
+### Compatibility
+- **Claude Code:** `v2.1.304+`
+
+### Added
+- **New in v2.1.304** ใน 6 บท EN+TH (guide หน้าเดียว + atomic note):
+  - บท 03 Slash Commands — `/auto-mode-setup` (ตัวช่วยตั้งค่า auto mode ใช้ได้บน Bedrock/Vertex/Foundry/Claude apps gateway/ปิด telemetry) · `/claude-api managed-agents-secure` · `/reload-skills` ส่งเฉพาะ skill ใหม่/ที่เปลี่ยน · ยืนยันการลบใน `/artifacts` เป็นตัวเลือกมีเลข · `/fast` บน Opus 5.5 ไม่มีป้าย "(research preview)"
+  - บท 09 MCP Servers — tool search เปิดเป็นค่า default หลัง `ANTHROPIC_BASE_URL` แบบกำหนดเอง (400/422 ส่งซ้ำโดยไม่ใช้) · cloud session ไม่รอ stdio MCP server ของ plugin ที่ sync จาก claude.ai (ยกเว้น `alwaysLoad: true`)
+  - บท 11 Skills — compaction ส่งรายการ skill ใหม่ให้เอง · จำกัด hook ของ skill ต่อแหล่งที่ 1,024 hook / matcher 16,384 ตัวอักษรต่อ session · skill ที่ hook ถูกกันไว้ภายใต้ policy plugin-only ไม่ได้ `allowed-tools`
+  - บท 17 IDE Integration — background sub-agent ใน VS Code แสดงเป็นบรรทัดสถานะเดียวใต้การ์ด Agent · mod วาดใน chat panel ได้บน Bedrock/Vertex/Foundry/gateway/ปิด telemetry
+  - บท 18 Plugins — `decider: "person"` ในคำตอบ `tool.check` · `e.isReadOnly` · hook `settings.read` ได้รับทุก settings layer (ทำเพดานขององค์กรได้ รวม `cleanupPeriodDays`) · บรรทัด transcript เมื่อ plugin ข้าม mod hook · `claude plugin validate` เลิกทำนายตำแหน่งรัน hook ของ mod
+  - บท 19 Session Management — คำเตือนก่อน resume บทสนทนาเก่าที่จะกินโควตา 5 ชั่วโมงบน Pro/Max
+- **บท 23 Environment Variables** — แถว `CLAUDE_CODE_AUTO_COMPACT_WINDOW` (รับ suffix `k`/`M` เหมือน `--autocompact` และเตือนเมื่อค่าเกินช่วง)
+- **แถว What's-new ของ `v2.1.304`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.303` → `2.1.304` (welcome banner, npm pin, ตัวอย่างใน tutorial, compatibility ของ ProjectEx2, badge/version ใน README.md + README.EN.md) — heading "New in" และ version stamp ประวัติคงไว้ตามเดิม
+
+### Why
+- Upstream `2.1.304` เพิ่ม slash command `/auto-mode-setup` และ `/claude-api managed-agents-secure`, ขยาย mod API (`decider`, `isReadOnly`, `settings.read` แบบ layer), เปลี่ยนพฤติกรรม skill list หลัง compaction / `/reload-skills`, จำกัด hook ของ skill, เปิด tool search หลัง gateway และเพิ่มคำเตือน resume บน Pro/Max · ที่เหลือเป็น bug fix, UI polish และของฝั่ง Claude Tag/Code Review/Cloud sessions ซึ่งข้ามไว้
+
+---
+
 ## [1.92.0] — 2026-10-19
 
 ### Compatibility
@@ -2100,6 +2124,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.93.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.92.0...v1.93.0
 [1.92.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.91.0...v1.92.0
 [1.91.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.90.0...v1.91.0
 [1.90.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.89.0...v1.90.0

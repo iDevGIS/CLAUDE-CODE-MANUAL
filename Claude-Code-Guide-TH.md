@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.303         │
+│ Welcome to Claude Code v2.1.304         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1114,7 +1114,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.303
+- run: npm install -g @anthropic-ai/claude-code@2.1.304
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1423,6 +1423,13 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.300
 - **`/advisor` บน Claude Platform on AWS** — จะไม่มี advisor รันจนกว่าจะเลือกเองด้วย `/advisor`, setting `advisorModel` หรือ `--advisor` · ปิดได้ด้วย `CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1`
 - **ตัวเลือกโหมดของ `/sandbox` เปลี่ยนเป็น "Sandbox commands"** แทน "Sandbox BashTool"
+
+### 🆕 ใหม่ใน v2.1.304
+- **`/auto-mode-setup`** — ตัวช่วยตั้งค่าแบบ guided ที่อ่านโปรเจกต์และ session ล่าสุดเพื่อสอน auto mode ให้รู้จัก environment ของเรา · ใช้ได้บน Bedrock, Vertex, Foundry, Claude apps gateway และ session ที่ปิด telemetry ด้วย
+- **`/claude-api managed-agents-secure`** — เทียบค่าตั้งของ agent ใน Managed Agents กับ security guide ที่ Anthropic เผยแพร่ โดยไม่แก้อะไรเลย
+- **`/reload-skills` ส่งเฉพาะ skill ที่ใหม่หรือเปลี่ยน** — ตอนนี้ compaction ส่งรายการ skill ให้ Claude ใหม่เองอยู่แล้ว
+- **ยืนยันการลบใน `/artifacts` เป็นตัวเลือกมีเลข** — 1 หรือ Enter เก็บ artifact ไว้ · 2 ลบ · y, n และ Esc ยังใช้ได้
+- **`/fast` บน Opus 5.5 ไม่มีป้าย "(research preview)"** ที่หัว dialog แล้ว
 
 ---
 
@@ -2646,6 +2653,11 @@ claude --mcp-config ./mcp.json
 - **ไม่ follow HTTP redirect ผ่าน MCP proxy ของ Anthropic** — request ไปยัง connector proxy ของ claude.ai, MCP server ที่ Anthropic host และผ่าน MCP proxy ของ cloud session / self-hosted runner จะไม่ตาม redirect แล้ว · redirect จาก server ของ connector เองไม่ได้รับผลกระทบ
 - **connector ของ cloud session และ Remote Control negotiate protocol 2026-07-28** เป็นค่า default บน install ที่ไม่ได้ดึง flag · opt out ด้วย `MCP_PROTOCOL_NEGOTIATION=legacy`
 
+### 🆕 ใหม่ใน v2.1.304
+
+- **tool search เปิดเป็นค่า default เมื่อใช้ `ANTHROPIC_BASE_URL` แบบกำหนดเอง** — ถ้า gateway ตอบ 400 หรือ 422 จะส่งซ้ำโดยไม่ใช้ tool search
+- **cloud session ไม่รอ MCP server ในเครื่องของ plugin** — turn แรกของบทสนทนาใหม่ไม่ต้องรอ MCP server แบบ local (stdio) ของ plugin ที่ sync มาจาก claude.ai อีกต่อไป ยกเว้น server นั้นตั้ง `alwaysLoad: true`
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -3089,6 +3101,12 @@ my-skill/
 
 - **skill `claude-api` มีคำแนะนำเรื่อง OpenTelemetry tracing** — รวมถึงการตั้งปลายทาง trace ด้วย `ant` CLI
 - **จำกัดจำนวนชื่อ argument ที่ถูกเติม** — skill และ command จะเติมเฉพาะชื่อ argument 64 ตัวแรก แต่ละชื่อยาวไม่เกิน 64 ตัวอักษร
+
+### 🆕 ใหม่ใน v2.1.304
+
+- **compaction ส่งรายการ skill ให้ใหม่** — หลัง compaction Claude ได้รายการ skill อีกครั้งเอง · `/reload-skills` ส่งเฉพาะ skill ที่ใหม่หรือเปลี่ยนแล้ว
+- **จำกัดจำนวน hook ของ skill ต่อแหล่ง** — skill จากแหล่งเดียวกัน (repo, โฟลเดอร์ของเราเอง หรือ plugin) ลงทะเบียน hook ได้ไม่เกิน 1,024 ตัว และ matcher รวมไม่เกิน 16,384 ตัวอักษรต่อ session
+- **ไม่ได้ `allowed-tools` เมื่อ hook ของ skill ถูกกันไว้** — ภายใต้ policy ที่อนุญาต hook จาก plugin เท่านั้น skill ที่ใช้ในบทสนทนาหลักซึ่ง hook ถูกกันไว้จะไม่ได้ `allowed-tools` ของมันแล้ว
 
 ---
 
@@ -3790,6 +3808,11 @@ cat src/*.ts | claude -p "หา Bug"
 - **แสดงสูตรคณิต LaTeX ใน VS Code** — คำตอบของ Claude render บล็อก `$$` และ `\[ … \]` หลายบรรทัด รวมถึง inline `$…$` และ `\(…\)`
 - **ลิงก์ "Get more usage"** — บนแบนเนอร์ usage limit ของแพ็กเกจ Pro และ Max ใน panel ของ VS Code และ JetBrains
 
+### 🆕 ใหม่ใน v2.1.304
+
+- **background sub-agent ใน VS Code แสดงเป็นบรรทัดสถานะเดียว** — อยู่ใต้การ์ด Agent แทนการ stream ทุกขั้นเข้ามาในแชท · transcript เต็มยังดูได้ใน /tasks
+- **mod วาดใน chat panel ของ VS Code ได้บน setup มากขึ้น** — session บน Amazon Bedrock, Google Vertex AI และ Microsoft Foundry, หลัง LLM gateway หรือที่ปิด telemetry
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**
@@ -4021,6 +4044,14 @@ claude --plugin-dir ./my-plugin
 - **`.catch` ของ mod hook ทำงานเฉพาะตอน hook throw หรือ timeout** — event ที่เกิดใต้การเรียกของ hook เองจะข้าม hook นั้นไปโดยไม่ถาม `.catch`
 - **`$.env.set` คืนผลลัพธ์** — resolve เป็น `{}` เมื่อ set/unset ตัวแปรสำเร็จ หรือ `{ deny }` พร้อมเหตุผลเมื่อเขียนไม่ได้
 
+### 🆕 ใหม่ใน v2.1.304
+
+- **`decider: "person"` ในคำตอบ `tool.check` ของ mod** — มีแค่ permission dialog หรือ callback ของ host ที่อนุมัติคำขอนั้นได้ · ในที่ที่ไม่มีใครให้ถาม คำขอจะถูกปฏิเสธพร้อมเหตุผลของ mod
+- **`e.isReadOnly` ใน event `tool.check`** — ตั้งค่าเมื่อการเรียก tool นั้นเป็นแบบอ่านอย่างเดียว
+- **hook `settings.read` เห็นทุกชั้นของ settings** — ได้รับแต่ละ layer และเขียน settings ที่ merge แล้วใหม่ได้ ทำให้ managed mod ตั้ง setting ขององค์กรเป็นเพดานได้ รวมถึง `cleanupPeriodDays` ที่ใช้ตอนกวาดลบตาม retention
+- **transcript บอกชื่อ mod hook ที่ถูกข้าม** — เมื่อ plugin ที่รันก่อนข้าม hook ของ mod เรา จะมีบรรทัดใน transcript ระบุ event และ plugin นั้น
+- **`claude plugin validate` ไม่ทำนายแล้วว่า hook ของ mod จะรันที่ไหน** — ตัดหมายเหตุเหล่านั้นออก
+
 ---
 
 ## 19. Session Management
@@ -4147,6 +4178,10 @@ claude --fork-session                # แยก Branch ใหม่
 
 - **transcript บันทึกทุก API request** — transcript ของ session บนเครื่องเก็บ system prompt, tools และ parameter ของแต่ละ request ไว้ด้วย เพื่อให้ transcript ที่เราเลือกแชร์ใช้ reproduce request นั้นได้เป๊ะ ๆ
 - **background session resume workflow ที่พกมาผ่านการอนุมัติของ Workflow tool** แทนการรันจาก handoff file
+
+### 🆕 ใหม่ใน v2.1.304
+
+- **เตือนก่อน resume ที่กินโควตาบน Pro และ Max** — ถ้า resume บทสนทนาที่ไม่ได้ใช้มานานจะกินโควตา 5 ชั่วโมงไปเป็นสัดส่วนที่เห็นได้ชัด เลือกได้ว่าจะ resume ต่อหรือเริ่มบทสนทนาใหม่ · Claude ไปค้นบทสนทนาเก่าให้ได้ถ้าเราอ้างถึง
 
 ---
 
@@ -4436,6 +4471,7 @@ your-project/
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | อายุสูงสุดของ turn ที่ถูกขัดจังหวะซึ่ง `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` จะยังยอมรันซ้ำ ค่าเริ่มต้น 6 ชั่วโมง *(v2.1.269)* |
 | `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | ตั้ง `1` เพื่อส่ง header ใบ้เส้นทางไปให้ LLM gateway ได้แก่ `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` และ `x-claude-code-context-compacted` · ตั้งแต่ v2.1.283 ส่ง `x-claude-code-prompt-id` ด้วย ให้ gateway จัดกลุ่ม request ที่มาจาก prompt เดียวกันของผู้ใช้ได้ *(v2.1.273, เปลี่ยน v2.1.283)* |
 | `CLAUDE_CODE_AUTO_MODE_MODEL` | กำหนดโมเดลที่ classifier ของ auto mode ฝั่ง client ใช้ · ไม่เปลี่ยนโมเดลของ server-side auto mode *(v2.1.302)* |
+| `CLAUDE_CODE_AUTO_COMPACT_WINDOW` | กำหนดหน้าต่าง auto-compact · รับ suffix `k` และ `M` ได้เหมือน `--autocompact` (เช่น `200k`) และเตือนเมื่อค่าเกินช่วงหรือถูกเมิน *(v2.1.304)* |
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | ตั้ง `0` เพื่อไม่ใช้ server-side classifier ของ auto mode บน Bedrock, Vertex, Foundry และ gateway แล้วกลับไปตัดสินด้วย classifier ในเครื่องแทน — ตั้งแต่ v2.1.278 แพลตฟอร์มกลุ่มนี้ (รวมผู้ใช้ Claude API และ Enterprise) ใช้ server-side classifier เป็นค่าเริ่มต้น ซึ่งไม่คิดเงินค่า overhead ของ classifier · ตั้งแต่ v2.1.281 ใช้กับการต่อ Anthropic API ตรงได้ด้วย: `0` = ไม่ใช้ (classifier ในเครื่องจะถูกนับเป็น usage), `1` = ใช้ · ตั้งแต่ v2.1.282 ถ้าปิด telemetry จะใช้ server-side classifier เป็นค่าเริ่มต้นบนการต่อแบบนี้ *(v2.1.273, เปลี่ยน v2.1.278, v2.1.281, v2.1.282)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | จำกัดเวลาที่เทิร์นแรกของ session แบบ non-interactive จะรอ MCP server ที่ยังเชื่อมต่อไม่เสร็จ ตั้ง `0` = ไม่รอเลย *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | ตั้ง `1` เพื่อใส่ค่าของ managed settings แบบ redact แล้วพร้อม digest ลงใน OpenTelemetry event `claude_code.managed_settings_resolved` *(v2.1.274)* |
@@ -5791,7 +5827,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.303`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.304`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

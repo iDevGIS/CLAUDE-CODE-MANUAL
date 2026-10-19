@@ -140,6 +140,10 @@ claude --fork-session                # แยก Branch ใหม่
 - **transcript บันทึกทุก API request** — transcript ของ session บนเครื่องเก็บ system prompt, tools และ parameter ของแต่ละ request ไว้ด้วย เพื่อให้ transcript ที่เราเลือกแชร์ใช้ reproduce request นั้นได้เป๊ะ ๆ
 - **background session resume workflow ที่พกมาผ่านการอนุมัติของ Workflow tool** แทนการรันจาก handoff file ดู [[39-dynamic-workflows]]
 
+### 🆕 ใหม่ใน v2.1.304
+
+- **เตือนก่อน resume ที่กินโควตาบน Pro และ Max** — ถ้า resume บทสนทนาที่ไม่ได้ใช้มานานจะกินโควตา 5 ชั่วโมงไปเป็นสัดส่วนที่เห็นได้ชัด เลือกได้ว่าจะ resume ต่อหรือเริ่มบทสนทนาใหม่ · Claude ไปค้นบทสนทนาเก่าให้ได้ถ้าเราอ้างถึง ดู [[31-cost-management]]
+
 ---
 
 ---

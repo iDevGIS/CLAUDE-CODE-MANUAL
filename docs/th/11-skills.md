@@ -231,6 +231,12 @@ my-skill/
 - **skill `claude-api` มีคำแนะนำเรื่อง OpenTelemetry tracing** — รวมถึงการตั้งปลายทาง trace ด้วย `ant` CLI
 - **จำกัดจำนวนชื่อ argument ที่ถูกเติม** — skill และ command จะเติมเฉพาะชื่อ argument 64 ตัวแรก แต่ละชื่อยาวไม่เกิน 64 ตัวอักษร
 
+### 🆕 ใหม่ใน v2.1.304
+
+- **compaction ส่งรายการ skill ให้ใหม่** — หลัง compaction Claude ได้รายการ skill อีกครั้งเอง · `/reload-skills` ส่งเฉพาะ skill ที่ใหม่หรือเปลี่ยนแล้ว ดู [[03-slash-commands]]
+- **จำกัดจำนวน hook ของ skill ต่อแหล่ง** — skill จากแหล่งเดียวกัน (repo, โฟลเดอร์ของเราเอง หรือ plugin) ลงทะเบียน hook ได้ไม่เกิน 1,024 ตัว และ matcher รวมไม่เกิน 16,384 ตัวอักษรต่อ session ดู [[10-hooks]]
+- **ไม่ได้ `allowed-tools` เมื่อ hook ของ skill ถูกกันไว้** — ภายใต้ policy ที่อนุญาต hook จาก plugin เท่านั้น skill ที่ใช้ในบทสนทนาหลักซึ่ง hook ถูกกันไว้จะไม่ได้ `allowed-tools` ของมันแล้ว
+
 ---
 
 ---

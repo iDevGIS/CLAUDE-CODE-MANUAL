@@ -97,6 +97,11 @@ related:
 - **LaTeX math in VS Code** — Claude's responses render `$$` and multi-line `\[ … \]` blocks and inline `$…$` and `\(…\)` math.
 - **"Get more usage" link** — on the usage-limit banner for Pro and Max plans in the VS Code and JetBrains panels.
 
+### New in v2.1.304
+
+- **Background sub-agents in VS Code show as one status line** — under their Agent card instead of streaming every step into the chat; the full transcript stays in /tasks. See [[41-background-agents]].
+- **Mod drawing in the VS Code chat panel on more setups** — sessions on Amazon Bedrock, Google Vertex AI and Microsoft Foundry, behind an LLM gateway, or with telemetry turned off. See [[18-plugins]].
+
 ### JetBrains IDEs
 
 **Install:**

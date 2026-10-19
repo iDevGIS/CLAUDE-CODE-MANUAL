@@ -230,6 +230,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **No HTTP redirects through Anthropic's MCP proxies** — requests to claude.ai's connector proxy, to Anthropic-hosted MCP servers, and through the MCP proxy of cloud and self-hosted runner sessions no longer follow redirects; redirects by a connector's own server are unaffected.
 - **Cloud and Remote Control connectors negotiate protocol 2026-07-28** by default on installs that fetch no flags; `MCP_PROTOCOL_NEGOTIATION=legacy` opts out.
 
+### New in v2.1.304
+
+- **Tool search on by default behind a custom `ANTHROPIC_BASE_URL`** — a 400 or 422 from the gateway is retried without it. See [[23-environment-variables]].
+- **Cloud sessions don't wait for plugins' local MCP servers** — a new conversation's first turn no longer waits for the local (stdio) MCP servers of plugins synced from claude.ai, unless a server sets `alwaysLoad: true`.
+
 ---
 
 ---

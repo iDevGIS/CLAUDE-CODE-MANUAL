@@ -289,6 +289,13 @@ related:
 - **`/advisor` บน Claude Platform on AWS** — จะไม่มี advisor รันจนกว่าจะเลือกเองด้วย `/advisor`, setting `advisorModel` หรือ `--advisor` · ปิดได้ด้วย `CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1` ดู [[23-environment-variables]]
 - **ตัวเลือกโหมดของ `/sandbox` เปลี่ยนเป็น "Sandbox commands"** แทน "Sandbox BashTool"
 
+### 🆕 ใหม่ใน v2.1.304
+- **`/auto-mode-setup`** — ตัวช่วยตั้งค่าแบบ guided ที่อ่านโปรเจกต์และ session ล่าสุดเพื่อสอน auto mode ให้รู้จัก environment ของเรา · ใช้ได้บน Bedrock, Vertex, Foundry, Claude apps gateway และ session ที่ปิด telemetry ด้วย ดู [[05-permissions]]
+- **`/claude-api managed-agents-secure`** — เทียบค่าตั้งของ agent ใน Managed Agents กับ security guide ที่ Anthropic เผยแพร่ โดยไม่แก้อะไรเลย
+- **`/reload-skills` ส่งเฉพาะ skill ที่ใหม่หรือเปลี่ยน** — ตอนนี้ compaction ส่งรายการ skill ให้ Claude ใหม่เองอยู่แล้ว ดู [[11-skills]]
+- **ยืนยันการลบใน `/artifacts` เป็นตัวเลือกมีเลข** — 1 หรือ Enter เก็บ artifact ไว้ · 2 ลบ · y, n และ Esc ยังใช้ได้
+- **`/fast` บน Opus 5.5 ไม่มีป้าย "(research preview)"** ที่หัว dialog แล้ว
+
 ---
 
 ---

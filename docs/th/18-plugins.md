@@ -227,6 +227,14 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **`.catch` ของ mod hook ทำงานเฉพาะตอน hook throw หรือ timeout** — event ที่เกิดใต้การเรียกของ hook เองจะข้าม hook นั้นไปโดยไม่ถาม `.catch`
 - **`$.env.set` คืนผลลัพธ์** — resolve เป็น `{}` เมื่อ set/unset ตัวแปรสำเร็จ หรือ `{ deny }` พร้อมเหตุผลเมื่อเขียนไม่ได้
 
+### 🆕 ใหม่ใน v2.1.304
+
+- **`decider: "person"` ในคำตอบ `tool.check` ของ mod** — มีแค่ permission dialog หรือ callback ของ host ที่อนุมัติคำขอนั้นได้ · ในที่ที่ไม่มีใครให้ถาม คำขอจะถูกปฏิเสธพร้อมเหตุผลของ mod ดู [[05-permissions]]
+- **`e.isReadOnly` ใน event `tool.check`** — ตั้งค่าเมื่อการเรียก tool นั้นเป็นแบบอ่านอย่างเดียว
+- **hook `settings.read` เห็นทุกชั้นของ settings** — ได้รับแต่ละ layer และเขียน settings ที่ merge แล้วใหม่ได้ ทำให้ managed mod ตั้ง setting ขององค์กรเป็นเพดานได้ รวมถึง `cleanupPeriodDays` ที่ใช้ตอนกวาดลบตาม retention ดู [[06-configuration]]
+- **transcript บอกชื่อ mod hook ที่ถูกข้าม** — เมื่อ plugin ที่รันก่อนข้าม hook ของ mod เรา จะมีบรรทัดใน transcript ระบุ event และ plugin นั้น
+- **`claude plugin validate` ไม่ทำนายแล้วว่า hook ของ mod จะรันที่ไหน** — ตัดหมายเหตุเหล่านั้นออก
+
 ---
 
 ---

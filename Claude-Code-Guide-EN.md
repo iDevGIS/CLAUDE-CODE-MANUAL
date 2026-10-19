@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.303         │
+│ Welcome to Claude Code v2.1.304         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.303
+- run: npm install -g @anthropic-ai/claude-code@2.1.304
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1429,6 +1429,13 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.300
 - **`/advisor` on Claude Platform on AWS** — no advisor runs until you pick one with `/advisor`, the `advisorModel` setting or `--advisor`; `CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1` turns it off.
 - **`/sandbox` mode options read "Sandbox commands"** instead of "Sandbox BashTool".
+
+### New in v2.1.304
+- **`/auto-mode-setup`** — a guided setup that reads your project and recent sessions to teach auto mode about your environment; also available on Bedrock, Vertex, Foundry, Claude apps gateway and telemetry-disabled sessions.
+- **`/claude-api managed-agents-secure`** — compares a Managed Agents agent's settings with Anthropic's published security guide, without changing anything.
+- **`/reload-skills` sends only new or changed skills** — compaction now sends Claude the skill list again by itself.
+- **`/artifacts` delete confirmation uses numbered choices** — 1 or Enter keeps the artifact, 2 deletes it; y, n and Esc still work.
+- **`/fast` on Opus 5.5 drops "(research preview)"** from its dialog title.
 
 ---
 
@@ -2653,6 +2660,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **No HTTP redirects through Anthropic's MCP proxies** — requests to claude.ai's connector proxy, to Anthropic-hosted MCP servers, and through the MCP proxy of cloud and self-hosted runner sessions no longer follow redirects; redirects by a connector's own server are unaffected.
 - **Cloud and Remote Control connectors negotiate protocol 2026-07-28** by default on installs that fetch no flags; `MCP_PROTOCOL_NEGOTIATION=legacy` opts out.
 
+### New in v2.1.304
+
+- **Tool search on by default behind a custom `ANTHROPIC_BASE_URL`** — a 400 or 422 from the gateway is retried without it.
+- **Cloud sessions don't wait for plugins' local MCP servers** — a new conversation's first turn no longer waits for the local (stdio) MCP servers of plugins synced from claude.ai, unless a server sets `alwaysLoad: true`.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -3096,6 +3108,12 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **`claude-api` skill covers OpenTelemetry tracing** — including setting up trace destinations with the `ant` CLI.
 - **Argument names are capped when filled in** — for skills and commands, only the first 64 argument names, each up to 64 characters, are filled in.
+
+### New in v2.1.304
+
+- **Compaction re-sends the skill list** — after compaction Claude gets the skill list again; `/reload-skills` now sends only new or changed skills.
+- **Skill hooks are capped per source** — the skills of one source (a repo, your own folder, or a plugin) can register at most 1,024 hooks and 16,384 matcher characters per session.
+- **No `allowed-tools` when a skill's hooks are kept out** — under a policy that allows hooks from plugins only, a skill used in the main conversation whose hooks are kept out no longer gets its `allowed-tools`.
 
 ---
 
@@ -3801,6 +3819,11 @@ cat src/*.ts | claude -p "find bugs"
 - **LaTeX math in VS Code** — Claude's responses render `$$` and multi-line `\[ … \]` blocks and inline `$…$` and `\(…\)` math.
 - **"Get more usage" link** — on the usage-limit banner for Pro and Max plans in the VS Code and JetBrains panels.
 
+### New in v2.1.304
+
+- **Background sub-agents in VS Code show as one status line** — under their Agent card instead of streaming every step into the chat; the full transcript stays in /tasks.
+- **Mod drawing in the VS Code chat panel on more setups** — sessions on Amazon Bedrock, Google Vertex AI and Microsoft Foundry, behind an LLM gateway, or with telemetry turned off.
+
 ### JetBrains IDEs
 
 **Install:**
@@ -4032,6 +4055,14 @@ claude --plugin-dir ./my-plugin
 - **A mod hook's `.catch` runs only when the hook throws or times out** — events raised beneath the hook's own calls now skip that hook without asking its `.catch`.
 - **`$.env.set` resolves with a result** — `{}` once the variable is set or unset, or `{ deny }` saying why when the write is not made.
 
+### New in v2.1.304
+
+- **`decider: "person"` in a mod's `tool.check` answer** — only the permission dialog or a host's callback can approve the ask; where nobody can be asked it is refused with the mod's reason.
+- **`e.isReadOnly` on the `tool.check` event** — set when the tool call is read-only.
+- **`settings.read` hooks see each settings layer** — they receive every layer and rewrite the merged settings, so a managed mod can make an organization's setting a ceiling, including the `cleanupPeriodDays` the retention sweep uses.
+- **Skipped mod hooks are named in the transcript** — when a plugin that runs first skips one of your mod's hooks, a transcript line names the event and the plugin.
+- **`claude plugin validate` no longer predicts where a mod's hooks run** — those notes were removed.
+
 ---
 
 ## 19. Session Management
@@ -4152,6 +4183,10 @@ Shows an interactive picker to choose a session.
 
 - **Transcripts record each API request** — local session transcripts also store each request's system prompt, tools and parameters, so a transcript you choose to share can reproduce a request exactly.
 - **Background sessions resume a carried workflow through the Workflow tool's approval** instead of running it from the handoff file.
+
+### New in v2.1.304
+
+- **Costly-resume warning on Pro and Max** — when resuming an inactive conversation would use a noticeable share of your 5-hour usage limit, you can resume anyway or start a new conversation; Claude can look up the previous one if you refer to it.
 
 ### Session File Locations
 
@@ -4447,6 +4482,7 @@ your-project/
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN_MAX_AGE_MS` | Maximum age of an interrupted turn that `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` will still re-run; 6 hours by default. *(v2.1.269)* |
 | `CLAUDE_CODE_GATEWAY_HINT_HEADERS` | Set `1` to send routing-hint headers to an LLM gateway: `x-claude-code-request-class`, `x-claude-code-agent-type`, `x-claude-code-prev-tool-durations`, `x-claude-code-compaction` and `x-claude-code-context-compacted`. Since v2.1.283 it also sends `x-claude-code-prompt-id`, so gateways can group the requests that serve one user prompt. *(v2.1.273, changed v2.1.283)* |
 | `CLAUDE_CODE_AUTO_MODE_MODEL` | Chooses the model the client-side auto mode classifier uses; it does not change the model for server-side auto mode. *(v2.1.302)* |
+| `CLAUDE_CODE_AUTO_COMPACT_WINDOW` | Sets the auto-compact window; accepts `k` and `M` suffixes like `--autocompact` (e.g. `200k`) and warns when a value is out of range or ignored. *(v2.1.304)* |
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | Set `0` to opt out of the server-side auto mode classifier on Bedrock, Vertex, Foundry and gateways and judge locally instead. Since v2.1.278 these platforms — plus Claude API and Enterprise users — default to the server-side classifier, which doesn't charge for classifier overhead. Since v2.1.281 it also applies on a direct Anthropic API connection: `0` opts out (the local classifier then counts toward usage), `1` opts in. Since v2.1.282 the server-side classifier is the default there when telemetry is off. *(v2.1.273, changed v2.1.278, v2.1.281, v2.1.282)* |
 | `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` | Bounds how long the first non-interactive turn waits for MCP servers that are still connecting; `0` = don't wait. *(v2.1.274)* |
 | `OTEL_LOG_MANAGED_SETTINGS` | Set `1` to include redacted managed-settings values and their digests in the `claude_code.managed_settings_resolved` OpenTelemetry event. *(v2.1.274)* |
@@ -5805,7 +5841,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.303`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.304`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

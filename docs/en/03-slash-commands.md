@@ -288,6 +288,13 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/advisor` on Claude Platform on AWS** — no advisor runs until you pick one with `/advisor`, the `advisorModel` setting or `--advisor`; `CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1` turns it off. See [[23-environment-variables]].
 - **`/sandbox` mode options read "Sandbox commands"** instead of "Sandbox BashTool".
 
+### New in v2.1.304
+- **`/auto-mode-setup`** — a guided setup that reads your project and recent sessions to teach auto mode about your environment; also available on Bedrock, Vertex, Foundry, Claude apps gateway and telemetry-disabled sessions. See [[05-permissions]].
+- **`/claude-api managed-agents-secure`** — compares a Managed Agents agent's settings with Anthropic's published security guide, without changing anything.
+- **`/reload-skills` sends only new or changed skills** — compaction now sends Claude the skill list again by itself. See [[11-skills]].
+- **`/artifacts` delete confirmation uses numbered choices** — 1 or Enter keeps the artifact, 2 deletes it; y, n and Esc still work.
+- **`/fast` on Opus 5.5 drops "(research preview)"** from its dialog title.
+
 ---
 
 ---

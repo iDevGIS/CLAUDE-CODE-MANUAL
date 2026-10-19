@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.303-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.92.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.304-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.93.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.303`
+## 🆕 What's new — synced to Claude Code `v2.1.304`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -163,8 +163,9 @@ Never used a command line? You can still follow along 👇
 | 🪝 **Hook `updatedInput` validated + more mod API** | `updatedInput` from `PreToolUse`/`PermissionRequest` is validated like Claude's own input · agent hooks honor their `model` · `/advisor` on Claude Platform on AWS (`CLAUDE_CODE_DISABLE_ADVISOR_TOOL`) · `CLAUDE_CODE_GZIP_REQUEST_BODIES` · `claude remote-control` drops `--sandbox`/`--no-sandbox` · mods: `virtualText`, `$.ui.view`, `prompt.change` hook · OTel `cache_creation_5m_tokens`/`cache_creation_1h_tokens` (v2.1.300) |
 | 🔁 **Summarize-first switch to smaller-context models + vim `%`** | conversations too long for the new model are summarized by the previous model first · `fable`/`best` alias falls back to the previous Fable · `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` · vim `%` motion · OTel `tool_decision` gains `classifier_verdict`/`permission_mode`/`classifier_category` · mods: `Input` `rows`, `.catch`, `$.env.set` · VS Code renders LaTeX (v2.1.301) |
 | 🍴 **Fork subagents everywhere + pick the classifier model** | `subagent_type: "fork"` on by default in `claude -p`/SDK/desktop/VS Code (`CLAUDE_CODE_FORK_SUBAGENT=0` turns it off) · `CLAUDE_CODE_AUTO_MODE_MODEL` · `claude -p` on third-party providers starts in `default` · `Idle compaction` row in `/config` · prompt/agent hooks capped at 12 at a time per event (v2.1.302) |
+| 🧭 **`/auto-mode-setup` + person-decided mod `tool.check`** | `/auto-mode-setup` teaches auto mode about your environment · `/claude-api managed-agents-secure` · mods: `decider: "person"`, `e.isReadOnly`, `settings.read` sees every layer · compaction re-sends the skill list (`/reload-skills` sends only changes) · tool search on behind `ANTHROPIC_BASE_URL` · `CLAUDE_CODE_AUTO_COMPACT_WINDOW` accepts `k`/`M` · costly-resume warning on Pro/Max (v2.1.304) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.303` (manual `v1.92.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.304` (manual `v1.93.0`)
 
 ---
 
@@ -187,7 +188,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.303** + the Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 lineup
+Tracks Claude Code **v2.1.304** + the Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 lineup
 
 </td>
 </tr>
@@ -247,7 +248,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.303`
+> **Claude Code Version:** `2.1.304`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

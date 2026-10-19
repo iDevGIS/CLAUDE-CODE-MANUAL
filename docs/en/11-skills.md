@@ -231,6 +231,12 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **`claude-api` skill covers OpenTelemetry tracing** — including setting up trace destinations with the `ant` CLI.
 - **Argument names are capped when filled in** — for skills and commands, only the first 64 argument names, each up to 64 characters, are filled in.
 
+### New in v2.1.304
+
+- **Compaction re-sends the skill list** — after compaction Claude gets the skill list again; `/reload-skills` now sends only new or changed skills. See [[03-slash-commands]].
+- **Skill hooks are capped per source** — the skills of one source (a repo, your own folder, or a plugin) can register at most 1,024 hooks and 16,384 matcher characters per session. See [[10-hooks]].
+- **No `allowed-tools` when a skill's hooks are kept out** — under a policy that allows hooks from plugins only, a skill used in the main conversation whose hooks are kept out no longer gets its `allowed-tools`.
+
 ---
 
 ---

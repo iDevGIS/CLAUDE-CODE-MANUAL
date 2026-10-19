@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.303-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.92.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.304-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.93.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.303`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.304`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -163,8 +163,9 @@
 | 🪝 **hook `updatedInput` ถูกตรวจ + mod API เพิ่ม** | `updatedInput` จาก `PreToolUse`/`PermissionRequest` ถูกตรวจแบบ input ของ Claude · agent hook ใช้ `model` ของตัวเองจริง · `/advisor` บน Claude Platform on AWS (`CLAUDE_CODE_DISABLE_ADVISOR_TOOL`) · `CLAUDE_CODE_GZIP_REQUEST_BODIES` · `claude remote-control` ถอด `--sandbox`/`--no-sandbox` · mod: `virtualText`, `$.ui.view`, hook `prompt.change` · OTel `cache_creation_5m_tokens`/`cache_creation_1h_tokens` (v2.1.300) |
 | 🔁 **สลับไปโมเดล context เล็กกว่าแบบสรุปก่อน + vim `%`** | บทสนทนาที่ยาวเกินโมเดลใหม่ถูกสรุปด้วยโมเดลเดิมก่อน · alias `fable`/`best` fallback ไป Fable ตัวก่อน · `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` · vim motion `%` · OTel `tool_decision` มี `classifier_verdict`/`permission_mode`/`classifier_category` · mod: `Input` `rows`, `.catch`, `$.env.set` · VS Code render LaTeX (v2.1.301) |
 | 🍴 **fork subagent เปิดทุกที่ + เลือกโมเดล classifier** | `subagent_type: "fork"` เปิดเป็นค่าเริ่มต้นใน `claude -p`/SDK/desktop/VS Code (`CLAUDE_CODE_FORK_SUBAGENT=0` ปิด) · `CLAUDE_CODE_AUTO_MODE_MODEL` · `claude -p` บน third-party provider เริ่มที่ `default` · แถว `Idle compaction` ใน `/config` · prompt/agent hook รันพร้อมกันได้ 12 ตัวต่อ event (v2.1.302) |
+| 🧭 **`/auto-mode-setup` + mod `tool.check` ให้คนตัดสิน** | `/auto-mode-setup` สอน auto mode ให้รู้จัก environment · `/claude-api managed-agents-secure` · mod: `decider: "person"`, `e.isReadOnly`, `settings.read` ได้ทุก layer · compaction ส่งรายการ skill ใหม่ให้เอง (`/reload-skills` ส่งเฉพาะที่เปลี่ยน) · tool search เปิดหลัง `ANTHROPIC_BASE_URL` · `CLAUDE_CODE_AUTO_COMPACT_WINDOW` รับ `k`/`M` · เตือนก่อน resume ที่กินโควตา Pro/Max (v2.1.304) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.303` (manual `v1.92.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.304` (manual `v1.93.0`)
 
 ---
 
@@ -187,7 +188,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.303** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
+ตรงกับ Claude Code **v2.1.304** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
 
 </td>
 </tr>
@@ -247,7 +248,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.303`
+> **Claude Code Version:** `2.1.304`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

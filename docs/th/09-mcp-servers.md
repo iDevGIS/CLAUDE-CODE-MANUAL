@@ -230,6 +230,11 @@ claude --mcp-config ./mcp.json
 - **ไม่ follow HTTP redirect ผ่าน MCP proxy ของ Anthropic** — request ไปยัง connector proxy ของ claude.ai, MCP server ที่ Anthropic host และผ่าน MCP proxy ของ cloud session / self-hosted runner จะไม่ตาม redirect แล้ว · redirect จาก server ของ connector เองไม่ได้รับผลกระทบ
 - **connector ของ cloud session และ Remote Control negotiate protocol 2026-07-28** เป็นค่า default บน install ที่ไม่ได้ดึง flag · opt out ด้วย `MCP_PROTOCOL_NEGOTIATION=legacy`
 
+### 🆕 ใหม่ใน v2.1.304
+
+- **tool search เปิดเป็นค่า default เมื่อใช้ `ANTHROPIC_BASE_URL` แบบกำหนดเอง** — ถ้า gateway ตอบ 400 หรือ 422 จะส่งซ้ำโดยไม่ใช้ tool search ดู [[23-environment-variables]]
+- **cloud session ไม่รอ MCP server ในเครื่องของ plugin** — turn แรกของบทสนทนาใหม่ไม่ต้องรอ MCP server แบบ local (stdio) ของ plugin ที่ sync มาจาก claude.ai อีกต่อไป ยกเว้น server นั้นตั้ง `alwaysLoad: true`
+
 ---
 
 ---

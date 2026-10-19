@@ -97,6 +97,11 @@ related:
 - **แสดงสูตรคณิต LaTeX ใน VS Code** — คำตอบของ Claude render บล็อก `$$` และ `\[ … \]` หลายบรรทัด รวมถึง inline `$…$` และ `\(…\)`
 - **ลิงก์ "Get more usage"** — บนแบนเนอร์ usage limit ของแพ็กเกจ Pro และ Max ใน panel ของ VS Code และ JetBrains
 
+### 🆕 ใหม่ใน v2.1.304
+
+- **background sub-agent ใน VS Code แสดงเป็นบรรทัดสถานะเดียว** — อยู่ใต้การ์ด Agent แทนการ stream ทุกขั้นเข้ามาในแชท · transcript เต็มยังดูได้ใน /tasks ดู [[41-background-agents]]
+- **mod วาดใน chat panel ของ VS Code ได้บน setup มากขึ้น** — session บน Amazon Bedrock, Google Vertex AI และ Microsoft Foundry, หลัง LLM gateway หรือที่ปิด telemetry ดู [[18-plugins]]
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**

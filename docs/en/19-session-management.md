@@ -140,6 +140,10 @@ Shows an interactive picker to choose a session.
 - **Transcripts record each API request** — local session transcripts also store each request's system prompt, tools and parameters, so a transcript you choose to share can reproduce a request exactly.
 - **Background sessions resume a carried workflow through the Workflow tool's approval** instead of running it from the handoff file. See [[39-dynamic-workflows]].
 
+### New in v2.1.304
+
+- **Costly-resume warning on Pro and Max** — when resuming an inactive conversation would use a noticeable share of your 5-hour usage limit, you can resume anyway or start a new conversation; Claude can look up the previous one if you refer to it. See [[31-cost-management]].
+
 ---
 
 ---

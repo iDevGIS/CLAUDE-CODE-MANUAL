@@ -227,6 +227,14 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **A mod hook's `.catch` runs only when the hook throws or times out** — events raised beneath the hook's own calls now skip that hook without asking its `.catch`.
 - **`$.env.set` resolves with a result** — `{}` once the variable is set or unset, or `{ deny }` saying why when the write is not made.
 
+### New in v2.1.304
+
+- **`decider: "person"` in a mod's `tool.check` answer** — only the permission dialog or a host's callback can approve the ask; where nobody can be asked it is refused with the mod's reason. See [[05-permissions]].
+- **`e.isReadOnly` on the `tool.check` event** — set when the tool call is read-only.
+- **`settings.read` hooks see each settings layer** — they receive every layer and rewrite the merged settings, so a managed mod can make an organization's setting a ceiling, including the `cleanupPeriodDays` the retention sweep uses. See [[06-configuration]].
+- **Skipped mod hooks are named in the transcript** — when a plugin that runs first skips one of your mod's hooks, a transcript line names the event and the plugin.
+- **`claude plugin validate` no longer predicts where a mod's hooks run** — those notes were removed.
+
 ---
 
 ---
