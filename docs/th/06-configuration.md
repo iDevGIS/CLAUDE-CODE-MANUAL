@@ -375,6 +375,10 @@ related:
 
 - **แถว `Idle compaction` ใน `/config`** — ปิดหรือเปิด idle compaction กลับได้จาก `/config` · ข้อความแจ้งหลัง idle compaction บอกวิธีปิดไว้ด้วยแล้ว
 
+### 🆕 ใหม่ใน v2.1.305
+
+- **`sandbox.allowNestedUserNamespaces`** — ให้คำสั่งใน sandbox บน Linux สร้าง user namespace ได้ (Chromium, rootless podman) · ข้อควรระวัง: เปิดแล้วคำสั่งเหล่านั้นเลี่ยงการป้องกันไฟล์ของ sandbox ได้ ดู [[05-permissions]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

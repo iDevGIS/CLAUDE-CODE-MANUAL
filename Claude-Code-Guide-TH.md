@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.304         │
+│ Welcome to Claude Code v2.1.305         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1114,7 +1114,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.304
+- run: npm install -g @anthropic-ai/claude-code@2.1.305
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1430,6 +1430,10 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/reload-skills` ส่งเฉพาะ skill ที่ใหม่หรือเปลี่ยน** — ตอนนี้ compaction ส่งรายการ skill ให้ Claude ใหม่เองอยู่แล้ว
 - **ยืนยันการลบใน `/artifacts` เป็นตัวเลือกมีเลข** — 1 หรือ Enter เก็บ artifact ไว้ · 2 ลบ · y, n และ Esc ยังใช้ได้
 - **`/fast` บน Opus 5.5 ไม่มีป้าย "(research preview)"** ที่หัว dialog แล้ว
+
+### 🆕 ใหม่ใน v2.1.305
+- **คำเตือนใน `/usage` เป็นวิธีแก้บรรทัดเดียว** — แต่ละคำเตือนบอกที่มาของมัน และกด `f` เพื่อ apply การแก้ทั้งหมด · การแก้ชุดเดียวกันแสดงใน VS Code และ `/doctor` ด้วย
+- **ยืนยันการลบใน `/artifacts` ไม่รับ `y`/`n` แล้ว** — 1 หรือ Enter เก็บ artifact ไว้ · 2 ลบ · Esc ยกเลิก
 
 ---
 
@@ -2209,6 +2213,10 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **แถว `Idle compaction` ใน `/config`** — ปิดหรือเปิด idle compaction กลับได้จาก `/config` · ข้อความแจ้งหลัง idle compaction บอกวิธีปิดไว้ด้วยแล้ว
 
+### 🆕 ใหม่ใน v2.1.305
+
+- **`sandbox.allowNestedUserNamespaces`** — ให้คำสั่งใน sandbox บน Linux สร้าง user namespace ได้ (Chromium, rootless podman) · ข้อควรระวัง: เปิดแล้วคำสั่งเหล่านั้นเลี่ยงการป้องกันไฟล์ของ sandbox ได้
+
 ---
 
 ## 7. CLAUDE.md - คำสั่งถาวรสำหรับโปรเจกต์
@@ -2657,6 +2665,10 @@ claude --mcp-config ./mcp.json
 
 - **tool search เปิดเป็นค่า default เมื่อใช้ `ANTHROPIC_BASE_URL` แบบกำหนดเอง** — ถ้า gateway ตอบ 400 หรือ 422 จะส่งซ้ำโดยไม่ใช้ tool search
 - **cloud session ไม่รอ MCP server ในเครื่องของ plugin** — turn แรกของบทสนทนาใหม่ไม่ต้องรอ MCP server แบบ local (stdio) ของ plugin ที่ sync มาจาก claude.ai อีกต่อไป ยกเว้น server นั้นตั้ง `alwaysLoad: true`
+
+### 🆕 ใหม่ใน v2.1.305
+
+- **`allowedMcpServers` เลิกกรอง stdio server ใน `managed-mcp.json` ที่ใช้ `${VAR}` เฉพาะใน `env`** — server แบบนี้ที่ allowlist เราเคยกันไว้จะกลับมาโหลดเมื่ออัปเกรด · ถ้าไม่อยากให้โหลดให้ใช้ `deniedMcpServers` กันไว้
 
 ---
 
@@ -4052,6 +4064,10 @@ claude --plugin-dir ./my-plugin
 - **transcript บอกชื่อ mod hook ที่ถูกข้าม** — เมื่อ plugin ที่รันก่อนข้าม hook ของ mod เรา จะมีบรรทัดใน transcript ระบุ event และ plugin นั้น
 - **`claude plugin validate` ไม่ทำนายแล้วว่า hook ของ mod จะรันที่ไหน** — ตัดหมายเหตุเหล่านั้นออก
 
+### 🆕 ใหม่ใน v2.1.305
+
+- **plugin ที่ Claude Desktop mount ตาม path ไม่ได้ `allowed-tools` ภายใต้ `allowManagedPermissionRulesOnly`** — เมื่อ managed settings ขององค์กรตั้งค่านี้ plugin ที่ Claude Desktop mount ตาม path จะไม่คง `allowed-tools` ของตัวเองอีกต่อไป
+
 ---
 
 ## 19. Session Management
@@ -4496,6 +4512,7 @@ your-project/
 | `CLAUDE_CODE_GZIP_REQUEST_BODIES` | ตั้ง `0` เพื่อหยุดบีบอัด gzip ให้ request ขนาดใหญ่ไปยัง api.anthropic.com ซึ่งตอนนี้ทำแม้ปิด telemetry *(v2.1.300)* |
 | `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | ตั้ง `1` เพื่อปิด advisor รวมถึง `/advisor` บน Claude Platform on AWS *(v2.1.300)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` | ให้โหมด retry แบบ unattended (`CLAUDE_CODE_RETRY_WATCHDOG`) จบ request ที่ชน usage limit ซึ่งจะ reset อีกนานเกินไป แทนที่จะนั่งรอ *(v2.1.301)* |
+| `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` | ให้โหมด retry แบบ unattended (`CLAUDE_CODE_RETRY_WATCHDOG`) สังเกตเห็นเมื่อ usage limit ถูกปลดก่อนถึงเวลา reset *(v2.1.305)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5827,7 +5844,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.304`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.305`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

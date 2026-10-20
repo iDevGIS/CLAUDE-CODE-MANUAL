@@ -235,6 +235,10 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **transcript บอกชื่อ mod hook ที่ถูกข้าม** — เมื่อ plugin ที่รันก่อนข้าม hook ของ mod เรา จะมีบรรทัดใน transcript ระบุ event และ plugin นั้น
 - **`claude plugin validate` ไม่ทำนายแล้วว่า hook ของ mod จะรันที่ไหน** — ตัดหมายเหตุเหล่านั้นออก
 
+### 🆕 ใหม่ใน v2.1.305
+
+- **plugin ที่ Claude Desktop mount ตาม path ไม่ได้ `allowed-tools` ภายใต้ `allowManagedPermissionRulesOnly`** — เมื่อ managed settings ขององค์กรตั้งค่านี้ plugin ที่ Claude Desktop mount ตาม path จะไม่คง `allowed-tools` ของตัวเองอีกต่อไป ดู [[05-permissions]]
+
 ---
 
 ---

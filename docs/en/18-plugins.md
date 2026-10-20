@@ -235,6 +235,10 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **Skipped mod hooks are named in the transcript** — when a plugin that runs first skips one of your mod's hooks, a transcript line names the event and the plugin.
 - **`claude plugin validate` no longer predicts where a mod's hooks run** — those notes were removed.
 
+### New in v2.1.305
+
+- **Path-mounted Claude Desktop plugins lose `allowed-tools` under `allowManagedPermissionRulesOnly`** — when your organization's managed settings set it, plugins that Claude Desktop mounts by path no longer keep their `allowed-tools`. See [[05-permissions]].
+
 ---
 
 ---

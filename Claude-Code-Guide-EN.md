@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.304         │
+│ Welcome to Claude Code v2.1.305         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.304
+- run: npm install -g @anthropic-ai/claude-code@2.1.305
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1436,6 +1436,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/reload-skills` sends only new or changed skills** — compaction now sends Claude the skill list again by itself.
 - **`/artifacts` delete confirmation uses numbered choices** — 1 or Enter keeps the artifact, 2 deletes it; y, n and Esc still work.
 - **`/fast` on Opus 5.5 drops "(research preview)"** from its dialog title.
+
+### New in v2.1.305
+- **`/usage` warnings are one-line fixes** — each warning names its source, and `f` applies the fixes; the same fixes appear in VS Code and `/doctor`.
+- **`/artifacts` delete confirmation no longer answers to `y`/`n`** — 1 or Enter keeps the artifact, 2 deletes it, Esc cancels.
 
 ---
 
@@ -2215,6 +2219,10 @@ Skill(commit)                    # Specific skill
 
 - **`Idle compaction` row in `/config`** — turn idle compaction off or back on from `/config`; the notices shown after an idle compaction now say how to turn it off.
 
+### New in v2.1.305
+
+- **`sandbox.allowNestedUserNamespaces`** — lets sandboxed commands on Linux create user namespaces (Chromium, rootless podman); be aware this lets them get around the sandbox's file protections.
+
 ---
 
 ## 7. CLAUDE.md - Persistent Project Instructions
@@ -2664,6 +2672,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **Tool search on by default behind a custom `ANTHROPIC_BASE_URL`** — a 400 or 422 from the gateway is retried without it.
 - **Cloud sessions don't wait for plugins' local MCP servers** — a new conversation's first turn no longer waits for the local (stdio) MCP servers of plugins synced from claude.ai, unless a server sets `alwaysLoad: true`.
+
+### New in v2.1.305
+
+- **`allowedMcpServers` no longer filters `managed-mcp.json` stdio servers that use `${VAR}` only in `env`** — one your allowlist left out now loads on upgrade; use `deniedMcpServers` to keep it off.
 
 ---
 
@@ -4063,6 +4075,10 @@ claude --plugin-dir ./my-plugin
 - **Skipped mod hooks are named in the transcript** — when a plugin that runs first skips one of your mod's hooks, a transcript line names the event and the plugin.
 - **`claude plugin validate` no longer predicts where a mod's hooks run** — those notes were removed.
 
+### New in v2.1.305
+
+- **Path-mounted Claude Desktop plugins lose `allowed-tools` under `allowManagedPermissionRulesOnly`** — when your organization's managed settings set it, plugins that Claude Desktop mounts by path no longer keep their `allowed-tools`.
+
 ---
 
 ## 19. Session Management
@@ -4507,6 +4523,7 @@ your-project/
 | `CLAUDE_CODE_GZIP_REQUEST_BODIES` | Set `0` to stop gzip-compressing large requests to api.anthropic.com, which now happens even when telemetry is disabled. *(v2.1.300)* |
 | `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | Set `1` to turn off the advisor, including `/advisor` on Claude Platform on AWS. *(v2.1.300)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` | Makes unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) end a request at a usage limit that resets too far away instead of waiting. *(v2.1.301)* |
+| `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` | Lets unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) notice a usage limit that was lifted before its reset. *(v2.1.305)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5841,7 +5858,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.304`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.305`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

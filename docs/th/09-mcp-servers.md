@@ -235,6 +235,10 @@ claude --mcp-config ./mcp.json
 - **tool search เปิดเป็นค่า default เมื่อใช้ `ANTHROPIC_BASE_URL` แบบกำหนดเอง** — ถ้า gateway ตอบ 400 หรือ 422 จะส่งซ้ำโดยไม่ใช้ tool search ดู [[23-environment-variables]]
 - **cloud session ไม่รอ MCP server ในเครื่องของ plugin** — turn แรกของบทสนทนาใหม่ไม่ต้องรอ MCP server แบบ local (stdio) ของ plugin ที่ sync มาจาก claude.ai อีกต่อไป ยกเว้น server นั้นตั้ง `alwaysLoad: true`
 
+### 🆕 ใหม่ใน v2.1.305
+
+- **`allowedMcpServers` เลิกกรอง stdio server ใน `managed-mcp.json` ที่ใช้ `${VAR}` เฉพาะใน `env`** — server แบบนี้ที่ allowlist เราเคยกันไว้จะกลับมาโหลดเมื่ออัปเกรด · ถ้าไม่อยากให้โหลดให้ใช้ `deniedMcpServers` กันไว้
+
 ---
 
 ---

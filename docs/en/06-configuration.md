@@ -375,6 +375,10 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **`Idle compaction` row in `/config`** — turn idle compaction off or back on from `/config`; the notices shown after an idle compaction now say how to turn it off.
 
+### New in v2.1.305
+
+- **`sandbox.allowNestedUserNamespaces`** — lets sandboxed commands on Linux create user namespaces (Chromium, rootless podman); be aware this lets them get around the sandbox's file protections. See [[05-permissions]].
+
 ---
 
 ---

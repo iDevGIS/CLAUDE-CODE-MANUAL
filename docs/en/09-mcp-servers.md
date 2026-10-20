@@ -235,6 +235,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **Tool search on by default behind a custom `ANTHROPIC_BASE_URL`** — a 400 or 422 from the gateway is retried without it. See [[23-environment-variables]].
 - **Cloud sessions don't wait for plugins' local MCP servers** — a new conversation's first turn no longer waits for the local (stdio) MCP servers of plugins synced from claude.ai, unless a server sets `alwaysLoad: true`.
 
+### New in v2.1.305
+
+- **`allowedMcpServers` no longer filters `managed-mcp.json` stdio servers that use `${VAR}` only in `env`** — one your allowlist left out now loads on upgrade; use `deniedMcpServers` to keep it off.
+
 ---
 
 ---

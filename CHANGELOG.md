@@ -25,6 +25,28 @@
 
 ---
 
+## [1.94.0] — 2026-10-21
+
+### Compatibility
+- **Claude Code:** `v2.1.305+`
+
+### Added
+- **New in v2.1.305** ใน 4 บท EN+TH (guide หน้าเดียว + atomic note):
+  - บท 03 Slash Commands — คำเตือนใน `/usage` เป็นวิธีแก้บรรทัดเดียวที่บอกที่มา กด `f` เพื่อ apply (ชุดเดียวกันใน VS Code และ `/doctor`) · ยืนยันการลบใน `/artifacts` ไม่รับ `y`/`n` แล้ว (1/Enter เก็บ · 2 ลบ · Esc ยกเลิก)
+  - บท 06 Configuration — `sandbox.allowNestedUserNamespaces` ให้คำสั่งใน sandbox บน Linux สร้าง user namespace ได้ (Chromium, rootless podman) พร้อมข้อควรระวังว่าเลี่ยงการป้องกันไฟล์ของ sandbox ได้
+  - บท 09 MCP Servers — `allowedMcpServers` เลิกกรอง stdio server ใน `managed-mcp.json` ที่ใช้ `${VAR}` เฉพาะใน `env` (กลับมาโหลดเมื่ออัปเกรด · ใช้ `deniedMcpServers` กัน)
+  - บท 18 Plugins — plugin ที่ Claude Desktop mount ตาม path ไม่คง `allowed-tools` ภายใต้ `allowManagedPermissionRulesOnly`
+- **บท 23 Environment Variables** — แถว `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` (ให้โหมด retry แบบ unattended สังเกตเห็น usage limit ที่ถูกปลดก่อน reset)
+- **แถว What's-new ของ `v2.1.305`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.304` → `2.1.305` (welcome banner, npm pin, ตัวอย่างใน tutorial, compatibility ของ ProjectEx2, badge/version ใน README.md + README.EN.md) — heading "New in" และ version stamp ประวัติคงไว้ตามเดิม
+
+### Why
+- Upstream `2.1.305` เพิ่ม setting `sandbox.allowNestedUserNamespaces` และ env var `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS`, เปลี่ยนพฤติกรรม `allowedMcpServers` กับ stdio server ที่ใช้ `${VAR}` ใน `env`, ตัด `allowed-tools` ของ plugin ที่ Desktop mount ตาม path ภายใต้ policy องค์กร, ปรับ `/usage` ให้กด `f` แก้ได้ และเปลี่ยนปุ่มยืนยันลบใน `/artifacts` · ที่เหลือเป็น bug fix (รวม regression tool search บน Vertex/Bedrock จาก 2.1.304), UI polish ของ mod/Remote Control และของฝั่ง Claude Tag/Code Review/Cloud sessions ซึ่งข้ามไว้
+
+---
+
 ## [1.93.0] — 2026-10-20
 
 ### Compatibility
@@ -2124,6 +2146,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.94.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.93.0...v1.94.0
 [1.93.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.92.0...v1.93.0
 [1.92.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.91.0...v1.92.0
 [1.91.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.90.0...v1.91.0

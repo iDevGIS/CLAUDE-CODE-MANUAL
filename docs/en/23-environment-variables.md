@@ -115,6 +115,7 @@ related:
 | `CLAUDE_CODE_GZIP_REQUEST_BODIES` | Set `0` to stop gzip-compressing large requests to api.anthropic.com, which now happens even when telemetry is disabled. See [[06-configuration]]. *(v2.1.300)* |
 | `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | Set `1` to turn off the advisor, including `/advisor` on Claude Platform on AWS. See [[03-slash-commands]]. *(v2.1.300)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` | Makes unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) end a request at a usage limit that resets too far away instead of waiting. *(v2.1.301)* |
+| `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` | Lets unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) notice a usage limit that was lifted before its reset. *(v2.1.305)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

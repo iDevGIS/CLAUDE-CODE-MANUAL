@@ -295,6 +295,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/artifacts` delete confirmation uses numbered choices** — 1 or Enter keeps the artifact, 2 deletes it; y, n and Esc still work.
 - **`/fast` on Opus 5.5 drops "(research preview)"** from its dialog title.
 
+### New in v2.1.305
+- **`/usage` warnings are one-line fixes** — each warning names its source, and `f` applies the fixes; the same fixes appear in VS Code and `/doctor`. See [[17-ide-integration]].
+- **`/artifacts` delete confirmation no longer answers to `y`/`n`** — 1 or Enter keeps the artifact, 2 deletes it, Esc cancels.
+
 ---
 
 ---
