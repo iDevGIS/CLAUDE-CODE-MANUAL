@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.305-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.94.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.306-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.95.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.305`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.306`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -166,7 +166,7 @@
 | 🧭 **`/auto-mode-setup` + mod `tool.check` ให้คนตัดสิน** | `/auto-mode-setup` สอน auto mode ให้รู้จัก environment · `/claude-api managed-agents-secure` · mod: `decider: "person"`, `e.isReadOnly`, `settings.read` ได้ทุก layer · compaction ส่งรายการ skill ใหม่ให้เอง (`/reload-skills` ส่งเฉพาะที่เปลี่ยน) · tool search เปิดหลัง `ANTHROPIC_BASE_URL` · `CLAUDE_CODE_AUTO_COMPACT_WINDOW` รับ `k`/`M` · เตือนก่อน resume ที่กินโควตา Pro/Max (v2.1.304) |
 | 🧰 **`sandbox.allowNestedUserNamespaces` + `/usage` กด `f` แก้ให้** | คำสั่งใน sandbox บน Linux สร้าง user namespace ได้ (Chromium, rootless podman) · คำเตือนใน `/usage` เป็นวิธีแก้บรรทัดเดียว กด `f` apply (VS Code/`/doctor` ด้วย) · `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` · `allowedMcpServers` เลิกกรอง stdio server ใน `managed-mcp.json` ที่ใช้ `${VAR}` แค่ใน `env` · plugin ที่ Desktop mount ตาม path ไม่ได้ `allowed-tools` ใต้ `allowManagedPermissionRulesOnly` · `/artifacts` ไม่รับ `y`/`n` (v2.1.305) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.305` (manual `v1.94.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.306` (manual `v1.95.0`)
 
 ---
 
@@ -189,7 +189,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.305** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
+ตรงกับ Claude Code **v2.1.306** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
 
 </td>
 </tr>
@@ -249,7 +249,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.305`
+> **Claude Code Version:** `2.1.306`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**
