@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.306         │
+│ Welcome to Claude Code v2.1.307         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -679,6 +679,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`claude remote-control` drops `--sandbox` and `--no-sandbox`** — the flags never had an effect; passing either now exits with an error. Set `sandbox.enabled` in settings to sandbox sessions. See [[05-permissions]].
 - **Exit force-kills lingering background commands** — a background command still running 1.5 seconds after being asked to stop is force-killed; in fullscreen mode such commands could previously be left running. See [[41-background-agents]].
 
+### New in v2.1.307
+
+- **Self-hosted runner checkout hooks time out after 30 minutes** — a checkout hook still running after 30 minutes is now stopped by default, failing the session's setup. If yours needs longer, raise `--checkout-hook-timeout-min` or set it to `0`. See [[41-background-agents]].
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1050,7 +1054,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.306
+- run: npm install -g @anthropic-ai/claude-code@2.1.307
 ```
 
 ---

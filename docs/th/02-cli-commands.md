@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.306         │
+│ Welcome to Claude Code v2.1.307         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -679,6 +679,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **`claude remote-control` ถอด `--sandbox` และ `--no-sandbox`** — สอง flag นี้ไม่เคยมีผลอะไร ตอนนี้ใส่ตัวไหนก็จะ exit พร้อม error · ถ้าจะ sandbox session ให้ตั้ง `sandbox.enabled` ใน settings ดู [[05-permissions]]
 - **ตอนออก force-kill background command ที่ค้าง** — background command ที่ยังรันอยู่ 1.5 วินาทีหลังถูกสั่งหยุดจะถูก force-kill · เดิมในโหมด fullscreen คำสั่งพวกนี้อาจค้างรันต่อ ดู [[41-background-agents]]
 
+### 🆕 ใหม่ใน v2.1.307
+
+- **checkout hook ของ self-hosted runner timeout ที่ 30 นาที** — ค่า default ตอนนี้ checkout hook ที่รันเกิน 30 นาทีจะถูกหยุด และการ setup ของ session จะล้มเหลว · ถ้า hook ของคุณต้องใช้เวลานานกว่านั้น ให้เพิ่มค่า `--checkout-hook-timeout-min` หรือตั้งเป็น `0` ดู [[41-background-agents]]
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1050,7 +1054,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.306
+- run: npm install -g @anthropic-ai/claude-code@2.1.307
 ```
 
 ---

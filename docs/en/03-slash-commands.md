@@ -299,6 +299,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/usage` warnings are one-line fixes** — each warning names its source, and `f` applies the fixes; the same fixes appear in VS Code and `/doctor`. See [[17-ide-integration]].
 - **`/artifacts` delete confirmation no longer answers to `y`/`n`** — 1 or Enter keeps the artifact, 2 deletes it, Esc cancels.
 
+### New in v2.1.307
+- **`/claude-api api-version`** — moves Claude API code to API version `2026-10-21`. See [[11-skills]].
+
 ---
 
 ---

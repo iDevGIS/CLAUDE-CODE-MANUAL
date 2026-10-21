@@ -379,6 +379,11 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **`sandbox.allowNestedUserNamespaces`** — lets sandboxed commands on Linux create user namespaces (Chromium, rootless podman); be aware this lets them get around the sandbox's file protections. See [[05-permissions]].
 
+### New in v2.1.307
+
+- **`axScreenReader` / `CLAUDE_AX_SCREEN_READER` only from trusted settings** — the setting, and `CLAUDE_AX_SCREEN_READER` in a settings `env` block, now apply only from user, managed or `--settings` settings (since 2.1.305). See [[23-environment-variables]].
+- **OpenTelemetry `claude_code.safety_event`** — a new event for each tool call that a permission rule, auto mode, a safety check, a hook or the sandbox stopped, prompted or sent back. See [[05-permissions]].
+
 ---
 
 ---

@@ -379,6 +379,11 @@ related:
 
 - **`sandbox.allowNestedUserNamespaces`** — ให้คำสั่งใน sandbox บน Linux สร้าง user namespace ได้ (Chromium, rootless podman) · ข้อควรระวัง: เปิดแล้วคำสั่งเหล่านั้นเลี่ยงการป้องกันไฟล์ของ sandbox ได้ ดู [[05-permissions]]
 
+### 🆕 ใหม่ใน v2.1.307
+
+- **`axScreenReader` / `CLAUDE_AX_SCREEN_READER` รับเฉพาะจาก settings ที่เชื่อถือได้** — ตัว setting และ `CLAUDE_AX_SCREEN_READER` ในบล็อก `env` ของ settings ตอนนี้มีผลเฉพาะเมื่อมาจาก user, managed หรือ `--settings` เท่านั้น (ตั้งแต่ 2.1.305) ดู [[23-environment-variables]]
+- **OpenTelemetry `claude_code.safety_event`** — event ใหม่ ส่งทุกครั้งที่ tool call ถูกหยุด ถูกถามยืนยัน หรือถูกตีกลับ โดย permission rule, auto mode, safety check, hook หรือ sandbox ดู [[05-permissions]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.306         │
+│ Welcome to Claude Code v2.1.307         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.306
+- run: npm install -g @anthropic-ai/claude-code@2.1.307
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1128,6 +1128,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 - **`claude remote-control` drops `--sandbox` and `--no-sandbox`** — the flags never had an effect; passing either now exits with an error. Set `sandbox.enabled` in settings to sandbox sessions.
 - **Exit force-kills lingering background commands** — a background command still running 1.5 seconds after being asked to stop is force-killed; in fullscreen mode such commands could previously be left running.
+
+### New in v2.1.307
+
+- **Self-hosted runner checkout hooks time out after 30 minutes** — a checkout hook still running after 30 minutes is now stopped by default, failing the session's setup. If yours needs longer, raise `--checkout-hook-timeout-min` or set it to `0`.
 
 ---
 
@@ -1440,6 +1444,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.305
 - **`/usage` warnings are one-line fixes** — each warning names its source, and `f` applies the fixes; the same fixes appear in VS Code and `/doctor`.
 - **`/artifacts` delete confirmation no longer answers to `y`/`n`** — 1 or Enter keeps the artifact, 2 deletes it, Esc cancels.
+
+### New in v2.1.307
+- **`/claude-api api-version`** — moves Claude API code to API version `2026-10-21`.
 
 ---
 
@@ -2222,6 +2229,11 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.305
 
 - **`sandbox.allowNestedUserNamespaces`** — lets sandboxed commands on Linux create user namespaces (Chromium, rootless podman); be aware this lets them get around the sandbox's file protections.
+
+### New in v2.1.307
+
+- **`axScreenReader` / `CLAUDE_AX_SCREEN_READER` only from trusted settings** — the setting, and `CLAUDE_AX_SCREEN_READER` in a settings `env` block, now apply only from user, managed or `--settings` settings (since 2.1.305).
+- **OpenTelemetry `claude_code.safety_event`** — a new event for each tool call that a permission rule, auto mode, a safety check, a hook or the sandbox stopped, prompted or sent back.
 
 ---
 
@@ -5858,7 +5870,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.306`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.307`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.306         │
+│ Welcome to Claude Code v2.1.307         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -783,6 +783,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **`claude remote-control` ถอด `--sandbox` และ `--no-sandbox`** — สอง flag นี้ไม่เคยมีผลอะไร ตอนนี้ใส่ตัวไหนก็จะ exit พร้อม error · ถ้าจะ sandbox session ให้ตั้ง `sandbox.enabled` ใน settings
 - **ตอนออก force-kill background command ที่ค้าง** — background command ที่ยังรันอยู่ 1.5 วินาทีหลังถูกสั่งหยุดจะถูก force-kill · เดิมในโหมด fullscreen คำสั่งพวกนี้อาจค้างรันต่อ
 
+### 🆕 ใหม่ใน v2.1.307
+
+- **checkout hook ของ self-hosted runner timeout ที่ 30 นาที** — ค่า default ตอนนี้ checkout hook ที่รันเกิน 30 นาทีจะถูกหยุด และการ setup ของ session จะล้มเหลว · ถ้า hook ของคุณต้องใช้เวลานานกว่านั้น ให้เพิ่มค่า `--checkout-hook-timeout-min` หรือตั้งเป็น `0`
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1114,7 +1118,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.306
+- run: npm install -g @anthropic-ai/claude-code@2.1.307
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1434,6 +1438,9 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.305
 - **คำเตือนใน `/usage` เป็นวิธีแก้บรรทัดเดียว** — แต่ละคำเตือนบอกที่มาของมัน และกด `f` เพื่อ apply การแก้ทั้งหมด · การแก้ชุดเดียวกันแสดงใน VS Code และ `/doctor` ด้วย
 - **ยืนยันการลบใน `/artifacts` ไม่รับ `y`/`n` แล้ว** — 1 หรือ Enter เก็บ artifact ไว้ · 2 ลบ · Esc ยกเลิก
+
+### 🆕 ใหม่ใน v2.1.307
+- **`/claude-api api-version`** — ย้ายโค้ดที่เรียก Claude API ไปใช้ API version `2026-10-21`
 
 ---
 
@@ -2216,6 +2223,11 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.305
 
 - **`sandbox.allowNestedUserNamespaces`** — ให้คำสั่งใน sandbox บน Linux สร้าง user namespace ได้ (Chromium, rootless podman) · ข้อควรระวัง: เปิดแล้วคำสั่งเหล่านั้นเลี่ยงการป้องกันไฟล์ของ sandbox ได้
+
+### 🆕 ใหม่ใน v2.1.307
+
+- **`axScreenReader` / `CLAUDE_AX_SCREEN_READER` รับเฉพาะจาก settings ที่เชื่อถือได้** — ตัว setting และ `CLAUDE_AX_SCREEN_READER` ในบล็อก `env` ของ settings ตอนนี้มีผลเฉพาะเมื่อมาจาก user, managed หรือ `--settings` เท่านั้น (ตั้งแต่ 2.1.305)
+- **OpenTelemetry `claude_code.safety_event`** — event ใหม่ ส่งทุกครั้งที่ tool call ถูกหยุด ถูกถามยืนยัน หรือถูกตีกลับ โดย permission rule, auto mode, safety check, hook หรือ sandbox
 
 ---
 
@@ -5844,7 +5856,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.306`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.307`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

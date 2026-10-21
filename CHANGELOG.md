@@ -25,6 +25,26 @@
 
 ---
 
+## [1.96.0] — 2026-10-22
+
+### Compatibility
+- **Claude Code:** `v2.1.307+`
+
+### Added
+- **New in v2.1.307** ใน 3 บท EN+TH (guide หน้าเดียว + atomic note):
+  - บท 02 CLI Commands — checkout hook ของ self-hosted runner ถูกหยุดที่ 30 นาทีเป็นค่า default (setup ของ session ล้มเหลว) · ขยายด้วย `--checkout-hook-timeout-min` หรือตั้ง `0`
+  - บท 03 Slash Commands — `/claude-api api-version` ย้ายโค้ด Claude API ไปใช้ API version `2026-10-21`
+  - บท 06 Configuration — `axScreenReader` และ `CLAUDE_AX_SCREEN_READER` ในบล็อก `env` มีผลเฉพาะจาก user/managed/`--settings` (ตั้งแต่ 2.1.305) · OpenTelemetry event ใหม่ `claude_code.safety_event` สำหรับทุก tool call ที่ permission rule/auto mode/safety check/hook/sandbox หยุด ถามยืนยัน หรือตีกลับ
+- **แถว What's-new ของ `v2.1.307`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.306` → `2.1.307` (welcome banner, npm pin, ตัวอย่างใน tutorial, compatibility ของ ProjectEx2, badge/version ใน README.md + README.EN.md) — heading "New in" และ version stamp ประวัติคงไว้ตามเดิม
+
+### Why
+- Upstream `2.1.307` เพิ่ม `/claude-api api-version`, OTel event `claude_code.safety_event`, จำกัดที่มาของ `axScreenReader`/`CLAUDE_AX_SCREEN_READER` และตั้ง timeout 30 นาทีให้ checkout hook ของ self-hosted runner · ที่เหลือเป็น bug fix, UI polish และของฝั่ง VS Code/Cloud sessions/Code Review (`@claude review stop` — คู่มือยังไม่ครอบคลุม Code Review) ซึ่งข้ามไว้
+
+---
+
 ## [1.95.0] — 2026-10-21
 
 ### Compatibility
@@ -2159,6 +2179,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.96.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.95.0...v1.96.0
 [1.95.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.94.0...v1.95.0
 [1.94.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.93.0...v1.94.0
 [1.93.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.92.0...v1.93.0
