@@ -101,6 +101,8 @@ claude --bare -p "รีวิวโค้ดที่เปลี่ยนแ�
 # พิมพ์ผลออก stdout; --json = raw
 # exit 0 เมื่อสำเร็จ / 1 เมื่อ fail
 claude ultrareview --json
+# ไม่มี terminal (CI)? ใส่ --trust-workspace เพื่อข้าม trust prompt (v2.1.309+)
+claude ultrareview --json --trust-workspace
 ```
 
 ### รันคำสั่งเบื้องหลัง (Background Exec)

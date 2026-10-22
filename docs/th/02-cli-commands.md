@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.308         │
+│ Welcome to Claude Code v2.1.309         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -683,6 +683,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 
 - **checkout hook ของ self-hosted runner timeout ที่ 30 นาที** — ค่า default ตอนนี้ checkout hook ที่รันเกิน 30 นาทีจะถูกหยุด และการ setup ของ session จะล้มเหลว · ถ้า hook ของคุณต้องใช้เวลานานกว่านั้น ให้เพิ่มค่า `--checkout-hook-timeout-min` หรือตั้งเป็น `0` ดู [[41-background-agents]]
 
+### 🆕 ใหม่ใน v2.1.309
+
+- **`claude ultrareview` ต้องผ่าน workspace trust** — ถ้ารันบน terminal จะถามก่อน ไม่งั้นจะปฏิเสธ · สคริปต์ให้ใส่ `--trust-workspace` (flag นี้ไม่รับค่า — ให้ใส่เลข PR หรือ base branch ไว้ก่อนหน้า) หรือตั้ง `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK=1` ดู [[23-environment-variables]]
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1054,7 +1058,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.308
+- run: npm install -g @anthropic-ai/claude-code@2.1.309
 ```
 
 ---

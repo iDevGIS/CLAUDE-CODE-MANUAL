@@ -283,6 +283,11 @@ Skill(commit)                    # Specific skill
 - **Server-side auto mode compacts instead of denying** — a conversation too long for the safety check is now compacted, instead of every checked tool call being denied.
 - **Pick the client-side classifier's model** — `CLAUDE_CODE_AUTO_MODE_MODEL` chooses the model the client-side auto mode classifier uses; it does not change the model for server-side auto mode. See [[23-environment-variables]].
 
+### New in v2.1.309
+- **`sed -i` gets the standard Bash prompt** — it runs as written instead of showing a simulated file-edit preview; like other Bash edits, it is no longer restored by `/rewind`.
+- **Dangerous `rm`/`rmdir` in bypass mode is denied at once in the Desktop app and VS Code** — instead of prompting, the command is denied with a rewrite hint, so unattended sessions keep going.
+- **Sandbox-excluded commands ask before writing to write-list paths when the sandbox can't run** — while the sandbox is enabled but cannot run, commands the settings exclude from it now ask first; the unsandboxed fallback is refused there.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

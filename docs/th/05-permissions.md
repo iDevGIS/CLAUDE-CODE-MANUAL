@@ -312,6 +312,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **server-side auto mode compact แทนการ deny** — บทสนทนาที่ยาวเกินกว่า safety check จะรับได้ จะถูก compact แทนที่จะ deny ทุก tool call ที่ต้องตรวจ
 - **เลือกโมเดลของ classifier ฝั่ง client ได้** — `CLAUDE_CODE_AUTO_MODE_MODEL` กำหนดโมเดลที่ classifier ของ auto mode ฝั่ง client ใช้ · ไม่เปลี่ยนโมเดลของ server-side auto mode ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.309
+- **`sed -i` ได้ Bash prompt มาตรฐาน** — รันตามที่เขียนจริง แทนการแสดง preview แบบจำลองการแก้ไฟล์ · และเหมือน Bash edit อื่น ๆ คือ `/rewind` จะไม่กู้คืนให้อีก
+- **`rm`/`rmdir` อันตรายใน bypass mode ถูก deny ทันทีบน Desktop app และ VS Code** — แทนที่จะขึ้น prompt จะ deny คำสั่งเลยพร้อมคำแนะนำให้เขียนใหม่ เพื่อให้ session ที่ไม่มีคนเฝ้ารันต่อได้
+- **คำสั่งที่ settings ยกเว้นจาก sandbox จะถามก่อนเขียนลง path ใน write-list เมื่อ sandbox รันไม่ได้** — ระหว่างที่เปิด sandbox ไว้แต่ sandbox รันไม่ได้ คำสั่งพวกนี้จะถามก่อน · และการ fallback ไปรันแบบไม่ sandbox จะถูกปฏิเสธในกรณีนี้
+
 ---
 
 ---

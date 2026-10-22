@@ -25,6 +25,27 @@
 
 ---
 
+## [1.98.0] — 2026-10-23
+
+### Compatibility
+- **Claude Code:** `v2.1.309+`
+
+### Added
+- **New in v2.1.309** ใน 2 บท EN+TH (guide หน้าเดียว + atomic note):
+  - บท 02 CLI Commands — `claude ultrareview` ต้องผ่าน workspace trust (ถามบน terminal ไม่งั้นปฏิเสธ) · สคริปต์ใส่ `--trust-workspace` (ไม่รับค่า — ใส่เลข PR/base branch ไว้ก่อน) หรือตั้ง `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK=1`
+  - บท 05 Permissions — `sed -i` ได้ Bash prompt มาตรฐานและรันตามที่เขียน (ไม่ใช่ preview จำลอง, `/rewind` ไม่กู้ให้) · `rm`/`rmdir` อันตรายใน bypass mode บน Desktop app และ VS Code ถูก deny ทันทีพร้อม rewrite hint · คำสั่งที่ settings ยกเว้นจาก sandbox ถามก่อนเขียนลง path ใน write-list เมื่อ sandbox เปิดแต่รันไม่ได้ (fallback แบบไม่ sandbox ถูกปฏิเสธ)
+- **แถวตาราง env var** `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK` ในบท 23 (guide + atomic, EN+TH)
+- **ตัวอย่าง `--trust-workspace`** ในโค้ด `claude ultrareview` สำหรับ CI ของบท 16 Headless Mode (guide + atomic, EN+TH)
+- **แถว What's-new ของ `v2.1.309`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.308` → `2.1.309` (welcome banner, npm pin, ตัวอย่างใน tutorial, compatibility ของ ProjectEx2, badge/version ใน README.md + README.EN.md) — heading "New in" และ version stamp ประวัติคงไว้ตามเดิม
+
+### Why
+- Upstream `2.1.309` บังคับ workspace trust ให้ `claude ultrareview` (กระทบตัวอย่าง CI เดิมในคู่มือ), เปลี่ยน `sed -i` ให้ผ่าน Bash prompt จริง, deny `rm`/`rmdir` อันตรายใน bypass mode บน Desktop/VS Code ทันที และให้คำสั่งที่ยกเว้นจาก sandbox ถามก่อนเขียนเมื่อ sandbox รันไม่ได้ · ที่เหลือเป็น bug fix, UI polish และของฝั่ง VS Code/Cloud sessions/Claude Tag/Code Review ซึ่งข้ามไว้
+
+---
+
 ## [1.97.0] — 2026-10-22
 
 ### Compatibility
@@ -2192,6 +2213,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.98.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.97.0...v1.98.0
 [1.97.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.96.0...v1.97.0
 [1.96.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.95.0...v1.96.0
 [1.95.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.94.0...v1.95.0

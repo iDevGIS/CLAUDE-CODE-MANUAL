@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.308         │
+│ Welcome to Claude Code v2.1.309         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -683,6 +683,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **Self-hosted runner checkout hooks time out after 30 minutes** — a checkout hook still running after 30 minutes is now stopped by default, failing the session's setup. If yours needs longer, raise `--checkout-hook-timeout-min` or set it to `0`. See [[41-background-agents]].
 
+### New in v2.1.309
+
+- **`claude ultrareview` requires workspace trust** — it asks on a terminal, else refuses. Scripts pass `--trust-workspace`, which takes no value (put a PR number or base branch before it), or set `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK=1`. See [[23-environment-variables]].
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1054,7 +1058,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.308
+- run: npm install -g @anthropic-ai/claude-code@2.1.309
 ```
 
 ---

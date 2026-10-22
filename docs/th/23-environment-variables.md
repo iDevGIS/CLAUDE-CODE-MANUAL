@@ -116,6 +116,7 @@ related:
 | `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | ตั้ง `1` เพื่อปิด advisor รวมถึง `/advisor` บน Claude Platform on AWS ดู [[03-slash-commands]] *(v2.1.300)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` | ให้โหมด retry แบบ unattended (`CLAUDE_CODE_RETRY_WATCHDOG`) จบ request ที่ชน usage limit ซึ่งจะ reset อีกนานเกินไป แทนที่จะนั่งรอ *(v2.1.301)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` | ให้โหมด retry แบบ unattended (`CLAUDE_CODE_RETRY_WATCHDOG`) สังเกตเห็นเมื่อ usage limit ถูกปลดก่อนถึงเวลา reset *(v2.1.305)* |
+| `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK` | ตั้ง `1` เพื่อให้ `claude ultrareview` รันได้โดยไม่ต้องผ่าน workspace trust check (เหมือนใส่ `--trust-workspace`) ดู [[02-cli-commands]] *(v2.1.309)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

@@ -101,6 +101,8 @@ claude --bare -p "review changed code" \
 # Prints findings to stdout; --json for raw output.
 # Exit 0 on completion, 1 on failure.
 claude ultrareview --json
+# No terminal (CI)? Pass --trust-workspace to skip the trust prompt (v2.1.309+)
+claude ultrareview --json --trust-workspace
 ```
 
 ### Background Exec

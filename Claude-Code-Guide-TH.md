@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.308         │
+│ Welcome to Claude Code v2.1.309         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -787,6 +787,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **checkout hook ของ self-hosted runner timeout ที่ 30 นาที** — ค่า default ตอนนี้ checkout hook ที่รันเกิน 30 นาทีจะถูกหยุด และการ setup ของ session จะล้มเหลว · ถ้า hook ของคุณต้องใช้เวลานานกว่านั้น ให้เพิ่มค่า `--checkout-hook-timeout-min` หรือตั้งเป็น `0`
 
+### 🆕 ใหม่ใน v2.1.309
+
+- **`claude ultrareview` ต้องผ่าน workspace trust** — ถ้ารันบน terminal จะถามก่อน ไม่งั้นจะปฏิเสธ · สคริปต์ให้ใส่ `--trust-workspace` (flag นี้ไม่รับค่า — ให้ใส่เลข PR หรือ base branch ไว้ก่อนหน้า) หรือตั้ง `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK=1`
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1118,7 +1122,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.308
+- run: npm install -g @anthropic-ai/claude-code@2.1.309
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1868,6 +1872,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **`claude -p` และ Agent SDK เริ่มที่โหมด `default` บน third-party provider** — ถ้าไม่ได้ระบุ permission mode, session บน third-party provider ที่ปิด telemetry หรือเพิ่งติดตั้งใหม่จะเริ่มที่ `default` · ใส่ `--permission-mode auto` ถ้าต้องการคง auto ไว้
 - **server-side auto mode compact แทนการ deny** — บทสนทนาที่ยาวเกินกว่า safety check จะรับได้ จะถูก compact แทนที่จะ deny ทุก tool call ที่ต้องตรวจ
 - **เลือกโมเดลของ classifier ฝั่ง client ได้** — `CLAUDE_CODE_AUTO_MODE_MODEL` กำหนดโมเดลที่ classifier ของ auto mode ฝั่ง client ใช้ · ไม่เปลี่ยนโมเดลของ server-side auto mode
+
+### 🆕 ใหม่ใน v2.1.309
+- **`sed -i` ได้ Bash prompt มาตรฐาน** — รันตามที่เขียนจริง แทนการแสดง preview แบบจำลองการแก้ไฟล์ · และเหมือน Bash edit อื่น ๆ คือ `/rewind` จะไม่กู้คืนให้อีก
+- **`rm`/`rmdir` อันตรายใน bypass mode ถูก deny ทันทีบน Desktop app และ VS Code** — แทนที่จะขึ้น prompt จะ deny คำสั่งเลยพร้อมคำแนะนำให้เขียนใหม่ เพื่อให้ session ที่ไม่มีคนเฝ้ารันต่อได้
+- **คำสั่งที่ settings ยกเว้นจาก sandbox จะถามก่อนเขียนลง path ใน write-list เมื่อ sandbox รันไม่ได้** — ระหว่างที่เปิด sandbox ไว้แต่ sandbox รันไม่ได้ คำสั่งพวกนี้จะถามก่อน · และการ fallback ไปรันแบบไม่ sandbox จะถูกปฏิเสธในกรณีนี้
 
 ---
 
@@ -3697,6 +3706,7 @@ claude -p --bare "คำถาม"
 # review โค้ดแบบ non-interactive สำหรับ CI/สคริปต์ (exit 0 = สำเร็จ, 1 = fail)
 claude ultrareview              # พิมพ์ผลออก stdout
 claude ultrareview --json       # ได้ผลแบบ raw JSON
+claude ultrareview HEAD~1 --trust-workspace   # ไม่มี terminal (CI)? ข้าม trust prompt (v2.1.309+)
 
 # รันคำสั่ง shell เบื้องหลัง (background-exec)
 claude --bg --exec "npm test"
@@ -4525,6 +4535,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | ตั้ง `1` เพื่อปิด advisor รวมถึง `/advisor` บน Claude Platform on AWS *(v2.1.300)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` | ให้โหมด retry แบบ unattended (`CLAUDE_CODE_RETRY_WATCHDOG`) จบ request ที่ชน usage limit ซึ่งจะ reset อีกนานเกินไป แทนที่จะนั่งรอ *(v2.1.301)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` | ให้โหมด retry แบบ unattended (`CLAUDE_CODE_RETRY_WATCHDOG`) สังเกตเห็นเมื่อ usage limit ถูกปลดก่อนถึงเวลา reset *(v2.1.305)* |
+| `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK` | ตั้ง `1` เพื่อให้ `claude ultrareview` รันได้โดยไม่ต้องผ่าน workspace trust check (เหมือนใส่ `--trust-workspace`) *(v2.1.309)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5856,7 +5867,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.308`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.309`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

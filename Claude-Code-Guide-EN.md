@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.308         │
+│ Welcome to Claude Code v2.1.309         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.308
+- run: npm install -g @anthropic-ai/claude-code@2.1.309
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1132,6 +1132,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.307
 
 - **Self-hosted runner checkout hooks time out after 30 minutes** — a checkout hook still running after 30 minutes is now stopped by default, failing the session's setup. If yours needs longer, raise `--checkout-hook-timeout-min` or set it to `0`.
+
+### New in v2.1.309
+
+- **`claude ultrareview` requires workspace trust** — it asks on a terminal, else refuses. Scripts pass `--trust-workspace`, which takes no value (put a PR number or base branch before it), or set `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK=1`.
 
 ---
 
@@ -1874,6 +1878,11 @@ Skill(commit)                    # Specific skill
 - **`claude -p` and the Agent SDK start in `default` mode on third-party providers** — with no permission mode set, sessions on third-party providers with telemetry off or on a fresh install now start in `default`; pass `--permission-mode auto` to keep auto.
 - **Server-side auto mode compacts instead of denying** — a conversation too long for the safety check is now compacted, instead of every checked tool call being denied.
 - **Pick the client-side classifier's model** — `CLAUDE_CODE_AUTO_MODE_MODEL` chooses the model the client-side auto mode classifier uses; it does not change the model for server-side auto mode.
+
+### New in v2.1.309
+- **`sed -i` gets the standard Bash prompt** — it runs as written instead of showing a simulated file-edit preview; like other Bash edits, it is no longer restored by `/rewind`.
+- **Dangerous `rm`/`rmdir` in bypass mode is denied at once in the Desktop app and VS Code** — instead of prompting, the command is denied with a rewrite hint, so unattended sessions keep going.
+- **Sandbox-excluded commands ask before writing to write-list paths when the sandbox can't run** — while the sandbox is enabled but cannot run, commands the settings exclude from it now ask first; the unsandboxed fallback is refused there.
 
 ---
 
@@ -3731,6 +3740,7 @@ claude --bare -p "review changed code" \
 # Non-interactive code review for CI/scripts — prints findings to stdout
 claude ultrareview HEAD~1     # exit 0 on completion, 1 on failure
 claude ultrareview --json     # raw JSON output
+claude ultrareview HEAD~1 --trust-workspace   # no terminal (CI)? skip the trust prompt (v2.1.309+)
 ```
 
 ### Background Exec
@@ -4536,6 +4546,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_ADVISOR_TOOL` | Set `1` to turn off the advisor, including `/advisor` on Claude Platform on AWS. *(v2.1.300)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` | Makes unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) end a request at a usage limit that resets too far away instead of waiting. *(v2.1.301)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` | Lets unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) notice a usage limit that was lifted before its reset. *(v2.1.305)* |
+| `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK` | Set `1` to let `claude ultrareview` run without the workspace trust check (same as passing `--trust-workspace`). *(v2.1.309)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5870,7 +5881,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.308`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.309`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
