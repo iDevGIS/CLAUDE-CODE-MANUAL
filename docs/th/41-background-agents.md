@@ -170,6 +170,10 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 
 - **`←` หยุดงานที่เริ่มระหว่างย้าย** — turn หรือคำสั่ง `!` ที่เริ่มขณะ session กำลังย้ายไป background จะถูกหยุดแทนที่จะรันจนจบแบบที่เรามองไม่เห็น
 
+### 🆕 ใหม่ใน v2.1.310
+
+- **Monitor ใช้ได้ทุกที่** — Monitor tool และ plugin monitor ใช้ได้แล้วบน Bedrock, Vertex และ Foundry รวมถึงตอนที่ปิด telemetry หรือ nonessential traffic ไว้ — และบนสภาพแวดล้อมเหล่านี้ foreground sleep นาน ๆ ก็ถูกบล็อกด้วยเช่นกัน
+
 ---
 
 ---

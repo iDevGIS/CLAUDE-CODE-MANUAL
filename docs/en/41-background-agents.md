@@ -170,6 +170,10 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 
 - **`←` stops work started mid-move** — a turn or `!` command started while the session moves to the background is now stopped instead of finishing out of sight.
 
+### New in v2.1.310
+
+- **Monitor everywhere** — the Monitor tool and plugin monitors now work on Bedrock, Vertex and Foundry, and when telemetry or nonessential traffic is disabled; long foreground sleeps are now blocked there too.
+
 ---
 
 ---

@@ -25,6 +25,24 @@
 
 ---
 
+## [1.99.0] — 2026-10-24
+
+### Compatibility
+- **Claude Code:** `v2.1.310+`
+
+### Added
+- **New in v2.1.310** ในบท 41 Background Agents EN+TH (atomic note — guide หน้าเดียวไม่มีบท 41):
+  - Monitor tool และ plugin monitor ใช้ได้บน Bedrock, Vertex และ Foundry รวมถึงตอนปิด telemetry หรือ nonessential traffic · foreground sleep นาน ๆ ถูกบล็อกบนสภาพแวดล้อมเหล่านี้ด้วย
+- **แถว What's-new ของ `v2.1.310`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.309` → `2.1.310` (welcome banner, npm pin, ตัวอย่างใน tutorial, compatibility ของ ProjectEx2, badge/version ใน README.md + README.EN.md) — heading "New in" และ version stamp ประวัติคงไว้ตามเดิม
+
+### Why
+- Upstream `2.1.310` เปิด Monitor tool / plugin monitor ให้ Bedrock/Vertex/Foundry และ session ที่ปิด telemetry/nonessential traffic (พร้อมบล็อก foreground sleep นาน ๆ) · ที่เหลือเป็น bug fix, UI polish และของฝั่ง VS Code/Cloud sessions/Claude Tag/Code Review ซึ่งข้ามไว้
+
+---
+
 ## [1.98.0] — 2026-10-23
 
 ### Compatibility
@@ -2213,6 +2231,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.99.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.98.0...v1.99.0
 [1.98.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.97.0...v1.98.0
 [1.97.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.96.0...v1.97.0
 [1.96.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.95.0...v1.96.0
