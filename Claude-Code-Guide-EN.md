@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.310         │
+│ Welcome to Claude Code v2.1.311         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.310
+- run: npm install -g @anthropic-ai/claude-code@2.1.311
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1136,6 +1136,13 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 ### New in v2.1.309
 
 - **`claude ultrareview` requires workspace trust** — it asks on a terminal, else refuses. Scripts pass `--trust-workspace`, which takes no value (put a PR number or base branch before it), or set `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK=1`.
+
+### New in v2.1.311
+
+- **`claude self-hosted-runner --hold-idle-file` / `--max-hold-min`** — keep an idle session while your host reports processes it left running.
+- **`ultrathink` runs at xhigh effort** — in the interactive terminal, `ultrathink` now runs its turn at xhigh effort on Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable 5.1 through Anthropic's API; typed while Claude is working, it raises the rest of that turn. The rainbow highlight appears only where the keyword can raise effort (not when quoted or part of a file path).
+- **`[1m]` suffix dropped where it has no effect** — model names and IDs no longer show the `[1m]` suffix and its label on models where it changes nothing; the suffix is still accepted.
+- **`--output-format json` / `stream-json` escaping** — DEL, C1 control and Unicode format characters inside strings are now written as `\uXXXX` escapes; parsed values are unchanged.
 
 ---
 
@@ -4547,6 +4554,7 @@ your-project/
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` | Makes unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) end a request at a usage limit that resets too far away instead of waiting. *(v2.1.301)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` | Lets unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) notice a usage limit that was lifted before its reset. *(v2.1.305)* |
 | `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK` | Set `1` to let `claude ultrareview` run without the workspace trust check (same as passing `--trust-workspace`). *(v2.1.309)* |
+| `CLAUDE_CODE_MODEL_CATALOG` | On Bedrock, Mantle, Vertex and Foundry, Claude Code loads model settings from a signed file on downloads.claude.ai; set `off` to turn this off. *(v2.1.311)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5881,7 +5889,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.310`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.311`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

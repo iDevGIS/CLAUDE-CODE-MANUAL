@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.310         │
+│ Welcome to Claude Code v2.1.311         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -791,6 +791,13 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 
 - **`claude ultrareview` ต้องผ่าน workspace trust** — ถ้ารันบน terminal จะถามก่อน ไม่งั้นจะปฏิเสธ · สคริปต์ให้ใส่ `--trust-workspace` (flag นี้ไม่รับค่า — ให้ใส่เลข PR หรือ base branch ไว้ก่อนหน้า) หรือตั้ง `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK=1`
 
+### 🆕 ใหม่ใน v2.1.311
+
+- **`claude self-hosted-runner --hold-idle-file` / `--max-hold-min`** — คง session ที่ idle ไว้ ระหว่างที่ host ยังรายงานว่ามี process ที่ session ทิ้งไว้รันอยู่
+- **`ultrathink` รันที่ effort xhigh** — ใน terminal แบบ interactive คำว่า `ultrathink` จะรัน turn นั้นที่ effort xhigh บน Opus 5.5, Sonnet 5.5, Haiku 5.5 และ Fable 5.1 ผ่าน API ของ Anthropic · ถ้าพิมพ์ระหว่างที่ Claude ทำงานอยู่ จะยก effort ให้ส่วนที่เหลือของ turn นั้น · ไฮไลต์สีรุ้งจะขึ้นเฉพาะจุดที่คำนี้ยก effort ได้จริง (ไม่ขึ้นเมื่ออยู่ในเครื่องหมายคำพูดหรือเป็นส่วนของ file path)
+- **ตัด suffix `[1m]` ในจุดที่ไม่มีผล** — ชื่อและ ID ของโมเดลไม่แสดง suffix `[1m]` และ label ของมันแล้วบนโมเดลที่ suffix นี้ไม่เปลี่ยนอะไร · ยังพิมพ์ suffix นี้ได้เหมือนเดิม
+- **การ escape ใน `--output-format json` / `stream-json`** — ตัวอักษร DEL, C1 control และ Unicode format ภายใน string จะถูกเขียนเป็น `\uXXXX` · ค่าหลัง parse เหมือนเดิม
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1122,7 +1129,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.310
+- run: npm install -g @anthropic-ai/claude-code@2.1.311
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -4536,6 +4543,7 @@ your-project/
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` | ให้โหมด retry แบบ unattended (`CLAUDE_CODE_RETRY_WATCHDOG`) จบ request ที่ชน usage limit ซึ่งจะ reset อีกนานเกินไป แทนที่จะนั่งรอ *(v2.1.301)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` | ให้โหมด retry แบบ unattended (`CLAUDE_CODE_RETRY_WATCHDOG`) สังเกตเห็นเมื่อ usage limit ถูกปลดก่อนถึงเวลา reset *(v2.1.305)* |
 | `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK` | ตั้ง `1` เพื่อให้ `claude ultrareview` รันได้โดยไม่ต้องผ่าน workspace trust check (เหมือนใส่ `--trust-workspace`) *(v2.1.309)* |
+| `CLAUDE_CODE_MODEL_CATALOG` | บน Bedrock, Mantle, Vertex และ Foundry ตัว Claude Code จะโหลด model settings จากไฟล์ที่ลงลายเซ็นบน downloads.claude.ai · ตั้ง `off` เพื่อปิด *(v2.1.311)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5867,7 +5875,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.310`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.311`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

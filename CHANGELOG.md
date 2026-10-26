@@ -25,6 +25,28 @@
 
 ---
 
+## [1.100.0] — 2026-10-27
+
+### Compatibility
+- **Claude Code:** `v2.1.311+`
+
+### Added
+- **New in v2.1.311** ในบท 02 CLI Commands EN+TH (guide หน้าเดียว + atomic note):
+  - `claude self-hosted-runner --hold-idle-file` / `--max-hold-min` — คง session ที่ idle ไว้ระหว่างที่ host รายงานว่ามี process ที่ session ทิ้งไว้รันอยู่
+  - `ultrathink` ใน terminal แบบ interactive รัน turn ที่ effort xhigh บน Opus 5.5, Sonnet 5.5, Haiku 5.5 และ Fable 5.1 ผ่าน API ของ Anthropic (พิมพ์ระหว่างทำงานจะยก effort ส่วนที่เหลือของ turn) · ไฮไลต์สีรุ้งขึ้นเฉพาะจุดที่ยก effort ได้
+  - ชื่อ/ID โมเดลไม่แสดง suffix `[1m]` บนโมเดลที่ suffix ไม่มีผล (ยังพิมพ์ได้)
+  - `--output-format json` / `stream-json` เขียน DEL, C1 control และ Unicode format character ใน string เป็น `\uXXXX` (ค่าหลัง parse เหมือนเดิม)
+- **แถวตาราง env var** `CLAUDE_CODE_MODEL_CATALOG` ในบท 23 (guide + atomic, EN+TH)
+- **แถว What's-new ของ `v2.1.311`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.310` → `2.1.311` (welcome banner, npm pin, ตัวอย่างใน tutorial, compatibility ของ ProjectEx2, badge/version ใน README.md + README.EN.md) — heading "New in" และ version stamp ประวัติคงไว้ตามเดิม
+
+### Why
+- Upstream `2.1.311` เพิ่ม runner flags, เปลี่ยน `ultrathink` ให้ยก effort เป็น xhigh, ตัด suffix `[1m]` ที่ไม่มีผล, เปลี่ยนการ escape ของ JSON output และเพิ่ม `CLAUDE_CODE_MODEL_CATALOG` สำหรับ Bedrock/Mantle/Vertex/Foundry · ที่เหลือเป็น bug fix, UI polish และของฝั่ง VS Code/Cloud sessions/Claude Tag/Code Review ซึ่งข้ามไว้
+
+---
+
 ## [1.99.0] — 2026-10-24
 
 ### Compatibility
@@ -2231,6 +2253,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.100.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.99.0...v1.100.0
 [1.99.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.98.0...v1.99.0
 [1.98.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.97.0...v1.98.0
 [1.97.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.96.0...v1.97.0

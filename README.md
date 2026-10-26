@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.310-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.99.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.311-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.100.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.310`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.311`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -168,8 +168,9 @@
 | 🛡️ **`/claude-api api-version` + OTel `safety_event`** | `/claude-api api-version` ย้ายโค้ด Claude API ไป API version `2026-10-21` · `claude_code.safety_event` ทุก tool call ที่ถูกหยุด/ถามยืนยัน/ตีกลับ · `axScreenReader` รับเฉพาะจาก user/managed/`--settings` · checkout hook ของ self-hosted runner หยุดที่ 30 นาที (`--checkout-hook-timeout-min`) (v2.1.307) |
 | 🔐 **`ultrareview` ต้องผ่าน workspace trust + `sed -i` ได้ prompt จริง** | `claude ultrareview` ถามบน terminal ไม่งั้นปฏิเสธ · สคริปต์ใส่ `--trust-workspace` หรือ `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK=1` · `sed -i` ได้ Bash prompt มาตรฐาน (`/rewind` ไม่กู้ให้) · `rm`/`rmdir` อันตรายใน bypass mode บน Desktop/VS Code ถูก deny ทันทีพร้อม rewrite hint · คำสั่งที่ยกเว้นจาก sandbox ถามก่อนเขียน write-list เมื่อ sandbox รันไม่ได้ (v2.1.309) |
 | 📡 **Monitor ใช้ได้บน Bedrock/Vertex/Foundry** | Monitor tool + plugin monitor ใช้ได้บน Bedrock/Vertex/Foundry และตอนปิด telemetry/nonessential traffic · foreground sleep นาน ๆ ถูกบล็อกที่นั่นด้วย (v2.1.310) |
+| 🧠 **`ultrathink` = effort xhigh** | `ultrathink` ใน terminal รัน turn ที่ effort xhigh บน Opus 5.5/Sonnet 5.5/Haiku 5.5/Fable 5.1 · runner flags `--hold-idle-file`/`--max-hold-min` · ตัด suffix `[1m]` ที่ไม่มีผล · env `CLAUDE_CODE_MODEL_CATALOG=off` (v2.1.311) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.310` (manual `v1.99.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.311` (manual `v1.100.0`)
 
 ---
 
@@ -192,7 +193,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.310** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
+ตรงกับ Claude Code **v2.1.311** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
 
 </td>
 </tr>
@@ -252,7 +253,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.310`
+> **Claude Code Version:** `2.1.311`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

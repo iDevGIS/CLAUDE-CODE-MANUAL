@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.310         │
+│ Welcome to Claude Code v2.1.311         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -687,6 +687,13 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 
 - **`claude ultrareview` requires workspace trust** — it asks on a terminal, else refuses. Scripts pass `--trust-workspace`, which takes no value (put a PR number or base branch before it), or set `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK=1`. See [[23-environment-variables]].
 
+### New in v2.1.311
+
+- **`claude self-hosted-runner --hold-idle-file` / `--max-hold-min`** — keep an idle session while your host reports processes it left running. See [[41-background-agents]].
+- **`ultrathink` runs at xhigh effort** — in the interactive terminal, `ultrathink` now runs its turn at xhigh effort on Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable 5.1 through Anthropic's API; typed while Claude is working, it raises the rest of that turn. The rainbow highlight appears only where the keyword can raise effort (not when quoted or part of a file path).
+- **`[1m]` suffix dropped where it has no effect** — model names and IDs no longer show the `[1m]` suffix and its label on models where it changes nothing; the suffix is still accepted.
+- **`--output-format json` / `stream-json` escaping** — DEL, C1 control and Unicode format characters inside strings are now written as `\uXXXX` escapes; parsed values are unchanged.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1058,7 +1065,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.310
+- run: npm install -g @anthropic-ai/claude-code@2.1.311
 ```
 
 ---
