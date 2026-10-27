@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.311         │
+│ Welcome to Claude Code v2.1.312         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1129,7 +1129,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.311
+- run: npm install -g @anthropic-ai/claude-code@2.1.312
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -2245,6 +2245,13 @@ Skill(commit)                    # Skill เฉพาะ
 - **`axScreenReader` / `CLAUDE_AX_SCREEN_READER` รับเฉพาะจาก settings ที่เชื่อถือได้** — ตัว setting และ `CLAUDE_AX_SCREEN_READER` ในบล็อก `env` ของ settings ตอนนี้มีผลเฉพาะเมื่อมาจาก user, managed หรือ `--settings` เท่านั้น (ตั้งแต่ 2.1.305)
 - **OpenTelemetry `claude_code.safety_event`** — event ใหม่ ส่งทุกครั้งที่ tool call ถูกหยุด ถูกถามยืนยัน หรือถูกตีกลับ โดย permission rule, auto mode, safety check, hook หรือ sandbox
 
+### 🆕 ใหม่ใน v2.1.312
+
+- **เลิกส่ง `claude_code.safety_event`** — Claude Code หยุดส่ง OpenTelemetry event `claude_code.safety_event` แล้ว
+- **OpenTelemetry `mcp_server.name` รายงานชื่อจริง** ของ remote MCP server แบบ URL ตายตัวที่ประกาศโดย plugin จาก official Anthropic marketplace แทนคำว่า `custom`
+- **ชื่อโมเดลที่ Claude Code ไม่รู้จักบน Bedrock, Vertex, Foundry และ Mantle** — ชื่อที่ไม่รู้จัก (เช่นชื่อ custom deployment, inference profile ARN) ตอนนี้ใช้ system prompt แบบสั้น แม้ด้านหลังจะเป็น Sonnet หรือ Haiku · ตั้ง `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` เพื่อคง prompt เต็ม · การสลับโมเดลอัตโนมัติหลังข้อความถูก flag ก็ครอบคลุมชื่อเหล่านี้ด้วย · ปิดด้วย `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1`
+- **"5-hour limit"** — ข้อความ usage limit เรียกหน้าต่าง 5 ชั่วโมงว่า "5-hour limit" แทน "session limit"
+
 ---
 
 ## 7. CLAUDE.md - คำสั่งถาวรสำหรับโปรเจกต์
@@ -2923,6 +2930,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **prompt hook และ agent hook รันพร้อมกันได้สูงสุด 12 ตัวต่อ event** — hook ประเภท prompt/agent ของ event เดียวกันรันพร้อมกันได้ไม่เกิน 12 ตัว ที่เหลือรอคิว
 
+### 🆕 ใหม่ใน v2.1.312
+
+- **prompt hook และ agent hook รันพร้อมกันได้สูงสุด 24 ตัวต่อ session** — นับรวม sub-agent ด้วย บวกอีกไม่เกิน 12 ตัวที่รอนานเกิน timeout ของ event นั้นแล้ว · `timeout` ของ hook ที่ต่ำกว่า 1 วินาทีนับเป็น 1 วินาที
+
 ---
 
 ## 11. Skills (คำสั่งที่สร้างเอง)
@@ -3381,6 +3392,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **fork subagent เปิดเป็นค่าเริ่มต้นทุกที่** — `subagent_type: "fork"` เปิดเป็นค่าเริ่มต้นใน `claude -p`, Agent SDK, desktop app และ VS Code เหมือนที่ terminal เป็นอยู่แล้ว · ปิดด้วย `CLAUDE_CODE_FORK_SUBAGENT=0` · และ `claude mcp serve` ไม่มีให้ใช้เลย
 - **desktop app และ VS Code รัน subagent ของบทสนทนาหลักใน background เสมอ** — เหมือน terminal แทนการให้ Claude เลือกเอง · ส่วน Agent call ที่ subagent เรียกเองใน `claude -p`, Agent SDK, desktop app และ VS Code จะรันแบบ foreground เป็นค่าเริ่มต้น
+
+### 🆕 ใหม่ใน v2.1.312
+
+- **`autoCompactWindow` ของ subagent ลดค่าจาก `CLAUDE_CODE_AUTO_COMPACT_WINDOW` ได้แล้ว** — `autoCompactWindow` ของ subagent ตอนนี้ลด window ที่ตั้งด้วย `CLAUDE_CODE_AUTO_COMPACT_WINDOW` ได้ (ก่อนหน้านี้ไม่มีผล) · แต่ยังไม่เพิ่ม window นั้นให้สูงขึ้นเด็ดขาด
 
 ---
 
@@ -4544,6 +4559,8 @@ your-project/
 | `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` | ให้โหมด retry แบบ unattended (`CLAUDE_CODE_RETRY_WATCHDOG`) สังเกตเห็นเมื่อ usage limit ถูกปลดก่อนถึงเวลา reset *(v2.1.305)* |
 | `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK` | ตั้ง `1` เพื่อให้ `claude ultrareview` รันได้โดยไม่ต้องผ่าน workspace trust check (เหมือนใส่ `--trust-workspace`) *(v2.1.309)* |
 | `CLAUDE_CODE_MODEL_CATALOG` | บน Bedrock, Mantle, Vertex และ Foundry ตัว Claude Code จะโหลด model settings จากไฟล์ที่ลงลายเซ็นบน downloads.claude.ai · ตั้ง `off` เพื่อปิด *(v2.1.311)* |
+| `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT` | บน Bedrock, Vertex, Foundry และ Mantle ชื่อโมเดลที่ Claude Code ไม่รู้จัก (เช่นชื่อ custom deployment, inference profile ARN) จะใช้ system prompt แบบสั้น แม้ด้านหลังเป็น Sonnet หรือ Haiku · ตั้ง `0` เพื่อคง prompt เต็ม *(v2.1.312)* |
+| `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK` | ตั้ง `1` เพื่อปิดการสลับโมเดลอัตโนมัติหลังข้อความถูก flag (ตอนนี้ครอบคลุมชื่อโมเดลที่ Claude Code ไม่รู้จัก เช่นชื่อ custom deployment ด้วย) *(v2.1.312)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5875,7 +5892,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.311`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.312`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

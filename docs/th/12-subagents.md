@@ -228,6 +228,10 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **fork subagent เปิดเป็นค่าเริ่มต้นทุกที่** — `subagent_type: "fork"` เปิดเป็นค่าเริ่มต้นใน `claude -p`, Agent SDK, desktop app และ VS Code เหมือนที่ terminal เป็นอยู่แล้ว · ปิดด้วย `CLAUDE_CODE_FORK_SUBAGENT=0` · และ `claude mcp serve` ไม่มีให้ใช้เลย ดู [[23-environment-variables]]
 - **desktop app และ VS Code รัน subagent ของบทสนทนาหลักใน background เสมอ** — เหมือน terminal แทนการให้ Claude เลือกเอง · ส่วน Agent call ที่ subagent เรียกเองใน `claude -p`, Agent SDK, desktop app และ VS Code จะรันแบบ foreground เป็นค่าเริ่มต้น
 
+### 🆕 ใหม่ใน v2.1.312
+
+- **`autoCompactWindow` ของ subagent ลดค่าจาก `CLAUDE_CODE_AUTO_COMPACT_WINDOW` ได้แล้ว** — `autoCompactWindow` ของ subagent ตอนนี้ลด window ที่ตั้งด้วย `CLAUDE_CODE_AUTO_COMPACT_WINDOW` ได้ (ก่อนหน้านี้ไม่มีผล) · แต่ยังไม่เพิ่ม window นั้นให้สูงขึ้นเด็ดขาด ดู [[23-environment-variables]]
+
 ---
 
 ---

@@ -118,6 +118,8 @@ related:
 | `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` | Lets unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) notice a usage limit that was lifted before its reset. *(v2.1.305)* |
 | `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK` | Set `1` to let `claude ultrareview` run without the workspace trust check (same as passing `--trust-workspace`). See [[02-cli-commands]]. *(v2.1.309)* |
 | `CLAUDE_CODE_MODEL_CATALOG` | On Bedrock, Mantle, Vertex and Foundry, Claude Code loads model settings from a signed file on downloads.claude.ai; set `off` to turn this off. *(v2.1.311)* |
+| `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT` | On Bedrock, Vertex, Foundry and Mantle, model names Claude Code doesn't recognize (custom deployment names, inference profile ARNs) use the shorter system prompt even when they front Sonnet or Haiku; set `0` to keep the full prompt. *(v2.1.312)* |
+| `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK` | Set `1` to turn off automatic model switches after a flagged message (these now also cover model names Claude Code doesn't recognize, such as custom deployment names). *(v2.1.312)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

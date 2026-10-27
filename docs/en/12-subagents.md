@@ -228,6 +228,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Fork subagents on by default everywhere** — `subagent_type: "fork"` is now on by default in `claude -p`, the Agent SDK, the desktop app and VS Code, as it already was in the terminal; `CLAUDE_CODE_FORK_SUBAGENT=0` turns it off, and `claude mcp serve` never offers it. See [[23-environment-variables]].
 - **Desktop and VS Code always background the main conversation's subagents** — as the terminal does, rather than letting Claude choose; a subagent's own Agent calls in `claude -p`, the Agent SDK, the desktop app and VS Code now run in the foreground by default.
 
+### New in v2.1.312
+
+- **Subagent `autoCompactWindow` now lowers `CLAUDE_CODE_AUTO_COMPACT_WINDOW`** — a subagent's `autoCompactWindow` now lowers the window set by `CLAUDE_CODE_AUTO_COMPACT_WINDOW`, where it had no effect before; it still never raises that window. See [[23-environment-variables]].
+
 ---
 
 ---

@@ -384,6 +384,13 @@ related:
 - **`axScreenReader` / `CLAUDE_AX_SCREEN_READER` รับเฉพาะจาก settings ที่เชื่อถือได้** — ตัว setting และ `CLAUDE_AX_SCREEN_READER` ในบล็อก `env` ของ settings ตอนนี้มีผลเฉพาะเมื่อมาจาก user, managed หรือ `--settings` เท่านั้น (ตั้งแต่ 2.1.305) ดู [[23-environment-variables]]
 - **OpenTelemetry `claude_code.safety_event`** — event ใหม่ ส่งทุกครั้งที่ tool call ถูกหยุด ถูกถามยืนยัน หรือถูกตีกลับ โดย permission rule, auto mode, safety check, hook หรือ sandbox ดู [[05-permissions]]
 
+### 🆕 ใหม่ใน v2.1.312
+
+- **เลิกส่ง `claude_code.safety_event`** — Claude Code หยุดส่ง OpenTelemetry event `claude_code.safety_event` แล้ว
+- **OpenTelemetry `mcp_server.name` รายงานชื่อจริง** ของ remote MCP server แบบ URL ตายตัวที่ประกาศโดย plugin จาก official Anthropic marketplace แทนคำว่า `custom` ดู [[09-mcp-servers]]
+- **ชื่อโมเดลที่ Claude Code ไม่รู้จักบน Bedrock, Vertex, Foundry และ Mantle** — ชื่อที่ไม่รู้จัก (เช่นชื่อ custom deployment, inference profile ARN) ตอนนี้ใช้ system prompt แบบสั้น แม้ด้านหลังจะเป็น Sonnet หรือ Haiku · ตั้ง `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` เพื่อคง prompt เต็ม · การสลับโมเดลอัตโนมัติหลังข้อความถูก flag ก็ครอบคลุมชื่อเหล่านี้ด้วย · ปิดด้วย `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1` ดู [[23-environment-variables]]
+- **"5-hour limit"** — ข้อความ usage limit เรียกหน้าต่าง 5 ชั่วโมงว่า "5-hour limit" แทน "session limit"
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

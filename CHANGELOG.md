@@ -25,6 +25,30 @@
 
 ---
 
+## [1.101.0] — 2026-10-28
+
+### Compatibility
+- **Claude Code:** `v2.1.312+`
+
+### Added
+- **New in v2.1.312** ในบท 06 Configuration EN+TH (guide หน้าเดียว + atomic note):
+  - เลิกส่ง OpenTelemetry event `claude_code.safety_event`
+  - OpenTelemetry `mcp_server.name` รายงานชื่อจริงของ remote MCP server แบบ URL ตายตัวที่มาจาก plugin ใน official Anthropic marketplace แทน `custom`
+  - Bedrock/Vertex/Foundry/Mantle: ชื่อโมเดลที่ไม่รู้จัก (custom deployment, inference profile ARN) ใช้ system prompt แบบสั้น (`CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` คง prompt เต็ม) และการสลับโมเดลหลังข้อความถูก flag ครอบคลุมชื่อเหล่านี้ (`CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1` ปิด)
+  - ข้อความ usage limit เรียกหน้าต่าง 5 ชั่วโมงว่า "5-hour limit" แทน "session limit"
+- **New in v2.1.312** ในบท 10 Hooks EN+TH: prompt/agent hook รันพร้อมกันได้สูงสุด 24 ตัวต่อ session (รวม sub-agent) + อีกไม่เกิน 12 ตัวที่รอเกิน timeout · `timeout` ต่ำกว่า 1 วินาทีนับเป็น 1 วินาที
+- **New in v2.1.312** ในบท 12 Subagents EN+TH: `autoCompactWindow` ของ subagent ลด window ของ `CLAUDE_CODE_AUTO_COMPACT_WINDOW` ได้แล้ว (แต่ไม่เพิ่ม)
+- **แถวตาราง env var** `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT` และ `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK` ในบท 23 (guide + atomic, EN+TH)
+- **แถว What's-new ของ `v2.1.312`** ใน README.md + README.EN.md
+
+### Changed
+- **Version strings** bumped `2.1.311` → `2.1.312` (welcome banner, npm pin, ตัวอย่างใน tutorial, compatibility ของ ProjectEx2, badge/version ใน README.md + README.EN.md) — heading "New in" และ version stamp ประวัติคงไว้ตามเดิม
+
+### Why
+- Upstream `2.1.312` เปลี่ยนเพดาน concurrency ของ prompt/agent hook, ให้ `autoCompactWindow` ของ subagent มีผลกับ `CLAUDE_CODE_AUTO_COMPACT_WINDOW`, ปรับ system prompt/refusal fallback สำหรับชื่อโมเดลที่ไม่รู้จักบน cloud providers, ถอด OTel `safety_event` และเปลี่ยนชื่อ "session limit" เป็น "5-hour limit" · ที่เหลือ (`oidc.user_id_claim` ของ apps gateway, click to send, bug fix, UI polish และของฝั่ง VS Code/Cloud sessions/Remote Control/Claude Tag/Code Review) ข้ามไว้
+
+---
+
 ## [1.100.0] — 2026-10-27
 
 ### Compatibility
@@ -2253,6 +2277,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.101.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.100.0...v1.101.0
 [1.100.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.99.0...v1.100.0
 [1.99.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.98.0...v1.99.0
 [1.98.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.97.0...v1.98.0

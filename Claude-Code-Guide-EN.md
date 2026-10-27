@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.311         │
+│ Welcome to Claude Code v2.1.312         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.311
+- run: npm install -g @anthropic-ai/claude-code@2.1.312
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -2251,6 +2251,13 @@ Skill(commit)                    # Specific skill
 - **`axScreenReader` / `CLAUDE_AX_SCREEN_READER` only from trusted settings** — the setting, and `CLAUDE_AX_SCREEN_READER` in a settings `env` block, now apply only from user, managed or `--settings` settings (since 2.1.305).
 - **OpenTelemetry `claude_code.safety_event`** — a new event for each tool call that a permission rule, auto mode, a safety check, a hook or the sandbox stopped, prompted or sent back.
 
+### New in v2.1.312
+
+- **`claude_code.safety_event` no longer sent** — Claude Code stopped sending the `claude_code.safety_event` OpenTelemetry event.
+- **OpenTelemetry `mcp_server.name` reports the real name** for fixed-URL remote MCP servers declared by plugins from the official Anthropic marketplace, instead of `custom`.
+- **Unrecognized model names on Bedrock, Vertex, Foundry and Mantle** — names Claude Code doesn't recognize (custom deployment names, inference profile ARNs) now use the shorter system prompt even when they front Sonnet or Haiku; set `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` to keep the full prompt. Automatic model switches after a flagged message now cover these names too; `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1` turns them off.
+- **"5-hour limit"** — usage limit messages now call the 5-hour window the "5-hour limit" instead of the "session limit".
+
 ---
 
 ## 7. CLAUDE.md - Persistent Project Instructions
@@ -2867,6 +2874,10 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 
 - **Prompt and agent hooks are capped at 12 at a time per event** — at most 12 prompt/agent hooks of one event run concurrently; the rest wait their turn.
 
+### New in v2.1.312
+
+- **Prompt and agent hooks capped at 24 at a time per session** — sub-agents included, plus at most 12 more that have waited longer than their event's timeout. A hook `timeout` under 1 second now counts as 1 second.
+
 ### Configuring Hooks
 
 **In `.claude/settings.json`:**
@@ -3388,6 +3399,10 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Fork subagents on by default everywhere** — `subagent_type: "fork"` is now on by default in `claude -p`, the Agent SDK, the desktop app and VS Code, as it already was in the terminal; `CLAUDE_CODE_FORK_SUBAGENT=0` turns it off, and `claude mcp serve` never offers it.
 - **Desktop and VS Code always background the main conversation's subagents** — as the terminal does, rather than letting Claude choose; a subagent's own Agent calls in `claude -p`, the Agent SDK, the desktop app and VS Code now run in the foreground by default.
+
+### New in v2.1.312
+
+- **Subagent `autoCompactWindow` now lowers `CLAUDE_CODE_AUTO_COMPACT_WINDOW`** — a subagent's `autoCompactWindow` now lowers the window set by `CLAUDE_CODE_AUTO_COMPACT_WINDOW`, where it had no effect before; it still never raises that window.
 
 ---
 
@@ -4555,6 +4570,8 @@ your-project/
 | `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` | Lets unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) notice a usage limit that was lifted before its reset. *(v2.1.305)* |
 | `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK` | Set `1` to let `claude ultrareview` run without the workspace trust check (same as passing `--trust-workspace`). *(v2.1.309)* |
 | `CLAUDE_CODE_MODEL_CATALOG` | On Bedrock, Mantle, Vertex and Foundry, Claude Code loads model settings from a signed file on downloads.claude.ai; set `off` to turn this off. *(v2.1.311)* |
+| `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT` | On Bedrock, Vertex, Foundry and Mantle, model names Claude Code doesn't recognize (custom deployment names, inference profile ARNs) use the shorter system prompt even when they front Sonnet or Haiku; set `0` to keep the full prompt. *(v2.1.312)* |
+| `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK` | Set `1` to turn off automatic model switches after a flagged message (these now also cover model names Claude Code doesn't recognize, such as custom deployment names). *(v2.1.312)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5889,7 +5906,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.311`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.312`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

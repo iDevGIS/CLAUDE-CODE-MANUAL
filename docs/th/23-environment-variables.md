@@ -118,6 +118,8 @@ related:
 | `CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS` | ให้โหมด retry แบบ unattended (`CLAUDE_CODE_RETRY_WATCHDOG`) สังเกตเห็นเมื่อ usage limit ถูกปลดก่อนถึงเวลา reset *(v2.1.305)* |
 | `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK` | ตั้ง `1` เพื่อให้ `claude ultrareview` รันได้โดยไม่ต้องผ่าน workspace trust check (เหมือนใส่ `--trust-workspace`) ดู [[02-cli-commands]] *(v2.1.309)* |
 | `CLAUDE_CODE_MODEL_CATALOG` | บน Bedrock, Mantle, Vertex และ Foundry ตัว Claude Code จะโหลด model settings จากไฟล์ที่ลงลายเซ็นบน downloads.claude.ai · ตั้ง `off` เพื่อปิด *(v2.1.311)* |
+| `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT` | บน Bedrock, Vertex, Foundry และ Mantle ชื่อโมเดลที่ Claude Code ไม่รู้จัก (เช่นชื่อ custom deployment, inference profile ARN) จะใช้ system prompt แบบสั้น แม้ด้านหลังเป็น Sonnet หรือ Haiku · ตั้ง `0` เพื่อคง prompt เต็ม *(v2.1.312)* |
+| `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK` | ตั้ง `1` เพื่อปิดการสลับโมเดลอัตโนมัติหลังข้อความถูก flag (ตอนนี้ครอบคลุมชื่อโมเดลที่ Claude Code ไม่รู้จัก เช่นชื่อ custom deployment ด้วย) *(v2.1.312)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

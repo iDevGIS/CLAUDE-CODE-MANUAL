@@ -236,6 +236,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 - **Prompt and agent hooks are capped at 12 at a time per event** — at most 12 prompt/agent hooks of one event run concurrently; the rest wait their turn.
 
+### New in v2.1.312
+
+- **Prompt and agent hooks capped at 24 at a time per session** — sub-agents included, plus at most 12 more that have waited longer than their event's timeout. A hook `timeout` under 1 second now counts as 1 second.
+
 ---
 
 ---

@@ -384,6 +384,13 @@ Set the `model` key to any of these (newest → cheapest):
 - **`axScreenReader` / `CLAUDE_AX_SCREEN_READER` only from trusted settings** — the setting, and `CLAUDE_AX_SCREEN_READER` in a settings `env` block, now apply only from user, managed or `--settings` settings (since 2.1.305). See [[23-environment-variables]].
 - **OpenTelemetry `claude_code.safety_event`** — a new event for each tool call that a permission rule, auto mode, a safety check, a hook or the sandbox stopped, prompted or sent back. See [[05-permissions]].
 
+### New in v2.1.312
+
+- **`claude_code.safety_event` no longer sent** — Claude Code stopped sending the `claude_code.safety_event` OpenTelemetry event.
+- **OpenTelemetry `mcp_server.name` reports the real name** for fixed-URL remote MCP servers declared by plugins from the official Anthropic marketplace, instead of `custom`. See [[09-mcp-servers]].
+- **Unrecognized model names on Bedrock, Vertex, Foundry and Mantle** — names Claude Code doesn't recognize (custom deployment names, inference profile ARNs) now use the shorter system prompt even when they front Sonnet or Haiku; set `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` to keep the full prompt. Automatic model switches after a flagged message now cover these names too; `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1` turns them off. See [[23-environment-variables]].
+- **"5-hour limit"** — usage limit messages now call the 5-hour window the "5-hour limit" instead of the "session limit".
+
 ---
 
 ---
