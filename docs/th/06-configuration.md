@@ -391,6 +391,11 @@ related:
 - **ชื่อโมเดลที่ Claude Code ไม่รู้จักบน Bedrock, Vertex, Foundry และ Mantle** — ชื่อที่ไม่รู้จัก (เช่นชื่อ custom deployment, inference profile ARN) ตอนนี้ใช้ system prompt แบบสั้น แม้ด้านหลังจะเป็น Sonnet หรือ Haiku · ตั้ง `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` เพื่อคง prompt เต็ม · การสลับโมเดลอัตโนมัติหลังข้อความถูก flag ก็ครอบคลุมชื่อเหล่านี้ด้วย · ปิดด้วย `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1` ดู [[23-environment-variables]]
 - **"5-hour limit"** — ข้อความ usage limit เรียกหน้าต่าง 5 ชั่วโมงว่า "5-hour limit" แทน "session limit"
 
+### 🆕 ใหม่ใน v2.1.314
+
+- **ส่วนเพิ่มของ upstream ใน Claude apps gateway** — ใส่ list `groups` (ไม่บังคับ) เพื่อส่งเฉพาะ developer ที่อยู่ใน IdP group ที่ระบุไปยัง upstream นั้น (รวมตอน failover ด้วย) · Bedrock upstream รองรับ `guardrail_trace` เพื่อ log ว่า guardrail filter ตัวไหนของ Amazon Bedrock ทำงานกับ request โดยไม่บันทึกข้อความที่ match
+- **Idle compaction มาถึง VS Code และแท็บ Code ของ Claude Desktop** — บทสนทนา 200K+ token ที่ทิ้งไว้ idle จะถูกสรุป และใช้สรุปนั้นในข้อความถัดไปถ้า prompt cache หมดอายุแล้ว · ตอนนี้ยังทำงานกับ subscriber ที่ปิด telemetry และบน Bedrock, Vertex, Foundry และ LLM gateway เมื่อเปิด prompt cache แบบหนึ่งชั่วโมงแล้ว
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

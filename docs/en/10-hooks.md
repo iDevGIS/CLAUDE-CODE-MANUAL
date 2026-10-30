@@ -240,6 +240,11 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 - **Prompt and agent hooks capped at 24 at a time per session** — sub-agents included, plus at most 12 more that have waited longer than their event's timeout. A hook `timeout` under 1 second now counts as 1 second.
 
+### New in v2.1.314
+
+- **Hook `if` conditions match Monitor commands** — a condition such as `Monitor(tail *)` matches the Monitor tool's shell commands the way `Bash(tail *)` matches Bash's; hooks matching Bash now also run on shell commands started by Monitor (they can block or ask, but not approve or rewrite them).
+- **PreCompact hook output is cut at 10,000 characters** per hook, so very large output no longer makes compaction fail or repeat.
+
 ---
 
 ---

@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.312-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.101.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.314-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.102.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.312`
+## 🆕 What's new — synced to Claude Code `v2.1.314`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -170,8 +170,9 @@ Never used a command line? You can still follow along 👇
 | 📡 **Monitor on Bedrock/Vertex/Foundry** | The Monitor tool and plugin monitors work on Bedrock/Vertex/Foundry and with telemetry/nonessential traffic disabled · long foreground sleeps are blocked there too (v2.1.310) |
 | 🧠 **`ultrathink` = xhigh effort** | `ultrathink` in the terminal runs its turn at xhigh effort on Opus 5.5/Sonnet 5.5/Haiku 5.5/Fable 5.1 · runner flags `--hold-idle-file`/`--max-hold-min` · `[1m]` suffix dropped where it has no effect · `CLAUDE_CODE_MODEL_CATALOG=off` env var (v2.1.311) |
 | 🪝 **Hook cap of 24 per session + OTel `safety_event` dropped** | Prompt/agent hooks run at most 24 at a time per session (+12 that waited past their timeout) · subagent `autoCompactWindow` lowers `CLAUDE_CODE_AUTO_COMPACT_WINDOW` · unrecognized model names on Bedrock/Vertex/Foundry/Mantle get the shorter prompt (`CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0`) · `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1` · "5-hour limit" (v2.1.312) |
+| 🛡️ **`blockWritesOutsideWorkingDirectories`** | `permissions.blockWritesOutsideWorkingDirectories` stops Write/Edit/NotebookEdit outside the working directories in every mode · `/permissions` "Recently blocked" tab · hook `if` conditions like `Monitor(tail *)` · PreCompact output cut at 10,000 characters · gateway `groups`/`guardrail_trace` · idle compaction in VS Code/Desktop · `FORCE_HYPERLINK=false` turns links off (v2.1.314) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.312` (manual `v1.101.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.314` (manual `v1.102.0`)
 
 ---
 
@@ -194,7 +195,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.312** + the Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 lineup
+Tracks Claude Code **v2.1.314** + the Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 lineup
 
 </td>
 </tr>
@@ -254,7 +255,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.312`
+> **Claude Code Version:** `2.1.314`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

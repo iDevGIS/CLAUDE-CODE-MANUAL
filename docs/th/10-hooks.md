@@ -244,6 +244,11 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **prompt hook และ agent hook รันพร้อมกันได้สูงสุด 24 ตัวต่อ session** — นับรวม sub-agent ด้วย บวกอีกไม่เกิน 12 ตัวที่รอนานเกิน timeout ของ event นั้นแล้ว · `timeout` ของ hook ที่ต่ำกว่า 1 วินาทีนับเป็น 1 วินาที
 
+#### 🆕 ใหม่ใน v2.1.314
+
+- **เงื่อนไข `if` ของ hook match คำสั่งของ Monitor ได้** — เงื่อนไขอย่าง `Monitor(tail *)` จะ match shell command ของ Monitor tool แบบเดียวกับที่ `Bash(tail *)` match ของ Bash · และ hook ที่ match Bash ตอนนี้รันกับ shell command ที่ Monitor สั่งด้วย (block หรือ ask ได้ แต่ approve หรือ rewrite ไม่ได้)
+- **output ของ PreCompact hook ถูกตัดที่ 10,000 ตัวอักษร** ต่อ hook — output ใหญ่มาก ๆ จะไม่ทำให้ compaction ล้มหรือวนซ้ำอีก
+
 ---
 
 ---

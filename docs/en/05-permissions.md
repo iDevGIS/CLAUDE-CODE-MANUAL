@@ -288,6 +288,10 @@ Skill(commit)                    # Specific skill
 - **Dangerous `rm`/`rmdir` in bypass mode is denied at once in the Desktop app and VS Code** — instead of prompting, the command is denied with a rewrite hint, so unattended sessions keep going.
 - **Sandbox-excluded commands ask before writing to write-list paths when the sandbox can't run** — while the sandbox is enabled but cannot run, commands the settings exclude from it now ask first; the unsandboxed fallback is refused there.
 
+### New in v2.1.314
+- **`permissions.blockWritesOutsideWorkingDirectories`** — Write, Edit and NotebookEdit refuse paths outside the working directories in every permission mode.
+- **`/permissions` review tab is now "Recently blocked"** — the footer says what Esc will do with marked rows, and it refuses approving a call you can't read in full (including one the terminal is too short to show).
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

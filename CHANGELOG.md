@@ -25,6 +25,30 @@
 
 ---
 
+## [1.102.0] — 2026-10-30
+
+### Compatibility
+- **Claude Code:** `v2.1.314+`
+
+### Added
+- **New in v2.1.314** ในบท 05 Permissions EN+TH (guide หน้าเดียว + atomic note):
+  - `permissions.blockWritesOutsideWorkingDirectories` — Write/Edit/NotebookEdit ปฏิเสธ path นอก working directories ในทุก permission mode
+  - แท็บ review ของ `/permissions` เปลี่ยนชื่อเป็น "Recently blocked" — footer บอกผลของ Esc และไม่ยอมให้อนุมัติ call ที่อ่านไม่ครบ
+- **New in v2.1.314** ในบท 06 Configuration EN+TH:
+  - Claude apps gateway upstream: list `groups` (ส่งเฉพาะ developer ใน IdP group ที่ระบุ รวมตอน failover) และ `guardrail_trace` บน Bedrock upstream (log guardrail filter ที่ทำงาน โดยไม่เก็บข้อความที่ match)
+  - Idle compaction ใน VS Code และแท็บ Code ของ Claude Desktop · ทำงานกับ subscriber ที่ปิด telemetry และบน Bedrock/Vertex/Foundry/LLM gateway เมื่อเปิด prompt cache หนึ่งชั่วโมง
+- **New in v2.1.314** ในบท 10 Hooks EN+TH: เงื่อนไข `if` แบบ `Monitor(tail *)` match shell command ของ Monitor tool · hook ที่ match Bash รันกับคำสั่งที่ Monitor สั่งด้วย (block/ask ได้ แต่ approve/rewrite ไม่ได้) · output ของ PreCompact hook ถูกตัดที่ 10,000 ตัวอักษรต่อ hook
+- **แถว What's-new ของ `v2.1.314`** ใน README.md + README.EN.md
+
+### Changed
+- **แถว env var `FORCE_HYPERLINK`** ในบท 23 (guide + atomic, EN+TH) — เติมว่าค่า `false`/`no`/`off` ตอนนี้ปิด hyperlink แทนที่จะเปิด
+- **Version strings** bumped `2.1.312` → `2.1.314` (welcome banner, npm pin, ตัวอย่างใน tutorial, compatibility ของ ProjectEx2, badge/version ใน README.md + README.EN.md) — heading "New in" และ version stamp ประวัติคงไว้ตามเดิม
+
+### Why
+- Upstream `2.1.314` (ข้าม `2.1.313` ใน changelog ทางการ) เพิ่ม setting กันการเขียนนอก working directories, ขยาย idle compaction ไป VS Code/Desktop, เพิ่ม option ของ apps gateway upstream, ให้ hook ครอบคลุมคำสั่งของ Monitor และเปลี่ยนความหมายของ `FORCE_HYPERLINK=false` · ที่เหลือ (bug fix, UI polish, skill bundled, และของฝั่ง VS Code/Cloud sessions/Remote Control/Claude Tag/self-hosted runner) ข้ามไว้
+
+---
+
 ## [1.101.0] — 2026-10-28
 
 ### Compatibility
@@ -2277,6 +2301,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.102.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.101.0...v1.102.0
 [1.101.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.100.0...v1.101.0
 [1.100.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.99.0...v1.100.0
 [1.99.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.98.0...v1.99.0

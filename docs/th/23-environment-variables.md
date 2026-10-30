@@ -65,7 +65,7 @@ related:
 | `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | เพดานการตัดข้อความ (default 60 KB) ของ content attribute ใน OpenTelemetry *(v2.1.214)* |
 | `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | เพดานจำนวน subagent ที่รันพร้อมกัน (default 20) กันไม่ให้ข้อความเดียว fan out background agent แบบไม่จำกัด *(v2.1.217)* |
 | `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | เพดานความลึกของ subagent ที่ spawn ซ้อนกัน — default 3 ตั้งแต่ v2.1.219 (ช่วง v2.1.217–218 ปิดเป็นค่าเริ่มต้น); ตั้ง `1` เพื่อปิดการซ้อน *(v2.1.217, เปลี่ยน v2.1.219)* |
-| `FORCE_HYPERLINK` | ลิงก์ PR badge ที่ footer เป็น hyperlink คลิกได้แม้ตรวจไม่พบว่า terminal รองรับ (เช่นผ่าน ssh/tmux); ตั้ง `0` เพื่อปิด *(v2.1.217)* |
+| `FORCE_HYPERLINK` | ลิงก์ PR badge ที่ footer เป็น hyperlink คลิกได้แม้ตรวจไม่พบว่า terminal รองรับ (เช่นผ่าน ssh/tmux); ตั้ง `0` เพื่อปิด *(v2.1.217)* · ค่า `false`, `no` และ `off` ตอนนี้ปิด hyperlink แทนที่จะเปิด *(v2.1.314)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` | การ auto-resume ของ turn ที่ถูกขัดจังหวะ; ตั้ง `0` เพื่อปิด — ค่าที่เป็น falsy มีผลจริงตั้งแต่ v2.1.221 *(v2.1.221)* |
 | `CLAUDE_CODE_DISABLE_1M_CONTEXT` | กด context ของโมเดล Claude **ทุกตัว** ที่มี window 1M แบบ native ให้เหลือ 200K ด้วย auto-compaction (เดิมมีผลเฉพาะรายชื่อโมเดลที่ fix ไว้); ถ้า auto-compaction กดไม่อยู่ที่ 200K จะมีคำเตือนตอนเปิดโปรแกรม *(เปลี่ยน v2.1.223)* |
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | ตั้ง `1` เพื่อให้ session ที่ใช้ model ID ที่ไม่รู้จักโตเกิน context window ที่ระบบเดาไว้ได้เหมือนเดิม — ตั้งแต่ v2.1.223 auto-compact จะคุมไม่ให้เกินเป็นค่าเริ่มต้น *(v2.1.223)* |

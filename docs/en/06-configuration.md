@@ -391,6 +391,11 @@ Set the `model` key to any of these (newest → cheapest):
 - **Unrecognized model names on Bedrock, Vertex, Foundry and Mantle** — names Claude Code doesn't recognize (custom deployment names, inference profile ARNs) now use the shorter system prompt even when they front Sonnet or Haiku; set `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` to keep the full prompt. Automatic model switches after a flagged message now cover these names too; `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1` turns them off. See [[23-environment-variables]].
 - **"5-hour limit"** — usage limit messages now call the 5-hour window the "5-hour limit" instead of the "session limit".
 
+### New in v2.1.314
+
+- **Claude apps gateway upstream additions** — an optional `groups` list sends only developers in the listed IdP groups to that upstream (on failover too); Bedrock upstreams accept `guardrail_trace` to log which Amazon Bedrock guardrail filter fired on a request, without the matched text.
+- **Idle compaction reaches VS Code and Claude Desktop's Code tab** — a 200K+ token conversation left idle is summarized, and the summary is used on your next message if the prompt cache has expired. It now also runs for subscribers with telemetry turned off, and on Bedrock, Vertex, Foundry and LLM gateways once the one-hour prompt cache is on.
+
 ---
 
 ---

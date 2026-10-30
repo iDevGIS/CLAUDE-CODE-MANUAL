@@ -317,6 +317,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **`rm`/`rmdir` อันตรายใน bypass mode ถูก deny ทันทีบน Desktop app และ VS Code** — แทนที่จะขึ้น prompt จะ deny คำสั่งเลยพร้อมคำแนะนำให้เขียนใหม่ เพื่อให้ session ที่ไม่มีคนเฝ้ารันต่อได้
 - **คำสั่งที่ settings ยกเว้นจาก sandbox จะถามก่อนเขียนลง path ใน write-list เมื่อ sandbox รันไม่ได้** — ระหว่างที่เปิด sandbox ไว้แต่ sandbox รันไม่ได้ คำสั่งพวกนี้จะถามก่อน · และการ fallback ไปรันแบบไม่ sandbox จะถูกปฏิเสธในกรณีนี้
 
+### 🆕 ใหม่ใน v2.1.314
+- **`permissions.blockWritesOutsideWorkingDirectories`** — Write, Edit และ NotebookEdit จะปฏิเสธ path ที่อยู่นอก working directories ในทุก permission mode
+- **แท็บ review ของ `/permissions` เปลี่ยนชื่อเป็น "Recently blocked"** — footer บอกว่า Esc จะทำอะไรกับแถวที่ mark ไว้ · และจะไม่ยอมให้อนุมัติ call ที่อ่านไม่ครบทั้งหมด (รวมถึงกรณี terminal เตี้ยเกินจะแสดงได้)
+
 ---
 
 ---

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.312         │
+│ Welcome to Claude Code v2.1.314         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1129,7 +1129,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.312
+- run: npm install -g @anthropic-ai/claude-code@2.1.314
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1885,6 +1885,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **`rm`/`rmdir` อันตรายใน bypass mode ถูก deny ทันทีบน Desktop app และ VS Code** — แทนที่จะขึ้น prompt จะ deny คำสั่งเลยพร้อมคำแนะนำให้เขียนใหม่ เพื่อให้ session ที่ไม่มีคนเฝ้ารันต่อได้
 - **คำสั่งที่ settings ยกเว้นจาก sandbox จะถามก่อนเขียนลง path ใน write-list เมื่อ sandbox รันไม่ได้** — ระหว่างที่เปิด sandbox ไว้แต่ sandbox รันไม่ได้ คำสั่งพวกนี้จะถามก่อน · และการ fallback ไปรันแบบไม่ sandbox จะถูกปฏิเสธในกรณีนี้
 
+### 🆕 ใหม่ใน v2.1.314
+- **`permissions.blockWritesOutsideWorkingDirectories`** — Write, Edit และ NotebookEdit จะปฏิเสธ path ที่อยู่นอก working directories ในทุก permission mode
+- **แท็บ review ของ `/permissions` เปลี่ยนชื่อเป็น "Recently blocked"** — footer บอกว่า Esc จะทำอะไรกับแถวที่ mark ไว้ · และจะไม่ยอมให้อนุมัติ call ที่อ่านไม่ครบทั้งหมด (รวมถึงกรณี terminal เตี้ยเกินจะแสดงได้)
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2251,6 +2255,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **OpenTelemetry `mcp_server.name` รายงานชื่อจริง** ของ remote MCP server แบบ URL ตายตัวที่ประกาศโดย plugin จาก official Anthropic marketplace แทนคำว่า `custom`
 - **ชื่อโมเดลที่ Claude Code ไม่รู้จักบน Bedrock, Vertex, Foundry และ Mantle** — ชื่อที่ไม่รู้จัก (เช่นชื่อ custom deployment, inference profile ARN) ตอนนี้ใช้ system prompt แบบสั้น แม้ด้านหลังจะเป็น Sonnet หรือ Haiku · ตั้ง `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` เพื่อคง prompt เต็ม · การสลับโมเดลอัตโนมัติหลังข้อความถูก flag ก็ครอบคลุมชื่อเหล่านี้ด้วย · ปิดด้วย `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1`
 - **"5-hour limit"** — ข้อความ usage limit เรียกหน้าต่าง 5 ชั่วโมงว่า "5-hour limit" แทน "session limit"
+
+### 🆕 ใหม่ใน v2.1.314
+
+- **ส่วนเพิ่มของ upstream ใน Claude apps gateway** — ใส่ list `groups` (ไม่บังคับ) เพื่อส่งเฉพาะ developer ที่อยู่ใน IdP group ที่ระบุไปยัง upstream นั้น (รวมตอน failover ด้วย) · Bedrock upstream รองรับ `guardrail_trace` เพื่อ log ว่า guardrail filter ตัวไหนของ Amazon Bedrock ทำงานกับ request โดยไม่บันทึกข้อความที่ match
+- **Idle compaction มาถึง VS Code และแท็บ Code ของ Claude Desktop** — บทสนทนา 200K+ token ที่ทิ้งไว้ idle จะถูกสรุป และใช้สรุปนั้นในข้อความถัดไปถ้า prompt cache หมดอายุแล้ว · ตอนนี้ยังทำงานกับ subscriber ที่ปิด telemetry และบน Bedrock, Vertex, Foundry และ LLM gateway เมื่อเปิด prompt cache แบบหนึ่งชั่วโมงแล้ว
 
 ---
 
@@ -2933,6 +2942,11 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 ### 🆕 ใหม่ใน v2.1.312
 
 - **prompt hook และ agent hook รันพร้อมกันได้สูงสุด 24 ตัวต่อ session** — นับรวม sub-agent ด้วย บวกอีกไม่เกิน 12 ตัวที่รอนานเกิน timeout ของ event นั้นแล้ว · `timeout` ของ hook ที่ต่ำกว่า 1 วินาทีนับเป็น 1 วินาที
+
+### 🆕 ใหม่ใน v2.1.314
+
+- **เงื่อนไข `if` ของ hook match คำสั่งของ Monitor ได้** — เงื่อนไขอย่าง `Monitor(tail *)` จะ match shell command ของ Monitor tool แบบเดียวกับที่ `Bash(tail *)` match ของ Bash · และ hook ที่ match Bash ตอนนี้รันกับ shell command ที่ Monitor สั่งด้วย (block หรือ ask ได้ แต่ approve หรือ rewrite ไม่ได้)
+- **output ของ PreCompact hook ถูกตัดที่ 10,000 ตัวอักษร** ต่อ hook — output ใหญ่มาก ๆ จะไม่ทำให้ compaction ล้มหรือวนซ้ำอีก
 
 ---
 
@@ -4506,7 +4520,7 @@ your-project/
 | `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | เพดานการตัดข้อความ (default 60 KB) ของ content attribute ใน OpenTelemetry *(v2.1.214)* |
 | `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | เพดานจำนวน subagent ที่รันพร้อมกัน (default 20) กันไม่ให้ข้อความเดียว fan out background agent แบบไม่จำกัด *(v2.1.217)* |
 | `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | เพดานความลึกของ subagent ที่ spawn ซ้อนกัน — default 3 ตั้งแต่ v2.1.219 (ช่วง v2.1.217–218 ปิดเป็นค่าเริ่มต้น); ตั้ง `1` เพื่อปิดการซ้อน *(v2.1.217, เปลี่ยน v2.1.219)* |
-| `FORCE_HYPERLINK` | ลิงก์ PR badge ที่ footer เป็น hyperlink คลิกได้แม้ตรวจไม่พบว่า terminal รองรับ (เช่นผ่าน ssh/tmux); ตั้ง `0` เพื่อปิด *(v2.1.217)* |
+| `FORCE_HYPERLINK` | ลิงก์ PR badge ที่ footer เป็น hyperlink คลิกได้แม้ตรวจไม่พบว่า terminal รองรับ (เช่นผ่าน ssh/tmux); ตั้ง `0` เพื่อปิด *(v2.1.217)* · ค่า `false`, `no` และ `off` ตอนนี้ปิด hyperlink แทนที่จะเปิด *(v2.1.314)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` | การ auto-resume ของ turn ที่ถูกขัดจังหวะ; ตั้ง `0` เพื่อปิด — ค่าที่เป็น falsy มีผลจริงตั้งแต่ v2.1.221 *(v2.1.221)* |
 | `CLAUDE_CODE_DISABLE_1M_CONTEXT` | กด context ของโมเดล Claude **ทุกตัว** ที่มี window 1M แบบ native ให้เหลือ 200K ด้วย auto-compaction (เดิมมีผลเฉพาะรายชื่อโมเดลที่ fix ไว้); ถ้า auto-compaction กดไม่อยู่ที่ 200K จะมีคำเตือนตอนเปิดโปรแกรม *(เปลี่ยน v2.1.223)* |
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | ตั้ง `1` เพื่อให้ session ที่ใช้ model ID ที่ไม่รู้จักโตเกิน context window ที่ระบบเดาไว้ได้เหมือนเดิม — ตั้งแต่ v2.1.223 auto-compact จะคุมไม่ให้เกินเป็นค่าเริ่มต้น *(v2.1.223)* |
@@ -5892,7 +5906,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.312`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.314`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

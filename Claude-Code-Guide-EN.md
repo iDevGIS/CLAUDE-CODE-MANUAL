@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.312         │
+│ Welcome to Claude Code v2.1.314         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.312
+- run: npm install -g @anthropic-ai/claude-code@2.1.314
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1891,6 +1891,10 @@ Skill(commit)                    # Specific skill
 - **Dangerous `rm`/`rmdir` in bypass mode is denied at once in the Desktop app and VS Code** — instead of prompting, the command is denied with a rewrite hint, so unattended sessions keep going.
 - **Sandbox-excluded commands ask before writing to write-list paths when the sandbox can't run** — while the sandbox is enabled but cannot run, commands the settings exclude from it now ask first; the unsandboxed fallback is refused there.
 
+### New in v2.1.314
+- **`permissions.blockWritesOutsideWorkingDirectories`** — Write, Edit and NotebookEdit refuse paths outside the working directories in every permission mode.
+- **`/permissions` review tab is now "Recently blocked"** — the footer says what Esc will do with marked rows, and it refuses approving a call you can't read in full (including one the terminal is too short to show).
+
 ---
 
 ## 6. Configuration
@@ -2257,6 +2261,11 @@ Skill(commit)                    # Specific skill
 - **OpenTelemetry `mcp_server.name` reports the real name** for fixed-URL remote MCP servers declared by plugins from the official Anthropic marketplace, instead of `custom`.
 - **Unrecognized model names on Bedrock, Vertex, Foundry and Mantle** — names Claude Code doesn't recognize (custom deployment names, inference profile ARNs) now use the shorter system prompt even when they front Sonnet or Haiku; set `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` to keep the full prompt. Automatic model switches after a flagged message now cover these names too; `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1` turns them off.
 - **"5-hour limit"** — usage limit messages now call the 5-hour window the "5-hour limit" instead of the "session limit".
+
+### New in v2.1.314
+
+- **Claude apps gateway upstream additions** — an optional `groups` list sends only developers in the listed IdP groups to that upstream (on failover too); Bedrock upstreams accept `guardrail_trace` to log which Amazon Bedrock guardrail filter fired on a request, without the matched text.
+- **Idle compaction reaches VS Code and Claude Desktop's Code tab** — a 200K+ token conversation left idle is summarized, and the summary is used on your next message if the prompt cache has expired. It now also runs for subscribers with telemetry turned off, and on Bedrock, Vertex, Foundry and LLM gateways once the one-hour prompt cache is on.
 
 ---
 
@@ -2877,6 +2886,11 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 ### New in v2.1.312
 
 - **Prompt and agent hooks capped at 24 at a time per session** — sub-agents included, plus at most 12 more that have waited longer than their event's timeout. A hook `timeout` under 1 second now counts as 1 second.
+
+### New in v2.1.314
+
+- **Hook `if` conditions match Monitor commands** — a condition such as `Monitor(tail *)` matches the Monitor tool's shell commands the way `Bash(tail *)` matches Bash's; hooks matching Bash now also run on shell commands started by Monitor (they can block or ask, but not approve or rewrite them).
+- **PreCompact hook output is cut at 10,000 characters** per hook, so very large output no longer makes compaction fail or repeat.
 
 ### Configuring Hooks
 
@@ -4517,7 +4531,7 @@ your-project/
 | `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH` | Truncation limit (default 60 KB) for OpenTelemetry content attributes. *(v2.1.214)* |
 | `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` | Cap on concurrently-running subagents (default 20), so one message can't fan out unbounded background agents. *(v2.1.217)* |
 | `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` | Cap on nested-subagent spawn depth — default 3 since v2.1.219 (nesting was off by default in v2.1.217–218); set `1` to disable nesting. *(v2.1.217, changed v2.1.219)* |
-| `FORCE_HYPERLINK` | Footer PR badge links render as clickable hyperlinks even when terminal support can't be detected (e.g. over ssh/tmux); set `0` to opt out. *(v2.1.217)* |
+| `FORCE_HYPERLINK` | Footer PR badge links render as clickable hyperlinks even when terminal support can't be detected (e.g. over ssh/tmux); set `0` to opt out. *(v2.1.217)* `false`, `no` and `off` now turn hyperlinks off instead of on. *(v2.1.314)* |
 | `CLAUDE_CODE_RESUME_INTERRUPTED_TURN` | Auto-resume of an interrupted turn; set `0` to disable — falsy values are honored since v2.1.221. *(v2.1.221)* |
 | `CLAUDE_CODE_DISABLE_1M_CONTEXT` | Holds **every** Claude model with a native 1M window to 200K via auto-compaction (previously only a fixed list of models); a startup warning appears when auto-compaction isn't holding the session to 200K. *(changed v2.1.223)* |
 | `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | Set `1` to let sessions on unrecognized model IDs grow past the assumed context window again — since v2.1.223 auto-compact keeps them inside it by default. *(v2.1.223)* |
@@ -5906,7 +5920,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.312`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.314`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
