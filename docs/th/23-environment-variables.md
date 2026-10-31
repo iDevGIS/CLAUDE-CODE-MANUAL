@@ -120,6 +120,9 @@ related:
 | `CLAUDE_CODE_MODEL_CATALOG` | บน Bedrock, Mantle, Vertex และ Foundry ตัว Claude Code จะโหลด model settings จากไฟล์ที่ลงลายเซ็นบน downloads.claude.ai · ตั้ง `off` เพื่อปิด *(v2.1.311)* |
 | `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT` | บน Bedrock, Vertex, Foundry และ Mantle ชื่อโมเดลที่ Claude Code ไม่รู้จัก (เช่นชื่อ custom deployment, inference profile ARN) จะใช้ system prompt แบบสั้น แม้ด้านหลังเป็น Sonnet หรือ Haiku · ตั้ง `0` เพื่อคง prompt เต็ม *(v2.1.312)* |
 | `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK` | ตั้ง `1` เพื่อปิดการสลับโมเดลอัตโนมัติหลังข้อความถูก flag (ตอนนี้ครอบคลุมชื่อโมเดลที่ Claude Code ไม่รู้จัก เช่นชื่อ custom deployment ด้วย) *(v2.1.312)* |
+| `CLAUDE_CODE_DISABLE_ULTRATHINK` | ปิดคีย์เวิร์ด `ultrathink` *(v2.1.316)* |
+| `CLAUDE_CODE_SUBAGENT_EFFORT` | ระดับ effort ที่ subagent ใช้เมื่อไม่มีที่อื่นระบุไว้ แทนการรับค่าจาก session *(v2.1.316)* |
+| `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` | เก็บ cross-certificate ของระบบที่รับรองกันเองเป็นวงไว้ สำหรับ server ที่ private CA ต้องใช้ *(v2.1.316)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

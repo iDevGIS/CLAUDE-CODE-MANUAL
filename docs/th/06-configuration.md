@@ -120,7 +120,7 @@ related:
 | **Haiku 5.5** | `claude-haiku-5-5` | **default Haiku ตัวใหม่**บน Anthropic API (ตั้งแต่ Claude Code **2.1.293**); context **1M**; ราคา **$0.10/$0.50 ต่อ Mtok** ($0.50/$2.50 สำหรับ prompt เกิน 100K) — เร็วสุด ถูกสุด; สำหรับงานง่าย/boilerplate |
 | **Haiku 4.5** | `claude-haiku-4-5` | default Haiku ตัวก่อน |
 
-> หมายเหตุ: Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกจาก fast mode ใน 2.1.219) — Fable 5.1 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 5.5 คือ **default Opus** ตัวปัจจุบัน
+> หมายเหตุ: Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกจาก fast mode ใน 2.1.219; fast mode ของ Opus 4.8 ถูก deprecate ตั้งแต่ 30 ต.ค. 2026 และจะถูกถอด 30 พ.ย. 2026 — ย้ายไป Opus 5.5) — Fable 5.1 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 5.5 คือ **default Opus** ตัวปัจจุบัน
 
 ### 🆕 Settings ใหม่ใน v2.1.191
 
@@ -395,6 +395,13 @@ related:
 
 - **ส่วนเพิ่มของ upstream ใน Claude apps gateway** — ใส่ list `groups` (ไม่บังคับ) เพื่อส่งเฉพาะ developer ที่อยู่ใน IdP group ที่ระบุไปยัง upstream นั้น (รวมตอน failover ด้วย) · Bedrock upstream รองรับ `guardrail_trace` เพื่อ log ว่า guardrail filter ตัวไหนของ Amazon Bedrock ทำงานกับ request โดยไม่บันทึกข้อความที่ match
 - **Idle compaction มาถึง VS Code และแท็บ Code ของ Claude Desktop** — บทสนทนา 200K+ token ที่ทิ้งไว้ idle จะถูกสรุป และใช้สรุปนั้นในข้อความถัดไปถ้า prompt cache หมดอายุแล้ว · ตอนนี้ยังทำงานกับ subscriber ที่ปิด telemetry และบน Bedrock, Vertex, Foundry และ LLM gateway เมื่อเปิด prompt cache แบบหนึ่งชั่วโมงแล้ว
+
+### 🆕 ใหม่ใน v2.1.316
+
+- **Fast mode ของ Opus 4.8 ถูก deprecate** (ตั้งแต่ 30 ตุลาคม 2026) และจะถูกถอดในวันที่ 30 พฤศจิกายน 2026 — หลังจากนั้น request fast mode บน Opus 4.8 จะได้ error แทนการ fallback ไป Opus 4.8 แบบปกติ · ย้ายไป Opus 5.5 เพื่อให้ยังได้ความเร็วนี้
+- **ส่วนเพิ่มของ Claude apps gateway** — pooled group budget (งบรายเดือนก้อนเดียวที่สมาชิกในกลุ่มใช้ร่วมกัน ซ้อนบน limit ของแต่ละคน ตั้งด้วย `pooled_budget` ใน spend limits admin API) · `managed.policy_mode: layered` ใช้ทุก policy ที่ match กับ developer โดยแต่ละอัน merge ทับอันที่อยู่ถัดลงไป ไม่ใช่แค่อันแรก · `guardrail.input_tagging` บน Bedrock upstream ห่อ prompt ด้วย input tag ที่ filter prompt attacks ของ Amazon Bedrock guardrail ต้องใช้ (`all_messages_and_system` tag system prompt ด้วย)
+- **Server-managed settings สำหรับ login แบบ Team และ Enterprise** — settings ที่ดึงจาก API ของ Anthropic มีผลทันทีโดยไม่ต้องกดอนุมัติ และสำเนาที่เก็บไว้ซึ่ง verify ไม่ผ่านจะถูกปฏิเสธ
+- **Env var ใหม่** — `CLAUDE_CODE_DISABLE_ULTRATHINK`, `CLAUDE_CODE_SUBAGENT_EFFORT` และ `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` ดู [[23-environment-variables]]
 
 ### การ Persist ของ `/config` และ `/model`
 

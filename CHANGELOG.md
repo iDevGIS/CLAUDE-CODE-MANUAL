@@ -25,6 +25,29 @@
 
 ---
 
+## [1.103.0] — 2026-10-31
+
+### Compatibility
+- **Claude Code:** `v2.1.316+`
+
+### Added
+- **New in v2.1.316** ในบท 05 Permissions EN+TH (guide หน้าเดียว + atomic note): `autoMode.allow` ที่ไม่มี `"$defaults"` ไม่ถอดกฎ built-in ของ auto mode สำหรับ prompt ของ scheduled task อีกต่อไป
+- **New in v2.1.316** ในบท 06 Configuration EN+TH:
+  - Fast mode ของ Opus 4.8 ถูก deprecate (ตั้งแต่ 30 ต.ค. 2026) และจะถูกถอด 30 พ.ย. 2026 — หลังจากนั้นได้ error แทนการ fallback · ย้ายไป Opus 5.5
+  - Claude apps gateway: pooled group budget (`pooled_budget` ใน spend limits admin API) · `managed.policy_mode: layered` · `guardrail.input_tagging` บน Bedrock upstream (`all_messages_and_system` tag system prompt ด้วย)
+  - Server-managed settings ของ Team/Enterprise มีผลโดยไม่ต้องกดอนุมัติ และสำเนาที่ verify ไม่ผ่านถูกปฏิเสธ
+- **แถว env var ใหม่ 3 ตัว** ในบท 23 (guide + atomic, EN+TH): `CLAUDE_CODE_DISABLE_ULTRATHINK`, `CLAUDE_CODE_SUBAGENT_EFFORT`, `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP`
+- **แถว What's-new ของ `v2.1.316`** ใน README.md + README.EN.md
+
+### Changed
+- **หมายเหตุ lineup fast mode** ในบท 06 (atomic EN+TH) และบท 21 Special Features (guide + atomic, EN+TH) — เติมกำหนดถอด fast mode ของ Opus 4.8 และให้ย้ายไป Opus 5.5
+- **Version strings** bumped `2.1.314` → `2.1.316` (welcome banner, npm pin, ตัวอย่างใน tutorial, compatibility ของ ProjectEx2, badge/version ใน README.md + README.EN.md) — heading "New in" และ version stamp ประวัติคงไว้ตามเดิม
+
+### Why
+- Upstream `2.1.316` (ข้าม `2.1.315` ใน changelog ทางการ) deprecate fast mode ของ Opus 4.8, เพิ่ม env var 3 ตัว (ปิด `ultrathink`, effort ของ subagent, cross-cert แบบวน), เพิ่ม option ของ Claude apps gateway, เปลี่ยนพฤติกรรม server-managed settings และ `autoMode.allow` · ที่เหลือ (bug fix, UI polish และของฝั่ง VS Code/Cloud sessions/Claude Tag/Code Review/self-hosted runner) ข้ามไว้
+
+---
+
 ## [1.102.0] — 2026-10-30
 
 ### Compatibility
@@ -2301,6 +2324,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.103.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.102.0...v1.103.0
 [1.102.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.101.0...v1.102.0
 [1.101.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.100.0...v1.101.0
 [1.100.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.99.0...v1.100.0

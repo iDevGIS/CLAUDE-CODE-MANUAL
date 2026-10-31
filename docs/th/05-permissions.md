@@ -321,6 +321,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **`permissions.blockWritesOutsideWorkingDirectories`** — Write, Edit และ NotebookEdit จะปฏิเสธ path ที่อยู่นอก working directories ในทุก permission mode
 - **แท็บ review ของ `/permissions` เปลี่ยนชื่อเป็น "Recently blocked"** — footer บอกว่า Esc จะทำอะไรกับแถวที่ mark ไว้ · และจะไม่ยอมให้อนุมัติ call ที่อ่านไม่ครบทั้งหมด (รวมถึงกรณี terminal เตี้ยเกินจะแสดงได้)
 
+### 🆕 ใหม่ใน v2.1.316
+- **`autoMode.allow` ที่ไม่มี `"$defaults"` ยังคงกฎ scheduled-task ไว้** — list แบบนี้จะไม่ถอดกฎ built-in ของ auto mode สำหรับ prompt ของ scheduled task อีกต่อไป
+
 ---
 
 ---

@@ -50,7 +50,7 @@ Claude จะใช้เวลาคิดนานขึ้นสำหรั�
 
 กด `Meta+O` / `Alt+O` หรือ `/fast`
 
-Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกใน v2.1.219) โดย Output เร็วขึ้น
+Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกใน v2.1.219) โดย Output เร็วขึ้น · fast mode ของ Opus 4.8 ถูก deprecate และจะถูกถอดวันที่ 30 พ.ย. 2026 — หลังจากนั้นจะได้ error แทนการ fallback ให้ย้ายไป Opus 5.5 *(v2.1.316)*
 
 ### Code Intelligence
 

@@ -50,7 +50,7 @@ Claude spends more time thinking on hard problems such as:
 
 Press `Meta+O` / `Alt+O`, or use `/fast`.
 
-Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed in v2.1.219), with faster output.
+Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed in v2.1.219), with faster output. Fast mode for Opus 4.8 is deprecated and will be removed on November 30, 2026 — after that it returns an error instead of falling back; migrate to Opus 5.5. *(v2.1.316)*
 
 ### Code Intelligence
 

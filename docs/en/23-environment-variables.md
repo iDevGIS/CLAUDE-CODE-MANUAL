@@ -120,6 +120,9 @@ related:
 | `CLAUDE_CODE_MODEL_CATALOG` | On Bedrock, Mantle, Vertex and Foundry, Claude Code loads model settings from a signed file on downloads.claude.ai; set `off` to turn this off. *(v2.1.311)* |
 | `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT` | On Bedrock, Vertex, Foundry and Mantle, model names Claude Code doesn't recognize (custom deployment names, inference profile ARNs) use the shorter system prompt even when they front Sonnet or Haiku; set `0` to keep the full prompt. *(v2.1.312)* |
 | `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK` | Set `1` to turn off automatic model switches after a flagged message (these now also cover model names Claude Code doesn't recognize, such as custom deployment names). *(v2.1.312)* |
+| `CLAUDE_CODE_DISABLE_ULTRATHINK` | Turns the `ultrathink` keyword off. *(v2.1.316)* |
+| `CLAUDE_CODE_SUBAGENT_EFFORT` | Effort level subagents run at when nothing else names one, instead of inheriting the session's. *(v2.1.316)* |
+| `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` | Keeps system cross-certificates that certify each other in a loop, for servers whose private CA needs one. *(v2.1.316)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

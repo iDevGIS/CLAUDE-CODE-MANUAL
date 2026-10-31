@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.314         │
+│ Welcome to Claude Code v2.1.316         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.314
+- run: npm install -g @anthropic-ai/claude-code@2.1.316
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1895,6 +1895,9 @@ Skill(commit)                    # Specific skill
 - **`permissions.blockWritesOutsideWorkingDirectories`** — Write, Edit and NotebookEdit refuse paths outside the working directories in every permission mode.
 - **`/permissions` review tab is now "Recently blocked"** — the footer says what Esc will do with marked rows, and it refuses approving a call you can't read in full (including one the terminal is too short to show).
 
+### New in v2.1.316
+- **`autoMode.allow` without `"$defaults"` keeps the scheduled-task rule** — such a list no longer removes auto mode's built-in rule on scheduled-task prompts.
+
 ---
 
 ## 6. Configuration
@@ -2266,6 +2269,13 @@ Skill(commit)                    # Specific skill
 
 - **Claude apps gateway upstream additions** — an optional `groups` list sends only developers in the listed IdP groups to that upstream (on failover too); Bedrock upstreams accept `guardrail_trace` to log which Amazon Bedrock guardrail filter fired on a request, without the matched text.
 - **Idle compaction reaches VS Code and Claude Desktop's Code tab** — a 200K+ token conversation left idle is summarized, and the summary is used on your next message if the prompt cache has expired. It now also runs for subscribers with telemetry turned off, and on Bedrock, Vertex, Foundry and LLM gateways once the one-hour prompt cache is on.
+
+### New in v2.1.316
+
+- **Fast mode for Opus 4.8 is deprecated** (as of October 30, 2026) and will be removed on November 30, 2026 — after that, fast mode requests on Opus 4.8 return an error instead of falling back to standard Opus 4.8. Migrate to Opus 5.5 to keep the speedup.
+- **Claude apps gateway additions** — pooled group budgets (one monthly budget a group's members share, on top of each member's own limit, set with `pooled_budget` on the spend limits admin API); `managed.policy_mode: layered` applies every policy that matches a developer, each merged over the ones listed below it, not only the first; `guardrail.input_tagging` on Bedrock upstreams wraps prompts in the input tags an Amazon Bedrock guardrail's prompt attacks filter needs (`all_messages_and_system` also tags the system prompt).
+- **Server-managed settings for Team and Enterprise logins** — settings fetched from Anthropic's API now apply without an approval prompt, and a stored copy that doesn't verify is refused.
+- **New env vars** — `CLAUDE_CODE_DISABLE_ULTRATHINK`, `CLAUDE_CODE_SUBAGENT_EFFORT` and `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP`.
 
 ---
 
@@ -4375,7 +4385,7 @@ Claude spends more time thinking on hard problems such as:
 
 Press `Meta+O` / `Alt+O`, or use `/fast`.
 
-Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed in v2.1.219), with faster output.
+Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed in v2.1.219), with faster output. Fast mode for Opus 4.8 is deprecated and will be removed on November 30, 2026 — after that it returns an error instead of falling back; migrate to Opus 5.5. *(v2.1.316)*
 
 ### Code Intelligence
 
@@ -4586,6 +4596,9 @@ your-project/
 | `CLAUDE_CODE_MODEL_CATALOG` | On Bedrock, Mantle, Vertex and Foundry, Claude Code loads model settings from a signed file on downloads.claude.ai; set `off` to turn this off. *(v2.1.311)* |
 | `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT` | On Bedrock, Vertex, Foundry and Mantle, model names Claude Code doesn't recognize (custom deployment names, inference profile ARNs) use the shorter system prompt even when they front Sonnet or Haiku; set `0` to keep the full prompt. *(v2.1.312)* |
 | `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK` | Set `1` to turn off automatic model switches after a flagged message (these now also cover model names Claude Code doesn't recognize, such as custom deployment names). *(v2.1.312)* |
+| `CLAUDE_CODE_DISABLE_ULTRATHINK` | Turns the `ultrathink` keyword off. *(v2.1.316)* |
+| `CLAUDE_CODE_SUBAGENT_EFFORT` | Effort level subagents run at when nothing else names one, instead of inheriting the session's. *(v2.1.316)* |
+| `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` | Keeps system cross-certificates that certify each other in a loop, for servers whose private CA needs one. *(v2.1.316)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5920,7 +5933,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.314`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.316`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

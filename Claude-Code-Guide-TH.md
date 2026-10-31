@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.314         │
+│ Welcome to Claude Code v2.1.316         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1129,7 +1129,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.314
+- run: npm install -g @anthropic-ai/claude-code@2.1.316
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1889,6 +1889,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **`permissions.blockWritesOutsideWorkingDirectories`** — Write, Edit และ NotebookEdit จะปฏิเสธ path ที่อยู่นอก working directories ในทุก permission mode
 - **แท็บ review ของ `/permissions` เปลี่ยนชื่อเป็น "Recently blocked"** — footer บอกว่า Esc จะทำอะไรกับแถวที่ mark ไว้ · และจะไม่ยอมให้อนุมัติ call ที่อ่านไม่ครบทั้งหมด (รวมถึงกรณี terminal เตี้ยเกินจะแสดงได้)
 
+### 🆕 ใหม่ใน v2.1.316
+- **`autoMode.allow` ที่ไม่มี `"$defaults"` ยังคงกฎ scheduled-task ไว้** — list แบบนี้จะไม่ถอดกฎ built-in ของ auto mode สำหรับ prompt ของ scheduled task อีกต่อไป
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2260,6 +2263,13 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **ส่วนเพิ่มของ upstream ใน Claude apps gateway** — ใส่ list `groups` (ไม่บังคับ) เพื่อส่งเฉพาะ developer ที่อยู่ใน IdP group ที่ระบุไปยัง upstream นั้น (รวมตอน failover ด้วย) · Bedrock upstream รองรับ `guardrail_trace` เพื่อ log ว่า guardrail filter ตัวไหนของ Amazon Bedrock ทำงานกับ request โดยไม่บันทึกข้อความที่ match
 - **Idle compaction มาถึง VS Code และแท็บ Code ของ Claude Desktop** — บทสนทนา 200K+ token ที่ทิ้งไว้ idle จะถูกสรุป และใช้สรุปนั้นในข้อความถัดไปถ้า prompt cache หมดอายุแล้ว · ตอนนี้ยังทำงานกับ subscriber ที่ปิด telemetry และบน Bedrock, Vertex, Foundry และ LLM gateway เมื่อเปิด prompt cache แบบหนึ่งชั่วโมงแล้ว
+
+### 🆕 ใหม่ใน v2.1.316
+
+- **Fast mode ของ Opus 4.8 ถูก deprecate** (ตั้งแต่ 30 ตุลาคม 2026) และจะถูกถอดในวันที่ 30 พฤศจิกายน 2026 — หลังจากนั้น request fast mode บน Opus 4.8 จะได้ error แทนการ fallback ไป Opus 4.8 แบบปกติ · ย้ายไป Opus 5.5 เพื่อให้ยังได้ความเร็วนี้
+- **ส่วนเพิ่มของ Claude apps gateway** — pooled group budget (งบรายเดือนก้อนเดียวที่สมาชิกในกลุ่มใช้ร่วมกัน ซ้อนบน limit ของแต่ละคน ตั้งด้วย `pooled_budget` ใน spend limits admin API) · `managed.policy_mode: layered` ใช้ทุก policy ที่ match กับ developer โดยแต่ละอัน merge ทับอันที่อยู่ถัดลงไป ไม่ใช่แค่อันแรก · `guardrail.input_tagging` บน Bedrock upstream ห่อ prompt ด้วย input tag ที่ filter prompt attacks ของ Amazon Bedrock guardrail ต้องใช้ (`all_messages_and_system` tag system prompt ด้วย)
+- **Server-managed settings สำหรับ login แบบ Team และ Enterprise** — settings ที่ดึงจาก API ของ Anthropic มีผลทันทีโดยไม่ต้องกดอนุมัติ และสำเนาที่เก็บไว้ซึ่ง verify ไม่ผ่านจะถูกปฏิเสธ
+- **Env var ใหม่** — `CLAUDE_CODE_DISABLE_ULTRATHINK`, `CLAUDE_CODE_SUBAGENT_EFFORT` และ `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP`
 
 ---
 
@@ -4364,7 +4374,7 @@ Claude จะใช้เวลาคิดนานขึ้นสำหรั�
 
 กด `Meta+O` / `Alt+O` หรือ `/fast`
 
-Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกใน v2.1.219) พร้อม Output ที่เร็วขึ้น
+Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกใน v2.1.219) พร้อม Output ที่เร็วขึ้น · fast mode ของ Opus 4.8 ถูก deprecate และจะถูกถอดวันที่ 30 พ.ย. 2026 — หลังจากนั้นจะได้ error แทนการ fallback ให้ย้ายไป Opus 5.5 *(v2.1.316)*
 
 ### Code Intelligence
 
@@ -4575,6 +4585,9 @@ your-project/
 | `CLAUDE_CODE_MODEL_CATALOG` | บน Bedrock, Mantle, Vertex และ Foundry ตัว Claude Code จะโหลด model settings จากไฟล์ที่ลงลายเซ็นบน downloads.claude.ai · ตั้ง `off` เพื่อปิด *(v2.1.311)* |
 | `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT` | บน Bedrock, Vertex, Foundry และ Mantle ชื่อโมเดลที่ Claude Code ไม่รู้จัก (เช่นชื่อ custom deployment, inference profile ARN) จะใช้ system prompt แบบสั้น แม้ด้านหลังเป็น Sonnet หรือ Haiku · ตั้ง `0` เพื่อคง prompt เต็ม *(v2.1.312)* |
 | `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK` | ตั้ง `1` เพื่อปิดการสลับโมเดลอัตโนมัติหลังข้อความถูก flag (ตอนนี้ครอบคลุมชื่อโมเดลที่ Claude Code ไม่รู้จัก เช่นชื่อ custom deployment ด้วย) *(v2.1.312)* |
+| `CLAUDE_CODE_DISABLE_ULTRATHINK` | ปิดคีย์เวิร์ด `ultrathink` *(v2.1.316)* |
+| `CLAUDE_CODE_SUBAGENT_EFFORT` | ระดับ effort ที่ subagent ใช้เมื่อไม่มีที่อื่นระบุไว้ แทนการรับค่าจาก session *(v2.1.316)* |
+| `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` | เก็บ cross-certificate ของระบบที่รับรองกันเองเป็นวงไว้ สำหรับ server ที่ private CA ต้องใช้ *(v2.1.316)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5906,7 +5919,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.314`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.316`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

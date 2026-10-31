@@ -62,7 +62,7 @@ Set the `model` key to any of these (newest → cheapest):
 - **Sonnet 5** (`claude-sonnet-5`) — the previous default Sonnet model (Claude Code 2.1.197–2.1.283); balanced and fast, with a **native 1M-token context window** ($2/$10 per Mtok — its standard list price since 2.1.243).
 - **Haiku 5.5** (`claude-haiku-5-5`) — the **new default Haiku model** on the Anthropic API (since Claude Code 2.1.293); **1M context**; **$0.10/$0.50 per Mtok** ($0.50/$2.50 for prompts over 100K) — fastest, cheapest; for easy/boilerplate tasks.
 - **Haiku 4.5** (`claude-haiku-4-5`) — the previous default Haiku model.
-- Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed from fast mode in 2.1.219).
+- Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed from fast mode in 2.1.219). Fast mode for Opus 4.8 is deprecated as of October 30, 2026 and will be removed on November 30, 2026 — migrate to Opus 5.5.
 
 ### Example settings.json
 
@@ -395,6 +395,13 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **Claude apps gateway upstream additions** — an optional `groups` list sends only developers in the listed IdP groups to that upstream (on failover too); Bedrock upstreams accept `guardrail_trace` to log which Amazon Bedrock guardrail filter fired on a request, without the matched text.
 - **Idle compaction reaches VS Code and Claude Desktop's Code tab** — a 200K+ token conversation left idle is summarized, and the summary is used on your next message if the prompt cache has expired. It now also runs for subscribers with telemetry turned off, and on Bedrock, Vertex, Foundry and LLM gateways once the one-hour prompt cache is on.
+
+### New in v2.1.316
+
+- **Fast mode for Opus 4.8 is deprecated** (as of October 30, 2026) and will be removed on November 30, 2026 — after that, fast mode requests on Opus 4.8 return an error instead of falling back to standard Opus 4.8. Migrate to Opus 5.5 to keep the speedup.
+- **Claude apps gateway additions** — pooled group budgets (one monthly budget a group's members share, on top of each member's own limit, set with `pooled_budget` on the spend limits admin API); `managed.policy_mode: layered` applies every policy that matches a developer, each merged over the ones listed below it, not only the first; `guardrail.input_tagging` on Bedrock upstreams wraps prompts in the input tags an Amazon Bedrock guardrail's prompt attacks filter needs (`all_messages_and_system` also tags the system prompt).
+- **Server-managed settings for Team and Enterprise logins** — settings fetched from Anthropic's API now apply without an approval prompt, and a stored copy that doesn't verify is refused.
+- **New env vars** — `CLAUDE_CODE_DISABLE_ULTRATHINK`, `CLAUDE_CODE_SUBAGENT_EFFORT` and `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP`. See [[23-environment-variables]].
 
 ---
 

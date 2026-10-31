@@ -292,6 +292,9 @@ Skill(commit)                    # Specific skill
 - **`permissions.blockWritesOutsideWorkingDirectories`** — Write, Edit and NotebookEdit refuse paths outside the working directories in every permission mode.
 - **`/permissions` review tab is now "Recently blocked"** — the footer says what Esc will do with marked rows, and it refuses approving a call you can't read in full (including one the terminal is too short to show).
 
+### New in v2.1.316
+- **`autoMode.allow` without `"$defaults"` keeps the scheduled-task rule** — such a list no longer removes auto mode's built-in rule on scheduled-task prompts.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block
