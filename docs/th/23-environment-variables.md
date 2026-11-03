@@ -123,6 +123,7 @@ related:
 | `CLAUDE_CODE_DISABLE_ULTRATHINK` | ปิดคีย์เวิร์ด `ultrathink` *(v2.1.316)* |
 | `CLAUDE_CODE_SUBAGENT_EFFORT` | ระดับ effort ที่ subagent ใช้เมื่อไม่มีที่อื่นระบุไว้ แทนการรับค่าจาก session *(v2.1.316)* |
 | `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` | เก็บ cross-certificate ของระบบที่รับรองกันเองเป็นวงไว้ สำหรับ server ที่ private CA ต้องใช้ *(v2.1.316)* |
+| `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID` | ตั้ง `1` บน self-hosted runner เพื่อให้ `claude -p` ที่รันภายใน session ใช้ ID และ transcript ของ session นั้นเหมือนเวอร์ชันก่อน ๆ *(v2.1.317)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

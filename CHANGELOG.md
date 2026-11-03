@@ -25,6 +25,25 @@
 
 ---
 
+## [1.104.0] — 2026-11-03
+
+### Compatibility
+- **Claude Code:** `v2.1.317+`
+
+### Added
+- **ch.05 Permissions** — section "New in v2.1.317": account email check (web/shell tool calls ask before sending your account email to the network) และ notice ของ auto mode เมื่อไม่มีคำตอบให้ tool call ของ subagent
+- **ch.06 Configuration** — section "New in v2.1.317": OTel attributes `anthropic.plan` / `anthropic.seat_type` / `anthropic.provider` / `anthropic.custom_base_url`, subagent/teammate ที่ใช้โมเดลต่างจากบทสนทนาหลักใช้ effort ของโมเดลนั้น, Read เลิกคืน stub "unchanged", Claude apps gateway cost report (`GET /v1/organizations/analytics/cost`) + `admin.identity_retention_days`
+- **ch.23 Environment Variables** — แถว `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID`
+- README / README.EN — แถว What's-new (v2.1.317)
+
+### Changed
+- Version strings `2.1.316` → `2.1.317` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.317` — ของใหม่ด้าน privacy (email check), observability (OTel attributes) และ behavior change ของ subagent effort / Read tool
+
+---
+
 ## [1.103.0] — 2026-10-31
 
 ### Compatibility
@@ -2324,6 +2343,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.104.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.103.0...v1.104.0
 [1.103.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.102.0...v1.103.0
 [1.102.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.101.0...v1.102.0
 [1.101.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.100.0...v1.101.0

@@ -123,6 +123,7 @@ related:
 | `CLAUDE_CODE_DISABLE_ULTRATHINK` | Turns the `ultrathink` keyword off. *(v2.1.316)* |
 | `CLAUDE_CODE_SUBAGENT_EFFORT` | Effort level subagents run at when nothing else names one, instead of inheriting the session's. *(v2.1.316)* |
 | `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` | Keeps system cross-certificates that certify each other in a loop, for servers whose private CA needs one. *(v2.1.316)* |
+| `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID` | Set `1` on a self-hosted runner to have `claude -p` run inside a session use that session's ID and transcript, as in earlier versions. *(v2.1.317)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

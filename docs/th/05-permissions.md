@@ -324,6 +324,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.316
 - **`autoMode.allow` ที่ไม่มี `"$defaults"` ยังคงกฎ scheduled-task ไว้** — list แบบนี้จะไม่ถอดกฎ built-in ของ auto mode สำหรับ prompt ของ scheduled task อีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.317
+- **เช็กอีเมลบัญชี** — Claude Code จะถามก่อนที่ tool call ประเภท web หรือ shell จะส่งอีเมลบัญชีของคุณออกไปยัง network
+- **Notice ของ auto mode สำหรับ subagent** — เมื่อการตรวจของ auto mode ไม่มีคำตอบให้ tool call ของ subagent จะมี notice แสดงใน main view
+
 ---
 
 ---

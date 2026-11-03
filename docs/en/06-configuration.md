@@ -403,6 +403,14 @@ Set the `model` key to any of these (newest → cheapest):
 - **Server-managed settings for Team and Enterprise logins** — settings fetched from Anthropic's API now apply without an approval prompt, and a stored copy that doesn't verify is refused.
 - **New env vars** — `CLAUDE_CODE_DISABLE_ULTRATHINK`, `CLAUDE_CODE_SUBAGENT_EFFORT` and `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP`. See [[23-environment-variables]].
 
+### New in v2.1.317
+
+- **New OTel attributes** — `anthropic.plan`, `anthropic.seat_type`, `anthropic.provider` and `anthropic.custom_base_url` are added to OTel metrics, events and spans.
+- **Subagent effort on a different model** — subagents and teammates on a different model from the main conversation use that model's saved effort level or its default, instead of the session's effort level.
+- **Read no longer returns an "unchanged" stub** — reading an unchanged file again returns its content.
+- **Claude apps gateway cost report** — `GET /v1/organizations/analytics/cost` on the admin API reads past spend over a date range in total, per developer, per day or per IdP group; gateways with `admin:` set keep a daily record of each developer's IdP groups for `admin.identity_retention_days`.
+- **New env var** — `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID`. See [[23-environment-variables]].
+
 ---
 
 ---

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.316         │
+│ Welcome to Claude Code v2.1.317         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.316
+- run: npm install -g @anthropic-ai/claude-code@2.1.317
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1898,6 +1898,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.316
 - **`autoMode.allow` without `"$defaults"` keeps the scheduled-task rule** — such a list no longer removes auto mode's built-in rule on scheduled-task prompts.
 
+### New in v2.1.317
+- **Account email check** — Claude Code asks before a web or shell tool call sends your account email address to the network.
+- **Auto mode notice for subagents** — when auto mode's check has no answer for a subagent's tool call, a notice now appears in the main view.
+
 ---
 
 ## 6. Configuration
@@ -2276,6 +2280,14 @@ Skill(commit)                    # Specific skill
 - **Claude apps gateway additions** — pooled group budgets (one monthly budget a group's members share, on top of each member's own limit, set with `pooled_budget` on the spend limits admin API); `managed.policy_mode: layered` applies every policy that matches a developer, each merged over the ones listed below it, not only the first; `guardrail.input_tagging` on Bedrock upstreams wraps prompts in the input tags an Amazon Bedrock guardrail's prompt attacks filter needs (`all_messages_and_system` also tags the system prompt).
 - **Server-managed settings for Team and Enterprise logins** — settings fetched from Anthropic's API now apply without an approval prompt, and a stored copy that doesn't verify is refused.
 - **New env vars** — `CLAUDE_CODE_DISABLE_ULTRATHINK`, `CLAUDE_CODE_SUBAGENT_EFFORT` and `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP`.
+
+### New in v2.1.317
+
+- **New OTel attributes** — `anthropic.plan`, `anthropic.seat_type`, `anthropic.provider` and `anthropic.custom_base_url` are added to OTel metrics, events and spans.
+- **Subagent effort on a different model** — subagents and teammates on a different model from the main conversation use that model's saved effort level or its default, instead of the session's effort level.
+- **Read no longer returns an "unchanged" stub** — reading an unchanged file again returns its content.
+- **Claude apps gateway cost report** — `GET /v1/organizations/analytics/cost` on the admin API reads past spend over a date range in total, per developer, per day or per IdP group; gateways with `admin:` set keep a daily record of each developer's IdP groups for `admin.identity_retention_days`.
+- **New env var** — `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID`.
 
 ---
 
@@ -4599,6 +4611,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_ULTRATHINK` | Turns the `ultrathink` keyword off. *(v2.1.316)* |
 | `CLAUDE_CODE_SUBAGENT_EFFORT` | Effort level subagents run at when nothing else names one, instead of inheriting the session's. *(v2.1.316)* |
 | `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` | Keeps system cross-certificates that certify each other in a loop, for servers whose private CA needs one. *(v2.1.316)* |
+| `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID` | Set `1` on a self-hosted runner to have `claude -p` run inside a session use that session's ID and transcript, as in earlier versions. *(v2.1.317)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5933,7 +5946,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.316`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.317`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

@@ -403,6 +403,14 @@ related:
 - **Server-managed settings สำหรับ login แบบ Team และ Enterprise** — settings ที่ดึงจาก API ของ Anthropic มีผลทันทีโดยไม่ต้องกดอนุมัติ และสำเนาที่เก็บไว้ซึ่ง verify ไม่ผ่านจะถูกปฏิเสธ
 - **Env var ใหม่** — `CLAUDE_CODE_DISABLE_ULTRATHINK`, `CLAUDE_CODE_SUBAGENT_EFFORT` และ `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.317
+
+- **OTel attribute ใหม่** — เพิ่ม `anthropic.plan`, `anthropic.seat_type`, `anthropic.provider` และ `anthropic.custom_base_url` ใน OTel metrics, events และ spans
+- **Effort ของ subagent ที่ใช้โมเดลต่างจากบทสนทนาหลัก** — subagent และ teammate ที่ใช้โมเดลต่างจาก main conversation จะใช้ effort level ที่บันทึกไว้ของโมเดลนั้น (หรือค่า default ของมัน) แทน effort level ของ session
+- **Read เลิกคืน stub "unchanged"** — การอ่านไฟล์ที่ไม่เปลี่ยนซ้ำอีกครั้งจะได้เนื้อหาไฟล์กลับมา
+- **Cost report ของ Claude apps gateway** — `GET /v1/organizations/analytics/cost` ใน admin API อ่านยอดใช้จ่ายย้อนหลังตามช่วงวันที่ แบบรวม / ราย developer / รายวัน / ราย IdP group · gateway ที่ตั้ง `admin:` จะเก็บบันทึก IdP group ของแต่ละ developer รายวันไว้ตาม `admin.identity_retention_days`
+- **Env var ใหม่** — `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID` ดู [[23-environment-variables]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

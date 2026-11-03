@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.316-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.103.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.317-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.104.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.316`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.317`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -172,8 +172,9 @@
 | 🪝 **hook cap 24 ต่อ session + เลิกส่ง OTel `safety_event`** | prompt/agent hook รันพร้อมกันได้ 24 ตัวต่อ session (+12 ที่รอเกิน timeout) · `autoCompactWindow` ของ subagent ลด `CLAUDE_CODE_AUTO_COMPACT_WINDOW` ได้ · ชื่อโมเดลที่ไม่รู้จักบน Bedrock/Vertex/Foundry/Mantle ใช้ prompt สั้น (`CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0`) · `CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1` · "5-hour limit" (v2.1.312) |
 | 🛡️ **`blockWritesOutsideWorkingDirectories`** | `permissions.blockWritesOutsideWorkingDirectories` กัน Write/Edit/NotebookEdit นอก working dir ทุก mode · `/permissions` แท็บ "Recently blocked" · hook `if` แบบ `Monitor(tail *)` · PreCompact output ตัดที่ 10,000 ตัวอักษร · gateway `groups`/`guardrail_trace` · idle compaction บน VS Code/Desktop · `FORCE_HYPERLINK=false` ปิดลิงก์ (v2.1.314) |
 | ⏳ **Fast mode Opus 4.8 ถูก deprecate** | ถอดวันที่ 30 พ.ย. 2026 → ย้ายไป Opus 5.5 · env var `CLAUDE_CODE_DISABLE_ULTRATHINK` / `CLAUDE_CODE_SUBAGENT_EFFORT` / `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` · gateway `pooled_budget` / `policy_mode: layered` / `guardrail.input_tagging` (v2.1.316) |
+| 📧 **ถามก่อนส่งอีเมลบัญชีออก network** | tool web/shell ต้องถามก่อนส่งอีเมลบัญชี · OTel attribute `anthropic.plan` / `seat_type` / `provider` / `custom_base_url` · subagent ต่างโมเดลใช้ effort ของโมเดลนั้น · Read เลิกคืน stub "unchanged" · gateway cost report · env `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID` (v2.1.317) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.316` (manual `v1.103.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.317` (manual `v1.104.0`)
 
 ---
 
@@ -196,7 +197,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.316** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
+ตรงกับ Claude Code **v2.1.317** + โมเดล Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
 
 </td>
 </tr>
@@ -256,7 +257,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.316`
+> **Claude Code Version:** `2.1.317`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

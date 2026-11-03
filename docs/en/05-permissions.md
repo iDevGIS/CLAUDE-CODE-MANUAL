@@ -295,6 +295,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.316
 - **`autoMode.allow` without `"$defaults"` keeps the scheduled-task rule** — such a list no longer removes auto mode's built-in rule on scheduled-task prompts.
 
+### New in v2.1.317
+- **Account email check** — Claude Code asks before a web or shell tool call sends your account email address to the network.
+- **Auto mode notice for subagents** — when auto mode's check has no answer for a subagent's tool call, a notice now appears in the main view.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.316         │
+│ Welcome to Claude Code v2.1.317         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1129,7 +1129,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.316
+- run: npm install -g @anthropic-ai/claude-code@2.1.317
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1892,6 +1892,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.316
 - **`autoMode.allow` ที่ไม่มี `"$defaults"` ยังคงกฎ scheduled-task ไว้** — list แบบนี้จะไม่ถอดกฎ built-in ของ auto mode สำหรับ prompt ของ scheduled task อีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.317
+- **เช็กอีเมลบัญชี** — Claude Code จะถามก่อนที่ tool call ประเภท web หรือ shell จะส่งอีเมลบัญชีของคุณออกไปยัง network
+- **Notice ของ auto mode สำหรับ subagent** — เมื่อการตรวจของ auto mode ไม่มีคำตอบให้ tool call ของ subagent จะมี notice แสดงใน main view
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2270,6 +2274,14 @@ Skill(commit)                    # Skill เฉพาะ
 - **ส่วนเพิ่มของ Claude apps gateway** — pooled group budget (งบรายเดือนก้อนเดียวที่สมาชิกในกลุ่มใช้ร่วมกัน ซ้อนบน limit ของแต่ละคน ตั้งด้วย `pooled_budget` ใน spend limits admin API) · `managed.policy_mode: layered` ใช้ทุก policy ที่ match กับ developer โดยแต่ละอัน merge ทับอันที่อยู่ถัดลงไป ไม่ใช่แค่อันแรก · `guardrail.input_tagging` บน Bedrock upstream ห่อ prompt ด้วย input tag ที่ filter prompt attacks ของ Amazon Bedrock guardrail ต้องใช้ (`all_messages_and_system` tag system prompt ด้วย)
 - **Server-managed settings สำหรับ login แบบ Team และ Enterprise** — settings ที่ดึงจาก API ของ Anthropic มีผลทันทีโดยไม่ต้องกดอนุมัติ และสำเนาที่เก็บไว้ซึ่ง verify ไม่ผ่านจะถูกปฏิเสธ
 - **Env var ใหม่** — `CLAUDE_CODE_DISABLE_ULTRATHINK`, `CLAUDE_CODE_SUBAGENT_EFFORT` และ `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP`
+
+### 🆕 ใหม่ใน v2.1.317
+
+- **OTel attribute ใหม่** — เพิ่ม `anthropic.plan`, `anthropic.seat_type`, `anthropic.provider` และ `anthropic.custom_base_url` ใน OTel metrics, events และ spans
+- **Effort ของ subagent ที่ใช้โมเดลต่างจากบทสนทนาหลัก** — subagent และ teammate ที่ใช้โมเดลต่างจาก main conversation จะใช้ effort level ที่บันทึกไว้ของโมเดลนั้น (หรือค่า default ของมัน) แทน effort level ของ session
+- **Read เลิกคืน stub "unchanged"** — การอ่านไฟล์ที่ไม่เปลี่ยนซ้ำอีกครั้งจะได้เนื้อหาไฟล์กลับมา
+- **Cost report ของ Claude apps gateway** — `GET /v1/organizations/analytics/cost` ใน admin API อ่านยอดใช้จ่ายย้อนหลังตามช่วงวันที่ แบบรวม / ราย developer / รายวัน / ราย IdP group · gateway ที่ตั้ง `admin:` จะเก็บบันทึก IdP group ของแต่ละ developer รายวันไว้ตาม `admin.identity_retention_days`
+- **Env var ใหม่** — `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID`
 
 ---
 
@@ -4588,6 +4600,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_ULTRATHINK` | ปิดคีย์เวิร์ด `ultrathink` *(v2.1.316)* |
 | `CLAUDE_CODE_SUBAGENT_EFFORT` | ระดับ effort ที่ subagent ใช้เมื่อไม่มีที่อื่นระบุไว้ แทนการรับค่าจาก session *(v2.1.316)* |
 | `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` | เก็บ cross-certificate ของระบบที่รับรองกันเองเป็นวงไว้ สำหรับ server ที่ private CA ต้องใช้ *(v2.1.316)* |
+| `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID` | ตั้ง `1` บน self-hosted runner เพื่อให้ `claude -p` ที่รันภายใน session ใช้ ID และ transcript ของ session นั้นเหมือนเวอร์ชันก่อน ๆ *(v2.1.317)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5919,7 +5932,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.316`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.317`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
