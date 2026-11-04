@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.317         │
+│ Welcome to Claude Code v2.1.318         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.317
+- run: npm install -g @anthropic-ai/claude-code@2.1.318
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1143,6 +1143,11 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **`ultrathink` runs at xhigh effort** — in the interactive terminal, `ultrathink` now runs its turn at xhigh effort on Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable 5.1 through Anthropic's API; typed while Claude is working, it raises the rest of that turn. The rainbow highlight appears only where the keyword can raise effort (not when quoted or part of a file path).
 - **`[1m]` suffix dropped where it has no effect** — model names and IDs no longer show the `[1m]` suffix and its label on models where it changes nothing; the suffix is still accepted.
 - **`--output-format json` / `stream-json` escaping** — DEL, C1 control and Unicode format characters inside strings are now written as `\uXXXX` escapes; parsed values are unchanged.
+
+### New in v2.1.318
+
+- **Sign-in expiry date** — `claude auth status` now reports when a stored claude.ai sign-in ends (`loginExpiresAt`), and `claude -p` JSON results include it as `credential_expires_at`.
+- **Expiry warning in `claude -p` text output** — a one-line stderr warning appears starting 10 days before a stored claude.ai sign-in ends; when the login reaches its time limit, the error says so and names `claude auth login` and `claude setup-token`.
 
 ---
 
@@ -2743,6 +2748,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **`allowedMcpServers` no longer filters `managed-mcp.json` stdio servers that use `${VAR}` only in `env`** — one your allowlist left out now loads on upgrade; use `deniedMcpServers` to keep it off.
 
+### New in v2.1.318
+
+- **`deniedMcpServers` URL entries reach further** — they now also block Anthropic-provided servers whose upstream URL matches, plus connectors in cloud sessions and on self-hosted runners (where the session gets the connector's own URL); otherwise deny a connector by name.
+- **Early MCP tool calls return the schema** — a call made before the tool is loaded now returns its input schema in the error.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -3439,6 +3449,12 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 ### New in v2.1.312
 
 - **Subagent `autoCompactWindow` now lowers `CLAUDE_CODE_AUTO_COMPACT_WINDOW`** — a subagent's `autoCompactWindow` now lowers the window set by `CLAUDE_CODE_AUTO_COMPACT_WINDOW`, where it had no effect before; it still never raises that window.
+
+### New in v2.1.318
+
+- **Background subagents background long shell commands on all providers** — a shell command is moved to the background after 3 minutes, so the prompt cache doesn't expire while it runs.
+- **Subagents stop instead of switching models** — when "Switch models when a message is flagged" is set to "Ask each time".
+- **Progress summaries can wait on a cold cache** — on Bedrock, Vertex, Foundry, or with telemetry off, a subagent progress summary can now wait up to 5 minutes for the subagent's pending response.
 
 ---
 
@@ -5946,7 +5962,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.317`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.318`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

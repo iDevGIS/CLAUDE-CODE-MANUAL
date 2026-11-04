@@ -232,6 +232,12 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **`autoCompactWindow` ของ subagent ลดค่าจาก `CLAUDE_CODE_AUTO_COMPACT_WINDOW` ได้แล้ว** — `autoCompactWindow` ของ subagent ตอนนี้ลด window ที่ตั้งด้วย `CLAUDE_CODE_AUTO_COMPACT_WINDOW` ได้ (ก่อนหน้านี้ไม่มีผล) · แต่ยังไม่เพิ่ม window นั้นให้สูงขึ้นเด็ดขาด ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.318
+
+- **background subagent ย้าย shell command ที่รันนานไป background ทุก provider** — shell command จะถูกย้ายไป background หลัง 3 นาที เพื่อไม่ให้ prompt cache หมดอายุระหว่างรอ
+- **subagent หยุดแทนการสลับโมเดล** — เมื่อตั้ง "Switch models when a message is flagged" เป็น "Ask each time"
+- **progress summary รอ cache เย็นได้** — บน Bedrock, Vertex, Foundry หรือเมื่อปิด telemetry ตอน prompt cache ยังเย็น progress summary ของ subagent รอ response ที่ค้างอยู่ได้สูงสุด 5 นาที
+
 ---
 
 ---

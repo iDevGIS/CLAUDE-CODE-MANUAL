@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.317         │
+│ Welcome to Claude Code v2.1.318         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -694,6 +694,11 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **ตัด suffix `[1m]` ในจุดที่ไม่มีผล** — ชื่อและ ID ของโมเดลไม่แสดง suffix `[1m]` และ label ของมันแล้วบนโมเดลที่ suffix นี้ไม่เปลี่ยนอะไร · ยังพิมพ์ suffix นี้ได้เหมือนเดิม
 - **การ escape ใน `--output-format json` / `stream-json`** — ตัวอักษร DEL, C1 control และ Unicode format ภายใน string จะถูกเขียนเป็น `\uXXXX` · ค่าหลัง parse เหมือนเดิม
 
+### 🆕 ใหม่ใน v2.1.318
+
+- **วันหมดอายุของ sign-in** — `claude auth status` แสดงวันที่ sign-in claude.ai ที่เก็บไว้จะหมดอายุ (`loginExpiresAt`) และผลลัพธ์ JSON ของ `claude -p` มีค่านี้ในชื่อ `credential_expires_at`
+- **คำเตือนใกล้หมดอายุใน text output ของ `claude -p`** — มีคำเตือน 1 บรรทัดทาง stderr เริ่มตั้งแต่ 10 วันก่อน sign-in claude.ai ที่เก็บไว้จะหมดอายุ · เมื่อ login ถึงเวลาหมดจริง error จะบอกตรง ๆ และแนะนำ `claude auth login` กับ `claude setup-token`
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1065,7 +1070,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.317
+- run: npm install -g @anthropic-ai/claude-code@2.1.318
 ```
 
 ---

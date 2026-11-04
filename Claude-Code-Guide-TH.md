@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.317         │
+│ Welcome to Claude Code v2.1.318         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -798,6 +798,11 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **ตัด suffix `[1m]` ในจุดที่ไม่มีผล** — ชื่อและ ID ของโมเดลไม่แสดง suffix `[1m]` และ label ของมันแล้วบนโมเดลที่ suffix นี้ไม่เปลี่ยนอะไร · ยังพิมพ์ suffix นี้ได้เหมือนเดิม
 - **การ escape ใน `--output-format json` / `stream-json`** — ตัวอักษร DEL, C1 control และ Unicode format ภายใน string จะถูกเขียนเป็น `\uXXXX` · ค่าหลัง parse เหมือนเดิม
 
+### 🆕 ใหม่ใน v2.1.318
+
+- **วันหมดอายุของ sign-in** — `claude auth status` แสดงวันที่ sign-in claude.ai ที่เก็บไว้จะหมดอายุ (`loginExpiresAt`) และผลลัพธ์ JSON ของ `claude -p` มีค่านี้ในชื่อ `credential_expires_at`
+- **คำเตือนใกล้หมดอายุใน text output ของ `claude -p`** — มีคำเตือน 1 บรรทัดทาง stderr เริ่มตั้งแต่ 10 วันก่อน sign-in claude.ai ที่เก็บไว้จะหมดอายุ · เมื่อ login ถึงเวลาหมดจริง error จะบอกตรง ๆ และแนะนำ `claude auth login` กับ `claude setup-token`
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1129,7 +1134,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.317
+- run: npm install -g @anthropic-ai/claude-code@2.1.318
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -2736,6 +2741,11 @@ claude --mcp-config ./mcp.json
 
 - **`allowedMcpServers` เลิกกรอง stdio server ใน `managed-mcp.json` ที่ใช้ `${VAR}` เฉพาะใน `env`** — server แบบนี้ที่ allowlist เราเคยกันไว้จะกลับมาโหลดเมื่ออัปเกรด · ถ้าไม่อยากให้โหลดให้ใช้ `deniedMcpServers` กันไว้
 
+### 🆕 ใหม่ใน v2.1.318
+
+- **รายการ URL ใน `deniedMcpServers` บล็อกกว้างขึ้น** — ตอนนี้บล็อก server ที่ Anthropic จัดให้ซึ่ง upstream URL ตรงกันด้วย รวมถึง connector ใน cloud session และบน self-hosted runner (ที่ session ได้ URL ของ connector เอง) · กรณีอื่นให้ deny connector ด้วยชื่อ
+- **เรียก MCP tool ก่อนโหลดเสร็จจะได้ schema กลับมา** — ถ้าเรียก tool ก่อนที่มันจะถูกโหลด error จะคืน input schema ของ tool นั้นให้
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -3432,6 +3442,12 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 ### 🆕 ใหม่ใน v2.1.312
 
 - **`autoCompactWindow` ของ subagent ลดค่าจาก `CLAUDE_CODE_AUTO_COMPACT_WINDOW` ได้แล้ว** — `autoCompactWindow` ของ subagent ตอนนี้ลด window ที่ตั้งด้วย `CLAUDE_CODE_AUTO_COMPACT_WINDOW` ได้ (ก่อนหน้านี้ไม่มีผล) · แต่ยังไม่เพิ่ม window นั้นให้สูงขึ้นเด็ดขาด
+
+### 🆕 ใหม่ใน v2.1.318
+
+- **background subagent ย้าย shell command ที่รันนานไป background ทุก provider** — shell command จะถูกย้ายไป background หลัง 3 นาที เพื่อไม่ให้ prompt cache หมดอายุระหว่างรอ
+- **subagent หยุดแทนการสลับโมเดล** — เมื่อตั้ง "Switch models when a message is flagged" เป็น "Ask each time"
+- **progress summary รอ cache เย็นได้** — บน Bedrock, Vertex, Foundry หรือเมื่อปิด telemetry ตอน prompt cache ยังเย็น progress summary ของ subagent รอ response ที่ค้างอยู่ได้สูงสุด 5 นาที
 
 ---
 
@@ -5932,7 +5948,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.317`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.318`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

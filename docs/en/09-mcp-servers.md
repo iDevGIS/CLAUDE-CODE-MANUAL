@@ -239,6 +239,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **`allowedMcpServers` no longer filters `managed-mcp.json` stdio servers that use `${VAR}` only in `env`** — one your allowlist left out now loads on upgrade; use `deniedMcpServers` to keep it off.
 
+### New in v2.1.318
+
+- **`deniedMcpServers` URL entries reach further** — they now also block Anthropic-provided servers whose upstream URL matches, plus connectors in cloud sessions and on self-hosted runners (where the session gets the connector's own URL); otherwise deny a connector by name.
+- **Early MCP tool calls return the schema** — a call made before the tool is loaded now returns its input schema in the error.
+
 ---
 
 ---

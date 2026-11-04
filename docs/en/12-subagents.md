@@ -232,6 +232,12 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **Subagent `autoCompactWindow` now lowers `CLAUDE_CODE_AUTO_COMPACT_WINDOW`** — a subagent's `autoCompactWindow` now lowers the window set by `CLAUDE_CODE_AUTO_COMPACT_WINDOW`, where it had no effect before; it still never raises that window. See [[23-environment-variables]].
 
+### New in v2.1.318
+
+- **Background subagents background long shell commands on all providers** — a shell command is moved to the background after 3 minutes, so the prompt cache doesn't expire while it runs.
+- **Subagents stop instead of switching models** — when "Switch models when a message is flagged" is set to "Ask each time".
+- **Progress summaries can wait on a cold cache** — on Bedrock, Vertex, Foundry, or with telemetry off, a subagent progress summary can now wait up to 5 minutes for the subagent's pending response.
+
 ---
 
 ---

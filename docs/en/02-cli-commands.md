@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.317         │
+│ Welcome to Claude Code v2.1.318         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -694,6 +694,11 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`[1m]` suffix dropped where it has no effect** — model names and IDs no longer show the `[1m]` suffix and its label on models where it changes nothing; the suffix is still accepted.
 - **`--output-format json` / `stream-json` escaping** — DEL, C1 control and Unicode format characters inside strings are now written as `\uXXXX` escapes; parsed values are unchanged.
 
+### New in v2.1.318
+
+- **Sign-in expiry date** — `claude auth status` now reports when a stored claude.ai sign-in ends (`loginExpiresAt`), and `claude -p` JSON results include it as `credential_expires_at`.
+- **Expiry warning in `claude -p` text output** — a one-line stderr warning appears starting 10 days before a stored claude.ai sign-in ends; when the login reaches its time limit, the error says so and names `claude auth login` and `claude setup-token`.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1065,7 +1070,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.317
+- run: npm install -g @anthropic-ai/claude-code@2.1.318
 ```
 
 ---

@@ -25,6 +25,25 @@
 
 ---
 
+## [1.105.0] — 2026-11-04
+
+### Compatibility
+- **Claude Code:** `v2.1.318+`
+
+### Added
+- **ch.02 CLI** — section "New in v2.1.318": วันหมดอายุ sign-in ใน `claude auth status` (`loginExpiresAt`) และ JSON ของ `claude -p` (`credential_expires_at`), คำเตือน stderr 10 วันก่อนหมดอายุใน text output ของ `claude -p`
+- **ch.09 MCP** — section "New in v2.1.318": รายการ URL ใน `deniedMcpServers` บล็อก server ที่ Anthropic จัดให้และ connector ใน cloud session / self-hosted runner ด้วย, MCP tool ที่ถูกเรียกก่อนโหลดคืน input schema
+- **ch.12 Subagents** — section "New in v2.1.318": background subagent ย้าย shell command ไป background หลัง 3 นาทีทุก provider, subagent หยุดแทนการสลับโมเดลเมื่อตั้ง "Ask each time", progress summary รอได้สูงสุด 5 นาทีบน cache เย็น
+- README / README.EN — แถว What's-new (v2.1.318)
+
+### Changed
+- Version strings `2.1.317` → `2.1.318` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.318` — ของใหม่ด้าน sign-in expiry สำหรับงาน headless, การ deny MCP connector และ behavior change ของ subagent
+
+---
+
 ## [1.104.0] — 2026-11-03
 
 ### Compatibility
@@ -2343,6 +2362,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.105.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.104.0...v1.105.0
 [1.104.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.103.0...v1.104.0
 [1.103.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.102.0...v1.103.0
 [1.102.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.101.0...v1.102.0

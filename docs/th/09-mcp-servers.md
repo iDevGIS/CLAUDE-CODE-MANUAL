@@ -239,6 +239,11 @@ claude --mcp-config ./mcp.json
 
 - **`allowedMcpServers` เลิกกรอง stdio server ใน `managed-mcp.json` ที่ใช้ `${VAR}` เฉพาะใน `env`** — server แบบนี้ที่ allowlist เราเคยกันไว้จะกลับมาโหลดเมื่ออัปเกรด · ถ้าไม่อยากให้โหลดให้ใช้ `deniedMcpServers` กันไว้
 
+### 🆕 ใหม่ใน v2.1.318
+
+- **รายการ URL ใน `deniedMcpServers` บล็อกกว้างขึ้น** — ตอนนี้บล็อก server ที่ Anthropic จัดให้ซึ่ง upstream URL ตรงกันด้วย รวมถึง connector ใน cloud session และบน self-hosted runner (ที่ session ได้ URL ของ connector เอง) · กรณีอื่นให้ deny connector ด้วยชื่อ
+- **เรียก MCP tool ก่อนโหลดเสร็จจะได้ schema กลับมา** — ถ้าเรียก tool ก่อนที่มันจะถูกโหลด error จะคืน input schema ของ tool นั้นให้
+
 ---
 
 ---
