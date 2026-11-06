@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.318         │
+│ Welcome to Claude Code v2.1.319         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.318
+- run: npm install -g @anthropic-ai/claude-code@2.1.319
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1464,6 +1464,12 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.307
 - **`/claude-api api-version`** — moves Claude API code to API version `2026-10-21`.
 
+### New in v2.1.319
+- **`/claude-api latency-optimize`** — finds where your Claude API code makes people wait and tries faster settings against your eval.
+- **`/tasks` has an "Earlier in this session" row** — it lists finished subagents, so you can reopen one and message it even after it leaves the list or you restart.
+- **Self-paced `/loop` ends when a turn finishes without rescheduling** — it no longer schedules a fallback wakeup; set `CLAUDE_CODE_LOOP_KEEPALIVE=1` to keep the old behavior (see 23. Environment Variables).
+- **`/model` picker groups older models under a "More models" row** instead of listing them after the current ones.
+
 ---
 
 ## 4. Keyboard Shortcuts
@@ -1906,6 +1912,13 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.317
 - **Account email check** — Claude Code asks before a web or shell tool call sends your account email address to the network.
 - **Auto mode notice for subagents** — when auto mode's check has no answer for a subagent's tool call, a notice now appears in the main view.
+
+### New in v2.1.319
+- **`permissions.denyInsteadOfPrompting`** — a tool call that would wait on a permission prompt is denied and the turn continues, in terminal sessions, subagents and teammates.
+- **Auto mode no longer falls back to the built-in classifier with telemetry or feature flags off** — including behind LLM gateways, calls the server can't check are asked about or denied; set `CLAUDE_CODE_AUTO_MODE_SERVER=0` to keep using the built-in classifier (Bedrock, Vertex and Foundry are unchanged). Behind a gateway, `CLAUDE_CODE_AUTO_MODE_SERVER=1` turns on the server-side check even with `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` set; if managed settings set the latter, they must set the `1` too (see 23. Environment Variables).
+- **Projects and plugins can't re-enable auto mode's server-side check** — once you switch it off outside the project, a project's settings files or a plugin can no longer switch it back on.
+- **A broader deny beats an exact ask** — a session's exact Bash or PowerShell ask rule is refused, not asked about, when a broader deny rule covers the command.
+- **`which` with unusual flags asks** — the Bash tool asks for permission before running `which` with flags outside a lookup/display set.
 
 ---
 
@@ -2752,6 +2765,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **`deniedMcpServers` URL entries reach further** — they now also block Anthropic-provided servers whose upstream URL matches, plus connectors in cloud sessions and on self-hosted runners (where the session gets the connector's own URL); otherwise deny a connector by name.
 - **Early MCP tool calls return the schema** — a call made before the tool is loaded now returns its input schema in the error.
+
+### New in v2.1.319
+
+- **MCP tasks in the terminal** — when an MCP server runs a tool call as a task, Claude Code moves it to the background right away and tells Claude the result when it finishes. This works without feature-flag fetching (Bedrock, Vertex, Foundry, LLM gateways, `DISABLE_TELEMETRY`). Set `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND=1` to wait for the task inside its tool call instead, or `CLAUDE_CODE_DISABLE_MCP_TASKS=1` to turn MCP tasks off (see 23. Environment Variables).
 
 ---
 
@@ -4628,6 +4645,10 @@ your-project/
 | `CLAUDE_CODE_SUBAGENT_EFFORT` | Effort level subagents run at when nothing else names one, instead of inheriting the session's. *(v2.1.316)* |
 | `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` | Keeps system cross-certificates that certify each other in a loop, for servers whose private CA needs one. *(v2.1.316)* |
 | `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID` | Set `1` on a self-hosted runner to have `claude -p` run inside a session use that session's ID and transcript, as in earlier versions. *(v2.1.317)* |
+| `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND` | Makes Claude Code wait for an MCP task inside its tool call instead of moving it to the background right away (see 9. MCP Servers). *(v2.1.319)* |
+| `CLAUDE_CODE_DISABLE_MCP_TASKS` | Set `1` to turn MCP tasks off in the terminal. *(v2.1.319)* |
+| `CLAUDE_CODE_DISABLE_FEATURE_FLAGS` | Stops feature-flag fetching without turning off telemetry; every flag then uses its built-in default. *(v2.1.319)* |
+| `CLAUDE_CODE_LOOP_KEEPALIVE` | Set `1` to keep the old self-paced `/loop` behavior of scheduling a fallback wakeup when a turn finishes without rescheduling (see 3. Slash Commands). *(v2.1.319)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -5962,7 +5983,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.318`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.319`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

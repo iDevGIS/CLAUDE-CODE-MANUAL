@@ -244,6 +244,10 @@ claude --mcp-config ./mcp.json
 - **รายการ URL ใน `deniedMcpServers` บล็อกกว้างขึ้น** — ตอนนี้บล็อก server ที่ Anthropic จัดให้ซึ่ง upstream URL ตรงกันด้วย รวมถึง connector ใน cloud session และบน self-hosted runner (ที่ session ได้ URL ของ connector เอง) · กรณีอื่นให้ deny connector ด้วยชื่อ
 - **เรียก MCP tool ก่อนโหลดเสร็จจะได้ schema กลับมา** — ถ้าเรียก tool ก่อนที่มันจะถูกโหลด error จะคืน input schema ของ tool นั้นให้
 
+### 🆕 ใหม่ใน v2.1.319
+
+- **MCP task ใน terminal** — เมื่อ MCP server รัน tool call เป็น task, Claude Code จะย้ายไป background ทันทีแล้วแจ้งผลให้ Claude เมื่อเสร็จ · ใช้ได้โดยไม่ต้องดึง feature flag (Bedrock, Vertex, Foundry, LLM gateway, `DISABLE_TELEMETRY`) · อยากให้รอ task อยู่ใน tool call แทนให้ตั้ง `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND=1` หรือปิด MCP task ไปเลยด้วย `CLAUDE_CODE_DISABLE_MCP_TASKS=1` ดู [[23-environment-variables]]
+
 ---
 
 ---

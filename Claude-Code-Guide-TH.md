@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.318         │
+│ Welcome to Claude Code v2.1.319         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1134,7 +1134,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.318
+- run: npm install -g @anthropic-ai/claude-code@2.1.319
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1457,6 +1457,12 @@ claude -p "..."              # ถามเร็ว ๆ
 
 ### 🆕 ใหม่ใน v2.1.307
 - **`/claude-api api-version`** — ย้ายโค้ดที่เรียก Claude API ไปใช้ API version `2026-10-21`
+
+### 🆕 ใหม่ใน v2.1.319
+- **`/claude-api latency-optimize`** — หาจุดที่โค้ด Claude API ของเราทำให้คนต้องรอ แล้วลองค่าตั้งที่เร็วกว่ากับ eval ของเรา
+- **`/tasks` มีแถว "Earlier in this session"** — แสดง subagent ที่ทำงานเสร็จแล้ว เปิดกลับมาแล้วส่งข้อความหาได้ แม้มันจะหลุดจากรายการไปแล้วหรือรีสตาร์ทไปแล้ว
+- **`/loop` แบบ self-paced จบเองเมื่อ turn จบโดยไม่ได้นัดรอบถัดไป** — ไม่ตั้ง wakeup สำรองให้อีกแล้ว · อยากได้พฤติกรรมเดิมให้ตั้ง `CLAUDE_CODE_LOOP_KEEPALIVE=1` (ดูบท 23 Environment Variables)
+- **ตัวเลือกใน `/model` รวมโมเดลรุ่นเก่าไว้ใต้แถว "More models"** แทนการเรียงต่อท้ายรุ่นปัจจุบัน
 
 ---
 
@@ -1900,6 +1906,13 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.317
 - **เช็กอีเมลบัญชี** — Claude Code จะถามก่อนที่ tool call ประเภท web หรือ shell จะส่งอีเมลบัญชีของคุณออกไปยัง network
 - **Notice ของ auto mode สำหรับ subagent** — เมื่อการตรวจของ auto mode ไม่มีคำตอบให้ tool call ของ subagent จะมี notice แสดงใน main view
+
+### 🆕 ใหม่ใน v2.1.319
+- **`permissions.denyInsteadOfPrompting`** — tool call ที่ต้องรอ permission prompt จะถูก deny ทันทีแล้ว turn ทำงานต่อ ใช้ได้ทั้ง session ใน terminal, subagent และ teammate
+- **auto mode เลิกถอยไปใช้ classifier ในตัวเมื่อปิด telemetry หรือ feature flag** — รวมถึงหลัง LLM gateway ด้วย: call ที่ server ตรวจไม่ได้จะถูกถามหรือ deny · ถ้ายังอยากใช้ classifier ในตัวให้ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=0` (Bedrock, Vertex และ Foundry ไม่เปลี่ยน) · หลัง gateway การตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=1` จะเปิดการตรวจฝั่ง server แม้ตั้ง `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` ไว้ · ถ้า managed settings ตั้งตัวหลังไว้ ต้องตั้ง `1` ด้วย (ดูบท 23 Environment Variables)
+- **โปรเจกต์และ plugin เปิดการตรวจฝั่ง server ของ auto mode กลับไม่ได้** — ถ้าเราปิดไว้จากนอกโปรเจกต์แล้ว settings file ของโปรเจกต์หรือ plugin จะเปิดกลับเองไม่ได้อีก
+- **deny ที่กว้างกว่าชนะ ask แบบ exact** — กฎ ask แบบ exact ของ Bash หรือ PowerShell ใน session จะถูกปฏิเสธเลย (ไม่ถาม) ถ้ามีกฎ deny ที่กว้างกว่าครอบคำสั่งนั้นอยู่
+- **`which` ที่ใช้ flag แปลก ๆ ต้องขออนุญาต** — Bash tool จะถามก่อนรัน `which` ที่มี flag นอกกลุ่ม lookup/display
 
 ---
 
@@ -2745,6 +2758,10 @@ claude --mcp-config ./mcp.json
 
 - **รายการ URL ใน `deniedMcpServers` บล็อกกว้างขึ้น** — ตอนนี้บล็อก server ที่ Anthropic จัดให้ซึ่ง upstream URL ตรงกันด้วย รวมถึง connector ใน cloud session และบน self-hosted runner (ที่ session ได้ URL ของ connector เอง) · กรณีอื่นให้ deny connector ด้วยชื่อ
 - **เรียก MCP tool ก่อนโหลดเสร็จจะได้ schema กลับมา** — ถ้าเรียก tool ก่อนที่มันจะถูกโหลด error จะคืน input schema ของ tool นั้นให้
+
+### 🆕 ใหม่ใน v2.1.319
+
+- **MCP task ใน terminal** — เมื่อ MCP server รัน tool call เป็น task, Claude Code จะย้ายไป background ทันทีแล้วแจ้งผลให้ Claude เมื่อเสร็จ · ใช้ได้โดยไม่ต้องดึง feature flag (Bedrock, Vertex, Foundry, LLM gateway, `DISABLE_TELEMETRY`) · อยากให้รอ task อยู่ใน tool call แทนให้ตั้ง `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND=1` หรือปิด MCP task ไปเลยด้วย `CLAUDE_CODE_DISABLE_MCP_TASKS=1` (ดูบท 23 Environment Variables)
 
 ---
 
@@ -4617,6 +4634,10 @@ your-project/
 | `CLAUDE_CODE_SUBAGENT_EFFORT` | ระดับ effort ที่ subagent ใช้เมื่อไม่มีที่อื่นระบุไว้ แทนการรับค่าจาก session *(v2.1.316)* |
 | `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` | เก็บ cross-certificate ของระบบที่รับรองกันเองเป็นวงไว้ สำหรับ server ที่ private CA ต้องใช้ *(v2.1.316)* |
 | `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID` | ตั้ง `1` บน self-hosted runner เพื่อให้ `claude -p` ที่รันภายใน session ใช้ ID และ transcript ของ session นั้นเหมือนเวอร์ชันก่อน ๆ *(v2.1.317)* |
+| `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND` | ให้ Claude Code รอ MCP task อยู่ใน tool call แทนที่จะย้ายไป background ทันที (ดูบท 9 MCP Servers) *(v2.1.319)* |
+| `CLAUDE_CODE_DISABLE_MCP_TASKS` | ตั้ง `1` เพื่อปิด MCP task ใน terminal *(v2.1.319)* |
+| `CLAUDE_CODE_DISABLE_FEATURE_FLAGS` | หยุดดึง feature flag โดยไม่ปิด telemetry · ทุก flag จะใช้ค่า default ที่ฝังมาในตัว *(v2.1.319)* |
+| `CLAUDE_CODE_LOOP_KEEPALIVE` | ตั้ง `1` เพื่อคงพฤติกรรมเดิมของ `/loop` แบบ self-paced ที่ตั้ง wakeup สำรองไว้เมื่อ turn จบโดยไม่ได้นัดรอบถัดไป (ดูบท 3 Slash Commands) *(v2.1.319)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5948,7 +5969,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.318`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.319`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

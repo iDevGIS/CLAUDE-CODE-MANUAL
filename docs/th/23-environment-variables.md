@@ -124,6 +124,10 @@ related:
 | `CLAUDE_CODE_SUBAGENT_EFFORT` | ระดับ effort ที่ subagent ใช้เมื่อไม่มีที่อื่นระบุไว้ แทนการรับค่าจาก session *(v2.1.316)* |
 | `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` | เก็บ cross-certificate ของระบบที่รับรองกันเองเป็นวงไว้ สำหรับ server ที่ private CA ต้องใช้ *(v2.1.316)* |
 | `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID` | ตั้ง `1` บน self-hosted runner เพื่อให้ `claude -p` ที่รันภายใน session ใช้ ID และ transcript ของ session นั้นเหมือนเวอร์ชันก่อน ๆ *(v2.1.317)* |
+| `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND` | ให้ Claude Code รอ MCP task อยู่ใน tool call แทนที่จะย้ายไป background ทันที ดู [[09-mcp-servers]] *(v2.1.319)* |
+| `CLAUDE_CODE_DISABLE_MCP_TASKS` | ตั้ง `1` เพื่อปิด MCP task ใน terminal *(v2.1.319)* |
+| `CLAUDE_CODE_DISABLE_FEATURE_FLAGS` | หยุดดึง feature flag โดยไม่ปิด telemetry · ทุก flag จะใช้ค่า default ที่ฝังมาในตัว *(v2.1.319)* |
+| `CLAUDE_CODE_LOOP_KEEPALIVE` | ตั้ง `1` เพื่อคงพฤติกรรมเดิมของ `/loop` แบบ self-paced ที่ตั้ง wakeup สำรองไว้เมื่อ turn จบโดยไม่ได้นัดรอบถัดไป ดู [[03-slash-commands]] *(v2.1.319)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

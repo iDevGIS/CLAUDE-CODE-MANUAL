@@ -299,6 +299,13 @@ Skill(commit)                    # Specific skill
 - **Account email check** — Claude Code asks before a web or shell tool call sends your account email address to the network.
 - **Auto mode notice for subagents** — when auto mode's check has no answer for a subagent's tool call, a notice now appears in the main view.
 
+### New in v2.1.319
+- **`permissions.denyInsteadOfPrompting`** — a tool call that would wait on a permission prompt is denied and the turn continues, in terminal sessions, subagents and teammates.
+- **Auto mode no longer falls back to the built-in classifier with telemetry or feature flags off** — including behind LLM gateways, calls the server can't check are asked about or denied; set `CLAUDE_CODE_AUTO_MODE_SERVER=0` to keep using the built-in classifier (Bedrock, Vertex and Foundry are unchanged). Behind a gateway, `CLAUDE_CODE_AUTO_MODE_SERVER=1` turns on the server-side check even with `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` set; if managed settings set the latter, they must set the `1` too. See [[23-environment-variables]].
+- **Projects and plugins can't re-enable auto mode's server-side check** — once you switch it off outside the project, a project's settings files or a plugin can no longer switch it back on.
+- **A broader deny beats an exact ask** — a session's exact Bash or PowerShell ask rule is refused, not asked about, when a broader deny rule covers the command.
+- **`which` with unusual flags asks** — the Bash tool asks for permission before running `which` with flags outside a lookup/display set.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

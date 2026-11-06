@@ -124,6 +124,10 @@ related:
 | `CLAUDE_CODE_SUBAGENT_EFFORT` | Effort level subagents run at when nothing else names one, instead of inheriting the session's. *(v2.1.316)* |
 | `CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP` | Keeps system cross-certificates that certify each other in a loop, for servers whose private CA needs one. *(v2.1.316)* |
 | `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID` | Set `1` on a self-hosted runner to have `claude -p` run inside a session use that session's ID and transcript, as in earlier versions. *(v2.1.317)* |
+| `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND` | Makes Claude Code wait for an MCP task inside its tool call instead of moving it to the background right away. See [[09-mcp-servers]]. *(v2.1.319)* |
+| `CLAUDE_CODE_DISABLE_MCP_TASKS` | Set `1` to turn MCP tasks off in the terminal. *(v2.1.319)* |
+| `CLAUDE_CODE_DISABLE_FEATURE_FLAGS` | Stops feature-flag fetching without turning off telemetry; every flag then uses its built-in default. *(v2.1.319)* |
+| `CLAUDE_CODE_LOOP_KEEPALIVE` | Set `1` to keep the old self-paced `/loop` behavior of scheduling a fallback wakeup when a turn finishes without rescheduling. See [[03-slash-commands]]. *(v2.1.319)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

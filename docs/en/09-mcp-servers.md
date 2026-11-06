@@ -244,6 +244,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **`deniedMcpServers` URL entries reach further** — they now also block Anthropic-provided servers whose upstream URL matches, plus connectors in cloud sessions and on self-hosted runners (where the session gets the connector's own URL); otherwise deny a connector by name.
 - **Early MCP tool calls return the schema** — a call made before the tool is loaded now returns its input schema in the error.
 
+### New in v2.1.319
+
+- **MCP tasks in the terminal** — when an MCP server runs a tool call as a task, Claude Code moves it to the background right away and tells Claude the result when it finishes. This works without feature-flag fetching (Bedrock, Vertex, Foundry, LLM gateways, `DISABLE_TELEMETRY`). Set `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND=1` to wait for the task inside its tool call instead, or `CLAUDE_CODE_DISABLE_MCP_TASKS=1` to turn MCP tasks off. See [[23-environment-variables]].
+
 ---
 
 ---

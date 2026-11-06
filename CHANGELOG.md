@@ -25,6 +25,26 @@
 
 ---
 
+## [1.106.0] — 2026-11-07
+
+### Compatibility
+- **Claude Code:** `v2.1.319+`
+
+### Added
+- **ch.03 Slash Commands** — section "New in v2.1.319": `/claude-api latency-optimize`, แถว "Earlier in this session" ใน `/tasks`, `/loop` แบบ self-paced จบเองเมื่อไม่ได้นัดรอบถัดไป (`CLAUDE_CODE_LOOP_KEEPALIVE=1` คงพฤติกรรมเดิม), `/model` รวมรุ่นเก่าไว้ใต้ "More models"
+- **ch.05 Permissions** — section "New in v2.1.319": setting `permissions.denyInsteadOfPrompting`, auto mode เลิกถอยไปใช้ classifier ในตัวเมื่อปิด telemetry/feature flag (รวมหลัง LLM gateway), `CLAUDE_CODE_AUTO_MODE_SERVER=1` หลัง gateway ใช้ได้แม้ตั้ง `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS`, โปรเจกต์/plugin เปิดการตรวจฝั่ง server กลับไม่ได้, deny ที่กว้างกว่าชนะ ask แบบ exact, `which` ที่มี flag แปลกต้องขออนุญาต
+- **ch.09 MCP** — section "New in v2.1.319": MCP task ใน terminal ย้ายไป background ทันทีและแจ้งผลเมื่อเสร็จ ใช้ได้โดยไม่ต้องดึง feature flag
+- **ch.23 Environment Variables** — แถวใหม่ `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND`, `CLAUDE_CODE_DISABLE_MCP_TASKS`, `CLAUDE_CODE_DISABLE_FEATURE_FLAGS`, `CLAUDE_CODE_LOOP_KEEPALIVE`
+- README / README.EN — แถว What's-new (v2.1.319)
+
+### Changed
+- Version strings `2.1.318` → `2.1.319` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.319` — setting permission ใหม่, MCP task แบบ background, behavior change ของ auto mode และ `/loop`
+
+---
+
 ## [1.105.0] — 2026-11-04
 
 ### Compatibility
@@ -2362,6 +2382,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.106.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.105.0...v1.106.0
 [1.105.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.104.0...v1.105.0
 [1.104.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.103.0...v1.104.0
 [1.103.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.102.0...v1.103.0

@@ -302,6 +302,12 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.307
 - **`/claude-api api-version`** — moves Claude API code to API version `2026-10-21`. See [[11-skills]].
 
+### New in v2.1.319
+- **`/claude-api latency-optimize`** — finds where your Claude API code makes people wait and tries faster settings against your eval. See [[11-skills]].
+- **`/tasks` has an "Earlier in this session" row** — it lists finished subagents, so you can reopen one and message it even after it leaves the list or you restart.
+- **Self-paced `/loop` ends when a turn finishes without rescheduling** — it no longer schedules a fallback wakeup; set `CLAUDE_CODE_LOOP_KEEPALIVE=1` to keep the old behavior. See [[23-environment-variables]].
+- **`/model` picker groups older models under a "More models" row** instead of listing them after the current ones.
+
 ---
 
 ---

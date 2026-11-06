@@ -328,6 +328,13 @@ Skill(commit)                    # Skill เฉพาะ
 - **เช็กอีเมลบัญชี** — Claude Code จะถามก่อนที่ tool call ประเภท web หรือ shell จะส่งอีเมลบัญชีของคุณออกไปยัง network
 - **Notice ของ auto mode สำหรับ subagent** — เมื่อการตรวจของ auto mode ไม่มีคำตอบให้ tool call ของ subagent จะมี notice แสดงใน main view
 
+### 🆕 ใหม่ใน v2.1.319
+- **`permissions.denyInsteadOfPrompting`** — tool call ที่ต้องรอ permission prompt จะถูก deny ทันทีแล้ว turn ทำงานต่อ ใช้ได้ทั้ง session ใน terminal, subagent และ teammate
+- **auto mode เลิกถอยไปใช้ classifier ในตัวเมื่อปิด telemetry หรือ feature flag** — รวมถึงหลัง LLM gateway ด้วย: call ที่ server ตรวจไม่ได้จะถูกถามหรือ deny · ถ้ายังอยากใช้ classifier ในตัวให้ตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=0` (Bedrock, Vertex และ Foundry ไม่เปลี่ยน) · หลัง gateway การตั้ง `CLAUDE_CODE_AUTO_MODE_SERVER=1` จะเปิดการตรวจฝั่ง server แม้ตั้ง `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` ไว้ · ถ้า managed settings ตั้งตัวหลังไว้ ต้องตั้ง `1` ด้วย ดู [[23-environment-variables]]
+- **โปรเจกต์และ plugin เปิดการตรวจฝั่ง server ของ auto mode กลับไม่ได้** — ถ้าเราปิดไว้จากนอกโปรเจกต์แล้ว settings file ของโปรเจกต์หรือ plugin จะเปิดกลับเองไม่ได้อีก
+- **deny ที่กว้างกว่าชนะ ask แบบ exact** — กฎ ask แบบ exact ของ Bash หรือ PowerShell ใน session จะถูกปฏิเสธเลย (ไม่ถาม) ถ้ามีกฎ deny ที่กว้างกว่าครอบคำสั่งนั้นอยู่
+- **`which` ที่ใช้ flag แปลก ๆ ต้องขออนุญาต** — Bash tool จะถามก่อนรัน `which` ที่มี flag นอกกลุ่ม lookup/display
+
 ---
 
 ---
