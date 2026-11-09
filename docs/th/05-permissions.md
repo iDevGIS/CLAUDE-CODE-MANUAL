@@ -335,6 +335,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **deny ที่กว้างกว่าชนะ ask แบบ exact** — กฎ ask แบบ exact ของ Bash หรือ PowerShell ใน session จะถูกปฏิเสธเลย (ไม่ถาม) ถ้ามีกฎ deny ที่กว้างกว่าครอบคำสั่งนั้นอยู่
 - **`which` ที่ใช้ flag แปลก ๆ ต้องขออนุญาต** — Bash tool จะถามก่อนรัน `which` ที่มี flag นอกกลุ่ม lookup/display
 
+### 🆕 ใหม่ใน v2.1.321
+- **`cp` และ `mv` ที่เรียกผ่าน path ถูกตรวจเหมือนกัน** — คำสั่งอย่าง `/bin/cp` และ `/bin/mv` ถูกตรวจ path แบบเดียวกับ `cp` และ `mv` แล้ว
+- **mod ที่ Claude เขียนเปิดใช้เองโดยไม่ถามใน auto และ bypass mode** — แม้ managed settings จะตั้ง `allowUnsandboxedCommands: false` หรือ `allowManagedDomainsOnly` ไว้ · ส่วนใน `dontAsk` mode จะไม่โหลด mod เหล่านี้ ดู [[18-plugins]]
+- **tool call ของ mod เองไม่ขึ้น permission prompt** — `$.tool.call` และ `$.mcp.call` ของ mod ไม่ถาม แม้มีกฎ ask ของเราเองหรือรันใน `dontAsk` และ `-p` · กฎ deny และ policy ขององค์กรยังมีผลเหมือนเดิม
+
 ---
 
 ---

@@ -306,6 +306,11 @@ Skill(commit)                    # Specific skill
 - **A broader deny beats an exact ask** — a session's exact Bash or PowerShell ask rule is refused, not asked about, when a broader deny rule covers the command.
 - **`which` with unusual flags asks** — the Bash tool asks for permission before running `which` with flags outside a lookup/display set.
 
+### New in v2.1.321
+- **`cp` and `mv` spelled by a path get the same checks** — commands such as `/bin/cp` and `/bin/mv` now get the same path checks as `cp` and `mv`.
+- **Mods Claude writes turn on without asking in auto and bypass modes** — even with managed `allowUnsandboxedCommands: false` or `allowManagedDomainsOnly`; in `dontAsk` mode they don't load. See [[18-plugins]].
+- **Mods' own tool calls raise no permission prompt** — a mod's `$.tool.call` and `$.mcp.call` don't prompt, even under your own ask rules or in `dontAsk` and `-p` runs; deny rules and organization policy still apply.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

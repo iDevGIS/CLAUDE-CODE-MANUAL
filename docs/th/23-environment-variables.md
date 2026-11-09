@@ -128,6 +128,7 @@ related:
 | `CLAUDE_CODE_DISABLE_MCP_TASKS` | ตั้ง `1` เพื่อปิด MCP task ใน terminal *(v2.1.319)* |
 | `CLAUDE_CODE_DISABLE_FEATURE_FLAGS` | หยุดดึง feature flag โดยไม่ปิด telemetry · ทุก flag จะใช้ค่า default ที่ฝังมาในตัว *(v2.1.319)* |
 | `CLAUDE_CODE_LOOP_KEEPALIVE` | ตั้ง `1` เพื่อคงพฤติกรรมเดิมของ `/loop` แบบ self-paced ที่ตั้ง wakeup สำรองไว้เมื่อ turn จบโดยไม่ได้นัดรอบถัดไป ดู [[03-slash-commands]] *(v2.1.319)* |
+| `CLAUDE_CODE_PLUGIN_DIR_WATCH` | ตั้ง `0` เพื่อไม่ให้ session แบบ headless โหลด mod ใน `.claude/skills` ใหม่เมื่อไฟล์เปลี่ยน ดู [[11-skills]] *(v2.1.321)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

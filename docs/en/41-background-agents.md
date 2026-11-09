@@ -174,6 +174,10 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 
 - **Monitor everywhere** — the Monitor tool and plugin monitors now work on Bedrock, Vertex and Foundry, and when telemetry or nonessential traffic is disabled; long foreground sleeps are now blocked there too.
 
+### New in v2.1.321
+
+- **Long commands are shortened in notifications** — background command notifications and TaskStop results show Claude only the start and end of a command over 1,000 characters, which saves context.
+
 ---
 
 ---

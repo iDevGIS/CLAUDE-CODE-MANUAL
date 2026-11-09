@@ -53,8 +53,9 @@ related:
 
 Set the `model` key to any of these (newest → cheapest):
 
-- **Fable 5.1** (`claude-fable-5-1`) — the **new default Fable model** (since Claude Code **2.1.257**): **1M context**, **$10/$50 per Mtok** with **$0.25/Mtok cache reads** — the most capable model generally available. Best for the hardest reasoning, large-context, and agentic work.
-- **Fable 5** (`claude-fable-5`) — the previous default **Mythos-class** Fable model; introduced in Claude Code **2.1.170**. Ships with a **1M-token context window by default**.
+- **Fable 5.2** (`claude-fable-5-2`) — the **new default Fable model** (since Claude Code **2.1.321**): **1M context**, **$8/$40 per Mtok** with **$0.20/Mtok cache reads** — the most capable model generally available. Best for the hardest reasoning, large-context, and agentic work.
+- **Fable 5.1** (`claude-fable-5-1`) — the previous default Fable model (Claude Code 2.1.257–2.1.320); **1M context**, **$10/$50 per Mtok** with **$0.25/Mtok cache reads**. Saved Fable 5.1 picks move to `fable`; `/model claude-fable-5-1` switches back.
+- **Fable 5** (`claude-fable-5`) — an earlier default **Mythos-class** Fable model; introduced in Claude Code **2.1.170**. Ships with a **1M-token context window by default**.
 - **Opus 5.5** (`claude-opus-5-5`) — the **new default Opus model** (since Claude Code 2.1.280); **1M context**; **$4/$20 per Mtok** with **$0.20/Mtok cache reads**.
 - **Opus 5** (`claude-opus-5`) — the previous default Opus model (Claude Code 2.1.219–2.1.278); **1M context**; fast mode at **$10/$50 per Mtok**.
 - **Opus 4.8** (`claude-opus-4-8`) — previous **Opus** flagship; top-tier coding and complex-bug analysis; defaults to **high effort** on demanding tasks.
@@ -410,6 +411,13 @@ Set the `model` key to any of these (newest → cheapest):
 - **Read no longer returns an "unchanged" stub** — reading an unchanged file again returns its content.
 - **Claude apps gateway cost report** — `GET /v1/organizations/analytics/cost` on the admin API reads past spend over a date range in total, per developer, per day or per IdP group; gateways with `admin:` set keep a daily record of each developer's IdP groups for `admin.identity_retention_days`.
 - **New env var** — `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID`. See [[23-environment-variables]].
+
+### New in v2.1.321
+
+- **Claude Fable 5.2** (`claude-fable-5-2`) — the new **default Fable model**: 1M context, **$8/$40 per Mtok** with **$0.20/Mtok cache reads**.
+- **Saved Fable 5.1 picks move to `fable`** — at once on Pro and Max plans, and on Team and Enterprise plans once your organization allows it; use `/model claude-fable-5-1` to switch back.
+- **Fast mode labels name your model** — `/fast`, `/config` and `/model` now name your current model when it supports fast mode.
+- **Managed `extraKnownMarketplaces` is stricter** — a declared marketplace name can't be added from another source, an entry from elsewhere is hidden, and plugins the declared marketplace lists are reinstalled from it. When a declared name takes over from an undeclared source, saved data is set aside for `cleanupPeriodDays`, and options and secrets until `claude plugin restore-set-aside`. See [[18-plugins]].
 
 ---
 

@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.319         │
+│ Welcome to Claude Code v2.1.321         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -171,7 +171,7 @@ git checkout main
 
 **Example:**
 ```bash
-claude --model claude-fable-5-1  # Fable 5.1 — most capable, 1M context (new default Fable)
+claude --model claude-fable-5-2  # Fable 5.2 — most capable, 1M context (new default Fable)
 claude --model opus              # Opus 5.5 (new default Opus, 1M context)
 claude --model sonnet            # Sonnet 5.5 (new default Sonnet, 1M context)
 claude --model haiku             # Haiku 5.5 (new default Haiku, 1M context)
@@ -699,6 +699,11 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **Sign-in expiry date** — `claude auth status` now reports when a stored claude.ai sign-in ends (`loginExpiresAt`), and `claude -p` JSON results include it as `credential_expires_at`.
 - **Expiry warning in `claude -p` text output** — a one-line stderr warning appears starting 10 days before a stored claude.ai sign-in ends; when the login reaches its time limit, the error says so and names `claude auth login` and `claude setup-token`.
 
+### New in v2.1.321
+
+- **`claude remote-control --settings <file>`** — applies a settings file to every session it starts; if the file changes, no new session starts until you restart `claude remote-control`.
+- **Remote Control sessions keep their folder** — a session stays in the folder it was started in; a connected client can no longer move it to another folder.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1070,7 +1075,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.319
+- run: npm install -g @anthropic-ai/claude-code@2.1.321
 ```
 
 ---

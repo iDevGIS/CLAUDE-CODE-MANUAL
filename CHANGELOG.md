@@ -25,6 +25,29 @@
 
 ---
 
+## [1.107.0] — 2026-11-10
+
+### Compatibility
+- **Claude Code:** `v2.1.321+`
+
+### Added
+- **ch.02 CLI** — section "New in v2.1.321": `claude remote-control --settings <file>` (ใช้ settings file กับทุก session ที่เปิด), session ของ Remote Control อยู่ในโฟลเดอร์ที่เริ่มไว้ตลอด
+- **ch.05 Permissions** — section "New in v2.1.321": `cp`/`mv` ที่เรียกผ่าน path (`/bin/cp`) ถูกตรวจ path เหมือนกัน, mod ที่ Claude เขียนเปิดเองใน auto/bypass mode และไม่โหลดใน `dontAsk`, tool call ของ mod (`$.tool.call`/`$.mcp.call`) ไม่ขึ้น permission prompt (deny/policy ยังมีผล)
+- **ch.06 Configuration** — section "New in v2.1.321": **Claude Fable 5.2** (`claude-fable-5-2`) default Fable ตัวใหม่ 1M context $8/$40 ต่อ Mtok + cache read $0.20, ค่าที่เลือก Fable 5.1 ไว้ย้ายไป `fable`, ป้าย fast mode บอกชื่อโมเดล, managed `extraKnownMarketplaces` เข้มขึ้น + `claude plugin restore-set-aside`
+- **ch.11 Skills** — section "New in v2.1.321": ไม่โหลด nested `.claude/skills` ใน `~/.claude/plugins`, session แบบ headless โหลด mod ใน `.claude/skills` ใหม่เมื่อไฟล์เปลี่ยน
+- **ch.23 Environment Variables** — แถวใหม่ `CLAUDE_CODE_PLUGIN_DIR_WATCH`
+- **ch.41 Background Agents** (atomic) — section "New in v2.1.321": notification ของคำสั่ง background และผล TaskStop ย่อคำสั่งที่ยาวเกิน 1,000 ตัวอักษร
+- README / README.EN — แถว What's-new (v2.1.321)
+
+### Changed
+- Model lineup: Fable 5.2 เป็น default Fable แทน Fable 5.1 — ตัวอย่าง `--model` ใน ch.02, ตาราง/รายการโมเดลใน ch.06 (Fable 5.1 = default ตัวก่อน 2.1.257–2.1.320), ตาราง ch.25, บรรทัด "Applies to" ch.26, lineup ใน README
+- Version strings `2.1.319` → `2.1.321` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.321` (upstream ข้าม 2.1.320) — โมเดล Fable 5.2, flag ใหม่ของ `claude remote-control`, behavior change ของ mods/permissions/skills และ env var ใหม่
+
+---
+
 ## [1.106.0] — 2026-11-07
 
 ### Compatibility
@@ -2382,6 +2405,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.107.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.106.0...v1.107.0
 [1.106.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.105.0...v1.106.0
 [1.105.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.104.0...v1.105.0
 [1.104.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.103.0...v1.104.0

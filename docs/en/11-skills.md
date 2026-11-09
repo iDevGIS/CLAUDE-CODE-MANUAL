@@ -237,6 +237,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **Skill hooks are capped per source** — the skills of one source (a repo, your own folder, or a plugin) can register at most 1,024 hooks and 16,384 matcher characters per session. See [[10-hooks]].
 - **No `allowed-tools` when a skill's hooks are kept out** — under a policy that allows hooks from plugins only, a skill used in the main conversation whose hooks are kept out no longer gets its `allowed-tools`.
 
+### New in v2.1.321
+
+- **No nested skills from `~/.claude/plugins`** — `.claude/skills` folders inside `~/.claude/plugins` no longer load when Claude works on files there.
+- **Headless sessions reload mods in `.claude/skills`** — when their files change; set `CLAUDE_CODE_PLUGIN_DIR_WATCH=0` to turn this off. See [[23-environment-variables]].
+
 ---
 
 ---

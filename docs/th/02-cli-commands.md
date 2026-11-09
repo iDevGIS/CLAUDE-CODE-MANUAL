@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.319         │
+│ Welcome to Claude Code v2.1.321         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -171,7 +171,7 @@ git checkout main
 
 **ตัวอย่าง:**
 ```bash
-claude --model claude-fable-5-1  # Fable 5.1 — เก่งสุด, context 1M (default Fable ตัวใหม่)
+claude --model claude-fable-5-2  # Fable 5.2 — เก่งสุด, context 1M (default Fable ตัวใหม่)
 claude --model opus              # ใช้ Opus 5.5 (default Opus ตัวใหม่, context 1M)
 claude --model sonnet            # ใช้ Sonnet 5.5 (default Sonnet ใหม่, context 1M)
 claude --model haiku             # ใช้ Haiku 5.5 (default Haiku ใหม่, context 1M)
@@ -699,6 +699,11 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **วันหมดอายุของ sign-in** — `claude auth status` แสดงวันที่ sign-in claude.ai ที่เก็บไว้จะหมดอายุ (`loginExpiresAt`) และผลลัพธ์ JSON ของ `claude -p` มีค่านี้ในชื่อ `credential_expires_at`
 - **คำเตือนใกล้หมดอายุใน text output ของ `claude -p`** — มีคำเตือน 1 บรรทัดทาง stderr เริ่มตั้งแต่ 10 วันก่อน sign-in claude.ai ที่เก็บไว้จะหมดอายุ · เมื่อ login ถึงเวลาหมดจริง error จะบอกตรง ๆ และแนะนำ `claude auth login` กับ `claude setup-token`
 
+### 🆕 ใหม่ใน v2.1.321
+
+- **`claude remote-control --settings <file>`** — ใช้ settings file ที่ระบุกับทุก session ที่มันเปิด · ถ้าไฟล์เปลี่ยน จะไม่เปิด session ใหม่จนกว่าจะ restart `claude remote-control`
+- **session ของ Remote Control อยู่ในโฟลเดอร์เดิม** — session อยู่ในโฟลเดอร์ที่เริ่มไว้ตลอด · client ที่เชื่อมต่ออยู่ย้าย session ไปโฟลเดอร์อื่นไม่ได้แล้ว
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1070,7 +1075,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.319
+- run: npm install -g @anthropic-ai/claude-code@2.1.321
 ```
 
 ---

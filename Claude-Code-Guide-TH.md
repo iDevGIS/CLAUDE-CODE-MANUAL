@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.319         │
+│ Welcome to Claude Code v2.1.321         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -280,7 +280,7 @@ git checkout main
 
 **ตัวอย่าง:**
 ```bash
-claude --model claude-fable-5-1  # Fable 5.1 — เก่งสุด, context 1M (default Fable ตัวใหม่)
+claude --model claude-fable-5-2  # Fable 5.2 — เก่งสุด, context 1M (default Fable ตัวใหม่)
 claude --model opus              # ใช้ Opus 5.5 (default Opus ตัวใหม่, context 1M)
 claude --model sonnet            # ใช้ Sonnet 5.5 (default Sonnet ใหม่, context 1M)
 claude --model haiku             # ใช้ Haiku 5.5 (default Haiku ใหม่, context 1M)
@@ -288,7 +288,7 @@ claude --model claude-opus-5     # ใช้ชื่อเต็ม (ระบ�
 ```
 
 > 💡 **เปรียบเทียบ:**
-> - **Fable 5.1** = อัจฉริยะรอบด้าน — เก่งสุดโดยรวม, context 1M, เหมาะงานคิดหนัก/agentic ที่สุด
+> - **Fable 5.2** = อัจฉริยะรอบด้าน — เก่งสุดโดยรวม, context 1M, เหมาะงานคิดหนัก/agentic ที่สุด
 > - **Opus** = ศาสตราจารย์ — Opus ตัวท็อป เก่งโค้ดสุด แต่คิดนาน + คิดเงินแพง
 > - **Sonnet** = นักวิจัย — เก่งพอใช้ ทำงานเร็ว ราคาพอควร
 > - **Haiku** = นักเรียนหัวไว — ตอบเร็วมาก ราคาถูก งานง่ายๆ พอ
@@ -803,6 +803,11 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **วันหมดอายุของ sign-in** — `claude auth status` แสดงวันที่ sign-in claude.ai ที่เก็บไว้จะหมดอายุ (`loginExpiresAt`) และผลลัพธ์ JSON ของ `claude -p` มีค่านี้ในชื่อ `credential_expires_at`
 - **คำเตือนใกล้หมดอายุใน text output ของ `claude -p`** — มีคำเตือน 1 บรรทัดทาง stderr เริ่มตั้งแต่ 10 วันก่อน sign-in claude.ai ที่เก็บไว้จะหมดอายุ · เมื่อ login ถึงเวลาหมดจริง error จะบอกตรง ๆ และแนะนำ `claude auth login` กับ `claude setup-token`
 
+### 🆕 ใหม่ใน v2.1.321
+
+- **`claude remote-control --settings <file>`** — ใช้ settings file ที่ระบุกับทุก session ที่มันเปิด · ถ้าไฟล์เปลี่ยน จะไม่เปิด session ใหม่จนกว่าจะ restart `claude remote-control`
+- **session ของ Remote Control อยู่ในโฟลเดอร์เดิม** — session อยู่ในโฟลเดอร์ที่เริ่มไว้ตลอด · client ที่เชื่อมต่ออยู่ย้าย session ไปโฟลเดอร์อื่นไม่ได้แล้ว
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1134,7 +1139,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.319
+- run: npm install -g @anthropic-ai/claude-code@2.1.321
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1914,6 +1919,11 @@ Skill(commit)                    # Skill เฉพาะ
 - **deny ที่กว้างกว่าชนะ ask แบบ exact** — กฎ ask แบบ exact ของ Bash หรือ PowerShell ใน session จะถูกปฏิเสธเลย (ไม่ถาม) ถ้ามีกฎ deny ที่กว้างกว่าครอบคำสั่งนั้นอยู่
 - **`which` ที่ใช้ flag แปลก ๆ ต้องขออนุญาต** — Bash tool จะถามก่อนรัน `which` ที่มี flag นอกกลุ่ม lookup/display
 
+### 🆕 ใหม่ใน v2.1.321
+- **`cp` และ `mv` ที่เรียกผ่าน path ถูกตรวจเหมือนกัน** — คำสั่งอย่าง `/bin/cp` และ `/bin/mv` ถูกตรวจ path แบบเดียวกับ `cp` และ `mv` แล้ว
+- **mod ที่ Claude เขียนเปิดใช้เองโดยไม่ถามใน auto และ bypass mode** — แม้ managed settings จะตั้ง `allowUnsandboxedCommands: false` หรือ `allowManagedDomainsOnly` ไว้ · ส่วนใน `dontAsk` mode จะไม่โหลด mod เหล่านี้
+- **tool call ของ mod เองไม่ขึ้น permission prompt** — `$.tool.call` และ `$.mcp.call` ของ mod ไม่ถาม แม้มีกฎ ask ของเราเองหรือรันใน `dontAsk` และ `-p` · กฎ deny และ policy ขององค์กรยังมีผลเหมือนเดิม
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2300,6 +2310,13 @@ Skill(commit)                    # Skill เฉพาะ
 - **Read เลิกคืน stub "unchanged"** — การอ่านไฟล์ที่ไม่เปลี่ยนซ้ำอีกครั้งจะได้เนื้อหาไฟล์กลับมา
 - **Cost report ของ Claude apps gateway** — `GET /v1/organizations/analytics/cost` ใน admin API อ่านยอดใช้จ่ายย้อนหลังตามช่วงวันที่ แบบรวม / ราย developer / รายวัน / ราย IdP group · gateway ที่ตั้ง `admin:` จะเก็บบันทึก IdP group ของแต่ละ developer รายวันไว้ตาม `admin.identity_retention_days`
 - **Env var ใหม่** — `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID`
+
+### 🆕 ใหม่ใน v2.1.321
+
+- **Claude Fable 5.2** (`claude-fable-5-2`) — **default Fable ตัวใหม่**: context 1M, ราคา **$8/$40 ต่อ Mtok** และ **cache read $0.20 ต่อ Mtok**
+- **ค่าที่เคยเลือก Fable 5.1 ไว้ย้ายไป `fable`** — บนแพ็กเกจ Pro และ Max ย้ายทันที · บน Team และ Enterprise ย้ายเมื่อองค์กรอนุญาต · ใช้ `/model claude-fable-5-1` เพื่อสลับกลับ
+- **ป้าย fast mode บอกชื่อโมเดล** — `/fast`, `/config` และ `/model` แสดงชื่อโมเดลปัจจุบันเมื่อโมเดลนั้นรองรับ fast mode
+- **managed `extraKnownMarketplaces` เข้มขึ้น** — ชื่อ marketplace ที่ประกาศไว้จะถูกเพิ่มจากแหล่งอื่นไม่ได้, entry จากที่อื่นถูกซ่อน และ plugin ที่ marketplace ที่ประกาศไว้มีจะถูกติดตั้งใหม่จากแหล่งนั้น · เมื่อชื่อที่ประกาศไว้ยึดมาจากแหล่งที่ไม่ได้ประกาศ ข้อมูลที่บันทึกไว้จะถูกพักไว้ตาม `cleanupPeriodDays` ส่วน options และ secrets พักไว้จนกว่าจะรัน `claude plugin restore-set-aside`
 
 ---
 
@@ -3221,6 +3238,11 @@ my-skill/
 - **compaction ส่งรายการ skill ให้ใหม่** — หลัง compaction Claude ได้รายการ skill อีกครั้งเอง · `/reload-skills` ส่งเฉพาะ skill ที่ใหม่หรือเปลี่ยนแล้ว
 - **จำกัดจำนวน hook ของ skill ต่อแหล่ง** — skill จากแหล่งเดียวกัน (repo, โฟลเดอร์ของเราเอง หรือ plugin) ลงทะเบียน hook ได้ไม่เกิน 1,024 ตัว และ matcher รวมไม่เกิน 16,384 ตัวอักษรต่อ session
 - **ไม่ได้ `allowed-tools` เมื่อ hook ของ skill ถูกกันไว้** — ภายใต้ policy ที่อนุญาต hook จาก plugin เท่านั้น skill ที่ใช้ในบทสนทนาหลักซึ่ง hook ถูกกันไว้จะไม่ได้ `allowed-tools` ของมันแล้ว
+
+### 🆕 ใหม่ใน v2.1.321
+
+- **ไม่โหลด nested skill จาก `~/.claude/plugins`** — โฟลเดอร์ `.claude/skills` ที่อยู่ใน `~/.claude/plugins` จะไม่ถูกโหลดแล้วเมื่อ Claude ทำงานกับไฟล์ในนั้น
+- **session แบบ headless โหลด mod ใน `.claude/skills` ใหม่** — เมื่อไฟล์ของมันเปลี่ยน · ตั้ง `CLAUDE_CODE_PLUGIN_DIR_WATCH=0` เพื่อปิด (ดูบท 23 Environment Variables)
 
 ---
 
@@ -4638,6 +4660,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_MCP_TASKS` | ตั้ง `1` เพื่อปิด MCP task ใน terminal *(v2.1.319)* |
 | `CLAUDE_CODE_DISABLE_FEATURE_FLAGS` | หยุดดึง feature flag โดยไม่ปิด telemetry · ทุก flag จะใช้ค่า default ที่ฝังมาในตัว *(v2.1.319)* |
 | `CLAUDE_CODE_LOOP_KEEPALIVE` | ตั้ง `1` เพื่อคงพฤติกรรมเดิมของ `/loop` แบบ self-paced ที่ตั้ง wakeup สำรองไว้เมื่อ turn จบโดยไม่ได้นัดรอบถัดไป (ดูบท 3 Slash Commands) *(v2.1.319)* |
+| `CLAUDE_CODE_PLUGIN_DIR_WATCH` | ตั้ง `0` เพื่อไม่ให้ session แบบ headless โหลด mod ใน `.claude/skills` ใหม่เมื่อไฟล์เปลี่ยน (ดูบท 11 Skills) *(v2.1.321)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -4803,7 +4826,7 @@ claude --version  # ตรวจสอบเวอร์ชัน
 
 | งาน | โมเดลที่แนะนำ | เหตุผล |
 |-----|--------------|--------|
-| งานคิดหนักสุด, context ใหญ่มาก | Fable 5.1 | โมเดลเก่งสุด, context 1M เป็นค่าเริ่มต้น |
+| งานคิดหนักสุด, context ใหญ่มาก | Fable 5.2 | โมเดลเก่งสุด, context 1M เป็นค่าเริ่มต้น |
 | วางสถาปัตยกรรม, แก้ Bug ซับซ้อน | Opus 5.5 | คิดลึก วิเคราะห์ดี |
 | เขียนโค้ดทั่วไป, แก้ Bug ธรรมดา | Sonnet 5.5 | เร็ว ประหยัด — เป็น default |
 | งาน Boilerplate, Generate Data | Haiku 5.5 | เร็วมาก ถูกมาก |
@@ -5969,7 +5992,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.319`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.321`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 
@@ -8251,4 +8274,4 @@ Claude Code เป็นเครื่องมือ AI สำหรับน�
 ---
 
 > **เวอร์ชันเอกสาร:** ปรับปรุงล่าสุด 25 มิถุนายน 2026  
-> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5)
+> **ใช้กับ:** Claude Code เวอร์ชันล่าสุด (Claude Fable 5.2 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5)

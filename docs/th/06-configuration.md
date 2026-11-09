@@ -110,8 +110,9 @@ related:
 
 | โมเดล | id | จุดเด่น |
 |-------|-----|--------|
-| **Fable 5.1** | `claude-fable-5-1` | **default Fable ตัวใหม่** (ตั้งแต่ Claude Code **2.1.257**); context **1M**; ราคา **$10/$50 ต่อ Mtok** + **cache read $0.25 ต่อ Mtok** — เก่งที่สุดที่เปิดให้ใช้ทั่วไป เหมาะกับงานคิดหนักสุด, context ใหญ่ และงาน agentic |
-| **Fable 5** | `claude-fable-5` | โมเดล **Mythos-class** default Fable ตัวก่อน (มาใน Claude Code **2.1.170**) มาพร้อม **context window 1M token เป็นค่าเริ่มต้น** |
+| **Fable 5.2** | `claude-fable-5-2` | **default Fable ตัวใหม่** (ตั้งแต่ Claude Code **2.1.321**); context **1M**; ราคา **$8/$40 ต่อ Mtok** + **cache read $0.20 ต่อ Mtok** — เก่งที่สุดที่เปิดให้ใช้ทั่วไป เหมาะกับงานคิดหนักสุด, context ใหญ่ และงาน agentic |
+| **Fable 5.1** | `claude-fable-5-1` | default Fable ตัวก่อน (Claude Code **2.1.257–2.1.320**); context **1M**; ราคา **$10/$50 ต่อ Mtok** + **cache read $0.25 ต่อ Mtok** · ค่าที่เคยเลือก Fable 5.1 ไว้จะย้ายไป `fable` — ใช้ `/model claude-fable-5-1` เพื่อสลับกลับ |
+| **Fable 5** | `claude-fable-5` | โมเดล **Mythos-class** default Fable รุ่นก่อนหน้านั้น (มาใน Claude Code **2.1.170**) มาพร้อม **context window 1M token เป็นค่าเริ่มต้น** |
 | **Opus 5.5** | `claude-opus-5-5` | **default Opus ตัวใหม่** (ตั้งแต่ Claude Code **2.1.280**); context **1M**; ราคา **$4/$20 ต่อ Mtok** + **cache read $0.20 ต่อ Mtok** |
 | **Opus 5** | `claude-opus-5` | default Opus ตัวก่อน (Claude Code **2.1.219–2.1.278**); context **1M**; fast mode ราคา **$10/$50 ต่อ Mtok** |
 | **Opus 4.8** | `claude-opus-4-8` | เรือธง **Opus** ตัวก่อน; coding และวิเคราะห์บั๊กซับซ้อนเก่งสุด; default เป็น **high effort** กับงานหนัก |
@@ -120,7 +121,7 @@ related:
 | **Haiku 5.5** | `claude-haiku-5-5` | **default Haiku ตัวใหม่**บน Anthropic API (ตั้งแต่ Claude Code **2.1.293**); context **1M**; ราคา **$0.10/$0.50 ต่อ Mtok** ($0.50/$2.50 สำหรับ prompt เกิน 100K) — เร็วสุด ถูกสุด; สำหรับงานง่าย/boilerplate |
 | **Haiku 4.5** | `claude-haiku-4-5` | default Haiku ตัวก่อน |
 
-> หมายเหตุ: Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกจาก fast mode ใน 2.1.219; fast mode ของ Opus 4.8 ถูก deprecate ตั้งแต่ 30 ต.ค. 2026 และจะถูกถอด 30 พ.ย. 2026 — ย้ายไป Opus 5.5) — Fable 5.1 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 5.5 คือ **default Opus** ตัวปัจจุบัน
+> หมายเหตุ: Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกจาก fast mode ใน 2.1.219; fast mode ของ Opus 4.8 ถูก deprecate ตั้งแต่ 30 ต.ค. 2026 และจะถูกถอด 30 พ.ย. 2026 — ย้ายไป Opus 5.5) — Fable 5.2 คือโมเดลที่เก่งที่สุดโดยรวม ส่วน Opus 5.5 คือ **default Opus** ตัวปัจจุบัน
 
 ### 🆕 Settings ใหม่ใน v2.1.191
 
@@ -410,6 +411,13 @@ related:
 - **Read เลิกคืน stub "unchanged"** — การอ่านไฟล์ที่ไม่เปลี่ยนซ้ำอีกครั้งจะได้เนื้อหาไฟล์กลับมา
 - **Cost report ของ Claude apps gateway** — `GET /v1/organizations/analytics/cost` ใน admin API อ่านยอดใช้จ่ายย้อนหลังตามช่วงวันที่ แบบรวม / ราย developer / รายวัน / ราย IdP group · gateway ที่ตั้ง `admin:` จะเก็บบันทึก IdP group ของแต่ละ developer รายวันไว้ตาม `admin.identity_retention_days`
 - **Env var ใหม่** — `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID` ดู [[23-environment-variables]]
+
+### 🆕 ใหม่ใน v2.1.321
+
+- **Claude Fable 5.2** (`claude-fable-5-2`) — **default Fable ตัวใหม่**: context 1M, ราคา **$8/$40 ต่อ Mtok** และ **cache read $0.20 ต่อ Mtok**
+- **ค่าที่เคยเลือก Fable 5.1 ไว้ย้ายไป `fable`** — บนแพ็กเกจ Pro และ Max ย้ายทันที · บน Team และ Enterprise ย้ายเมื่อองค์กรอนุญาต · ใช้ `/model claude-fable-5-1` เพื่อสลับกลับ
+- **ป้าย fast mode บอกชื่อโมเดล** — `/fast`, `/config` และ `/model` แสดงชื่อโมเดลปัจจุบันเมื่อโมเดลนั้นรองรับ fast mode
+- **managed `extraKnownMarketplaces` เข้มขึ้น** — ชื่อ marketplace ที่ประกาศไว้จะถูกเพิ่มจากแหล่งอื่นไม่ได้, entry จากที่อื่นถูกซ่อน และ plugin ที่ marketplace ที่ประกาศไว้มีจะถูกติดตั้งใหม่จากแหล่งนั้น · เมื่อชื่อที่ประกาศไว้ยึดมาจากแหล่งที่ไม่ได้ประกาศ ข้อมูลที่บันทึกไว้จะถูกพักไว้ตาม `cleanupPeriodDays` ส่วน options และ secrets พักไว้จนกว่าจะรัน `claude plugin restore-set-aside` ดู [[18-plugins]]
 
 ### การ Persist ของ `/config` และ `/model`
 

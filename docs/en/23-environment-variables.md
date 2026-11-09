@@ -128,6 +128,7 @@ related:
 | `CLAUDE_CODE_DISABLE_MCP_TASKS` | Set `1` to turn MCP tasks off in the terminal. *(v2.1.319)* |
 | `CLAUDE_CODE_DISABLE_FEATURE_FLAGS` | Stops feature-flag fetching without turning off telemetry; every flag then uses its built-in default. *(v2.1.319)* |
 | `CLAUDE_CODE_LOOP_KEEPALIVE` | Set `1` to keep the old self-paced `/loop` behavior of scheduling a fallback wakeup when a turn finishes without rescheduling. See [[03-slash-commands]]. *(v2.1.319)* |
+| `CLAUDE_CODE_PLUGIN_DIR_WATCH` | Set `0` to stop headless sessions from reloading mods in `.claude/skills` when their files change. See [[11-skills]]. *(v2.1.321)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

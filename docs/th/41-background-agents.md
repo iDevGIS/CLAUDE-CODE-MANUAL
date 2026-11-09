@@ -174,6 +174,10 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 
 - **Monitor ใช้ได้ทุกที่** — Monitor tool และ plugin monitor ใช้ได้แล้วบน Bedrock, Vertex และ Foundry รวมถึงตอนที่ปิด telemetry หรือ nonessential traffic ไว้ — และบนสภาพแวดล้อมเหล่านี้ foreground sleep นาน ๆ ก็ถูกบล็อกด้วยเช่นกัน
 
+### 🆕 ใหม่ใน v2.1.321
+
+- **คำสั่งยาวถูกย่อใน notification** — notification ของคำสั่ง background และผลลัพธ์ของ TaskStop จะให้ Claude เห็นเฉพาะต้นและท้ายของคำสั่งที่ยาวเกิน 1,000 ตัวอักษร ช่วยประหยัด context
+
 ---
 
 ---

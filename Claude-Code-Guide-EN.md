@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.319         │
+│ Welcome to Claude Code v2.1.321         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -280,7 +280,7 @@ git checkout main
 
 **Example:**
 ```bash
-claude --model claude-fable-5-1  # Fable 5.1 — most capable, 1M context (new default Fable)
+claude --model claude-fable-5-2  # Fable 5.2 — most capable, 1M context (new default Fable)
 claude --model opus              # Opus 5.5 (new default Opus, 1M context)
 claude --model sonnet            # Sonnet 5.5 (new default Sonnet, 1M context)
 claude --model haiku             # Haiku 5.5 (new default Haiku, 1M context)
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.319
+- run: npm install -g @anthropic-ai/claude-code@2.1.321
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1148,6 +1148,11 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 - **Sign-in expiry date** — `claude auth status` now reports when a stored claude.ai sign-in ends (`loginExpiresAt`), and `claude -p` JSON results include it as `credential_expires_at`.
 - **Expiry warning in `claude -p` text output** — a one-line stderr warning appears starting 10 days before a stored claude.ai sign-in ends; when the login reaches its time limit, the error says so and names `claude auth login` and `claude setup-token`.
+
+### New in v2.1.321
+
+- **`claude remote-control --settings <file>`** — applies a settings file to every session it starts; if the file changes, no new session starts until you restart `claude remote-control`.
+- **Remote Control sessions keep their folder** — a session stays in the folder it was started in; a connected client can no longer move it to another folder.
 
 ---
 
@@ -1920,6 +1925,11 @@ Skill(commit)                    # Specific skill
 - **A broader deny beats an exact ask** — a session's exact Bash or PowerShell ask rule is refused, not asked about, when a broader deny rule covers the command.
 - **`which` with unusual flags asks** — the Bash tool asks for permission before running `which` with flags outside a lookup/display set.
 
+### New in v2.1.321
+- **`cp` and `mv` spelled by a path get the same checks** — commands such as `/bin/cp` and `/bin/mv` now get the same path checks as `cp` and `mv`.
+- **Mods Claude writes turn on without asking in auto and bypass modes** — even with managed `allowUnsandboxedCommands: false` or `allowManagedDomainsOnly`; in `dontAsk` mode they don't load.
+- **Mods' own tool calls raise no permission prompt** — a mod's `$.tool.call` and `$.mcp.call` don't prompt, even under your own ask rules or in `dontAsk` and `-p` runs; deny rules and organization policy still apply.
+
 ---
 
 ## 6. Configuration
@@ -2306,6 +2316,13 @@ Skill(commit)                    # Specific skill
 - **Read no longer returns an "unchanged" stub** — reading an unchanged file again returns its content.
 - **Claude apps gateway cost report** — `GET /v1/organizations/analytics/cost` on the admin API reads past spend over a date range in total, per developer, per day or per IdP group; gateways with `admin:` set keep a daily record of each developer's IdP groups for `admin.identity_retention_days`.
 - **New env var** — `CLAUDE_CODE_DISABLE_NESTED_SESSION_ID`.
+
+### New in v2.1.321
+
+- **Claude Fable 5.2** (`claude-fable-5-2`) — the new **default Fable model**: 1M context, **$8/$40 per Mtok** with **$0.20/Mtok cache reads**.
+- **Saved Fable 5.1 picks move to `fable`** — at once on Pro and Max plans, and on Team and Enterprise plans once your organization allows it; use `/model claude-fable-5-1` to switch back.
+- **Fast mode labels name your model** — `/fast`, `/config` and `/model` now name your current model when it supports fast mode.
+- **Managed `extraKnownMarketplaces` is stricter** — a declared marketplace name can't be added from another source, an entry from elsewhere is hidden, and plugins the declared marketplace lists are reinstalled from it. When a declared name takes over from an undeclared source, saved data is set aside for `cleanupPeriodDays`, and options and secrets until `claude plugin restore-set-aside`.
 
 ---
 
@@ -3228,6 +3245,11 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **Compaction re-sends the skill list** — after compaction Claude gets the skill list again; `/reload-skills` now sends only new or changed skills.
 - **Skill hooks are capped per source** — the skills of one source (a repo, your own folder, or a plugin) can register at most 1,024 hooks and 16,384 matcher characters per session.
 - **No `allowed-tools` when a skill's hooks are kept out** — under a policy that allows hooks from plugins only, a skill used in the main conversation whose hooks are kept out no longer gets its `allowed-tools`.
+
+### New in v2.1.321
+
+- **No nested skills from `~/.claude/plugins`** — `.claude/skills` folders inside `~/.claude/plugins` no longer load when Claude works on files there.
+- **Headless sessions reload mods in `.claude/skills`** — when their files change; set `CLAUDE_CODE_PLUGIN_DIR_WATCH=0` to turn this off (see 23. Environment Variables).
 
 ---
 
@@ -4649,6 +4671,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_MCP_TASKS` | Set `1` to turn MCP tasks off in the terminal. *(v2.1.319)* |
 | `CLAUDE_CODE_DISABLE_FEATURE_FLAGS` | Stops feature-flag fetching without turning off telemetry; every flag then uses its built-in default. *(v2.1.319)* |
 | `CLAUDE_CODE_LOOP_KEEPALIVE` | Set `1` to keep the old self-paced `/loop` behavior of scheduling a fallback wakeup when a turn finishes without rescheduling (see 3. Slash Commands). *(v2.1.319)* |
+| `CLAUDE_CODE_PLUGIN_DIR_WATCH` | Set `0` to stop headless sessions from reloading mods in `.claude/skills` when their files change (see 11. Skills). *(v2.1.321)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -4814,7 +4837,7 @@ claude --version  # check the version
 
 | Task | Recommended Model | Why |
 |------|-------------------|-----|
-| Hardest reasoning, huge context | Fable 5.1 | Most capable model, 1M context by default |
+| Hardest reasoning, huge context | Fable 5.2 | Most capable model, 1M context by default |
 | Architecture, complex bugs | Opus 5.5 | Deep thought, strong analysis |
 | General coding, ordinary bugs | Sonnet 5.5 | Fast, economical — the default |
 | Boilerplate, data generation | Haiku 5.5 | Very fast and very cheap |
@@ -5983,7 +6006,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.319`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.321`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 
@@ -8265,4 +8288,4 @@ Claude Code is a feature-complete AI tool for developers:
 ---
 
 > **Document version:** Last updated June 25, 2026
-> **Applies to:** Latest Claude Code version (Claude Fable 5.1 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5)
+> **Applies to:** Latest Claude Code version (Claude Fable 5.2 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5)

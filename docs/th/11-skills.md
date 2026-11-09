@@ -237,6 +237,11 @@ my-skill/
 - **จำกัดจำนวน hook ของ skill ต่อแหล่ง** — skill จากแหล่งเดียวกัน (repo, โฟลเดอร์ของเราเอง หรือ plugin) ลงทะเบียน hook ได้ไม่เกิน 1,024 ตัว และ matcher รวมไม่เกิน 16,384 ตัวอักษรต่อ session ดู [[10-hooks]]
 - **ไม่ได้ `allowed-tools` เมื่อ hook ของ skill ถูกกันไว้** — ภายใต้ policy ที่อนุญาต hook จาก plugin เท่านั้น skill ที่ใช้ในบทสนทนาหลักซึ่ง hook ถูกกันไว้จะไม่ได้ `allowed-tools` ของมันแล้ว
 
+### 🆕 ใหม่ใน v2.1.321
+
+- **ไม่โหลด nested skill จาก `~/.claude/plugins`** — โฟลเดอร์ `.claude/skills` ที่อยู่ใน `~/.claude/plugins` จะไม่ถูกโหลดแล้วเมื่อ Claude ทำงานกับไฟล์ในนั้น
+- **session แบบ headless โหลด mod ใน `.claude/skills` ใหม่** — เมื่อไฟล์ของมันเปลี่ยน · ตั้ง `CLAUDE_CODE_PLUGIN_DIR_WATCH=0` เพื่อปิด ดู [[23-environment-variables]]
+
 ---
 
 ---
