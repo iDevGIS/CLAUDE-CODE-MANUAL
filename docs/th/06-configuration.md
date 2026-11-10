@@ -419,6 +419,10 @@ related:
 - **ป้าย fast mode บอกชื่อโมเดล** — `/fast`, `/config` และ `/model` แสดงชื่อโมเดลปัจจุบันเมื่อโมเดลนั้นรองรับ fast mode
 - **managed `extraKnownMarketplaces` เข้มขึ้น** — ชื่อ marketplace ที่ประกาศไว้จะถูกเพิ่มจากแหล่งอื่นไม่ได้, entry จากที่อื่นถูกซ่อน และ plugin ที่ marketplace ที่ประกาศไว้มีจะถูกติดตั้งใหม่จากแหล่งนั้น · เมื่อชื่อที่ประกาศไว้ยึดมาจากแหล่งที่ไม่ได้ประกาศ ข้อมูลที่บันทึกไว้จะถูกพักไว้ตาม `cleanupPeriodDays` ส่วน options และ secrets พักไว้จนกว่าจะรัน `claude plugin restore-set-aside` ดู [[18-plugins]]
 
+### 🆕 ใหม่ใน v2.1.322
+
+- **Fast mode บน Vertex** — fast mode ใช้บน Vertex AI ได้แล้วใน region `global`, `us` และ `eu` · ถ้า Vertex ปฏิเสธ Claude Code จะ fallback กลับไปใช้ความเร็วปกติ ดู [[21-special-features]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

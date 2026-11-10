@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.321-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.107.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.322-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.108.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.321`
+## 🆕 What's new — synced to Claude Code `v2.1.322`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -176,8 +176,9 @@ Never used a command line? You can still follow along 👇
 | ⏳ **Sign-in expiry shown** | `claude auth status` reports `loginExpiresAt` · `claude -p` JSON has `credential_expires_at` + a stderr warning 10 days ahead · `deniedMcpServers` URL entries also block connectors · background subagents background shell commands after 3 minutes on all providers (v2.1.318) |
 | 🚫 **Deny instead of prompting + MCP tasks in the background** | `permissions.denyInsteadOfPrompting` denies a tool call that would wait on a prompt and the turn continues · MCP tasks move to the background right away (`CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND` / `CLAUDE_CODE_DISABLE_MCP_TASKS`) · auto mode no longer falls back to the built-in classifier with telemetry/feature flags off · self-paced `/loop` ends on its own (`CLAUDE_CODE_LOOP_KEEPALIVE=1`) · `/claude-api latency-optimize` (v2.1.319) |
 | 🧠 **Fable 5.2 model** | `claude-fable-5-2` — the **new default Fable**, 1M context, $8/$40 per Mtok + $0.20/Mtok cache reads · saved Fable 5.1 picks move to `fable` · `claude remote-control --settings <file>` · mods Claude writes turn on by themselves in auto/bypass · `CLAUDE_CODE_PLUGIN_DIR_WATCH` (v2.1.321) |
+| ⚡ **Fast mode on Vertex** | fast mode now works on Vertex AI in the `global`, `us` and `eu` regions, falling back to standard speed if Vertex refuses it (v2.1.322) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.321` (manual `v1.107.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.322` (manual `v1.108.0`)
 
 ---
 
@@ -200,7 +201,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.321** + the Fable 5.2 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 lineup
+Tracks Claude Code **v2.1.322** + the Fable 5.2 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 lineup
 
 </td>
 </tr>
@@ -260,7 +261,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.321`
+> **Claude Code Version:** `2.1.322`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

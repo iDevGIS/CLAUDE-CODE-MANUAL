@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.321         │
+│ Welcome to Claude Code v2.1.322         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.321
+- run: npm install -g @anthropic-ai/claude-code@2.1.322
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -2323,6 +2323,10 @@ Skill(commit)                    # Specific skill
 - **Saved Fable 5.1 picks move to `fable`** — at once on Pro and Max plans, and on Team and Enterprise plans once your organization allows it; use `/model claude-fable-5-1` to switch back.
 - **Fast mode labels name your model** — `/fast`, `/config` and `/model` now name your current model when it supports fast mode.
 - **Managed `extraKnownMarketplaces` is stricter** — a declared marketplace name can't be added from another source, an entry from elsewhere is hidden, and plugins the declared marketplace lists are reinstalled from it. When a declared name takes over from an undeclared source, saved data is set aside for `cleanupPeriodDays`, and options and secrets until `claude plugin restore-set-aside`.
+
+### New in v2.1.322
+
+- **Fast mode on Vertex** — fast mode now works on Vertex AI in the `global`, `us` and `eu` regions; if Vertex refuses it, Claude Code falls back to standard speed.
 
 ---
 
@@ -4452,7 +4456,7 @@ Claude spends more time thinking on hard problems such as:
 
 Press `Meta+O` / `Alt+O`, or use `/fast`.
 
-Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed in v2.1.219), with faster output. Fast mode for Opus 4.8 is deprecated and will be removed on November 30, 2026 — after that it returns an error instead of falling back; migrate to Opus 5.5. *(v2.1.316)*
+Fast mode runs on **Opus 5 and Opus 4.8** (Opus 4.7 was removed in v2.1.219), with faster output. Fast mode for Opus 4.8 is deprecated and will be removed on November 30, 2026 — after that it returns an error instead of falling back; migrate to Opus 5.5. *(v2.1.316)* Fast mode also works on Vertex AI in the `global`, `us` and `eu` regions, falling back to standard speed if Vertex refuses it. *(v2.1.322)*
 
 ### Code Intelligence
 
@@ -6006,7 +6010,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.321`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.322`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

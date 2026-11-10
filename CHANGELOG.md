@@ -25,6 +25,24 @@
 
 ---
 
+## [1.108.0] — 2026-11-10
+
+### Compatibility
+- **Claude Code:** `v2.1.322+`
+
+### Added
+- **ch.06 Configuration** — section "New in v2.1.322": fast mode ใช้บน Vertex AI ได้ใน region `global`, `us` และ `eu` · ถ้า Vertex ปฏิเสธจะ fallback กลับไปความเร็วปกติ
+- **ch.21 Special Features** — หมายเหตุ Fast Mode บน Vertex *(v2.1.322)*
+- README / README.EN — แถว What's-new (v2.1.322)
+
+### Changed
+- Version strings `2.1.321` → `2.1.322` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.322` — fast mode รองรับ Vertex AI
+
+---
+
 ## [1.107.0] — 2026-11-10
 
 ### Compatibility
@@ -2405,6 +2423,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.108.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.107.0...v1.108.0
 [1.107.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.106.0...v1.107.0
 [1.106.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.105.0...v1.106.0
 [1.105.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.104.0...v1.105.0

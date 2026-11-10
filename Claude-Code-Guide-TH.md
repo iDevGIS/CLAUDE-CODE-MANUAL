@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.321         │
+│ Welcome to Claude Code v2.1.322         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1139,7 +1139,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.321
+- run: npm install -g @anthropic-ai/claude-code@2.1.322
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -2317,6 +2317,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **ค่าที่เคยเลือก Fable 5.1 ไว้ย้ายไป `fable`** — บนแพ็กเกจ Pro และ Max ย้ายทันที · บน Team และ Enterprise ย้ายเมื่อองค์กรอนุญาต · ใช้ `/model claude-fable-5-1` เพื่อสลับกลับ
 - **ป้าย fast mode บอกชื่อโมเดล** — `/fast`, `/config` และ `/model` แสดงชื่อโมเดลปัจจุบันเมื่อโมเดลนั้นรองรับ fast mode
 - **managed `extraKnownMarketplaces` เข้มขึ้น** — ชื่อ marketplace ที่ประกาศไว้จะถูกเพิ่มจากแหล่งอื่นไม่ได้, entry จากที่อื่นถูกซ่อน และ plugin ที่ marketplace ที่ประกาศไว้มีจะถูกติดตั้งใหม่จากแหล่งนั้น · เมื่อชื่อที่ประกาศไว้ยึดมาจากแหล่งที่ไม่ได้ประกาศ ข้อมูลที่บันทึกไว้จะถูกพักไว้ตาม `cleanupPeriodDays` ส่วน options และ secrets พักไว้จนกว่าจะรัน `claude plugin restore-set-aside`
+
+### 🆕 ใหม่ใน v2.1.322
+
+- **Fast mode บน Vertex** — fast mode ใช้บน Vertex AI ได้แล้วใน region `global`, `us` และ `eu` · ถ้า Vertex ปฏิเสธ Claude Code จะ fallback กลับไปใช้ความเร็วปกติ
 
 ---
 
@@ -4441,7 +4445,7 @@ Claude จะใช้เวลาคิดนานขึ้นสำหรั�
 
 กด `Meta+O` / `Alt+O` หรือ `/fast`
 
-Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกใน v2.1.219) พร้อม Output ที่เร็วขึ้น · fast mode ของ Opus 4.8 ถูก deprecate และจะถูกถอดวันที่ 30 พ.ย. 2026 — หลังจากนั้นจะได้ error แทนการ fallback ให้ย้ายไป Opus 5.5 *(v2.1.316)*
+Fast mode ใช้กับ **Opus 5 และ Opus 4.8** (ถอด Opus 4.7 ออกใน v2.1.219) พร้อม Output ที่เร็วขึ้น · fast mode ของ Opus 4.8 ถูก deprecate และจะถูกถอดวันที่ 30 พ.ย. 2026 — หลังจากนั้นจะได้ error แทนการ fallback ให้ย้ายไป Opus 5.5 *(v2.1.316)* · ใช้บน Vertex AI ได้ใน region `global`, `us` และ `eu` — ถ้า Vertex ปฏิเสธจะกลับไปใช้ความเร็วปกติ *(v2.1.322)*
 
 ### Code Intelligence
 
@@ -5992,7 +5996,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.321`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.322`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

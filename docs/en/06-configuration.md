@@ -419,6 +419,10 @@ Set the `model` key to any of these (newest → cheapest):
 - **Fast mode labels name your model** — `/fast`, `/config` and `/model` now name your current model when it supports fast mode.
 - **Managed `extraKnownMarketplaces` is stricter** — a declared marketplace name can't be added from another source, an entry from elsewhere is hidden, and plugins the declared marketplace lists are reinstalled from it. When a declared name takes over from an undeclared source, saved data is set aside for `cleanupPeriodDays`, and options and secrets until `claude plugin restore-set-aside`. See [[18-plugins]].
 
+### New in v2.1.322
+
+- **Fast mode on Vertex** — fast mode now works on Vertex AI in the `global`, `us` and `eu` regions; if Vertex refuses it, Claude Code falls back to standard speed. See [[21-special-features]].
+
 ---
 
 ---
