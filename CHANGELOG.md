@@ -25,6 +25,35 @@
 
 ---
 
+## [1.109.0] — 2026-11-13
+
+### Compatibility
+- **Claude Code:** `v2.1.323+`
+
+### Added
+- **ch.03 Slash Commands** — section "New in v2.1.323": `/security-review` ถามก่อนรัน · คำสั่ง git แบบ inline ใน skill หยุดใน bare-repository worktree จนกว่าจะอนุญาต
+- **ch.05 Permissions** — section "New in v2.1.323": "Don't ask again" ไม่บันทึกกฎที่ดูเหมือนมี secret · เตือนตอนเริ่มเมื่อมี `*` ในค่าตัวแปร (`Bash(PORT=* npm run dev)`) · auto mode ใช้ไม่ได้ → เริ่มใน Manual mode · sandbox ไม่นับสิทธิ์เขียนผ่าน symlink + `git worktree add/move/remove` read-only
+- **ch.06 Configuration** — section "New in v2.1.323": Code Mode (experimental) · model ID ที่ไม่รู้จักถือว่า context 1M (เดิม 200K) · `ALL_PROXY` ไม่ครอบคลุม request ของ org settings/policy · `--settings` ไม่ใช่ JSON ที่ถูกต้องและมี `sandbox` หยุดการเริ่ม
+- **ch.09 MCP** — section "New in v2.1.323": ถอด MCP client v1 (`MCP_SDK_GENERATION=v1` = โหมด compatibility) · approval ใน `.mcp.json` ต้องตรงชื่อ · ยืนยันการ sign-in MCP แม้ใน bypass/auto · `/mcp` บอก tool ที่ถูกตัด
+- **ch.10 Hooks** — section "New in v2.1.323": permission check ล้มหลัง `PreToolUse` "allow" / `PermissionRequest` rewrite · heartbeat 30 วินาทีระหว่าง hook รันนานใน `-p`/SDK
+- **ch.12 Subagents** — section "New in v2.1.323": ถอด `subagentStatusLine` · `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES`
+- **ch.18 Plugins** — section "New in v2.1.323": `engines["claude-code"]` ใน `plugin.json` · `claude plugin validate` ตรวจ type ของ TypeScript hooks (`--strict`) · `engine.create` ต้อง hook ด้วยชื่อ · `tool.list` มีผลทุก agent · `unsetOptionCount` · deprecate setting `agent` ของ plugin
+- **ch.23 Environment Variables** — แถวใหม่ `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES`, `CLAUDE_CODE_RESUME_HINT_COMMAND`, `CLAUDE_CODE_AUTOMOUNT_ROOTS`
+- **ch.41 Background Agents** (atomic) — section "New in v2.1.323": `claude rm` เอาออกจากรายการไม่ได้ลบ · `/logout` ใน background session ใช้ได้
+- README / README.EN — แถว What's-new (v2.1.323)
+
+### Changed
+- ch.23: `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` ค่าสูงสุดเพิ่มจาก 64000 เป็น 300000 *(v2.1.323)*
+- Version strings `2.1.322` → `2.1.323` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Removed
+- `subagentStatusLine` ถูกถอดใน upstream — หมายเหตุ payload เดิมในบท 12 คงไว้เป็นประวัติ พร้อมหมายเหตุการถอดใน New-in
+
+### Why
+- Sync กับ Claude Code `v2.1.323` — Code Mode, plugin `engines`, ถอด MCP client v1 และ `subagentStatusLine`, ปรับ permission/sandbox หลายจุด
+
+---
+
 ## [1.108.0] — 2026-11-10
 
 ### Compatibility
@@ -2423,6 +2452,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.109.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.108.0...v1.109.0
 [1.108.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.107.0...v1.108.0
 [1.107.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.106.0...v1.107.0
 [1.106.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.105.0...v1.106.0

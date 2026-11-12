@@ -340,6 +340,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **mod ที่ Claude เขียนเปิดใช้เองโดยไม่ถามใน auto และ bypass mode** — แม้ managed settings จะตั้ง `allowUnsandboxedCommands: false` หรือ `allowManagedDomainsOnly` ไว้ · ส่วนใน `dontAsk` mode จะไม่โหลด mod เหล่านี้ ดู [[18-plugins]]
 - **tool call ของ mod เองไม่ขึ้น permission prompt** — `$.tool.call` และ `$.mcp.call` ของ mod ไม่ถาม แม้มีกฎ ask ของเราเองหรือรันใน `dontAsk` และ `-p` · กฎ deny และ policy ขององค์กรยังมีผลเหมือนเดิม
 
+### 🆕 ใหม่ใน v2.1.323
+- **"Don't ask again" เก็บกฎที่ดูเหมือนมี secret ไว้แค่ใน session** — allow rule ที่ดูเหมือนมี secret อยู่ หรือจะถูกบันทึกลง `settings.local.json` ที่ git track อยู่ จะใช้ได้แค่ใน session นั้นและไม่ถูกบันทึก
+- **เตือนตอนเริ่มเมื่อมี `*` ในค่าของตัวแปร** — Bash allow rule อย่าง `Bash(PORT=* npm run dev)` จะขึ้นคำเตือนตอนเริ่ม · ส่วนกฎที่ระบุชื่อตัวแปรต่อด้วย wildcard เช่น `Bash(NODE_ENV*)` ตอนนี้จะถาม
+- **auto mode ใช้ไม่ได้ → เริ่มใน Manual mode** — `--permission-mode auto` หรือ `defaultMode: auto` ใน settings จะเริ่มใน Manual mode ซึ่งถามก่อน เมื่อ auto mode ใช้ไม่ได้
+- **sandbox ไม่นับสิทธิ์เขียนที่ได้ผ่าน symlink** — บน macOS, Linux และ WSL สิทธิ์เขียนที่ได้ผ่าน symlink ในโฟลเดอร์ที่เขียนได้ ซึ่งชี้ไปที่อื่นหรือ path ที่ไม่มีอยู่ จะถูกเมิน · ให้ grant path จริงแทน · บน macOS และ Linux คำสั่ง `git worktree add`, `move` และ `remove` จะล้มแบบ read-only ใน sandbox
+
 ---
 
 ---

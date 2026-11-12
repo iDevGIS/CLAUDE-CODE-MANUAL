@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.322         │
+│ Welcome to Claude Code v2.1.323         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.322
+- run: npm install -g @anthropic-ai/claude-code@2.1.323
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1475,6 +1475,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **Self-paced `/loop` ends when a turn finishes without rescheduling** — it no longer schedules a fallback wakeup; set `CLAUDE_CODE_LOOP_KEEPALIVE=1` to keep the old behavior (see 23. Environment Variables).
 - **`/model` picker groups older models under a "More models" row** instead of listing them after the current ones.
 
+### New in v2.1.323
+- **`/security-review` asks before Claude runs it** — and skills' inline git commands stop in bare-repository worktrees and similar folders until you allow them, outside auto mode and bypass.
+
 ---
 
 ## 4. Keyboard Shortcuts
@@ -1930,6 +1933,12 @@ Skill(commit)                    # Specific skill
 - **Mods Claude writes turn on without asking in auto and bypass modes** — even with managed `allowUnsandboxedCommands: false` or `allowManagedDomainsOnly`; in `dontAsk` mode they don't load.
 - **Mods' own tool calls raise no permission prompt** — a mod's `$.tool.call` and `$.mcp.call` don't prompt, even under your own ask rules or in `dontAsk` and `-p` runs; deny rules and organization policy still apply.
 
+### New in v2.1.323
+- **"Don't ask again" keeps secret-looking rules to the session** — an allow rule that looks like it holds a secret, or would be saved to a `settings.local.json` that git tracks, lasts for the session only and isn't saved.
+- **Start-up warning for `*` in a variable's value** — Bash allow rules such as `Bash(PORT=* npm run dev)` now warn at start-up; a rule that names a variable with an attached wildcard, such as `Bash(NODE_ENV*)`, now asks.
+- **Unavailable auto mode starts in Manual mode** — `--permission-mode auto` or a settings `defaultMode: auto` now starts in Manual mode, which asks first, when auto mode is unavailable.
+- **Sandbox ignores writes granted through symlinks** — on macOS, Linux and WSL, write access granted through a symlink in a writable folder that leads elsewhere or to a missing path is ignored; grant the real path instead. On macOS and Linux, `git worktree add`, `move` and `remove` now fail read-only in the sandbox.
+
 ---
 
 ## 6. Configuration
@@ -2327,6 +2336,13 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.322
 
 - **Fast mode on Vertex** — fast mode now works on Vertex AI in the `global`, `us` and `eu` regions; if Vertex refuses it, Claude Code falls back to standard speed.
+
+### New in v2.1.323
+
+- **Code Mode (experimental)** — an opt-in in which Claude writes JavaScript to call its tools; see https://code.claude.com/docs/en/code-mode to turn it on, or to turn it off for an organization.
+- **Unknown model IDs assume a 1M context window** (was 200K) — use `/autocompact` to compact earlier, or `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` to keep 200K. Sessions on other vendors' models with a smaller window can fail every turn once full until `/clear`, so set it before they fill.
+- **`ALL_PROXY` no longer covers organization settings and policy requests** — set `HTTPS_PROXY` if your network needs a proxy for them.
+- **Invalid `--settings` with a `sandbox` key stops start-up** — when the file isn't valid JSON and has a `sandbox` key, even one that turns the sandbox off.
 
 ---
 
@@ -2791,6 +2807,13 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **MCP tasks in the terminal** — when an MCP server runs a tool call as a task, Claude Code moves it to the background right away and tells Claude the result when it finishes. This works without feature-flag fetching (Bedrock, Vertex, Foundry, LLM gateways, `DISABLE_TELEMETRY`). Set `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND=1` to wait for the task inside its tool call instead, or `CLAUDE_CODE_DISABLE_MCP_TASKS=1` to turn MCP tasks off (see 23. Environment Variables).
 
+### New in v2.1.323
+
+- **v1 MCP client removed** — `MCP_SDK_GENERATION=v1` now runs the v2 MCP client in a compatibility mode (earlier handshake, relaxed OAuth sign-in checks).
+- **Project `.mcp.json` approvals match the exact server name** — an approval entry written in another spelling now asks again.
+- **Finishing an MCP server sign-in asks you to confirm** — even in bypass and auto modes; where nobody can be asked, such as in `dontAsk` mode, use `/mcp`.
+- **`/mcp` shows left-out tools** — how many of a server's tools were left out because the API would reject their input schema, and why.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -2961,6 +2984,11 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 
 - **Hook `if` conditions match Monitor commands** — a condition such as `Monitor(tail *)` matches the Monitor tool's shell commands the way `Bash(tail *)` matches Bash's; hooks matching Bash now also run on shell commands started by Monitor (they can block or ask, but not approve or rewrite them).
 - **PreCompact hook output is cut at 10,000 characters** per hook, so very large output no longer makes compaction fail or repeat.
+
+### New in v2.1.323
+
+- **Failed permission checks after a hook answered** — when a tool's permission check fails with an error after a `PreToolUse` hook returned "allow", Claude Code now decides the call as if no hook had answered; when it fails on input that a `PermissionRequest` hook rewrote, Claude Code asks again, or refuses the call where nobody can answer.
+- **Progress heartbeat for long hooks** — every 30 seconds while hooks run long in `claude -p` and SDK sessions, so a host such as Claude Desktop won't end the turn as hung.
 
 ### Configuring Hooks
 
@@ -3498,6 +3526,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Background subagents background long shell commands on all providers** — a shell command is moved to the background after 3 minutes, so the prompt cache doesn't expire while it runs.
 - **Subagents stop instead of switching models** — when "Switch models when a message is flagged" is set to "Ask each time".
 - **Progress summaries can wait on a cold cache** — on Bedrock, Vertex, Foundry, or with telemetry off, a subagent progress summary can now wait up to 5 minutes for the subagent's pending response.
+
+### New in v2.1.323
+
+- **`subagentStatusLine` setting removed** — subagent rows always use the default look; settings files that still hold the key load as before (the `subagentStatusLine` payload notes above are historical).
+- **`CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES=1`** turns off subagent progress summaries and the requests that write them (available since 2.1.318; see 23. Environment Variables).
 
 ---
 
@@ -4218,6 +4251,15 @@ claude --plugin-dir ./my-plugin
 
 - **Path-mounted Claude Desktop plugins lose `allowed-tools` under `allowManagedPermissionRulesOnly`** — when your organization's managed settings set it, plugins that Claude Desktop mounts by path no longer keep their `allowed-tools`.
 
+### New in v2.1.323
+
+- **`engines["claude-code"]` in `plugin.json`** — plugins outside their stated Claude Code version range are not installed, updated or loaded, and install and update pick the newest version that fits.
+- **`claude plugin validate` type-checks a plugin's TypeScript hooks module** — each finding is a warning, and `--strict` fails on it. It also lists the `$` nouns a mod's `engine.create` hook adds, withholds or replaces.
+- **Hook `engine.create` by name** — a `*`, namespace or negated hook on `engine.create` now only observes; to add or withhold a `$` noun, hook `engine.create` by name. `claude plugin validate` fails a mod whose `engine.create` hook isn't written in the one accepted form; installed mods keep loading.
+- **`tool.list` hooks apply everywhere** — the tools they add or remove apply to the model and every agent.
+- **`unsetOptionCount` in `claude plugin install --json`** — how many `userConfig` options are not yet set.
+- **Plugin `agent` setting deprecated** — it still applies, and now warns at startup, in `claude plugin list` and in `claude plugin validate`.
+
 ---
 
 ## 19. Session Management
@@ -4653,7 +4695,7 @@ your-project/
 | `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | Sets a longer base delay for the backoff when retrying an overloaded (529) request. *(v2.1.292)* |
 | `MCP_PROTOCOL_NEGOTIATION` | Set `legacy` to opt out of local (stdio) MCP servers negotiating protocol version 2026-07-28, now the default on every install including Bedrock, Vertex and Foundry. *(v2.1.292)* Also opts claude.ai connectors out on installs that fetch no flags. *(v2.1.295)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | Limits how long unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) waits out 429 and 529 errors. *(v2.1.295)* |
-| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | Sets a longer maximum delay for the backoff when retrying an overloaded (529) request. *(v2.1.296)* |
+| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | Sets a longer maximum delay for the backoff when retrying an overloaded (529) request. *(v2.1.296)* Maximum raised from 64000 to 300000. *(v2.1.323)* |
 | `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` | Runs every workflow agent on one model while other subagents keep theirs. *(v2.1.296)* |
 | `CLAUDE_CODE_DISABLE_FILE_MENTIONS` | Claude gets the paths of `@` file mentions to read with its file tools, not the files' contents. *(v2.1.299)* |
 | `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` | Changes idle compaction's 200K-token minimum (`"idleCompaction": false` in settings.json turns it off). *(v2.1.299)* |
@@ -4676,6 +4718,9 @@ your-project/
 | `CLAUDE_CODE_DISABLE_FEATURE_FLAGS` | Stops feature-flag fetching without turning off telemetry; every flag then uses its built-in default. *(v2.1.319)* |
 | `CLAUDE_CODE_LOOP_KEEPALIVE` | Set `1` to keep the old self-paced `/loop` behavior of scheduling a fallback wakeup when a turn finishes without rescheduling (see 3. Slash Commands). *(v2.1.319)* |
 | `CLAUDE_CODE_PLUGIN_DIR_WATCH` | Set `0` to stop headless sessions from reloading mods in `.claude/skills` when their files change (see 11. Skills). *(v2.1.321)* |
+| `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES` | Set `1` to turn off subagent progress summaries and the requests that write them (available since 2.1.318; see 12. Subagents). *(v2.1.323)* |
+| `CLAUDE_CODE_RESUME_HINT_COMMAND` | Set by a program that starts Claude Code to have the exit hint name its own resume command. *(v2.1.323)* |
+| `CLAUDE_CODE_AUTOMOUNT_ROOTS` | On Linux, names autofs map roots deeper than one folder below `/`; Claude Code no longer looks up files in an autofs `/home` itself. *(v2.1.323)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -6010,7 +6055,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.322`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.323`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

@@ -238,6 +238,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **subagent หยุดแทนการสลับโมเดล** — เมื่อตั้ง "Switch models when a message is flagged" เป็น "Ask each time"
 - **progress summary รอ cache เย็นได้** — บน Bedrock, Vertex, Foundry หรือเมื่อปิด telemetry ตอน prompt cache ยังเย็น progress summary ของ subagent รอ response ที่ค้างอยู่ได้สูงสุด 5 นาที
 
+### 🆕 ใหม่ใน v2.1.323
+
+- **ถอด setting `subagentStatusLine` ออกแล้ว** — แถวของ subagent ใช้หน้าตา default เสมอ · ไฟล์ settings ที่ยังมี key นี้อยู่ก็โหลดได้เหมือนเดิม (หมายเหตุเรื่อง payload ของ `subagentStatusLine` ด้านบนเป็นประวัติ)
+- **`CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES=1`** ปิด progress summary ของ subagent และ request ที่ใช้เขียน summary เหล่านั้น (มีมาตั้งแต่ 2.1.318) ดู [[23-environment-variables]]
+
 ---
 
 ---

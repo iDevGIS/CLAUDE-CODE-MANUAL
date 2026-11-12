@@ -248,6 +248,13 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **MCP tasks in the terminal** — when an MCP server runs a tool call as a task, Claude Code moves it to the background right away and tells Claude the result when it finishes. This works without feature-flag fetching (Bedrock, Vertex, Foundry, LLM gateways, `DISABLE_TELEMETRY`). Set `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND=1` to wait for the task inside its tool call instead, or `CLAUDE_CODE_DISABLE_MCP_TASKS=1` to turn MCP tasks off. See [[23-environment-variables]].
 
+### New in v2.1.323
+
+- **v1 MCP client removed** — `MCP_SDK_GENERATION=v1` now runs the v2 MCP client in a compatibility mode (earlier handshake, relaxed OAuth sign-in checks).
+- **Project `.mcp.json` approvals match the exact server name** — an approval entry written in another spelling now asks again.
+- **Finishing an MCP server sign-in asks you to confirm** — even in bypass and auto modes; where nobody can be asked, such as in `dontAsk` mode, use `/mcp`. See [[05-permissions]].
+- **`/mcp` shows left-out tools** — how many of a server's tools were left out because the API would reject their input schema, and why.
+
 ---
 
 ---

@@ -248,6 +248,13 @@ claude --mcp-config ./mcp.json
 
 - **MCP task ใน terminal** — เมื่อ MCP server รัน tool call เป็น task, Claude Code จะย้ายไป background ทันทีแล้วแจ้งผลให้ Claude เมื่อเสร็จ · ใช้ได้โดยไม่ต้องดึง feature flag (Bedrock, Vertex, Foundry, LLM gateway, `DISABLE_TELEMETRY`) · อยากให้รอ task อยู่ใน tool call แทนให้ตั้ง `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND=1` หรือปิด MCP task ไปเลยด้วย `CLAUDE_CODE_DISABLE_MCP_TASKS=1` ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.323
+
+- **ถอด MCP client v1 ออกแล้ว** — `MCP_SDK_GENERATION=v1` จะรัน MCP client v2 ในโหมด compatibility แทน (handshake แบบเดิม และตรวจ OAuth sign-in แบบผ่อนลง)
+- **การอนุมัติ server ใน `.mcp.json` ของ project ต้องตรงชื่อเป๊ะ** — entry อนุมัติที่สะกดชื่อต่างไปจะถูกถามใหม่
+- **ขั้นสุดท้ายของการ sign-in MCP server ต้องให้เรายืนยัน** — แม้ใน bypass และ auto mode · ในที่ที่ถามใครไม่ได้ เช่น `dontAsk` mode ให้ใช้ `/mcp` ดู [[05-permissions]]
+- **`/mcp` บอก tool ที่ถูกตัดออก** — แสดงว่า tool ของ server ถูกตัดออกกี่ตัวเพราะ API จะปฏิเสธ input schema ของมัน และเพราะอะไร
+
 ---
 
 ---

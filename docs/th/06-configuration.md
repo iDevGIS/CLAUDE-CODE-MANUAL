@@ -423,6 +423,13 @@ related:
 
 - **Fast mode บน Vertex** — fast mode ใช้บน Vertex AI ได้แล้วใน region `global`, `us` และ `eu` · ถ้า Vertex ปฏิเสธ Claude Code จะ fallback กลับไปใช้ความเร็วปกติ ดู [[21-special-features]]
 
+### 🆕 ใหม่ใน v2.1.323
+
+- **Code Mode (experimental)** — โหมดที่ต้องเปิดเอง ให้ Claude เขียน JavaScript เพื่อเรียก tool ของตัวเอง · ดูวิธีเปิด หรือปิดทั้งองค์กรได้ที่ https://code.claude.com/docs/en/code-mode
+- **model ID ที่ไม่รู้จักถูกถือว่ามี context window 1M** (เดิม 200K) — อยาก compact เร็วขึ้นใช้ `/autocompact` หรือคงไว้ที่ 200K ด้วย `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` · session บนโมเดลของ vendor อื่นที่ window เล็กกว่าอาจล้มทุก turn เมื่อเต็มจนกว่าจะ `/clear` จึงควรตั้งไว้ก่อนเต็ม ดู [[23-environment-variables]]
+- **`ALL_PROXY` ไม่ครอบคลุม request ของ organization settings และ policy อีกต่อไป** — ถ้าเครือข่ายต้องผ่าน proxy ให้ตั้ง `HTTPS_PROXY`
+- **`--settings` ที่ไม่ใช่ JSON ที่ถูกต้องและมี key `sandbox` จะหยุดการเริ่มทำงาน** — แม้ค่านั้นจะเป็นการปิด sandbox ก็ตาม
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

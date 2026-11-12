@@ -239,6 +239,15 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 
 - **Path-mounted Claude Desktop plugins lose `allowed-tools` under `allowManagedPermissionRulesOnly`** — when your organization's managed settings set it, plugins that Claude Desktop mounts by path no longer keep their `allowed-tools`. See [[05-permissions]].
 
+### New in v2.1.323
+
+- **`engines["claude-code"]` in `plugin.json`** — plugins outside their stated Claude Code version range are not installed, updated or loaded, and install and update pick the newest version that fits.
+- **`claude plugin validate` type-checks a plugin's TypeScript hooks module** — each finding is a warning, and `--strict` fails on it. It also lists the `$` nouns a mod's `engine.create` hook adds, withholds or replaces.
+- **Hook `engine.create` by name** — a `*`, namespace or negated hook on `engine.create` now only observes; to add or withhold a `$` noun, hook `engine.create` by name. `claude plugin validate` fails a mod whose `engine.create` hook isn't written in the one accepted form; installed mods keep loading.
+- **`tool.list` hooks apply everywhere** — the tools they add or remove apply to the model and every agent.
+- **`unsetOptionCount` in `claude plugin install --json`** — how many `userConfig` options are not yet set.
+- **Plugin `agent` setting deprecated** — it still applies, and now warns at startup, in `claude plugin list` and in `claude plugin validate`.
+
 ---
 
 ---

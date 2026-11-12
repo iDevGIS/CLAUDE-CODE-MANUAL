@@ -178,6 +178,11 @@ Sessions that **need input** or **finish** fire the `Notification` hook with the
 
 - **Long commands are shortened in notifications** — background command notifications and TaskStop results show Claude only the start and end of a command over 1,000 characters, which saves context.
 
+### New in v2.1.323
+
+- **`claude rm` removes a session from the list, not deletes it** — the conversation is kept and `claude --resume` lists it; the agents view says the same.
+- **`/logout` in a background session works** — it signs out every session on the computer, deletes stored MCP logins and plugin secrets, and ends the session, as in a terminal.
+
 ---
 
 ---

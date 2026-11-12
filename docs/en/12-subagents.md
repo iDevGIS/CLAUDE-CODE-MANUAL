@@ -238,6 +238,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Subagents stop instead of switching models** — when "Switch models when a message is flagged" is set to "Ask each time".
 - **Progress summaries can wait on a cold cache** — on Bedrock, Vertex, Foundry, or with telemetry off, a subagent progress summary can now wait up to 5 minutes for the subagent's pending response.
 
+### New in v2.1.323
+
+- **`subagentStatusLine` setting removed** — subagent rows always use the default look; settings files that still hold the key load as before (the `subagentStatusLine` payload notes above are historical).
+- **`CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES=1`** turns off subagent progress summaries and the requests that write them (available since 2.1.318). See [[23-environment-variables]].
+
 ---
 
 ---

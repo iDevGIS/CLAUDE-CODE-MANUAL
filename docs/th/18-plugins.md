@@ -239,6 +239,15 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 
 - **plugin ที่ Claude Desktop mount ตาม path ไม่ได้ `allowed-tools` ภายใต้ `allowManagedPermissionRulesOnly`** — เมื่อ managed settings ขององค์กรตั้งค่านี้ plugin ที่ Claude Desktop mount ตาม path จะไม่คง `allowed-tools` ของตัวเองอีกต่อไป ดู [[05-permissions]]
 
+### 🆕 ใหม่ใน v2.1.323
+
+- **`engines["claude-code"]` ใน `plugin.json`** — plugin ที่อยู่นอกช่วงเวอร์ชัน Claude Code ที่ระบุไว้จะไม่ถูกติดตั้ง อัปเดต หรือโหลด · ตอน install และ update จะเลือกเวอร์ชันใหม่สุดที่เข้าช่วง
+- **`claude plugin validate` ตรวจ type ของ TypeScript hooks module ของ plugin** — ผลแต่ละข้อเป็น warning และ `--strict` จะ fail · ยังแสดง `$` noun ที่ hook `engine.create` ของ mod เพิ่ม กันไว้ หรือแทนที่ด้วย
+- **hook `engine.create` ต้องระบุชื่อตรง ๆ** — hook แบบ `*`, namespace หรือ negated บน `engine.create` ตอนนี้ทำได้แค่สังเกต · ถ้าจะเพิ่มหรือกัน `$` noun ให้ hook `engine.create` ด้วยชื่อ · `claude plugin validate` จะ fail mod ที่ hook `engine.create` ไม่ได้เขียนในรูปแบบเดียวที่รับ ส่วน mod ที่ติดตั้งไว้แล้วยังโหลดได้
+- **hook `tool.list` มีผลทุกที่** — tool ที่เพิ่มหรือเอาออกมีผลกับโมเดลและทุก agent
+- **`unsetOptionCount` ในผลของ `claude plugin install --json`** — บอกจำนวน option ใน `userConfig` ที่ยังไม่ได้ตั้ง
+- **setting `agent` ของ plugin ถูก deprecate** — ยังมีผลอยู่ แต่จะเตือนตอนเริ่ม ใน `claude plugin list` และใน `claude plugin validate`
+
 ---
 
 ---

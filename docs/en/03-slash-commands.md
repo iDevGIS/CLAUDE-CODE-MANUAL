@@ -308,6 +308,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **Self-paced `/loop` ends when a turn finishes without rescheduling** — it no longer schedules a fallback wakeup; set `CLAUDE_CODE_LOOP_KEEPALIVE=1` to keep the old behavior. See [[23-environment-variables]].
 - **`/model` picker groups older models under a "More models" row** instead of listing them after the current ones.
 
+### New in v2.1.323
+- **`/security-review` asks before Claude runs it** — and skills' inline git commands stop in bare-repository worktrees and similar folders until you allow them, outside auto mode and bypass. See [[11-skills]].
+
 ---
 
 ---

@@ -106,7 +106,7 @@ related:
 | `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | ตั้ง base delay ของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.292)* |
 | `MCP_PROTOCOL_NEGOTIATION` | ตั้ง `legacy` เพื่อไม่ให้ MCP server แบบ local (stdio) negotiate protocol version 2026-07-28 ซึ่งตอนนี้เป็นค่า default ทุกการติดตั้ง รวม Bedrock, Vertex และ Foundry *(v2.1.292)* และ opt out ให้ claude.ai connector บนการติดตั้งที่ไม่ได้ดึง flag ด้วย *(v2.1.295)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | จำกัดเวลาที่โหมด retry แบบไม่มีคนเฝ้า (`CLAUDE_CODE_RETRY_WATCHDOG`) จะรอผ่าน error 429 และ 529 *(v2.1.295)* |
-| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | ตั้ง delay สูงสุดของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.296)* |
+| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | ตั้ง delay สูงสุดของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.296)* ค่าสูงสุดเพิ่มจาก 64000 เป็น 300000 *(v2.1.323)* |
 | `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` | ให้ทุก agent ใน workflow รันบนโมเดลเดียว ขณะที่ subagent อื่นยังใช้โมเดลของตัวเอง ดู [[39-dynamic-workflows]] *(v2.1.296)* |
 | `CLAUDE_CODE_DISABLE_FILE_MENTIONS` | Claude ได้แค่ path ของไฟล์ที่ `@` mention ไว้เพื่อไปอ่านเองด้วย file tool แทนเนื้อหาไฟล์ *(v2.1.299)* |
 | `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` | เปลี่ยนขั้นต่ำ 200K token ของ idle compaction (ปิดด้วย `"idleCompaction": false` ใน settings.json) ดู [[06-configuration]] *(v2.1.299)* |
@@ -129,6 +129,9 @@ related:
 | `CLAUDE_CODE_DISABLE_FEATURE_FLAGS` | หยุดดึง feature flag โดยไม่ปิด telemetry · ทุก flag จะใช้ค่า default ที่ฝังมาในตัว *(v2.1.319)* |
 | `CLAUDE_CODE_LOOP_KEEPALIVE` | ตั้ง `1` เพื่อคงพฤติกรรมเดิมของ `/loop` แบบ self-paced ที่ตั้ง wakeup สำรองไว้เมื่อ turn จบโดยไม่ได้นัดรอบถัดไป ดู [[03-slash-commands]] *(v2.1.319)* |
 | `CLAUDE_CODE_PLUGIN_DIR_WATCH` | ตั้ง `0` เพื่อไม่ให้ session แบบ headless โหลด mod ใน `.claude/skills` ใหม่เมื่อไฟล์เปลี่ยน ดู [[11-skills]] *(v2.1.321)* |
+| `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES` | ตั้ง `1` เพื่อปิด progress summary ของ subagent และ request ที่ใช้เขียน summary เหล่านั้น (มีมาตั้งแต่ 2.1.318) ดู [[12-subagents]] *(v2.1.323)* |
+| `CLAUDE_CODE_RESUME_HINT_COMMAND` | ให้โปรแกรมที่เปิด Claude Code ตั้งไว้ เพื่อให้ hint ตอนออกบอกคำสั่ง resume ของโปรแกรมนั้นเอง *(v2.1.323)* |
+| `CLAUDE_CODE_AUTOMOUNT_ROOTS` | บน Linux ใช้ระบุ root ของ autofs map ที่ลึกกว่าหนึ่งโฟลเดอร์ใต้ `/` · Claude Code ไม่ไล่หาไฟล์ใน `/home` ที่เป็น autofs เองอีกแล้ว *(v2.1.323)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

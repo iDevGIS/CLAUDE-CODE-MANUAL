@@ -249,6 +249,11 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **เงื่อนไข `if` ของ hook match คำสั่งของ Monitor ได้** — เงื่อนไขอย่าง `Monitor(tail *)` จะ match shell command ของ Monitor tool แบบเดียวกับที่ `Bash(tail *)` match ของ Bash · และ hook ที่ match Bash ตอนนี้รันกับ shell command ที่ Monitor สั่งด้วย (block หรือ ask ได้ แต่ approve หรือ rewrite ไม่ได้)
 - **output ของ PreCompact hook ถูกตัดที่ 10,000 ตัวอักษร** ต่อ hook — output ใหญ่มาก ๆ จะไม่ทำให้ compaction ล้มหรือวนซ้ำอีก
 
+#### 🆕 ใหม่ใน v2.1.323
+
+- **permission check ล้มหลัง hook ตอบไปแล้ว** — ถ้า permission check ของ tool ล้มด้วย error หลังจาก `PreToolUse` hook ตอบ "allow" ไปแล้ว Claude Code จะตัดสิน call นั้นเหมือนไม่มี hook ตอบเลย · ถ้าล้มกับ input ที่ `PermissionRequest` hook rewrite มา Claude Code จะถามใหม่ หรือปฏิเสธ call ในที่ที่ไม่มีใครตอบได้ ดู [[05-permissions]]
+- **heartbeat ระหว่าง hook รันนาน** — ทุก 30 วินาทีขณะ hook รันนานใน `claude -p` และ SDK session เพื่อไม่ให้ host อย่าง Claude Desktop ตัดจบ turn เพราะคิดว่าค้าง
+
 ---
 
 ---

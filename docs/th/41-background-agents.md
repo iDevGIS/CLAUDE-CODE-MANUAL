@@ -178,6 +178,11 @@ session ที่**รอ input** หรือ**ทำงานเสร็จ**
 
 - **คำสั่งยาวถูกย่อใน notification** — notification ของคำสั่ง background และผลลัพธ์ของ TaskStop จะให้ Claude เห็นเฉพาะต้นและท้ายของคำสั่งที่ยาวเกิน 1,000 ตัวอักษร ช่วยประหยัด context
 
+### 🆕 ใหม่ใน v2.1.323
+
+- **`claude rm` เอา session ออกจากรายการ ไม่ได้ลบทิ้ง** — conversation ยังอยู่และ `claude --resume` ยังแสดงให้เห็น · หน้า agents view ก็บอกแบบเดียวกัน
+- **`/logout` ใน background session ใช้ได้แล้ว** — ออกจากระบบทุก session บนเครื่อง ลบ MCP login และ plugin secret ที่เก็บไว้ แล้วจบ session — เหมือนทำใน terminal
+
 ---
 
 ---

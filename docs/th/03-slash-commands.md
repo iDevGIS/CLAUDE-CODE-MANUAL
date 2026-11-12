@@ -309,6 +309,9 @@ related:
 - **`/loop` แบบ self-paced จบเองเมื่อ turn จบโดยไม่ได้นัดรอบถัดไป** — ไม่ตั้ง wakeup สำรองให้อีกแล้ว · อยากได้พฤติกรรมเดิมให้ตั้ง `CLAUDE_CODE_LOOP_KEEPALIVE=1` ดู [[23-environment-variables]]
 - **ตัวเลือกใน `/model` รวมโมเดลรุ่นเก่าไว้ใต้แถว "More models"** แทนการเรียงต่อท้ายรุ่นปัจจุบัน
 
+### 🆕 ใหม่ใน v2.1.323
+- **`/security-review` ถามก่อน Claude จะรัน** — และคำสั่ง git แบบ inline ใน skill จะหยุดใน worktree ของ bare repository และโฟลเดอร์ทำนองเดียวกันจนกว่าเราจะอนุญาต (ยกเว้นใน auto mode และ bypass) ดู [[11-skills]]
+
 ---
 
 ---

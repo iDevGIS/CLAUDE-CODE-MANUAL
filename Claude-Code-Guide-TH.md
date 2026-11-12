@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.322         │
+│ Welcome to Claude Code v2.1.323         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1139,7 +1139,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.322
+- run: npm install -g @anthropic-ai/claude-code@2.1.323
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1468,6 +1468,9 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/tasks` มีแถว "Earlier in this session"** — แสดง subagent ที่ทำงานเสร็จแล้ว เปิดกลับมาแล้วส่งข้อความหาได้ แม้มันจะหลุดจากรายการไปแล้วหรือรีสตาร์ทไปแล้ว
 - **`/loop` แบบ self-paced จบเองเมื่อ turn จบโดยไม่ได้นัดรอบถัดไป** — ไม่ตั้ง wakeup สำรองให้อีกแล้ว · อยากได้พฤติกรรมเดิมให้ตั้ง `CLAUDE_CODE_LOOP_KEEPALIVE=1` (ดูบท 23 Environment Variables)
 - **ตัวเลือกใน `/model` รวมโมเดลรุ่นเก่าไว้ใต้แถว "More models"** แทนการเรียงต่อท้ายรุ่นปัจจุบัน
+
+### 🆕 ใหม่ใน v2.1.323
+- **`/security-review` ถามก่อน Claude จะรัน** — และคำสั่ง git แบบ inline ใน skill จะหยุดใน worktree ของ bare repository และโฟลเดอร์ทำนองเดียวกันจนกว่าเราจะอนุญาต (ยกเว้นใน auto mode และ bypass)
 
 ---
 
@@ -1924,6 +1927,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **mod ที่ Claude เขียนเปิดใช้เองโดยไม่ถามใน auto และ bypass mode** — แม้ managed settings จะตั้ง `allowUnsandboxedCommands: false` หรือ `allowManagedDomainsOnly` ไว้ · ส่วนใน `dontAsk` mode จะไม่โหลด mod เหล่านี้
 - **tool call ของ mod เองไม่ขึ้น permission prompt** — `$.tool.call` และ `$.mcp.call` ของ mod ไม่ถาม แม้มีกฎ ask ของเราเองหรือรันใน `dontAsk` และ `-p` · กฎ deny และ policy ขององค์กรยังมีผลเหมือนเดิม
 
+### 🆕 ใหม่ใน v2.1.323
+- **"Don't ask again" เก็บกฎที่ดูเหมือนมี secret ไว้แค่ใน session** — allow rule ที่ดูเหมือนมี secret อยู่ หรือจะถูกบันทึกลง `settings.local.json` ที่ git track อยู่ จะใช้ได้แค่ใน session นั้นและไม่ถูกบันทึก
+- **เตือนตอนเริ่มเมื่อมี `*` ในค่าของตัวแปร** — Bash allow rule อย่าง `Bash(PORT=* npm run dev)` จะขึ้นคำเตือนตอนเริ่ม · ส่วนกฎที่ระบุชื่อตัวแปรต่อด้วย wildcard เช่น `Bash(NODE_ENV*)` ตอนนี้จะถาม
+- **auto mode ใช้ไม่ได้ → เริ่มใน Manual mode** — `--permission-mode auto` หรือ `defaultMode: auto` ใน settings จะเริ่มใน Manual mode ซึ่งถามก่อน เมื่อ auto mode ใช้ไม่ได้
+- **sandbox ไม่นับสิทธิ์เขียนที่ได้ผ่าน symlink** — บน macOS, Linux และ WSL สิทธิ์เขียนที่ได้ผ่าน symlink ในโฟลเดอร์ที่เขียนได้ ซึ่งชี้ไปที่อื่นหรือ path ที่ไม่มีอยู่ จะถูกเมิน · ให้ grant path จริงแทน · บน macOS และ Linux คำสั่ง `git worktree add`, `move` และ `remove` จะล้มแบบ read-only ใน sandbox
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2321,6 +2330,13 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.322
 
 - **Fast mode บน Vertex** — fast mode ใช้บน Vertex AI ได้แล้วใน region `global`, `us` และ `eu` · ถ้า Vertex ปฏิเสธ Claude Code จะ fallback กลับไปใช้ความเร็วปกติ
+
+### 🆕 ใหม่ใน v2.1.323
+
+- **Code Mode (experimental)** — โหมดที่ต้องเปิดเอง ให้ Claude เขียน JavaScript เพื่อเรียก tool ของตัวเอง · ดูวิธีเปิด หรือปิดทั้งองค์กรได้ที่ https://code.claude.com/docs/en/code-mode
+- **model ID ที่ไม่รู้จักถูกถือว่ามี context window 1M** (เดิม 200K) — อยาก compact เร็วขึ้นใช้ `/autocompact` หรือคงไว้ที่ 200K ด้วย `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` · session บนโมเดลของ vendor อื่นที่ window เล็กกว่าอาจล้มทุก turn เมื่อเต็มจนกว่าจะ `/clear` จึงควรตั้งไว้ก่อนเต็ม
+- **`ALL_PROXY` ไม่ครอบคลุม request ของ organization settings และ policy อีกต่อไป** — ถ้าเครือข่ายต้องผ่าน proxy ให้ตั้ง `HTTPS_PROXY`
+- **`--settings` ที่ไม่ใช่ JSON ที่ถูกต้องและมี key `sandbox` จะหยุดการเริ่มทำงาน** — แม้ค่านั้นจะเป็นการปิด sandbox ก็ตาม
 
 ---
 
@@ -2784,6 +2800,13 @@ claude --mcp-config ./mcp.json
 
 - **MCP task ใน terminal** — เมื่อ MCP server รัน tool call เป็น task, Claude Code จะย้ายไป background ทันทีแล้วแจ้งผลให้ Claude เมื่อเสร็จ · ใช้ได้โดยไม่ต้องดึง feature flag (Bedrock, Vertex, Foundry, LLM gateway, `DISABLE_TELEMETRY`) · อยากให้รอ task อยู่ใน tool call แทนให้ตั้ง `CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND=1` หรือปิด MCP task ไปเลยด้วย `CLAUDE_CODE_DISABLE_MCP_TASKS=1` (ดูบท 23 Environment Variables)
 
+### 🆕 ใหม่ใน v2.1.323
+
+- **ถอด MCP client v1 ออกแล้ว** — `MCP_SDK_GENERATION=v1` จะรัน MCP client v2 ในโหมด compatibility แทน (handshake แบบเดิม และตรวจ OAuth sign-in แบบผ่อนลง)
+- **การอนุมัติ server ใน `.mcp.json` ของ project ต้องตรงชื่อเป๊ะ** — entry อนุมัติที่สะกดชื่อต่างไปจะถูกถามใหม่
+- **ขั้นสุดท้ายของการ sign-in MCP server ต้องให้เรายืนยัน** — แม้ใน bypass และ auto mode · ในที่ที่ถามใครไม่ได้ เช่น `dontAsk` mode ให้ใช้ `/mcp`
+- **`/mcp` บอก tool ที่ถูกตัดออก** — แสดงว่า tool ของ server ถูกตัดออกกี่ตัวเพราะ API จะปฏิเสธ input schema ของมัน และเพราะอะไร
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -3017,6 +3040,11 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **เงื่อนไข `if` ของ hook match คำสั่งของ Monitor ได้** — เงื่อนไขอย่าง `Monitor(tail *)` จะ match shell command ของ Monitor tool แบบเดียวกับที่ `Bash(tail *)` match ของ Bash · และ hook ที่ match Bash ตอนนี้รันกับ shell command ที่ Monitor สั่งด้วย (block หรือ ask ได้ แต่ approve หรือ rewrite ไม่ได้)
 - **output ของ PreCompact hook ถูกตัดที่ 10,000 ตัวอักษร** ต่อ hook — output ใหญ่มาก ๆ จะไม่ทำให้ compaction ล้มหรือวนซ้ำอีก
+
+### 🆕 ใหม่ใน v2.1.323
+
+- **permission check ล้มหลัง hook ตอบไปแล้ว** — ถ้า permission check ของ tool ล้มด้วย error หลังจาก `PreToolUse` hook ตอบ "allow" ไปแล้ว Claude Code จะตัดสิน call นั้นเหมือนไม่มี hook ตอบเลย · ถ้าล้มกับ input ที่ `PermissionRequest` hook rewrite มา Claude Code จะถามใหม่ หรือปฏิเสธ call ในที่ที่ไม่มีใครตอบได้
+- **heartbeat ระหว่าง hook รันนาน** — ทุก 30 วินาทีขณะ hook รันนานใน `claude -p` และ SDK session เพื่อไม่ให้ host อย่าง Claude Desktop ตัดจบ turn เพราะคิดว่าค้าง
 
 ---
 
@@ -3491,6 +3519,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **background subagent ย้าย shell command ที่รันนานไป background ทุก provider** — shell command จะถูกย้ายไป background หลัง 3 นาที เพื่อไม่ให้ prompt cache หมดอายุระหว่างรอ
 - **subagent หยุดแทนการสลับโมเดล** — เมื่อตั้ง "Switch models when a message is flagged" เป็น "Ask each time"
 - **progress summary รอ cache เย็นได้** — บน Bedrock, Vertex, Foundry หรือเมื่อปิด telemetry ตอน prompt cache ยังเย็น progress summary ของ subagent รอ response ที่ค้างอยู่ได้สูงสุด 5 นาที
+
+### 🆕 ใหม่ใน v2.1.323
+
+- **ถอด setting `subagentStatusLine` ออกแล้ว** — แถวของ subagent ใช้หน้าตา default เสมอ · ไฟล์ settings ที่ยังมี key นี้อยู่ก็โหลดได้เหมือนเดิม (หมายเหตุเรื่อง payload ของ `subagentStatusLine` ด้านบนเป็นประวัติ)
+- **`CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES=1`** ปิด progress summary ของ subagent และ request ที่ใช้เขียน summary เหล่านั้น (มีมาตั้งแต่ 2.1.318 · ดูบท 23 Environment Variables)
 
 ---
 
@@ -4207,6 +4240,15 @@ claude --plugin-dir ./my-plugin
 
 - **plugin ที่ Claude Desktop mount ตาม path ไม่ได้ `allowed-tools` ภายใต้ `allowManagedPermissionRulesOnly`** — เมื่อ managed settings ขององค์กรตั้งค่านี้ plugin ที่ Claude Desktop mount ตาม path จะไม่คง `allowed-tools` ของตัวเองอีกต่อไป
 
+### 🆕 ใหม่ใน v2.1.323
+
+- **`engines["claude-code"]` ใน `plugin.json`** — plugin ที่อยู่นอกช่วงเวอร์ชัน Claude Code ที่ระบุไว้จะไม่ถูกติดตั้ง อัปเดต หรือโหลด · ตอน install และ update จะเลือกเวอร์ชันใหม่สุดที่เข้าช่วง
+- **`claude plugin validate` ตรวจ type ของ TypeScript hooks module ของ plugin** — ผลแต่ละข้อเป็น warning และ `--strict` จะ fail · ยังแสดง `$` noun ที่ hook `engine.create` ของ mod เพิ่ม กันไว้ หรือแทนที่ด้วย
+- **hook `engine.create` ต้องระบุชื่อตรง ๆ** — hook แบบ `*`, namespace หรือ negated บน `engine.create` ตอนนี้ทำได้แค่สังเกต · ถ้าจะเพิ่มหรือกัน `$` noun ให้ hook `engine.create` ด้วยชื่อ · `claude plugin validate` จะ fail mod ที่ hook `engine.create` ไม่ได้เขียนในรูปแบบเดียวที่รับ ส่วน mod ที่ติดตั้งไว้แล้วยังโหลดได้
+- **hook `tool.list` มีผลทุกที่** — tool ที่เพิ่มหรือเอาออกมีผลกับโมเดลและทุก agent
+- **`unsetOptionCount` ในผลของ `claude plugin install --json`** — บอกจำนวน option ใน `userConfig` ที่ยังไม่ได้ตั้ง
+- **setting `agent` ของ plugin ถูก deprecate** — ยังมีผลอยู่ แต่จะเตือนตอนเริ่ม ใน `claude plugin list` และใน `claude plugin validate`
+
 ---
 
 ## 19. Session Management
@@ -4642,7 +4684,7 @@ your-project/
 | `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | ตั้ง base delay ของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.292)* |
 | `MCP_PROTOCOL_NEGOTIATION` | ตั้ง `legacy` เพื่อไม่ให้ MCP server แบบ local (stdio) negotiate protocol version 2026-07-28 ซึ่งตอนนี้เป็นค่า default ทุกการติดตั้ง รวม Bedrock, Vertex และ Foundry *(v2.1.292)* และ opt out ให้ claude.ai connector บนการติดตั้งที่ไม่ได้ดึง flag ด้วย *(v2.1.295)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | จำกัดเวลาที่โหมด retry แบบไม่มีคนเฝ้า (`CLAUDE_CODE_RETRY_WATCHDOG`) จะรอผ่าน error 429 และ 529 *(v2.1.295)* |
-| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | ตั้ง delay สูงสุดของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.296)* |
+| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | ตั้ง delay สูงสุดของ backoff ให้ยาวขึ้นตอน retry request ที่เจอ overloaded (529) *(v2.1.296)* ค่าสูงสุดเพิ่มจาก 64000 เป็น 300000 *(v2.1.323)* |
 | `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` | ให้ทุก agent ใน workflow รันบนโมเดลเดียว ขณะที่ subagent อื่นยังใช้โมเดลของตัวเอง *(v2.1.296)* |
 | `CLAUDE_CODE_DISABLE_FILE_MENTIONS` | Claude ได้แค่ path ของไฟล์ที่ `@` mention ไว้เพื่อไปอ่านเองด้วย file tool แทนเนื้อหาไฟล์ *(v2.1.299)* |
 | `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` | เปลี่ยนขั้นต่ำ 200K token ของ idle compaction (ปิดด้วย `"idleCompaction": false` ใน settings.json) *(v2.1.299)* |
@@ -4665,6 +4707,9 @@ your-project/
 | `CLAUDE_CODE_DISABLE_FEATURE_FLAGS` | หยุดดึง feature flag โดยไม่ปิด telemetry · ทุก flag จะใช้ค่า default ที่ฝังมาในตัว *(v2.1.319)* |
 | `CLAUDE_CODE_LOOP_KEEPALIVE` | ตั้ง `1` เพื่อคงพฤติกรรมเดิมของ `/loop` แบบ self-paced ที่ตั้ง wakeup สำรองไว้เมื่อ turn จบโดยไม่ได้นัดรอบถัดไป (ดูบท 3 Slash Commands) *(v2.1.319)* |
 | `CLAUDE_CODE_PLUGIN_DIR_WATCH` | ตั้ง `0` เพื่อไม่ให้ session แบบ headless โหลด mod ใน `.claude/skills` ใหม่เมื่อไฟล์เปลี่ยน (ดูบท 11 Skills) *(v2.1.321)* |
+| `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES` | ตั้ง `1` เพื่อปิด progress summary ของ subagent และ request ที่ใช้เขียน summary เหล่านั้น (มีมาตั้งแต่ 2.1.318 · ดูบท 12 Subagents) *(v2.1.323)* |
+| `CLAUDE_CODE_RESUME_HINT_COMMAND` | ให้โปรแกรมที่เปิด Claude Code ตั้งไว้ เพื่อให้ hint ตอนออกบอกคำสั่ง resume ของโปรแกรมนั้นเอง *(v2.1.323)* |
+| `CLAUDE_CODE_AUTOMOUNT_ROOTS` | บน Linux ใช้ระบุ root ของ autofs map ที่ลึกกว่าหนึ่งโฟลเดอร์ใต้ `/` · Claude Code ไม่ไล่หาไฟล์ใน `/home` ที่เป็น autofs เองอีกแล้ว *(v2.1.323)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -5996,7 +6041,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.322`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.323`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

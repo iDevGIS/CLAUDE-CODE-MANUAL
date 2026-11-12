@@ -311,6 +311,12 @@ Skill(commit)                    # Specific skill
 - **Mods Claude writes turn on without asking in auto and bypass modes** — even with managed `allowUnsandboxedCommands: false` or `allowManagedDomainsOnly`; in `dontAsk` mode they don't load. See [[18-plugins]].
 - **Mods' own tool calls raise no permission prompt** — a mod's `$.tool.call` and `$.mcp.call` don't prompt, even under your own ask rules or in `dontAsk` and `-p` runs; deny rules and organization policy still apply.
 
+### New in v2.1.323
+- **"Don't ask again" keeps secret-looking rules to the session** — an allow rule that looks like it holds a secret, or would be saved to a `settings.local.json` that git tracks, lasts for the session only and isn't saved.
+- **Start-up warning for `*` in a variable's value** — Bash allow rules such as `Bash(PORT=* npm run dev)` now warn at start-up; a rule that names a variable with an attached wildcard, such as `Bash(NODE_ENV*)`, now asks.
+- **Unavailable auto mode starts in Manual mode** — `--permission-mode auto` or a settings `defaultMode: auto` now starts in Manual mode, which asks first, when auto mode is unavailable.
+- **Sandbox ignores writes granted through symlinks** — on macOS, Linux and WSL, write access granted through a symlink in a writable folder that leads elsewhere or to a missing path is ignored; grant the real path instead. On macOS and Linux, `git worktree add`, `move` and `remove` now fail read-only in the sandbox.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

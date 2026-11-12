@@ -106,7 +106,7 @@ related:
 | `CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS` | Sets a longer base delay for the backoff when retrying an overloaded (529) request. *(v2.1.292)* |
 | `MCP_PROTOCOL_NEGOTIATION` | Set `legacy` to opt out of local (stdio) MCP servers negotiating protocol version 2026-07-28, now the default on every install including Bedrock, Vertex and Foundry. *(v2.1.292)* Also opts claude.ai connectors out on installs that fetch no flags. *(v2.1.295)* |
 | `CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS` | Limits how long unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) waits out 429 and 529 errors. *(v2.1.295)* |
-| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | Sets a longer maximum delay for the backoff when retrying an overloaded (529) request. *(v2.1.296)* |
+| `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` | Sets a longer maximum delay for the backoff when retrying an overloaded (529) request. *(v2.1.296)* Maximum raised from 64000 to 300000. *(v2.1.323)* |
 | `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` | Runs every workflow agent on one model while other subagents keep theirs. See [[39-dynamic-workflows]]. *(v2.1.296)* |
 | `CLAUDE_CODE_DISABLE_FILE_MENTIONS` | Claude gets the paths of `@` file mentions to read with its file tools, not the files' contents. *(v2.1.299)* |
 | `CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS` | Changes idle compaction's 200K-token minimum (`"idleCompaction": false` in settings.json turns it off). See [[06-configuration]]. *(v2.1.299)* |
@@ -129,6 +129,9 @@ related:
 | `CLAUDE_CODE_DISABLE_FEATURE_FLAGS` | Stops feature-flag fetching without turning off telemetry; every flag then uses its built-in default. *(v2.1.319)* |
 | `CLAUDE_CODE_LOOP_KEEPALIVE` | Set `1` to keep the old self-paced `/loop` behavior of scheduling a fallback wakeup when a turn finishes without rescheduling. See [[03-slash-commands]]. *(v2.1.319)* |
 | `CLAUDE_CODE_PLUGIN_DIR_WATCH` | Set `0` to stop headless sessions from reloading mods in `.claude/skills` when their files change. See [[11-skills]]. *(v2.1.321)* |
+| `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES` | Set `1` to turn off subagent progress summaries and the requests that write them (available since 2.1.318). See [[12-subagents]]. *(v2.1.323)* |
+| `CLAUDE_CODE_RESUME_HINT_COMMAND` | Set by a program that starts Claude Code to have the exit hint name its own resume command. *(v2.1.323)* |
+| `CLAUDE_CODE_AUTOMOUNT_ROOTS` | On Linux, names autofs map roots deeper than one folder below `/`; Claude Code no longer looks up files in an autofs `/home` itself. *(v2.1.323)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

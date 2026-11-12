@@ -245,6 +245,11 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **Hook `if` conditions match Monitor commands** — a condition such as `Monitor(tail *)` matches the Monitor tool's shell commands the way `Bash(tail *)` matches Bash's; hooks matching Bash now also run on shell commands started by Monitor (they can block or ask, but not approve or rewrite them).
 - **PreCompact hook output is cut at 10,000 characters** per hook, so very large output no longer makes compaction fail or repeat.
 
+### New in v2.1.323
+
+- **Failed permission checks after a hook answered** — when a tool's permission check fails with an error after a `PreToolUse` hook returned "allow", Claude Code now decides the call as if no hook had answered; when it fails on input that a `PermissionRequest` hook rewrote, Claude Code asks again, or refuses the call where nobody can answer. See [[05-permissions]].
+- **Progress heartbeat for long hooks** — every 30 seconds while hooks run long in `claude -p` and SDK sessions, so a host such as Claude Desktop won't end the turn as hung.
+
 ---
 
 ---

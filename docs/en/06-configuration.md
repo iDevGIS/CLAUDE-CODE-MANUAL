@@ -423,6 +423,13 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **Fast mode on Vertex** — fast mode now works on Vertex AI in the `global`, `us` and `eu` regions; if Vertex refuses it, Claude Code falls back to standard speed. See [[21-special-features]].
 
+### New in v2.1.323
+
+- **Code Mode (experimental)** — an opt-in in which Claude writes JavaScript to call its tools; see https://code.claude.com/docs/en/code-mode to turn it on, or to turn it off for an organization.
+- **Unknown model IDs assume a 1M context window** (was 200K) — use `/autocompact` to compact earlier, or `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` to keep 200K. Sessions on other vendors' models with a smaller window can fail every turn once full until `/clear`, so set it before they fill. See [[23-environment-variables]].
+- **`ALL_PROXY` no longer covers organization settings and policy requests** — set `HTTPS_PROXY` if your network needs a proxy for them.
+- **Invalid `--settings` with a `sandbox` key stops start-up** — when the file isn't valid JSON and has a `sandbox` key, even one that turns the sandbox off.
+
 ---
 
 ---
