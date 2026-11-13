@@ -25,6 +25,25 @@
 
 ---
 
+## [1.110.0] — 2026-11-14
+
+### Compatibility
+- **Claude Code:** `v2.1.325+`
+
+### Added
+- **ch.05 Permissions** — section "New in v2.1.325": คำสั่ง Bash ใน sandbox เข้า permission flow ปกติ (`sandbox.autoAllowBashIfSandboxed: true` เพื่อคงแบบเดิม) · git อ่านอย่างเดียวนอกโปรเจกต์ถามก่อน (`--add-dir`) · `/loop`/scheduled tasks ถามก่อนรัน skill ที่มี `allowed-tools`/hooks (`Skill(name)`) · "Always allow" ใน Desktop/IDE/SDK · relative deny/ask rule มีผลใน added directories · sandbox กัน `.claude` ใน added directories · worktree isolation ปฏิเสธ `git bisect run`/`git maintenance`/`scalar`
+- **ch.06 Configuration** — section "New in v2.1.325": `CLAUDE_CODE_MAX_CONTEXT_TOKENS` ครอบคลุม model ID `claude-` ที่ไม่รู้จัก · `/cost` และ `--max-budget-usd` นับการเรียก model ของ mod · allow rule ใน `settings.local.json` ต้อง trust ก่อนในโฟลเดอร์ที่ mount · cloud session เริ่มได้แม้ `sandbox.failIfUnavailable` · `promptSuggestionEnabled` ใน VS Code
+- **ch.18 Plugins** — section "New in v2.1.325": `.mcpb`/`.dxt` แตกไฟล์ใต้ plugins directory · deprecate `pluginDigests` · ข้าม path/link ที่ไม่ปลอดภัย · skill ซ้อนใน `--plugin-dir` · marketplace `ref` รับ full commit ID · `ALL_PROXY` ใช้ CONNECT tunnel
+- README / README.EN — แถว What's-new (v2.1.325)
+
+### Changed
+- Version strings `2.1.323` → `2.1.325` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.325` (upstream ข้าม 2.1.324) — sandboxed Bash ถามก่อนเป็นค่าเริ่มต้น, กฎ permission ของ scheduled tasks/skills, ปรับการโหลด plugin
+
+---
+
 ## [1.109.0] — 2026-11-13
 
 ### Compatibility
@@ -2452,6 +2471,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.110.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.109.0...v1.110.0
 [1.109.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.108.0...v1.109.0
 [1.108.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.107.0...v1.108.0
 [1.107.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.106.0...v1.107.0

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.323         │
+│ Welcome to Claude Code v2.1.325         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.323
+- run: npm install -g @anthropic-ai/claude-code@2.1.325
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1939,6 +1939,15 @@ Skill(commit)                    # Specific skill
 - **Unavailable auto mode starts in Manual mode** — `--permission-mode auto` or a settings `defaultMode: auto` now starts in Manual mode, which asks first, when auto mode is unavailable.
 - **Sandbox ignores writes granted through symlinks** — on macOS, Linux and WSL, write access granted through a symlink in a writable folder that leads elsewhere or to a missing path is ignored; grant the real path instead. On macOS and Linux, `git worktree add`, `move` and `remove` now fail read-only in the sandbox.
 
+### New in v2.1.325
+- **Sandboxed Bash commands follow the normal permission flow by default** — set `sandbox.autoAllowBashIfSandboxed: true` to keep running them without prompts; when managed settings turn the sandbox on, set it in your highest-ranking managed source.
+- **Read-only git commands ask first outside the project** — in a repository that isn't the project's or one you trusted; name it with `--add-dir` (not the `additionalDirectories` setting) to run them without prompts.
+- **Scheduled tasks and `/loop` ask before running a skill that declares `allowed-tools` or hooks** — add `Skill(name)` to `permissions.allow` to run it unattended.
+- **"Always allow" in Desktop, IDE and SDK hosts** — a rule alone is offered only when saving it would allow that command again, so a scheduled task that relied on one can now wait for you.
+- **Relative deny and ask rules** (e.g. `Read(./.env)`) keep covering the project after a `cd`, and now also apply in added directories.
+- **Sandbox refuses writes to `.claude` settings, skills, agents, commands and hooks in added directories**, as it does in the launch folder.
+- **Worktree isolation** — an isolated worktree session or agent is refused `git bisect run`, `git maintenance register|start` and `scalar`'s set-up commands, and is told what still works.
+
 ---
 
 ## 6. Configuration
@@ -2343,6 +2352,14 @@ Skill(commit)                    # Specific skill
 - **Unknown model IDs assume a 1M context window** (was 200K) — use `/autocompact` to compact earlier, or `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` to keep 200K. Sessions on other vendors' models with a smaller window can fail every turn once full until `/clear`, so set it before they fill.
 - **`ALL_PROXY` no longer covers organization settings and policy requests** — set `HTTPS_PROXY` if your network needs a proxy for them.
 - **Invalid `--settings` with a `sandbox` key stops start-up** — when the file isn't valid JSON and has a `sandbox` key, even one that turns the sandbox off.
+
+### New in v2.1.325
+
+- **`CLAUDE_CODE_MAX_CONTEXT_TOKENS` also covers unrecognized `claude-` model IDs** — it now sets the context window of unrecognized model IDs that start with `claude-`, such as a gateway's `claude-sonnet-latest`.
+- **Mod model calls count toward cost** — `/cost`, `$.session.usage()`, `--max-budget-usd` and the cost and token metrics now count a mod's `$.model.complete` and `$.model.classify` calls.
+- **`settings.local.json` allow rules need trust in mounted folders** — `-p` and SDK runs in a worktree or submodule mounted into a container apply `.claude/settings.local.json` allow rules only once the folder is trusted.
+- **Cloud sessions start despite `sandbox.failIfUnavailable`** — Claude Code on the web, cloud scheduled tasks and Cowork cloud sessions; the hosted container has no command sandbox.
+- **`promptSuggestionEnabled` in VS Code** — prompt suggestions now appear in the VS Code extension too (Tab accepts the suggested next prompt); `promptSuggestionEnabled: false` in settings.json turns them off.
 
 ---
 
@@ -4260,6 +4277,15 @@ claude --plugin-dir ./my-plugin
 - **`unsetOptionCount` in `claude plugin install --json`** — how many `userConfig` options are not yet set.
 - **Plugin `agent` setting deprecated** — it still applies, and now warns at startup, in `claude plugin list` and in `claude plugin validate`.
 
+### New in v2.1.325
+
+- **Plugin MCP bundles (`.mcpb`, `.dxt`) unpack under the plugins directory** — not `.mcpb-cache` in the plugin's folder, so read-only plugin folders load; one fetched by URL downloads again once.
+- **`pluginDigests` deprecated and ignored** — plugins of a remote marketplace that managed settings declare, enable and list in `prependPlugins` or `appendPlugins` now count as the organization's.
+- **Unsafe paths and links** — plugin loading skips, and `claude plugin validate` reports, some unsafe paths and links in a plugin's folder.
+- **Nested skills in `--plugin-dir` plugins** — `.claude/skills` folders in `--plugin-dir` plugins no longer load from a session started above them; start Claude Code in the plugin folder instead.
+- **Marketplace `ref` accepts any full commit ID on a branch or tag** — clients before 2.1.325 can't clone such a pin, so a marketplace pinned this way stops loading there.
+- **`ALL_PROXY`-only setups use a CONNECT tunnel** for plugin marketplace and plugin downloads; a proxy that refuses CONNECT now fails them.
+
 ---
 
 ## 19. Session Management
@@ -6055,7 +6081,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.323`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.325`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

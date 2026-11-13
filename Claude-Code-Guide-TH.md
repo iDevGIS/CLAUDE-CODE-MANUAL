@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.323         │
+│ Welcome to Claude Code v2.1.325         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1139,7 +1139,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.323
+- run: npm install -g @anthropic-ai/claude-code@2.1.325
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1933,6 +1933,15 @@ Skill(commit)                    # Skill เฉพาะ
 - **auto mode ใช้ไม่ได้ → เริ่มใน Manual mode** — `--permission-mode auto` หรือ `defaultMode: auto` ใน settings จะเริ่มใน Manual mode ซึ่งถามก่อน เมื่อ auto mode ใช้ไม่ได้
 - **sandbox ไม่นับสิทธิ์เขียนที่ได้ผ่าน symlink** — บน macOS, Linux และ WSL สิทธิ์เขียนที่ได้ผ่าน symlink ในโฟลเดอร์ที่เขียนได้ ซึ่งชี้ไปที่อื่นหรือ path ที่ไม่มีอยู่ จะถูกเมิน · ให้ grant path จริงแทน · บน macOS และ Linux คำสั่ง `git worktree add`, `move` และ `remove` จะล้มแบบ read-only ใน sandbox
 
+### 🆕 ใหม่ใน v2.1.325
+- **คำสั่ง Bash ใน sandbox เข้า permission flow ปกติเป็นค่าเริ่มต้น** — ถ้าอยากให้รันต่อโดยไม่ถามให้ตั้ง `sandbox.autoAllowBashIfSandboxed: true` · ถ้า managed settings เป็นตัวเปิด sandbox ให้ตั้งใน managed source ที่ลำดับสูงสุด
+- **git คำสั่งอ่านอย่างเดียวจะถามก่อนเมื่ออยู่นอกโปรเจกต์** — ใน repository ที่ไม่ใช่ของโปรเจกต์หรือที่คุณ trust · ระบุด้วย `--add-dir` (ไม่ใช่ setting `additionalDirectories`) เพื่อให้รันได้โดยไม่ถาม
+- **scheduled tasks และ `/loop` จะถามก่อนรัน skill ที่ประกาศ `allowed-tools` หรือ hooks** — เพิ่ม `Skill(name)` ใน `permissions.allow` เพื่อให้รันแบบไม่มีคนเฝ้าได้
+- **"Always allow" ใน Desktop, IDE และ SDK host** — จะเสนอแค่ตัว rule ก็ต่อเมื่อการบันทึก rule นั้นจะอนุญาตคำสั่งเดิมได้อีกครั้งจริง ๆ ดังนั้น scheduled task ที่เคยพึ่ง rule แบบนี้อาจรอคุณอนุมัติ
+- **deny และ ask rule แบบ relative** (เช่น `Read(./.env)`) ยังครอบคลุมโปรเจกต์หลัง `cd` และตอนนี้มีผลใน added directories ด้วย
+- **sandbox ปฏิเสธการเขียน settings, skills, agents, commands และ hooks ใน `.claude` ของ added directories** เหมือนที่ทำในโฟลเดอร์ที่เปิด Claude Code
+- **Worktree isolation** — session หรือ agent ที่อยู่ใน worktree แบบ isolated จะถูกปฏิเสธ `git bisect run`, `git maintenance register|start` และคำสั่ง set-up ของ `scalar` พร้อมบอกว่าอะไรยังใช้ได้
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2337,6 +2346,14 @@ Skill(commit)                    # Skill เฉพาะ
 - **model ID ที่ไม่รู้จักถูกถือว่ามี context window 1M** (เดิม 200K) — อยาก compact เร็วขึ้นใช้ `/autocompact` หรือคงไว้ที่ 200K ด้วย `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` · session บนโมเดลของ vendor อื่นที่ window เล็กกว่าอาจล้มทุก turn เมื่อเต็มจนกว่าจะ `/clear` จึงควรตั้งไว้ก่อนเต็ม
 - **`ALL_PROXY` ไม่ครอบคลุม request ของ organization settings และ policy อีกต่อไป** — ถ้าเครือข่ายต้องผ่าน proxy ให้ตั้ง `HTTPS_PROXY`
 - **`--settings` ที่ไม่ใช่ JSON ที่ถูกต้องและมี key `sandbox` จะหยุดการเริ่มทำงาน** — แม้ค่านั้นจะเป็นการปิด sandbox ก็ตาม
+
+### 🆕 ใหม่ใน v2.1.325
+
+- **`CLAUDE_CODE_MAX_CONTEXT_TOKENS` ครอบคลุม model ID `claude-` ที่ไม่รู้จักด้วย** — ตอนนี้กำหนด context window ให้ model ID ที่ไม่รู้จักซึ่งขึ้นต้นด้วย `claude-` ได้ เช่น `claude-sonnet-latest` ของ gateway
+- **การเรียก model ของ mod นับเข้า cost** — `/cost`, `$.session.usage()`, `--max-budget-usd` และ metric ด้าน cost/token นับการเรียก `$.model.complete` และ `$.model.classify` ของ mod แล้ว
+- **allow rule ใน `settings.local.json` ต้อง trust ก่อนในโฟลเดอร์ที่ mount** — การรัน `-p` และ SDK ใน worktree หรือ submodule ที่ mount เข้า container จะใช้ allow rule จาก `.claude/settings.local.json` ก็ต่อเมื่อโฟลเดอร์นั้นถูก trust แล้ว
+- **cloud session เริ่มได้แม้ตั้ง `sandbox.failIfUnavailable`** — Claude Code on the web, cloud scheduled tasks และ Cowork cloud sessions · container ที่ host ให้ไม่มี command sandbox
+- **`promptSuggestionEnabled` ใน VS Code** — prompt suggestions ขึ้นใน VS Code extension ด้วยแล้ว (กด Tab เพื่อรับ prompt ถัดไปที่แนะนำ) · ตั้ง `promptSuggestionEnabled: false` ใน settings.json เพื่อปิด
 
 ---
 
@@ -4249,6 +4266,15 @@ claude --plugin-dir ./my-plugin
 - **`unsetOptionCount` ในผลของ `claude plugin install --json`** — บอกจำนวน option ใน `userConfig` ที่ยังไม่ได้ตั้ง
 - **setting `agent` ของ plugin ถูก deprecate** — ยังมีผลอยู่ แต่จะเตือนตอนเริ่ม ใน `claude plugin list` และใน `claude plugin validate`
 
+### 🆕 ใหม่ใน v2.1.325
+
+- **MCP bundle ของ plugin (`.mcpb`, `.dxt`) แตกไฟล์ไว้ใต้ plugins directory** — ไม่ใช่ `.mcpb-cache` ในโฟลเดอร์ของ plugin แล้ว ทำให้โฟลเดอร์ plugin แบบ read-only โหลดได้ · ตัวที่ดึงจาก URL จะดาวน์โหลดใหม่หนึ่งครั้ง
+- **`pluginDigests` ถูก deprecate และถูกเมิน** — plugin จาก remote marketplace ที่ managed settings ประกาศ เปิดใช้ และระบุใน `prependPlugins` หรือ `appendPlugins` จะนับเป็นของ organization
+- **path และ link ที่ไม่ปลอดภัย** — การโหลด plugin จะข้าม และ `claude plugin validate` จะรายงาน path และ link ที่ไม่ปลอดภัยบางแบบในโฟลเดอร์ของ plugin
+- **skill ซ้อนใน plugin ของ `--plugin-dir`** — โฟลเดอร์ `.claude/skills` ใน plugin ที่โหลดด้วย `--plugin-dir` จะไม่โหลดจาก session ที่เริ่มในโฟลเดอร์ระดับบนอีกต่อไป · ให้เริ่ม Claude Code ในโฟลเดอร์ plugin แทน
+- **marketplace `ref` รับ full commit ID ของ commit ใดก็ได้บน branch หรือ tag** — client ก่อน 2.1.325 จะ clone pin แบบนี้ไม่ได้ marketplace ที่ pin แบบนี้จึงโหลดไม่ขึ้นบน client เหล่านั้น
+- **ตั้งแค่ `ALL_PROXY` จะใช้ CONNECT tunnel** สำหรับดาวน์โหลด plugin marketplace และ plugin · proxy ที่ไม่รับ CONNECT จะทำให้ดาวน์โหลดล้ม
+
 ---
 
 ## 19. Session Management
@@ -6041,7 +6067,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.323`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.325`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

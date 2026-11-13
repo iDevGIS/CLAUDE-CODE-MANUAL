@@ -430,6 +430,14 @@ related:
 - **`ALL_PROXY` ไม่ครอบคลุม request ของ organization settings และ policy อีกต่อไป** — ถ้าเครือข่ายต้องผ่าน proxy ให้ตั้ง `HTTPS_PROXY`
 - **`--settings` ที่ไม่ใช่ JSON ที่ถูกต้องและมี key `sandbox` จะหยุดการเริ่มทำงาน** — แม้ค่านั้นจะเป็นการปิด sandbox ก็ตาม
 
+### 🆕 ใหม่ใน v2.1.325
+
+- **`CLAUDE_CODE_MAX_CONTEXT_TOKENS` ครอบคลุม model ID `claude-` ที่ไม่รู้จักด้วย** — ตอนนี้กำหนด context window ให้ model ID ที่ไม่รู้จักซึ่งขึ้นต้นด้วย `claude-` ได้ เช่น `claude-sonnet-latest` ของ gateway
+- **การเรียก model ของ mod นับเข้า cost** — `/cost`, `$.session.usage()`, `--max-budget-usd` และ metric ด้าน cost/token นับการเรียก `$.model.complete` และ `$.model.classify` ของ mod แล้ว
+- **allow rule ใน `settings.local.json` ต้อง trust ก่อนในโฟลเดอร์ที่ mount** — การรัน `-p` และ SDK ใน worktree หรือ submodule ที่ mount เข้า container จะใช้ allow rule จาก `.claude/settings.local.json` ก็ต่อเมื่อโฟลเดอร์นั้นถูก trust แล้ว
+- **cloud session เริ่มได้แม้ตั้ง `sandbox.failIfUnavailable`** — Claude Code on the web, cloud scheduled tasks และ Cowork cloud sessions · container ที่ host ให้ไม่มี command sandbox
+- **`promptSuggestionEnabled` ใน VS Code** — prompt suggestions ขึ้นใน VS Code extension ด้วยแล้ว (กด Tab เพื่อรับ prompt ถัดไปที่แนะนำ) · ตั้ง `promptSuggestionEnabled: false` ใน settings.json เพื่อปิด
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

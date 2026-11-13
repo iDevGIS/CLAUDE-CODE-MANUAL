@@ -317,6 +317,15 @@ Skill(commit)                    # Specific skill
 - **Unavailable auto mode starts in Manual mode** — `--permission-mode auto` or a settings `defaultMode: auto` now starts in Manual mode, which asks first, when auto mode is unavailable.
 - **Sandbox ignores writes granted through symlinks** — on macOS, Linux and WSL, write access granted through a symlink in a writable folder that leads elsewhere or to a missing path is ignored; grant the real path instead. On macOS and Linux, `git worktree add`, `move` and `remove` now fail read-only in the sandbox.
 
+### New in v2.1.325
+- **Sandboxed Bash commands follow the normal permission flow by default** — set `sandbox.autoAllowBashIfSandboxed: true` to keep running them without prompts; when managed settings turn the sandbox on, set it in your highest-ranking managed source.
+- **Read-only git commands ask first outside the project** — in a repository that isn't the project's or one you trusted; name it with `--add-dir` (not the `additionalDirectories` setting) to run them without prompts.
+- **Scheduled tasks and `/loop` ask before running a skill that declares `allowed-tools` or hooks** — add `Skill(name)` to `permissions.allow` to run it unattended.
+- **"Always allow" in Desktop, IDE and SDK hosts** — a rule alone is offered only when saving it would allow that command again, so a scheduled task that relied on one can now wait for you.
+- **Relative deny and ask rules** (e.g. `Read(./.env)`) keep covering the project after a `cd`, and now also apply in added directories.
+- **Sandbox refuses writes to `.claude` settings, skills, agents, commands and hooks in added directories**, as it does in the launch folder.
+- **Worktree isolation** — an isolated worktree session or agent is refused `git bisect run`, `git maintenance register|start` and `scalar`'s set-up commands, and is told what still works.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

@@ -430,6 +430,14 @@ Set the `model` key to any of these (newest → cheapest):
 - **`ALL_PROXY` no longer covers organization settings and policy requests** — set `HTTPS_PROXY` if your network needs a proxy for them.
 - **Invalid `--settings` with a `sandbox` key stops start-up** — when the file isn't valid JSON and has a `sandbox` key, even one that turns the sandbox off.
 
+### New in v2.1.325
+
+- **`CLAUDE_CODE_MAX_CONTEXT_TOKENS` also covers unrecognized `claude-` model IDs** — it now sets the context window of unrecognized model IDs that start with `claude-`, such as a gateway's `claude-sonnet-latest`.
+- **Mod model calls count toward cost** — `/cost`, `$.session.usage()`, `--max-budget-usd` and the cost and token metrics now count a mod's `$.model.complete` and `$.model.classify` calls.
+- **`settings.local.json` allow rules need trust in mounted folders** — `-p` and SDK runs in a worktree or submodule mounted into a container apply `.claude/settings.local.json` allow rules only once the folder is trusted.
+- **Cloud sessions start despite `sandbox.failIfUnavailable`** — Claude Code on the web, cloud scheduled tasks and Cowork cloud sessions; the hosted container has no command sandbox.
+- **`promptSuggestionEnabled` in VS Code** — prompt suggestions now appear in the VS Code extension too (Tab accepts the suggested next prompt); `promptSuggestionEnabled: false` in settings.json turns them off.
+
 ---
 
 ---

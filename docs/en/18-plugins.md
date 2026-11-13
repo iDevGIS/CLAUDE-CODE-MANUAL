@@ -248,6 +248,15 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **`unsetOptionCount` in `claude plugin install --json`** — how many `userConfig` options are not yet set.
 - **Plugin `agent` setting deprecated** — it still applies, and now warns at startup, in `claude plugin list` and in `claude plugin validate`.
 
+### New in v2.1.325
+
+- **Plugin MCP bundles (`.mcpb`, `.dxt`) unpack under the plugins directory** — not `.mcpb-cache` in the plugin's folder, so read-only plugin folders load; one fetched by URL downloads again once.
+- **`pluginDigests` deprecated and ignored** — plugins of a remote marketplace that managed settings declare, enable and list in `prependPlugins` or `appendPlugins` now count as the organization's.
+- **Unsafe paths and links** — plugin loading skips, and `claude plugin validate` reports, some unsafe paths and links in a plugin's folder.
+- **Nested skills in `--plugin-dir` plugins** — `.claude/skills` folders in `--plugin-dir` plugins no longer load from a session started above them; start Claude Code in the plugin folder instead.
+- **Marketplace `ref` accepts any full commit ID on a branch or tag** — clients before 2.1.325 can't clone such a pin, so a marketplace pinned this way stops loading there.
+- **`ALL_PROXY`-only setups use a CONNECT tunnel** for plugin marketplace and plugin downloads; a proxy that refuses CONNECT now fails them.
+
 ---
 
 ---

@@ -346,6 +346,15 @@ Skill(commit)                    # Skill เฉพาะ
 - **auto mode ใช้ไม่ได้ → เริ่มใน Manual mode** — `--permission-mode auto` หรือ `defaultMode: auto` ใน settings จะเริ่มใน Manual mode ซึ่งถามก่อน เมื่อ auto mode ใช้ไม่ได้
 - **sandbox ไม่นับสิทธิ์เขียนที่ได้ผ่าน symlink** — บน macOS, Linux และ WSL สิทธิ์เขียนที่ได้ผ่าน symlink ในโฟลเดอร์ที่เขียนได้ ซึ่งชี้ไปที่อื่นหรือ path ที่ไม่มีอยู่ จะถูกเมิน · ให้ grant path จริงแทน · บน macOS และ Linux คำสั่ง `git worktree add`, `move` และ `remove` จะล้มแบบ read-only ใน sandbox
 
+### 🆕 ใหม่ใน v2.1.325
+- **คำสั่ง Bash ใน sandbox เข้า permission flow ปกติเป็นค่าเริ่มต้น** — ถ้าอยากให้รันต่อโดยไม่ถามให้ตั้ง `sandbox.autoAllowBashIfSandboxed: true` · ถ้า managed settings เป็นตัวเปิด sandbox ให้ตั้งใน managed source ที่ลำดับสูงสุด
+- **git คำสั่งอ่านอย่างเดียวจะถามก่อนเมื่ออยู่นอกโปรเจกต์** — ใน repository ที่ไม่ใช่ของโปรเจกต์หรือที่คุณ trust · ระบุด้วย `--add-dir` (ไม่ใช่ setting `additionalDirectories`) เพื่อให้รันได้โดยไม่ถาม
+- **scheduled tasks และ `/loop` จะถามก่อนรัน skill ที่ประกาศ `allowed-tools` หรือ hooks** — เพิ่ม `Skill(name)` ใน `permissions.allow` เพื่อให้รันแบบไม่มีคนเฝ้าได้
+- **"Always allow" ใน Desktop, IDE และ SDK host** — จะเสนอแค่ตัว rule ก็ต่อเมื่อการบันทึก rule นั้นจะอนุญาตคำสั่งเดิมได้อีกครั้งจริง ๆ ดังนั้น scheduled task ที่เคยพึ่ง rule แบบนี้อาจรอคุณอนุมัติ
+- **deny และ ask rule แบบ relative** (เช่น `Read(./.env)`) ยังครอบคลุมโปรเจกต์หลัง `cd` และตอนนี้มีผลใน added directories ด้วย
+- **sandbox ปฏิเสธการเขียน settings, skills, agents, commands และ hooks ใน `.claude` ของ added directories** เหมือนที่ทำในโฟลเดอร์ที่เปิด Claude Code
+- **Worktree isolation** — session หรือ agent ที่อยู่ใน worktree แบบ isolated จะถูกปฏิเสธ `git bisect run`, `git maintenance register|start` และคำสั่ง set-up ของ `scalar` พร้อมบอกว่าอะไรยังใช้ได้
+
 ---
 
 ---

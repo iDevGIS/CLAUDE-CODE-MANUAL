@@ -248,6 +248,15 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **`unsetOptionCount` ในผลของ `claude plugin install --json`** — บอกจำนวน option ใน `userConfig` ที่ยังไม่ได้ตั้ง
 - **setting `agent` ของ plugin ถูก deprecate** — ยังมีผลอยู่ แต่จะเตือนตอนเริ่ม ใน `claude plugin list` และใน `claude plugin validate`
 
+### 🆕 ใหม่ใน v2.1.325
+
+- **MCP bundle ของ plugin (`.mcpb`, `.dxt`) แตกไฟล์ไว้ใต้ plugins directory** — ไม่ใช่ `.mcpb-cache` ในโฟลเดอร์ของ plugin แล้ว ทำให้โฟลเดอร์ plugin แบบ read-only โหลดได้ · ตัวที่ดึงจาก URL จะดาวน์โหลดใหม่หนึ่งครั้ง
+- **`pluginDigests` ถูก deprecate และถูกเมิน** — plugin จาก remote marketplace ที่ managed settings ประกาศ เปิดใช้ และระบุใน `prependPlugins` หรือ `appendPlugins` จะนับเป็นของ organization
+- **path และ link ที่ไม่ปลอดภัย** — การโหลด plugin จะข้าม และ `claude plugin validate` จะรายงาน path และ link ที่ไม่ปลอดภัยบางแบบในโฟลเดอร์ของ plugin
+- **skill ซ้อนใน plugin ของ `--plugin-dir`** — โฟลเดอร์ `.claude/skills` ใน plugin ที่โหลดด้วย `--plugin-dir` จะไม่โหลดจาก session ที่เริ่มในโฟลเดอร์ระดับบนอีกต่อไป · ให้เริ่ม Claude Code ในโฟลเดอร์ plugin แทน
+- **marketplace `ref` รับ full commit ID ของ commit ใดก็ได้บน branch หรือ tag** — client ก่อน 2.1.325 จะ clone pin แบบนี้ไม่ได้ marketplace ที่ pin แบบนี้จึงโหลดไม่ขึ้นบน client เหล่านั้น
+- **ตั้งแค่ `ALL_PROXY` จะใช้ CONNECT tunnel** สำหรับดาวน์โหลด plugin marketplace และ plugin · proxy ที่ไม่รับ CONNECT จะทำให้ดาวน์โหลดล้ม
+
 ---
 
 ---

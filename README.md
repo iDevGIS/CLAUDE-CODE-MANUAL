@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.323-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.109.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.325-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.110.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.323`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.325`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -178,8 +178,9 @@
 | 🧠 **โมเดล Fable 5.2** | `claude-fable-5-2` — **default Fable ตัวใหม่**, context 1M, $8/$40 ต่อ Mtok + cache read $0.20/Mtok · ค่าที่เลือก Fable 5.1 ไว้ย้ายไป `fable` · `claude remote-control --settings <file>` · mod ที่ Claude เขียนเปิดเองใน auto/bypass · `CLAUDE_CODE_PLUGIN_DIR_WATCH` (v2.1.321) |
 | ⚡ **Fast mode บน Vertex** | fast mode ใช้บน Vertex AI ได้ใน region `global`, `us` และ `eu` — ถ้า Vertex ปฏิเสธจะ fallback กลับไปความเร็วปกติ (v2.1.322) |
 | 🧪 **Code Mode + plugin `engines`** | Code Mode (experimental) ให้ Claude เขียน JavaScript เรียก tool · `engines["claude-code"]` ใน `plugin.json` · ถอด MCP client v1 และ `subagentStatusLine` · model ID ที่ไม่รู้จักถือว่า context 1M · "Don't ask again" ไม่บันทึกกฎที่มี secret · `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES` (v2.1.323) |
+| 🛡️ **Bash ใน sandbox ถามก่อนเป็นค่าเริ่มต้น** | คำสั่ง Bash ใน sandbox เข้า permission flow ปกติ — ตั้ง `sandbox.autoAllowBashIfSandboxed: true` เพื่อคงแบบเดิม · `/loop` และ scheduled tasks ถามก่อนรัน skill ที่มี `allowed-tools`/hooks (อนุญาตด้วย `Skill(name)`) · deprecate `pluginDigests` · bundle `.mcpb` แตกไฟล์ใต้ plugins directory (v2.1.325) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.323` (manual `v1.109.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.325` (manual `v1.110.0`)
 
 ---
 
@@ -202,7 +203,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.323** + โมเดล Fable 5.2 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
+ตรงกับ Claude Code **v2.1.325** + โมเดล Fable 5.2 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
 
 </td>
 </tr>
@@ -262,7 +263,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.323`
+> **Claude Code Version:** `2.1.325`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**
