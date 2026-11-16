@@ -255,6 +255,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **Finishing an MCP server sign-in asks you to confirm** — even in bypass and auto modes; where nobody can be asked, such as in `dontAsk` mode, use `/mcp`. See [[05-permissions]].
 - **`/mcp` shows left-out tools** — how many of a server's tools were left out because the API would reject their input schema, and why.
 
+### New in v2.1.326
+
+- **`managed-mcp.json` added mid-session** — may apply at the next check; restart open sessions for it to apply in full. A message now explains why MCP servers stop loading when an administrator adds it during a session.
+- **`claude mcp serve` ignores `sandbox.excludedCommands`.**
+
 ---
 
 ---

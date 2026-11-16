@@ -25,6 +25,30 @@
 
 ---
 
+## [1.111.0] — 2026-11-17
+
+### Compatibility
+- **Claude Code:** `v2.1.326+`
+
+### Added
+- **ch.02 CLI** — section "New in v2.1.326": คำเตือนตอนเริ่มเมื่อ `--allowedTools`/`--disallowedTools`/`--tools` มี rule ไม่ครบ · `--add-dir`/`/add-dir` ขึ้น trust prompt (`claude --bg` ปฏิเสธโฟลเดอร์ที่ยังไม่ trust) · `--await-initialize` ใช้คู่ `--bg`/`--worktree --tmux` ไม่ได้ · `claude --bare --bg` กับ API key ที่ยังไม่อนุมัติ · Ctrl+O แสดง startup notice ที่ซ่อนอยู่
+- **ch.05 Permissions** — section "New in v2.1.326": sandbox ไม่เขียนโฟลเดอร์ sensitive ใน home (`sandbox.filesystem.allowWrite`) · ป้องกันไฟล์ sign-in (`.credentials.json`) · bypass mode ถามบาง tool call · auto mode กับ wildcard allow rule · managed `autoMode.environment` ไม่มี `"$defaults"` · mode เริ่มต้นเมื่อ policy ยังไม่โหลด (+ HIPAA config, `disableAutoMode`) · คำสั่งที่ approver rewrite ยังอยู่ใน sandbox (`dangerouslyDisableSandbox`) · `cp`/`mv` และค่ายาวมากถามก่อน · state ของ sandbox
+- **ch.06 Configuration** — section "New in v2.1.326": `/status` บอกเมื่อฟีเจอร์ถูกปิด · error JSON บอกบรรทัด/คอลัมน์ · auto-compaction ใน plan mode ใช้ model ที่ตอบ (`opusplan`) · `OTEL_RESOURCE_INCLUDE_HOST` · self-hosted runner ภายใต้ `--trust-workspace false`
+- **ch.09 MCP** — section "New in v2.1.326": `managed-mcp.json` ที่เพิ่มกลาง session · `claude mcp serve` เมิน `sandbox.excludedCommands`
+- **ch.10 Hooks** — section "New in v2.1.326": `"decision": "block"` มีผลมากขึ้น · `updatedInput` เมื่อหลาย hook ตอบ · exit 127 · HTTP hook เมิน `Content-Length`/`Transfer-Encoding` · สีผล hook ใน transcript
+- **ch.12 Subagents** — section "New in v2.1.326": subagent ใน worktree ปฏิเสธ git ที่ rewrite branch · `ExitWorktree` + `discard_changes` · card อนุมัติ plan 2 ตัวเลือก · Code Mode กับ agent teams · token count เมื่อมี subagent > 20 ตัว
+- **ch.18 Plugins** — section "New in v2.1.326": field แสดงผลใน `plugin.json` ผิดรูปไม่บล็อก plugin · uninstall ลบไฟล์ MCP bundle · worktree session ข้าม plugin settings บางตัว · คำถาม `/plugin` เป็นรายการ · prop ใหม่ของ mod UI (`overflowX`, `maxLines`, `wrap="clip"`)
+- **ch.23 Environment Variables** — แถว `OTEL_RESOURCE_INCLUDE_HOST`
+- README / README.EN — แถว What's-new (v2.1.326)
+
+### Changed
+- Version strings `2.1.325` → `2.1.326` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.326` — release ใหญ่ที่เน้นความเข้มของ sandbox/permission, พฤติกรรม hook, worktree subagent และการโหลด plugin
+
+---
+
 ## [1.110.0] — 2026-11-14
 
 ### Compatibility
@@ -2471,6 +2495,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.111.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.110.0...v1.111.0
 [1.110.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.109.0...v1.110.0
 [1.109.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.108.0...v1.109.0
 [1.108.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.107.0...v1.108.0

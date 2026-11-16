@@ -257,6 +257,14 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **marketplace `ref` รับ full commit ID ของ commit ใดก็ได้บน branch หรือ tag** — client ก่อน 2.1.325 จะ clone pin แบบนี้ไม่ได้ marketplace ที่ pin แบบนี้จึงโหลดไม่ขึ้นบน client เหล่านั้น
 - **ตั้งแค่ `ALL_PROXY` จะใช้ CONNECT tunnel** สำหรับดาวน์โหลด plugin marketplace และ plugin · proxy ที่ไม่รับ CONNECT จะทำให้ดาวน์โหลดล้ม
 
+### 🆕 ใหม่ใน v2.1.326
+
+- **field แสดงผลใน `plugin.json` ที่ผิดรูปไม่บล็อก plugin อีกต่อไป** — plugin ที่เปิดไว้แต่เคยถูกปฏิเสธเพราะ field แสดงผลอย่าง `author` หรือ `homepage` ผิดรูป ตอนนี้โหลดได้พร้อม hooks และ MCP server · `/plugin` และ `claude plugin list` จะบอก field ที่ถูกเมิน · admin ควรตรวจ plugin ที่ deploy อยู่
+- **uninstall ลบไฟล์ที่แตกจาก MCP bundle ด้วย** (`.mcpb`, `.dxt`) เว้นแต่ plugin อื่นใช้ bundle เดียวกัน
+- **session ใน worktree บางแบบข้าม plugin settings บางตัว** — มี notice บอกว่าข้ามอะไรไป
+- **คำถาม uninstall, remove และ switch ใน `/plugin` เป็นรายการ** ตอบด้วยลูกศรและ Enter หรือ Esc เพื่อยกเลิก · กด `y`, `n`, `u` ตอบไม่ได้แล้ว
+- **prop ใหม่ของ UI ใน mod** — `overflowX="scroll"` บน `Box` และ `maxLines` กับ `wrap="clip"` บน `Text`
+
 ---
 
 ---

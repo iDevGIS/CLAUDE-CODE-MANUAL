@@ -438,6 +438,14 @@ related:
 - **cloud session เริ่มได้แม้ตั้ง `sandbox.failIfUnavailable`** — Claude Code on the web, cloud scheduled tasks และ Cowork cloud sessions · container ที่ host ให้ไม่มี command sandbox
 - **`promptSuggestionEnabled` ใน VS Code** — prompt suggestions ขึ้นใน VS Code extension ด้วยแล้ว (กด Tab เพื่อรับ prompt ถัดไปที่แนะนำ) · ตั้ง `promptSuggestionEnabled: false` ใน settings.json เพื่อปิด
 
+### 🆕 ใหม่ใน v2.1.326
+
+- **`/status` บอกเมื่อฟีเจอร์ถูกปิด** — มีแถวบอกเมื่อ provider หรือ environment variable อย่าง `DISABLE_TELEMETRY` ปิดฟีเจอร์ไว้ · คำสั่งที่ถูกปิดด้วยเหตุนี้จะบอกเหตุผลแทนข้อความ "Unknown command"
+- **error ของ JSON ที่พังบอกบรรทัดและคอลัมน์** — ทั้งไฟล์ settings และ `.mcp.json`
+- **auto-compaction ใน plan mode ใช้ model ที่กำลังตอบ** — เช่น Opus เมื่อใช้ `opusplan` จึงอาจแพงขึ้น
+- **`OTEL_RESOURCE_INCLUDE_HOST`** — ใส่ `host.name` และ `host.id` ลงใน resource attribute ของ OpenTelemetry (ปิดเป็นค่าเริ่มต้น) ดู [[23-environment-variables]]
+- **self-hosted runner ภายใต้ `--trust-workspace false`** เมิน settings ของ repository มากขึ้น · ค่าพวกนั้นให้ตั้งใน user หรือ managed settings แทน
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

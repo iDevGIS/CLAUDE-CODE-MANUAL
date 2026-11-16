@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.325         │
+│ Welcome to Claude Code v2.1.326         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -704,6 +704,14 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **`claude remote-control --settings <file>`** — ใช้ settings file ที่ระบุกับทุก session ที่มันเปิด · ถ้าไฟล์เปลี่ยน จะไม่เปิด session ใหม่จนกว่าจะ restart `claude remote-control`
 - **session ของ Remote Control อยู่ในโฟลเดอร์เดิม** — session อยู่ในโฟลเดอร์ที่เริ่มไว้ตลอด · client ที่เชื่อมต่ออยู่ย้าย session ไปโฟลเดอร์อื่นไม่ได้แล้ว
 
+### 🆕 ใหม่ใน v2.1.326
+
+- **เตือนตอนเริ่มเมื่อ tool rule ไม่ครบ** — entry ใน `--allowedTools`, `--disallowedTools` หรือ `--tools` ที่ดูไม่เหมือน rule ที่สมบูรณ์จะมีคำเตือนตอน start-up
+- **`--add-dir` และ `/add-dir` ขึ้น trust prompt** ใน session terminal แบบ local สำหรับโฟลเดอร์ที่ยังไม่เคย trust · `claude --bg` จะปฏิเสธโฟลเดอร์แบบนั้น
+- **`--await-initialize` ถูกปฏิเสธเมื่อใช้คู่ `--bg` หรือ `--worktree --tmux`** — สองโหมดนี้ไม่อ่าน initialize request อยู่แล้ว จึงไม่เริ่มทำงานโดยขาด field ที่ request นั้นพามาอีก
+- **`claude --bare --bg` กับ API key ที่ยังไม่อนุมัติ** จะออกพร้อม error ถ้า background service ไม่มี key นั้น · การย้าย session `--bare` แบบนี้ไป background ถูกปฏิเสธในเกือบทุก setup
+- **Ctrl+O แสดง startup notice ที่ซ่อนอยู่**
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1075,7 +1083,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.325
+- run: npm install -g @anthropic-ai/claude-code@2.1.326
 ```
 
 ---

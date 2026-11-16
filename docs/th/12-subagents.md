@@ -243,6 +243,14 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **ถอด setting `subagentStatusLine` ออกแล้ว** — แถวของ subagent ใช้หน้าตา default เสมอ · ไฟล์ settings ที่ยังมี key นี้อยู่ก็โหลดได้เหมือนเดิม (หมายเหตุเรื่อง payload ของ `subagentStatusLine` ด้านบนเป็นประวัติ)
 - **`CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES=1`** ปิด progress summary ของ subagent และ request ที่ใช้เขียน summary เหล่านั้น (มีมาตั้งแต่ 2.1.318) ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.326
+
+- **subagent ใน worktree แบบ isolated ปฏิเสธ git ที่ rewrite branch** — ไม่ว่า repository ไหน คำสั่ง git บางตัวใน Bash ที่ rewrite branch ซึ่งใช้ร่วมกับ checkout ของคุณได้จะถูกปฏิเสธ · session ปกติไม่ได้รับผล
+- **`ExitWorktree` ไม่ลบ worktree ที่ยังมีงานรัน** — ปฏิเสธการลบระหว่างที่ background subagent หรือคำสั่ง shell อาจยังรันอยู่ใน worktree นั้น เว้นแต่ Claude ส่ง `discard_changes`
+- **card อนุมัติ plan ของ subagent เหลือ 2 ตัวเลือก** — "Yes, and switch to default (ask each time) for this session" กับ "No" เลือกด้วยลูกศรและ Enter (ถ้าพิมพ์ข้อความจะย้ายไป No)
+- **Code Mode กับ agent teams** — เปิด Code Mode ได้แล้วแม้เปิด agent teams อยู่ · ถ้าเคยเปิดไว้ session ที่เปิด teams จะเริ่มใน Code Mode
+- **subagent มากกว่า 20 ตัว** — token count ของ background agent ที่ไม่ได้เปิด transcript อยู่จะอัปเดตทุก 5 วินาทีเพื่อประหยัด CPU
+
 ---
 
 ---

@@ -438,6 +438,14 @@ Set the `model` key to any of these (newest → cheapest):
 - **Cloud sessions start despite `sandbox.failIfUnavailable`** — Claude Code on the web, cloud scheduled tasks and Cowork cloud sessions; the hosted container has no command sandbox.
 - **`promptSuggestionEnabled` in VS Code** — prompt suggestions now appear in the VS Code extension too (Tab accepts the suggested next prompt); `promptSuggestionEnabled: false` in settings.json turns them off.
 
+### New in v2.1.326
+
+- **`/status` says when features are off** — a row says when your provider or an environment variable such as `DISABLE_TELEMETRY` turns features off; commands that are off for those reasons now say why instead of "Unknown command".
+- **Broken JSON errors give the line and column** — for a settings file or `.mcp.json`.
+- **Plan-mode auto-compaction uses the answering model** — such as Opus with `opusplan`, so it can cost more.
+- **`OTEL_RESOURCE_INCLUDE_HOST`** — includes `host.name` and `host.id` in OpenTelemetry resource attributes (off by default). See [[23-environment-variables]].
+- **Self-hosted runners under `--trust-workspace false`** ignore more repository settings; set such values in user or managed settings.
+
 ---
 
 ---

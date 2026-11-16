@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.325         │
+│ Welcome to Claude Code v2.1.326         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.325
+- run: npm install -g @anthropic-ai/claude-code@2.1.326
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1153,6 +1153,14 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 - **`claude remote-control --settings <file>`** — applies a settings file to every session it starts; if the file changes, no new session starts until you restart `claude remote-control`.
 - **Remote Control sessions keep their folder** — a session stays in the folder it was started in; a connected client can no longer move it to another folder.
+
+### New in v2.1.326
+
+- **Startup warning for incomplete tool rules** — an `--allowedTools`, `--disallowedTools` or `--tools` entry that doesn't look like a complete rule now triggers a warning at start-up.
+- **`--add-dir` and `/add-dir` show the trust prompt** in local terminal sessions for a folder you have not trusted yet; `claude --bg` refuses such a folder.
+- **`--await-initialize` is refused with `--bg` or `--worktree --tmux`** — those never read the initialize request, so it no longer starts without the fields it carries.
+- **`claude --bare --bg` on an unapproved API key** exits with an error if the background service lacks the key; moving such a `--bare` session to the background is refused in most setups.
+- **Ctrl+O shows hidden startup notices.**
 
 ---
 
@@ -1948,6 +1956,17 @@ Skill(commit)                    # Specific skill
 - **Sandbox refuses writes to `.claude` settings, skills, agents, commands and hooks in added directories**, as it does in the launch folder.
 - **Worktree isolation** — an isolated worktree session or agent is refused `git bisect run`, `git maintenance register|start` and `scalar`'s set-up commands, and is told what still works.
 
+### New in v2.1.326
+- **Sandboxed commands write to fewer folders** — on macOS, Linux and WSL they no longer write to some sensitive home folders by default; some can be allowed with `sandbox.filesystem.allowWrite` in user or managed settings.
+- **Sign-in files are protected** — Claude's file tools refuse writes to Claude Code's sign-in files such as `.credentials.json`, and the Bash permission check asks before more commands reach them.
+- **Bypass permissions mode asks for some tool calls** — or denies them where no one can be asked; the PowerShell tool also asks about some more commands even in bypass mode, and refuses some of them.
+- **Auto mode and wildcard allow rules** — auto mode ignores wildcard shell allow rules that name no program or start with `$HOME`, so the safety check decides those commands; wildcard rules whose program is a Windows backslash path are now judged too (exact rules keep their allow).
+- **Managed `autoMode.environment` without `"$defaults"`** now replaces every built-in entry in Claude Desktop and Agent SDK apps too — add `"$defaults"` or copy the sensitive-target entries.
+- **Default mode when policy hasn't loaded** — terminal and VS Code sessions with no mode set start in auto mode, not Manual; sessions that start in auto by default take a server-managed `defaultMode` once settings load. Organizations with the Claude Code + Cowork HIPAA configuration also start in auto mode by default (`disableAutoMode` turns it off).
+- **Approver rewrites stay sandboxed** — a command that a permission hook or SDK host rewrites while approving stays in the sandbox if the original was checked as sandboxed; the approver can add `dangerouslyDisableSandbox: true`.
+- **Stricter shell checks** — some `cp` and `mv` commands ask first; commands with very long values the check can't finish ask, or are refused where a deny rule may apply or no one can answer.
+- **Sandbox state** — the Bash sandbox keeps its state in some cases until you run `/sandbox` or `/cd`, and sets aside unexpected entries in a repository's `.git` folder after a command.
+
 ---
 
 ## 6. Configuration
@@ -2360,6 +2379,14 @@ Skill(commit)                    # Specific skill
 - **`settings.local.json` allow rules need trust in mounted folders** — `-p` and SDK runs in a worktree or submodule mounted into a container apply `.claude/settings.local.json` allow rules only once the folder is trusted.
 - **Cloud sessions start despite `sandbox.failIfUnavailable`** — Claude Code on the web, cloud scheduled tasks and Cowork cloud sessions; the hosted container has no command sandbox.
 - **`promptSuggestionEnabled` in VS Code** — prompt suggestions now appear in the VS Code extension too (Tab accepts the suggested next prompt); `promptSuggestionEnabled: false` in settings.json turns them off.
+
+### New in v2.1.326
+
+- **`/status` says when features are off** — a row says when your provider or an environment variable such as `DISABLE_TELEMETRY` turns features off; commands that are off for those reasons now say why instead of "Unknown command".
+- **Broken JSON errors give the line and column** — for a settings file or `.mcp.json`.
+- **Plan-mode auto-compaction uses the answering model** — such as Opus with `opusplan`, so it can cost more.
+- **`OTEL_RESOURCE_INCLUDE_HOST`** — includes `host.name` and `host.id` in OpenTelemetry resource attributes (off by default; see 23. Environment Variables).
+- **Self-hosted runners under `--trust-workspace false`** ignore more repository settings; set such values in user or managed settings.
 
 ---
 
@@ -2831,6 +2858,11 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **Finishing an MCP server sign-in asks you to confirm** — even in bypass and auto modes; where nobody can be asked, such as in `dontAsk` mode, use `/mcp`.
 - **`/mcp` shows left-out tools** — how many of a server's tools were left out because the API would reject their input schema, and why.
 
+### New in v2.1.326
+
+- **`managed-mcp.json` added mid-session** — may apply at the next check; restart open sessions for it to apply in full. A message now explains why MCP servers stop loading when an administrator adds it during a session.
+- **`claude mcp serve` ignores `sandbox.excludedCommands`.**
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -3006,6 +3038,14 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 
 - **Failed permission checks after a hook answered** — when a tool's permission check fails with an error after a `PreToolUse` hook returned "allow", Claude Code now decides the call as if no hook had answered; when it fails on input that a `PermissionRequest` hook rewrote, Claude Code asks again, or refuses the call where nobody can answer.
 - **Progress heartbeat for long hooks** — every 30 seconds while hooks run long in `claude -p` and SDK sessions, so a host such as Claude Desktop won't end the turn as hung.
+
+### New in v2.1.326
+
+- **`"decision": "block"` holds in more cases** — a hook that always prints one may start blocking calls.
+- **`PreToolUse` `updatedInput` is kept when more than one hook answers** a tool call; the rewrite now runs in more cases.
+- **A `PreToolUse` hook that exits 127** now shows an error saying its check may not have run.
+- **HTTP hooks ignore `Content-Length` and `Transfer-Encoding` in their `headers` setting** — the request's length comes from its body. `allowedHttpHookUrls` and `httpHookAllowedEnvVars` also apply differently to hooks from managed settings.
+- **Hook results in the transcript** — failures are red instead of grey, a hook that stops Claude is yellow, and the reason is shown under them.
 
 ### Configuring Hooks
 
@@ -3548,6 +3588,14 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 
 - **`subagentStatusLine` setting removed** — subagent rows always use the default look; settings files that still hold the key load as before (the `subagentStatusLine` payload notes above are historical).
 - **`CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES=1`** turns off subagent progress summaries and the requests that write them (available since 2.1.318; see 23. Environment Variables).
+
+### New in v2.1.326
+
+- **Worktree-isolated subagents refuse branch-rewriting git commands** — in any repository, some git commands in Bash that can rewrite branches shared with your checkout are refused; sessions are not affected.
+- **`ExitWorktree` won't remove a busy worktree** — it refuses while a background subagent or shell command may still be running in it, unless Claude passes `discard_changes`.
+- **Plan approval card has two choices** — "Yes, and switch to default (ask each time) for this session" and "No", chosen with the arrow keys and Enter (typed text moves to No).
+- **Code Mode with agent teams** — Code Mode can now be turned on while agent teams are enabled; if you already turned it on, sessions with teams on start in Code Mode.
+- **More than 20 subagents** — token counts of background agents whose transcript isn't open update every 5 seconds, to save CPU.
 
 ---
 
@@ -4286,6 +4334,14 @@ claude --plugin-dir ./my-plugin
 - **Marketplace `ref` accepts any full commit ID on a branch or tag** — clients before 2.1.325 can't clone such a pin, so a marketplace pinned this way stops loading there.
 - **`ALL_PROXY`-only setups use a CONNECT tunnel** for plugin marketplace and plugin downloads; a proxy that refuses CONNECT now fails them.
 
+### New in v2.1.326
+
+- **Malformed `plugin.json` display fields no longer block a plugin** — enabled plugins that were refused for a malformed display field such as `author` or `homepage` now load, with their hooks and MCP servers; `/plugin` and `claude plugin list` note the ignored field. Administrators should check the plugins they deploy.
+- **Uninstall deletes extracted MCP bundle files** (`.mcpb`, `.dxt`) unless another plugin uses the same bundle.
+- **Some worktree sessions skip some plugin settings** — a notice names what was skipped.
+- **`/plugin` uninstall, remove and switch questions are lists** answered with the arrow keys and Enter, or Esc to cancel; `y`, `n` and `u` no longer answer them.
+- **Mod UI props** — `overflowX="scroll"` on a mod's `Box`, and `maxLines` and `wrap="clip"` on its `Text`.
+
 ---
 
 ## 19. Session Management
@@ -4747,6 +4803,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES` | Set `1` to turn off subagent progress summaries and the requests that write them (available since 2.1.318; see 12. Subagents). *(v2.1.323)* |
 | `CLAUDE_CODE_RESUME_HINT_COMMAND` | Set by a program that starts Claude Code to have the exit hint name its own resume command. *(v2.1.323)* |
 | `CLAUDE_CODE_AUTOMOUNT_ROOTS` | On Linux, names autofs map roots deeper than one folder below `/`; Claude Code no longer looks up files in an autofs `/home` itself. *(v2.1.323)* |
+| `OTEL_RESOURCE_INCLUDE_HOST` | Set `1` to include `host.name` and `host.id` in OpenTelemetry resource attributes (off by default; see 06. Configuration). *(v2.1.326)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -6081,7 +6138,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.325`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.326`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

@@ -326,6 +326,17 @@ Skill(commit)                    # Specific skill
 - **Sandbox refuses writes to `.claude` settings, skills, agents, commands and hooks in added directories**, as it does in the launch folder.
 - **Worktree isolation** — an isolated worktree session or agent is refused `git bisect run`, `git maintenance register|start` and `scalar`'s set-up commands, and is told what still works.
 
+### New in v2.1.326
+- **Sandboxed commands write to fewer folders** — on macOS, Linux and WSL they no longer write to some sensitive home folders by default; some can be allowed with `sandbox.filesystem.allowWrite` in user or managed settings.
+- **Sign-in files are protected** — Claude's file tools refuse writes to Claude Code's sign-in files such as `.credentials.json`, and the Bash permission check asks before more commands reach them.
+- **Bypass permissions mode asks for some tool calls** — or denies them where no one can be asked; the PowerShell tool also asks about some more commands even in bypass mode, and refuses some of them.
+- **Auto mode and wildcard allow rules** — auto mode ignores wildcard shell allow rules that name no program or start with `$HOME`, so the safety check decides those commands; wildcard rules whose program is a Windows backslash path are now judged too (exact rules keep their allow).
+- **Managed `autoMode.environment` without `"$defaults"`** now replaces every built-in entry in Claude Desktop and Agent SDK apps too — add `"$defaults"` or copy the sensitive-target entries.
+- **Default mode when policy hasn't loaded** — terminal and VS Code sessions with no mode set start in auto mode, not Manual; sessions that start in auto by default take a server-managed `defaultMode` once settings load. Organizations with the Claude Code + Cowork HIPAA configuration also start in auto mode by default (`disableAutoMode` turns it off).
+- **Approver rewrites stay sandboxed** — a command that a permission hook or SDK host rewrites while approving stays in the sandbox if the original was checked as sandboxed; the approver can add `dangerouslyDisableSandbox: true`.
+- **Stricter shell checks** — some `cp` and `mv` commands ask first; commands with very long values the check can't finish ask, or are refused where a deny rule may apply or no one can answer.
+- **Sandbox state** — the Bash sandbox keeps its state in some cases until you run `/sandbox` or `/cd`, and sets aside unexpected entries in a repository's `.git` folder after a command.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

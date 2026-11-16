@@ -243,6 +243,14 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **`subagentStatusLine` setting removed** — subagent rows always use the default look; settings files that still hold the key load as before (the `subagentStatusLine` payload notes above are historical).
 - **`CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES=1`** turns off subagent progress summaries and the requests that write them (available since 2.1.318). See [[23-environment-variables]].
 
+### New in v2.1.326
+
+- **Worktree-isolated subagents refuse branch-rewriting git commands** — in any repository, some git commands in Bash that can rewrite branches shared with your checkout are refused; sessions are not affected.
+- **`ExitWorktree` won't remove a busy worktree** — it refuses while a background subagent or shell command may still be running in it, unless Claude passes `discard_changes`.
+- **Plan approval card has two choices** — "Yes, and switch to default (ask each time) for this session" and "No", chosen with the arrow keys and Enter (typed text moves to No).
+- **Code Mode with agent teams** — Code Mode can now be turned on while agent teams are enabled; if you already turned it on, sessions with teams on start in Code Mode.
+- **More than 20 subagents** — token counts of background agents whose transcript isn't open update every 5 seconds, to save CPU.
+
 ---
 
 ---

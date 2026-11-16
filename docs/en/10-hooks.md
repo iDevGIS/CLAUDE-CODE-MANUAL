@@ -250,6 +250,14 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **Failed permission checks after a hook answered** — when a tool's permission check fails with an error after a `PreToolUse` hook returned "allow", Claude Code now decides the call as if no hook had answered; when it fails on input that a `PermissionRequest` hook rewrote, Claude Code asks again, or refuses the call where nobody can answer. See [[05-permissions]].
 - **Progress heartbeat for long hooks** — every 30 seconds while hooks run long in `claude -p` and SDK sessions, so a host such as Claude Desktop won't end the turn as hung.
 
+### New in v2.1.326
+
+- **`"decision": "block"` holds in more cases** — a hook that always prints one may start blocking calls.
+- **`PreToolUse` `updatedInput` is kept when more than one hook answers** a tool call; the rewrite now runs in more cases.
+- **A `PreToolUse` hook that exits 127** now shows an error saying its check may not have run.
+- **HTTP hooks ignore `Content-Length` and `Transfer-Encoding` in their `headers` setting** — the request's length comes from its body. `allowedHttpHookUrls` and `httpHookAllowedEnvVars` also apply differently to hooks from managed settings.
+- **Hook results in the transcript** — failures are red instead of grey, a hook that stops Claude is yellow, and the reason is shown under them.
+
 ---
 
 ---

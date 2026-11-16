@@ -132,6 +132,7 @@ related:
 | `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES` | ตั้ง `1` เพื่อปิด progress summary ของ subagent และ request ที่ใช้เขียน summary เหล่านั้น (มีมาตั้งแต่ 2.1.318) ดู [[12-subagents]] *(v2.1.323)* |
 | `CLAUDE_CODE_RESUME_HINT_COMMAND` | ให้โปรแกรมที่เปิด Claude Code ตั้งไว้ เพื่อให้ hint ตอนออกบอกคำสั่ง resume ของโปรแกรมนั้นเอง *(v2.1.323)* |
 | `CLAUDE_CODE_AUTOMOUNT_ROOTS` | บน Linux ใช้ระบุ root ของ autofs map ที่ลึกกว่าหนึ่งโฟลเดอร์ใต้ `/` · Claude Code ไม่ไล่หาไฟล์ใน `/home` ที่เป็น autofs เองอีกแล้ว *(v2.1.323)* |
+| `OTEL_RESOURCE_INCLUDE_HOST` | ตั้ง `1` เพื่อใส่ `host.name` และ `host.id` ลงใน resource attribute ของ OpenTelemetry (ปิดเป็นค่าเริ่มต้น) ดู [[06-configuration]] *(v2.1.326)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

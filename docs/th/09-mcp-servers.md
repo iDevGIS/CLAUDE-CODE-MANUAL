@@ -255,6 +255,11 @@ claude --mcp-config ./mcp.json
 - **ขั้นสุดท้ายของการ sign-in MCP server ต้องให้เรายืนยัน** — แม้ใน bypass และ auto mode · ในที่ที่ถามใครไม่ได้ เช่น `dontAsk` mode ให้ใช้ `/mcp` ดู [[05-permissions]]
 - **`/mcp` บอก tool ที่ถูกตัดออก** — แสดงว่า tool ของ server ถูกตัดออกกี่ตัวเพราะ API จะปฏิเสธ input schema ของมัน และเพราะอะไร
 
+### 🆕 ใหม่ใน v2.1.326
+
+- **`managed-mcp.json` ที่เพิ่มเข้ามากลาง session** — อาจมีผลในรอบเช็กถัดไป · ให้ restart session ที่เปิดอยู่เพื่อให้มีผลเต็มที่ · มีข้อความอธิบายแล้วว่าทำไม MCP server หยุดโหลดเมื่อ admin เพิ่มไฟล์นี้ระหว่าง session
+- **`claude mcp serve` เมิน `sandbox.excludedCommands`**
+
 ---
 
 ---

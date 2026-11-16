@@ -254,6 +254,14 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **permission check ล้มหลัง hook ตอบไปแล้ว** — ถ้า permission check ของ tool ล้มด้วย error หลังจาก `PreToolUse` hook ตอบ "allow" ไปแล้ว Claude Code จะตัดสิน call นั้นเหมือนไม่มี hook ตอบเลย · ถ้าล้มกับ input ที่ `PermissionRequest` hook rewrite มา Claude Code จะถามใหม่ หรือปฏิเสธ call ในที่ที่ไม่มีใครตอบได้ ดู [[05-permissions]]
 - **heartbeat ระหว่าง hook รันนาน** — ทุก 30 วินาทีขณะ hook รันนานใน `claude -p` และ SDK session เพื่อไม่ให้ host อย่าง Claude Desktop ตัดจบ turn เพราะคิดว่าค้าง
 
+#### 🆕 ใหม่ใน v2.1.326
+
+- **`"decision": "block"` มีผลในกรณีมากขึ้น** — hook ที่พิมพ์ค่านี้ออกมาตลอดอาจเริ่มบล็อก call จริง
+- **`updatedInput` ของ `PreToolUse` ถูกเก็บไว้เมื่อมีหลาย hook ตอบ** tool call เดียวกัน · การ rewrite จะทำงานในกรณีมากขึ้น
+- **`PreToolUse` hook ที่ exit 127** จะแสดง error ว่า check ของมันอาจไม่ได้รัน
+- **HTTP hook เมิน `Content-Length` และ `Transfer-Encoding` ใน setting `headers`** — ความยาว request คิดจาก body · `allowedHttpHookUrls` และ `httpHookAllowedEnvVars` ใช้กับ hook จาก managed settings ต่างไปจากเดิมด้วย
+- **ผลของ hook ใน transcript** — ล้มแสดงเป็นสีแดงแทนสีเทา · hook ที่สั่งหยุด Claude เป็นสีเหลือง และแสดงเหตุผลไว้ด้านล่าง
+
 ---
 
 ---

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.325         │
+│ Welcome to Claude Code v2.1.326         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -808,6 +808,14 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **`claude remote-control --settings <file>`** — ใช้ settings file ที่ระบุกับทุก session ที่มันเปิด · ถ้าไฟล์เปลี่ยน จะไม่เปิด session ใหม่จนกว่าจะ restart `claude remote-control`
 - **session ของ Remote Control อยู่ในโฟลเดอร์เดิม** — session อยู่ในโฟลเดอร์ที่เริ่มไว้ตลอด · client ที่เชื่อมต่ออยู่ย้าย session ไปโฟลเดอร์อื่นไม่ได้แล้ว
 
+### 🆕 ใหม่ใน v2.1.326
+
+- **เตือนตอนเริ่มเมื่อ tool rule ไม่ครบ** — entry ใน `--allowedTools`, `--disallowedTools` หรือ `--tools` ที่ดูไม่เหมือน rule ที่สมบูรณ์จะมีคำเตือนตอน start-up
+- **`--add-dir` และ `/add-dir` ขึ้น trust prompt** ใน session terminal แบบ local สำหรับโฟลเดอร์ที่ยังไม่เคย trust · `claude --bg` จะปฏิเสธโฟลเดอร์แบบนั้น
+- **`--await-initialize` ถูกปฏิเสธเมื่อใช้คู่ `--bg` หรือ `--worktree --tmux`** — สองโหมดนี้ไม่อ่าน initialize request อยู่แล้ว จึงไม่เริ่มทำงานโดยขาด field ที่ request นั้นพามาอีก
+- **`claude --bare --bg` กับ API key ที่ยังไม่อนุมัติ** จะออกพร้อม error ถ้า background service ไม่มี key นั้น · การย้าย session `--bare` แบบนี้ไป background ถูกปฏิเสธในเกือบทุก setup
+- **Ctrl+O แสดง startup notice ที่ซ่อนอยู่**
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1139,7 +1147,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.325
+- run: npm install -g @anthropic-ai/claude-code@2.1.326
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1942,6 +1950,17 @@ Skill(commit)                    # Skill เฉพาะ
 - **sandbox ปฏิเสธการเขียน settings, skills, agents, commands และ hooks ใน `.claude` ของ added directories** เหมือนที่ทำในโฟลเดอร์ที่เปิด Claude Code
 - **Worktree isolation** — session หรือ agent ที่อยู่ใน worktree แบบ isolated จะถูกปฏิเสธ `git bisect run`, `git maintenance register|start` และคำสั่ง set-up ของ `scalar` พร้อมบอกว่าอะไรยังใช้ได้
 
+### 🆕 ใหม่ใน v2.1.326
+- **คำสั่งใน sandbox เขียนได้น้อยโฟลเดอร์ลง** — บน macOS, Linux และ WSL จะไม่เขียนลงโฟลเดอร์ sensitive บางตัวใน home เป็นค่าเริ่มต้นอีกต่อไป · บางตัวอนุญาตได้ด้วย `sandbox.filesystem.allowWrite` ใน user หรือ managed settings
+- **ไฟล์ sign-in ถูกป้องกัน** — file tool ของ Claude ปฏิเสธการเขียนไฟล์ sign-in ของ Claude Code เช่น `.credentials.json` และ Bash permission check จะถามก่อนเมื่อคำสั่งเข้าถึงไฟล์เหล่านี้ในอีกหลายกรณี
+- **bypass permissions mode ถามก่อนสำหรับ tool call บางตัว** — หรือปฏิเสธในที่ที่ถามใครไม่ได้ · PowerShell tool ก็ถามคำสั่งเพิ่มขึ้นแม้อยู่ใน bypass mode และปฏิเสธบางคำสั่ง
+- **auto mode กับ wildcard allow rule** — auto mode เมิน wildcard shell allow rule ที่ไม่ระบุโปรแกรมหรือขึ้นต้นด้วย `$HOME` ให้ safety check เป็นคนตัดสินแทน · wildcard rule ที่โปรแกรมเป็น Windows path แบบ backslash ก็ถูกตัดสินด้วยแล้ว (rule แบบ exact ยังอนุญาตเหมือนเดิม)
+- **managed `autoMode.environment` ที่ไม่มี `"$defaults"`** จะแทนที่ built-in entry ทั้งหมดใน Claude Desktop และแอป Agent SDK ด้วยแล้ว — ให้เพิ่ม `"$defaults"` หรือคัดลอก entry ที่เป็น sensitive target ไปใส่เอง
+- **mode เริ่มต้นเมื่อ policy ยังโหลดไม่เสร็จ** — session ใน terminal และ VS Code ที่ไม่ได้ตั้ง mode จะเริ่มใน auto mode ไม่ใช่ Manual · session ที่เริ่มเป็น auto โดย default จะรับ `defaultMode` ที่ server จัดการเมื่อ settings โหลดเสร็จ · องค์กรที่ใช้ configuration Claude Code + Cowork HIPAA ก็เริ่มใน auto mode เป็นค่าเริ่มต้นด้วย (ปิดด้วย `disableAutoMode`)
+- **คำสั่งที่ approver rewrite ยังอยู่ใน sandbox** — คำสั่งที่ permission hook หรือ SDK host rewrite ระหว่างอนุมัติจะยังอยู่ใน sandbox ถ้าคำสั่งเดิมถูกเช็กว่าเป็นแบบ sandboxed · approver เพิ่ม `dangerouslyDisableSandbox: true` ได้
+- **เช็กคำสั่ง shell เข้มขึ้น** — `cp` และ `mv` บางแบบถามก่อน · คำสั่งที่มีค่ายาวมากจนเช็กไม่จบจะถามก่อน หรือถูกปฏิเสธในกรณีที่อาจมี deny rule ครอบหรือไม่มีใครตอบได้
+- **state ของ sandbox** — Bash sandbox เก็บ state ไว้ในบางกรณีจนกว่าจะรัน `/sandbox` หรือ `/cd` และจะแยก entry ที่ไม่คาดคิดในโฟลเดอร์ `.git` ของ repository ออกไปหลังคำสั่งรันเสร็จ
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2354,6 +2373,14 @@ Skill(commit)                    # Skill เฉพาะ
 - **allow rule ใน `settings.local.json` ต้อง trust ก่อนในโฟลเดอร์ที่ mount** — การรัน `-p` และ SDK ใน worktree หรือ submodule ที่ mount เข้า container จะใช้ allow rule จาก `.claude/settings.local.json` ก็ต่อเมื่อโฟลเดอร์นั้นถูก trust แล้ว
 - **cloud session เริ่มได้แม้ตั้ง `sandbox.failIfUnavailable`** — Claude Code on the web, cloud scheduled tasks และ Cowork cloud sessions · container ที่ host ให้ไม่มี command sandbox
 - **`promptSuggestionEnabled` ใน VS Code** — prompt suggestions ขึ้นใน VS Code extension ด้วยแล้ว (กด Tab เพื่อรับ prompt ถัดไปที่แนะนำ) · ตั้ง `promptSuggestionEnabled: false` ใน settings.json เพื่อปิด
+
+### 🆕 ใหม่ใน v2.1.326
+
+- **`/status` บอกเมื่อฟีเจอร์ถูกปิด** — มีแถวบอกเมื่อ provider หรือ environment variable อย่าง `DISABLE_TELEMETRY` ปิดฟีเจอร์ไว้ · คำสั่งที่ถูกปิดด้วยเหตุนี้จะบอกเหตุผลแทนข้อความ "Unknown command"
+- **error ของ JSON ที่พังบอกบรรทัดและคอลัมน์** — ทั้งไฟล์ settings และ `.mcp.json`
+- **auto-compaction ใน plan mode ใช้ model ที่กำลังตอบ** — เช่น Opus เมื่อใช้ `opusplan` จึงอาจแพงขึ้น
+- **`OTEL_RESOURCE_INCLUDE_HOST`** — ใส่ `host.name` และ `host.id` ลงใน resource attribute ของ OpenTelemetry (ปิดเป็นค่าเริ่มต้น · ดูบท 23 Environment Variables)
+- **self-hosted runner ภายใต้ `--trust-workspace false`** เมิน settings ของ repository มากขึ้น · ค่าพวกนั้นให้ตั้งใน user หรือ managed settings แทน
 
 ---
 
@@ -2824,6 +2851,11 @@ claude --mcp-config ./mcp.json
 - **ขั้นสุดท้ายของการ sign-in MCP server ต้องให้เรายืนยัน** — แม้ใน bypass และ auto mode · ในที่ที่ถามใครไม่ได้ เช่น `dontAsk` mode ให้ใช้ `/mcp`
 - **`/mcp` บอก tool ที่ถูกตัดออก** — แสดงว่า tool ของ server ถูกตัดออกกี่ตัวเพราะ API จะปฏิเสธ input schema ของมัน และเพราะอะไร
 
+### 🆕 ใหม่ใน v2.1.326
+
+- **`managed-mcp.json` ที่เพิ่มเข้ามากลาง session** — อาจมีผลในรอบเช็กถัดไป · ให้ restart session ที่เปิดอยู่เพื่อให้มีผลเต็มที่ · มีข้อความอธิบายแล้วว่าทำไม MCP server หยุดโหลดเมื่อ admin เพิ่มไฟล์นี้ระหว่าง session
+- **`claude mcp serve` เมิน `sandbox.excludedCommands`**
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -3062,6 +3094,14 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **permission check ล้มหลัง hook ตอบไปแล้ว** — ถ้า permission check ของ tool ล้มด้วย error หลังจาก `PreToolUse` hook ตอบ "allow" ไปแล้ว Claude Code จะตัดสิน call นั้นเหมือนไม่มี hook ตอบเลย · ถ้าล้มกับ input ที่ `PermissionRequest` hook rewrite มา Claude Code จะถามใหม่ หรือปฏิเสธ call ในที่ที่ไม่มีใครตอบได้
 - **heartbeat ระหว่าง hook รันนาน** — ทุก 30 วินาทีขณะ hook รันนานใน `claude -p` และ SDK session เพื่อไม่ให้ host อย่าง Claude Desktop ตัดจบ turn เพราะคิดว่าค้าง
+
+### 🆕 ใหม่ใน v2.1.326
+
+- **`"decision": "block"` มีผลในกรณีมากขึ้น** — hook ที่พิมพ์ค่านี้ออกมาตลอดอาจเริ่มบล็อก call จริง
+- **`updatedInput` ของ `PreToolUse` ถูกเก็บไว้เมื่อมีหลาย hook ตอบ** tool call เดียวกัน · การ rewrite จะทำงานในกรณีมากขึ้น
+- **`PreToolUse` hook ที่ exit 127** จะแสดง error ว่า check ของมันอาจไม่ได้รัน
+- **HTTP hook เมิน `Content-Length` และ `Transfer-Encoding` ใน setting `headers`** — ความยาว request คิดจาก body · `allowedHttpHookUrls` และ `httpHookAllowedEnvVars` ใช้กับ hook จาก managed settings ต่างไปจากเดิมด้วย
+- **ผลของ hook ใน transcript** — ล้มแสดงเป็นสีแดงแทนสีเทา · hook ที่สั่งหยุด Claude เป็นสีเหลือง และแสดงเหตุผลไว้ด้านล่าง
 
 ---
 
@@ -3541,6 +3581,14 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 
 - **ถอด setting `subagentStatusLine` ออกแล้ว** — แถวของ subagent ใช้หน้าตา default เสมอ · ไฟล์ settings ที่ยังมี key นี้อยู่ก็โหลดได้เหมือนเดิม (หมายเหตุเรื่อง payload ของ `subagentStatusLine` ด้านบนเป็นประวัติ)
 - **`CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES=1`** ปิด progress summary ของ subagent และ request ที่ใช้เขียน summary เหล่านั้น (มีมาตั้งแต่ 2.1.318 · ดูบท 23 Environment Variables)
+
+### 🆕 ใหม่ใน v2.1.326
+
+- **subagent ใน worktree แบบ isolated ปฏิเสธ git ที่ rewrite branch** — ไม่ว่า repository ไหน คำสั่ง git บางตัวใน Bash ที่ rewrite branch ซึ่งใช้ร่วมกับ checkout ของคุณได้จะถูกปฏิเสธ · session ปกติไม่ได้รับผล
+- **`ExitWorktree` ไม่ลบ worktree ที่ยังมีงานรัน** — ปฏิเสธการลบระหว่างที่ background subagent หรือคำสั่ง shell อาจยังรันอยู่ใน worktree นั้น เว้นแต่ Claude ส่ง `discard_changes`
+- **card อนุมัติ plan ของ subagent เหลือ 2 ตัวเลือก** — "Yes, and switch to default (ask each time) for this session" กับ "No" เลือกด้วยลูกศรและ Enter (ถ้าพิมพ์ข้อความจะย้ายไป No)
+- **Code Mode กับ agent teams** — เปิด Code Mode ได้แล้วแม้เปิด agent teams อยู่ · ถ้าเคยเปิดไว้ session ที่เปิด teams จะเริ่มใน Code Mode
+- **subagent มากกว่า 20 ตัว** — token count ของ background agent ที่ไม่ได้เปิด transcript อยู่จะอัปเดตทุก 5 วินาทีเพื่อประหยัด CPU
 
 ---
 
@@ -4275,6 +4323,14 @@ claude --plugin-dir ./my-plugin
 - **marketplace `ref` รับ full commit ID ของ commit ใดก็ได้บน branch หรือ tag** — client ก่อน 2.1.325 จะ clone pin แบบนี้ไม่ได้ marketplace ที่ pin แบบนี้จึงโหลดไม่ขึ้นบน client เหล่านั้น
 - **ตั้งแค่ `ALL_PROXY` จะใช้ CONNECT tunnel** สำหรับดาวน์โหลด plugin marketplace และ plugin · proxy ที่ไม่รับ CONNECT จะทำให้ดาวน์โหลดล้ม
 
+### 🆕 ใหม่ใน v2.1.326
+
+- **field แสดงผลใน `plugin.json` ที่ผิดรูปไม่บล็อก plugin อีกต่อไป** — plugin ที่เปิดไว้แต่เคยถูกปฏิเสธเพราะ field แสดงผลอย่าง `author` หรือ `homepage` ผิดรูป ตอนนี้โหลดได้พร้อม hooks และ MCP server · `/plugin` และ `claude plugin list` จะบอก field ที่ถูกเมิน · admin ควรตรวจ plugin ที่ deploy อยู่
+- **uninstall ลบไฟล์ที่แตกจาก MCP bundle ด้วย** (`.mcpb`, `.dxt`) เว้นแต่ plugin อื่นใช้ bundle เดียวกัน
+- **session ใน worktree บางแบบข้าม plugin settings บางตัว** — มี notice บอกว่าข้ามอะไรไป
+- **คำถาม uninstall, remove และ switch ใน `/plugin` เป็นรายการ** ตอบด้วยลูกศรและ Enter หรือ Esc เพื่อยกเลิก · กด `y`, `n`, `u` ตอบไม่ได้แล้ว
+- **prop ใหม่ของ UI ใน mod** — `overflowX="scroll"` บน `Box` และ `maxLines` กับ `wrap="clip"` บน `Text`
+
 ---
 
 ## 19. Session Management
@@ -4736,6 +4792,7 @@ your-project/
 | `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES` | ตั้ง `1` เพื่อปิด progress summary ของ subagent และ request ที่ใช้เขียน summary เหล่านั้น (มีมาตั้งแต่ 2.1.318 · ดูบท 12 Subagents) *(v2.1.323)* |
 | `CLAUDE_CODE_RESUME_HINT_COMMAND` | ให้โปรแกรมที่เปิด Claude Code ตั้งไว้ เพื่อให้ hint ตอนออกบอกคำสั่ง resume ของโปรแกรมนั้นเอง *(v2.1.323)* |
 | `CLAUDE_CODE_AUTOMOUNT_ROOTS` | บน Linux ใช้ระบุ root ของ autofs map ที่ลึกกว่าหนึ่งโฟลเดอร์ใต้ `/` · Claude Code ไม่ไล่หาไฟล์ใน `/home` ที่เป็น autofs เองอีกแล้ว *(v2.1.323)* |
+| `OTEL_RESOURCE_INCLUDE_HOST` | ตั้ง `1` เพื่อใส่ `host.name` และ `host.id` ลงใน resource attribute ของ OpenTelemetry (ปิดเป็นค่าเริ่มต้น · ดูบท 06 Configuration) *(v2.1.326)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -6067,7 +6124,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.325`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.326`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

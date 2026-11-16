@@ -355,6 +355,17 @@ Skill(commit)                    # Skill เฉพาะ
 - **sandbox ปฏิเสธการเขียน settings, skills, agents, commands และ hooks ใน `.claude` ของ added directories** เหมือนที่ทำในโฟลเดอร์ที่เปิด Claude Code
 - **Worktree isolation** — session หรือ agent ที่อยู่ใน worktree แบบ isolated จะถูกปฏิเสธ `git bisect run`, `git maintenance register|start` และคำสั่ง set-up ของ `scalar` พร้อมบอกว่าอะไรยังใช้ได้
 
+### 🆕 ใหม่ใน v2.1.326
+- **คำสั่งใน sandbox เขียนได้น้อยโฟลเดอร์ลง** — บน macOS, Linux และ WSL จะไม่เขียนลงโฟลเดอร์ sensitive บางตัวใน home เป็นค่าเริ่มต้นอีกต่อไป · บางตัวอนุญาตได้ด้วย `sandbox.filesystem.allowWrite` ใน user หรือ managed settings
+- **ไฟล์ sign-in ถูกป้องกัน** — file tool ของ Claude ปฏิเสธการเขียนไฟล์ sign-in ของ Claude Code เช่น `.credentials.json` และ Bash permission check จะถามก่อนเมื่อคำสั่งเข้าถึงไฟล์เหล่านี้ในอีกหลายกรณี
+- **bypass permissions mode ถามก่อนสำหรับ tool call บางตัว** — หรือปฏิเสธในที่ที่ถามใครไม่ได้ · PowerShell tool ก็ถามคำสั่งเพิ่มขึ้นแม้อยู่ใน bypass mode และปฏิเสธบางคำสั่ง
+- **auto mode กับ wildcard allow rule** — auto mode เมิน wildcard shell allow rule ที่ไม่ระบุโปรแกรมหรือขึ้นต้นด้วย `$HOME` ให้ safety check เป็นคนตัดสินแทน · wildcard rule ที่โปรแกรมเป็น Windows path แบบ backslash ก็ถูกตัดสินด้วยแล้ว (rule แบบ exact ยังอนุญาตเหมือนเดิม)
+- **managed `autoMode.environment` ที่ไม่มี `"$defaults"`** จะแทนที่ built-in entry ทั้งหมดใน Claude Desktop และแอป Agent SDK ด้วยแล้ว — ให้เพิ่ม `"$defaults"` หรือคัดลอก entry ที่เป็น sensitive target ไปใส่เอง
+- **mode เริ่มต้นเมื่อ policy ยังโหลดไม่เสร็จ** — session ใน terminal และ VS Code ที่ไม่ได้ตั้ง mode จะเริ่มใน auto mode ไม่ใช่ Manual · session ที่เริ่มเป็น auto โดย default จะรับ `defaultMode` ที่ server จัดการเมื่อ settings โหลดเสร็จ · องค์กรที่ใช้ configuration Claude Code + Cowork HIPAA ก็เริ่มใน auto mode เป็นค่าเริ่มต้นด้วย (ปิดด้วย `disableAutoMode`)
+- **คำสั่งที่ approver rewrite ยังอยู่ใน sandbox** — คำสั่งที่ permission hook หรือ SDK host rewrite ระหว่างอนุมัติจะยังอยู่ใน sandbox ถ้าคำสั่งเดิมถูกเช็กว่าเป็นแบบ sandboxed · approver เพิ่ม `dangerouslyDisableSandbox: true` ได้
+- **เช็กคำสั่ง shell เข้มขึ้น** — `cp` และ `mv` บางแบบถามก่อน · คำสั่งที่มีค่ายาวมากจนเช็กไม่จบจะถามก่อน หรือถูกปฏิเสธในกรณีที่อาจมี deny rule ครอบหรือไม่มีใครตอบได้
+- **state ของ sandbox** — Bash sandbox เก็บ state ไว้ในบางกรณีจนกว่าจะรัน `/sandbox` หรือ `/cd` และจะแยก entry ที่ไม่คาดคิดในโฟลเดอร์ `.git` ของ repository ออกไปหลังคำสั่งรันเสร็จ
+
 ---
 
 ---

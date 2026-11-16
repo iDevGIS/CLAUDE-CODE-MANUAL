@@ -132,6 +132,7 @@ related:
 | `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES` | Set `1` to turn off subagent progress summaries and the requests that write them (available since 2.1.318). See [[12-subagents]]. *(v2.1.323)* |
 | `CLAUDE_CODE_RESUME_HINT_COMMAND` | Set by a program that starts Claude Code to have the exit hint name its own resume command. *(v2.1.323)* |
 | `CLAUDE_CODE_AUTOMOUNT_ROOTS` | On Linux, names autofs map roots deeper than one folder below `/`; Claude Code no longer looks up files in an autofs `/home` itself. *(v2.1.323)* |
+| `OTEL_RESOURCE_INCLUDE_HOST` | Set `1` to include `host.name` and `host.id` in OpenTelemetry resource attributes (off by default). See [[06-configuration]]. *(v2.1.326)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

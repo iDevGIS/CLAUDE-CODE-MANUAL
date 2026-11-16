@@ -257,6 +257,14 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **Marketplace `ref` accepts any full commit ID on a branch or tag** — clients before 2.1.325 can't clone such a pin, so a marketplace pinned this way stops loading there.
 - **`ALL_PROXY`-only setups use a CONNECT tunnel** for plugin marketplace and plugin downloads; a proxy that refuses CONNECT now fails them.
 
+### New in v2.1.326
+
+- **Malformed `plugin.json` display fields no longer block a plugin** — enabled plugins that were refused for a malformed display field such as `author` or `homepage` now load, with their hooks and MCP servers; `/plugin` and `claude plugin list` note the ignored field. Administrators should check the plugins they deploy.
+- **Uninstall deletes extracted MCP bundle files** (`.mcpb`, `.dxt`) unless another plugin uses the same bundle.
+- **Some worktree sessions skip some plugin settings** — a notice names what was skipped.
+- **`/plugin` uninstall, remove and switch questions are lists** answered with the arrow keys and Enter, or Esc to cancel; `y`, `n` and `u` no longer answer them.
+- **Mod UI props** — `overflowX="scroll"` on a mod's `Box`, and `maxLines` and `wrap="clip"` on its `Text`.
+
 ---
 
 ---

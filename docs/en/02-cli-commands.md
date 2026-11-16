@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.325         │
+│ Welcome to Claude Code v2.1.326         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -704,6 +704,14 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`claude remote-control --settings <file>`** — applies a settings file to every session it starts; if the file changes, no new session starts until you restart `claude remote-control`.
 - **Remote Control sessions keep their folder** — a session stays in the folder it was started in; a connected client can no longer move it to another folder.
 
+### New in v2.1.326
+
+- **Startup warning for incomplete tool rules** — an `--allowedTools`, `--disallowedTools` or `--tools` entry that doesn't look like a complete rule now triggers a warning at start-up.
+- **`--add-dir` and `/add-dir` show the trust prompt** in local terminal sessions for a folder you have not trusted yet; `claude --bg` refuses such a folder.
+- **`--await-initialize` is refused with `--bg` or `--worktree --tmux`** — those never read the initialize request, so it no longer starts without the fields it carries.
+- **`claude --bare --bg` on an unapproved API key** exits with an error if the background service lacks the key; moving such a `--bare` session to the background is refused in most setups.
+- **Ctrl+O shows hidden startup notices.**
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1075,7 +1083,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.325
+- run: npm install -g @anthropic-ai/claude-code@2.1.326
 ```
 
 ---
