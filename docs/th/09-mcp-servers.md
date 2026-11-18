@@ -260,6 +260,12 @@ claude --mcp-config ./mcp.json
 - **`managed-mcp.json` ที่เพิ่มเข้ามากลาง session** — อาจมีผลในรอบเช็กถัดไป · ให้ restart session ที่เปิดอยู่เพื่อให้มีผลเต็มที่ · มีข้อความอธิบายแล้วว่าทำไม MCP server หยุดโหลดเมื่อ admin เพิ่มไฟล์นี้ระหว่าง session
 - **`claude mcp serve` เมิน `sandbox.excludedCommands`**
 
+### 🆕 ใหม่ใน v2.1.327
+
+- **`claude mcp add-json <name> -`** อ่าน JSON ของ server จาก stdin ทำให้ token ไม่ต้องโผล่บน command line (ใช้ภายใน session ของ Claude Code ไม่ได้)
+- **`claude mcp add --scope project` หยุดแทนการเขียนทับ** เมื่อ `.mcp.json` วาง server ไว้ระดับบนสุดโดยไม่มี key `mcpServers`
+- **log ของ MCP server กระชับขึ้น** — บันทึกแค่ mode, action และชื่อ field ของ elicitation request และคำตอบจาก hook ไม่เก็บเนื้อหาเต็ม
+
 ---
 
 ---

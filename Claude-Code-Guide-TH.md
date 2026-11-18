@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.326         │
+│ Welcome to Claude Code v2.1.327         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1147,7 +1147,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.326
+- run: npm install -g @anthropic-ai/claude-code@2.1.327
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1479,6 +1479,13 @@ claude -p "..."              # ถามเร็ว ๆ
 
 ### 🆕 ใหม่ใน v2.1.323
 - **`/security-review` ถามก่อน Claude จะรัน** — และคำสั่ง git แบบ inline ใน skill จะหยุดใน worktree ของ bare repository และโฟลเดอร์ทำนองเดียวกันจนกว่าเราจะอนุญาต (ยกเว้นใน auto mode และ bypass)
+
+### 🆕 ใหม่ใน v2.1.327
+- **`/tui classic`** เป็นชื่อใหม่ของ renderer แบบไม่เต็มจอ · `/tui default` ยังใช้ได้
+- **`/status` แสดงรายการ setup ที่พัง** — ไฟล์ agent, skill, command และ output style ที่พัง, error ของ keybinding, sandbox ที่ใช้ไม่ได้, permission settings ที่ถูกเมิน และ hook matcher ที่ไม่มีวัน match
+- **`/config` บอกแถวที่ถูก override** — มีหมายเหตุเมื่อ settings อื่นทับค่าของแถวนั้น · `/sandbox` และรายการค่าส่วนใหญ่ใน `/config` ไม่มีเลขกำกับแล้วนอก screen reader mode (ใช้ลูกศรและ Enter)
+- **`/install-github-app` ขอยืนยัน** ก่อนแก้ repository
+- **`/export` ไม่เขียนทับเงียบ ๆ แล้ว** — dialog ถามก่อนทับไฟล์ที่มีอยู่ และ `/export <name>` จะเก็บไฟล์เดิมไว้แล้วบอกให้รัน `/export`
 
 ---
 
@@ -1961,6 +1968,16 @@ Skill(commit)                    # Skill เฉพาะ
 - **เช็กคำสั่ง shell เข้มขึ้น** — `cp` และ `mv` บางแบบถามก่อน · คำสั่งที่มีค่ายาวมากจนเช็กไม่จบจะถามก่อน หรือถูกปฏิเสธในกรณีที่อาจมี deny rule ครอบหรือไม่มีใครตอบได้
 - **state ของ sandbox** — Bash sandbox เก็บ state ไว้ในบางกรณีจนกว่าจะรัน `/sandbox` หรือ `/cd` และจะแยก entry ที่ไม่คาดคิดในโฟลเดอร์ `.git` ของ repository ออกไปหลังคำสั่งรันเสร็จ
 
+### 🆕 ใหม่ใน v2.1.327
+- **`ExitWorktree` ถามก่อนลบ worktree ที่อาจมีงานยังไม่ save** — ถูกปฏิเสธใน don't-ask mode หรือเมื่อไม่มีใครตอบ เว้นแต่ allow rule, auto mode หรือ bypass permissions mode อนุญาต
+- **permission prompt หยุดที่ No** — ปุ่มลูกศรหยุดแทนการวนรอบ · กดเลขเกินคำตอบสุดท้ายจะไปที่ No
+- **เช็ก path เข้มขึ้น** — symbolic link บางตัวถูกปฏิเสธ และนิยาม "อยู่ใน working directory" เปลี่ยน ทำให้บาง path ต้องขออนุญาตแล้ว
+- **`permissions.blockReadsOutsideWorkingDirectories` เข้มขึ้น** — ถามคำสั่ง Bash มากขึ้นใน bypass และ auto mode (และ deny บางตัวใน auto mode) และปฏิเสธคำสั่ง Bash ที่อ้าง path ใต้ deny rule ของ Read หรือ Edit มากขึ้น จากเดิมที่แค่ถาม
+- **auto mode เมิน allow rule ที่รัน package ได้ทุกตัวมากขึ้น** — เช่น `Bash(pnpm dlx *)` รวมถึงรูปแบบ path หรือ version ของ rule ที่เคยเมินอยู่แล้ว (`/usr/bin/npm run:*`) ให้ safety check ตัดสินแทน · ข้อความแจ้ง fallback ไป classifier request แบบคิดเงินบอกแล้วว่า release ถัดไปจะถอด fallback นี้
+- **ค่ายาวมากถูกปฏิเสธ** — คำสั่ง Bash ที่ตัวแปรขยายเป็นข้อความยาวมากจะถูก deny พร้อมบอกให้ใช้ค่าสั้นลงหรือใช้ไฟล์ · WebFetch ปฏิเสธ URL ยาวเกิน 2,000 ตัวอักษรก่อนขึ้น permission prompt
+- **PowerShell ถามก่อนรันเพิ่มอีกหนึ่งคำสั่ง** — แม้มี rule ระบุชื่อไว้ · ถ้าไม่มีใครตอบจะถูกปฏิเสธ เว้นแต่ rule ทั้ง tool, auto mode หรือ bypass permissions mode อนุญาต
+- **Claude in Chrome ไม่อัปโหลดไฟล์ credential บางชนิด** — ให้แนบไฟล์พวกนั้นในหน้าเว็บเอง
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2381,6 +2398,13 @@ Skill(commit)                    # Skill เฉพาะ
 - **auto-compaction ใน plan mode ใช้ model ที่กำลังตอบ** — เช่น Opus เมื่อใช้ `opusplan` จึงอาจแพงขึ้น
 - **`OTEL_RESOURCE_INCLUDE_HOST`** — ใส่ `host.name` และ `host.id` ลงใน resource attribute ของ OpenTelemetry (ปิดเป็นค่าเริ่มต้น · ดูบท 23 Environment Variables)
 - **self-hosted runner ภายใต้ `--trust-workspace false`** เมิน settings ของ repository มากขึ้น · ค่าพวกนั้นให้ตั้งใน user หรือ managed settings แทน
+
+### 🆕 ใหม่ใน v2.1.327
+
+- **`attributionProject`** — ตั้งชื่อ billing group ของ session สำหรับ Claude apps gateway ที่ตั้ง `admin.billing_group_tag`
+- **gateway hint header เพิ่ม `x-claude-code-managed-settings-checksum`** — ส่งเมื่อ managed settings ตั้ง `CLAUDE_CODE_GATEWAY_HINT_HEADERS=1`
+- **คำสั่ง Bash แรกเร็วขึ้น** — ไฟล์ start-up ของ shell อาจรันก่อนคำสั่งแรกได้รับอนุมัติ (แม้สุดท้ายจะถูกปฏิเสธ) · ตั้ง `CLAUDE_CODE_DISABLE_SHELL_HEAD_START=1` เพื่อปิด (ดูบท 23 Environment Variables)
+- **cloud session ที่ Anthropic host** เมิน settings ส่ง flag และ plugin ของ repository มากขึ้น · `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` ในนั้นมีผลอย่างมากเท่า `DISABLE_TELEMETRY`
 
 ---
 
@@ -2855,6 +2879,12 @@ claude --mcp-config ./mcp.json
 
 - **`managed-mcp.json` ที่เพิ่มเข้ามากลาง session** — อาจมีผลในรอบเช็กถัดไป · ให้ restart session ที่เปิดอยู่เพื่อให้มีผลเต็มที่ · มีข้อความอธิบายแล้วว่าทำไม MCP server หยุดโหลดเมื่อ admin เพิ่มไฟล์นี้ระหว่าง session
 - **`claude mcp serve` เมิน `sandbox.excludedCommands`**
+
+### 🆕 ใหม่ใน v2.1.327
+
+- **`claude mcp add-json <name> -`** อ่าน JSON ของ server จาก stdin ทำให้ token ไม่ต้องโผล่บน command line (ใช้ภายใน session ของ Claude Code ไม่ได้)
+- **`claude mcp add --scope project` หยุดแทนการเขียนทับ** เมื่อ `.mcp.json` วาง server ไว้ระดับบนสุดโดยไม่มี key `mcpServers`
+- **log ของ MCP server กระชับขึ้น** — บันทึกแค่ mode, action และชื่อ field ของ elicitation request และคำตอบจาก hook ไม่เก็บเนื้อหาเต็ม
 
 ---
 
@@ -3589,6 +3619,14 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **card อนุมัติ plan ของ subagent เหลือ 2 ตัวเลือก** — "Yes, and switch to default (ask each time) for this session" กับ "No" เลือกด้วยลูกศรและ Enter (ถ้าพิมพ์ข้อความจะย้ายไป No)
 - **Code Mode กับ agent teams** — เปิด Code Mode ได้แล้วแม้เปิด agent teams อยู่ · ถ้าเคยเปิดไว้ session ที่เปิด teams จะเริ่มใน Code Mode
 - **subagent มากกว่า 20 ตัว** — token count ของ background agent ที่ไม่ได้เปิด transcript อยู่จะอัปเดตทุก 5 วินาทีเพื่อประหยัด CPU
+
+### 🆕 ใหม่ใน v2.1.327
+
+- **subagent ที่สั่งโดยไม่ระบุ model ใช้ model เดิมเมื่อ resume** — คง model ที่เริ่มไว้ แม้หลัง `/model`
+- **subagent ที่ถูก resume ด้วยข้อความจาก subagent พี่น้องทำตาม permission settings ของ session** — อาจถาม หรือถูกปฏิเสธเมื่อไม่มีใครตอบ
+- **subagent ตัวแรกบน model หนึ่ง ๆ รอ settings ของ model นั้น** — สูงสุด 1.5 วินาที (10 วินาทีใน `claude -p`) แทนการเริ่มโดยไม่มี settings
+- **background subagent ที่ restart รอ plugin โหลดเสร็จก่อน** รวมถึง turn ที่เริ่มเอง
+- **progress summary บน Bedrock, Vertex AI และ Foundry ประหยัดขึ้น** — terminal session เขียนจากโน้ตสั้น ๆ แทนทั้งบทสนทนา
 
 ---
 
@@ -4793,6 +4831,7 @@ your-project/
 | `CLAUDE_CODE_RESUME_HINT_COMMAND` | ให้โปรแกรมที่เปิด Claude Code ตั้งไว้ เพื่อให้ hint ตอนออกบอกคำสั่ง resume ของโปรแกรมนั้นเอง *(v2.1.323)* |
 | `CLAUDE_CODE_AUTOMOUNT_ROOTS` | บน Linux ใช้ระบุ root ของ autofs map ที่ลึกกว่าหนึ่งโฟลเดอร์ใต้ `/` · Claude Code ไม่ไล่หาไฟล์ใน `/home` ที่เป็น autofs เองอีกแล้ว *(v2.1.323)* |
 | `OTEL_RESOURCE_INCLUDE_HOST` | ตั้ง `1` เพื่อใส่ `host.name` และ `host.id` ลงใน resource attribute ของ OpenTelemetry (ปิดเป็นค่าเริ่มต้น · ดูบท 06 Configuration) *(v2.1.326)* |
+| `CLAUDE_CODE_DISABLE_SHELL_HEAD_START` | ตั้ง `1` เพื่อไม่ให้ไฟล์ start-up ของ shell รันก่อนคำสั่ง Bash แรกของ session ได้รับอนุมัติ (ดูบท 06 Configuration) *(v2.1.327)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -6124,7 +6163,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.326`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.327`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

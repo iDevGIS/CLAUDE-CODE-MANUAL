@@ -446,6 +446,13 @@ Set the `model` key to any of these (newest → cheapest):
 - **`OTEL_RESOURCE_INCLUDE_HOST`** — includes `host.name` and `host.id` in OpenTelemetry resource attributes (off by default). See [[23-environment-variables]].
 - **Self-hosted runners under `--trust-workspace false`** ignore more repository settings; set such values in user or managed settings.
 
+### New in v2.1.327
+
+- **`attributionProject`** — names a session's billing group, for Claude apps gateways that set `admin.billing_group_tag`.
+- **Gateway hint headers add `x-claude-code-managed-settings-checksum`** — sent where managed settings set `CLAUDE_CODE_GATEWAY_HINT_HEADERS=1`.
+- **Faster first Bash command** — shell start-up files may now run before the first command is approved, even if it's refused; `CLAUDE_CODE_DISABLE_SHELL_HEAD_START=1` turns this off. See [[23-environment-variables]].
+- **Anthropic-hosted cloud sessions** ignore more of a repository's flag and plugin delivery settings; there `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` acts at most as `DISABLE_TELEMETRY`.
+
 ---
 
 ---

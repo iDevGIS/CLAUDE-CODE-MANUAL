@@ -260,6 +260,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **`managed-mcp.json` added mid-session** — may apply at the next check; restart open sessions for it to apply in full. A message now explains why MCP servers stop loading when an administrator adds it during a session.
 - **`claude mcp serve` ignores `sandbox.excludedCommands`.**
 
+### New in v2.1.327
+
+- **`claude mcp add-json <name> -`** reads the server's JSON from stdin, so tokens can stay off the command line (not available inside a Claude Code session).
+- **`claude mcp add --scope project` stops instead of overwriting** when `.mcp.json` lists its servers at the top level with no `mcpServers` key.
+- **MCP server logs are leaner** — they record the mode, action and field names of elicitation requests and hook answers, not their full contents.
+
 ---
 
 ---

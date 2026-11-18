@@ -25,6 +25,28 @@
 
 ---
 
+## [1.112.0] — 2026-11-18
+
+### Compatibility
+- **Claude Code:** `v2.1.327+`
+
+### Added
+- **ch.03 Slash Commands** — section "New in v2.1.327": `/tui classic` (ชื่อใหม่ของ renderer แบบไม่เต็มจอ) · `/status` แสดงรายการ setup ที่พัง · `/config` บอกแถวที่ถูก override · `/install-github-app` ขอยืนยัน · `/export` ถามก่อนเขียนทับ
+- **ch.05 Permissions** — section "New in v2.1.327": `ExitWorktree` ถามก่อนลบ worktree · permission prompt หยุดที่ No · เช็ก symlink/working directory เข้มขึ้น · `permissions.blockReadsOutsideWorkingDirectories` เข้มขึ้น · auto mode เมิน allow rule แบบ `Bash(pnpm dlx *)` + แจ้งว่าจะถอด fallback classifier แบบคิดเงิน · ค่ายาวมากถูก deny (WebFetch URL > 2,000 ตัวอักษร) · PowerShell ถามเพิ่ม · Claude in Chrome ไม่อัปโหลดไฟล์ credential
+- **ch.06 Configuration** — section "New in v2.1.327": setting `attributionProject` · header `x-claude-code-managed-settings-checksum` · คำสั่ง Bash แรกเร็วขึ้น (`CLAUDE_CODE_DISABLE_SHELL_HEAD_START`) · cloud session ที่ Anthropic host เมิน settings ของ repo มากขึ้น
+- **ch.09 MCP** — section "New in v2.1.327": `claude mcp add-json <name> -` อ่าน JSON จาก stdin · `claude mcp add --scope project` หยุดแทนเขียนทับ `.mcp.json` ที่ไม่มี `mcpServers` · log ของ MCP server ไม่เก็บเนื้อหาเต็ม
+- **ch.12 Subagents** — section "New in v2.1.327": subagent ไม่ระบุ model คง model เดิมเมื่อ resume · subagent ที่ถูก sibling resume ทำตาม permission settings · subagent ตัวแรกรอ settings ของ model · background subagent ที่ restart รอ plugin · progress summary บน Bedrock/Vertex/Foundry ประหยัดขึ้น
+- **ch.23 Environment Variables** — แถว `CLAUDE_CODE_DISABLE_SHELL_HEAD_START`
+- README / README.EN — แถว What's-new (v2.1.327)
+
+### Changed
+- Version strings `2.1.326` → `2.1.327` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.327` — release ใหญ่ที่เพิ่ม `claude mcp add-json` ผ่าน stdin, `attributionProject`, `/tui classic` และขันความเข้มของ permission/path check อีกรอบ
+
+---
+
 ## [1.111.0] — 2026-11-17
 
 ### Compatibility
@@ -2495,6 +2517,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.112.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.111.0...v1.112.0
 [1.111.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.110.0...v1.111.0
 [1.110.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.109.0...v1.110.0
 [1.109.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.108.0...v1.109.0

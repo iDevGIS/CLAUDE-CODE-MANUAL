@@ -251,6 +251,14 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **Code Mode กับ agent teams** — เปิด Code Mode ได้แล้วแม้เปิด agent teams อยู่ · ถ้าเคยเปิดไว้ session ที่เปิด teams จะเริ่มใน Code Mode
 - **subagent มากกว่า 20 ตัว** — token count ของ background agent ที่ไม่ได้เปิด transcript อยู่จะอัปเดตทุก 5 วินาทีเพื่อประหยัด CPU
 
+### 🆕 ใหม่ใน v2.1.327
+
+- **subagent ที่สั่งโดยไม่ระบุ model ใช้ model เดิมเมื่อ resume** — คง model ที่เริ่มไว้ แม้หลัง `/model`
+- **subagent ที่ถูก resume ด้วยข้อความจาก subagent พี่น้องทำตาม permission settings ของ session** — อาจถาม หรือถูกปฏิเสธเมื่อไม่มีใครตอบ
+- **subagent ตัวแรกบน model หนึ่ง ๆ รอ settings ของ model นั้น** — สูงสุด 1.5 วินาที (10 วินาทีใน `claude -p`) แทนการเริ่มโดยไม่มี settings
+- **background subagent ที่ restart รอ plugin โหลดเสร็จก่อน** รวมถึง turn ที่เริ่มเอง
+- **progress summary บน Bedrock, Vertex AI และ Foundry ประหยัดขึ้น** — terminal session เขียนจากโน้ตสั้น ๆ แทนทั้งบทสนทนา
+
 ---
 
 ---

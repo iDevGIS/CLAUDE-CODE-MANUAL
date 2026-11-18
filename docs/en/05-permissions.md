@@ -337,6 +337,16 @@ Skill(commit)                    # Specific skill
 - **Stricter shell checks** — some `cp` and `mv` commands ask first; commands with very long values the check can't finish ask, or are refused where a deny rule may apply or no one can answer.
 - **Sandbox state** — the Bash sandbox keeps its state in some cases until you run `/sandbox` or `/cd`, and sets aside unexpected entries in a repository's `.git` folder after a command.
 
+### New in v2.1.327
+- **`ExitWorktree` asks before removing a worktree that may hold unsaved work** — refused in don't-ask mode or with nobody to answer, unless an allow rule, auto or bypass permissions mode allows it.
+- **Permission prompts stop at No** — the arrow keys stop instead of wrapping around; a number past the last answer moves to No.
+- **Stricter path checks** — some symbolic links are refused, and what counts as inside a working directory changed, so some paths now ask for permission.
+- **`permissions.blockReadsOutsideWorkingDirectories` is stricter** — it asks about more Bash commands in bypass and auto modes (and denies some in auto mode), and refuses more Bash commands that name a path under a Read or Edit deny rule, where it used to ask.
+- **Auto mode ignores more package-runner allow rules** — such as `Bash(pnpm dlx *)`, plus path or version forms of ones it already ignored (`/usr/bin/npm run:*`); the safety check decides those. Its notice about falling back to billed classifier requests now says an upcoming release removes the fallback.
+- **Very long values are refused** — Bash commands whose variables expand to very long text are denied with a message to use shorter values or a file; WebFetch refuses a URL over 2,000 characters before any permission prompt.
+- **PowerShell asks before one more command** — even under a rule naming it; if nothing answers, it's refused unless a whole-tool rule, auto mode or bypass permissions mode allows it.
+- **Claude in Chrome refuses uploading some credential files** — attach those to the page yourself. See [[40-claude-in-chrome]].
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

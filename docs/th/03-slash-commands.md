@@ -312,6 +312,13 @@ related:
 ### 🆕 ใหม่ใน v2.1.323
 - **`/security-review` ถามก่อน Claude จะรัน** — และคำสั่ง git แบบ inline ใน skill จะหยุดใน worktree ของ bare repository และโฟลเดอร์ทำนองเดียวกันจนกว่าเราจะอนุญาต (ยกเว้นใน auto mode และ bypass) ดู [[11-skills]]
 
+### 🆕 ใหม่ใน v2.1.327
+- **`/tui classic`** เป็นชื่อใหม่ของ renderer แบบไม่เต็มจอ · `/tui default` ยังใช้ได้
+- **`/status` แสดงรายการ setup ที่พัง** — ไฟล์ agent, skill, command และ output style ที่พัง, error ของ keybinding, sandbox ที่ใช้ไม่ได้, permission settings ที่ถูกเมิน และ hook matcher ที่ไม่มีวัน match
+- **`/config` บอกแถวที่ถูก override** — มีหมายเหตุเมื่อ settings อื่นทับค่าของแถวนั้น · `/sandbox` และรายการค่าส่วนใหญ่ใน `/config` ไม่มีเลขกำกับแล้วนอก screen reader mode (ใช้ลูกศรและ Enter)
+- **`/install-github-app` ขอยืนยัน** ก่อนแก้ repository
+- **`/export` ไม่เขียนทับเงียบ ๆ แล้ว** — dialog ถามก่อนทับไฟล์ที่มีอยู่ และ `/export <name>` จะเก็บไฟล์เดิมไว้แล้วบอกให้รัน `/export`
+
 ---
 
 ---

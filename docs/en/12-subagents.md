@@ -251,6 +251,14 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Code Mode with agent teams** — Code Mode can now be turned on while agent teams are enabled; if you already turned it on, sessions with teams on start in Code Mode.
 - **More than 20 subagents** — token counts of background agents whose transcript isn't open update every 5 seconds, to save CPU.
 
+### New in v2.1.327
+
+- **Subagents launched without a model stay on it when resumed** — they keep the model they started on, including after `/model`.
+- **A subagent resumed by a sibling's message follows the session's permission settings** — it may now ask, or be refused where nobody can answer.
+- **The first subagent on a model waits for that model's settings** — up to 1.5 seconds (10 in `claude -p`) instead of starting without them.
+- **Restarted background subagents wait for plugins to load**, as do turns that start by themselves.
+- **Cheaper progress summaries on Bedrock, Vertex AI and Foundry** — terminal sessions write them from short notes, not the whole conversation.
+
 ---
 
 ---

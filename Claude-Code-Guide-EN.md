@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.326         │
+│ Welcome to Claude Code v2.1.327         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.326
+- run: npm install -g @anthropic-ai/claude-code@2.1.327
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1486,6 +1486,13 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.323
 - **`/security-review` asks before Claude runs it** — and skills' inline git commands stop in bare-repository worktrees and similar folders until you allow them, outside auto mode and bypass.
 
+### New in v2.1.327
+- **`/tui classic`** is the new name for the non-fullscreen renderer; `/tui default` still works.
+- **`/status` lists broken setup** — broken agent, skill, command and output style files, keybinding errors, an unavailable sandbox, ignored permission settings and hook matchers that never match.
+- **`/config` notes overridden rows** — a note shows when other settings override a row; `/sandbox` and most `/config` value lists are unnumbered outside screen reader mode (use the arrow keys and Enter).
+- **`/install-github-app` asks for confirmation** before it changes a repository.
+- **`/export` no longer overwrites silently** — the dialog asks before replacing an existing file, and `/export <name>` keeps the file and says to run `/export`.
+
 ---
 
 ## 4. Keyboard Shortcuts
@@ -1967,6 +1974,16 @@ Skill(commit)                    # Specific skill
 - **Stricter shell checks** — some `cp` and `mv` commands ask first; commands with very long values the check can't finish ask, or are refused where a deny rule may apply or no one can answer.
 - **Sandbox state** — the Bash sandbox keeps its state in some cases until you run `/sandbox` or `/cd`, and sets aside unexpected entries in a repository's `.git` folder after a command.
 
+### New in v2.1.327
+- **`ExitWorktree` asks before removing a worktree that may hold unsaved work** — refused in don't-ask mode or with nobody to answer, unless an allow rule, auto or bypass permissions mode allows it.
+- **Permission prompts stop at No** — the arrow keys stop instead of wrapping around; a number past the last answer moves to No.
+- **Stricter path checks** — some symbolic links are refused, and what counts as inside a working directory changed, so some paths now ask for permission.
+- **`permissions.blockReadsOutsideWorkingDirectories` is stricter** — it asks about more Bash commands in bypass and auto modes (and denies some in auto mode), and refuses more Bash commands that name a path under a Read or Edit deny rule, where it used to ask.
+- **Auto mode ignores more package-runner allow rules** — such as `Bash(pnpm dlx *)`, plus path or version forms of ones it already ignored (`/usr/bin/npm run:*`); the safety check decides those. Its notice about falling back to billed classifier requests now says an upcoming release removes the fallback.
+- **Very long values are refused** — Bash commands whose variables expand to very long text are denied with a message to use shorter values or a file; WebFetch refuses a URL over 2,000 characters before any permission prompt.
+- **PowerShell asks before one more command** — even under a rule naming it; if nothing answers, it's refused unless a whole-tool rule, auto mode or bypass permissions mode allows it.
+- **Claude in Chrome refuses uploading some credential files** — attach those to the page yourself.
+
 ---
 
 ## 6. Configuration
@@ -2387,6 +2404,13 @@ Skill(commit)                    # Specific skill
 - **Plan-mode auto-compaction uses the answering model** — such as Opus with `opusplan`, so it can cost more.
 - **`OTEL_RESOURCE_INCLUDE_HOST`** — includes `host.name` and `host.id` in OpenTelemetry resource attributes (off by default; see 23. Environment Variables).
 - **Self-hosted runners under `--trust-workspace false`** ignore more repository settings; set such values in user or managed settings.
+
+### New in v2.1.327
+
+- **`attributionProject`** — names a session's billing group, for Claude apps gateways that set `admin.billing_group_tag`.
+- **Gateway hint headers add `x-claude-code-managed-settings-checksum`** — sent where managed settings set `CLAUDE_CODE_GATEWAY_HINT_HEADERS=1`.
+- **Faster first Bash command** — shell start-up files may now run before the first command is approved, even if it's refused; `CLAUDE_CODE_DISABLE_SHELL_HEAD_START=1` turns this off (see 23. Environment Variables).
+- **Anthropic-hosted cloud sessions** ignore more of a repository's flag and plugin delivery settings; there `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` acts at most as `DISABLE_TELEMETRY`.
 
 ---
 
@@ -2862,6 +2886,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **`managed-mcp.json` added mid-session** — may apply at the next check; restart open sessions for it to apply in full. A message now explains why MCP servers stop loading when an administrator adds it during a session.
 - **`claude mcp serve` ignores `sandbox.excludedCommands`.**
+
+### New in v2.1.327
+
+- **`claude mcp add-json <name> -`** reads the server's JSON from stdin, so tokens can stay off the command line (not available inside a Claude Code session).
+- **`claude mcp add --scope project` stops instead of overwriting** when `.mcp.json` lists its servers at the top level with no `mcpServers` key.
+- **MCP server logs are leaner** — they record the mode, action and field names of elicitation requests and hook answers, not their full contents.
 
 ---
 
@@ -3596,6 +3626,14 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Plan approval card has two choices** — "Yes, and switch to default (ask each time) for this session" and "No", chosen with the arrow keys and Enter (typed text moves to No).
 - **Code Mode with agent teams** — Code Mode can now be turned on while agent teams are enabled; if you already turned it on, sessions with teams on start in Code Mode.
 - **More than 20 subagents** — token counts of background agents whose transcript isn't open update every 5 seconds, to save CPU.
+
+### New in v2.1.327
+
+- **Subagents launched without a model stay on it when resumed** — they keep the model they started on, including after `/model`.
+- **A subagent resumed by a sibling's message follows the session's permission settings** — it may now ask, or be refused where nobody can answer.
+- **The first subagent on a model waits for that model's settings** — up to 1.5 seconds (10 in `claude -p`) instead of starting without them.
+- **Restarted background subagents wait for plugins to load**, as do turns that start by themselves.
+- **Cheaper progress summaries on Bedrock, Vertex AI and Foundry** — terminal sessions write them from short notes, not the whole conversation.
 
 ---
 
@@ -4804,6 +4842,7 @@ your-project/
 | `CLAUDE_CODE_RESUME_HINT_COMMAND` | Set by a program that starts Claude Code to have the exit hint name its own resume command. *(v2.1.323)* |
 | `CLAUDE_CODE_AUTOMOUNT_ROOTS` | On Linux, names autofs map roots deeper than one folder below `/`; Claude Code no longer looks up files in an autofs `/home` itself. *(v2.1.323)* |
 | `OTEL_RESOURCE_INCLUDE_HOST` | Set `1` to include `host.name` and `host.id` in OpenTelemetry resource attributes (off by default; see 06. Configuration). *(v2.1.326)* |
+| `CLAUDE_CODE_DISABLE_SHELL_HEAD_START` | Set `1` to stop shell start-up files from running before the session's first Bash command is approved (see 06. Configuration). *(v2.1.327)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -6138,7 +6177,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.326`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.327`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

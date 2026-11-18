@@ -366,6 +366,16 @@ Skill(commit)                    # Skill เฉพาะ
 - **เช็กคำสั่ง shell เข้มขึ้น** — `cp` และ `mv` บางแบบถามก่อน · คำสั่งที่มีค่ายาวมากจนเช็กไม่จบจะถามก่อน หรือถูกปฏิเสธในกรณีที่อาจมี deny rule ครอบหรือไม่มีใครตอบได้
 - **state ของ sandbox** — Bash sandbox เก็บ state ไว้ในบางกรณีจนกว่าจะรัน `/sandbox` หรือ `/cd` และจะแยก entry ที่ไม่คาดคิดในโฟลเดอร์ `.git` ของ repository ออกไปหลังคำสั่งรันเสร็จ
 
+### 🆕 ใหม่ใน v2.1.327
+- **`ExitWorktree` ถามก่อนลบ worktree ที่อาจมีงานยังไม่ save** — ถูกปฏิเสธใน don't-ask mode หรือเมื่อไม่มีใครตอบ เว้นแต่ allow rule, auto mode หรือ bypass permissions mode อนุญาต
+- **permission prompt หยุดที่ No** — ปุ่มลูกศรหยุดแทนการวนรอบ · กดเลขเกินคำตอบสุดท้ายจะไปที่ No
+- **เช็ก path เข้มขึ้น** — symbolic link บางตัวถูกปฏิเสธ และนิยาม "อยู่ใน working directory" เปลี่ยน ทำให้บาง path ต้องขออนุญาตแล้ว
+- **`permissions.blockReadsOutsideWorkingDirectories` เข้มขึ้น** — ถามคำสั่ง Bash มากขึ้นใน bypass และ auto mode (และ deny บางตัวใน auto mode) และปฏิเสธคำสั่ง Bash ที่อ้าง path ใต้ deny rule ของ Read หรือ Edit มากขึ้น จากเดิมที่แค่ถาม
+- **auto mode เมิน allow rule ที่รัน package ได้ทุกตัวมากขึ้น** — เช่น `Bash(pnpm dlx *)` รวมถึงรูปแบบ path หรือ version ของ rule ที่เคยเมินอยู่แล้ว (`/usr/bin/npm run:*`) ให้ safety check ตัดสินแทน · ข้อความแจ้ง fallback ไป classifier request แบบคิดเงินบอกแล้วว่า release ถัดไปจะถอด fallback นี้
+- **ค่ายาวมากถูกปฏิเสธ** — คำสั่ง Bash ที่ตัวแปรขยายเป็นข้อความยาวมากจะถูก deny พร้อมบอกให้ใช้ค่าสั้นลงหรือใช้ไฟล์ · WebFetch ปฏิเสธ URL ยาวเกิน 2,000 ตัวอักษรก่อนขึ้น permission prompt
+- **PowerShell ถามก่อนรันเพิ่มอีกหนึ่งคำสั่ง** — แม้มี rule ระบุชื่อไว้ · ถ้าไม่มีใครตอบจะถูกปฏิเสธ เว้นแต่ rule ทั้ง tool, auto mode หรือ bypass permissions mode อนุญาต
+- **Claude in Chrome ไม่อัปโหลดไฟล์ credential บางชนิด** — ให้แนบไฟล์พวกนั้นในหน้าเว็บเอง ดู [[40-claude-in-chrome]]
+
 ---
 
 ---

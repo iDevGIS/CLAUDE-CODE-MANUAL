@@ -446,6 +446,13 @@ related:
 - **`OTEL_RESOURCE_INCLUDE_HOST`** — ใส่ `host.name` และ `host.id` ลงใน resource attribute ของ OpenTelemetry (ปิดเป็นค่าเริ่มต้น) ดู [[23-environment-variables]]
 - **self-hosted runner ภายใต้ `--trust-workspace false`** เมิน settings ของ repository มากขึ้น · ค่าพวกนั้นให้ตั้งใน user หรือ managed settings แทน
 
+### 🆕 ใหม่ใน v2.1.327
+
+- **`attributionProject`** — ตั้งชื่อ billing group ของ session สำหรับ Claude apps gateway ที่ตั้ง `admin.billing_group_tag`
+- **gateway hint header เพิ่ม `x-claude-code-managed-settings-checksum`** — ส่งเมื่อ managed settings ตั้ง `CLAUDE_CODE_GATEWAY_HINT_HEADERS=1`
+- **คำสั่ง Bash แรกเร็วขึ้น** — ไฟล์ start-up ของ shell อาจรันก่อนคำสั่งแรกได้รับอนุมัติ (แม้สุดท้ายจะถูกปฏิเสธ) · ตั้ง `CLAUDE_CODE_DISABLE_SHELL_HEAD_START=1` เพื่อปิด ดู [[23-environment-variables]]
+- **cloud session ที่ Anthropic host** เมิน settings ส่ง flag และ plugin ของ repository มากขึ้น · `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` ในนั้นมีผลอย่างมากเท่า `DISABLE_TELEMETRY`
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

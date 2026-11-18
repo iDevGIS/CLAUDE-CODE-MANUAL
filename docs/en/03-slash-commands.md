@@ -311,6 +311,13 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.323
 - **`/security-review` asks before Claude runs it** — and skills' inline git commands stop in bare-repository worktrees and similar folders until you allow them, outside auto mode and bypass. See [[11-skills]].
 
+### New in v2.1.327
+- **`/tui classic`** is the new name for the non-fullscreen renderer; `/tui default` still works.
+- **`/status` lists broken setup** — broken agent, skill, command and output style files, keybinding errors, an unavailable sandbox, ignored permission settings and hook matchers that never match.
+- **`/config` notes overridden rows** — a note shows when other settings override a row; `/sandbox` and most `/config` value lists are unnumbered outside screen reader mode (use the arrow keys and Enter).
+- **`/install-github-app` asks for confirmation** before it changes a repository.
+- **`/export` no longer overwrites silently** — the dialog asks before replacing an existing file, and `/export <name>` keeps the file and says to run `/export`.
+
 ---
 
 ---
