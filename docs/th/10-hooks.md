@@ -270,6 +270,11 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **คำสั่ง shell ที่ `PermissionRequest` hook rewrite** ให้เป็นคำสั่งที่ถูก exclude จาก sandbox จะรันนอก sandbox
 - **`CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME`** ให้ host หยุด `claude -p --resume` และ `--continue` ไม่ให้รัน tool call ที่ hook เลื่อนไว้ ดู [[23-environment-variables]]
 
+#### 🆕 ใหม่ใน v2.1.329
+
+- **trust dialog บอกว่า hook ของโฟลเดอร์ถูกประกาศไว้ที่ไหน**
+- **hook ใน managed settings ที่โหลดไม่ขึ้น** จะมีคำเตือนในบทสนทนาบน Claude Desktop และ host แบบ non-interactive อื่น ๆ
+
 ---
 
 ---

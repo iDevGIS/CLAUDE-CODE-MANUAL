@@ -270,6 +270,10 @@ claude --mcp-config ./mcp.json
 
 - **entry ใน `deniedMcpServers` แบบ `claude.ai <name>`** มีผลกับ connector นั้นใน cloud session และ self-hosted runner session ด้วยแล้ว
 
+### 🆕 ใหม่ใน v2.1.329
+
+- **`/mcp` มีแถว "Server message"** ในหน้าของ server แสดงข้อความ JSON-RPC error ของ remote HTTP MCP server ที่ปฏิเสธการเชื่อมต่อ
+
 ---
 
 ---

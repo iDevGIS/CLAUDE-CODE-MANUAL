@@ -453,6 +453,10 @@ related:
 - **คำสั่ง Bash แรกเร็วขึ้น** — ไฟล์ start-up ของ shell อาจรันก่อนคำสั่งแรกได้รับอนุมัติ (แม้สุดท้ายจะถูกปฏิเสธ) · ตั้ง `CLAUDE_CODE_DISABLE_SHELL_HEAD_START=1` เพื่อปิด ดู [[23-environment-variables]]
 - **cloud session ที่ Anthropic host** เมิน settings ส่ง flag และ plugin ของ repository มากขึ้น · `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` ในนั้นมีผลอย่างมากเท่า `DISABLE_TELEMETRY`
 
+### 🆕 ใหม่ใน v2.1.329
+
+- **เปิด Code Mode ได้แม้เปิด OpenTelemetry events และ metrics อยู่** — ทุก tool call ที่โค้ดเรียกจะส่ง event ของมัน · ถ้าเปิด tracing ไว้ Code Mode ยังคงถูกปิด
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

@@ -326,6 +326,10 @@ related:
 - **`/status` และ `claude doctor` เตือนเรื่อง OpenTelemetry exporter** — มีหมายเหตุเมื่อ exporter ไม่มี endpoint และข้อมูลน่าจะหาย
 - **`/chrome` และหน้า welcome ของ Claude in Chrome** บอกว่า Claude Code จะถามก่อนให้ Claude ทำอะไรบนเว็บ เว้นแต่ permission mode หรือ rule ใน `/permissions` ตอบให้แล้ว
 
+### 🆕 ใหม่ใน v2.1.329
+- **`/tasks` แสดงมากขึ้น** — scheduled task ของ session นี้, wakeup ของ `/loop`, goal และ fork ของบทสนทนานี้ · กด `x` เพื่อหยุดรายการนั้น (มีถามยืนยันก่อน)
+- **`/status` เพิ่มแถว "Marketplace auto-update"** บอกชื่อ managed marketplace ที่ไม่ได้รับการอัปเดตอัตโนมัติ พร้อมเหตุผล
+
 ---
 
 ---

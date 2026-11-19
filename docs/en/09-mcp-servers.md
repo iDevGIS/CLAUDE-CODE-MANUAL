@@ -270,6 +270,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **`deniedMcpServers` entries of the form `claude.ai <name>`** now apply to that connector in cloud and self-hosted runner sessions too.
 
+### New in v2.1.329
+
+- **`/mcp` shows a "Server message" row** on a server's page with the JSON-RPC error message of a remote HTTP MCP server that refuses the connection.
+
 ---
 
 ---

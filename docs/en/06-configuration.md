@@ -453,6 +453,10 @@ Set the `model` key to any of these (newest → cheapest):
 - **Faster first Bash command** — shell start-up files may now run before the first command is approved, even if it's refused; `CLAUDE_CODE_DISABLE_SHELL_HEAD_START=1` turns this off. See [[23-environment-variables]].
 - **Anthropic-hosted cloud sessions** ignore more of a repository's flag and plugin delivery settings; there `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` acts at most as `DISABLE_TELEMETRY`.
 
+### New in v2.1.329
+
+- **Code Mode works with OpenTelemetry events and metrics enabled** — each tool call the code makes sends its events; tracing still keeps Code Mode off.
+
 ---
 
 ---

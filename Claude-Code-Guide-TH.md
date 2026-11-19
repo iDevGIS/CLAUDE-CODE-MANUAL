@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.328         │
+│ Welcome to Claude Code v2.1.329         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1154,7 +1154,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.328
+- run: npm install -g @anthropic-ai/claude-code@2.1.329
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1500,6 +1500,10 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/list-agents` แสดงรายการให้เราเห็นคนเดียว** — Claude จะ list session เองเมื่อจำเป็น
 - **`/status` และ `claude doctor` เตือนเรื่อง OpenTelemetry exporter** — มีหมายเหตุเมื่อ exporter ไม่มี endpoint และข้อมูลน่าจะหาย
 - **`/chrome` และหน้า welcome ของ Claude in Chrome** บอกว่า Claude Code จะถามก่อนให้ Claude ทำอะไรบนเว็บ เว้นแต่ permission mode หรือ rule ใน `/permissions` ตอบให้แล้ว
+
+### 🆕 ใหม่ใน v2.1.329
+- **`/tasks` แสดงมากขึ้น** — scheduled task ของ session นี้, wakeup ของ `/loop`, goal และ fork ของบทสนทนานี้ · กด `x` เพื่อหยุดรายการนั้น (มีถามยืนยันก่อน)
+- **`/status` เพิ่มแถว "Marketplace auto-update"** บอกชื่อ managed marketplace ที่ไม่ได้รับการอัปเดตอัตโนมัติ พร้อมเหตุผล
 
 ---
 
@@ -2426,6 +2430,10 @@ Skill(commit)                    # Skill เฉพาะ
 - **คำสั่ง Bash แรกเร็วขึ้น** — ไฟล์ start-up ของ shell อาจรันก่อนคำสั่งแรกได้รับอนุมัติ (แม้สุดท้ายจะถูกปฏิเสธ) · ตั้ง `CLAUDE_CODE_DISABLE_SHELL_HEAD_START=1` เพื่อปิด (ดูบท 23 Environment Variables)
 - **cloud session ที่ Anthropic host** เมิน settings ส่ง flag และ plugin ของ repository มากขึ้น · `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` ในนั้นมีผลอย่างมากเท่า `DISABLE_TELEMETRY`
 
+### 🆕 ใหม่ใน v2.1.329
+
+- **เปิด Code Mode ได้แม้เปิด OpenTelemetry events และ metrics อยู่** — ทุก tool call ที่โค้ดเรียกจะส่ง event ของมัน · ถ้าเปิด tracing ไว้ Code Mode ยังคงถูกปิด
+
 ---
 
 ## 7. CLAUDE.md - คำสั่งถาวรสำหรับโปรเจกต์
@@ -2910,6 +2918,10 @@ claude --mcp-config ./mcp.json
 
 - **entry ใน `deniedMcpServers` แบบ `claude.ai <name>`** มีผลกับ connector นั้นใน cloud session และ self-hosted runner session ด้วยแล้ว
 
+### 🆕 ใหม่ใน v2.1.329
+
+- **`/mcp` มีแถว "Server message"** ในหน้าของ server แสดงข้อความ JSON-RPC error ของ remote HTTP MCP server ที่ปฏิเสธการเชื่อมต่อ
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -3164,6 +3176,11 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **Code Mode ไม่รัน `UserPromptSubmit` hook กับ output ของสคริปต์อีกแล้ว** (รวม managed hook) — ถ้าต้องการ redact output นั้นให้ใช้ `PostToolUse` hook คู่ `updatedToolOutput`
 - **คำสั่ง shell ที่ `PermissionRequest` hook rewrite** ให้เป็นคำสั่งที่ถูก exclude จาก sandbox จะรันนอก sandbox
 - **`CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME`** ให้ host หยุด `claude -p --resume` และ `--continue` ไม่ให้รัน tool call ที่ hook เลื่อนไว้ (ดูบท 23 Environment Variables)
+
+### 🆕 ใหม่ใน v2.1.329
+
+- **trust dialog บอกว่า hook ของโฟลเดอร์ถูกประกาศไว้ที่ไหน**
+- **hook ใน managed settings ที่โหลดไม่ขึ้น** จะมีคำเตือนในบทสนทนาบน Claude Desktop และ host แบบ non-interactive อื่น ๆ
 
 ---
 
@@ -6203,7 +6220,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.328`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.329`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

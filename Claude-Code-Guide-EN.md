@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.328         │
+│ Welcome to Claude Code v2.1.329         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.328
+- run: npm install -g @anthropic-ai/claude-code@2.1.329
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1506,6 +1506,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/list-agents` shows its list to you alone** — Claude lists sessions itself when needed.
 - **`/status` and `claude doctor` warn about a lost OpenTelemetry exporter** — a notice shows when an exporter has no endpoint and its data would likely be lost.
 - **`/chrome` and the Claude in Chrome welcome screen** say that Claude Code asks before Claude acts on a site, unless your permission mode or a rule in `/permissions` answers.
+
+### New in v2.1.329
+- **`/tasks` lists more** — this session's scheduled tasks, `/loop` wakeups, the goal and this conversation's forks; `x` stops one after asking.
+- **`/status` adds a "Marketplace auto-update" row** naming managed marketplaces that get no automatic updates, and why.
 
 ---
 
@@ -2432,6 +2436,10 @@ Skill(commit)                    # Specific skill
 - **Faster first Bash command** — shell start-up files may now run before the first command is approved, even if it's refused; `CLAUDE_CODE_DISABLE_SHELL_HEAD_START=1` turns this off (see 23. Environment Variables).
 - **Anthropic-hosted cloud sessions** ignore more of a repository's flag and plugin delivery settings; there `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` acts at most as `DISABLE_TELEMETRY`.
 
+### New in v2.1.329
+
+- **Code Mode works with OpenTelemetry events and metrics enabled** — each tool call the code makes sends its events; tracing still keeps Code Mode off.
+
 ---
 
 ## 7. CLAUDE.md - Persistent Project Instructions
@@ -2917,6 +2925,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **`deniedMcpServers` entries of the form `claude.ai <name>`** now apply to that connector in cloud and self-hosted runner sessions too.
 
+### New in v2.1.329
+
+- **`/mcp` shows a "Server message" row** on a server's page with the JSON-RPC error message of a remote HTTP MCP server that refuses the connection.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -3108,6 +3120,11 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 - **Code Mode no longer runs `UserPromptSubmit` hooks** (managed ones included) on scripts' output — to redact that output, use a `PostToolUse` hook with `updatedToolOutput`.
 - **A shell command rewritten by a `PermissionRequest` hook** to a sandbox-excluded command runs outside the sandbox.
 - **`CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME`** lets a host stop `claude -p --resume` and `--continue` from running a tool call that a hook deferred (see 23. Environment Variables).
+
+### New in v2.1.329
+
+- **The trust dialog says where a folder's hooks are declared.**
+- **Managed-settings hooks that fail to load** now raise a warning in the conversation in Claude Desktop and other non-interactive hosts.
 
 ### Configuring Hooks
 
@@ -6217,7 +6234,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.328`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.329`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

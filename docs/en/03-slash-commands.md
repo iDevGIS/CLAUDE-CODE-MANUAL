@@ -325,6 +325,10 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/status` and `claude doctor` warn about a lost OpenTelemetry exporter** — a notice shows when an exporter has no endpoint and its data would likely be lost.
 - **`/chrome` and the Claude in Chrome welcome screen** say that Claude Code asks before Claude acts on a site, unless your permission mode or a rule in `/permissions` answers.
 
+### New in v2.1.329
+- **`/tasks` lists more** — this session's scheduled tasks, `/loop` wakeups, the goal and this conversation's forks; `x` stops one after asking.
+- **`/status` adds a "Marketplace auto-update" row** naming managed marketplaces that get no automatic updates, and why.
+
 ---
 
 ---

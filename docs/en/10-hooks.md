@@ -266,6 +266,11 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **A shell command rewritten by a `PermissionRequest` hook** to a sandbox-excluded command runs outside the sandbox.
 - **`CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME`** lets a host stop `claude -p --resume` and `--continue` from running a tool call that a hook deferred. See [[23-environment-variables]].
 
+### New in v2.1.329
+
+- **The trust dialog says where a folder's hooks are declared.**
+- **Managed-settings hooks that fail to load** now raise a warning in the conversation in Claude Desktop and other non-interactive hosts.
+
 ---
 
 ---

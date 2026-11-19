@@ -25,6 +25,26 @@
 
 ---
 
+## [1.114.0] — 2026-11-20
+
+### Compatibility
+- **Claude Code:** `v2.1.329+`
+
+### Added
+- **ch.03 Slash Commands** — section "New in v2.1.329": `/tasks` แสดง scheduled task, wakeup ของ `/loop`, goal และ fork ของบทสนทนา (กด `x` หยุดหลังถามยืนยัน) · `/status` มีแถว "Marketplace auto-update"
+- **ch.06 Configuration** — section "New in v2.1.329": Code Mode เปิดได้แม้เปิด OpenTelemetry events และ metrics (tracing ยังปิด Code Mode)
+- **ch.09 MCP** — section "New in v2.1.329": `/mcp` มีแถว "Server message" แสดง JSON-RPC error ของ remote HTTP MCP server ที่ปฏิเสธการเชื่อมต่อ
+- **ch.10 Hooks** — section "New in v2.1.329": trust dialog บอกว่า hook ของโฟลเดอร์ประกาศไว้ที่ไหน · เตือนในบทสนทนาเมื่อ hook ใน managed settings โหลดไม่ขึ้น (Claude Desktop และ host non-interactive)
+- README / README.EN — แถว What's-new (v2.1.329)
+
+### Changed
+- Version strings `2.1.328` → `2.1.329` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.329` — release ที่ส่วนใหญ่เป็น bug fix พร้อมของใหม่ฝั่ง visibility: `/tasks` ครอบคลุม scheduled task/`/loop`/fork, แถวใหม่ใน `/status` และ `/mcp`, คำเตือนเรื่องที่มาของ hook และ Code Mode ที่ใช้คู่ OpenTelemetry ได้
+
+---
+
 ## [1.113.0] — 2026-11-19
 
 ### Compatibility
@@ -2540,6 +2560,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.114.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.113.0...v1.114.0
 [1.113.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.112.0...v1.113.0
 [1.112.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.111.0...v1.112.0
 [1.111.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.110.0...v1.111.0
