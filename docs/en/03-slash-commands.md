@@ -318,6 +318,13 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/install-github-app` asks for confirmation** before it changes a repository.
 - **`/export` no longer overwrites silently** — the dialog asks before replacing an existing file, and `/export <name>` keeps the file and says to run `/export`.
 
+### New in v2.1.328
+- **`/code-review` reports only bugs and CLAUDE.md violations** on most models — run `/simplify` for reuse, simplification and efficiency cleanups. Each finding is marked Important, Pre-existing or Nit, each summary ends with a suggested fix, and a clean review reads "Code review found no issues."
+- **`/bug` asks Yes or No before sending**, so repeated Enters no longer send a report or open GitHub.
+- **`/list-agents` shows its list to you alone** — Claude lists sessions itself when needed.
+- **`/status` and `claude doctor` warn about a lost OpenTelemetry exporter** — a notice shows when an exporter has no endpoint and its data would likely be lost.
+- **`/chrome` and the Claude in Chrome welcome screen** say that Claude Code asks before Claude acts on a site, unless your permission mode or a rule in `/permissions` answers.
+
 ---
 
 ---

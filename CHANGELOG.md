@@ -25,6 +25,29 @@
 
 ---
 
+## [1.113.0] — 2026-11-19
+
+### Compatibility
+- **Claude Code:** `v2.1.328+`
+
+### Added
+- **ch.02 CLI** — section "New in v2.1.328": self-hosted runner `--repository-folder` · `orchestrator --hook-label` + `claude --environment --metadata key=value` สำหรับ hook `spawn-runner` · metric ใหม่ 2 ตัวของ orchestrator · `gh api` ในตัวปิดเป็นค่าเริ่มต้นเมื่อ settings คุม GitHub tool (`--use-anthropic-gh true`) · `CLAUDE_RUNNER_SESSION_UUID` + `CLAUDE_CODE_REMOTE_SESSION_UUID`
+- **ch.03 Slash Commands** — section "New in v2.1.328": `/code-review` รายงานเฉพาะ bug + การละเมิด CLAUDE.md พร้อมป้าย Important/Pre-existing/Nit (cleanup ใช้ `/simplify`) · `/bug` ถาม Yes/No · `/list-agents` แสดงให้เราคนเดียว · `/status` + `claude doctor` เตือน OTel exporter ไม่มี endpoint · `/chrome` บอกว่าถามก่อนทำบนเว็บ
+- **ch.05 Permissions** — section "New in v2.1.328": auto mode สำหรับ Opus 4.6 / Sonnet 4.6 บน Bedrock, Agent Platform, Foundry, Claude apps gateway (`disableAutoMode` ปิด) · sandbox ที่เริ่มไม่ได้ถูกแจ้งตอนคำสั่งถัดไป (`sandbox.failIfUnavailable`) · `PermissionRequest` rewrite ไปคำสั่งที่ exclude จาก sandbox รันนอก sandbox · เตือนข้อความจาก session ที่ข้าม permission prompt
+- **ch.09 MCP** — section "New in v2.1.328": `deniedMcpServers` แบบ `claude.ai <name>` มีผลใน cloud และ self-hosted runner session
+- **ch.10 Hooks** — section "New in v2.1.328": `"onFailure": "block"` สำหรับ `mcp_tool` hook · managed `PostToolUse` ไม่ทำงานกับ call ที่ถูกปฏิเสธก่อนรัน · Code Mode ไม่รัน `UserPromptSubmit` กับ output สคริปต์ (ใช้ `PostToolUse` + `updatedToolOutput`) · `CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME`
+- **ch.12 Subagents** — section "New in v2.1.328": subagent รอ subagent ของตัวเองเมื่อ `CLAUDE_CODE_FORK_SUBAGENT=0` · `claude -p` รอรวม 10 นาที (`CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS`) · progress summary บน Anthropic API เขียนโดย small fast model
+- **ch.23 Environment Variables** — แถว `CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME` และ `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS`
+- README / README.EN — แถว What's-new (v2.1.328)
+
+### Changed
+- Version strings `2.1.327` → `2.1.328` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.328` — release ใหญ่ที่เปิด auto mode ให้ Opus 4.6 / Sonnet 4.6 บน third-party provider, ปรับ `/code-review` ให้โฟกัส bug, เพิ่ม `onFailure: "block"` ให้ `mcp_tool` hook และเพิ่ม flag/metric ของ self-hosted runner
+
+---
+
 ## [1.112.0] — 2026-11-18
 
 ### Compatibility
@@ -2517,6 +2540,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.113.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.112.0...v1.113.0
 [1.112.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.111.0...v1.112.0
 [1.111.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.110.0...v1.111.0
 [1.110.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.109.0...v1.110.0

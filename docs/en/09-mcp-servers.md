@@ -266,6 +266,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **`claude mcp add --scope project` stops instead of overwriting** when `.mcp.json` lists its servers at the top level with no `mcpServers` key.
 - **MCP server logs are leaner** — they record the mode, action and field names of elicitation requests and hook answers, not their full contents.
 
+### New in v2.1.328
+
+- **`deniedMcpServers` entries of the form `claude.ai <name>`** now apply to that connector in cloud and self-hosted runner sessions too.
+
 ---
 
 ---

@@ -347,6 +347,12 @@ Skill(commit)                    # Specific skill
 - **PowerShell asks before one more command** — even under a rule naming it; if nothing answers, it's refused unless a whole-tool rule, auto mode or bypass permissions mode allows it.
 - **Claude in Chrome refuses uploading some credential files** — attach those to the page yourself. See [[40-claude-in-chrome]].
 
+### New in v2.1.328
+- **Auto mode for Opus 4.6 and Sonnet 4.6 on third-party providers** — on Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude apps gateway; interactive sessions with no permission mode start in it. Plan mode and Bash prompts for these models use and offer auto mode, as on newer models; `disableAutoMode` turns both off.
+- **A sandbox that can't start is reported on the next sandboxed Bash command** — unless `sandbox.failIfUnavailable` is set, that command is refused and says the sandbox is off for the session.
+- **A `PermissionRequest` hook that rewrites a shell command to a sandbox-excluded command** now runs it outside the sandbox. See [[10-hooks]].
+- **Warning for sessions that skip permission prompts** — a message from such a session may be held and dropped by a cloud session.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

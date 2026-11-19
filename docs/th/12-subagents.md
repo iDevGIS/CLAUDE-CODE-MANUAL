@@ -259,6 +259,12 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **background subagent ที่ restart รอ plugin โหลดเสร็จก่อน** รวมถึง turn ที่เริ่มเอง
 - **progress summary บน Bedrock, Vertex AI และ Foundry ประหยัดขึ้น** — terminal session เขียนจากโน้ตสั้น ๆ แทนทั้งบทสนทนา
 
+### 🆕 ใหม่ใน v2.1.328
+
+- **subagent รอ subagent ของตัวเองเมื่อตั้ง `CLAUDE_CODE_FORK_SUBAGENT=0`** — เป็นค่าเริ่มต้นใน `claude -p`, Agent SDK, desktop และ VS Code
+- **รอรวมครั้งเดียว 10 นาทีใน `claude -p`** — เมื่อตั้ง `CLAUDE_CODE_FORK_SUBAGENT=0` background subagent และตัวที่มันรอจะนับรวมกันในเวลารอ 10 นาทีเดียว · ถ้า chain ยาวกว่านั้นให้เพิ่ม `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` ดู [[23-environment-variables]]
+- **progress summary บน Anthropic API** — ใน terminal session เขียนโดย small fast model ตัว default จากโน้ตสั้น ๆ แม้ปิด telemetry ใช้ token น้อยลงมาก
+
 ---
 
 ---

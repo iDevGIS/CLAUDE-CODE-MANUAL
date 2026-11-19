@@ -134,6 +134,8 @@ related:
 | `CLAUDE_CODE_AUTOMOUNT_ROOTS` | บน Linux ใช้ระบุ root ของ autofs map ที่ลึกกว่าหนึ่งโฟลเดอร์ใต้ `/` · Claude Code ไม่ไล่หาไฟล์ใน `/home` ที่เป็น autofs เองอีกแล้ว *(v2.1.323)* |
 | `OTEL_RESOURCE_INCLUDE_HOST` | ตั้ง `1` เพื่อใส่ `host.name` และ `host.id` ลงใน resource attribute ของ OpenTelemetry (ปิดเป็นค่าเริ่มต้น) ดู [[06-configuration]] *(v2.1.326)* |
 | `CLAUDE_CODE_DISABLE_SHELL_HEAD_START` | ตั้ง `1` เพื่อไม่ให้ไฟล์ start-up ของ shell รันก่อนคำสั่ง Bash แรกของ session ได้รับอนุมัติ ดู [[06-configuration]] *(v2.1.327)* |
+| `CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME` | ให้ host หยุด `claude -p --resume` และ `--continue` ไม่ให้รัน tool call ที่ hook เลื่อนไว้ ดู [[10-hooks]] *(v2.1.328)* |
+| `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` | เพิ่มเวลารอ 10 นาทีที่ `claude -p` ซึ่งตั้ง `CLAUDE_CODE_FORK_SUBAGENT=0` ให้ background subagent และตัวที่มันรอ สำหรับ chain ที่ยาวกว่านั้น ดู [[12-subagents]] *(v2.1.328)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.327         │
+│ Welcome to Claude Code v2.1.328         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.327
+- run: npm install -g @anthropic-ai/claude-code@2.1.328
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1161,6 +1161,13 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **`--await-initialize` is refused with `--bg` or `--worktree --tmux`** — those never read the initialize request, so it no longer starts without the fields it carries.
 - **`claude --bare --bg` on an unapproved API key** exits with an error if the background service lacks the key; moving such a `--bare` session to the background is refused in most setups.
 - **Ctrl+O shows hidden startup notices.**
+
+### New in v2.1.328
+
+- **Self-hosted runner `--repository-folder`** — names the folder that sessions use for a repository at `--capacity 1`, in place of its path under the base folder (which can't be a symbolic link).
+- **Labels for the `spawn-runner` hook** — `claude self-hosted-runner orchestrator --hook-label` hands chosen session labels to the hook, and `claude --environment --metadata key=value` labels a session for it.
+- **New orchestrator metrics on `/metrics`** — `claude_code_self_hosted_orchestrator_session_queue_wait_by_reason_seconds` (tells a re-opened session's wait from a new one's) and `claude_code_self_hosted_orchestrator_sessions_given_up_total` (counts by cause how often Anthropic gave up starting a runner).
+- **Self-hosted runner defaults** — a start-up warning when the host's settings.json sets a default permission mode that sessions ignore; the built-in `gh api` is off by default where settings guard Claude's GitHub tools by name (`--use-anthropic-gh true` turns it on); `CLAUDE_RUNNER_SESSION_UUID` and `CLAUDE_CODE_REMOTE_SESSION_UUID` are both set for the session and its `checkout`, `post-session` and `spawn-runner` hooks.
 
 ---
 
@@ -1492,6 +1499,13 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/config` notes overridden rows** — a note shows when other settings override a row; `/sandbox` and most `/config` value lists are unnumbered outside screen reader mode (use the arrow keys and Enter).
 - **`/install-github-app` asks for confirmation** before it changes a repository.
 - **`/export` no longer overwrites silently** — the dialog asks before replacing an existing file, and `/export <name>` keeps the file and says to run `/export`.
+
+### New in v2.1.328
+- **`/code-review` reports only bugs and CLAUDE.md violations** on most models — run `/simplify` for reuse, simplification and efficiency cleanups. Each finding is marked Important, Pre-existing or Nit, each summary ends with a suggested fix, and a clean review reads "Code review found no issues."
+- **`/bug` asks Yes or No before sending**, so repeated Enters no longer send a report or open GitHub.
+- **`/list-agents` shows its list to you alone** — Claude lists sessions itself when needed.
+- **`/status` and `claude doctor` warn about a lost OpenTelemetry exporter** — a notice shows when an exporter has no endpoint and its data would likely be lost.
+- **`/chrome` and the Claude in Chrome welcome screen** say that Claude Code asks before Claude acts on a site, unless your permission mode or a rule in `/permissions` answers.
 
 ---
 
@@ -1983,6 +1997,12 @@ Skill(commit)                    # Specific skill
 - **Very long values are refused** — Bash commands whose variables expand to very long text are denied with a message to use shorter values or a file; WebFetch refuses a URL over 2,000 characters before any permission prompt.
 - **PowerShell asks before one more command** — even under a rule naming it; if nothing answers, it's refused unless a whole-tool rule, auto mode or bypass permissions mode allows it.
 - **Claude in Chrome refuses uploading some credential files** — attach those to the page yourself.
+
+### New in v2.1.328
+- **Auto mode for Opus 4.6 and Sonnet 4.6 on third-party providers** — on Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude apps gateway; interactive sessions with no permission mode start in it. Plan mode and Bash prompts for these models use and offer auto mode, as on newer models; `disableAutoMode` turns both off.
+- **A sandbox that can't start is reported on the next sandboxed Bash command** — unless `sandbox.failIfUnavailable` is set, that command is refused and says the sandbox is off for the session.
+- **A `PermissionRequest` hook that rewrites a shell command to a sandbox-excluded command** now runs it outside the sandbox.
+- **Warning for sessions that skip permission prompts** — a message from such a session may be held and dropped by a cloud session.
 
 ---
 
@@ -2893,6 +2913,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **`claude mcp add --scope project` stops instead of overwriting** when `.mcp.json` lists its servers at the top level with no `mcpServers` key.
 - **MCP server logs are leaner** — they record the mode, action and field names of elicitation requests and hook answers, not their full contents.
 
+### New in v2.1.328
+
+- **`deniedMcpServers` entries of the form `claude.ai <name>`** now apply to that connector in cloud and self-hosted runner sessions too.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -3076,6 +3100,14 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 - **A `PreToolUse` hook that exits 127** now shows an error saying its check may not have run.
 - **HTTP hooks ignore `Content-Length` and `Transfer-Encoding` in their `headers` setting** — the request's length comes from its body. `allowedHttpHookUrls` and `httpHookAllowedEnvVars` also apply differently to hooks from managed settings.
 - **Hook results in the transcript** — failures are red instead of grey, a hook that stops Claude is yellow, and the reason is shown under them.
+
+### New in v2.1.328
+
+- **`"onFailure": "block"` for `mcp_tool` hooks**, as for command and HTTP hooks — a hook whose call fails blocks the action.
+- **Managed `PostToolUse` hooks no longer fire for calls refused before they ran** — no log entry, rewrite, block or stop there; `PostToolBatch` gets most of them, not marked as refused.
+- **Code Mode no longer runs `UserPromptSubmit` hooks** (managed ones included) on scripts' output — to redact that output, use a `PostToolUse` hook with `updatedToolOutput`.
+- **A shell command rewritten by a `PermissionRequest` hook** to a sandbox-excluded command runs outside the sandbox.
+- **`CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME`** lets a host stop `claude -p --resume` and `--continue` from running a tool call that a hook deferred (see 23. Environment Variables).
 
 ### Configuring Hooks
 
@@ -3634,6 +3666,12 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **The first subagent on a model waits for that model's settings** — up to 1.5 seconds (10 in `claude -p`) instead of starting without them.
 - **Restarted background subagents wait for plugins to load**, as do turns that start by themselves.
 - **Cheaper progress summaries on Bedrock, Vertex AI and Foundry** — terminal sessions write them from short notes, not the whole conversation.
+
+### New in v2.1.328
+
+- **Subagents wait for their own subagents with `CLAUDE_CODE_FORK_SUBAGENT=0`** — by default in `claude -p`, the Agent SDK, desktop and VS Code.
+- **One 10-minute wait in `claude -p`** — with `CLAUDE_CODE_FORK_SUBAGENT=0`, a background subagent and those it waits for count against a single 10-minute wait; raise `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` for longer chains (see 23. Environment Variables).
+- **Progress summaries on the Anthropic API** — in terminal sessions they are written by the default small fast model from short notes, also with telemetry off, using far fewer tokens.
 
 ---
 
@@ -4843,6 +4881,8 @@ your-project/
 | `CLAUDE_CODE_AUTOMOUNT_ROOTS` | On Linux, names autofs map roots deeper than one folder below `/`; Claude Code no longer looks up files in an autofs `/home` itself. *(v2.1.323)* |
 | `OTEL_RESOURCE_INCLUDE_HOST` | Set `1` to include `host.name` and `host.id` in OpenTelemetry resource attributes (off by default; see 06. Configuration). *(v2.1.326)* |
 | `CLAUDE_CODE_DISABLE_SHELL_HEAD_START` | Set `1` to stop shell start-up files from running before the session's first Bash command is approved (see 06. Configuration). *(v2.1.327)* |
+| `CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME` | Lets a host stop `claude -p --resume` and `--continue` from running a tool call that a hook deferred (see 10. Hooks). *(v2.1.328)* |
+| `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` | Raises the single 10-minute wait that `claude -p` with `CLAUDE_CODE_FORK_SUBAGENT=0` gives a background subagent and those it waits for, for longer chains (see 12. Subagents). *(v2.1.328)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -6177,7 +6217,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.327`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.328`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

@@ -376,6 +376,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **PowerShell ถามก่อนรันเพิ่มอีกหนึ่งคำสั่ง** — แม้มี rule ระบุชื่อไว้ · ถ้าไม่มีใครตอบจะถูกปฏิเสธ เว้นแต่ rule ทั้ง tool, auto mode หรือ bypass permissions mode อนุญาต
 - **Claude in Chrome ไม่อัปโหลดไฟล์ credential บางชนิด** — ให้แนบไฟล์พวกนั้นในหน้าเว็บเอง ดู [[40-claude-in-chrome]]
 
+### 🆕 ใหม่ใน v2.1.328
+- **Auto mode สำหรับ Opus 4.6 และ Sonnet 4.6 บน third-party provider** — บน Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry และ Claude apps gateway · session แบบ interactive ที่ไม่ได้ตั้ง permission mode จะเริ่มในโหมดนี้ · plan mode และ Bash prompt ของสองโมเดลนี้ใช้และเสนอ auto mode เหมือนโมเดลรุ่นใหม่ · ปิดทั้งสองอย่างด้วย `disableAutoMode`
+- **sandbox ที่เริ่มไม่ได้จะถูกแจ้งตอนคำสั่ง Bash ใน sandbox ถัดไป** — เว้นแต่ตั้ง `sandbox.failIfUnavailable` ไว้ คำสั่งนั้นจะถูกปฏิเสธพร้อมบอกว่า sandbox ปิดอยู่ตลอด session
+- **`PermissionRequest` hook ที่ rewrite คำสั่ง shell ให้เป็นคำสั่งที่ถูก exclude จาก sandbox** จะรันคำสั่งนั้นนอก sandbox ดู [[10-hooks]]
+- **คำเตือนสำหรับ session ที่ข้าม permission prompt** — ข้อความจาก session แบบนี้อาจถูก cloud session กักไว้แล้วทิ้ง
+
 ---
 
 ---

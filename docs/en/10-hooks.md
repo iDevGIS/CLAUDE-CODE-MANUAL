@@ -258,6 +258,14 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **HTTP hooks ignore `Content-Length` and `Transfer-Encoding` in their `headers` setting** — the request's length comes from its body. `allowedHttpHookUrls` and `httpHookAllowedEnvVars` also apply differently to hooks from managed settings.
 - **Hook results in the transcript** — failures are red instead of grey, a hook that stops Claude is yellow, and the reason is shown under them.
 
+### New in v2.1.328
+
+- **`"onFailure": "block"` for `mcp_tool` hooks**, as for command and HTTP hooks — a hook whose call fails blocks the action.
+- **Managed `PostToolUse` hooks no longer fire for calls refused before they ran** — no log entry, rewrite, block or stop there; `PostToolBatch` gets most of them, not marked as refused.
+- **Code Mode no longer runs `UserPromptSubmit` hooks** (managed ones included) on scripts' output — to redact that output, use a `PostToolUse` hook with `updatedToolOutput`.
+- **A shell command rewritten by a `PermissionRequest` hook** to a sandbox-excluded command runs outside the sandbox.
+- **`CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME`** lets a host stop `claude -p --resume` and `--continue` from running a tool call that a hook deferred. See [[23-environment-variables]].
+
 ---
 
 ---

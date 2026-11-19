@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.327         │
+│ Welcome to Claude Code v2.1.328         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -712,6 +712,13 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`claude --bare --bg` on an unapproved API key** exits with an error if the background service lacks the key; moving such a `--bare` session to the background is refused in most setups.
 - **Ctrl+O shows hidden startup notices.**
 
+### New in v2.1.328
+
+- **Self-hosted runner `--repository-folder`** — names the folder that sessions use for a repository at `--capacity 1`, in place of its path under the base folder (which can't be a symbolic link).
+- **Labels for the `spawn-runner` hook** — `claude self-hosted-runner orchestrator --hook-label` hands chosen session labels to the hook, and `claude --environment --metadata key=value` labels a session for it.
+- **New orchestrator metrics on `/metrics`** — `claude_code_self_hosted_orchestrator_session_queue_wait_by_reason_seconds` (tells a re-opened session's wait from a new one's) and `claude_code_self_hosted_orchestrator_sessions_given_up_total` (counts by cause how often Anthropic gave up starting a runner).
+- **Self-hosted runner defaults** — a start-up warning when the host's settings.json sets a default permission mode that sessions ignore; the built-in `gh api` is off by default where settings guard Claude's GitHub tools by name (`--use-anthropic-gh true` turns it on); `CLAUDE_RUNNER_SESSION_UUID` and `CLAUDE_CODE_REMOTE_SESSION_UUID` are both set for the session and its `checkout`, `post-session` and `spawn-runner` hooks.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1083,7 +1090,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.327
+- run: npm install -g @anthropic-ai/claude-code@2.1.328
 ```
 
 ---

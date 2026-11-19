@@ -319,6 +319,13 @@ related:
 - **`/install-github-app` ขอยืนยัน** ก่อนแก้ repository
 - **`/export` ไม่เขียนทับเงียบ ๆ แล้ว** — dialog ถามก่อนทับไฟล์ที่มีอยู่ และ `/export <name>` จะเก็บไฟล์เดิมไว้แล้วบอกให้รัน `/export`
 
+### 🆕 ใหม่ใน v2.1.328
+- **`/code-review` รายงานเฉพาะ bug และการละเมิด CLAUDE.md** บนโมเดลส่วนใหญ่ — งาน cleanup ด้าน reuse, simplification และ efficiency ให้รัน `/simplify` · ทุก finding ติดป้าย Important, Pre-existing หรือ Nit · ทุกสรุปปิดท้ายด้วยวิธีแก้ที่แนะนำ · รีวิวที่ไม่เจออะไรจะขึ้นว่า "Code review found no issues."
+- **`/bug` ถาม Yes หรือ No ก่อนส่ง** — กด Enter รัว ๆ จะไม่ส่ง report หรือเปิด GitHub อีก
+- **`/list-agents` แสดงรายการให้เราเห็นคนเดียว** — Claude จะ list session เองเมื่อจำเป็น
+- **`/status` และ `claude doctor` เตือนเรื่อง OpenTelemetry exporter** — มีหมายเหตุเมื่อ exporter ไม่มี endpoint และข้อมูลน่าจะหาย
+- **`/chrome` และหน้า welcome ของ Claude in Chrome** บอกว่า Claude Code จะถามก่อนให้ Claude ทำอะไรบนเว็บ เว้นแต่ permission mode หรือ rule ใน `/permissions` ตอบให้แล้ว
+
 ---
 
 ---

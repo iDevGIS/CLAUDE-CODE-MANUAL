@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.327         │
+│ Welcome to Claude Code v2.1.328         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -712,6 +712,13 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **`claude --bare --bg` กับ API key ที่ยังไม่อนุมัติ** จะออกพร้อม error ถ้า background service ไม่มี key นั้น · การย้าย session `--bare` แบบนี้ไป background ถูกปฏิเสธในเกือบทุก setup
 - **Ctrl+O แสดง startup notice ที่ซ่อนอยู่**
 
+### 🆕 ใหม่ใน v2.1.328
+
+- **Self-hosted runner `--repository-folder`** — ตั้งชื่อโฟลเดอร์ที่ session ใช้กับ repository เมื่อ `--capacity 1` แทน path ใต้ base folder (ซึ่งเป็น symbolic link ไม่ได้)
+- **label สำหรับ hook `spawn-runner`** — `claude self-hosted-runner orchestrator --hook-label` ส่ง label ของ session ที่เลือกให้ hook และ `claude --environment --metadata key=value` ติด label ให้ session สำหรับ hook นั้น
+- **metric ใหม่ของ orchestrator ใน `/metrics`** — `claude_code_self_hosted_orchestrator_session_queue_wait_by_reason_seconds` (แยกเวลารอของ session ที่เปิดซ้ำออกจาก session ใหม่) และ `claude_code_self_hosted_orchestrator_sessions_given_up_total` (นับตามสาเหตุว่า Anthropic เลิกพยายามเริ่ม runner บ่อยแค่ไหน)
+- **ค่าเริ่มต้นของ self-hosted runner** — เตือนตอนเริ่มเมื่อ settings.json ของเครื่อง host ตั้ง default permission mode ที่ session เมิน · `gh api` ในตัวปิดเป็นค่าเริ่มต้นเมื่อ settings คุม GitHub tool ของ Claude ด้วยชื่อ (เปิดด้วย `--use-anthropic-gh true`) · ตั้งทั้ง `CLAUDE_RUNNER_SESSION_UUID` และ `CLAUDE_CODE_REMOTE_SESSION_UUID` ให้ session และ hook `checkout`, `post-session`, `spawn-runner`
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1083,7 +1090,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.327
+- run: npm install -g @anthropic-ai/claude-code@2.1.328
 ```
 
 ---

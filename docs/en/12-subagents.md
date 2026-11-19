@@ -259,6 +259,12 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Restarted background subagents wait for plugins to load**, as do turns that start by themselves.
 - **Cheaper progress summaries on Bedrock, Vertex AI and Foundry** — terminal sessions write them from short notes, not the whole conversation.
 
+### New in v2.1.328
+
+- **Subagents wait for their own subagents with `CLAUDE_CODE_FORK_SUBAGENT=0`** — by default in `claude -p`, the Agent SDK, desktop and VS Code.
+- **One 10-minute wait in `claude -p`** — with `CLAUDE_CODE_FORK_SUBAGENT=0`, a background subagent and those it waits for count against a single 10-minute wait; raise `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` for longer chains. See [[23-environment-variables]].
+- **Progress summaries on the Anthropic API** — in terminal sessions they are written by the default small fast model from short notes, also with telemetry off, using far fewer tokens.
+
 ---
 
 ---

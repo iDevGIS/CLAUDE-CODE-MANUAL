@@ -262,6 +262,14 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **HTTP hook เมิน `Content-Length` และ `Transfer-Encoding` ใน setting `headers`** — ความยาว request คิดจาก body · `allowedHttpHookUrls` และ `httpHookAllowedEnvVars` ใช้กับ hook จาก managed settings ต่างไปจากเดิมด้วย
 - **ผลของ hook ใน transcript** — ล้มแสดงเป็นสีแดงแทนสีเทา · hook ที่สั่งหยุด Claude เป็นสีเหลือง และแสดงเหตุผลไว้ด้านล่าง
 
+#### 🆕 ใหม่ใน v2.1.328
+
+- **`"onFailure": "block"` สำหรับ `mcp_tool` hook** เหมือน command hook และ HTTP hook — hook ที่ call ล้มจะบล็อก action นั้น
+- **managed `PostToolUse` hook ไม่ทำงานกับ call ที่ถูกปฏิเสธก่อนรันแล้ว** — ไม่มี log entry, rewrite, block หรือ stop ตรงนั้น · `PostToolBatch` ได้รับเกือบทั้งหมดโดยไม่ได้ติดป้ายว่าถูกปฏิเสธ
+- **Code Mode ไม่รัน `UserPromptSubmit` hook กับ output ของสคริปต์อีกแล้ว** (รวม managed hook) — ถ้าต้องการ redact output นั้นให้ใช้ `PostToolUse` hook คู่ `updatedToolOutput`
+- **คำสั่ง shell ที่ `PermissionRequest` hook rewrite** ให้เป็นคำสั่งที่ถูก exclude จาก sandbox จะรันนอก sandbox
+- **`CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME`** ให้ host หยุด `claude -p --resume` และ `--continue` ไม่ให้รัน tool call ที่ hook เลื่อนไว้ ดู [[23-environment-variables]]
+
 ---
 
 ---

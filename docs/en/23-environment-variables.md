@@ -134,6 +134,8 @@ related:
 | `CLAUDE_CODE_AUTOMOUNT_ROOTS` | On Linux, names autofs map roots deeper than one folder below `/`; Claude Code no longer looks up files in an autofs `/home` itself. *(v2.1.323)* |
 | `OTEL_RESOURCE_INCLUDE_HOST` | Set `1` to include `host.name` and `host.id` in OpenTelemetry resource attributes (off by default). See [[06-configuration]]. *(v2.1.326)* |
 | `CLAUDE_CODE_DISABLE_SHELL_HEAD_START` | Set `1` to stop shell start-up files from running before the session's first Bash command is approved. See [[06-configuration]]. *(v2.1.327)* |
+| `CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME` | Lets a host stop `claude -p --resume` and `--continue` from running a tool call that a hook deferred. See [[10-hooks]]. *(v2.1.328)* |
+| `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` | Raises the single 10-minute wait that `claude -p` with `CLAUDE_CODE_FORK_SUBAGENT=0` gives a background subagent and those it waits for, for longer chains. See [[12-subagents]]. *(v2.1.328)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

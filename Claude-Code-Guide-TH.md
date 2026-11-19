@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.327         │
+│ Welcome to Claude Code v2.1.328         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -816,6 +816,13 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **`claude --bare --bg` กับ API key ที่ยังไม่อนุมัติ** จะออกพร้อม error ถ้า background service ไม่มี key นั้น · การย้าย session `--bare` แบบนี้ไป background ถูกปฏิเสธในเกือบทุก setup
 - **Ctrl+O แสดง startup notice ที่ซ่อนอยู่**
 
+### 🆕 ใหม่ใน v2.1.328
+
+- **Self-hosted runner `--repository-folder`** — ตั้งชื่อโฟลเดอร์ที่ session ใช้กับ repository เมื่อ `--capacity 1` แทน path ใต้ base folder (ซึ่งเป็น symbolic link ไม่ได้)
+- **label สำหรับ hook `spawn-runner`** — `claude self-hosted-runner orchestrator --hook-label` ส่ง label ของ session ที่เลือกให้ hook และ `claude --environment --metadata key=value` ติด label ให้ session สำหรับ hook นั้น
+- **metric ใหม่ของ orchestrator ใน `/metrics`** — `claude_code_self_hosted_orchestrator_session_queue_wait_by_reason_seconds` (แยกเวลารอของ session ที่เปิดซ้ำออกจาก session ใหม่) และ `claude_code_self_hosted_orchestrator_sessions_given_up_total` (นับตามสาเหตุว่า Anthropic เลิกพยายามเริ่ม runner บ่อยแค่ไหน)
+- **ค่าเริ่มต้นของ self-hosted runner** — เตือนตอนเริ่มเมื่อ settings.json ของเครื่อง host ตั้ง default permission mode ที่ session เมิน · `gh api` ในตัวปิดเป็นค่าเริ่มต้นเมื่อ settings คุม GitHub tool ของ Claude ด้วยชื่อ (เปิดด้วย `--use-anthropic-gh true`) · ตั้งทั้ง `CLAUDE_RUNNER_SESSION_UUID` และ `CLAUDE_CODE_REMOTE_SESSION_UUID` ให้ session และ hook `checkout`, `post-session`, `spawn-runner`
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1147,7 +1154,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.327
+- run: npm install -g @anthropic-ai/claude-code@2.1.328
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1486,6 +1493,13 @@ claude -p "..."              # ถามเร็ว ๆ
 - **`/config` บอกแถวที่ถูก override** — มีหมายเหตุเมื่อ settings อื่นทับค่าของแถวนั้น · `/sandbox` และรายการค่าส่วนใหญ่ใน `/config` ไม่มีเลขกำกับแล้วนอก screen reader mode (ใช้ลูกศรและ Enter)
 - **`/install-github-app` ขอยืนยัน** ก่อนแก้ repository
 - **`/export` ไม่เขียนทับเงียบ ๆ แล้ว** — dialog ถามก่อนทับไฟล์ที่มีอยู่ และ `/export <name>` จะเก็บไฟล์เดิมไว้แล้วบอกให้รัน `/export`
+
+### 🆕 ใหม่ใน v2.1.328
+- **`/code-review` รายงานเฉพาะ bug และการละเมิด CLAUDE.md** บนโมเดลส่วนใหญ่ — งาน cleanup ด้าน reuse, simplification และ efficiency ให้รัน `/simplify` · ทุก finding ติดป้าย Important, Pre-existing หรือ Nit · ทุกสรุปปิดท้ายด้วยวิธีแก้ที่แนะนำ · รีวิวที่ไม่เจออะไรจะขึ้นว่า "Code review found no issues."
+- **`/bug` ถาม Yes หรือ No ก่อนส่ง** — กด Enter รัว ๆ จะไม่ส่ง report หรือเปิด GitHub อีก
+- **`/list-agents` แสดงรายการให้เราเห็นคนเดียว** — Claude จะ list session เองเมื่อจำเป็น
+- **`/status` และ `claude doctor` เตือนเรื่อง OpenTelemetry exporter** — มีหมายเหตุเมื่อ exporter ไม่มี endpoint และข้อมูลน่าจะหาย
+- **`/chrome` และหน้า welcome ของ Claude in Chrome** บอกว่า Claude Code จะถามก่อนให้ Claude ทำอะไรบนเว็บ เว้นแต่ permission mode หรือ rule ใน `/permissions` ตอบให้แล้ว
 
 ---
 
@@ -1977,6 +1991,12 @@ Skill(commit)                    # Skill เฉพาะ
 - **ค่ายาวมากถูกปฏิเสธ** — คำสั่ง Bash ที่ตัวแปรขยายเป็นข้อความยาวมากจะถูก deny พร้อมบอกให้ใช้ค่าสั้นลงหรือใช้ไฟล์ · WebFetch ปฏิเสธ URL ยาวเกิน 2,000 ตัวอักษรก่อนขึ้น permission prompt
 - **PowerShell ถามก่อนรันเพิ่มอีกหนึ่งคำสั่ง** — แม้มี rule ระบุชื่อไว้ · ถ้าไม่มีใครตอบจะถูกปฏิเสธ เว้นแต่ rule ทั้ง tool, auto mode หรือ bypass permissions mode อนุญาต
 - **Claude in Chrome ไม่อัปโหลดไฟล์ credential บางชนิด** — ให้แนบไฟล์พวกนั้นในหน้าเว็บเอง
+
+### 🆕 ใหม่ใน v2.1.328
+- **Auto mode สำหรับ Opus 4.6 และ Sonnet 4.6 บน third-party provider** — บน Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry และ Claude apps gateway · session แบบ interactive ที่ไม่ได้ตั้ง permission mode จะเริ่มในโหมดนี้ · plan mode และ Bash prompt ของสองโมเดลนี้ใช้และเสนอ auto mode เหมือนโมเดลรุ่นใหม่ · ปิดทั้งสองอย่างด้วย `disableAutoMode`
+- **sandbox ที่เริ่มไม่ได้จะถูกแจ้งตอนคำสั่ง Bash ใน sandbox ถัดไป** — เว้นแต่ตั้ง `sandbox.failIfUnavailable` ไว้ คำสั่งนั้นจะถูกปฏิเสธพร้อมบอกว่า sandbox ปิดอยู่ตลอด session
+- **`PermissionRequest` hook ที่ rewrite คำสั่ง shell ให้เป็นคำสั่งที่ถูก exclude จาก sandbox** จะรันคำสั่งนั้นนอก sandbox
+- **คำเตือนสำหรับ session ที่ข้าม permission prompt** — ข้อความจาก session แบบนี้อาจถูก cloud session กักไว้แล้วทิ้ง
 
 ---
 
@@ -2886,6 +2906,10 @@ claude --mcp-config ./mcp.json
 - **`claude mcp add --scope project` หยุดแทนการเขียนทับ** เมื่อ `.mcp.json` วาง server ไว้ระดับบนสุดโดยไม่มี key `mcpServers`
 - **log ของ MCP server กระชับขึ้น** — บันทึกแค่ mode, action และชื่อ field ของ elicitation request และคำตอบจาก hook ไม่เก็บเนื้อหาเต็ม
 
+### 🆕 ใหม่ใน v2.1.328
+
+- **entry ใน `deniedMcpServers` แบบ `claude.ai <name>`** มีผลกับ connector นั้นใน cloud session และ self-hosted runner session ด้วยแล้ว
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -3132,6 +3156,14 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **`PreToolUse` hook ที่ exit 127** จะแสดง error ว่า check ของมันอาจไม่ได้รัน
 - **HTTP hook เมิน `Content-Length` และ `Transfer-Encoding` ใน setting `headers`** — ความยาว request คิดจาก body · `allowedHttpHookUrls` และ `httpHookAllowedEnvVars` ใช้กับ hook จาก managed settings ต่างไปจากเดิมด้วย
 - **ผลของ hook ใน transcript** — ล้มแสดงเป็นสีแดงแทนสีเทา · hook ที่สั่งหยุด Claude เป็นสีเหลือง และแสดงเหตุผลไว้ด้านล่าง
+
+### 🆕 ใหม่ใน v2.1.328
+
+- **`"onFailure": "block"` สำหรับ `mcp_tool` hook** เหมือน command hook และ HTTP hook — hook ที่ call ล้มจะบล็อก action นั้น
+- **managed `PostToolUse` hook ไม่ทำงานกับ call ที่ถูกปฏิเสธก่อนรันแล้ว** — ไม่มี log entry, rewrite, block หรือ stop ตรงนั้น · `PostToolBatch` ได้รับเกือบทั้งหมดโดยไม่ได้ติดป้ายว่าถูกปฏิเสธ
+- **Code Mode ไม่รัน `UserPromptSubmit` hook กับ output ของสคริปต์อีกแล้ว** (รวม managed hook) — ถ้าต้องการ redact output นั้นให้ใช้ `PostToolUse` hook คู่ `updatedToolOutput`
+- **คำสั่ง shell ที่ `PermissionRequest` hook rewrite** ให้เป็นคำสั่งที่ถูก exclude จาก sandbox จะรันนอก sandbox
+- **`CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME`** ให้ host หยุด `claude -p --resume` และ `--continue` ไม่ให้รัน tool call ที่ hook เลื่อนไว้ (ดูบท 23 Environment Variables)
 
 ---
 
@@ -3627,6 +3659,12 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **subagent ตัวแรกบน model หนึ่ง ๆ รอ settings ของ model นั้น** — สูงสุด 1.5 วินาที (10 วินาทีใน `claude -p`) แทนการเริ่มโดยไม่มี settings
 - **background subagent ที่ restart รอ plugin โหลดเสร็จก่อน** รวมถึง turn ที่เริ่มเอง
 - **progress summary บน Bedrock, Vertex AI และ Foundry ประหยัดขึ้น** — terminal session เขียนจากโน้ตสั้น ๆ แทนทั้งบทสนทนา
+
+### 🆕 ใหม่ใน v2.1.328
+
+- **subagent รอ subagent ของตัวเองเมื่อตั้ง `CLAUDE_CODE_FORK_SUBAGENT=0`** — เป็นค่าเริ่มต้นใน `claude -p`, Agent SDK, desktop และ VS Code
+- **รอรวมครั้งเดียว 10 นาทีใน `claude -p`** — เมื่อตั้ง `CLAUDE_CODE_FORK_SUBAGENT=0` background subagent และตัวที่มันรอจะนับรวมกันในเวลารอ 10 นาทีเดียว · ถ้า chain ยาวกว่านั้นให้เพิ่ม `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` (ดูบท 23 Environment Variables)
+- **progress summary บน Anthropic API** — ใน terminal session เขียนโดย small fast model ตัว default จากโน้ตสั้น ๆ แม้ปิด telemetry ใช้ token น้อยลงมาก
 
 ---
 
@@ -4832,6 +4870,8 @@ your-project/
 | `CLAUDE_CODE_AUTOMOUNT_ROOTS` | บน Linux ใช้ระบุ root ของ autofs map ที่ลึกกว่าหนึ่งโฟลเดอร์ใต้ `/` · Claude Code ไม่ไล่หาไฟล์ใน `/home` ที่เป็น autofs เองอีกแล้ว *(v2.1.323)* |
 | `OTEL_RESOURCE_INCLUDE_HOST` | ตั้ง `1` เพื่อใส่ `host.name` และ `host.id` ลงใน resource attribute ของ OpenTelemetry (ปิดเป็นค่าเริ่มต้น · ดูบท 06 Configuration) *(v2.1.326)* |
 | `CLAUDE_CODE_DISABLE_SHELL_HEAD_START` | ตั้ง `1` เพื่อไม่ให้ไฟล์ start-up ของ shell รันก่อนคำสั่ง Bash แรกของ session ได้รับอนุมัติ (ดูบท 06 Configuration) *(v2.1.327)* |
+| `CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME` | ให้ host หยุด `claude -p --resume` และ `--continue` ไม่ให้รัน tool call ที่ hook เลื่อนไว้ (ดูบท 10 Hooks) *(v2.1.328)* |
+| `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` | เพิ่มเวลารอ 10 นาทีที่ `claude -p` ซึ่งตั้ง `CLAUDE_CODE_FORK_SUBAGENT=0` ให้ background subagent และตัวที่มันรอ สำหรับ chain ที่ยาวกว่านั้น (ดูบท 12 Subagents) *(v2.1.328)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -6163,7 +6203,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.327`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.328`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

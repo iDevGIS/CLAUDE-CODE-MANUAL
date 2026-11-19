@@ -266,6 +266,10 @@ claude --mcp-config ./mcp.json
 - **`claude mcp add --scope project` หยุดแทนการเขียนทับ** เมื่อ `.mcp.json` วาง server ไว้ระดับบนสุดโดยไม่มี key `mcpServers`
 - **log ของ MCP server กระชับขึ้น** — บันทึกแค่ mode, action และชื่อ field ของ elicitation request และคำตอบจาก hook ไม่เก็บเนื้อหาเต็ม
 
+### 🆕 ใหม่ใน v2.1.328
+
+- **entry ใน `deniedMcpServers` แบบ `claude.ai <name>`** มีผลกับ connector นั้นใน cloud session และ self-hosted runner session ด้วยแล้ว
+
 ---
 
 ---
