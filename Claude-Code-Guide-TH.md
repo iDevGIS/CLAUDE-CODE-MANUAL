@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.329         │
+│ Welcome to Claude Code v2.1.330         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -823,6 +823,15 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **metric ใหม่ของ orchestrator ใน `/metrics`** — `claude_code_self_hosted_orchestrator_session_queue_wait_by_reason_seconds` (แยกเวลารอของ session ที่เปิดซ้ำออกจาก session ใหม่) และ `claude_code_self_hosted_orchestrator_sessions_given_up_total` (นับตามสาเหตุว่า Anthropic เลิกพยายามเริ่ม runner บ่อยแค่ไหน)
 - **ค่าเริ่มต้นของ self-hosted runner** — เตือนตอนเริ่มเมื่อ settings.json ของเครื่อง host ตั้ง default permission mode ที่ session เมิน · `gh api` ในตัวปิดเป็นค่าเริ่มต้นเมื่อ settings คุม GitHub tool ของ Claude ด้วยชื่อ (เปิดด้วย `--use-anthropic-gh true`) · ตั้งทั้ง `CLAUDE_RUNNER_SESSION_UUID` และ `CLAUDE_CODE_REMOTE_SESSION_UUID` ให้ session และ hook `checkout`, `post-session`, `spawn-runner`
 
+### 🆕 ใหม่ใน v2.1.330
+
+- **sign in เข้าองค์กรที่จัดการผ่าน Enterprise Admin Console ของ Anthropic** — หลัง `claude auth login` Claude Code จะใช้ settings ขององค์กรนั้น และใช้ cloud provider หรือ gateway ขององค์กร
+- **ลิงก์ sign-in สั้นลง** — `/login`, `claude auth login` และ `claude setup-token` แสดงลิงก์ claude.ai ที่สั้นลงมาก · ตั้ง `CLAUDE_CODE_FULL_SIGN_IN_LINK=1` เพื่อพิมพ์ลิงก์เต็ม ถ้าลิงก์สั้นขึ้น error หรือมีสคริปต์อ่านค่าจากลิงก์ (ดูบท 23 Environment Variables)
+- **`claude --teleport` อาจพิมพ์คำสั่ง git ออกมาแทน** — ใน setup บางแบบจะพิมพ์คำสั่งสำหรับสลับ branch แทนการรันให้ · ถ้าใช้คู่ `-p` จะ exit 1 จนกว่าจะสลับ branch เอง
+- **Self-hosted runner `--start-dir`** (หรือ `SELF_HOSTED_RUNNER_START_DIR`) — ให้ Claude เริ่มทำงานในโฟลเดอร์ย่อยของ repository โดย settings และ hooks ยังโหลดเหมือนไม่ได้ตั้ง
+- **hook `spawn-runner` รันพร้อมกันได้** — สูงสุด `--hook-concurrency` ต่อ orchestrator (ค่าเริ่มต้น 4) · ตั้งเป็น 1 ถ้า hook ของเรารันคู่กับตัวอื่นไม่ได้ · checkout hook ที่ exit ด้วย status 108 จะหยุดการเริ่ม session ทันทีโดยไม่ลอง runner อื่น
+- **metric ใหม่ของ runner ใน `/metrics`** — `claude_code_self_hosted_runner_order_to_registered_seconds` (เวลาจากออก work order ถึงลงทะเบียนสำเร็จ บน runner ที่ orchestrator spawn) และ `claude_code_self_hosted_runner_order_to_first_session_seconds` (เวลาจาก work order ถึงได้ session แรก บน runner ที่เริ่มเพื่อ session นั้น)
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1154,7 +1163,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.329
+- run: npm install -g @anthropic-ai/claude-code@2.1.330
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -1504,6 +1513,9 @@ claude -p "..."              # ถามเร็ว ๆ
 ### 🆕 ใหม่ใน v2.1.329
 - **`/tasks` แสดงมากขึ้น** — scheduled task ของ session นี้, wakeup ของ `/loop`, goal และ fork ของบทสนทนานี้ · กด `x` เพื่อหยุดรายการนั้น (มีถามยืนยันก่อน)
 - **`/status` เพิ่มแถว "Marketplace auto-update"** บอกชื่อ managed marketplace ที่ไม่ได้รับการอัปเดตอัตโนมัติ พร้อมเหตุผล
+
+### 🆕 ใหม่ใน v2.1.330
+- **scheduled task แบบวนซ้ำและ `/loop` รันได้นานสุด 30 วัน** (เดิม 7 วัน) ตราบที่ session ยังเปิดอยู่ และบอกเมื่อหมดอายุ · task ที่สร้างก่อน release นี้ยังจบที่ 7 วันเหมือนเดิม
 
 ---
 
@@ -2002,6 +2014,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **`PermissionRequest` hook ที่ rewrite คำสั่ง shell ให้เป็นคำสั่งที่ถูก exclude จาก sandbox** จะรันคำสั่งนั้นนอก sandbox
 - **คำเตือนสำหรับ session ที่ข้าม permission prompt** — ข้อความจาก session แบบนี้อาจถูก cloud session กักไว้แล้วทิ้ง
 
+### 🆕 ใหม่ใน v2.1.330
+- **คำสั่ง `rm` ขอ approval มากขึ้น** — ตัวที่เล็งไปที่ root, home, โฟลเดอร์ระดับบนสุด หรือโฟลเดอร์ที่ทำงานอยู่ · ถ้าไม่มีใครตอบได้ (เช่นรันแบบ headless) จะถูกปฏิเสธ
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2433,6 +2448,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.329
 
 - **เปิด Code Mode ได้แม้เปิด OpenTelemetry events และ metrics อยู่** — ทุก tool call ที่โค้ดเรียกจะส่ง event ของมัน · ถ้าเปิด tracing ไว้ Code Mode ยังคงถูกปิด
+
+### 🆕 ใหม่ใน v2.1.330
+
+- **ชื่อโมเดลที่ไม่รู้จักซึ่งมีคำว่า "sonnet" หรือ "haiku" ใช้ system prompt แบบสั้น** เหมือนชื่อที่ไม่รู้จักอื่น ๆ · ตั้ง `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` เพื่อให้ทุกโมเดลได้ prompt แบบเต็ม
 
 ---
 
@@ -2922,6 +2941,12 @@ claude --mcp-config ./mcp.json
 
 - **`/mcp` มีแถว "Server message"** ในหน้าของ server แสดงข้อความ JSON-RPC error ของ remote HTTP MCP server ที่ปฏิเสธการเชื่อมต่อ
 
+### 🆕 ใหม่ใน v2.1.330
+
+- **entry แบบชื่อใน `deniedMcpServers` ซ่อนแค่ claude.ai connector ตัวที่ระบุชื่อ** ไม่รวมตัวอื่นที่ใช้ URL เดียวกัน · ถ้าจะบล็อกทั้งหมดให้ deny ด้วย URL ตรงตัว
+- **`/mcp` แบ่งกลุ่ม server ตามที่มา** — server จาก plugin อยู่ใต้ "Plugin MCPs", ส่วน `--mcp-config` และ server ในตัวอยู่ใต้ "Other MCPs" และหน้าของ server บอกชื่อ plugin ของมัน
+- **`claude mcp remove` กับ claude.ai connector** จะบอกให้ไปปิดใน `/mcp` หรือลบบน claude.ai
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -3182,6 +3207,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **trust dialog บอกว่า hook ของโฟลเดอร์ถูกประกาศไว้ที่ไหน**
 - **hook ใน managed settings ที่โหลดไม่ขึ้น** จะมีคำเตือนในบทสนทนาบน Claude Desktop และ host แบบ non-interactive อื่น ๆ
 
+### 🆕 ใหม่ใน v2.1.330
+
+- **prompt hook รับ model alias** อย่าง `haiku` หรือ `sonnet` ใน field `model` ได้
+
 ---
 
 ## 11. Skills (คำสั่งที่สร้างเอง)
@@ -3411,6 +3440,10 @@ my-skill/
 
 - **ไม่โหลด nested skill จาก `~/.claude/plugins`** — โฟลเดอร์ `.claude/skills` ที่อยู่ใน `~/.claude/plugins` จะไม่ถูกโหลดแล้วเมื่อ Claude ทำงานกับไฟล์ในนั้น
 - **session แบบ headless โหลด mod ใน `.claude/skills` ใหม่** — เมื่อไฟล์ของมันเปลี่ยน · ตั้ง `CLAUDE_CODE_PLUGIN_DIR_WATCH=0` เพื่อปิด (ดูบท 23 Environment Variables)
+
+### 🆕 ใหม่ใน v2.1.330
+
+- **setting `model` ของ skill ไม่ลามไปที่อื่น** — skill ที่ Claude รันโดยมี setting `model` (ยกเว้น skill แบบ `context: fork`) จะปล่อยให้ subagent, fork, compaction และ `/recap` ใช้โมเดลของ session ตามเดิม
 
 ---
 
@@ -3682,6 +3715,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **subagent รอ subagent ของตัวเองเมื่อตั้ง `CLAUDE_CODE_FORK_SUBAGENT=0`** — เป็นค่าเริ่มต้นใน `claude -p`, Agent SDK, desktop และ VS Code
 - **รอรวมครั้งเดียว 10 นาทีใน `claude -p`** — เมื่อตั้ง `CLAUDE_CODE_FORK_SUBAGENT=0` background subagent และตัวที่มันรอจะนับรวมกันในเวลารอ 10 นาทีเดียว · ถ้า chain ยาวกว่านั้นให้เพิ่ม `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` (ดูบท 23 Environment Variables)
 - **progress summary บน Anthropic API** — ใน terminal session เขียนโดย small fast model ตัว default จากโน้ตสั้น ๆ แม้ปิด telemetry ใช้ token น้อยลงมาก
+
+### 🆕 ใหม่ใน v2.1.330
+
+- **model fallback ของ subagent ส่งต่อลงไปด้วย** — agent ที่ไม่ได้ระบุ model และ fork ที่ subagent นั้นเริ่ม จะรันบนโมเดล fallback และ agent ที่พวกมันเริ่มต่อจะใช้ Bedrock region ของมัน
+- **progress summary บน Claude apps gateway** — ใน terminal session ที่ sign in กับ Claude apps gateway จะเขียนจากโน้ตสั้น ๆ แทนทั้งบทสนทนา ใช้ token น้อยลงมาก
 
 ---
 
@@ -4155,6 +4193,14 @@ cat src/*.ts | claude -p "หา Bug"
 - **background sub-agent ใน VS Code แสดงเป็นบรรทัดสถานะเดียว** — อยู่ใต้การ์ด Agent แทนการ stream ทุกขั้นเข้ามาในแชท · transcript เต็มยังดูได้ใน /tasks
 - **mod วาดใน chat panel ของ VS Code ได้บน setup มากขึ้น** — session บน Amazon Bedrock, Google Vertex AI และ Microsoft Foundry, หลัง LLM gateway หรือที่ปิด telemetry
 
+### 🆕 ใหม่ใน v2.1.330
+
+- **`/fork` (VS Code)** — fork บทสนทนาต่อจากคำตอบล่าสุด
+- **`/workflows` (VS Code)** — เปิด agent map พร้อม workflow ที่กำลังรัน
+- **setting ใหม่ของ VS Code** — `claudeCode.escapeStopsClaude` (ปิดเพื่อไม่ให้ Escape หยุด Claude), `claudeCode.pinPrompt` (ให้ข้อความของเราเลื่อนหายไปแทนการปักไว้) และ `claudeCode.contextUsageThreshold` (กำหนดว่าตัวบอก context จะแสดงเมื่อไร)
+- **argument `prompt` ของคำสั่ง "Open in Side Bar" (VS Code)** — สำหรับ keybinding และ extension
+- **Move up / Move down ในเมนูของ session group (VS Code)**
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**
@@ -4423,6 +4469,12 @@ claude --plugin-dir ./my-plugin
 - **session ใน worktree บางแบบข้าม plugin settings บางตัว** — มี notice บอกว่าข้ามอะไรไป
 - **คำถาม uninstall, remove และ switch ใน `/plugin` เป็นรายการ** ตอบด้วยลูกศรและ Enter หรือ Esc เพื่อยกเลิก · กด `y`, `n`, `u` ตอบไม่ได้แล้ว
 - **prop ใหม่ของ UI ใน mod** — `overflowX="scroll"` บน `Box` และ `maxLines` กับ `wrap="clip"` บน `Text`
+
+### 🆕 ใหม่ใน v2.1.330
+
+- **easel — mod วาดกราฟในตัว** — วาดกราฟเมื่อขอ และใต้ผลลัพธ์ metrics จาก MCP บนแพ็กเกจ Pro, Max และ Team/Enterprise (ถ้ามีให้ใช้) บน macOS และ Linux · ปิดกราฟอัตโนมัติได้ใน `/config`
+- **`commandPrinted` และ `commandFailed` ใน `claude plugin install --json`** — `commandPrinted` เป็น true เมื่อคำสั่ง install ของ plugin เขียนลง stderr · `commandFailed` เมื่อคำสั่งนั้น exit ด้วย error, ถูก kill หรือ timeout
+- **notice เรื่อง marketplace ใน cloud และ self-hosted runner session** — เมื่อดึง plugin marketplace ไม่ได้เพราะ repository ของมันไม่ใช่ของ session และบน self-hosted runner เมื่อ git ที่ Anthropic จัดการปฏิเสธ repository ของ plugin เอง (บอกชื่อ plugin และวิธีแก้)
 
 ---
 
@@ -4889,6 +4941,8 @@ your-project/
 | `CLAUDE_CODE_DISABLE_SHELL_HEAD_START` | ตั้ง `1` เพื่อไม่ให้ไฟล์ start-up ของ shell รันก่อนคำสั่ง Bash แรกของ session ได้รับอนุมัติ (ดูบท 06 Configuration) *(v2.1.327)* |
 | `CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME` | ให้ host หยุด `claude -p --resume` และ `--continue` ไม่ให้รัน tool call ที่ hook เลื่อนไว้ (ดูบท 10 Hooks) *(v2.1.328)* |
 | `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` | เพิ่มเวลารอ 10 นาทีที่ `claude -p` ซึ่งตั้ง `CLAUDE_CODE_FORK_SUBAGENT=0` ให้ background subagent และตัวที่มันรอ สำหรับ chain ที่ยาวกว่านั้น (ดูบท 12 Subagents) *(v2.1.328)* |
+| `CLAUDE_CODE_FULL_SIGN_IN_LINK` | ตั้ง `1` เพื่อพิมพ์ลิงก์ sign-in แบบเต็ม เมื่อลิงก์แบบสั้นขึ้น error หรือมีสคริปต์อ่านค่าจากลิงก์ (ดูบท 02 CLI Commands) *(v2.1.330)* |
+| `SELF_HOSTED_RUNNER_START_DIR` | ให้ Claude เริ่มทำงานในโฟลเดอร์ย่อยของ repository บน self-hosted runner โดย settings และ hooks ยังโหลดเหมือนไม่ได้ตั้ง (= `--start-dir`; ดูบท 02 CLI Commands) *(v2.1.330)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -6220,7 +6274,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.329`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.330`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

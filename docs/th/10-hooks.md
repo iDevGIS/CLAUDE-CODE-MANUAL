@@ -275,6 +275,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 - **trust dialog บอกว่า hook ของโฟลเดอร์ถูกประกาศไว้ที่ไหน**
 - **hook ใน managed settings ที่โหลดไม่ขึ้น** จะมีคำเตือนในบทสนทนาบน Claude Desktop และ host แบบ non-interactive อื่น ๆ
 
+#### 🆕 ใหม่ใน v2.1.330
+
+- **prompt hook รับ model alias** อย่าง `haiku` หรือ `sonnet` ใน field `model` ได้
+
 ---
 
 ---

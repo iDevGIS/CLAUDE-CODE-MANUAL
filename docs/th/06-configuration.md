@@ -457,6 +457,10 @@ related:
 
 - **เปิด Code Mode ได้แม้เปิด OpenTelemetry events และ metrics อยู่** — ทุก tool call ที่โค้ดเรียกจะส่ง event ของมัน · ถ้าเปิด tracing ไว้ Code Mode ยังคงถูกปิด
 
+### 🆕 ใหม่ใน v2.1.330
+
+- **ชื่อโมเดลที่ไม่รู้จักซึ่งมีคำว่า "sonnet" หรือ "haiku" ใช้ system prompt แบบสั้น** เหมือนชื่อที่ไม่รู้จักอื่น ๆ · ตั้ง `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` เพื่อให้ทุกโมเดลได้ prompt แบบเต็ม ดู [[23-environment-variables]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

@@ -102,6 +102,14 @@ related:
 - **Background sub-agents in VS Code show as one status line** — under their Agent card instead of streaming every step into the chat; the full transcript stays in /tasks. See [[41-background-agents]].
 - **Mod drawing in the VS Code chat panel on more setups** — sessions on Amazon Bedrock, Google Vertex AI and Microsoft Foundry, behind an LLM gateway, or with telemetry turned off. See [[18-plugins]].
 
+### New in v2.1.330
+
+- **`/fork` (VS Code)** — fork a conversation after its last reply.
+- **`/workflows` (VS Code)** — opens the agent map with running workflows. See [[39-dynamic-workflows]].
+- **New VS Code settings** — `claudeCode.escapeStopsClaude` (turn it off so Escape does not stop Claude), `claudeCode.pinPrompt` (let your message scroll away instead of staying pinned) and `claudeCode.contextUsageThreshold` (when the context indicator shows).
+- **A `prompt` argument for "Open in Side Bar" (VS Code)** — for keybindings and extensions.
+- **Move up and Move down in a session group's menu (VS Code).**
+
 ### JetBrains IDEs
 
 **Install:**

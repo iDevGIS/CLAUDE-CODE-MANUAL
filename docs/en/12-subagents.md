@@ -265,6 +265,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **One 10-minute wait in `claude -p`** — with `CLAUDE_CODE_FORK_SUBAGENT=0`, a background subagent and those it waits for count against a single 10-minute wait; raise `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` for longer chains. See [[23-environment-variables]].
 - **Progress summaries on the Anthropic API** — in terminal sessions they are written by the default small fast model from short notes, also with telemetry off, using far fewer tokens.
 
+### New in v2.1.330
+
+- **A subagent's model fallback carries over** — agents with no model and forks it then starts run on the fallback, and the agents they start use its Bedrock region.
+- **Progress summaries on a Claude apps gateway** — in terminal sessions signed in to a Claude apps gateway they are written from short notes instead of the whole conversation, using far fewer tokens.
+
 ---
 
 ---

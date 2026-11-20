@@ -329,6 +329,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 - **`/tasks` lists more** — this session's scheduled tasks, `/loop` wakeups, the goal and this conversation's forks; `x` stops one after asking.
 - **`/status` adds a "Marketplace auto-update" row** naming managed marketplaces that get no automatic updates, and why.
 
+### New in v2.1.330
+- **Recurring scheduled tasks and `/loop` run up to 30 days** instead of 7 while their session keeps running, and say when they end; tasks made before this release still end at 7 days. See [[20-scheduled-tasks]].
+
 ---
 
 ---

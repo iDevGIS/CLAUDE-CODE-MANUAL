@@ -265,6 +265,12 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **คำถาม uninstall, remove และ switch ใน `/plugin` เป็นรายการ** ตอบด้วยลูกศรและ Enter หรือ Esc เพื่อยกเลิก · กด `y`, `n`, `u` ตอบไม่ได้แล้ว
 - **prop ใหม่ของ UI ใน mod** — `overflowX="scroll"` บน `Box` และ `maxLines` กับ `wrap="clip"` บน `Text`
 
+### 🆕 ใหม่ใน v2.1.330
+
+- **easel — mod วาดกราฟในตัว** — วาดกราฟเมื่อขอ และใต้ผลลัพธ์ metrics จาก MCP บนแพ็กเกจ Pro, Max และ Team/Enterprise (ถ้ามีให้ใช้) บน macOS และ Linux · ปิดกราฟอัตโนมัติได้ใน `/config`
+- **`commandPrinted` และ `commandFailed` ใน `claude plugin install --json`** — `commandPrinted` เป็น true เมื่อคำสั่ง install ของ plugin เขียนลง stderr · `commandFailed` เมื่อคำสั่งนั้น exit ด้วย error, ถูก kill หรือ timeout
+- **notice เรื่อง marketplace ใน cloud และ self-hosted runner session** — เมื่อดึง plugin marketplace ไม่ได้เพราะ repository ของมันไม่ใช่ของ session และบน self-hosted runner เมื่อ git ที่ Anthropic จัดการปฏิเสธ repository ของ plugin เอง (บอกชื่อ plugin และวิธีแก้) ดู [[41-background-agents]]
+
 ---
 
 ---

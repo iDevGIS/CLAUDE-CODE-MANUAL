@@ -242,6 +242,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **No nested skills from `~/.claude/plugins`** — `.claude/skills` folders inside `~/.claude/plugins` no longer load when Claude works on files there.
 - **Headless sessions reload mods in `.claude/skills`** — when their files change; set `CLAUDE_CODE_PLUGIN_DIR_WATCH=0` to turn this off. See [[23-environment-variables]].
 
+### New in v2.1.330
+
+- **A skill's `model` setting no longer spreads** — for skills Claude runs with a `model` setting, other than `context: fork` skills, subagents, forks, compaction and `/recap` stay on the session's model. See [[12-subagents]].
+
 ---
 
 ---

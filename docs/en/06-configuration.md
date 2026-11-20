@@ -457,6 +457,10 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **Code Mode works with OpenTelemetry events and metrics enabled** — each tool call the code makes sends its events; tracing still keeps Code Mode off.
 
+### New in v2.1.330
+
+- **Unrecognized model names containing "sonnet" or "haiku" use the shorter system prompt**, like other unrecognized names; `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` gives every model the full one. See [[23-environment-variables]].
+
 ---
 
 ---

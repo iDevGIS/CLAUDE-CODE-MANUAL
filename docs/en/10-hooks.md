@@ -271,6 +271,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 - **The trust dialog says where a folder's hooks are declared.**
 - **Managed-settings hooks that fail to load** now raise a warning in the conversation in Claude Desktop and other non-interactive hosts.
 
+### New in v2.1.330
+
+- **Prompt hooks accept model aliases** such as `haiku` or `sonnet` in their `model` field.
+
 ---
 
 ---

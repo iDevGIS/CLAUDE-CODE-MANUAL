@@ -242,6 +242,10 @@ my-skill/
 - **ไม่โหลด nested skill จาก `~/.claude/plugins`** — โฟลเดอร์ `.claude/skills` ที่อยู่ใน `~/.claude/plugins` จะไม่ถูกโหลดแล้วเมื่อ Claude ทำงานกับไฟล์ในนั้น
 - **session แบบ headless โหลด mod ใน `.claude/skills` ใหม่** — เมื่อไฟล์ของมันเปลี่ยน · ตั้ง `CLAUDE_CODE_PLUGIN_DIR_WATCH=0` เพื่อปิด ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.330
+
+- **setting `model` ของ skill ไม่ลามไปที่อื่น** — skill ที่ Claude รันโดยมี setting `model` (ยกเว้น skill แบบ `context: fork`) จะปล่อยให้ subagent, fork, compaction และ `/recap` ใช้โมเดลของ session ตามเดิม ดู [[12-subagents]]
+
 ---
 
 ---

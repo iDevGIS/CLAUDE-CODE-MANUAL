@@ -274,6 +274,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **`/mcp` shows a "Server message" row** on a server's page with the JSON-RPC error message of a remote HTTP MCP server that refuses the connection.
 
+### New in v2.1.330
+
+- **`deniedMcpServers` name entries hide only the named claude.ai connector**, not others at its URL; to block them all, deny its exact URL.
+- **`/mcp` groups servers by where they come from** — plugin servers stand under "Plugin MCPs", `--mcp-config` and built-in servers under "Other MCPs", and a server's page names its plugin. See [[18-plugins]].
+- **`claude mcp remove` on a claude.ai connector** now says to turn it off in `/mcp` or remove it on claude.ai.
+
 ---
 
 ---

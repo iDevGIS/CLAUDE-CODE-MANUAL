@@ -382,6 +382,9 @@ Skill(commit)                    # Skill เฉพาะ
 - **`PermissionRequest` hook ที่ rewrite คำสั่ง shell ให้เป็นคำสั่งที่ถูก exclude จาก sandbox** จะรันคำสั่งนั้นนอก sandbox ดู [[10-hooks]]
 - **คำเตือนสำหรับ session ที่ข้าม permission prompt** — ข้อความจาก session แบบนี้อาจถูก cloud session กักไว้แล้วทิ้ง
 
+### 🆕 ใหม่ใน v2.1.330
+- **คำสั่ง `rm` ขอ approval มากขึ้น** — ตัวที่เล็งไปที่ root, home, โฟลเดอร์ระดับบนสุด หรือโฟลเดอร์ที่ทำงานอยู่ · ถ้าไม่มีใครตอบได้ (เช่นรันแบบ headless) จะถูกปฏิเสธ
+
 ---
 
 ---

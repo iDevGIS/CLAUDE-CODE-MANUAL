@@ -265,6 +265,11 @@ subagent สามารถ spawn subagent ของตัวเองได้�
 - **รอรวมครั้งเดียว 10 นาทีใน `claude -p`** — เมื่อตั้ง `CLAUDE_CODE_FORK_SUBAGENT=0` background subagent และตัวที่มันรอจะนับรวมกันในเวลารอ 10 นาทีเดียว · ถ้า chain ยาวกว่านั้นให้เพิ่ม `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` ดู [[23-environment-variables]]
 - **progress summary บน Anthropic API** — ใน terminal session เขียนโดย small fast model ตัว default จากโน้ตสั้น ๆ แม้ปิด telemetry ใช้ token น้อยลงมาก
 
+### 🆕 ใหม่ใน v2.1.330
+
+- **model fallback ของ subagent ส่งต่อลงไปด้วย** — agent ที่ไม่ได้ระบุ model และ fork ที่ subagent นั้นเริ่ม จะรันบนโมเดล fallback และ agent ที่พวกมันเริ่มต่อจะใช้ Bedrock region ของมัน
+- **progress summary บน Claude apps gateway** — ใน terminal session ที่ sign in กับ Claude apps gateway จะเขียนจากโน้ตสั้น ๆ แทนทั้งบทสนทนา ใช้ token น้อยลงมาก
+
 ---
 
 ---

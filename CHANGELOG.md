@@ -25,6 +25,33 @@
 
 ---
 
+## [1.115.0] — 2026-11-21
+
+### Compatibility
+- **Claude Code:** `v2.1.330+`
+
+### Added
+- **ch.02 CLI** — section "New in v2.1.330": sign in เข้าองค์กรที่จัดการผ่าน Enterprise Admin Console หลัง `claude auth login` · ลิงก์ sign-in สั้นลง (`CLAUDE_CODE_FULL_SIGN_IN_LINK=1` พิมพ์ลิงก์เต็ม) · `claude --teleport` อาจพิมพ์คำสั่ง git แทนการรัน · self-hosted runner `--start-dir` / `SELF_HOSTED_RUNNER_START_DIR`, `--hook-concurrency`, checkout hook exit 108, metric `order_to_registered_seconds` / `order_to_first_session_seconds`
+- **ch.03 Slash Commands** — section "New in v2.1.330": scheduled task แบบวนซ้ำและ `/loop` รันได้ถึง 30 วัน (เดิม 7)
+- **ch.05 Permissions** — section "New in v2.1.330": คำสั่ง `rm` ที่เล็ง root, home, โฟลเดอร์ระดับบนสุด หรือโฟลเดอร์งาน ขอ approval มากขึ้น (ไม่มีใครตอบ = ปฏิเสธ)
+- **ch.06 Configuration** — section "New in v2.1.330": ชื่อโมเดลที่ไม่รู้จักซึ่งมี "sonnet"/"haiku" ใช้ system prompt แบบสั้น
+- **ch.09 MCP** — section "New in v2.1.330": `deniedMcpServers` แบบชื่อซ่อนแค่ connector ตัวนั้น · `/mcp` แบ่งกลุ่ม "Plugin MCPs" / "Other MCPs" · `claude mcp remove` กับ claude.ai connector บอกทางไปต่อ
+- **ch.10 Hooks** — section "New in v2.1.330": prompt hook รับ model alias (`haiku`, `sonnet`)
+- **ch.11 Skills** — section "New in v2.1.330": setting `model` ของ skill (ที่ไม่ใช่ `context: fork`) ไม่ลามไป subagent, fork, compaction และ `/recap`
+- **ch.12 Subagents** — section "New in v2.1.330": model fallback ของ subagent ส่งต่อลงไป · progress summary บน Claude apps gateway เขียนจากโน้ตสั้น
+- **ch.17 IDE Integration** — section "New in v2.1.330": VS Code `/fork`, `/workflows`, setting `claudeCode.escapeStopsClaude` / `claudeCode.pinPrompt` / `claudeCode.contextUsageThreshold`, argument `prompt` ของ "Open in Side Bar", Move up/down ใน session group
+- **ch.18 Plugins** — section "New in v2.1.330": mod วาดกราฟในตัว `easel` · `commandPrinted` / `commandFailed` ใน `claude plugin install --json` · notice เรื่อง marketplace ใน cloud/self-hosted runner session
+- **ch.23 Environment Variables** — แถว `CLAUDE_CODE_FULL_SIGN_IN_LINK`, `SELF_HOSTED_RUNNER_START_DIR`
+- README / README.EN — แถว What's-new (v2.1.330)
+
+### Changed
+- Version strings `2.1.329` → `2.1.330` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.330` — release ใหญ่: mod วาดกราฟ `easel`, sign-in ผ่าน Enterprise Admin Console, `/loop` อยู่ได้ 30 วัน, `rm` อันตรายขอ approval มากขึ้น, VS Code ได้ `/fork`/`/workflows` และ setting ใหม่ พร้อมปรับพฤติกรรม model ของ skill/subagent และ self-hosted runner
+
+---
+
 ## [1.114.0] — 2026-11-20
 
 ### Compatibility
@@ -2560,6 +2587,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.115.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.114.0...v1.115.0
 [1.114.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.113.0...v1.114.0
 [1.113.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.112.0...v1.113.0
 [1.112.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.111.0...v1.112.0

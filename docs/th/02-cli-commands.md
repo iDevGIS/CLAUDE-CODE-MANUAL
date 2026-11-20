@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.329         │
+│ Welcome to Claude Code v2.1.330         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -719,6 +719,15 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **metric ใหม่ของ orchestrator ใน `/metrics`** — `claude_code_self_hosted_orchestrator_session_queue_wait_by_reason_seconds` (แยกเวลารอของ session ที่เปิดซ้ำออกจาก session ใหม่) และ `claude_code_self_hosted_orchestrator_sessions_given_up_total` (นับตามสาเหตุว่า Anthropic เลิกพยายามเริ่ม runner บ่อยแค่ไหน)
 - **ค่าเริ่มต้นของ self-hosted runner** — เตือนตอนเริ่มเมื่อ settings.json ของเครื่อง host ตั้ง default permission mode ที่ session เมิน · `gh api` ในตัวปิดเป็นค่าเริ่มต้นเมื่อ settings คุม GitHub tool ของ Claude ด้วยชื่อ (เปิดด้วย `--use-anthropic-gh true`) · ตั้งทั้ง `CLAUDE_RUNNER_SESSION_UUID` และ `CLAUDE_CODE_REMOTE_SESSION_UUID` ให้ session และ hook `checkout`, `post-session`, `spawn-runner`
 
+### 🆕 ใหม่ใน v2.1.330
+
+- **sign in เข้าองค์กรที่จัดการผ่าน Enterprise Admin Console ของ Anthropic** — หลัง `claude auth login` Claude Code จะใช้ settings ขององค์กรนั้น และใช้ cloud provider หรือ gateway ขององค์กร
+- **ลิงก์ sign-in สั้นลง** — `/login`, `claude auth login` และ `claude setup-token` แสดงลิงก์ claude.ai ที่สั้นลงมาก · ตั้ง `CLAUDE_CODE_FULL_SIGN_IN_LINK=1` เพื่อพิมพ์ลิงก์เต็ม ถ้าลิงก์สั้นขึ้น error หรือมีสคริปต์อ่านค่าจากลิงก์ ดู [[23-environment-variables]]
+- **`claude --teleport` อาจพิมพ์คำสั่ง git ออกมาแทน** — ใน setup บางแบบจะพิมพ์คำสั่งสำหรับสลับ branch แทนการรันให้ · ถ้าใช้คู่ `-p` จะ exit 1 จนกว่าจะสลับ branch เอง
+- **Self-hosted runner `--start-dir`** (หรือ `SELF_HOSTED_RUNNER_START_DIR`) — ให้ Claude เริ่มทำงานในโฟลเดอร์ย่อยของ repository โดย settings และ hooks ยังโหลดเหมือนไม่ได้ตั้ง
+- **hook `spawn-runner` รันพร้อมกันได้** — สูงสุด `--hook-concurrency` ต่อ orchestrator (ค่าเริ่มต้น 4) · ตั้งเป็น 1 ถ้า hook ของเรารันคู่กับตัวอื่นไม่ได้ · checkout hook ที่ exit ด้วย status 108 จะหยุดการเริ่ม session ทันทีโดยไม่ลอง runner อื่น
+- **metric ใหม่ของ runner ใน `/metrics`** — `claude_code_self_hosted_runner_order_to_registered_seconds` (เวลาจากออก work order ถึงลงทะเบียนสำเร็จ บน runner ที่ orchestrator spawn) และ `claude_code_self_hosted_runner_order_to_first_session_seconds` (เวลาจาก work order ถึงได้ session แรก บน runner ที่เริ่มเพื่อ session นั้น)
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1090,7 +1099,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.329
+- run: npm install -g @anthropic-ai/claude-code@2.1.330
 ```
 
 ---

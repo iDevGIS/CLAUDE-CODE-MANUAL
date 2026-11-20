@@ -102,6 +102,14 @@ related:
 - **background sub-agent ใน VS Code แสดงเป็นบรรทัดสถานะเดียว** — อยู่ใต้การ์ด Agent แทนการ stream ทุกขั้นเข้ามาในแชท · transcript เต็มยังดูได้ใน /tasks ดู [[41-background-agents]]
 - **mod วาดใน chat panel ของ VS Code ได้บน setup มากขึ้น** — session บน Amazon Bedrock, Google Vertex AI และ Microsoft Foundry, หลัง LLM gateway หรือที่ปิด telemetry ดู [[18-plugins]]
 
+### 🆕 ใหม่ใน v2.1.330
+
+- **`/fork` (VS Code)** — fork บทสนทนาต่อจากคำตอบล่าสุด
+- **`/workflows` (VS Code)** — เปิด agent map พร้อม workflow ที่กำลังรัน ดู [[39-dynamic-workflows]]
+- **setting ใหม่ของ VS Code** — `claudeCode.escapeStopsClaude` (ปิดเพื่อไม่ให้ Escape หยุด Claude), `claudeCode.pinPrompt` (ให้ข้อความของเราเลื่อนหายไปแทนการปักไว้) และ `claudeCode.contextUsageThreshold` (กำหนดว่าตัวบอก context จะแสดงเมื่อไร)
+- **argument `prompt` ของคำสั่ง "Open in Side Bar" (VS Code)** — สำหรับ keybinding และ extension
+- **Move up / Move down ในเมนูของ session group (VS Code)**
+
 ### JetBrains IDEs
 
 **ติดตั้ง:**

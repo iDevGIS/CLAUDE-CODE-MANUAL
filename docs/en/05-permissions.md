@@ -353,6 +353,9 @@ Skill(commit)                    # Specific skill
 - **A `PermissionRequest` hook that rewrites a shell command to a sandbox-excluded command** now runs it outside the sandbox. See [[10-hooks]].
 - **Warning for sessions that skip permission prompts** — a message from such a session may be held and dropped by a cloud session.
 
+### New in v2.1.330
+- **More `rm` commands ask for approval** — those aimed at the root, home, a top-level folder or the working folder; where nobody can answer, they're refused.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.329         │
+│ Welcome to Claude Code v2.1.330         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.329
+- run: npm install -g @anthropic-ai/claude-code@2.1.330
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1168,6 +1168,15 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **Labels for the `spawn-runner` hook** — `claude self-hosted-runner orchestrator --hook-label` hands chosen session labels to the hook, and `claude --environment --metadata key=value` labels a session for it.
 - **New orchestrator metrics on `/metrics`** — `claude_code_self_hosted_orchestrator_session_queue_wait_by_reason_seconds` (tells a re-opened session's wait from a new one's) and `claude_code_self_hosted_orchestrator_sessions_given_up_total` (counts by cause how often Anthropic gave up starting a runner).
 - **Self-hosted runner defaults** — a start-up warning when the host's settings.json sets a default permission mode that sessions ignore; the built-in `gh api` is off by default where settings guard Claude's GitHub tools by name (`--use-anthropic-gh true` turns it on); `CLAUDE_RUNNER_SESSION_UUID` and `CLAUDE_CODE_REMOTE_SESSION_UUID` are both set for the session and its `checkout`, `post-session` and `spawn-runner` hooks.
+
+### New in v2.1.330
+
+- **Sign in to organizations managed in Anthropic's Enterprise Admin Console** — after `claude auth login`, Claude Code applies the organization's settings and uses its cloud provider or gateway.
+- **Shorter sign-in link** — `/login`, `claude auth login` and `claude setup-token` show a much shorter claude.ai link; set `CLAUDE_CODE_FULL_SIGN_IN_LINK=1` to print the full one if the short one shows an error or a script reads values from it (see 23. Environment Variables).
+- **`claude --teleport` may print the git commands** — in some setups it prints the commands for switching branch instead of running them; with `-p` it exits 1 until you switch.
+- **Self-hosted runner `--start-dir`** (or `SELF_HOSTED_RUNNER_START_DIR`) — Claude starts its work in a folder of a repository, while settings and hooks load as without it.
+- **`spawn-runner` hooks run side by side** — up to `--hook-concurrency` per orchestrator (4 by default); set it to 1 if yours can't run beside another. A checkout hook that exits with status 108 stops the session's start at once, without trying other runners.
+- **New runner metrics on `/metrics`** — `claude_code_self_hosted_runner_order_to_registered_seconds` (work order issued to registration accepted, on orchestrator-spawned runners) and `claude_code_self_hosted_runner_order_to_first_session_seconds` (work order to first session handed over, on runners started for a session).
 
 ---
 
@@ -1510,6 +1519,9 @@ Note: `!<cmd>` now makes Claude **respond to the command's output automatically*
 ### New in v2.1.329
 - **`/tasks` lists more** — this session's scheduled tasks, `/loop` wakeups, the goal and this conversation's forks; `x` stops one after asking.
 - **`/status` adds a "Marketplace auto-update" row** naming managed marketplaces that get no automatic updates, and why.
+
+### New in v2.1.330
+- **Recurring scheduled tasks and `/loop` run up to 30 days** instead of 7 while their session keeps running, and say when they end; tasks made before this release still end at 7 days.
 
 ---
 
@@ -2008,6 +2020,9 @@ Skill(commit)                    # Specific skill
 - **A `PermissionRequest` hook that rewrites a shell command to a sandbox-excluded command** now runs it outside the sandbox.
 - **Warning for sessions that skip permission prompts** — a message from such a session may be held and dropped by a cloud session.
 
+### New in v2.1.330
+- **More `rm` commands ask for approval** — those aimed at the root, home, a top-level folder or the working folder; where nobody can answer, they're refused.
+
 ---
 
 ## 6. Configuration
@@ -2439,6 +2454,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.329
 
 - **Code Mode works with OpenTelemetry events and metrics enabled** — each tool call the code makes sends its events; tracing still keeps Code Mode off.
+
+### New in v2.1.330
+
+- **Unrecognized model names containing "sonnet" or "haiku" use the shorter system prompt**, like other unrecognized names; `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` gives every model the full one.
 
 ---
 
@@ -2929,6 +2948,12 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 
 - **`/mcp` shows a "Server message" row** on a server's page with the JSON-RPC error message of a remote HTTP MCP server that refuses the connection.
 
+### New in v2.1.330
+
+- **`deniedMcpServers` name entries hide only the named claude.ai connector**, not others at its URL; to block them all, deny its exact URL.
+- **`/mcp` groups servers by where they come from** — plugin servers stand under "Plugin MCPs", `--mcp-config` and built-in servers under "Other MCPs", and a server's page names its plugin.
+- **`claude mcp remove` on a claude.ai connector** now says to turn it off in `/mcp` or remove it on claude.ai.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -3125,6 +3150,10 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 
 - **The trust dialog says where a folder's hooks are declared.**
 - **Managed-settings hooks that fail to load** now raise a warning in the conversation in Claude Desktop and other non-interactive hosts.
+
+### New in v2.1.330
+
+- **Prompt hooks accept model aliases** such as `haiku` or `sonnet` in their `model` field.
 
 ### Configuring Hooks
 
@@ -3419,6 +3448,10 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 - **No nested skills from `~/.claude/plugins`** — `.claude/skills` folders inside `~/.claude/plugins` no longer load when Claude works on files there.
 - **Headless sessions reload mods in `.claude/skills`** — when their files change; set `CLAUDE_CODE_PLUGIN_DIR_WATCH=0` to turn this off (see 23. Environment Variables).
 
+### New in v2.1.330
+
+- **A skill's `model` setting no longer spreads** — for skills Claude runs with a `model` setting, other than `context: fork` skills, subagents, forks, compaction and `/recap` stay on the session's model.
+
 ---
 
 ## 12. Subagents (Specialized Helpers)
@@ -3689,6 +3722,11 @@ Subagents can now spawn their **own** subagents, up to **5 levels deep** (foregr
 - **Subagents wait for their own subagents with `CLAUDE_CODE_FORK_SUBAGENT=0`** — by default in `claude -p`, the Agent SDK, desktop and VS Code.
 - **One 10-minute wait in `claude -p`** — with `CLAUDE_CODE_FORK_SUBAGENT=0`, a background subagent and those it waits for count against a single 10-minute wait; raise `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` for longer chains (see 23. Environment Variables).
 - **Progress summaries on the Anthropic API** — in terminal sessions they are written by the default small fast model from short notes, also with telemetry off, using far fewer tokens.
+
+### New in v2.1.330
+
+- **A subagent's model fallback carries over** — agents with no model and forks it then starts run on the fallback, and the agents they start use its Bedrock region.
+- **Progress summaries on a Claude apps gateway** — in terminal sessions signed in to a Claude apps gateway they are written from short notes instead of the whole conversation, using far fewer tokens.
 
 ---
 
@@ -4166,6 +4204,14 @@ cat src/*.ts | claude -p "find bugs"
 - **Background sub-agents in VS Code show as one status line** — under their Agent card instead of streaming every step into the chat; the full transcript stays in /tasks.
 - **Mod drawing in the VS Code chat panel on more setups** — sessions on Amazon Bedrock, Google Vertex AI and Microsoft Foundry, behind an LLM gateway, or with telemetry turned off.
 
+### New in v2.1.330
+
+- **`/fork` (VS Code)** — fork a conversation after its last reply.
+- **`/workflows` (VS Code)** — opens the agent map with running workflows.
+- **New VS Code settings** — `claudeCode.escapeStopsClaude` (turn it off so Escape does not stop Claude), `claudeCode.pinPrompt` (let your message scroll away instead of staying pinned) and `claudeCode.contextUsageThreshold` (when the context indicator shows).
+- **A `prompt` argument for "Open in Side Bar" (VS Code)** — for keybindings and extensions.
+- **Move up and Move down in a session group's menu (VS Code).**
+
 ### JetBrains IDEs
 
 **Install:**
@@ -4434,6 +4480,12 @@ claude --plugin-dir ./my-plugin
 - **Some worktree sessions skip some plugin settings** — a notice names what was skipped.
 - **`/plugin` uninstall, remove and switch questions are lists** answered with the arrow keys and Enter, or Esc to cancel; `y`, `n` and `u` no longer answer them.
 - **Mod UI props** — `overflowX="scroll"` on a mod's `Box`, and `maxLines` and `wrap="clip"` on its `Text`.
+
+### New in v2.1.330
+
+- **easel, a built-in chart mod** — draws charts when asked and under MCP metrics results, on Pro, Max and, where available, Team and Enterprise, on macOS and Linux; turn automatic charts off in `/config`.
+- **`commandPrinted` and `commandFailed` in `claude plugin install --json`** — `commandPrinted` is true when the plugin's install command wrote to stderr; `commandFailed` when it exited with an error, was killed or timed out.
+- **Marketplace notices in cloud and self-hosted runner sessions** — when a plugin marketplace can't be fetched because its repository isn't one of the session's, and, on self-hosted runners, when Anthropic-managed git refuses a plugin's own repository (naming the plugin and what to do).
 
 ---
 
@@ -4900,6 +4952,8 @@ your-project/
 | `CLAUDE_CODE_DISABLE_SHELL_HEAD_START` | Set `1` to stop shell start-up files from running before the session's first Bash command is approved (see 06. Configuration). *(v2.1.327)* |
 | `CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME` | Lets a host stop `claude -p --resume` and `--continue` from running a tool call that a hook deferred (see 10. Hooks). *(v2.1.328)* |
 | `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` | Raises the single 10-minute wait that `claude -p` with `CLAUDE_CODE_FORK_SUBAGENT=0` gives a background subagent and those it waits for, for longer chains (see 12. Subagents). *(v2.1.328)* |
+| `CLAUDE_CODE_FULL_SIGN_IN_LINK` | Set `1` to print the full sign-in link, if the short one shows an error or a script reads values from it (see 02. CLI Commands). *(v2.1.330)* |
+| `SELF_HOSTED_RUNNER_START_DIR` | Has Claude start its work in a folder of a repository on a self-hosted runner, while settings and hooks load as without it (= `--start-dir`; see 02. CLI Commands). *(v2.1.330)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -6234,7 +6288,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.329`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.330`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

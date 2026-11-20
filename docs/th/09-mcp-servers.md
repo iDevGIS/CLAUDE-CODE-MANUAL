@@ -274,6 +274,12 @@ claude --mcp-config ./mcp.json
 
 - **`/mcp` มีแถว "Server message"** ในหน้าของ server แสดงข้อความ JSON-RPC error ของ remote HTTP MCP server ที่ปฏิเสธการเชื่อมต่อ
 
+### 🆕 ใหม่ใน v2.1.330
+
+- **entry แบบชื่อใน `deniedMcpServers` ซ่อนแค่ claude.ai connector ตัวที่ระบุชื่อ** ไม่รวมตัวอื่นที่ใช้ URL เดียวกัน · ถ้าจะบล็อกทั้งหมดให้ deny ด้วย URL ตรงตัว
+- **`/mcp` แบ่งกลุ่ม server ตามที่มา** — server จาก plugin อยู่ใต้ "Plugin MCPs", ส่วน `--mcp-config` และ server ในตัวอยู่ใต้ "Other MCPs" และหน้าของ server บอกชื่อ plugin ของมัน ดู [[18-plugins]]
+- **`claude mcp remove` กับ claude.ai connector** จะบอกให้ไปปิดใน `/mcp` หรือลบบน claude.ai
+
 ---
 
 ---

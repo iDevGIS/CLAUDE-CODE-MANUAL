@@ -265,6 +265,12 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **`/plugin` uninstall, remove and switch questions are lists** answered with the arrow keys and Enter, or Esc to cancel; `y`, `n` and `u` no longer answer them.
 - **Mod UI props** — `overflowX="scroll"` on a mod's `Box`, and `maxLines` and `wrap="clip"` on its `Text`.
 
+### New in v2.1.330
+
+- **easel, a built-in chart mod** — draws charts when asked and under MCP metrics results, on Pro, Max and, where available, Team and Enterprise, on macOS and Linux; turn automatic charts off in `/config`.
+- **`commandPrinted` and `commandFailed` in `claude plugin install --json`** — `commandPrinted` is true when the plugin's install command wrote to stderr; `commandFailed` when it exited with an error, was killed or timed out.
+- **Marketplace notices in cloud and self-hosted runner sessions** — when a plugin marketplace can't be fetched because its repository isn't one of the session's, and, on self-hosted runners, when Anthropic-managed git refuses a plugin's own repository (naming the plugin and what to do). See [[41-background-agents]].
+
 ---
 
 ---

@@ -330,6 +330,9 @@ related:
 - **`/tasks` แสดงมากขึ้น** — scheduled task ของ session นี้, wakeup ของ `/loop`, goal และ fork ของบทสนทนานี้ · กด `x` เพื่อหยุดรายการนั้น (มีถามยืนยันก่อน)
 - **`/status` เพิ่มแถว "Marketplace auto-update"** บอกชื่อ managed marketplace ที่ไม่ได้รับการอัปเดตอัตโนมัติ พร้อมเหตุผล
 
+### 🆕 ใหม่ใน v2.1.330
+- **scheduled task แบบวนซ้ำและ `/loop` รันได้นานสุด 30 วัน** (เดิม 7 วัน) ตราบที่ session ยังเปิดอยู่ และบอกเมื่อหมดอายุ · task ที่สร้างก่อน release นี้ยังจบที่ 7 วันเหมือนเดิม ดู [[20-scheduled-tasks]]
+
 ---
 
 ---

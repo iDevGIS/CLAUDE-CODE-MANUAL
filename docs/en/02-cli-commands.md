@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.329         │
+│ Welcome to Claude Code v2.1.330         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -719,6 +719,15 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **New orchestrator metrics on `/metrics`** — `claude_code_self_hosted_orchestrator_session_queue_wait_by_reason_seconds` (tells a re-opened session's wait from a new one's) and `claude_code_self_hosted_orchestrator_sessions_given_up_total` (counts by cause how often Anthropic gave up starting a runner).
 - **Self-hosted runner defaults** — a start-up warning when the host's settings.json sets a default permission mode that sessions ignore; the built-in `gh api` is off by default where settings guard Claude's GitHub tools by name (`--use-anthropic-gh true` turns it on); `CLAUDE_RUNNER_SESSION_UUID` and `CLAUDE_CODE_REMOTE_SESSION_UUID` are both set for the session and its `checkout`, `post-session` and `spawn-runner` hooks.
 
+### New in v2.1.330
+
+- **Sign in to organizations managed in Anthropic's Enterprise Admin Console** — after `claude auth login`, Claude Code applies the organization's settings and uses its cloud provider or gateway.
+- **Shorter sign-in link** — `/login`, `claude auth login` and `claude setup-token` show a much shorter claude.ai link; set `CLAUDE_CODE_FULL_SIGN_IN_LINK=1` to print the full one if the short one shows an error or a script reads values from it. See [[23-environment-variables]].
+- **`claude --teleport` may print the git commands** — in some setups it prints the commands for switching branch instead of running them; with `-p` it exits 1 until you switch.
+- **Self-hosted runner `--start-dir`** (or `SELF_HOSTED_RUNNER_START_DIR`) — Claude starts its work in a folder of a repository, while settings and hooks load as without it.
+- **`spawn-runner` hooks run side by side** — up to `--hook-concurrency` per orchestrator (4 by default); set it to 1 if yours can't run beside another. A checkout hook that exits with status 108 stops the session's start at once, without trying other runners.
+- **New runner metrics on `/metrics`** — `claude_code_self_hosted_runner_order_to_registered_seconds` (work order issued to registration accepted, on orchestrator-spawned runners) and `claude_code_self_hosted_runner_order_to_first_session_seconds` (work order to first session handed over, on runners started for a session).
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1090,7 +1099,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.329
+- run: npm install -g @anthropic-ai/claude-code@2.1.330
 ```
 
 ---
