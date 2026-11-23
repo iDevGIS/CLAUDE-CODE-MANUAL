@@ -11,8 +11,8 @@ Covering **Hooks · Skills · MCP · Subagents · Plugins · Headless** and real
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.330-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.115.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.331-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.116.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/en/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@ Never used a command line? You can still follow along 👇
 
 ---
 
-## 🆕 What's new — synced to Claude Code `v2.1.330`
+## 🆕 What's new — synced to Claude Code `v2.1.331`
 
 > This manual tracks the latest Claude Code release — it already covers these 👇
 
@@ -184,8 +184,9 @@ Never used a command line? You can still follow along 👇
 | 🛡️ **Auto mode on Opus 4.6 / Sonnet 4.6 (3P)** | auto mode for Opus 4.6 and Sonnet 4.6 on Bedrock, Agent Platform, Foundry and Claude apps gateway · `/code-review` reports only bugs + CLAUDE.md violations (cleanups go to `/simplify`) · `mcp_tool` hooks support `"onFailure": "block"` · `deniedMcpServers` `claude.ai <name>` entries apply in cloud sessions · `CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME` (v2.1.328) |
 | 📋 **Fuller `/tasks`** | `/tasks` lists scheduled tasks, `/loop` wakeups, the goal and forks (`x` stops one) · `/status` "Marketplace auto-update" row · `/mcp` "Server message" row · trust dialog shows where hooks are declared · Code Mode works with OTel events/metrics (v2.1.329) |
 | 📊 **easel built-in charts** | the `easel` mod draws charts when asked and under MCP metrics results (off in `/config`) · sign-in to Enterprise Admin Console organizations · `/loop` and scheduled tasks run up to 30 days · `rm` aimed at root/home/working folder asks for approval · VS Code `/fork`, `/workflows` + 3 new settings · `CLAUDE_CODE_FULL_SIGN_IN_LINK` (v2.1.330) |
+| 🧩 **Plugin `optionalDependencies`** | plugin manifests can list `optionalDependencies` (installed along, disabled/uninstalled on their own) · Code Mode on Bedrock, Agent Platform, Foundry and Claude Platform on AWS · `claude doctor` API connectivity section · `gen_ai.*` on `claude_code.llm_request` spans · managed marketplaces auto-update by default from Nov 30, 2026 · `CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION` (v2.1.331) |
 
-> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.330` (manual `v1.115.0`)
+> 📋 Full per-version history in [`CHANGELOG.md`](./CHANGELOG.md) — manual references Claude Code `v2.1.331` (manual `v1.116.0`)
 
 ---
 
@@ -208,7 +209,7 @@ Every topic in English and Thai — switch languages on any page
 <td width="33%" align="center" valign="top">
 
 ### 🔄 Always current
-Tracks Claude Code **v2.1.330** + the Fable 5.2 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 lineup
+Tracks Claude Code **v2.1.331** + the Fable 5.2 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5 lineup
 
 </td>
 </tr>
@@ -268,7 +269,7 @@ This repo is a **Thai and English manual** for [Claude Code](https://docs.claude
 
 The total content spans **5,000+ lines** organized into **26 main topics + 15 bonus atomic notes** (Absolute-Beginners pack, 3 Deep Dives, 3-day Tutorial, Cookbook with 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) with CLI examples, config snippets, and real working flows.
 
-> **Claude Code Version:** `2.1.330`
+> **Claude Code Version:** `2.1.331`
 > _The manual references this Claude Code version — some features/flags/commands may change in newer versions._
 
 📕 **Read the full guides:**

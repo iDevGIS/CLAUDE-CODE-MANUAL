@@ -271,6 +271,11 @@ claude plugin uninstall --prune  # Uninstall and cascade-remove its orphaned dep
 - **`commandPrinted` and `commandFailed` in `claude plugin install --json`** — `commandPrinted` is true when the plugin's install command wrote to stderr; `commandFailed` when it exited with an error, was killed or timed out.
 - **Marketplace notices in cloud and self-hosted runner sessions** — when a plugin marketplace can't be fetched because its repository isn't one of the session's, and, on self-hosted runners, when Anthropic-managed git refuses a plugin's own repository (naming the plugin and what to do). See [[41-background-agents]].
 
+### New in v2.1.331
+
+- **`optionalDependencies` in plugin manifests** — plugins that install with the plugin listing them, but can be disabled or uninstalled on their own. The plugin auto-update notice names plugins it newly installs as dependencies, separately from updated ones.
+- **Coming change: managed marketplaces auto-update by default** — in a future release, on or after November 30, 2026, plugin marketplaces in managed `extraKnownMarketplaces` will auto-update by default; set `"autoUpdate": false` on an entry to opt it out. See [[06-configuration]].
+
 ---
 
 ---

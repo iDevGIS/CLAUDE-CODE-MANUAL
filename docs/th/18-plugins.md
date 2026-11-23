@@ -271,6 +271,11 @@ claude plugin uninstall --prune  # ถอนการติดตั้งแล
 - **`commandPrinted` และ `commandFailed` ใน `claude plugin install --json`** — `commandPrinted` เป็น true เมื่อคำสั่ง install ของ plugin เขียนลง stderr · `commandFailed` เมื่อคำสั่งนั้น exit ด้วย error, ถูก kill หรือ timeout
 - **notice เรื่อง marketplace ใน cloud และ self-hosted runner session** — เมื่อดึง plugin marketplace ไม่ได้เพราะ repository ของมันไม่ใช่ของ session และบน self-hosted runner เมื่อ git ที่ Anthropic จัดการปฏิเสธ repository ของ plugin เอง (บอกชื่อ plugin และวิธีแก้) ดู [[41-background-agents]]
 
+### 🆕 ใหม่ใน v2.1.331
+
+- **`optionalDependencies` ใน plugin manifest** — plugin ที่ติดตั้งมาพร้อมกับ plugin ที่ระบุมันไว้ แต่ปิดหรือถอนการติดตั้งแยกเองได้ · notice ตอน plugin auto-update จะบอกชื่อ plugin ที่เพิ่งติดตั้งในฐานะ dependency แยกจาก plugin ที่อัปเดต
+- **การเปลี่ยนแปลงที่กำลังจะมา: marketplace แบบ managed auto-update เป็นค่าเริ่มต้น** — ใน release ในอนาคต (ตั้งแต่ 30 พฤศจิกายน 2026 เป็นต้นไป) plugin marketplace ใน managed `extraKnownMarketplaces` จะ auto-update โดย default · ตั้ง `"autoUpdate": false` ที่ entry นั้นเพื่อไม่เข้าร่วม ดู [[06-configuration]]
+
 ---
 
 ---

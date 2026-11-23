@@ -138,6 +138,8 @@ related:
 | `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` | Raises the single 10-minute wait that `claude -p` with `CLAUDE_CODE_FORK_SUBAGENT=0` gives a background subagent and those it waits for, for longer chains. See [[12-subagents]]. *(v2.1.328)* |
 | `CLAUDE_CODE_FULL_SIGN_IN_LINK` | Set `1` to print the full sign-in link, if the short one shows an error or a script reads values from it. See [[02-cli-commands]]. *(v2.1.330)* |
 | `SELF_HOSTED_RUNNER_START_DIR` | Has Claude start its work in a folder of a repository on a self-hosted runner, while settings and hooks load as without it (= `--start-dir`). See [[02-cli-commands]]. *(v2.1.330)* |
+| `CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION` | Asks for uncompressed model responses, for use behind a proxy that cuts compressed ones off; not advised yet for self-hosted runners or Remote Control. *(v2.1.331)* |
+| `CLAUDE_GATEWAY_IDP_CONNECT_BY_HOSTNAME` | Set `1` on a Claude apps gateway with `oidc.use_proxy: true`: sign-in requests hand the proxy an `https` IdP's hostname even with `NO_PROXY` set. *(v2.1.331)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

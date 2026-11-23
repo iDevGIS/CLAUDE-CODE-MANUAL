@@ -11,8 +11,8 @@
 
 [![Made with Claude Code](https://img.shields.io/badge/Made_with-Claude_Code-7B61FF?style=for-the-badge)](https://docs.claude.com/claude-code)
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.330-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
-[![Manual](https://img.shields.io/badge/Manual-v1.115.0-22C55E?style=flat-square)](./CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-v2.1.331-7B61FF?style=flat-square)](https://docs.claude.com/claude-code)
+[![Manual](https://img.shields.io/badge/Manual-v1.116.0-22C55E?style=flat-square)](./CHANGELOG.md)
 [![Docs](https://img.shields.io/badge/docs-TH_%2B_EN-3B82F6?style=flat-square)](./README.EN.md)
 [![Obsidian Ready](https://img.shields.io/badge/Obsidian-Ready-7C3AED?style=flat-square&logo=obsidian&logoColor=white)](./docs/th/README.md)
 [![Last commit](https://img.shields.io/github/last-commit/iDevGIS/CLAUDE-CODE-MANUAL?style=flat-square&color=orange)](https://github.com/iDevGIS/CLAUDE-CODE-MANUAL/commits)
@@ -33,7 +33,7 @@
 
 ---
 
-## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.330`
+## 🆕 มีอะไรใหม่ — sync ตาม Claude Code `v2.1.331`
 
 > คู่มืออัปเดตตรงเวอร์ชันล่าสุด ครอบคลุมของใหม่เหล่านี้แล้ว 👇
 
@@ -184,8 +184,9 @@
 | 🛡️ **Auto mode บน Opus 4.6 / Sonnet 4.6 (3P)** | auto mode ใช้ได้กับ Opus 4.6 และ Sonnet 4.6 บน Bedrock, Agent Platform, Foundry และ Claude apps gateway · `/code-review` รายงานแค่ bug + การละเมิด CLAUDE.md (cleanup ไปใช้ `/simplify`) · `mcp_tool` hook รองรับ `"onFailure": "block"` · `deniedMcpServers` แบบ `claude.ai <name>` มีผลใน cloud session · `CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME` (v2.1.328) |
 | 📋 **`/tasks` เห็นครบขึ้น** | `/tasks` แสดง scheduled task, wakeup ของ `/loop`, goal และ fork (กด `x` หยุด) · `/status` มีแถว "Marketplace auto-update" · `/mcp` มีแถว "Server message" · trust dialog บอกที่มาของ hook · Code Mode ใช้คู่ OTel events/metrics ได้ (v2.1.329) |
 | 📊 **easel วาดกราฟในตัว** | mod `easel` วาดกราฟเมื่อขอและใต้ผล metrics ของ MCP (ปิดใน `/config`) · sign in องค์กรจาก Enterprise Admin Console · `/loop` และ scheduled task รันได้ 30 วัน · `rm` ที่เล็ง root/home/โฟลเดอร์งานขอ approval · VS Code `/fork`, `/workflows` + setting ใหม่ 3 ตัว · `CLAUDE_CODE_FULL_SIGN_IN_LINK` (v2.1.330) |
+| 🧩 **Plugin `optionalDependencies`** | plugin manifest ระบุ `optionalDependencies` ได้ (ติดตั้งมาด้วย แต่ปิด/ถอนแยกได้) · Code Mode ใช้ได้บน Bedrock, Agent Platform, Foundry และ Claude Platform on AWS · `claude doctor` มีส่วน API connectivity · span `claude_code.llm_request` มี `gen_ai.*` · managed marketplace จะ auto-update โดย default ตั้งแต่ 30 พ.ย. 2026 · `CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION` (v2.1.331) |
 
-> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.330` (manual `v1.115.0`)
+> 📋 ดูครบทุกเวอร์ชันใน [`CHANGELOG.md`](./CHANGELOG.md) — คู่มืออ้างอิง Claude Code `v2.1.331` (manual `v1.116.0`)
 
 ---
 
@@ -208,7 +209,7 @@
 <td width="33%" align="center" valign="top">
 
 ### 🔄 อัปเดตสด
-ตรงกับ Claude Code **v2.1.330** + โมเดล Fable 5.2 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
+ตรงกับ Claude Code **v2.1.331** + โมเดล Fable 5.2 / Opus 5.5 / Sonnet 5.5 / Haiku 5.5
 
 </td>
 </tr>
@@ -268,7 +269,7 @@ Repo นี้เป็น **คู่มือภาษาไทยและอ
 
 เนื้อหารวมทั้งหมด **5,000+ บรรทัด** แบ่งเป็น **26 หัวข้อหลัก + 15 atomic notes พิเศษ** (ชุดมือใหม่ 4 บท, Deep Dives 3 บท, Tutorial 3 ตอน, Cookbook 40+ recipes, Cost Management, Security, Use Cases, Tool Comparisons) พร้อมตัวอย่าง CLI, config, และ flow การทำงานจริง
 
-> **Claude Code Version:** `2.1.330`
+> **Claude Code Version:** `2.1.331`
 > _เนื้อหาในคู่มืออ้างอิงจาก Claude Code เวอร์ชันนี้ — feature/flag/command บางส่วนอาจเปลี่ยนใน version ใหม่กว่า_
 
 📕 **อ่านคู่มือเต็ม:**

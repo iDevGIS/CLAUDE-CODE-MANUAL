@@ -138,6 +138,8 @@ related:
 | `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` | เพิ่มเวลารอ 10 นาทีที่ `claude -p` ซึ่งตั้ง `CLAUDE_CODE_FORK_SUBAGENT=0` ให้ background subagent และตัวที่มันรอ สำหรับ chain ที่ยาวกว่านั้น ดู [[12-subagents]] *(v2.1.328)* |
 | `CLAUDE_CODE_FULL_SIGN_IN_LINK` | ตั้ง `1` เพื่อพิมพ์ลิงก์ sign-in แบบเต็ม เมื่อลิงก์แบบสั้นขึ้น error หรือมีสคริปต์อ่านค่าจากลิงก์ ดู [[02-cli-commands]] *(v2.1.330)* |
 | `SELF_HOSTED_RUNNER_START_DIR` | ให้ Claude เริ่มทำงานในโฟลเดอร์ย่อยของ repository บน self-hosted runner โดย settings และ hooks ยังโหลดเหมือนไม่ได้ตั้ง (= `--start-dir`) ดู [[02-cli-commands]] *(v2.1.330)* |
+| `CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION` | ขอ response ของโมเดลแบบไม่บีบอัด สำหรับใช้หลัง proxy ที่ตัด response แบบบีบอัดทิ้ง · ยังไม่แนะนำสำหรับ self-hosted runner หรือ Remote Control *(v2.1.331)* |
+| `CLAUDE_GATEWAY_IDP_CONNECT_BY_HOSTNAME` | ตั้ง `1` บน Claude apps gateway ที่ใช้ `oidc.use_proxy: true` — request ตอน sign-in จะส่ง hostname ของ IdP แบบ `https` ให้ proxy แม้ตั้ง `NO_PROXY` ไว้ *(v2.1.331)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 

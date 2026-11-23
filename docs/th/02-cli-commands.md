@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.330         │
+│ Welcome to Claude Code v2.1.331         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -728,6 +728,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (cla
 - **hook `spawn-runner` รันพร้อมกันได้** — สูงสุด `--hook-concurrency` ต่อ orchestrator (ค่าเริ่มต้น 4) · ตั้งเป็น 1 ถ้า hook ของเรารันคู่กับตัวอื่นไม่ได้ · checkout hook ที่ exit ด้วย status 108 จะหยุดการเริ่ม session ทันทีโดยไม่ลอง runner อื่น
 - **metric ใหม่ของ runner ใน `/metrics`** — `claude_code_self_hosted_runner_order_to_registered_seconds` (เวลาจากออก work order ถึงลงทะเบียนสำเร็จ บน runner ที่ orchestrator spawn) และ `claude_code_self_hosted_runner_order_to_first_session_seconds` (เวลาจาก work order ถึงได้ session แรก บน runner ที่เริ่มเพื่อ session นั้น)
 
+### 🆕 ใหม่ใน v2.1.331
+
+- **ส่วน API connectivity ใน `claude doctor`** — บอกว่าเชื่อมต่อ API ได้หรือไม่ พร้อม HTTP status หรือ error หรือบอกเหตุผลที่ไม่ได้ทดสอบ
+
 ---
 
 ## 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1099,7 +1103,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.330
+- run: npm install -g @anthropic-ai/claude-code@2.1.331
 ```
 
 ---

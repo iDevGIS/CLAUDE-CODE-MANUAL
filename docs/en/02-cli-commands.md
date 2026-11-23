@@ -51,7 +51,7 @@ related:
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.330         │
+│ Welcome to Claude Code v2.1.331         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -728,6 +728,10 @@ claude plugin prune        # Remove orphaned auto-installed plugin dependencies 
 - **`spawn-runner` hooks run side by side** — up to `--hook-concurrency` per orchestrator (4 by default); set it to 1 if yours can't run beside another. A checkout hook that exits with status 108 stops the session's start at once, without trying other runners.
 - **New runner metrics on `/metrics`** — `claude_code_self_hosted_runner_order_to_registered_seconds` (work order issued to registration accepted, on orchestrator-spawned runners) and `claude_code_self_hosted_runner_order_to_first_session_seconds` (work order to first session handed over, on runners started for a session).
 
+### New in v2.1.331
+
+- **API connectivity section in `claude doctor`** — reports whether the API can be reached, with the HTTP status or the error, or says why it wasn't tested.
+
 ---
 
 ## 🎯 Real Examples (with Output)
@@ -1099,7 +1103,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.330
+- run: npm install -g @anthropic-ai/claude-code@2.1.331
 ```
 
 ---

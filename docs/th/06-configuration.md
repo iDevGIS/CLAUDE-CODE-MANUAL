@@ -461,6 +461,11 @@ related:
 
 - **ชื่อโมเดลที่ไม่รู้จักซึ่งมีคำว่า "sonnet" หรือ "haiku" ใช้ system prompt แบบสั้น** เหมือนชื่อที่ไม่รู้จักอื่น ๆ · ตั้ง `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` เพื่อให้ทุกโมเดลได้ prompt แบบเต็ม ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.331
+
+- **Code Mode ใช้ใน terminal session บน provider เพิ่มขึ้น** — Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry และ Claude Platform on AWS
+- **attribute `gen_ai.*` ใน trace span `claude_code.llm_request`** — `gen_ai.usage.*`, `gen_ai.response.model` และ `gen_ai.operation.name` · `gen_ai.usage.input_tokens` นับรวม prompt cache token ด้วย ดู [[23-environment-variables]]
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

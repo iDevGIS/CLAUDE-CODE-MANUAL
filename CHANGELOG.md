@@ -25,6 +25,27 @@
 
 ---
 
+## [1.116.0] — 2026-11-24
+
+### Compatibility
+- **Claude Code:** `v2.1.331+`
+
+### Added
+- **ch.02 CLI** — section "New in v2.1.331": `claude doctor` มีส่วน API connectivity (เชื่อมต่อ API ได้ไหม พร้อม HTTP status/error หรือเหตุผลที่ไม่ได้ทดสอบ)
+- **ch.06 Configuration** — section "New in v2.1.331": Code Mode ใน terminal session บน Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry และ Claude Platform on AWS · attribute `gen_ai.usage.*`, `gen_ai.response.model`, `gen_ai.operation.name` ใน trace span `claude_code.llm_request`
+- **ch.10 Hooks** — section "New in v2.1.331": ข้อความของ `retry: true` ใน hook `PermissionDenied` บอกให้เรียกซ้ำเฉพาะ call ที่ผู้ใช้ขอ
+- **ch.18 Plugins** — section "New in v2.1.331": `optionalDependencies` ใน plugin manifest · ประกาศล่วงหน้า: marketplace ใน managed `extraKnownMarketplaces` จะ auto-update โดย default ตั้งแต่ 30 พ.ย. 2026 (opt out ด้วย `"autoUpdate": false`)
+- **ch.23 Environment Variables** — แถว `CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION`, `CLAUDE_GATEWAY_IDP_CONNECT_BY_HOSTNAME`
+- README / README.EN — แถว What's-new (v2.1.331)
+
+### Changed
+- Version strings `2.1.330` → `2.1.331` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.331` — Code Mode ขยายไปยัง provider 3P, plugin ได้ `optionalDependencies`, `claude doctor` ตรวจการเชื่อมต่อ API, OTel span ได้ attribute มาตรฐาน `gen_ai.*` และ env var ใหม่สำหรับ proxy/gateway (ส่วนที่เหลือของ release เป็น bug fix)
+
+---
+
 ## [1.115.0] — 2026-11-21
 
 ### Compatibility
@@ -2587,6 +2608,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.116.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.115.0...v1.116.0
 [1.115.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.114.0...v1.115.0
 [1.114.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.113.0...v1.114.0
 [1.113.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.112.0...v1.113.0

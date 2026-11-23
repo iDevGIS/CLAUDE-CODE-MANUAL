@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.330         │
+│ Welcome to Claude Code v2.1.331         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.330
+- run: npm install -g @anthropic-ai/claude-code@2.1.331
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -1177,6 +1177,10 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 - **Self-hosted runner `--start-dir`** (or `SELF_HOSTED_RUNNER_START_DIR`) — Claude starts its work in a folder of a repository, while settings and hooks load as without it.
 - **`spawn-runner` hooks run side by side** — up to `--hook-concurrency` per orchestrator (4 by default); set it to 1 if yours can't run beside another. A checkout hook that exits with status 108 stops the session's start at once, without trying other runners.
 - **New runner metrics on `/metrics`** — `claude_code_self_hosted_runner_order_to_registered_seconds` (work order issued to registration accepted, on orchestrator-spawned runners) and `claude_code_self_hosted_runner_order_to_first_session_seconds` (work order to first session handed over, on runners started for a session).
+
+### New in v2.1.331
+
+- **API connectivity section in `claude doctor`** — reports whether the API can be reached, with the HTTP status or the error, or says why it wasn't tested.
 
 ---
 
@@ -2459,6 +2463,11 @@ Skill(commit)                    # Specific skill
 
 - **Unrecognized model names containing "sonnet" or "haiku" use the shorter system prompt**, like other unrecognized names; `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` gives every model the full one.
 
+### New in v2.1.331
+
+- **Code Mode in terminal sessions on more providers** — Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude Platform on AWS.
+- **`gen_ai.*` attributes on `claude_code.llm_request` trace spans** — `gen_ai.usage.*`, `gen_ai.response.model` and `gen_ai.operation.name`; `gen_ai.usage.input_tokens` includes prompt cache tokens.
+
 ---
 
 ## 7. CLAUDE.md - Persistent Project Instructions
@@ -3154,6 +3163,10 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 ### New in v2.1.330
 
 - **Prompt hooks accept model aliases** such as `haiku` or `sonnet` in their `model` field.
+
+### New in v2.1.331
+
+- **`PermissionDenied` hook `retry: true` message changed** — it now tells Claude to make the refused call again only if you asked for that call.
 
 ### Configuring Hooks
 
@@ -4487,6 +4500,11 @@ claude --plugin-dir ./my-plugin
 - **`commandPrinted` and `commandFailed` in `claude plugin install --json`** — `commandPrinted` is true when the plugin's install command wrote to stderr; `commandFailed` when it exited with an error, was killed or timed out.
 - **Marketplace notices in cloud and self-hosted runner sessions** — when a plugin marketplace can't be fetched because its repository isn't one of the session's, and, on self-hosted runners, when Anthropic-managed git refuses a plugin's own repository (naming the plugin and what to do).
 
+### New in v2.1.331
+
+- **`optionalDependencies` in plugin manifests** — plugins that install with the plugin listing them, but can be disabled or uninstalled on their own. The plugin auto-update notice names plugins it newly installs as dependencies, separately from updated ones.
+- **Coming change: managed marketplaces auto-update by default** — in a future release, on or after November 30, 2026, plugin marketplaces in managed `extraKnownMarketplaces` will auto-update by default; set `"autoUpdate": false` on an entry to opt it out.
+
 ---
 
 ## 19. Session Management
@@ -4954,6 +4972,8 @@ your-project/
 | `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` | Raises the single 10-minute wait that `claude -p` with `CLAUDE_CODE_FORK_SUBAGENT=0` gives a background subagent and those it waits for, for longer chains (see 12. Subagents). *(v2.1.328)* |
 | `CLAUDE_CODE_FULL_SIGN_IN_LINK` | Set `1` to print the full sign-in link, if the short one shows an error or a script reads values from it (see 02. CLI Commands). *(v2.1.330)* |
 | `SELF_HOSTED_RUNNER_START_DIR` | Has Claude start its work in a folder of a repository on a self-hosted runner, while settings and hooks load as without it (= `--start-dir`; see 02. CLI Commands). *(v2.1.330)* |
+| `CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION` | Asks for uncompressed model responses, for use behind a proxy that cuts compressed ones off; not advised yet for self-hosted runners or Remote Control. *(v2.1.331)* |
+| `CLAUDE_GATEWAY_IDP_CONNECT_BY_HOSTNAME` | Set `1` on a Claude apps gateway with `oidc.use_proxy: true`: sign-in requests hand the proxy an `https` IdP's hostname even with `NO_PROXY` set. *(v2.1.331)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -6288,7 +6308,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.330`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.331`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

@@ -279,6 +279,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **prompt hook รับ model alias** อย่าง `haiku` หรือ `sonnet` ใน field `model` ได้
 
+#### 🆕 ใหม่ใน v2.1.331
+
+- **ข้อความของ `retry: true` ใน hook `PermissionDenied` เปลี่ยนไป** — ตอนนี้บอก Claude ให้เรียก call ที่ถูกปฏิเสธซ้ำ ก็ต่อเมื่อผู้ใช้เป็นคนขอ call นั้นเท่านั้น
+
 ---
 
 ---

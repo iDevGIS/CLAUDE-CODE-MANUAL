@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.330         │
+│ Welcome to Claude Code v2.1.331         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -832,6 +832,10 @@ claude plugin prune        # ลบ plugin dependency ที่ค้าง (uni
 - **hook `spawn-runner` รันพร้อมกันได้** — สูงสุด `--hook-concurrency` ต่อ orchestrator (ค่าเริ่มต้น 4) · ตั้งเป็น 1 ถ้า hook ของเรารันคู่กับตัวอื่นไม่ได้ · checkout hook ที่ exit ด้วย status 108 จะหยุดการเริ่ม session ทันทีโดยไม่ลอง runner อื่น
 - **metric ใหม่ของ runner ใน `/metrics`** — `claude_code_self_hosted_runner_order_to_registered_seconds` (เวลาจากออก work order ถึงลงทะเบียนสำเร็จ บน runner ที่ orchestrator spawn) และ `claude_code_self_hosted_runner_order_to_first_session_seconds` (เวลาจาก work order ถึงได้ session แรก บน runner ที่เริ่มเพื่อ session นั้น)
 
+### 🆕 ใหม่ใน v2.1.331
+
+- **ส่วน API connectivity ใน `claude doctor`** — บอกว่าเชื่อมต่อ API ได้หรือไม่ พร้อม HTTP status หรือ error หรือบอกเหตุผลที่ไม่ได้ทดสอบ
+
 ---
 
 ### 🎯 ตัวอย่างจริง (พร้อม Output)
@@ -1163,7 +1167,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.330
+- run: npm install -g @anthropic-ai/claude-code@2.1.331
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -2453,6 +2457,11 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **ชื่อโมเดลที่ไม่รู้จักซึ่งมีคำว่า "sonnet" หรือ "haiku" ใช้ system prompt แบบสั้น** เหมือนชื่อที่ไม่รู้จักอื่น ๆ · ตั้ง `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` เพื่อให้ทุกโมเดลได้ prompt แบบเต็ม
 
+### 🆕 ใหม่ใน v2.1.331
+
+- **Code Mode ใช้ใน terminal session บน provider เพิ่มขึ้น** — Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry และ Claude Platform on AWS
+- **attribute `gen_ai.*` ใน trace span `claude_code.llm_request`** — `gen_ai.usage.*`, `gen_ai.response.model` และ `gen_ai.operation.name` · `gen_ai.usage.input_tokens` นับรวม prompt cache token ด้วย
+
 ---
 
 ## 7. CLAUDE.md - คำสั่งถาวรสำหรับโปรเจกต์
@@ -3210,6 +3219,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 ### 🆕 ใหม่ใน v2.1.330
 
 - **prompt hook รับ model alias** อย่าง `haiku` หรือ `sonnet` ใน field `model` ได้
+
+### 🆕 ใหม่ใน v2.1.331
+
+- **ข้อความของ `retry: true` ใน hook `PermissionDenied` เปลี่ยนไป** — ตอนนี้บอก Claude ให้เรียก call ที่ถูกปฏิเสธซ้ำ ก็ต่อเมื่อผู้ใช้เป็นคนขอ call นั้นเท่านั้น
 
 ---
 
@@ -4476,6 +4489,11 @@ claude --plugin-dir ./my-plugin
 - **`commandPrinted` และ `commandFailed` ใน `claude plugin install --json`** — `commandPrinted` เป็น true เมื่อคำสั่ง install ของ plugin เขียนลง stderr · `commandFailed` เมื่อคำสั่งนั้น exit ด้วย error, ถูก kill หรือ timeout
 - **notice เรื่อง marketplace ใน cloud และ self-hosted runner session** — เมื่อดึง plugin marketplace ไม่ได้เพราะ repository ของมันไม่ใช่ของ session และบน self-hosted runner เมื่อ git ที่ Anthropic จัดการปฏิเสธ repository ของ plugin เอง (บอกชื่อ plugin และวิธีแก้)
 
+### 🆕 ใหม่ใน v2.1.331
+
+- **`optionalDependencies` ใน plugin manifest** — plugin ที่ติดตั้งมาพร้อมกับ plugin ที่ระบุมันไว้ แต่ปิดหรือถอนการติดตั้งแยกเองได้ · notice ตอน plugin auto-update จะบอกชื่อ plugin ที่เพิ่งติดตั้งในฐานะ dependency แยกจาก plugin ที่อัปเดต
+- **การเปลี่ยนแปลงที่กำลังจะมา: marketplace แบบ managed auto-update เป็นค่าเริ่มต้น** — ใน release ในอนาคต (ตั้งแต่ 30 พฤศจิกายน 2026 เป็นต้นไป) plugin marketplace ใน managed `extraKnownMarketplaces` จะ auto-update โดย default · ตั้ง `"autoUpdate": false` ที่ entry นั้นเพื่อไม่เข้าร่วม
+
 ---
 
 ## 19. Session Management
@@ -4943,6 +4961,8 @@ your-project/
 | `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS` | เพิ่มเวลารอ 10 นาทีที่ `claude -p` ซึ่งตั้ง `CLAUDE_CODE_FORK_SUBAGENT=0` ให้ background subagent และตัวที่มันรอ สำหรับ chain ที่ยาวกว่านั้น (ดูบท 12 Subagents) *(v2.1.328)* |
 | `CLAUDE_CODE_FULL_SIGN_IN_LINK` | ตั้ง `1` เพื่อพิมพ์ลิงก์ sign-in แบบเต็ม เมื่อลิงก์แบบสั้นขึ้น error หรือมีสคริปต์อ่านค่าจากลิงก์ (ดูบท 02 CLI Commands) *(v2.1.330)* |
 | `SELF_HOSTED_RUNNER_START_DIR` | ให้ Claude เริ่มทำงานในโฟลเดอร์ย่อยของ repository บน self-hosted runner โดย settings และ hooks ยังโหลดเหมือนไม่ได้ตั้ง (= `--start-dir`; ดูบท 02 CLI Commands) *(v2.1.330)* |
+| `CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION` | ขอ response ของโมเดลแบบไม่บีบอัด สำหรับใช้หลัง proxy ที่ตัด response แบบบีบอัดทิ้ง · ยังไม่แนะนำสำหรับ self-hosted runner หรือ Remote Control *(v2.1.331)* |
+| `CLAUDE_GATEWAY_IDP_CONNECT_BY_HOSTNAME` | ตั้ง `1` บน Claude apps gateway ที่ใช้ `oidc.use_proxy: true` — request ตอน sign-in จะส่ง hostname ของ IdP แบบ `https` ให้ proxy แม้ตั้ง `NO_PROXY` ไว้ *(v2.1.331)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -6274,7 +6294,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.330`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.331`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

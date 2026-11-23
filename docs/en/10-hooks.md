@@ -275,6 +275,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 - **Prompt hooks accept model aliases** such as `haiku` or `sonnet` in their `model` field.
 
+### New in v2.1.331
+
+- **`PermissionDenied` hook `retry: true` message changed** — it now tells Claude to make the refused call again only if you asked for that call.
+
 ---
 
 ---

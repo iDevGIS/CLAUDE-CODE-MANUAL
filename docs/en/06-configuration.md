@@ -461,6 +461,11 @@ Set the `model` key to any of these (newest → cheapest):
 
 - **Unrecognized model names containing "sonnet" or "haiku" use the shorter system prompt**, like other unrecognized names; `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0` gives every model the full one. See [[23-environment-variables]].
 
+### New in v2.1.331
+
+- **Code Mode in terminal sessions on more providers** — Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude Platform on AWS.
+- **`gen_ai.*` attributes on `claude_code.llm_request` trace spans** — `gen_ai.usage.*`, `gen_ai.response.model` and `gen_ai.operation.name`; `gen_ai.usage.input_tokens` includes prompt cache tokens. See [[23-environment-variables]].
+
 ---
 
 ---
