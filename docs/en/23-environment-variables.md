@@ -140,6 +140,7 @@ related:
 | `SELF_HOSTED_RUNNER_START_DIR` | Has Claude start its work in a folder of a repository on a self-hosted runner, while settings and hooks load as without it (= `--start-dir`). See [[02-cli-commands]]. *(v2.1.330)* |
 | `CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION` | Asks for uncompressed model responses, for use behind a proxy that cuts compressed ones off; not advised yet for self-hosted runners or Remote Control. *(v2.1.331)* |
 | `CLAUDE_GATEWAY_IDP_CONNECT_BY_HOSTNAME` | Set `1` on a Claude apps gateway with `oidc.use_proxy: true`: sign-in requests hand the proxy an `https` IdP's hostname even with `NO_PROXY` set. *(v2.1.331)* |
+| `VERTEX_REGION_CLAUDE_5_5_SONNET` | Region that `sonnet` and background requests on Google Cloud's Agent Platform read; with only the `4_5` variable set they go to `CLOUD_ML_REGION` or `us-east5`. See [[06-configuration]]. *(v2.1.332)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 

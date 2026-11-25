@@ -280,6 +280,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **`/mcp` groups servers by where they come from** — plugin servers stand under "Plugin MCPs", `--mcp-config` and built-in servers under "Other MCPs", and a server's page names its plugin. See [[18-plugins]].
 - **`claude mcp remove` on a claude.ai connector** now says to turn it off in `/mcp` or remove it on claude.ai.
 
+### New in v2.1.332
+
+- **Skills from MCP servers (beta)** — they show as `server:skill` in the `/` menu; other skills keep their names. See [[11-skills]].
+
 ---
 
 ---

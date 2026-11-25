@@ -246,6 +246,12 @@ my-skill/
 
 - **setting `model` ของ skill ไม่ลามไปที่อื่น** — skill ที่ Claude รันโดยมี setting `model` (ยกเว้น skill แบบ `context: fork`) จะปล่อยให้ subagent, fork, compaction และ `/recap` ใช้โมเดลของ session ตามเดิม ดู [[12-subagents]]
 
+### 🆕 ใหม่ใน v2.1.332
+
+- **skill จาก MCP server (beta)** — แสดงเป็น `server:skill` ในเมนู `/` · skill อื่นยังใช้ชื่อเดิม ดู [[09-mcp-servers]]
+- **hook `PreSkillShellCommand`** — ปฏิเสธ inline shell command ของ skill หรือ command ได้ตั้งแต่ตอนโหลด ดู [[10-hooks]]
+- **`computer-use` เป็นชื่อ skill สงวน** บน Mac ที่เปิด computer use — skill หรือ command ของเราที่ใช้ชื่อนี้จะไม่ถูกโหลด และมี notice ตอนเริ่มบอกให้เปลี่ยนชื่อ
+
 ---
 
 ---

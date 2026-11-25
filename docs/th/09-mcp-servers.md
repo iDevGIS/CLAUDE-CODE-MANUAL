@@ -280,6 +280,10 @@ claude --mcp-config ./mcp.json
 - **`/mcp` แบ่งกลุ่ม server ตามที่มา** — server จาก plugin อยู่ใต้ "Plugin MCPs", ส่วน `--mcp-config` และ server ในตัวอยู่ใต้ "Other MCPs" และหน้าของ server บอกชื่อ plugin ของมัน ดู [[18-plugins]]
 - **`claude mcp remove` กับ claude.ai connector** จะบอกให้ไปปิดใน `/mcp` หรือลบบน claude.ai
 
+### 🆕 ใหม่ใน v2.1.332
+
+- **skill จาก MCP server (beta)** — แสดงเป็น `server:skill` ในเมนู `/` · skill อื่นยังใช้ชื่อเดิม ดู [[11-skills]]
+
 ---
 
 ---

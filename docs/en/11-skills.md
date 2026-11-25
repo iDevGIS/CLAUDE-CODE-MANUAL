@@ -246,6 +246,12 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 
 - **A skill's `model` setting no longer spreads** — for skills Claude runs with a `model` setting, other than `context: fork` skills, subagents, forks, compaction and `/recap` stay on the session's model. See [[12-subagents]].
 
+### New in v2.1.332
+
+- **Skills from MCP servers (beta)** — they show as `server:skill` in the `/` menu; other skills keep their names. See [[09-mcp-servers]].
+- **`PreSkillShellCommand` hook** — can refuse a skill or command's inline shell commands as it loads. See [[10-hooks]].
+- **`computer-use` is a reserved skill name** on Macs with computer use on — your own skill or command of that name stops loading, and a start-up notice says to rename it.
+
 ---
 
 ---

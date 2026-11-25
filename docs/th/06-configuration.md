@@ -466,6 +466,14 @@ related:
 - **Code Mode ใช้ใน terminal session บน provider เพิ่มขึ้น** — Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry และ Claude Platform on AWS
 - **attribute `gen_ai.*` ใน trace span `claude_code.llm_request`** — `gen_ai.usage.*`, `gen_ai.response.model` และ `gen_ai.operation.name` · `gen_ai.usage.input_tokens` นับรวม prompt cache token ด้วย ดู [[23-environment-variables]]
 
+### 🆕 ใหม่ใน v2.1.332
+
+- **alias โมเดลบน cloud ขยับขึ้น** — `sonnet` บน Google Cloud's Agent Platform และ Microsoft Foundry หมายถึง Sonnet 5.5 แล้ว และ `opus` ของ Foundry หมายถึง Opus 5.5 · ส่วน `sonnet` บน Amazon Bedrock ยังเป็น Sonnet 4.5 · `sonnet` และ background request บน Agent Platform อ่าน `VERTEX_REGION_CLAUDE_5_5_SONNET` ดู [[23-environment-variables]]
+- **โมเดล default บน Microsoft Foundry เป็น Sonnet 5.5** — deploy `claude-sonnet-5-5` หรือตั้ง `ANTHROPIC_DEFAULT_SONNET_MODEL` เป็นโมเดลที่ deploy ไว้ · Claude Sonnet 4, Opus 4 และ Opus 4.1 นับว่า retired แล้วบน Foundry — การ step down จะหยุดเหนือรุ่นเหล่านี้ และถ้า pin ไว้จะมีคำเตือน
+- **`--model default` / การเลือก Default จะ step down** ไปโมเดลที่เก่ากว่าเมื่อโมเดลนั้นใช้ไม่ได้ แทนที่จะหยุดพร้อม error · ใน auto mode จะลงไปเฉพาะโมเดลที่ auto mode รับเท่านั้น
+- **OpenTelemetry** — event ใหม่ `assistant_response` สำหรับข้อความที่ Claude ส่งผ่าน SendUserMessage หรือ message tool ของ Cowork เมื่อเปิด response logging · `tool_input` ของข้อความนั้นแสดงแค่ความยาว เว้นแต่ตั้ง `OTEL_LOG_ASSISTANT_RESPONSES=1` · session ใน Code tab ของ desktop ใช้ `service.name` default เป็น `claude-code-desktop` (อัปเดต filter ที่อิง `claude-code` หรือตั้ง `OTEL_SERVICE_NAME` เพื่อคงชื่อเดิม)
+- **`awsCredentialExport` timeout หลัง 10 นาที** แทนที่จะรอไม่มีที่สิ้นสุด
+
 ### การ Persist ของ `/config` และ `/model`
 
 การแก้ผ่าน `/config` จะ persist ลง `~/.claude/settings.json` และเข้าลำดับ override project/local/policy. `/model` เปลี่ยนเฉพาะ session ปัจจุบัน (กด `d` เพื่อตั้ง default) และจำเป็น default ของ session ใหม่. slider `/effort` ใช้ป้าย **Faster / Smarter**.

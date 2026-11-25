@@ -466,6 +466,14 @@ Set the `model` key to any of these (newest → cheapest):
 - **Code Mode in terminal sessions on more providers** — Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude Platform on AWS.
 - **`gen_ai.*` attributes on `claude_code.llm_request` trace spans** — `gen_ai.usage.*`, `gen_ai.response.model` and `gen_ai.operation.name`; `gen_ai.usage.input_tokens` includes prompt cache tokens. See [[23-environment-variables]].
 
+### New in v2.1.332
+
+- **Cloud model aliases moved up** — `sonnet` on Google Cloud's Agent Platform and Microsoft Foundry now means Sonnet 5.5, and Foundry's `opus` means Opus 5.5; `sonnet` on Amazon Bedrock stays at Sonnet 4.5. `sonnet` and background requests on Agent Platform read `VERTEX_REGION_CLAUDE_5_5_SONNET`. See [[23-environment-variables]].
+- **Microsoft Foundry's default model is Sonnet 5.5** — deploy `claude-sonnet-5-5`, or set `ANTHROPIC_DEFAULT_SONNET_MODEL` to a model you have deployed. Claude Sonnet 4, Opus 4 and Opus 4.1 now count as retired on Foundry: step-downs stop above them and a pin to one warns.
+- **`--model default` / a Default pick steps down** to an older model when that model isn't available, instead of stopping with an error; in auto mode, only to a model auto mode accepts.
+- **OpenTelemetry** — new `assistant_response` event for text Claude sends through SendUserMessage or Cowork's message tool, when response logging is on; `tool_input` for that text shows only its length unless `OTEL_LOG_ASSISTANT_RESPONSES=1`; desktop Code tab sessions default `service.name` to `claude-code-desktop` (update filters keyed on `claude-code`, or set `OTEL_SERVICE_NAME` to keep the old name).
+- **`awsCredentialExport` times out after 10 minutes** instead of waiting forever.
+
 ---
 
 ---

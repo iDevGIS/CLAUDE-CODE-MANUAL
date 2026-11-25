@@ -385,6 +385,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.330
 - **คำสั่ง `rm` ขอ approval มากขึ้น** — ตัวที่เล็งไปที่ root, home, โฟลเดอร์ระดับบนสุด หรือโฟลเดอร์ที่ทำงานอยู่ · ถ้าไม่มีใครตอบได้ (เช่นรันแบบ headless) จะถูกปฏิเสธ
 
+### 🆕 ใหม่ใน v2.1.332
+- **`/permissions` ปฏิเสธ rule ที่จะถูกข้ามตอนเริ่มครั้งถัดไป** — เช่น `rm -rf` ที่ไม่มีชื่อ tool — และแสดงเหตุผล
+- **session Sonnet 5 / 5.5 บน Bedrock Mantle, Agent Platform และ Foundry เริ่มใน auto mode** — session ใน terminal และ VS Code ที่ถูกย้ายไป Sonnet 5 หรือ 5.5 บน provider เหล่านี้จะเริ่มใน auto mode ถ้ายังไม่ได้ตั้ง mode · ตั้ง `disableAutoMode` เป็น `"disable"` เพื่อหยุด
+
 ---
 
 ---

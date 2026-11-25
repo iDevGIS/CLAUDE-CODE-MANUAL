@@ -356,6 +356,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.330
 - **More `rm` commands ask for approval** — those aimed at the root, home, a top-level folder or the working folder; where nobody can answer, they're refused.
 
+### New in v2.1.332
+- **`/permissions` refuses a rule that would be skipped at the next start** — such as `rm -rf` with no tool name — and shows the reason.
+- **Sonnet 5 / 5.5 sessions on Bedrock Mantle, Agent Platform and Foundry start in auto mode** — terminal and VS Code sessions moved to Sonnet 5 or 5.5 there start in auto mode if no mode is set; set `disableAutoMode` to `"disable"` to stop it.
+
 ### Rule Priority
 
 1. **Deny** (highest) — always block

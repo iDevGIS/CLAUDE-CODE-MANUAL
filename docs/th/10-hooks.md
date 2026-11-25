@@ -283,6 +283,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **ข้อความของ `retry: true` ใน hook `PermissionDenied` เปลี่ยนไป** — ตอนนี้บอก Claude ให้เรียก call ที่ถูกปฏิเสธซ้ำ ก็ต่อเมื่อผู้ใช้เป็นคนขอ call นั้นเท่านั้น
 
+#### 🆕 ใหม่ใน v2.1.332
+
+- **hook event `PreSkillShellCommand`** — ปฏิเสธ inline shell command ของ skill หรือ command ได้ตั้งแต่ตอนโหลด · บน 2.1.331 หรือเก่ากว่า ไฟล์ settings ที่ระบุ event นี้จะเปิด dialog ตอนเริ่ม ดู [[11-skills]]
+
 ---
 
 ---

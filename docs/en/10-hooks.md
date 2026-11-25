@@ -279,6 +279,10 @@ Event handlers that run shell commands automatically when events happen in Claud
 
 - **`PermissionDenied` hook `retry: true` message changed** — it now tells Claude to make the refused call again only if you asked for that call.
 
+### New in v2.1.332
+
+- **`PreSkillShellCommand` hook event** — can refuse a skill or command's inline shell commands as it loads. On 2.1.331 and older, a settings file naming it opens a dialog at start. See [[11-skills]].
+
 ---
 
 ---

@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.331         │
+│ Welcome to Claude Code v2.1.332         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > ช่วยอ่านไฟล์ src/index.ts ให้หน่อย
@@ -1167,7 +1167,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin version ใน setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.331
+- run: npm install -g @anthropic-ai/claude-code@2.1.332
 ```
 
 #### Pitfall 10: คาดหวัง `--bare` ปิด **เครือข่าย** ด้วย
@@ -2021,6 +2021,10 @@ Skill(commit)                    # Skill เฉพาะ
 ### 🆕 ใหม่ใน v2.1.330
 - **คำสั่ง `rm` ขอ approval มากขึ้น** — ตัวที่เล็งไปที่ root, home, โฟลเดอร์ระดับบนสุด หรือโฟลเดอร์ที่ทำงานอยู่ · ถ้าไม่มีใครตอบได้ (เช่นรันแบบ headless) จะถูกปฏิเสธ
 
+### 🆕 ใหม่ใน v2.1.332
+- **`/permissions` ปฏิเสธ rule ที่จะถูกข้ามตอนเริ่มครั้งถัดไป** — เช่น `rm -rf` ที่ไม่มีชื่อ tool — และแสดงเหตุผล
+- **session Sonnet 5 / 5.5 บน Bedrock Mantle, Agent Platform และ Foundry เริ่มใน auto mode** — session ใน terminal และ VS Code ที่ถูกย้ายไป Sonnet 5 หรือ 5.5 บน provider เหล่านี้จะเริ่มใน auto mode ถ้ายังไม่ได้ตั้ง mode · ตั้ง `disableAutoMode` เป็น `"disable"` เพื่อหยุด
+
 ---
 
 ## 6. การตั้งค่า (Configuration)
@@ -2461,6 +2465,14 @@ Skill(commit)                    # Skill เฉพาะ
 
 - **Code Mode ใช้ใน terminal session บน provider เพิ่มขึ้น** — Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry และ Claude Platform on AWS
 - **attribute `gen_ai.*` ใน trace span `claude_code.llm_request`** — `gen_ai.usage.*`, `gen_ai.response.model` และ `gen_ai.operation.name` · `gen_ai.usage.input_tokens` นับรวม prompt cache token ด้วย
+
+### 🆕 ใหม่ใน v2.1.332
+
+- **alias โมเดลบน cloud ขยับขึ้น** — `sonnet` บน Google Cloud's Agent Platform และ Microsoft Foundry หมายถึง Sonnet 5.5 แล้ว และ `opus` ของ Foundry หมายถึง Opus 5.5 · ส่วน `sonnet` บน Amazon Bedrock ยังเป็น Sonnet 4.5 · `sonnet` และ background request บน Agent Platform อ่าน `VERTEX_REGION_CLAUDE_5_5_SONNET`
+- **โมเดล default บน Microsoft Foundry เป็น Sonnet 5.5** — deploy `claude-sonnet-5-5` หรือตั้ง `ANTHROPIC_DEFAULT_SONNET_MODEL` เป็นโมเดลที่ deploy ไว้ · Claude Sonnet 4, Opus 4 และ Opus 4.1 นับว่า retired แล้วบน Foundry — การ step down จะหยุดเหนือรุ่นเหล่านี้ และถ้า pin ไว้จะมีคำเตือน
+- **`--model default` / การเลือก Default จะ step down** ไปโมเดลที่เก่ากว่าเมื่อโมเดลนั้นใช้ไม่ได้ แทนที่จะหยุดพร้อม error · ใน auto mode จะลงไปเฉพาะโมเดลที่ auto mode รับเท่านั้น
+- **OpenTelemetry** — event ใหม่ `assistant_response` สำหรับข้อความที่ Claude ส่งผ่าน SendUserMessage หรือ message tool ของ Cowork เมื่อเปิด response logging · `tool_input` ของข้อความนั้นแสดงแค่ความยาว เว้นแต่ตั้ง `OTEL_LOG_ASSISTANT_RESPONSES=1` · session ใน Code tab ของ desktop ใช้ `service.name` default เป็น `claude-code-desktop` (อัปเดต filter ที่อิง `claude-code` หรือตั้ง `OTEL_SERVICE_NAME` เพื่อคงชื่อเดิม)
+- **`awsCredentialExport` timeout หลัง 10 นาที** แทนที่จะรอไม่มีที่สิ้นสุด
 
 ---
 
@@ -2956,6 +2968,10 @@ claude --mcp-config ./mcp.json
 - **`/mcp` แบ่งกลุ่ม server ตามที่มา** — server จาก plugin อยู่ใต้ "Plugin MCPs", ส่วน `--mcp-config` และ server ในตัวอยู่ใต้ "Other MCPs" และหน้าของ server บอกชื่อ plugin ของมัน
 - **`claude mcp remove` กับ claude.ai connector** จะบอกให้ไปปิดใน `/mcp` หรือลบบน claude.ai
 
+### 🆕 ใหม่ใน v2.1.332
+
+- **skill จาก MCP server (beta)** — แสดงเป็น `server:skill` ในเมนู `/` · skill อื่นยังใช้ชื่อเดิม
+
 ---
 
 ## 10. Hooks (ระบบ Event Handler)
@@ -3224,6 +3240,10 @@ Event Handler ที่รันคำสั่ง Shell อัตโนมั�
 
 - **ข้อความของ `retry: true` ใน hook `PermissionDenied` เปลี่ยนไป** — ตอนนี้บอก Claude ให้เรียก call ที่ถูกปฏิเสธซ้ำ ก็ต่อเมื่อผู้ใช้เป็นคนขอ call นั้นเท่านั้น
 
+### 🆕 ใหม่ใน v2.1.332
+
+- **hook event `PreSkillShellCommand`** — ปฏิเสธ inline shell command ของ skill หรือ command ได้ตั้งแต่ตอนโหลด · บน 2.1.331 หรือเก่ากว่า ไฟล์ settings ที่ระบุ event นี้จะเปิด dialog ตอนเริ่ม
+
 ---
 
 ## 11. Skills (คำสั่งที่สร้างเอง)
@@ -3457,6 +3477,12 @@ my-skill/
 ### 🆕 ใหม่ใน v2.1.330
 
 - **setting `model` ของ skill ไม่ลามไปที่อื่น** — skill ที่ Claude รันโดยมี setting `model` (ยกเว้น skill แบบ `context: fork`) จะปล่อยให้ subagent, fork, compaction และ `/recap` ใช้โมเดลของ session ตามเดิม
+
+### 🆕 ใหม่ใน v2.1.332
+
+- **skill จาก MCP server (beta)** — แสดงเป็น `server:skill` ในเมนู `/` · skill อื่นยังใช้ชื่อเดิม
+- **hook `PreSkillShellCommand`** — ปฏิเสธ inline shell command ของ skill หรือ command ได้ตั้งแต่ตอนโหลด
+- **`computer-use` เป็นชื่อ skill สงวน** บน Mac ที่เปิด computer use — skill หรือ command ของเราที่ใช้ชื่อนี้จะไม่ถูกโหลด และมี notice ตอนเริ่มบอกให้เปลี่ยนชื่อ
 
 ---
 
@@ -4963,6 +4989,7 @@ your-project/
 | `SELF_HOSTED_RUNNER_START_DIR` | ให้ Claude เริ่มทำงานในโฟลเดอร์ย่อยของ repository บน self-hosted runner โดย settings และ hooks ยังโหลดเหมือนไม่ได้ตั้ง (= `--start-dir`; ดูบท 02 CLI Commands) *(v2.1.330)* |
 | `CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION` | ขอ response ของโมเดลแบบไม่บีบอัด สำหรับใช้หลัง proxy ที่ตัด response แบบบีบอัดทิ้ง · ยังไม่แนะนำสำหรับ self-hosted runner หรือ Remote Control *(v2.1.331)* |
 | `CLAUDE_GATEWAY_IDP_CONNECT_BY_HOSTNAME` | ตั้ง `1` บน Claude apps gateway ที่ใช้ `oidc.use_proxy: true` — request ตอน sign-in จะส่ง hostname ของ IdP แบบ `https` ให้ proxy แม้ตั้ง `NO_PROXY` ไว้ *(v2.1.331)* |
+| `VERTEX_REGION_CLAUDE_5_5_SONNET` | region ที่ `sonnet` และ background request บน Google Cloud's Agent Platform อ่าน · ถ้าตั้งไว้แค่ตัวแปร `4_5` จะไปที่ `CLOUD_ML_REGION` หรือ `us-east5` *(v2.1.332)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
@@ -6294,7 +6321,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-ถ้าขึ้นเลข version (เช่น `2.1.331`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
+ถ้าขึ้นเลข version (เช่น `2.1.332`) → สำเร็จ! ถ้ายังเขียวๆ ดูที่ 01. การติดตั้ง เพิ่มเติม
 
 ### Step 2: คุยครั้งแรก (5 นาที)
 

@@ -25,6 +25,28 @@
 
 ---
 
+## [1.117.0] — 2026-11-25
+
+### Compatibility
+- **Claude Code:** `v2.1.332+`
+
+### Added
+- **ch.05 Permissions** — section "New in v2.1.332": `/permissions` ปฏิเสธ rule ที่จะถูกข้ามตอนเริ่มครั้งถัดไป (พร้อมเหตุผล) · session ที่ถูกย้ายไป Sonnet 5/5.5 บน Bedrock Mantle, Agent Platform และ Foundry เริ่มใน auto mode ถ้ายังไม่ได้ตั้ง mode (ปิดด้วย `disableAutoMode: "disable"`)
+- **ch.06 Configuration** — section "New in v2.1.332": alias `sonnet` บน Agent Platform/Foundry = Sonnet 5.5 และ `opus` บน Foundry = Opus 5.5 (Bedrock `sonnet` ยังเป็น Sonnet 4.5) · default บน Foundry เป็น Sonnet 5.5 และ Sonnet 4/Opus 4/Opus 4.1 นับว่า retired · `--model default` step down ไปโมเดลเก่ากว่าแทน error · OTel event `assistant_response`, `tool_input` แสดงแค่ความยาว, `service.name` ของ desktop Code tab = `claude-code-desktop` · `awsCredentialExport` timeout 10 นาที
+- **ch.09 MCP** — section "New in v2.1.332": skill จาก MCP server (beta) แสดงเป็น `server:skill`
+- **ch.10 Hooks** — section "New in v2.1.332": hook event `PreSkillShellCommand`
+- **ch.11 Skills** — section "New in v2.1.332": skill จาก MCP server · `PreSkillShellCommand` · `computer-use` เป็นชื่อ skill สงวนบน Mac ที่เปิด computer use
+- **ch.23 Environment Variables** — แถว `VERTEX_REGION_CLAUDE_5_5_SONNET`
+- README / README.EN — แถว What's-new (v2.1.332)
+
+### Changed
+- Version strings `2.1.331` → `2.1.332` (welcome banner, npm pin, badges, tutorial, ProjectEx2 compatibility)
+
+### Why
+- Sync กับ Claude Code `v2.1.332` — MCP server ส่ง skill ได้ (beta), hook ใหม่คุม inline shell ของ skill, alias/default โมเดลบน cloud ขยับไป Sonnet 5.5 / Opus 5.5 และการเปลี่ยนแปลง OTel (ส่วนที่เหลือของ release เป็น bug fix / UI polish)
+
+---
+
 ## [1.116.0] — 2026-11-24
 
 ### Compatibility
@@ -2608,6 +2630,7 @@
 ---
 
 [Unreleased]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.33.0...HEAD
+[1.117.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.116.0...v1.117.0
 [1.116.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.115.0...v1.116.0
 [1.115.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.114.0...v1.115.0
 [1.114.0]: https://github.com/your-org/CLAUDE-CODE-MANUAL/compare/v1.113.0...v1.114.0

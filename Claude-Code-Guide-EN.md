@@ -160,7 +160,7 @@ claude auth status
 ```bash
 $ claude
 ╭─────────────────────────────────────────╮
-│ Welcome to Claude Code v2.1.331         │
+│ Welcome to Claude Code v2.1.332         │
 │ Working directory: ~/my-project         │
 ╰─────────────────────────────────────────╯
 > Please read src/index.ts for me
@@ -955,7 +955,7 @@ claude --allowedTools "Bash(git *),Bash(npm test),Bash(npm run *)"
 
 ✅ **Pin the version in setup:**
 ```yaml
-- run: npm install -g @anthropic-ai/claude-code@2.1.331
+- run: npm install -g @anthropic-ai/claude-code@2.1.332
 ```
 
 #### Pitfall 10: Expecting `--bare` to Disable the **Network** Too
@@ -2027,6 +2027,10 @@ Skill(commit)                    # Specific skill
 ### New in v2.1.330
 - **More `rm` commands ask for approval** — those aimed at the root, home, a top-level folder or the working folder; where nobody can answer, they're refused.
 
+### New in v2.1.332
+- **`/permissions` refuses a rule that would be skipped at the next start** — such as `rm -rf` with no tool name — and shows the reason.
+- **Sonnet 5 / 5.5 sessions on Bedrock Mantle, Agent Platform and Foundry start in auto mode** — terminal and VS Code sessions moved to Sonnet 5 or 5.5 there start in auto mode if no mode is set; set `disableAutoMode` to `"disable"` to stop it.
+
 ---
 
 ## 6. Configuration
@@ -2467,6 +2471,14 @@ Skill(commit)                    # Specific skill
 
 - **Code Mode in terminal sessions on more providers** — Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude Platform on AWS.
 - **`gen_ai.*` attributes on `claude_code.llm_request` trace spans** — `gen_ai.usage.*`, `gen_ai.response.model` and `gen_ai.operation.name`; `gen_ai.usage.input_tokens` includes prompt cache tokens.
+
+### New in v2.1.332
+
+- **Cloud model aliases moved up** — `sonnet` on Google Cloud's Agent Platform and Microsoft Foundry now means Sonnet 5.5, and Foundry's `opus` means Opus 5.5; `sonnet` on Amazon Bedrock stays at Sonnet 4.5. `sonnet` and background requests on Agent Platform read `VERTEX_REGION_CLAUDE_5_5_SONNET`.
+- **Microsoft Foundry's default model is Sonnet 5.5** — deploy `claude-sonnet-5-5`, or set `ANTHROPIC_DEFAULT_SONNET_MODEL` to a model you have deployed. Claude Sonnet 4, Opus 4 and Opus 4.1 now count as retired on Foundry: step-downs stop above them and a pin to one warns.
+- **`--model default` / a Default pick steps down** to an older model when that model isn't available, instead of stopping with an error; in auto mode, only to a model auto mode accepts.
+- **OpenTelemetry** — new `assistant_response` event for text Claude sends through SendUserMessage or Cowork's message tool, when response logging is on; `tool_input` for that text shows only its length unless `OTEL_LOG_ASSISTANT_RESPONSES=1`; desktop Code tab sessions default `service.name` to `claude-code-desktop` (update filters keyed on `claude-code`, or set `OTEL_SERVICE_NAME` to keep the old name).
+- **`awsCredentialExport` times out after 10 minutes** instead of waiting forever.
 
 ---
 
@@ -2963,6 +2975,10 @@ Usage: Claude can open web pages, take screenshots, click buttons, etc.
 - **`/mcp` groups servers by where they come from** — plugin servers stand under "Plugin MCPs", `--mcp-config` and built-in servers under "Other MCPs", and a server's page names its plugin.
 - **`claude mcp remove` on a claude.ai connector** now says to turn it off in `/mcp` or remove it on claude.ai.
 
+### New in v2.1.332
+
+- **Skills from MCP servers (beta)** — they show as `server:skill` in the `/` menu; other skills keep their names.
+
 ---
 
 ## 10. Hooks (Event Handler System)
@@ -3167,6 +3183,10 @@ Also: skills & slash commands can set `disallowed-tools` in their frontmatter.
 ### New in v2.1.331
 
 - **`PermissionDenied` hook `retry: true` message changed** — it now tells Claude to make the refused call again only if you asked for that call.
+
+### New in v2.1.332
+
+- **`PreSkillShellCommand` hook event** — can refuse a skill or command's inline shell commands as it loads. On 2.1.331 and older, a settings file naming it opens a dialog at start.
 
 ### Configuring Hooks
 
@@ -3464,6 +3484,12 @@ Reference inside SKILL.md: `See examples in [examples.md](examples.md)`
 ### New in v2.1.330
 
 - **A skill's `model` setting no longer spreads** — for skills Claude runs with a `model` setting, other than `context: fork` skills, subagents, forks, compaction and `/recap` stay on the session's model.
+
+### New in v2.1.332
+
+- **Skills from MCP servers (beta)** — they show as `server:skill` in the `/` menu; other skills keep their names.
+- **`PreSkillShellCommand` hook** — can refuse a skill or command's inline shell commands as it loads.
+- **`computer-use` is a reserved skill name** on Macs with computer use on — your own skill or command of that name stops loading, and a start-up notice says to rename it.
 
 ---
 
@@ -4974,6 +5000,7 @@ your-project/
 | `SELF_HOSTED_RUNNER_START_DIR` | Has Claude start its work in a folder of a repository on a self-hosted runner, while settings and hooks load as without it (= `--start-dir`; see 02. CLI Commands). *(v2.1.330)* |
 | `CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION` | Asks for uncompressed model responses, for use behind a proxy that cuts compressed ones off; not advised yet for self-hosted runners or Remote Control. *(v2.1.331)* |
 | `CLAUDE_GATEWAY_IDP_CONNECT_BY_HOSTNAME` | Set `1` on a Claude apps gateway with `oidc.use_proxy: true`: sign-in requests hand the proxy an `https` IdP's hostname even with `NO_PROXY` set. *(v2.1.331)* |
+| `VERTEX_REGION_CLAUDE_5_5_SONNET` | Region that `sonnet` and background requests on Google Cloud's Agent Platform read; with only the `4_5` variable set they go to `CLOUD_ML_REGION` or `us-east5`. *(v2.1.332)* |
 
 > Project-level `.claude/settings.json` `env` can no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP` — set them in your shell, user, or managed settings instead. *(v2.1.251)*
 
@@ -6308,7 +6335,7 @@ irm https://claude.ai/install.ps1 | iex
 claude --version
 ```
 
-If you see a version number (e.g. `2.1.331`) → success! If not, see 01. Installation for more details.
+If you see a version number (e.g. `2.1.332`) → success! If not, see 01. Installation for more details.
 
 ### Step 2: Your first conversation (5 minutes)
 

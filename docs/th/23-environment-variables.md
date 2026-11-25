@@ -140,6 +140,7 @@ related:
 | `SELF_HOSTED_RUNNER_START_DIR` | ให้ Claude เริ่มทำงานในโฟลเดอร์ย่อยของ repository บน self-hosted runner โดย settings และ hooks ยังโหลดเหมือนไม่ได้ตั้ง (= `--start-dir`) ดู [[02-cli-commands]] *(v2.1.330)* |
 | `CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION` | ขอ response ของโมเดลแบบไม่บีบอัด สำหรับใช้หลัง proxy ที่ตัด response แบบบีบอัดทิ้ง · ยังไม่แนะนำสำหรับ self-hosted runner หรือ Remote Control *(v2.1.331)* |
 | `CLAUDE_GATEWAY_IDP_CONNECT_BY_HOSTNAME` | ตั้ง `1` บน Claude apps gateway ที่ใช้ `oidc.use_proxy: true` — request ตอน sign-in จะส่ง hostname ของ IdP แบบ `https` ให้ proxy แม้ตั้ง `NO_PROXY` ไว้ *(v2.1.331)* |
+| `VERTEX_REGION_CLAUDE_5_5_SONNET` | region ที่ `sonnet` และ background request บน Google Cloud's Agent Platform อ่าน · ถ้าตั้งไว้แค่ตัวแปร `4_5` จะไปที่ `CLOUD_ML_REGION` หรือ `us-east5` ดู [[06-configuration]] *(v2.1.332)* |
 
 > `env` ใน `.claude/settings.json` ระดับ project ตั้ง `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR` หรือ `TMPDIR`/`TMP`/`TEMP` ไม่ได้แล้ว — ให้ตั้งใน shell, user settings หรือ managed settings แทน *(v2.1.251)*
 
